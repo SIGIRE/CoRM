@@ -1,7 +1,7 @@
 require 'bundler/capistrano'
-set :user, "git"
+set :user, "root"
 set :application, "CRM demo"
-set :deploy_to "/webapps/crm"
+set :deploy_to, "/webapps/crm/"
 set :repository,  "git@git.sigire.net:/home/git/crm.git"
 set :branch,  "master"
 set :keep_releases, 20
@@ -34,4 +34,6 @@ after 'deploy:update_code', 'deploy:migrate'
 # after "deploy:restart", "deploy:cleanup"
 
 set :deploy_via, :remote_cache
-ssh_options[:forward_agent] = true
+set :ssh_options, {:forward_agent => true}
+
+default_run_options[:pty] = true
