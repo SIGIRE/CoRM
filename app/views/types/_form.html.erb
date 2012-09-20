@@ -1,0 +1,26 @@
+<%= form_for(@type, :html => { :class => "well "}) do |f| %>
+  <% if @type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@type.errors.count, "error") %> prohibited this type from being saved:</h2>
+
+      <ul>
+      <% @type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+     <div class="span2"> Libellé : </div> <%= f.text_field :libelle, :style=>'width: 30em;'  %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Direction : </div> <%= f.text_field :direction , :style=>'width: 30em;'%>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit :class =>"btn btn-primary" %>
+  </div>
+  
+<% end %>

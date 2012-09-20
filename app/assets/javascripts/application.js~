@@ -1,0 +1,26 @@
+//= require jquery
+//= require jquery_ujs
+
+jQuery(function($) {
+
+  // when the #compte field changes
+  $("#tache_compte_id").change(function() {
+    // make a POST call and replace the content
+    var compte = $('select#tache_compte_id :selected').val();
+    if(compte == "") compte="0";
+      jQuery.get('/taches/update_contact_select/' + compte, function(data){
+	$("#nameContacts").html(data);
+    })
+    return false;
+  });
+
+});
+
+
+$(function() {
+  $("#filter_echeance").datepicker();
+  $("#tache_echeance").datepicker();
+  $('.dropdown-toggle').dropdown();
+});
+
+

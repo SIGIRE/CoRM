@@ -1,0 +1,100 @@
+<div class="container-fluid" style="margin-top: 1em;">
+  
+  <div class="row-fluid">
+    
+    <% if params.has_key?(:compte_id) %>
+     
+      <div class="span3" >
+      <%= render "shared/infocompte" %>
+      </div>   
+     
+      <div class="span9">
+	
+    <%  else %>
+      
+      <div class="span12">
+	
+    <% end %>
+
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#evenements" data-toggle="tab">Evènements</a>
+      </li>
+    <li><a href="#opportunites" data-toggle="tab">Opportunités</a></li>
+    <li><a href="#produits" data-toggle="tab">Produits</a></li>
+    <li><a href="#documents" data-toggle="tab">Documents</a></li>
+    <li><a href="#relations" data-toggle="tab">Relations</a></li>
+    <li><a href="#devis" data-toggle="tab">Devis</a></li>
+    </ul>
+    
+    <div class="tab-content">
+      <div class="tab-pane active" id="evenements"><%= render  "evenements" unless @compte.nil? %></div>
+      <div class="tab-pane" id="opportunites"><%= render "opportunites" %></div>
+      <div class="tab-pane" id="produits">
+			
+        <div class="container-fluid" style="margin-top: 1em;">
+	  <% if !@compte.produits.blank? %>
+       	    <%= render "comptes/produits" %>
+	  <% else %>
+	    <h4> Aucun produit n'est rattaché à ce compte </h4>
+	  <% end %>
+	  <div class="span1" style="margin-left: 0em;">
+	  <a id="compte_ajout_button" data-toggle="modal" href="#compte_produit_modal">
+	    <%= image_tag("glyphicons/glyphicons_190_circle_plus.png")%>
+	  </a>
+	  </div>
+	  
+	  <div class="span2" style="margin-left: 0.5em;">
+	  <%= form_for(@compte) do |f| %>
+            <%= select_tag :display_compte_produit, options_from_collection_for_select(@compte.produits.order('nom ASC').all, "id", "nom"), {:size => 6, :multiple => true, :style => "display: none;"} %>
+	    <%= f.submit 'Mettre à jour les produits', :class =>"btn btn-primary btn-small",:id =>"compte_validate_form"%>
+          <% end %>
+	  </div>
+	  
+	  
+        </div>
+			
+        <% @compte.contacts.order('nom').each do |contact| %>
+          <% if !contact.produits.blank? %>
+            <div class="container-fluid" style="margin-top: 1em;"> 
+              <div class="page-header">
+                <h4>Produits liés au contact : <%= contact.nom_complet %></h4>
+              </div>
+              
+              <table class="table table-bordered table-striped">
+                <tr>
+                  <th>Nom</th>
+                  <th>Description</th>
+                  <th>Voir</th>
+                </tr>
+              
+              <% @produits = contact.produits.order('nom').page(params[:page]) %>
+              <% @produits.each do |produit| %>
+                <tr>
+                  <td><%= link_to produit.nom, produit %></td>
+                  <td><%= truncate(produit.description, :length => 600, :separator => ' ') %></td>
+                  <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), produit %></td>
+              <% end %>
+              </table>
+              
+              <br />
+              
+              <%= paginate @produits %>    
+              
+            </div>
+          <% end %>
+      <% end %>
+      </div>
+      <div class="tab-pane" id="documents"><%= render "documents" %></div>
+      <div class="tab-pane" id="relations"><%= render "relations" %></div>
+      <div class="tab-pane" id="devis"><%= render "devis" %></div>
+    </div>
+
+      </div>
+  </div>
+</div>
+  
+<div class="modal hide fade" id="compte_produit_modal" style="width: 900px; margin-left: -450px;">
+    <%= render "comptes/modal_produits" %>
+</div>
+

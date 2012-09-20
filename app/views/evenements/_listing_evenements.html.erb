@@ -1,0 +1,61 @@
+<table class="table table-striped">
+<% @evenements.each do |evenement| %>
+  <tr>
+    <td>
+      <blockquote>
+        <div>
+        <div>
+          <small>
+            N° <%= evenement.id %> -
+            D&eacute;but :  <%= evenement.debut.strftime("%d/%m/%y à %H:%M")%> -
+            Fin :  <%= evenement.fin.strftime("%d/%m/%y à %H:%M") %> -
+            (<%= distance_of_time_in_words(evenement.debut, evenement.fin) %>) - 
+            Contact : <strong><%= if evenement.contact.nil?  then "Néant" else evenement.contact.nom_complet  end%></strong> -
+            Type : <strong><%= if evenement.type.nil? then "Néant" else evenement.type.type_complet end %></strong> - 
+            Créé il y a  <%= distance_of_time_in_words_to_now(evenement.updated_at) %> par <%= evenement.created_by %> - 
+            <% if !evenement.tache.nil? %>
+              <strong> Lié à la Tache n° <%= evenement.tache.id %> </strong>
+            <% end %>
+            
+          </small>
+        </div>
+        <div class="pull-right">
+          <%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), evenement_path(evenement),  :confirm => 'Confirmer la suppression ?', :method => :delete %>
+        </div>
+      </div>
+      
+      <% if !evenement.notes.blank? %>
+      <div class="row">
+        <%= simple_format (evenement.notes) %><br />
+      </div>
+      <% end %>
+    
+      <% if evenement.fichier_joint.exists? %>
+      <div> 
+        Fichier joint : 
+        <%= link_to (image_tag("glyphicons/glyphicons_036_file.png") + ' ' + evenement.fichier_joint_file_name), evenement.fichier_joint.url, :target => "_blank" %>
+      </div>
+      <hr />
+      <% end %>
+
+      <% if !evenement.tache.nil? %>
+
+      <div class="row">
+        <div class="span12" >
+          <% if evenement.modified_by.blank? %>
+            La <%= link_to "Tâche n°"+evenement.tache.id.to_s , evenement.tache %>, liée à cet événement, a été créée.
+          <% else %>
+            La <%= link_to "Tâche n°"+evenement.tache.id.to_s , evenement.tache %>, liée à cet événement, a été modifiée.
+          <% end%>
+        </div>
+      </div>
+      <% end %>
+      
+      
+      </blockquote>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<%= paginate @evenements %>

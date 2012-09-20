@@ -1,0 +1,84 @@
+<div class="container-fluid" style="margin-top: 1em;">
+	
+	<% if Opportunite.by_compte(@compte).blank? %>
+		<h4> Aucune opportunité n'est rattachée à ce compte </h4>
+	<% else %>
+        
+
+  <table class="table table-bordered table-striped"  style="margin-top: 1em;">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Statut</th>
+        <th>Libellé</th>
+        <th>Contact</th>
+        <th>Estimation</th>
+				<th>Marge</th>
+        <th>Echéance</th>
+        <th>Collaborateur</th>
+        <th>Voir</th>
+        <th>Editer</th>
+      </tr>
+    </thead>
+    <tbody>
+	
+			<% @opportunites = Opportunite.by_compte(@compte).order('nom ASC').page(params[:page]) %>
+			<% @total_montant = 0 %>
+			<% @total_marge = 0 %>
+			<% @opportunites.each do |opportunite| %>
+				<% if opportunite.statut=="Détectée" || opportunite.statut=="En cours" %>
+					<% @total_montant += opportunite.montant %>
+					<% @total_marge += opportunite.marge %>
+				<% end %>
+        <tr>
+          <td><%= link_to opportunite.id, opportunite %></td>
+          <td>
+            <% if opportunite.statut == "Détectée"%>
+              <span class="badge badge-important">
+            <% elsif opportunite.statut == "En cours"%>
+              <span class="badge badge-warning">
+            <% elsif opportunite.statut == "Gagnée"%>
+              <span class="badge badge-success">
+            <% elsif opportunite.statut == "Perdue"%>
+              <span class="badge badge-inverse">
+            <% else %>
+              <span class="badge badge-info">
+            <% end %>
+            <%= opportunite.statut %></span>
+          </td>
+          <td><%= opportunite.nom %></td>
+          <td><%= if !opportunite.contact.nil? then link_to opportunite.contact.nom_complet, opportunite.contact end%></td>
+          <td style="text-align :right;">
+            <% if !opportunite.montant.nil? %>
+              <%= number_to_currency(opportunite.montant, :locale => :fr)  %> <strong> HT </strong>
+            <% end %>
+          </td>
+					<td style="text-align :right;">
+        		<% if !opportunite.marge.nil? %>
+            	<%= number_to_currency(opportunite.marge, :locale => :fr)  %> <strong> HT </strong>
+          	<% end %>
+					</td>
+          <td><%= if !opportunite.echeance.nil? then opportunite.echeance.strftime("%d/%m/%y") end%></td>
+          <td><%= if !opportunite.user.nil? then opportunite.user.nom_complet end%></td>
+          <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), opportunite %></td>
+          <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_opportunite_path(opportunite) %></td>
+        </tr>
+        <% end %>
+      </tbody>
+  </table>
+  
+  <br />
+  
+  <%= paginate @opportunites %>
+  
+  <div class="page-header pull-right" style="text-align: right;">
+    <h4> Montant total estimé : <%=number_to_currency(@total_montant, :locale => :fr) %>  HT</h4> <br /> 
+	<h4> Marge totale estimée : <%=number_to_currency(@total_marge, :locale => :fr) %>  HT</h4> 
+  </div>
+  
+  <% end %>
+  
+  <br /><br /><br />
+  <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_opportunite_path(:compte_id => @compte.id) %>
+
+</div>

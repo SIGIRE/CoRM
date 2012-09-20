@@ -1,0 +1,44 @@
+
+<pre>
+  <%= link_to image_tag("glyphicons/glyphicons_020_home.png"), @compte,{:title => "Voir profil"} %> <i>(<%= @compte.genre %>)</i>
+<b><%= @compte.societe %></b>
+<%= @compte.adresse1 %>
+<%= @compte.adresse2 %>
+<%= @compte.cp %> <%= @compte.ville %>
+Tél : <%= @compte.tel %>
+Fax : <%= @compte.fax %>
+<%= mail_to(@compte.email) %>
+<%= if !(@compte.web).nil?  then link_to @compte.web, @compte.web, :target => "_blank"  end %>
+</pre>
+
+<br>
+  
+  <pre>
+<% @compte.contacts.classe_par_nom.each do |contact| %>
+<div style="background-color: #FAFAFA;">
+  <% if contact.civilite == "Mme"%>
+  <%= link_to image_tag("glyphicons/glyphicons_035_woman.png"), contact,{:title => "Voir profil"} %> <i>(<%= contact.fonction %>)</i>
+  <% elsif contact.civilite == "M." %>
+  <%= link_to image_tag("glyphicons/glyphicons_034_old_man.png"), contact,{:title => "Voir profil"} %>  <i>(<%= contact.fonction %>)</i>
+<% end %> 
+<b><%= contact.civilite %> <%= contact.nom %> <%= contact.prenom %></b>
+Tél : <%= contact.tel %>
+Mobile : <%= contact.mobile %>
+<%= mail_to(contact.email) %>
+</div>
+<% end %><hr>
+<%= form_for ( [@compte, @compte.contacts.new]) do |f| %>
+<div class = ""><%=image_tag("glyphicons/glyphicons_006_user_add.png")%></div>
+ <div class = "pull-right">Nom <%= f.text_field :nom,  :style=>'width: 13em;'  %></div>
+  <div class = "pull-right">Prénom <%= f.text_field :prenom ,  :style=>'width: 13em;' %></div>
+  <div class="pull-right"><%= f.select :civilite, Contact::CIVILITES, { }, { :style => 'width: 13em;'} %></div>
+  <div class="pull-right">Tél <%= f.text_field :tel,  :style=>'width: 13em;' %></div>
+  <div class="pull-right">Fax <%= f.text_field :fax ,  :style=>'width: 13em;'%></div>
+  <div class="pull-right">Mobile <%= f.text_field :mobile,  :style=>'width: 13em;' %></div>
+  <div class="pull-right">E-Mail <%= f.text_field :email ,  :style=>'width: 13em;'%></div>
+  <div class="pull-right">Fonction <%= f.text_field :fonction ,  :style=>'width: 13em;'%></div>
+  <%= f.hidden_field :compte_id %>
+  <div class="actions"><%= f.submit %></div>
+<% end %>
+  </pre>
+  

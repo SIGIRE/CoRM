@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CRM Ligepack</title>
+  
+	<%= stylesheet_link_tag "application", :media => "all" %>
+  
+	<%= javascript_include_tag 'application' %>
+	<%= javascript_include_tag :defaults, "nested_form" %>
+
+
+  <%= csrf_meta_tags %>
+
+	<%= favicon_link_tag 'icons/favicon2.png' %>
+
+</head>
+<body>
+  
+
+<%= render "shared/menu" %>
+
+<%= render "shared/message" %>
+
+<%= yield %>
+
+<%= render "shared/footer" %>
+
+</body>
+
+</html>

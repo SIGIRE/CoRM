@@ -1,0 +1,22 @@
+<div class="container-fluid">
+<% unless flash[:notice].blank? %>
+  <div class="alert alert-info">
+    <button class="close" data-dismiss="alert">×</button>
+    <%= content_tag :div, flash[:notice] %>
+  </div>
+<% end %>
+
+<% unless flash[:error].blank? %>
+  <div class="alert  alert-error">
+    <button class="close" data-dismiss="alert">×</button>
+    <%= content_tag :div, flash[:error] %>
+  </div>
+<% end %>
+
+<% unless flash[:alert].blank? %>
+  <div class="alert  alert-warning">
+    <button class="close" data-dismiss="alert">×</button>
+    <%= content_tag :div, flash[:alert] %>
+  </div>
+<% end %>
+</div>

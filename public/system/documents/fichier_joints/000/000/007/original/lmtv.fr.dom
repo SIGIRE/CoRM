@@ -1,0 +1,25 @@
+$ORIGIN fr.
+
+lmtv      86400    IN           SOA       ns0.corsaire.fr. webadmin.corsaire.fr. (
+
+                               2011121301 28800 7200 604800 86400 )
+
+                86400    IN           NS          ns0.corsaire.fr.
+
+                86400    IN           NS          ns1.corsaire.fr.
+
+                86400    IN           MX         10 mx0.corsaire.fr.
+
+                86400   IN      MX      20 mx1.corsaire.fr.
+
+$ORIGIN lmtv.fr.
+
+mail    86400   IN      CNAME   mail.corsaire.fr.
+
+pop     86400   IN      CNAME   mail.corsaire.fr.
+
+www     86400    IN           CNAME   hosting14.corsaire.fr.
+
+test    86400   IN      CNAME   hosting14.corsaire.fr.
+
+ 

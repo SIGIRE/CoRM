@@ -1,0 +1,29 @@
+ <div class="container-fluid" style= "background-color: #EEEEEE;">
+ <div class="row" style="margin-top: 1em;">
+  
+  <div class="span4">
+   <%= form_tag("/comptes/search", :method => "get", :class =>"form-search") do %>
+    <h6>Compte
+     <%= text_field_tag :query, nil, :style=>'width: 7em;' %>
+     <%= submit_tag("Chercher") %></h6>
+   <% end %>
+  </div>
+  
+  <div class="span4">
+   <%= form_tag("/comptes/search_tel", :method => "get", :class =>"form-search") do %>
+    <h6>Tél. Compte
+     <%= text_field_tag :query, nil, :style=>'width: 7em;' %>
+     <%= submit_tag("Chercher") %></h6>
+   <% end %>
+  </div>
+  
+    <div class="span4">
+   <%= form_tag("/contacts/search", :method => "get", :class =>"form-search") do %>
+    <h6>Contact
+     <%= text_field_tag :query, nil, :style=>'width: 7em;' %>
+     <%= submit_tag("Chercher") %></h6>
+   <% end %>
+  </div>
+  
+ </div>
+ </div>

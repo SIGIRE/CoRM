@@ -1,0 +1,22 @@
+<div id="bloc-mdp">
+
+    <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put}) do |f| %>
+    <%= devise_error_messages! %>
+    <%= f.hidden_field :reset_password_token %>
+      <div class="field" style="padding-right: 15px; padding-left: 15px;">
+          <div align="center"><h3>Changer votre mot de passe</h3>
+          </div>
+          <br />
+          <div align="right">Nouveau mot de passe <%= f.password_field :password %> </div>
+          <div align="right">Confirmer nouveau mot de passe <%= f.password_field :password_confirmation %></div>
+          <br /><br />
+          <div class="pull-right">
+            <%= f.submit "Changer mon mot de passe", :class =>"btn btn-primary" %>
+          </div>
+          <div class="pull-left"><br /><%= render "links" %></div>
+      </div>
+      
+    <% end %>
+  </div>
+  
+</div>

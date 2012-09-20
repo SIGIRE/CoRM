@@ -1,0 +1,44 @@
+<div class="container-fluid" style="margin-top: 1em;">
+  
+ <% if Document.by_compte(@compte).blank? %>
+ <h4> Aucun document n'est rattaché à ce compte </h4>
+ <% else %>
+  
+ <table class="table table-bordered table-striped"  style="margin-top: 1em;">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nom</th>
+        <th>Fichier joint</th>
+        <th>Notes</th>
+        <th>Voir</th>
+        <th>Editer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @documents = Document.by_compte(@compte).order('nom ASC').page(params[:page]) %>
+      <% @documents.each do |document| %>
+        <tr>
+         <td><%= link_to document.id, document %></td>
+         <td><%= document.nom %></td>
+         <td><%= link_to (image_tag("glyphicons/glyphicons_036_file.png") + ' ' + document.fichier_joint_file_name), document.fichier_joint.url, :target => "_blank"%></td>
+         <td><%= truncate(document.notes, :length => 600, :separator => ' ') %></td>
+         <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), document %></td>
+         <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_document_path(document) %></td>
+        </tr>
+        <% end %>
+      </tbody>
+  </table>
+  
+  <br />
+  
+  <%= paginate @documents %>
+  
+  <% end %> 
+  
+  
+  
+   <br /><br /><br />
+  <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_document_path(:compte_id => @compte.id) %>
+</div>
+

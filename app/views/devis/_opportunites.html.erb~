@@ -1,0 +1,24 @@
+<div class="span2"> Contact : </div>
+
+<!-- si aucun contact n'est retourné par le javascript -->
+<% if contacts.nil? %>
+  
+  <!-- si le tache a deja un compte d'affecté -->
+  <% if !@devi.compte.nil? %>
+    
+    <!-- on affiche les données initiales -->
+    <%= collection_select :devi, :contact_id, Contact.where(:compte_id => @devi.compte.id).order(:nom), :id, :nom_complet, {:include_blank => true}, :remote=>true%>
+  
+  <% else %>
+    
+    <!-- sinon on affiche des blancs -->
+    <%= collection_select  :devi, :contact_id, Contact.where(:compte_id => 0), :id, :nom_complet, {:include_blank => true}, :remote=>true %>
+  
+  <% end %> 
+
+<% else %>
+  
+  <!-- sinon on affiche les contacts triés -->
+  <%= collection_select  :devi, :contact_id, contacts , :id, :nom_complet, {:include_blank => true}, :remote=>true %>
+
+<% end %>

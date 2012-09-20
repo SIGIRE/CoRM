@@ -1,0 +1,91 @@
+<%= form_for([@compte, @evenement_nouveau], :html => { :class => "well ", :multipart => true}) do |f| %>
+
+  <div class="row-fluid show-grid" style="margin-top: 1em; ">
+    
+    <div class="span2">
+        D&eacute;but : <%= f.text_field :debut, :value => Date.today.strftime("%d/%m/%y"), :class =>"event_date" %>
+     </div>
+    
+    <div class="span3" style="margin-left: 0em; padding-top: 1.35em;">
+         à <%= f.time_select :debut , :class => "event_time" %>
+    </div>
+    
+    <div class="span2">
+        Fin : <%= f.text_field :fin, :value => Date.today.strftime("%d/%m/%y"), :class =>"event_date" %>
+    </div>
+    
+    <div class="span3" style="margin-left: 0em; padding-top: 1.35em;">
+         à <%= f.time_select :fin , :class => "event_time" %>
+    </div>
+    
+  </div>
+  
+  <div class="row-fluid show-grid" style="margin-top: 1em;">
+    
+    <div class="span3" style="margin-right: 9em;">
+        Contact :  <%= f.collection_select :contact_id, @compte.contacts.order('nom'), :id, :nom_complet, :class =>"filter_coll" %>
+    </div>
+    
+    <div class="span2">
+        Type :  <%= f.collection_select :type_id, Type.all, :id, :type_complet, :class =>"filter_coll"%>
+    </div>
+    
+  </div>
+  
+  <br />     
+           
+  <div >
+    Description : <br />
+    <%= f.text_area :notes, :display_with => :simple_format, :rows => "5"  %>
+  </div>
+  
+  <div>
+    Pièce jointe : <br />
+    <%= f.file_field :fichier_joint, :style=>'width: 20em;' %>
+  </div>
+  <br />
+  
+  <div>
+    <%= check_box_tag :generate, "yes" %> Générer une tâche lié à cet événement
+
+  </div>
+  <br />
+  
+<div id="tache_values" style="display: none;">
+  <div class="row">
+    
+    <div class="span2">
+     Statut : <br />
+    <%= select :statut, :statut ,Tache::STATUTS,{}, {:style =>"width: 100%"}%>
+    </div>
+    
+    <div class="span2">
+      Echéance :  <br /> <%= text_field_tag :echeance , nil ,{:id =>"tache_echeance" , :style =>"width: 100%"}%>
+    </div>
+    
+    <div class="span6">
+      Collaborateur :  <br />
+      <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :nom_complet, current_user.id),{:style =>"width: 250px"} %><br />
+      <%= check_box_tag :mail, "yes" , :selected => true %> Envoyer un email à ce collaborateur
+    </div>
+    
+  </div>
+  
+  <div class="row">
+    
+    <div class="span4">
+       Description : <br /> <%= text_area_tag :notes , nil,:display_with => :simple_format, :rows => "5", :style=>'width: 30em;'%>
+    </div>
+    
+  </div>
+  
+</div>
+<br />
+  
+  <%= f.hidden_field :compte_id %>
+  <div class="actions">
+    <%= f.submit :class =>"btn btn-primary" %>
+  </div>
+    
+<% end %>
+

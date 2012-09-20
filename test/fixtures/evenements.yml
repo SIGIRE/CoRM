@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  debut: 2012-02-18 08:21:03
+  fin: 2012-02-18 08:21:03
+  notes: MyText
+  created_by: MyString
+  modified_by: MyString
+
+two:
+  debut: 2012-02-18 08:21:03
+  fin: 2012-02-18 08:21:03
+  notes: MyText
+  created_by: MyString
+  modified_by: MyString

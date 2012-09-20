@@ -1,0 +1,52 @@
+<%= render 'filter', :locals => { :filter => @filter }%>
+
+<div class="container-fluid">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Statut</th>
+        <th>Compte</th>
+        <th>Description</th>
+        <th>Contact</th>
+        <th>Echéance</th>
+        <th>Collaborateur</th>
+        <th>Voir</th>
+        <th>Editer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @taches.each do |tache| %>
+      <tr>
+        <td><%= link_to tache.id, tache %></td>
+        <td>
+          <% if tache.statut == "A faire"%>
+            <span class="badge badge-important">
+          <% elsif tache.statut == "En cours"%>
+            <span class="badge badge-warning">
+          <% elsif tache.statut == "Terminé"%>
+            <span class="badge badge-success">
+          <% elsif tache.statut == "Annulé"%>
+            <span class="badge badge-inverse">
+          <% else %>
+            <span class="badge badge-info">
+          <% end %>
+          <%= tache.statut %></span>
+        </td>
+        <td><%= if !tache.compte.nil? then link_to tache.compte.societe , compte_evenements_url(tache.compte) end%></td>
+        <td class="descrip"><%= truncate(tache.notes, :length => 300, :separator => ' ')%></td>
+        <td><%= if !tache.contact.nil? then link_to tache.contact.nom_complet, tache.contact end%></td>
+        <td><%= tache.echeance.split('/').reverse!.join('/') %></td>
+        <td><%= if !tache.user.nil? then tache.user.nom_complet end%></td>
+        <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), tache %></td>
+        <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_tach_path(tache) %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <br />
+  
+  <%= paginate @taches %> <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_tach_path %>
+
+</div>

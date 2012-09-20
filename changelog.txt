@@ -1,0 +1,25 @@
+Dernière Version => 09/08/12
+
+Changements apportés :
+
+    - Création des devis + items
+    - Ajout du javascript pour gérer les listes de contacts et d'opportunités par rapport au compte, pour le devis
+    - Modifications mineures sur la relation Tâche / Evenement 
+    - Ajout de la gem nested form pour gérer l'ajout/suppression d'item dans le formulaire du devis
+    - Ajout de la gem prawn
+    - Création d'un premier template pdf pour devis, à finaliser, notamment au niveau de la gestion du saut de page (devis coupé)
+    - Création de Modèle, contenant les informations propres à l'entreprise, qui sont reprises sur le devis
+    
+    
+    IMPORTANT : pour déployer la gem nested form sur les vms en mode production, il faut :
+        - inclure la gem dans le gem file,
+        - faire un bundle install,
+        - retirer la balise <%= javascript_include_tag :defaults, "nested_form" %> dans app/views/layout/application.html.erb,
+        - rajouter dans app/assets/javascripts/application.js  --> //= require jquery_nested_form
+        - lancer la commande bundle exec rake assets:precompile (commande à exécuter à chaque modifs des assets (js, css, nouvelle image etc..))
+        - si problème pour l'installation, se référer à la page suivante --> https://github.com/ryanb/nested_form/
+    
+    
+    IMPORTANT, pour les MIGRATIONS, sur les vm en mode production :
+        - pour appliquer les migrations sur une vm en mode production, on execute la commande
+         rake db:migrate, suivi de, RAILS_ENV=production, pour spécifier que l'on souhaite appliquer les migrations à la base crm_production

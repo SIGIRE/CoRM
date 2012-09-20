@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  libelle: MyString
+  direction: MyString
+  created_by: MyString
+  modified_by: MyString
+
+two:
+  libelle: MyString
+  direction: MyString
+  created_by: MyString
+  modified_by: MyString

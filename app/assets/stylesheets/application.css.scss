@@ -1,0 +1,89 @@
+@import "bootstrap_and_overrides";
+@import "jquery-ui-1.8.21.custom";
+
+#bloc-login {
+  width: 548px;
+  height: 198px;
+  border: 1px solid #D5D5D5;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -275px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+#logo {
+  float: left;
+  width: 180px;
+  height: 180px;
+  padding: 9px 13px 9px 12px;
+  display: block;
+
+}
+
+#login {
+  float: right;
+  width: 319px;
+  height: 174px;
+  padding: 12px;
+  display: block;
+  margin: 0;
+  background-color: #EEEEEE;
+}
+
+#bloc-mdp{
+  width: 548px;
+  height: 198px;
+  border: 1px solid #D5D5D5;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -275px;
+  background-color: #EEEEEE;
+}
+
+#evenement_debut_1i,
+#evenement_fin_1i,
+#tache_echeance_1i
+{
+  width:5em;
+}
+
+#evenement_debut_2i,
+#evenement_fin_2i,
+#tache_echeance_2i
+{
+  width:8em;
+}
+
+#evenement_debut_3i,
+#evenement_fin_3i,
+#tache_echeance_3i
+{
+  width:4em;
+}
+
+#evenement_debut_4i,
+#evenement_fin_4i,
+#tache_echeance_4i
+{
+  width:4em;
+}
+
+#evenement_debut_5i,
+#evenement_fin_5i,
+#tache_echeance_5i
+{
+  width:4em;
+}
+
+#evenement_notes,
+#tache_notes
+{
+  width:100%;
+}
+

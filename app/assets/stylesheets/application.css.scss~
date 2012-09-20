@@ -1,0 +1,54 @@
+@import "bootstrap_and_overrides";
+
+.content {
+  background-color: #eee;
+  margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+
+#evenement_debut_1i,
+#evenement_fin_1i,
+#tache_echeance_1i
+{
+  width:5em;
+}
+
+#evenement_debut_2i,
+#evenement_fin_2i,
+#tache_echeance_2i
+{
+  width:8em;
+}
+
+#evenement_debut_3i,
+#evenement_fin_3i,
+#tache_echeance_3i
+{
+  width:4em;
+}
+
+#evenement_debut_4i,
+#evenement_fin_4i,
+#tache_echeance_4i
+{
+  width:4em;
+}
+
+#evenement_debut_5i,
+#evenement_fin_5i,
+#tache_echeance_5i
+{
+  width:4em;
+}
+
+#evenement_notes,
+#tache_notes
+{
+  width:100%;
+}
+

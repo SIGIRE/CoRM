@@ -1,0 +1,114 @@
+<%= form_for(@contact, :html => { :class => "well "}) do |f| %>
+  <% if @contact.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
+
+      <ul>
+      <% @contact.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <div class="span2"> Nom : </div> <%= f.text_field :nom, :style=>'width: 30em;' %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Prénom : </div> <%= f.text_field :prenom , :style=>'width: 30em;'%>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Civilité : </div> <%= f.select :civilite, Contact::CIVILITES %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Téléphone : </div> <%= f.text_field :tel, :style=>'width: 30em;' %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Télécopie : </div> <%= f.text_field :fax, :style=>'width: 30em;' %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Mobile : </div> <%= f.text_field :mobile, :style=>'width: 30em;' %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> E-mail : </div> <%= f.text_field :email, :style=>'width: 30em;' %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Fonction : </div> <%= f.text_field :fonction, :style=>'width: 30em;' %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Compte associé : </div> <%= f.collection_select :compte_id, Compte.order('societe ASC').all, :id, :societe %>
+  </div>
+  
+  <div class="field">
+    <div class="span2">Notes : </div> <%= f.text_area :notes , :display_with => :simple_format, :rows => "5", :style=>'width: 30em;'%>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Produit associé : </div>
+    <%= select_tag :display_contact_produit, options_from_collection_for_select(@contact.produits.order('nom ASC').all, "id", "nom"), {:size => 6, :multiple => true, :disabled => true} %>
+    <a id="contact_ajout_button" class="btn btn-success btn-mini" data-toggle="modal" href="#contact_produit_modal" style="margin-bottom: 1em; margin-left: 2em;">Modifier Produits</a>
+  </div>
+  
+  <div class="modal hide fade" id="contact_produit_modal" style="width: 900px; margin-left: -450px;">
+    
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h3>Ajout de produits</h3>
+    </div>
+    
+    <div class="modal-body">
+      
+      <div class="span3" style="margin-left: 50px;">
+      <h4>Liste des produits :</h4>
+      <% @produits = Produit.order('nom ASC').all %>
+      <%= select_tag :produit, options_from_collection_for_select(@produits, "id", "nom"), {:size => 6, :multiple => true} %>
+      </div>
+      
+      <div class="span2" style="padding-top: 3em; margin-left: 2em; margin-right: 2em;">
+        
+        <a id="contact_ajout_produit" class="btn btn-success btn-mini" href="#" style="margin-bottom: 1em; margin-left : 3em;">
+          <i class="icon-arrow-right icon-white"></i>
+          Ajouter
+        </a>
+        <br />
+        <br />
+        
+        <a id="contact_retirer_produit" class="btn btn-warning btn-mini" href="#" style="margin-bottom: 1em; margin-left : 3em;">
+          <i class="icon-arrow-left icon-white"></i>
+          Retirer
+        </a>
+      
+      </div>
+      
+      <div class="span3">
+        <h4>Produits associés au contact :</h4>
+        <%= select_tag :contact_produit, options_from_collection_for_select(@contact.produits.order('nom ASC').all, "id", "nom"), {:size => 6, :multiple => true} %>
+      </div>
+      
+    </div>
+    
+    <div class="modal-footer">
+      <a href="#" id="contact_annuler_ajout" class="btn" data-dismiss="modal">Annuler </a>
+      <a href="#" id="contact_valider_ajout" class="btn btn-primary" data-dismiss="modal">Valider</a>
+    </div>
+    
+  </div>
+  
+  <br>
+  
+  <div class="field">
+    <div class="span2" >
+      <%= link_to image_tag("glyphicons/glyphicons_221_unshare.png"), :back %>
+    </div>
+        <%= f.submit :class =>"btn btn-primary",:id =>"contact_validate_form"%>
+  </div>
+  
+<% end %>

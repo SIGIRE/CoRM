@@ -1,0 +1,87 @@
+<div class="container-fluid">
+  <br />
+  <div class="page_header">
+    <h3>Devis</h3>
+  </div>
+    
+  <table class="table table-bordered table-striped"  style="margin-top: 1em;">
+      <tr>
+        <th>Id</th>
+        <th>Statut</th>
+        <th>Référence</th>
+        <th>Compte</th>
+        <th>Opportunité</th>
+        <th>Total HT</th>
+        <th>Date</th>
+        <th>Voir</th>
+        <th>Editer</th>
+      </tr>
+    
+    <% @devis.each do |devi| %>
+    <tr>
+        <td><%= devi.id %></td>
+        <td>
+            <% if devi.statut == "Sauvegardé"%>
+              <span class="badge badge-important">
+            <% elsif devi.statut == "En cours"%>
+              <span class="badge badge-warning">
+            <% elsif devi.statut == "Accepté"%>
+              <span class="badge badge-success">
+            <% elsif devi.statut == "Refusé"%>
+              <span class="badge badge-inverse">
+            <% else %>
+              <span class="badge badge-info">
+            <% end %>
+            <%= devi.statut %></span>
+          </td>
+        <td><%= devi.ref %></td>
+        <td><%= link_to devi.compte.societe , devi.compte%></td>
+        <td>
+          <% if !devi.opportunite.nil? %>
+            <%= link_to devi.opportunite.nom , devi.opportunite%>
+          <% end %>  
+        </td>
+        <td style="text-align :right;"><%= number_to_currency(devi.total_ht, :locale => :fr) %></td>
+        <td><%= if !devi.date.nil? then devi.date.strftime("%d/%m/%Y") end%></td>
+        <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), devi %></td>
+        <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_devi_path(devi) %></td>
+    </tr>
+    <% end %>
+    </table>
+  
+  <br />
+  
+  <%= paginate @devis %>
+  
+  
+  <br /><br />
+  <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_devi_path %>
+  <br /><br /><hr />
+  
+  <div class="page_header">
+    <h3>Modèles</h3>
+  </div>
+  
+  <table class="table table-bordered table-striped"  style="margin-top: 1em; width: 600px;">
+      <tr>
+        <th>Id</th>
+        <th>Societe</th>
+        <th>Editer</th>
+        <th>Supprimer</th>
+      </tr>
+    
+    <% @modeles = Modele.order('societe').all %>
+    <% @modeles.each do |modele| %>
+    <tr>
+        <td style="width: 10%;"><%= modele.id %></td>
+        <td><%= modele.societe %></td>
+        <td style="width: 20%;"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_modele_path(modele) %></td>
+        <td style="width: 20%;"><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), modele, :confirm => 'Confirmer la suppression ?', :method => :delete %></td> 
+    </tr>
+    <% end %>
+  </table>
+  
+  <br /><br />
+  <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_modele_path %>
+
+</div>

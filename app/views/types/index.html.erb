@@ -1,0 +1,22 @@
+<div class="container-fluid" style="margin-top: 1em;">
+  <table class="table table-bordered table-striped">
+    <tr>
+      <th>Libell&eacute;</th>
+      <th>Sens</th>  
+      <th>Editer</th>
+      <th>Supp.</th>    
+    </tr>
+  
+  <% @types.each do |type| %>
+    <tr>
+      <td><%= type.libelle %></td>
+      <td><%= type.direction %></td>
+      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_type_path(type) %></td>
+      <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), type, :confirm => 'Confirmer la suppression ?', :method => :delete %></td>   
+    </tr>
+  <% end %>
+  </table>
+  
+  <%= paginate @types %> <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_type_path %>
+</div>
+

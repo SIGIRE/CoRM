@@ -1,0 +1,55 @@
+<div class="container-fluid" style="margin-top: 1em;">
+  
+  <% if Devi.by_compte(@compte).blank? %>
+    <h4> Aucun devis n'est rattaché à ce compte </h4>
+  <% else %>
+    
+    <table class="table table-bordered table-striped">
+      <tr>
+        <th>Id</th>
+        <th>Statut</th>
+        <th>Référence</th>
+        <th>Opportunité</th>
+        <th>Total HT</th>
+        <th>Date</th>
+        <th>Voir</th>
+        <th>Editer</th>
+      </tr>
+    
+    <% @devis = Devi.by_compte(@compte).order('date').page(params[:page]) %>
+    <% @devis.each do |devi| %>
+    <tr>
+        <td><%= devi.id %></td>
+        <td>
+            <% if devi.statut == "Sauvegardé"%>
+              <span class="badge badge-important">
+            <% elsif devi.statut == "En cours"%>
+              <span class="badge badge-warning">
+            <% elsif devi.statut == "Accepté"%>
+              <span class="badge badge-success">
+            <% elsif devi.statut == "Refusé"%>
+              <span class="badge badge-inverse">
+            <% else %>
+              <span class="badge badge-info">
+            <% end %>
+            <%= devi.statut %></span>
+          </td>
+        <td><%= devi.ref %></td>
+        <td>
+          <% if !devi.opportunite.nil? %>
+            <%= link_to devi.opportunite.nom , devi.opportunite%>
+          <% end %>
+        </td>
+        <td style="text-align :right;"><%= number_to_currency(devi.total_ht, :locale => :fr) %></td>
+        <td><%= if !devi.date.nil? then devi.date.strftime("%d/%m/%Y") end%></td>
+        <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), devi %></td>
+        <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_devi_path(devi) %></td>
+    <% end %>
+    </table>
+    
+  <% end %>
+  
+  <br /><br /><br />
+  <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_devi_path(:compte_id => @compte.id) %>
+    
+</div>

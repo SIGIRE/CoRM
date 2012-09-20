@@ -1,0 +1,40 @@
+<%= render 'filter', :locals => { :filter => @filter }%>
+
+<div class="container-fluid" style="margin-top: 1em;">
+
+  <table class="table table-bordered table-striped">
+    <tr>
+      <th>Civ.</th>
+      <th>Nom</th>
+      <th>Pr&eacute;nom</th>
+      <th>Soci&eacute;t&eacute;.</th>    
+      <th>T&eacute;l</th>
+      <th>Mobile</th>
+      <th>Email</th>
+      <th>Evénements</th>    
+      <th>Voir</th>
+      <th>Editer</th>        
+    </tr>
+  
+  <% @contacts.each do |contact| %>
+    <tr>
+      <td>
+        <%= if contact.civilite == "M." then image_tag("glyphicons/glyphicons_034_old_man.png") end%>
+        <%= if contact.civilite == "Mme" then image_tag("glyphicons/glyphicons_035_woman.png") end%>
+      </td>
+      <td><%= if !contact.compte.nil? then link_to contact.nom , contact end%></td>
+      <td><%= contact.prenom %></td>
+      <td ><%= if !contact.compte.nil? then link_to contact.compte.societe , compte_evenements_url(contact.compte) end%></td>
+      <td><%= contact.tel %></td>
+      <td><%= contact.mobile %></td>
+      <td><%= mail_to(contact.email) %></td>
+      <td><%= if !contact.compte.nil? then link_to image_tag("glyphicons/glyphicons_144_folder_open.png"), compte_evenements_url(contact.compte) end %></td>    
+      <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), contact %></td>
+      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_contact_path(contact) %></td>
+    </tr>
+  <% end %>
+  </table>
+  
+  <%= paginate @contacts %> <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_contact_path %>
+
+</div>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="multipart/alternative"; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    
+    <div class="container-fluid">
+  
+      <div class="page-header">
+        <h2>Création de la tâche n° <%= @tache.id %></h2>
+      </div>
+      
+      <div class="well">
+        <p>Bonjour, <%= @user.nom_complet %></p>
+        <p>
+          CRM SIGIRE vous informe qu'une nouvelle tâche vient de vous être affectée.<br/>
+        </p>
+        <p><h4> Informations : </h4>
+          <% if !@tache.compte.nil? %>
+            <strong> Compte : </strong><%= @tache.compte.societe %>
+            <br />
+          <% end %>
+          
+          <% if !@tache.contact.nil? %>
+            <strong> Contact : </strong><%= @tache.contact.nom_complet %>
+            <br />
+          <% end %>
+          
+          <strong> Statut : </strong><%= @tache.statut %><br />
+          
+          <% if !@tache.contact.nil? %>
+          <strong> Echéance : </strong> <%= @tache.echeance.split('/').reverse!.join('/') %>
+          <% end %>
+          
+        </p>
+        <p><h4> Description : </h4>
+          <%= truncate(@tache.notes, :length => 150, :separator => ' ')%>
+        </p>
+        <p>
+          Pour obtenir d'avantages d'informations sur cette tâche, veuillez cliquer sur ce lien : <%= link_to "Fiche de la tâche", @url %> <%#= taches_url(:host => "http://192.168.0.67:3000") %>.
+        </p>
+        
+      </div>
+      
+    </div>
+    
+  </body>
+</html>

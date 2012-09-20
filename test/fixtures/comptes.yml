@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  societe: MyString
+  adresse1: MyString
+  adresse2: MyString
+  cp: MyString
+  ville: MyString
+  pays: MyString
+  origine: MyString
+  type: 
+  code_compta: MyString
+  notes: MyText
+  created_by: MyString
+  modified_by: MyString
+
+two:
+  societe: MyString
+  adresse1: MyString
+  adresse2: MyString
+  cp: MyString
+  ville: MyString
+  pays: MyString
+  origine: MyString
+  type: 
+  code_compta: MyString
+  notes: MyText
+  created_by: MyString
+  modified_by: MyString

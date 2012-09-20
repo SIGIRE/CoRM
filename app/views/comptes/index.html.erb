@@ -1,0 +1,29 @@
+<%= render 'filter', :locals => { :filter => @filter }%>
+
+<div class="container-fluid" style="margin-top: 1em;">
+  
+  <table class="table table-bordered table-striped">
+    <tr>
+      <th>Soci&eacute;t&eacute;</th>
+      <th>Ville</th>    
+      <th>Genre</th>
+      <th>Evénements</th>
+      <th>Voir</th>
+      <th>Editer</th>       
+    </tr>
+  
+  <% @comptes.each do |compte| %>
+    <tr>
+      <td><%= link_to compte.societe, compte_evenements_url(compte) %></td>
+      <td><%= compte.ville %></td>    
+      <td><%= compte.genre %></td>
+      <td><%= link_to image_tag("glyphicons/glyphicons_144_folder_open.png"), compte_evenements_url(compte) %></td>
+      <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), compte %></td>
+      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_compte_path(compte) %></td>
+    </tr>
+  <% end %>
+  </table>
+  <%= paginate @comptes %> <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_compte_path %>
+
+</div>
+

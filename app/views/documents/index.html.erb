@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <table class="table table-bordered table-striped"  style="margin-top: 1em;">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nom</th>
+        <th>Compte</th>
+        <th>Fichier joint</th>
+        <th>Notes</th>
+        <th>Voir</th>
+        <th>Editer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @documents.each do |document| %>
+        <tr>
+         <td><%= link_to document.id, document %></td>
+         <td><%= document.nom %></td>
+         <td><%= link_to document.compte.societe , document.compte %></td>
+         <td><%= link_to (image_tag("glyphicons/glyphicons_036_file.png") + ' ' + document.fichier_joint_file_name), document.fichier_joint.url, :target => "_blank"%></td>
+         <td><%= truncate(document.notes, :length => 600, :separator => ' ') %></td>
+         <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), document %></td>
+         <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_document_path(document) %></td>
+        </tr>
+        <% end %>
+      </tbody>
+  </table>
+  
+  <br />
+  
+  <%= paginate @documents %>
+</div>

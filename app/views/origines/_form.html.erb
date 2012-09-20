@@ -1,0 +1,28 @@
+<%= form_for(@origine, :html => { :class => "well "}) do |f| %>
+  <% if @origine.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@origine.errors.count, "error") %> prohibited this origine from being saved:</h2>
+
+      <ul>
+      <% @origine.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <div class="span2"><%= f.label :nom %></div>
+    <%= f.text_field :nom %>
+  </div>
+  <div class="field">
+    <div class="span2"><%= f.label :description %></div>
+    <%= f.text_area :description, :display_with => :simple_format, :rows => "5", :style=>'width: 30em;' %>
+  </div>
+  <div class="field">
+    <div class="span2" >
+      <%= link_to image_tag("glyphicons/glyphicons_221_unshare.png"), :back %>
+    </div>
+    <%= f.submit :class =>"btn btn-primary"%>
+  </div>
+<% end %>

@@ -1,0 +1,138 @@
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+          
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          
+          <%= link_to "C.R.M", root_path ,:class =>"brand" %>
+          
+          
+          <div class="nav-collapse" style="margin-top: 5px;">
+            <ul class="nav" style="font-size: 14px;">
+	      <% if current_page?(url_for(:controller => 'taches')) %>
+               	<li class="active">
+	      <% else %>
+		<li>
+	      <% end %>
+	      
+              <%= link_to image_tag("icons/tache_blanc.png", :size => "16x16")+" Tâches".html_safe, taches_path %></li>
+
+	      <% if current_page?(url_for(:controller => 'comptes')) %>
+		<li class="active">
+	      <% else %>
+		<li>
+	      <% end %>
+		
+              <%= link_to image_tag("icons/compte_blanc.png", :size => "16x16")+" Comptes".html_safe, comptes_path %></li>
+
+	      <% if current_page?(url_for(:controller => 'contacts')) %>
+               	<li class="active">
+	      <% else %>
+		<li>
+	      <% end %>
+	      
+              <%= link_to image_tag("icons/3people_blanc2.png", :size => "20x16")+" Contacts".html_safe, contacts_path %></li>
+              
+	      
+	      
+	      
+	  
+	      <li class="dropdown">
+		
+	      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		<%= image_tag("icons/ventes.png", :size => "16x16")+' Activités <span class="caret"></span>'.html_safe %>
+	      </a>
+	      
+	      <ul class="dropdown-menu">
+		<li><%= link_to image_tag("icons/opportunites2.png", :size => "18x16")+" Opportunités".html_safe, opportunites_path %></li>
+		<li class="divider"></li>
+		<li><%= link_to image_tag("icons/euro2.png", :size => "16x16")+" Devis".html_safe, devis_path %></li>
+	      </ul>
+              </li>
+		
+		
+		
+		
+		
+            </ul>
+            
+            <%= form_tag("/comptes/search", :method => "get", :class =>"navbar-search", :id =>"navsearch") do %>
+              <%= text_field_tag :compte , nil , {:class =>"search-query span3", :placeholder => "Rechercher un compte", :data => { :provide => 'typeahead', :source => Compte.find(:all,:select=>'societe').map(&:societe)}, :autocomplete=>"off"}%>
+	      <span class="add-on"><%= link_to image_tag("icons/search_blanc.png", :size => "16x16"), "#", :onclick=>"document.getElementById('navsearch').submit()" %></span>
+            <% end %>
+
+	    <% if user_signed_in? %>
+
+	      <ul class="btn-group pull-right">
+		<a class="btn dropdown-toggle " data-toggle="dropdown" href="#">
+                  <%= image_tag("glyphicons/glyphicons_280_settings.png", :size => "16x16")%>
+		</a>
+		<ul class="dropdown-menu">
+		  <li><%= link_to '<i class="icon-book"></i> Types'.html_safe, types_path %></li>
+		  <li class="divider"></li>
+		  <li><%= link_to '<i class="icon-barcode"></i> Produits'.html_safe, produits_path %></li>
+		  <li class="divider"></li>
+		  <li><%= link_to image_tag("icons/origine.png", :size => "16x16")+" Origines".html_safe, origines_path %></li>
+		  <li class="divider"></li>
+		  <li><%= link_to image_tag("icons/apropos.png", :size => "16x16")+" À propos", "#myModal", :data => { :toggle => "modal" }%></li>
+		</ul>
+	      </ul>
+
+	      <ul class="btn-group pull-right">
+		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		  <i class="icon-user"></i><%= current_user.prenom%>
+		  <span class="caret"></span>
+		</a>
+		<ul class="dropdown-menu">
+		  <li><%= link_to image_tag("icons/edit.png", :size => "16x16")+" Profil", edit_user_registration_path %></li>
+		  <li class="divider"></li>
+		  <li><%= link_to image_tag("icons/deco.png", :size => "16x16")+" Déconnexion", destroy_user_session_path, :confirm => 'Confirmer la déconnexion ?', :method => :delete %></li>
+		</ul>
+	      </ul>
+	      
+	    <% end %>
+	    
+          </div>
+		
+    </div>
+  </div>
+</div>
+
+<div class="modal hide fade" id="myModal">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h3>À propos</h3>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+	<h4> Séquoia CRM </h4>
+	<div class="span3">
+	  <br />
+	  Version : 1.2<br /><br />
+	  Rails : <%= Rails::VERSION::STRING %><br />
+	  Ruby : <%= RUBY_VERSION %><br />
+	  Serveur : <%= IO.popen("hostname").readlines.to_s.sub!('\n"]','').sub!('["','') %><br />
+	  Kernel : <%= IO.popen("uname -r").readlines.to_s.sub!('\n"]','').sub!('["','')%><br />
+	  Serveur Web : <%#= IO.popen("httpd -v | grep 'Server version' | head -1 | sed 's/Server version:\ //g' | sed 's/\r//g'").readlines.to_s.sub!('\n"]','').sub!('["','')%><br />
+	  Mod_rails : <%= IO.popen("sed -n '/PassengerRoot/p' /etc/httpd/conf/httpd.conf | head -1 | sed 's/PassengerRoot\ //g'").readlines.to_s.split('/').last.sub!('\n"]','')%>
+	</div>
+	<div style="margin-bottom: -50px; text-align: -webkit-right;">
+		<%= image_tag("logo-sigire.png") %>
+	</div>     
+      </div>
+      <hr />
+    
+      <div class="span5">
+	Tous droits réservés :  &copy; SIGIRE <%= Date.today.year.to_s%> - <%= link_to  "Site officiel" , "http://www.sigire.fr/", :target => "_blank"%> 
+      </div>  
+    
+    </div>
+    
+    <div class="modal-footer">
+      <a href="#" class="btn btn-primary" data-dismiss="modal">Fermer </a>
+    </div>
+</div>
