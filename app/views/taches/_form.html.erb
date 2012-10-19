@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-    
+
   <div class="field">
     
       <div class="span2"> Compte : </div>
@@ -19,13 +19,18 @@
       <span class="label label-info" id="tache_notice"  style="display: none; margin-left: 2em;"><i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant</span>
     
   </div> 
-  
+
+
+ 
+
+
+
   <div class="field" id="nameContacts">
     <%= render :partial => 'contacts' %>
   </div>
   
   <div class="field">
-    <div class="span2"> Affectée à : </div> <%= f.collection_select :user_id, User.all, :id, :nom_complet %> <%= check_box_tag :mail, "yes", :selected => true %> Envoyer un email à ce collaborateur
+    <div class="span2"> Affectée à : </div> <%= f.collection_select :user_id, User.all, :id, :nom_complet %> <%= check_box_tag :mail, "yes"%> Envoyer un email à ce collaborateur
   </div>
   
   <div class="field">
@@ -41,7 +46,10 @@
   </div>  
   
   <div class="field">
-    <div class="span2">Pièce jointe :</div>  <%= f.file_field :fichier_joint, :style=>'width: 20em;' %>
+    <div class="span2">Pièce jointe :</div>  <%= if @tache.fichier_joint.exists? then link_to image_tag('glyphicons/glyphicons_036_file.png') + ' ' + @tache.fichier_joint_file_name, @tache.fichier_joint.url, :target => '_blank' end%>
+                                             <%= f.file_field :fichier_joint, :style=>'width: 20em;' %>
+ 
+       
   </div>
   <br />
   <div class="field">

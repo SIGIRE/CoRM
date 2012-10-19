@@ -1,6 +1,7 @@
+//= require bootstrap
+//= require bootstrap-dropdown
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
 //= require ./modal_comptes.js
 //= require ./modal_contacts.js
 //= require ./jquery-1.7.2.min.js

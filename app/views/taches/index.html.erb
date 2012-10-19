@@ -1,4 +1,5 @@
-<%= render 'filter', :locals => { :filter => @filter }%>
+<!--<%= render 'filter', :locals => { :filter => @filter }%>-->
+<%= render 'titre', :locals => { :titre => @titre }%>
 
 <div class="container-fluid">
   <table class="table table-bordered table-striped">
@@ -11,8 +12,8 @@
         <th>Contact</th>
         <th>Echéance</th>
         <th>Collaborateur</th>
-        <th>Voir</th>
         <th>Editer</th>
+        <th>Supprimer</th>        
       </tr>
     </thead>
     <tbody>
@@ -38,8 +39,8 @@
         <td><%= if !tache.contact.nil? then link_to tache.contact.nom_complet, tache.contact end%></td>
         <td><%= tache.echeance.split('/').reverse!.join('/') %></td>
         <td><%= if !tache.user.nil? then tache.user.nom_complet end%></td>
-        <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), tache %></td>
         <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_tach_path(tache) %></td>
+        <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), tach_path(tache),  :confirm => 'Confirmer la suppression ?', :method => :delete %>
       </tr>
       <% end %>
     </tbody>

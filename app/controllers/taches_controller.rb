@@ -187,9 +187,10 @@ class TachesController < ApplicationController
     hash["type_id"] = params[:type][:id]
     hash["compte_id"] = params[:tache][:compte_id]
     hash["contact_id"] = params[:tache][:contact_id]
-    hash["debut"] = Date.today.to_time
+    hash["debut"] = Time.now
     hash["fin"] = hash["debut"]
     hash["notes"] = params[:notes]
+    hash["notes2"] = params[:tache][:notes]
     
     #à tester
     if(bool == true)

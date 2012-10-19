@@ -23,12 +23,37 @@
           <%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), evenement_path(evenement),  :confirm => 'Confirmer la suppression ?', :method => :delete %>
         </div>
       </div>
+        
+      
+      <% if !evenement.tache.nil? %>
+       <div class="row">
+        <div class="span12" >
+          <% if evenement.modified_by.blank? %>
+            (<%= link_to "Tâche n°"+evenement.tache.id.to_s , evenement.tache %> créée.)
+          <% else %>
+            (<%= link_to "Tâche n°"+evenement.tache.id.to_s , evenement.tache %> modifiée.)
+          <% end%>
+        </div>
+       </div>
+      <% end %>
+      
+      
+      <% if !evenement.notes2.blank? %>
+      <div class="row">
+        <pre>
+        <%= simple_format (evenement.notes2) %>
+        </pre>
+      </div>
+    <% end %>
+
       
       <% if !evenement.notes.blank? %>
       <div class="row">
         <%= simple_format (evenement.notes) %><br />
       </div>
-      <% end %>
+    <% end %>
+    
+   
     
       <% if evenement.fichier_joint.exists? %>
       <div> 
@@ -38,18 +63,7 @@
       <hr />
       <% end %>
 
-      <% if !evenement.tache.nil? %>
 
-      <div class="row">
-        <div class="span12" >
-          <% if evenement.modified_by.blank? %>
-            La <%= link_to "Tâche n°"+evenement.tache.id.to_s , evenement.tache %>, liée à cet événement, a été créée.
-          <% else %>
-            La <%= link_to "Tâche n°"+evenement.tache.id.to_s , evenement.tache %>, liée à cet événement, a été modifiée.
-          <% end%>
-        </div>
-      </div>
-      <% end %>
       
       
       </blockquote>

@@ -46,7 +46,7 @@
   <br />
   
   <div>
-    <%= check_box_tag :generate, "yes" %> Générer une tâche lié à cet événement
+    <%= check_box_tag :generate, "no" %> Générer une tâche lié à cet événement
 
   </div>
   <br />
@@ -66,7 +66,7 @@
     <div class="span6">
       Collaborateur :  <br />
       <%= select_tag :user_id, options_from_collection_for_select(User.all, :id, :nom_complet, current_user.id),{:style =>"width: 250px"} %><br />
-      <%= check_box_tag :mail, "yes" , :selected => true %> Envoyer un email à ce collaborateur
+      <%= check_box_tag :mail, "no" %> Envoyer un email à ce collaborateur
     </div>
     
   </div>

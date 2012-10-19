@@ -18,8 +18,8 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer'
 
-   gem 'uglifier', '>= 1.0.3'
-	gem 'bootstrap-sass'
+  gem 'uglifier', '>= 1.0.3'
+  gem 'bootstrap-sass'
 
 end
 
@@ -44,7 +44,7 @@ gem 'capistrano', :group => :development
 gem 'execjs'
 gem 'therubyracer'
 gem 'devise'
-gem 'activeadmin'
+# gem 'activeadmin'
 gem "meta_search"
 gem "activerecord-sqlserver-adapter"
 gem "ruby-odbc"

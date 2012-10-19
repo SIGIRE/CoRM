@@ -5,6 +5,9 @@ Crm::Application.configure do
   config.i18n.default_locale = :fr
   # Code is not reloaded between requests
   config.cache_classes = true
+  
+  # Log error messages when you accidentally call methods on nil.
+  # config.whiny_nils = true  
 
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false

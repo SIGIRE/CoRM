@@ -49,8 +49,9 @@
 	      
 	      <ul class="dropdown-menu">
 		<li><%= link_to image_tag("icons/opportunites2.png", :size => "18x16")+" Opportunités".html_safe, opportunites_path %></li>
-		<li class="divider"></li>
 		<li><%= link_to image_tag("icons/euro2.png", :size => "16x16")+" Devis".html_safe, devis_path %></li>
+		<li class="divider"></li>
+		<li><%= link_to image_tag("icons/fiches.png", :size => "16x16")+" Extractions".html_safe, devis_path %></li>
 	      </ul>
               </li>
 		
@@ -90,7 +91,7 @@
 		<ul class="dropdown-menu">
 		  <li><%= link_to image_tag("icons/edit.png", :size => "16x16")+" Profil", edit_user_registration_path %></li>
 		  <li class="divider"></li>
-		  <li><%= link_to image_tag("icons/deco.png", :size => "16x16")+" Déconnexion", destroy_user_session_path, :confirm => 'Confirmer la déconnexion ?', :method => :delete %></li>
+		  <li><%= link_to image_tag("icons/deco.png", :size => "16x16")+" Déconnexion", destroy_user_session_path, :data => {:confirm => 'Confirmer la déconnexion ?'}, :method => :delete %></li>
 		</ul>
 	      </ul>
 	      
