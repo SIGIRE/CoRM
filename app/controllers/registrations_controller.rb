@@ -1,8 +1,11 @@
 class RegistrationsController < Devise::RegistrationsController
   
+  # Authentification de l'admin
+  before_filter :authenticate
+
   #controlleur pour la gestion des données du compte utilisateur,
   #on doit passer par notre propre controlleur pour contourner/configurer devise à notre manière
-
+  
 
   def edit
       @user = current_user
@@ -29,6 +32,13 @@ class RegistrationsController < Devise::RegistrationsController
     else
       render "edit"
     end
+  end
+
+  protected
+    def authenticate
+      authenticate_or_request_with_http_basic do |username, password|
+      username == "admin" && password == "password"  
+    end  
   end
   
 end
