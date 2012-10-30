@@ -1,5 +1,6 @@
 # encoding: utf-8
-class RelationsController < InheritedResources::Base
+
+class RelationsController < ApplicationController
   
   before_filter :authenticate_user!
 

@@ -1,5 +1,6 @@
 # encoding: utf-8
-class OpportunitesController < InheritedResources::Base
+
+class OpportunitesController < ApplicationController
   
   before_filter :authenticate_user!
   

@@ -1,5 +1,6 @@
 # encoding: utf-8
-class DevisController < InheritedResources::Base
+
+class DevisController < ApplicationController
   before_filter :authenticate_user!
   
   def index

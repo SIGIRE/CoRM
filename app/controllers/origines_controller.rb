@@ -1,4 +1,7 @@
-class OriginesController < InheritedResources::Base
+# encoding: utf-8
+
+class OriginesController < ApplicationController
+
 	
   before_filter :authenticate_user!
   

@@ -1,5 +1,6 @@
 # encoding: utf-8
-class DocumentsController < InheritedResources::Base
+
+class DocumentsController < ApplicationController
   
   before_filter :authenticate_user!
   
