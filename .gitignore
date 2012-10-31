@@ -77,4 +77,4 @@ pickle-email-*.html
 
 **~
 
-log/*.log
+log/development.log
