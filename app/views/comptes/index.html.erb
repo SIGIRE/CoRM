@@ -7,9 +7,8 @@
       <th>Soci&eacute;t&eacute;</th>
       <th>Ville</th>    
       <th>Genre</th>
-      <th>Evénements</th>
-      <th>Voir</th>
-      <th>Editer</th>       
+      <th>Téléphone</th>
+      <th>Éditer</th>       
     </tr>
   
   <% @comptes.each do |compte| %>
@@ -17,8 +16,7 @@
       <td><%= link_to compte.societe, compte_evenements_url(compte) %></td>
       <td><%= compte.ville %></td>    
       <td><%= compte.genre %></td>
-      <td><%= link_to image_tag("glyphicons/glyphicons_144_folder_open.png"), compte_evenements_url(compte) %></td>
-      <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), compte %></td>
+      <td><%= compte.tel %></td>
       <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_compte_path(compte) %></td>
     </tr>
   <% end %>
