@@ -1,4 +1,4 @@
-<!--<%= render 'filter', :locals => { :filter => @filter }%>-->
+<%= render 'filter', :locals => { :filter => @filter }%>
 <%= render 'titre', :locals => { :titre => @titre }%>
 
 <div class="container-fluid">
@@ -19,7 +19,7 @@
     <tbody>
       <% @taches.each do |tache| %>
       <tr>
-        <td><%= link_to tache.id, tache %></td>
+        <td><%= tache.id %></td>
         <td>
           <% if tache.statut == "A faire"%>
             <span class="badge badge-important">

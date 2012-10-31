@@ -73,10 +73,10 @@
   <br /><br />
   
   <div class="row">
-      <div class="span2">
-      <%= link_to image_tag("glyphicons/glyphicons_221_unshare.png"), :back %>
-      </div>
-      <%= f.submit :class =>"btn btn-primary"%>     
+      <%= f.submit :class =>"btn btn-primary"%>
+         <div class="pull-right ">
+          <%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), tach_path(@tache),  :confirm => 'Confirmer la suppression ?', :method => :delete %>
+         </div>      
   </div>
 
 <% end %>

@@ -130,45 +130,45 @@ class TachesController < ApplicationController
   def filter
     
     #pour que l'autocompletion fonctionne même après une recherche
-    @autocomplete_comptes = Compte.find(:all,:select=>'societe').map(&:societe)
-    @autocomplete_contacts = Contact.find(:all,:select=>'nom').map(&:nom)
+    #@autocomplete_comptes = Compte.find(:all,:select=>'societe').map(&:societe)
+    #@autocomplete_contacts = Contact.find(:all,:select=>'nom').map(&:nom)
     
     #données du filtre
-    societe = params[:filter][:compte]
+    #societe = params[:filter][:compte]
     email = params[:filter][:user_email]
     statut = params[:filter][:statut]
-    nom_contact = params[:filter][:contact]
-    debut = params[:filter][:debut]
-    fin = params[:filter][:fin]
+    #nom_contact = params[:filter][:contact]
+    #debut = params[:filter][:debut]
+    #fin = params[:filter][:fin]
     
     #convertir date au format yyyy/mm/dd
-    if debut ==""
-      #debut = Date.today.to_s.split("-").join("/")
-      debut ="0000/00/00"
-    else
-      debut = debut.split('/').reverse!.join('/')
-    end
+    #if debut ==""
+    #  #debut = Date.today.to_s.split("-").join("/")
+    #  debut ="0000/00/00"
+    #else
+    #  debut = debut.split('/').reverse!.join('/')
+    #end
     
-    if fin ==""
-      fin = "9999/99/99"
-    else
-      fin = fin.split('/').reverse!.join('/')
-    end
+    #if fin ==""
+    #  fin = "9999/99/99"
+    #else
+    #  fin = fin.split('/').reverse!.join('/')
+    #end
     
     
     #recherche le compte ayant pour societe = compte du filtre
-    compte = Compte.find(:first , :conditions => ['societe LIKE UPPER(?)', societe])
+    # compte = Compte.find(:first , :conditions => ['societe LIKE UPPER(?)', societe])
     
     #recherche le user ayant pour mail = mail du filtre
     user = User.find(:first, :conditions => ['email LIKE ?', email])
     
-    if nom_contact!=""
-    #recherche le contact ayant pour nom = contact du filtre
-    contact = Contact.find(:first, :conditions => ['nom LIKE UPPER(?)', nom_contact])
-    end
+    #if nom_contact!=""
+    ##recherche le contact ayant pour nom = contact du filtre
+    #contact = Contact.find(:first, :conditions => ['nom LIKE UPPER(?)', nom_contact])
+    #end
 
     #tri sur les taches en fonction des valeurs du filtre
-    @taches = Tache.by_statut(statut).by_echeance(debut,fin).by_compte(compte).by_contact(contact).by_user(user)
+    @taches = Tache.by_statut(statut).by_user(user)
     @taches = @taches.order("echeance ASC,statut DESC").page(params[:page])
     
     respond_to do |format|

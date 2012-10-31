@@ -46,11 +46,11 @@ gem 'therubyracer'
 gem 'devise'
 # gem 'activeadmin'
 gem "meta_search"
-gem "activerecord-sqlserver-adapter"
+# gem "activerecord-sqlserver-adapter"
 # gem "ruby-odbc"
 gem 'kaminari'
 gem 'paperclip'
-gem "formtastic", "~> 2.1.1"
+# gem "formtastic", "~> 2.1.1"
 gem "cancan"
 gem "nested_form"
 gem "prawn_rails"
