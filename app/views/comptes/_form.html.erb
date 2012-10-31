@@ -81,14 +81,13 @@
   <div class="field">
     <div class="span2">Notes : </div> <%= f.text_area :notes , :display_with => :simple_format, :rows => "5", :style=>'width: 30em;'%>
   </div>
+
+<br>
   
-  <br>
-  
-  <div class="field">
-    <div class="span2" >
-      <%= link_to image_tag("glyphicons/glyphicons_221_unshare.png"), :back %>
-    </div>
-        <%= f.submit :class =>"btn btn-primary",:id =>"compte_validate_form"%>
+  <div class="row">
+    <div class="span2"> <%= f.submit :class =>"btn btn-primary",:id =>"compte_validate_form"%> </div>
+    <div class="pull-right "><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), @compte, :confirm => 'Confirmer la suppression ?', :method => :delete %> </div>
   </div>
+ 
 
 <% end %>

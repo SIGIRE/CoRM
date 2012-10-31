@@ -4,6 +4,7 @@
   
   <table class="table table-bordered table-striped">
     <tr>
+      <th>Id</th>
       <th>Soci&eacute;t&eacute;</th>
       <th>Ville</th>    
       <th>Genre</th>
@@ -13,6 +14,7 @@
   
   <% @comptes.each do |compte| %>
     <tr>
+      <td><%= compte.id %></td>
       <td><%= link_to compte.societe, compte_evenements_url(compte) %></td>
       <td><%= compte.ville %></td>    
       <td><%= compte.genre %></td>
