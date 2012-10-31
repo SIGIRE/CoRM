@@ -76,3 +76,5 @@ pickle-email-*.html
 **.swp
 
 **~
+
+log/*.log
