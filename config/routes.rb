@@ -85,6 +85,9 @@ Crm::Application.routes.draw do
   
   root :to => 'taches#index'
 
+
+  resources :about
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

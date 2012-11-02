@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
           </a>
           
-          <%= link_to "C.R.M", root_path ,:class =>"brand" %>
+          <%= link_to "CRM", root_path ,:class =>"brand" %>
           
           
           <div class="nav-collapse" style="margin-top: 5px;">
@@ -79,7 +79,7 @@
 		  <li class="divider"></li>
 		  <li><%= link_to image_tag("icons/origine.png", :size => "16x16")+" Origines".html_safe, origines_path %></li>
 		  <li class="divider"></li>
-		  <li><%= link_to image_tag("icons/apropos.png", :size => "16x16")+" À propos", "#myModal", :data => { :toggle => "modal" }%></li>
+        	  <li><%= link_to image_tag("icons/apropos.png", :size => "16x16")+" À propos".html_safe, "/about" %></li>
 		</ul>
 	      </ul>
 
@@ -103,37 +103,3 @@
   </div>
 </div>
 
-<div class="modal hide fade" id="myModal">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal">×</button>
-      <h3>À propos</h3>
-    </div>
-    <div class="modal-body">
-      <div class="row">
-	<h4> CRM </h4>
-	<div class="span3">
-	  <br />
-	  Version : 1.2<br /><br />
-	  Rails : <%= Rails::VERSION::STRING %><br />
-	  Ruby : <%= RUBY_VERSION %><br />
-	  Serveur : <%= IO.popen("hostname").readlines.to_s.sub!('\n"]','').sub!('["','') %><br />
-	  Kernel : <%= IO.popen("uname -r").readlines.to_s.sub!('\n"]','').sub!('["','')%><br />
-	  Serveur Web : <%#= IO.popen("httpd -v | grep 'Server version' | head -1 | sed 's/Server version:\ //g' | sed 's/\r//g'").readlines.to_s.sub!('\n"]','').sub!('["','')%><br />
-	  Mod_rails : <%= IO.popen("sed -n '/PassengerRoot/p' /etc/httpd/conf/httpd.conf | head -1 | sed 's/PassengerRoot\ //g'").readlines.to_s.split('/').last.sub!('\n"]','')%>
-	</div>
-	<div style="margin-bottom: -50px; text-align: -webkit-right;">
-		<%= image_tag("logo-sigire.png") %>
-	</div>     
-      </div>
-      <hr />
-    
-      <div class="span5">
-	Tous droits réservés :  &copy; SIGIRE <%= Date.today.year.to_s%> - <%= link_to  "Site officiel" , "http://www.sigire.fr/", :target => "_blank"%> 
-      </div>  
-    
-    </div>
-    
-    <div class="modal-footer">
-      <a href="#" class="btn btn-primary" data-dismiss="modal">Fermer </a>
-    </div>
-</div>

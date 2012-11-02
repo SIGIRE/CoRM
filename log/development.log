@@ -988,3 +988,5 @@ Served asset /nested_form.js - 304 Not Modified (0ms)
 
 Started GET "/assets/icons/fiches.png" for 192.168.0.73 at 2012-11-02 09:38:57 +0100
 Served asset /icons/fiches.png - 304 Not Modified (0ms)
+Connecting to database specified by database.yml
+Connecting to database specified by database.yml

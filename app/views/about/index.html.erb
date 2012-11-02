@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="span9">
+
+    <%= image_tag("logo-sigire.png") %>
+
+    <h2>À propos</h2>
+    <h4>CRM</h4>
+    <br />
+    Version de Rails : <%= Rails::VERSION::STRING %><br />
+    Version de Ruby : <%= RUBY_VERSION %><br />
+    Nom du Serveur : <%= IO.popen("hostname").readlines.to_s.sub!('\n"]','').sub!('["','') %><br />
+    Version du Kernel : <%= IO.popen("uname -r").readlines.to_s.sub!('\n"]','').sub!('["','')%><br />
+    Version du Serveur Web : <%#= IO.popen("httpd -v | grep 'Server version' | head -1 | sed 's/Server version:\ //g' | sed 's/\r//g'").readlines.to_s.sub!('\n"]','').sub!('["','')%><br />
+    Version Mod_rails : <%= IO.popen("sed -n '/PassengerRoot/p' /etc/httpd/conf/httpd.conf | head -1 | sed 's/PassengerRoot\ //g'").readlines.to_s.split('/').last.sub!('\n"]','')%> <br/>
+  </div>
+
+
+</div>
+
+  <hr />
+  <div class="row">
+    Tous droits réservés :  &copy; SIGIRE <%= Date.today.year.to_s%> - <%= link_to  "Site officiel SIGIRE" , "http://www.sigire.fr/", :target => "_blank"%>
+  </div>
+
