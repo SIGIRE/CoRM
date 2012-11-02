@@ -1,6 +1,6 @@
 
 <pre>
-  <%= link_to image_tag("glyphicons/glyphicons_020_home.png"), @compte,{:title => "Voir profil"} %> <i>(<%= @compte.genre %>)</i>
+  <%= link_to image_tag("glyphicons/glyphicons_020_home.png"), edit_compte_path(@compte),{:title => "Éditer le compte"} %> <i>(<%= @compte.genre %>)</i>
 <b><%= @compte.societe %></b>
 <%= @compte.adresse1 %>
 <%= @compte.adresse2 %>
@@ -17,9 +17,9 @@ Fax : <%= @compte.fax %>
 <% @compte.contacts.classe_par_nom.each do |contact| %>
 <div style="background-color: #FAFAFA;">
   <% if contact.civilite == "Mme"%>
-  <%= link_to image_tag("glyphicons/glyphicons_035_woman.png"), contact,{:title => "Voir profil"} %> <i>(<%= contact.fonction %>)</i>
+  <%= link_to image_tag("glyphicons/glyphicons_035_woman.png"), edit_contact_path(contact),{:title => "Éditer le contact"} %> <i>(<%= contact.fonction %>)</i>
   <% elsif contact.civilite == "M." %>
-  <%= link_to image_tag("glyphicons/glyphicons_034_old_man.png"), contact,{:title => "Voir profil"} %>  <i>(<%= contact.fonction %>)</i>
+  <%= link_to image_tag("glyphicons/glyphicons_034_old_man.png"), edit_contact_path(contact),{:title => "Éditer le contact"} %>  <i>(<%= contact.fonction %>)</i>
 <% end %> 
 <b><%= contact.civilite %> <%= contact.nom %> <%= contact.prenom %></b>
 Tél : <%= contact.tel %>
