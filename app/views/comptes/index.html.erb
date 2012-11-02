@@ -16,11 +16,11 @@
   <% @comptes.each do |compte| %>
     <tr>
       <td><%= compte.id %></td>
-      <td><%= link_to compte.societe, compte_evenements_url(compte) %></td>
+      <td><%= link_to compte.societe, compte_evenements_url(compte),{:title => "Afficher les évenements"} %></td>
       <td><%= compte.ville %></td>    
       <td><%= compte.genre %></td>
       <td><%= compte.tel %></td>
-      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_compte_path(compte) %></td>
+      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_compte_path(compte),{:title => "Éditer le compte"} %></td>
     </tr>
   <% end %>
   </table>

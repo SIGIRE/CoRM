@@ -107,7 +107,7 @@
    <div class="row">
     <div class="span2"> <%= f.submit :class =>"btn btn-primary",:id =>"contact_validate_form"%> </div>
     <div class="pull-right ">
-      <%= if !@contact.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @contact, :confirm => 'Confirmer la suppression ?', :method => :delete end %> 
+      <%= if !@contact.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @contact, {:title => "Supprimer le contact"}, :confirm => 'Confirmer la suppression ?', :method => :delete end %> 
     </div>
   </div>
  

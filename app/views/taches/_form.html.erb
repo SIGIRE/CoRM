@@ -75,7 +75,7 @@
   <div class="row">
       <%= f.submit :class =>"btn btn-primary"%>
          <div class="pull-right ">
-          <%= if !@tache.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), tach_path(@tache),  :confirm => 'Confirmer la suppression ?', :method => :delete end %>
+          <%= if !@tache.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"),tach_path(@tache),{:title => "Supprimer la tâche"},  :confirm => 'Confirmer la suppression ?', :method => :delete end %>
          </div>    
   </div>
 

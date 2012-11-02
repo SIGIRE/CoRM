@@ -33,12 +33,12 @@
           <% end %>
           <%= tache.statut %></span>
         </td>
-        <td><%= if !tache.compte.nil? then link_to tache.compte.societe , compte_evenements_url(tache.compte) end%></td>
+        <td><%= if !tache.compte.nil? then link_to tache.compte.societe , compte_evenements_url(tache.compte),{:title => "Afficher les évenements"} end%></td>
         <td class="descrip"><%= truncate(tache.notes, :length => 300, :separator => ' ')%></td>
-        <td><%= if !tache.contact.nil? then link_to tache.contact.nom_complet, tache.contact end%></td>
+        <td><%= if !tache.contact.nil? then link_to tache.contact.nom_complet, edit_contact_path(tache.contact),{:title => "Éditer le contact"}  end%></td>
         <td><%= tache.echeance.split('/').reverse!.join('/') %></td>
         <td><%= if !tache.user.nil? then tache.user.nom_complet end%></td>
-        <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_tach_path(tache) %></td>
+        <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_tach_path(tache) ,{:title => "Éditer la tâche"}  %></td>
       </tr>
       <% end %>
     </tbody>

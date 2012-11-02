@@ -25,11 +25,11 @@
       </td>
       <td><%= contact.nom %></td>
       <td><%= contact.prenom %></td>
-      <td ><%= if !contact.compte.nil? then link_to contact.compte.societe , compte_evenements_url(contact.compte) end%></td>
+      <td ><%= if !contact.compte.nil? then link_to contact.compte.societe , compte_evenements_url(contact.compte),{:title => "Afficher les évenements"} end%></td>
       <td><%= contact.tel %></td>
       <td><%= contact.mobile %></td>
-      <td><%= mail_to(contact.email) %></td>
-      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_contact_path(contact) %></td>
+      <td><%= mail_to(contact.email)%></td>
+      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_contact_path(contact),{:title => "Éditer le contact"} %></td>
     </tr>
   <% end %>
   </table>

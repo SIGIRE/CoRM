@@ -87,7 +87,7 @@
   <div class="row">
     <div class="span2"> <%= f.submit :class =>"btn btn-primary",:id =>"compte_validate_form"%> </div>
     <div class="pull-right ">
-      <%= if !@compte.id.nil? then  link_to image_tag("glyphicons/glyphicons_016_bin.png"), @compte, :confirm => 'Confirmer la suppression ?', :method => :delete end %>
+      <%= if !@compte.id.nil? then  link_to image_tag("glyphicons/glyphicons_016_bin.png"), @compte,{:title => "Supprimer le compte"}, :confirm => 'Confirmer la suppression ?', :method => :delete end %>
     </div>
   </div>
  
