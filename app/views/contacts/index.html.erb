@@ -1,4 +1,5 @@
 <%= render 'filter', :locals => { :filter => @filter }%>
+<%= render 'titre', :locals => { :titre => @titre }%>
 
 <div class="container-fluid" style="margin-top: 1em;">
 
@@ -33,6 +34,6 @@
   <% end %>
   </table>
   
-  <%= paginate @contacts %> <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_contact_path %>
+  <%= paginate @contacts %> 
 
 </div>

@@ -1,7 +1,14 @@
 <div class="container-fluid">
    
    <div class="well" style="margin-top: 1em;">
-      <h2>Tâche [Nouvelle]</h2>
+      <div class="row-fluid">
+        <div class="span3">
+          <h3>Tâche [Nouvelle]</h3>
+         </div>
+         <div class="pull-right">
+          <%= link_to image_tag("glyphicons/glyphicons_210_left_arrow.png"), :back %>
+         </div>
+      </div>
    </div>
 
    <%= render 'form' %>
