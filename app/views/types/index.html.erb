@@ -12,7 +12,7 @@
       <td><%= type.libelle %></td>
       <td><%= type.direction %></td>
       <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_type_path(type),{:title => "Éditer le type"}%></td>
-      <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), type,{:title => "Supprimer le type"}, :confirm => 'Confirmer la suppression ?', :method => :delete %></td>   
+      <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), type, :title => "Supprimer le type", :confirm => 'Confirmer la suppression ?', :method => :delete %></td>   
     </tr>
   <% end %>
   </table>
