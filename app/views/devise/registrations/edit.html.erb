@@ -1,7 +1,7 @@
 <div class="container-fluid">
   
   <div class="page-header">
-    <h2>Edition du compte utilisateur</h2>
+    <h2>Édition du compte utilisateur</h2>
   </div>
   
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put , :class => "well"}) do |f| %>
@@ -12,16 +12,16 @@
     <a id="profil_mdp" class="btn btn-success btn-small" data-toggle="modal" href="#edit_profile_modal" style="margin-bottom: 8px;">Modifier mon mot de passe</a>
     </div>
     
-    <div class="field">Nom : <br />
-    <%= f.text_field :nom %></div>
-    
     <div class="field">Prénom : <br />
     <%= f.text_field :prenom %></div>
-    
-    <div class="field">Téléphone : <br />
+
+    <div class="field">Nom : <br />
+    <%= f.text_field :nom %></div>
+       
+    <div class="field">Tél fixe : <br />
     <%= f.text_field :tel %></div>
     
-    <div class="field">Mobile : <br />
+    <div class="field">Tél mobile : <br />
     <%= f.text_field :mobile %></div>
     
     <div class="modal hide fade" id="edit_profile_modal">
@@ -58,7 +58,7 @@
   </div>
   
   <div class="field">
-    <%= link_to image_tag("glyphicons/glyphicons_221_unshare.png"), :back %>
+    <%= link_to image_tag("glyphicons/glyphicons_210_left_arrow.png"), :back ,{:title => "Retour"} %>
     <%= f.submit "Modifier", :class =>"btn btn-primary" , :style =>"margin-left: 122px;"%>
   </div>
   

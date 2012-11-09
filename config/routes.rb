@@ -21,11 +21,9 @@ Crm::Application.routes.draw do
 
 
 
-  devise_for :user, :path => 'user/', :path_names => { :sign_in => "login" , :sign_up => "register"},  
+  devise_for :user, :path => '/', :path_names => { :sign_in => "login" , :sign_up => "register"},  
+  #devise_for :user, :path => '/', :path_names => { :sign_in => "login" },  
   :controllers => { :registrations => "registrations" }
-
-  # devise_for :admin_users 
-
 
 
 

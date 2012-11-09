@@ -21,11 +21,14 @@
 	      
               <%= link_to image_tag("icons/tache_blanc.png", :size => "16x16")+" Tâches".html_safe, taches_path %></li>
 
-	      <% if current_page?(url_for(:controller => 'comptes')) %>
+	      <% if current_page?(url_for(:controller => 'evenements')) %>
+		<li class="active">
+	      <% elsif current_page?(url_for(:controller => 'comptes'))%>
 		<li class="active">
 	      <% else %>
 		<li>
 	      <% end %>
+	      
 		
               <%= link_to image_tag("icons/compte_blanc.png", :size => "16x16")+" Comptes".html_safe, comptes_path %></li>
 
