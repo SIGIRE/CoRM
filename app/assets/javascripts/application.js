@@ -6,7 +6,7 @@
 //= require ./jquery-1.7.2.min.js
 //= require ./jquery-ui-1.8.21.custom.min.js
 //= require ./jquery.ui.datepicker-fr.js
-//= require ./bootstrap/.
+//= require ./bootstrap/*.js
 //= require_tree .
 
 
