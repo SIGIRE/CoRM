@@ -19,6 +19,8 @@ group :assets do
   # gem 'therubyracer'
 
   gem 'uglifier', '>= 1.0.3'
+  gem 'bootstrap-sass'
+  gem 'execjs'
 end
 
 gem 'jquery-rails'
@@ -38,8 +40,8 @@ gem 'capistrano', :group => :development
 # To use debugger
 # gem 'ruby-debug'
 
-gem 'bootstrap-sass'
-gem 'execjs'
+
+
 gem 'therubyracer'
 gem 'devise'
 # gem 'activeadmin'
