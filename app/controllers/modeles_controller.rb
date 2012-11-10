@@ -1,5 +1,5 @@
 # encoding: utf-8
-class ModelesController < InheritedResources::Base
+class ModelesController < ApplicationController
   
   def new
     @modele = Modele.new

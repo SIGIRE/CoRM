@@ -1,2 +1,2 @@
-class ItemsController < InheritedResources::Base
+class ItemsController < ApplicationController
 end
