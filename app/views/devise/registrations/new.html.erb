@@ -15,15 +15,16 @@
   <div><%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %></div>
   
-  <div><%= f.label :nom %> <i></i>
-  <%= f.text_field :nom %></div>
-  
+ 
   <div><%= f.label :prenom %> <i></i>
   <%= f.text_field :prenom %></div>
 
+  <div><%= f.label :nom %> <i></i>
+  <%= f.text_field :nom %></div>
+  
   <div><%= f.submit "Créer", :class =>"btn btn-primary" %></div>
   <br />
-  <%= link_to image_tag("glyphicons/glyphicons_221_unshare.png"), :back %>
+  <%= link_to image_tag("glyphicons/glyphicons_210_left_arrow.png"), :back %>
 <% end %>
 
 <%#= render "links" %>
