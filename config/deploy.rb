@@ -33,10 +33,16 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
     run "ln -nfs #{shared_path}/assets #{release_path}/public/assets"
    end
+   
+   desc "Change owner of the tmp folder"
+   task :change_owner_tmp do
+    run "chown -R apache #{release_path}/tmp"
+   end   
+   
 end
 
 before "deploy:assets:precompile", "deploy:symlink_shared" 
-after 'deploy:update_code', 'deploy:migrate'
+after 'deploy:update_code', 'deploy:migrate', 'deploy:change_owner_tmp'
 # after "deploy:restart", "deploy:cleanup"
 
 set :deploy_via, :remote_cache
