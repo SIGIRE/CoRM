@@ -1,7 +1,7 @@
+//= require bootstrap
 //= require jquery
 //= require jquery_ujs
 //= require jquery_nested_form
-//= require bootstrap
 //= require ./modal_comptes.js
 //= require ./modal_contacts.js
 //= require ./jquery-1.7.2.min.js
