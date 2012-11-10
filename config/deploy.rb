@@ -35,8 +35,8 @@ namespace :deploy do
    end
 end
 
- 
-after 'deploy:update_code', 'deploy:symlink_shared', 'deploy:migrate'
+before "deploy:assets:precompile", "deploy:symlink_shared" 
+after 'deploy:update_code', 'deploy:migrate'
 # after "deploy:restart", "deploy:cleanup"
 
 set :deploy_via, :remote_cache
