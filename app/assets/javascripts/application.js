@@ -3,13 +3,12 @@
 //= require jquery_nested_form
 //= require ./modal_comptes.js
 //= require ./modal_contacts.js
-//= require bootstrap-dropdown
 //= require bootstrap
 //= require ./jquery-1.7.2.min.js
 //= require ./jquery-ui-1.8.21.custom.min.js
 //= require ./jquery.ui.datepicker-fr.js
 
-//= require_tree .
+
 
 
 $(function(){
