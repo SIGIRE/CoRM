@@ -1,25 +1,31 @@
-<div class="container-fluid" style="margin-top: 1em;">
+<%= render 'titre', :locals => { :titre => @titre }%>
+
+<div class="container-fluid">
   
   <table class="table table-bordered table-striped">
-    <tr>
-      <th>Nom</th>
-      <th>Description</th>
-      <th>Voir</th>
-      <th>Editer</th>
-    </tr>
-  
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Description</th>
+        <th>Editer</th>
+        <th>Supp.</th>   
+      </tr>
+    </thead>
+    
+  <tbody>
   <% @produits.each do |produit| %>
     <tr>
       <td><%= produit.nom %></td>
       <td><%= truncate(produit.description, :length => 300, :separator => ' ')%></td>
-      <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), produit %></td>
       <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_produit_path(produit) %></td>
+      <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), produit, :title => "Supprimer le produit", :confirm => 'Confirmer la suppression ?', :method => :delete %></td>   
     </tr>
   <% end %>
+  </tbody>
   </table>
   
   <br />
   
-  <%= paginate @produits %> <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_produit_path %>
+  <%= paginate @produits %>
   
 </div>

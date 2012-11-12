@@ -1,12 +1,17 @@
-<div class="container-fluid" style="margin-top: 1em;">
+<%= render 'titre', :locals => { :titre => @titre }%>
+
+<div class="container-fluid">
   <table class="table table-bordered table-striped">
-    <tr>
-      <th>Libell&eacute;</th>
-      <th>Sens</th>  
-      <th>Editer</th>
-      <th>Supp.</th>    
-    </tr>
-  
+    <thead>
+      <tr>
+        <th>Libell&eacute;</th>
+        <th>Sens</th>  
+        <th>Editer</th>
+        <th>Supp.</th>    
+      </tr>
+    </thead>
+    
+  <tbody>
   <% @types.each do |type| %>
     <tr>
       <td><%= type.libelle %></td>
@@ -15,8 +20,9 @@
       <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), type, :title => "Supprimer le type", :confirm => 'Confirmer la suppression ?', :method => :delete %></td>   
     </tr>
   <% end %>
+  </tbody>
   </table>
   
-  <%= paginate @types %> <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_type_path ,{:title => "Créer un type"} %>
+  <%= paginate @types %>
 </div>
 
