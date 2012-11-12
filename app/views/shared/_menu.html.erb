@@ -19,7 +19,7 @@
 		<li>
 	      <% end %>
 	      
-              <%= link_to image_tag("icons/tache_blanc.png", :size => "16x16")+" Tâches".html_safe, taches_path %></li>
+              <%= link_to image_tag("icons/tache_blanc.png", :size => "16x16")+" Tâches".html_safe, url_for(:controller => 'taches', :action => 'filter') %></li>
 
 	      <% if current_page?(url_for(:controller => 'evenements')) %>
 		<li class="active">

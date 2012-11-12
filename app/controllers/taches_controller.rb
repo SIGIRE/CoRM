@@ -10,9 +10,9 @@ class TachesController < ApplicationController
     @page = params[:page]
     @taches = Tache.where("user_id =? AND statut IN ('En cours','A faire')", current_user).order("statut ASC ,echeance ASC").page(@page)
     
-    #infos typeahead
-    @autocomplete_comptes = Compte.find(:all,:select=>'societe').map(&:societe)
-    @autocomplete_contacts = Contact.find(:all,:select=>'nom').map(&:nom)
+    #infos typeahead --> plus nécessaires si pas de champ Compte/contact dans le partial filter
+    #@autocomplete_comptes = Compte.find(:all,:select=>'societe').map(&:societe)
+    #@autocomplete_contacts = Contact.find(:all,:select=>'nom').map(&:nom)
           
     respond_to do |format|
       format.html # index.html.erb
@@ -135,8 +135,16 @@ class TachesController < ApplicationController
     
     #données du filtre
     #societe = params[:filter][:compte]
-    email = params[:filter][:user_email]
-    statut = params[:filter][:statut]
+    if params.has_key?(:filter) then
+      @email_filter = params[:filter][:user_email]
+      @statut_filter = params[:filter][:statut]
+    else
+      @email_filter = current_user.email
+      @statut_filter = "Non terminé"
+    end
+    
+    
+    #@statut_filter = params[:filter][:statut]
     #nom_contact = params[:filter][:contact]
     #debut = params[:filter][:debut]
     #fin = params[:filter][:fin]
@@ -160,7 +168,7 @@ class TachesController < ApplicationController
     # compte = Compte.find(:first , :conditions => ['societe LIKE UPPER(?)', societe])
     
     #recherche le user ayant pour mail = mail du filtre
-    user = User.find(:first, :conditions => ['email LIKE ?', email])
+    user = User.find(:first, :conditions => ['email LIKE ?', @email_filter])
     
     #if nom_contact!=""
     ##recherche le contact ayant pour nom = contact du filtre
@@ -168,7 +176,12 @@ class TachesController < ApplicationController
     #end
 
     #tri sur les taches en fonction des valeurs du filtre
-    @taches = Tache.by_statut(statut).by_user(user)
+    if @statut_filter == "Non terminé" then
+	@taches = Tache.by_statut_non_termine(@statut_filter).by_user(user)
+    else
+        @taches = Tache.by_statut(@statut_filter).by_user(user)
+    end
+    
     @taches = @taches.order("echeance ASC,statut DESC").page(params[:page])
     
     respond_to do |format|

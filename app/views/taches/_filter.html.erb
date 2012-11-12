@@ -3,12 +3,12 @@
   <%= form_for(:filter, :url => { :action => 'filter' } , :html => {:method => :get} ) do |f| %>
 
      
-      <div class="span1">
-        <h6>Statut : </h6><%= f.select :statut, Tache::STATUTS,{:include_blank => "Tous"}, :class => "filter_statut" %>
+      <div class="span2">
+        <h6>Statut : </h6><%= f.select :statut, Tache::STATUTS_A_FILTRER,{:include_blank => "Tous", :selected => @statut_filter}, :class => "filter_statut" %>
       </div>
       
       <div class="span2">
-        <h6>Collaborateur : </h6><%= f.collection_select :user_email, User.order('email ASC').all, :email, :nom_complet, {:include_blank => "Tous"} , :class =>"filter_coll"%>
+        <h6>Collaborateur : </h6><%= f.collection_select :user_email, User.order('email ASC').all, :email, :nom_complet, {:include_blank => "Tous", :selected => @email_filter} , :class =>"filter_coll"%>
       </div>
       
       <div class="span1" style="margin-top: 18px;">
@@ -16,4 +16,7 @@
       </div>
  
   <% end %>
+  
+
+  
 </div>
