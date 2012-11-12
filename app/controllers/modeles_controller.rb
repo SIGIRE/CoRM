@@ -1,5 +1,17 @@
 # encoding: utf-8
 class ModelesController < ApplicationController
+  before_filter :authenticate_user!
+  
+  def index
+    @page = params[:page]
+    @modeles =  Modele.order('societe').page(@page)
+    
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render :json => @modeles}
+    end
+    
+  end  
   
   def new
     @modele = Modele.new

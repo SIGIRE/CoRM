@@ -1,7 +1,6 @@
-<div class="container-fluid" style= "background-color: #EEEEEE; margin-bottom: 18px;">
+<div class="container-fluid" style= "background-color: #D8D8D8; margin-top: 0em; ">
   
   <%= form_for(:filter, :url => { :action => 'filter' } , :html => {:method => :get} ) do |f| %>
-    <div class="row-fluid show-grid" style="margin-top: 1em;">
       
       <div class="span1">
         <h6>Statut : </h6><%= f.select :statut, Opportunite::STATUTS,{:include_blank => "Tous"} , :class =>"filter_statut"%>
@@ -30,7 +29,7 @@
       <div class="span1" style="margin-top: 18px;">
         <%= f.submit "Filtrer", :class =>"btn "%>
       </div>
-    </div>
+    
   <% end %>
   
 </div>

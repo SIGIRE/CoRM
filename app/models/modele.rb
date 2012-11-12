@@ -3,4 +3,6 @@ class Modele < ActiveRecord::Base
   has_many :devis
   has_attached_file :fichier_joint
   
+  paginates_per 10
+  
 end

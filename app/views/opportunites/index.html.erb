@@ -1,7 +1,10 @@
 <%= render 'filter', :locals => { :filter => @filter }%>
 
+<%= render 'titre', :locals => { :titre => @titre }%>
+
+
 <div class="container-fluid">
-  <table class="table table-bordered table-striped"  style="margin-top: 1em;">
+  <table class="table table-bordered table-striped">
     <thead>
       <tr>
         <th>Id</th>
@@ -13,8 +16,8 @@
         <th>Marge</th>
         <th>Echéance</th>
         <th>Collaborateur</th>
-        <th>Voir</th>
         <th>Editer</th>
+        <th>Supp.</th>	
       </tr>
     </thead>
     
@@ -51,8 +54,8 @@
         </td>
         <td><%= if !opportunite.echeance.nil? then opportunite.echeance.strftime("%d/%m/%y") end%></td>
         <td><%= if !opportunite.user.nil? then opportunite.user.nom_complet end%></td>
-        <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), opportunite %></td>
         <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_opportunite_path(opportunite) %></td>
+        <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), opportunite, :title => "Supprimer l'Opportunité", :confirm => 'Confirmer la suppression ?', :method => :delete %></td>   
       </tr>
       <% end %>
     </tbody>
@@ -67,8 +70,5 @@
     <h4> Marge totale estimée : <%=number_to_currency(@total_marge, :locale => :fr) %>  HT</h4> 
   </div>
 
-
-  <br /><br /><br />
-  <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_opportunite_path %>
 
 </div>

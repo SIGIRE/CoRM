@@ -1,21 +1,32 @@
-<h1>Listing modeles</h1>
+<%= render 'titre', :locals => { :titre => @titre }%>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @modeles.each do |modele| %>
-  <tr>
-    <td><%= link_to 'Show', modele %></td>
-    <td><%= link_to 'Edit', edit_modele_path(modele) %></td>
-    <td><%= link_to 'Destroy', modele, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New modele', new_modele_path %>
+<div class="container-fluid">
+  
+  <table class="table table-bordered table-striped">
+   <thead> 
+    <tr>
+        <th>Id</th>
+        <th>Societe</th>
+        <th>Editer</th>
+        <th>Supp.</th>
+    </tr>
+   </thead>
+   
+  <tbody> 
+  <% @modeles.each do |modele| %>
+    <tr>
+      <td><%= modele.id %></td>
+      <td><%= modele.societe %></td>
+      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_modele_path(modele) %></td>
+      <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), modele, :title => "Supprimer le modèle", :confirm => 'Confirmer la suppression ?', :method => :delete %></td>   
+      
+    </tr>
+  <% end %>
+  </tbody>
+  </table>
+  
+  <br />
+  
+  <%= paginate @modeles %> 
+  
+</div>
