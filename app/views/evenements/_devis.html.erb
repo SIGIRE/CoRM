@@ -1,4 +1,23 @@
 <div class="container-fluid" style="margin-top: 1em;">
+   
+
+     <div class="well">
+       <div class="row-fluid">
+         <div class="span3">
+           <h3>Liste des Devis</h3>
+         </div>
+         <div class="pull-right">
+           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_devi_path(:compte_id => @compte.id) ,{:title => "Créer un devis"}%>
+         </div>
+       </div>
+     </div>
+
+         
+</div>
+
+
+
+<div class="container-fluid">
   
   <% if Devi.by_compte(@compte).blank? %>
     <h4> Aucun devis n'est rattaché à ce compte </h4>
@@ -12,8 +31,9 @@
         <th>Opportunité</th>
         <th>Total HT</th>
         <th>Date</th>
-        <th>Voir</th>
         <th>Editer</th>
+        <th>Supp.</th>
+        <th>PDF</th>         
       </tr>
     
     <% @devis = Devi.by_compte(@compte).order('date').page(params[:page]) %>
@@ -42,14 +62,15 @@
         </td>
         <td style="text-align :right;"><%= number_to_currency(devi.total_ht, :locale => :fr) %></td>
         <td><%= if !devi.date.nil? then devi.date.strftime("%d/%m/%Y") end%></td>
-        <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), devi %></td>
         <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_devi_path(devi) %></td>
+        <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), devi, :title => "Supprimer le devis", :confirm => 'Confirmer la suppression ?', :method => :delete %></td>          
+        <td><%= link_to image_tag("glyphicons/glyphicons_015_print.png"), devi_path(devi, :format => "pdf") %></td>
+    </tr>    
     <% end %>
     </table>
     
   <% end %>
   
-  <br /><br /><br />
-  <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_devi_path(:compte_id => @compte.id) %>
+
     
 </div>

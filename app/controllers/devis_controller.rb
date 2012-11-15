@@ -37,8 +37,7 @@ class DevisController < ApplicationController
     @devi.total_ht = 0
     @devi.tva = 19.60
     
-    @devi.total_tva = @devi.total_ht*(@devi.tva/100)
-    @devi.total_ttc = @devi.total_ht+@devi.total_tva
+
     
     #calcul effectué pour chaque item du devis
     @devi.items.each do |i|
@@ -47,6 +46,9 @@ class DevisController < ApplicationController
         @devi.total_ht += i.total_ht
       end
     end
+    
+    @devi.total_tva = @devi.total_ht*(@devi.tva/100)
+    @devi.total_ttc = @devi.total_ht+@devi.total_tva    
     
     respond_to do |format|
       if @devi.save

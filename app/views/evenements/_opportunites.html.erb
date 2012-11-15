@@ -1,11 +1,28 @@
 <div class="container-fluid" style="margin-top: 1em;">
+   
+
+     <div class="well">
+       <div class="row-fluid">
+         <div class="span4">
+           <h3>Liste des Opportunités</h3>
+         </div>
+         <div class="pull-right">
+           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_opportunite_path(:compte_id => @compte.id) ,{:title => "Créer une opportunité"}%>
+         </div>
+       </div>
+     </div>
+
+         
+</div>
+
+<div class="container-fluid">
 	
 	<% if Opportunite.by_compte(@compte).blank? %>
 		<h4> Aucune opportunité n'est rattachée à ce compte </h4>
 	<% else %>
         
 
-  <table class="table table-bordered table-striped"  style="margin-top: 1em;">
+  <table class="table table-bordered table-striped">
     <thead>
       <tr>
         <th>Id</th>
@@ -78,7 +95,5 @@
   
   <% end %>
   
-  <br /><br /><br />
-  <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_opportunite_path(:compte_id => @compte.id) %>
 
 </div>

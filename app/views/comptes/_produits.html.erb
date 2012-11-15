@@ -1,19 +1,53 @@
+<div class="container-fluid" style="margin-top: 1em;">
+   
+
+     <div class="well">
+       <div class="row-fluid">
+         <div class="span3">
+           <h3>Liste des Produits</h3>
+         </div>
+         <div class="pull-right">
+           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_produit_path(:compte_id => @compte.id) ,{:title => "Créer un produit"}%>
+         </div>
+       </div>
+     </div>
+
+         
+</div>
+
+
+<div class="container-fluid">
+	
+	<% if @compte.produits.blank? %>
+		<h4> Aucun produit n'est rattaché à ce compte </h4>
+	<% else %>
+        
+
+
 <table class="table table-bordered table-striped">
+  <thead>
   <tr>
     <th>Nom</th>
     <th>Description</th>
     <th>Voir</th>
   </tr>
-
+  </thead>
+  <tbody>
 <% @produits = @compte.produits.order('nom').page(params[:page]) %>
+
 <% @produits.each do |produit| %>
   <tr>
     <td style="width: 15em;"><%= link_to produit.nom, produit %></td>
     <td><%= truncate(produit.description, :length => 600, :separator => ' ') %></td>
     <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), produit %></td>
 <% end %>
+  </tbody>
 </table>
 
-<br />
-
-<%= paginate @produits %>
+  <br />
+  
+  <%= paginate @produits %>
+  
+  
+<% end %>
+</div>

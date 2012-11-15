@@ -14,6 +14,7 @@
         <th>Date</th>
         <th>Editer</th>
         <th>Supp.</th>
+        <th>PDF</th>        
       </tr>
     </thead>
     
@@ -46,6 +47,7 @@
         <td><%= if !devi.date.nil? then devi.date.strftime("%d/%m/%Y") end%></td>
         <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_devi_path(devi) %></td>
         <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), devi, :title => "Supprimer le devis", :confirm => 'Confirmer la suppression ?', :method => :delete %></td>          
+        <td><%= link_to image_tag("glyphicons/glyphicons_015_print.png"), devi_path(devi, :format => "pdf") %></td>
     </tr>
     <% end %>
     </tbody>

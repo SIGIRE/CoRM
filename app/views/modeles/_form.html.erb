@@ -74,12 +74,14 @@
       <% end %>
     </div>
     
-    <div class="field">
-      <div class="span2" >
-        <%= link_to image_tag("glyphicons/glyphicons_221_unshare.png"),:back %>
-      </div>
-          <%= f.submit 'Sauvegarder le modèle', :class =>"btn btn-primary"%>
+    
+  <div class="row">
+    <div class="span2"> <%= f.submit :class =>"btn btn-primary" %> </div>
+    <div class="pull-right ">
+      <%= if !@modele.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @modele, :title => "Supprimer le modèle", :confirm => 'Confirmer la suppression ?', :method => :delete end %> 
     </div>
+  </div>    
+    
     
   <% end %>
 </div>

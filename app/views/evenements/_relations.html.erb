@@ -1,4 +1,22 @@
 <div class="container-fluid" style="margin-top: 1em;">
+   
+
+     <div class="well">
+       <div class="row-fluid">
+         <div class="span3">
+           <h3>Liste des Relations</h3>
+         </div>
+         <div class="pull-right">
+           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_relation_path(:compte1_id => @compte.id) ,{:title => "Créer une relation"}%>
+         </div>
+       </div>
+     </div>
+
+         
+</div>
+
+
+<div class="container-fluid">
   
  <% if Relation.by_compte(@compte).blank? %>
   <h4> Aucune relation n'affectée à ce compte </h4>
@@ -35,8 +53,6 @@
     <%= paginate @relations %>
   <% end %>
   
-  <br /><br /><br />  
-  <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_relation_path(:compte1_id => @compte.id) %>
 
   
 </div>
