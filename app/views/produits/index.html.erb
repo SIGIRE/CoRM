@@ -5,20 +5,20 @@
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
+        <th>Id</th>
         <th>Nom</th>
         <th>Description</th>
-        <th>Editer</th>
-        <th>Supp.</th>   
+        <th>Éditer</th>
       </tr>
     </thead>
     
   <tbody>
   <% @produits.each do |produit| %>
     <tr>
+      <td><%= produit.id %></td>
       <td><%= produit.nom %></td>
       <td><%= truncate(produit.description, :length => 300, :separator => ' ')%></td>
-      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_produit_path(produit) %></td>
-      <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), produit, :title => "Supprimer le produit", :confirm => 'Confirmer la suppression ?', :method => :delete %></td>   
+      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_produit_path(produit),{:title => "Éditer le tag"} %></td>
     </tr>
   <% end %>
   </tbody>

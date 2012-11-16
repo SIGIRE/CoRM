@@ -52,22 +52,22 @@
   </div>
   
   <div class="field">
-    <div class="span2"> Produit associé : </div>
+    <div class="span2"> Tag(s) associé(s) : </div>
     <%= select_tag :display_contact_produit, options_from_collection_for_select(@contact.produits.order('nom ASC').all, "id", "nom"), {:size => 6, :multiple => true, :disabled => true} %>
-    <a id="contact_ajout_button" class="btn btn-success btn-mini" data-toggle="modal" href="#contact_produit_modal" style="margin-bottom: 1em; margin-left: 2em;">Modifier Produits</a>
+    <a id="contact_ajout_button" class="btn btn-success btn-mini" data-toggle="modal" href="#contact_produit_modal" style="margin-bottom: 1em; margin-left: 2em;">Modifier Tag</a>
   </div>
   
   <div class="modal hide fade" id="contact_produit_modal" style="width: 900px; margin-left: -450px;">
     
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal">×</button>
-      <h3>Ajout de produits</h3>
+      <h3>Ajout de tags</h3>
     </div>
     
     <div class="modal-body">
       
       <div class="span3" style="margin-left: 50px;">
-      <h4>Liste des produits :</h4>
+      <h4>Liste des tags :</h4>
       <% @produits = Produit.order('nom ASC').all %>
       <%= select_tag :produit, options_from_collection_for_select(@produits, "id", "nom"), {:size => 6, :multiple => true} %>
       </div>
@@ -89,7 +89,7 @@
       </div>
       
       <div class="span3">
-        <h4>Produits associés au contact :</h4>
+        <h4>Tag(s) associé(s) au contact :</h4>
         <%= select_tag :contact_produit, options_from_collection_for_select(@contact.produits.order('nom ASC').all, "id", "nom"), {:size => 6, :multiple => true} %>
       </div>
       

@@ -61,9 +61,9 @@
   </div>
 
   <div class="field">
-    <div class="span2"> Produit(s) associé(s) : </div>
+    <div class="span2"> Tag(s) associé(s) : </div>
     <%= select_tag :display_compte_produit, options_from_collection_for_select(@compte.produits.order('nom ASC').all, "id", "nom"), {:size => 6, :multiple => true} %>
-    <a id="compte_ajout_button" class="btn btn-success btn-mini" data-toggle="modal" href="#compte_produit_modal" style="margin-bottom: 1em; margin-left: 2em;">Modifier Produits</a>
+    <a id="compte_ajout_button" class="btn btn-success btn-mini" data-toggle="modal" href="#compte_produit_modal" style="margin-bottom: 1em; margin-left: 2em;">Modifier Tag</a>
   </div>
   
   <div class="modal hide fade" id="compte_produit_modal" style="width: 900px; margin-left: -450px;">

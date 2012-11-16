@@ -4,10 +4,10 @@
      <div class="well">
        <div class="row-fluid">
          <div class="span3">
-           <h3>Liste des Produits</h3>
+           <h3>Liste des Tags</h3>
          </div>
          <div class="pull-right">
-           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_produit_path(:compte_id => @compte.id) ,{:title => "Créer un produit"}%>
+           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_produit_path(:compte_id => @compte.id) ,{:title => "Créer un tags"}%>
          </div>
        </div>
      </div>
@@ -19,7 +19,7 @@
 <div class="container-fluid">
 	
 	<% if @compte.produits.blank? %>
-		<h4> Aucun produit n'est rattaché à ce compte </h4>
+		<h4> Aucun tag n'est rattaché à ce compte </h4>
 	<% else %>
         
 

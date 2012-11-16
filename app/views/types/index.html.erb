@@ -4,21 +4,21 @@
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
+        <th>Id</th>
         <th>Libell&eacute;</th>
         <th>Sens</th>  
-        <th>Editer</th>
-        <th>Supp.</th>    
+        <th>Éditer</th>
       </tr>
     </thead>
     
   <tbody>
   <% @types.each do |type| %>
     <tr>
+      <td><%= type.id %></td>
       <td><%= type.libelle %></td>
       <td><%= type.direction %></td>
       <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_type_path(type),{:title => "Éditer le type"}%></td>
-      <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), type, :title => "Supprimer le type", :confirm => 'Confirmer la suppression ?', :method => :delete %></td>   
-    </tr>
+     </tr>
   <% end %>
   </tbody>
   </table>

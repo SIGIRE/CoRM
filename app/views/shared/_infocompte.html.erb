@@ -3,16 +3,16 @@
 <%= link_to image_tag("glyphicons/glyphicons_020_home.png"), edit_compte_path(@compte),{:title => "Éditer le compte"} %> <i>(<%= @compte.genre %>)</i>
 <b><%= @compte.societe %></b>
 <% if @compte.adresse1 != "" %>
-Adresse : <%= @compte.adresse1 %>
+<%= @compte.adresse1 %>
 <% end %>
 <% if @compte.adresse2 != "" %>
 <%= @compte.adresse2 %>
 <% end %>
 <% if @compte.ville != "" %>
-Ville : <%= @compte.ville %>
+<%= @compte.ville %>
 <% end %>
 <% if @compte.cp != "" %>
-CP : <%= @compte.cp %>
+<%= @compte.cp %>
 <% end %>
 <% if @compte.tel != "" %>
 Tél : <%= @compte.tel %>
