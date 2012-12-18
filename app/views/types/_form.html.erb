@@ -19,8 +19,11 @@
     <div class="span2"> Direction : </div> <%= f.text_field :direction , :style=>'width: 30em;'%>
   </div>
   
-  <div class="actions">
-    <%= f.submit :class =>"btn btn-primary" %>
+   <div class="row">
+    <div class="span2"> <%= f.submit :class =>"btn btn-primary",:id =>"type_validate_form"%> </div>
+    <div class="pull-right ">
+      <%= if !@type.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @type, :title => "Supprimer le type", :confirm => 'Confirmer la suppression ?', :method => :delete end %> 
+    </div>
   </div>
   
 <% end %>

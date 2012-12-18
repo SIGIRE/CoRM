@@ -19,10 +19,10 @@
     <div class="span2"><%= f.label :description %></div>
     <%= f.text_area :description, :display_with => :simple_format, :rows => "5", :style=>'width: 30em;' %>
   </div>
-  <div class="field">
-    <div class="span2" >
-      <%= link_to image_tag("glyphicons/glyphicons_221_unshare.png"), :back %>
+   <div class="row">
+    <div class="span2"> <%= f.submit :class =>"btn btn-primary",:id =>"produit_validate_form"%> </div>
+    <div class="pull-right ">
+      <%= if !@produit.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @produit, :title => "Supprimer le tag", :confirm => 'Confirmer la suppression ?', :method => :delete end %> 
     </div>
-    <%= f.submit :class =>"btn btn-primary"%>
   </div>
 <% end %>

@@ -5,21 +5,20 @@
   <table class="table table-bordered table-striped">
    <thead> 
     <tr>
+      <th>Id</th>
       <th>Nom</th>
       <th>Description</th>
-      <th>Editer</th>
-      <th>Supp.</th> 
+      <th>Éditer</th>
     </tr>
    </thead>
    
   <tbody> 
   <% @origines.each do |origine| %>
     <tr>
+      <td><%= origine.id %></td>
       <td><%= origine.nom %></td>
       <td><%= truncate(origine.description, :length => 300, :separator => ' ')%></td>
-      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_origine_path(origine) %></td>
-      <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), origine, :title => "Supprimer l'origine", :confirm => 'Confirmer la suppression ?', :method => :delete %></td>   
-      
+      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_origine_path(origine),{:title => "Éditer l'origine"} %></td>   
     </tr>
   <% end %>
   </tbody>
