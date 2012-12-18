@@ -7,7 +7,9 @@
            <h3>Liste des Produits</h3>
          </div>
          <div class="pull-right">
-           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_produit_path(:compte_id => @compte.id) ,{:title => "Créer un produit"}%>
+          <!--<a id="compte_ajout_button" data-toggle="modal" href="#compte_produit_modal">
+	   					 <%= image_tag("glyphicons/glyphicons_190_circle_plus.png")%></a>-->
+           <!--<%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_produit_path(:compte_id => @compte.id) ,{:title => "Créer un produit"}%>-->          
          </div>
        </div>
      </div>
@@ -17,7 +19,14 @@
 
 
 <div class="container-fluid">
-	
+          <div>
+          <%= form_tag({:controller => "comptes", :action => "add_produit", :compte_id => @compte.id}, :method => "post") do %>
+            <% @produits = Produit.order('nom ASC').all %>
+            <%= select_tag :produit_id, options_from_collection_for_select(@produits, "id", "nom") %>
+            <%= submit_tag("Affecter") %>
+          <% end %>
+          </div>
+          
 	<% if @compte.produits.blank? %>
 		<h4> Aucun produit n'est rattaché à ce compte </h4>
 	<% else %>

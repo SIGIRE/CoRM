@@ -61,6 +61,7 @@ Crm::Application.routes.draw do
       get 'search_tel'
       get 'update_produits'
       get 'filter'
+      post 'add_produit'
     end
     resources :evenements
     resources :contacts

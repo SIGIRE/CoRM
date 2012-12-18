@@ -162,4 +162,18 @@ class ComptesController < ApplicationController
     end
   end
   
+  
+  def add_produit
+
+    @produit = Produit.find(params[:produit_id])
+    @compte = Compte.find(params[:compte_id])
+    @compte.produits  << @produit
+
+    respond_to do |format|
+        format.html  { redirect_to compte_evenements_url(@compte.id), :notice => "Affectation du produit effectuée!" }
+        format.json  { render :json => @produit}
+    end    
+    
+  end
+  
 end
