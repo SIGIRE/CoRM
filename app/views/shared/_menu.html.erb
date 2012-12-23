@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
           </a>
           
-          <%= link_to "CRM", root_path ,:class =>"brand" %>
+          <%= link_to image_tag("logo_crm_small.png"), root_path ,:class =>"brand" %>
           
           
           <div class="nav-collapse" style="margin-top: 5px;">
@@ -47,6 +47,8 @@
 		<li class="active dropdown">
 	      <% elsif params[:controller] == 'opportunites' then%>
 		<li class="active dropdown">
+	      <% elsif params[:controller] == 'extractions' then%>
+		<li class="active dropdown">  
 	      <% else %>
 		<li class="dropdown">
 	      <% end %>
@@ -60,7 +62,8 @@
 		<li><%= link_to image_tag("icons/opportunites2.png", :size => "18x16")+" Opportunités".html_safe, opportunites_path %></li>
 		<li><%= link_to image_tag("icons/euro2.png", :size => "16x16")+" Devis".html_safe, devis_path %></li>
 		<li class="divider"></li>
-		<li><%= link_to image_tag("icons/fiches.png", :size => "16x16")+" Extractions".html_safe, devis_path %></li>
+		<li><%= link_to image_tag("icons/fiches.png", :size => "16x16")+" Extraction Comptes".html_safe, url_for(:controller => 'extractions', :action => 'select_param_comptes') %></li>
+		<li><%= link_to image_tag("icons/fiches.png", :size => "16x16")+" Extraction Contacts".html_safe, url_for(:controller => 'extractions', :action => 'select_param_contacts') %></li>
 	      </ul>
               </li>
 		

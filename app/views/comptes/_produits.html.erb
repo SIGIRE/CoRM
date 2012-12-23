@@ -45,7 +45,7 @@
   <tr>
     <td style="width: 15em;"><%= link_to produit.nom, produit %></td>
     <td><%= truncate(produit.description, :length => 600, :separator => ' ') %></td>
-    <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), produit %></td>
+    <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), :controller => "comptes", :action => "delete_produit", :compte_id => @compte.id, :produit_id => produit.id %></td>
 <% end %>
   </tbody>
 </table>

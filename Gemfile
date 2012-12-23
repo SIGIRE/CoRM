@@ -57,3 +57,7 @@ gem "prawn_rails"
 
 # gem "zurb-foundation", :group => :assets
 # gem 'skeleton-rails'
+
+# gem 'ruport'
+# gem 'acts_as_reportable'
+

@@ -1,5 +1,11 @@
 Crm::Application.routes.draw do  
 
+  match 'extractions/select_param_comptes', :controller=>'extractions', :action => 'select_param_comptes'
+  match 'extractions/comptes', :controller=>'extractions', :action => 'comptes', :as => :csv
+  match 'extractions/select_param_contacts', :controller=>'extractions', :action => 'select_param_contacts'
+  match 'extractions/contacts', :controller=>'extractions', :action => 'contacts', :as => :csv
+  
+  
   resources :modeles
 
   resources :items
@@ -54,7 +60,7 @@ Crm::Application.routes.draw do
   resources :types
 
 
-
+  match 'comptes/delete_produit', :controller=>"comptes", :action =>'delete_produit'
   resources :comptes do
     collection do
       get 'search'

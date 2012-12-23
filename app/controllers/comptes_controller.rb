@@ -17,6 +17,7 @@ class ComptesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @comptes }
+      #format.csv { send_data @comptes.to_csv }
     end
   end
 
@@ -175,5 +176,20 @@ class ComptesController < ApplicationController
     end    
     
   end
+  
+  
+  def delete_produit
+
+    @produit = Produit.find(params[:produit_id])
+    @compte = Compte.find(params[:compte_id])
+    @compte.produits.delete(@produit)
+
+    respond_to do |format|
+        format.html  { redirect_to compte_evenements_url(@compte.id), :notice => "Suppression de l'affectation du produit effectuée!" }
+        format.json  { render :json => @produit}
+    end    
+    
+  end
+  
   
 end

@@ -1,0 +1,59 @@
+<div class="container-fluid" style="margin-top: 1em;">
+   
+
+     <div class="well">
+       <div class="row-fluid">
+         <div class="span3">
+           <h3>Extraction des comptes</h3>
+         </div>
+
+       </div>
+     </div>
+
+         
+</div>
+
+
+
+<div class="container-fluid" style= "background-color: #D8D8D8; margin-top: 0em; ">
+    
+
+     
+  <%= form_tag({:controller => "extractions", :action => "comptes", format: :csv}, :method => "get") do %>
+
+      
+      <div>
+        <h6>Code Postal commence par : </h6><%= text_field_tag :code_postal, nil,  {:class=>"span3"} %>
+      </div>
+
+      <div>
+        <h6>Pays : </h6><%= text_field_tag :pays, nil,  {:class=>"span3"} %>
+      </div>
+      
+      <div>
+        <% @produits = Produit.order('nom ASC').all %>
+        <h6>Tags : </h6><%= select_tag :produits, options_from_collection_for_select(@produits, "id", "nom"), {:include_blank => true, :multiple => :true, :size => 5, :class =>"span3 filter_statut"}%>
+      </div>
+         
+      <div>
+         <h6>Genres : </h6><%= select_tag 'genres[]', options_for_select(Compte::GENRES), {:include_blank => true, :multiple => :true, :size => 5, :class =>"span3"}%>
+      </div>      
+
+      <div>
+        <% @origines = Origine.order('nom ASC').all %>
+        <h6>Origines : </h6><%= select_tag :origines, options_from_collection_for_select(@origines, "id", "nom"), {:include_blank => true, :multiple => :true, :size => 5, :class =>"span3"}%>
+      </div>      
+ 
+      <div>
+        <% @users = User.order('nom ASC').all %>
+        <h6>Suivis par : </h6><%= select_tag :user, options_from_collection_for_select(@users, "id", "nom_complet"), {:include_blank => true, :size => 5, :class =>"span3 filter_coll"}%>
+      </div>
+      
+      
+      <div style="margin-top: 18px;">
+        <%= submit_tag "Extraire", :class =>"btn "%>
+      </div>
+    
+  <% end %>
+  
+</div>
