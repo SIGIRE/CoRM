@@ -41,7 +41,6 @@ gem 'capistrano', :group => :development
 # gem 'ruby-debug'
 
 
-
 gem 'therubyracer'
 gem 'devise'
 # gem 'activeadmin'
@@ -60,4 +59,4 @@ gem "prawn_rails"
 
 # gem 'ruport'
 # gem 'acts_as_reportable'
-
+gem 'money-rails'

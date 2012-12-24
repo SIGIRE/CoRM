@@ -1,6 +1,8 @@
 # encoding: utf-8
 class DevisPdf < Prawn::Document
  
+ include ActionView::Helpers::NumberHelper
+ 
   def initialize(devi, view)
     super()
     
@@ -55,7 +57,7 @@ class DevisPdf < Prawn::Document
   end
   
   def entete
-      text_box "DEVIS #{@devi.id}", :size => 22, :style => :bold, :at => [0,600]
+      text_box "DEVIS N° #{@devi.id}", :size => 20, :style => :bold, :at => [0,600]
   end
   
   
@@ -105,7 +107,7 @@ class DevisPdf < Prawn::Document
       [
         item.ref,
         item.designation,
-        item.quantite,
+        number_with_precision(item.quantite.to_s, :precision => 2) || 0,
         "#{item.prix_ht} €",
         "#{item.total_ht} €"
       ]
@@ -119,7 +121,7 @@ class DevisPdf < Prawn::Document
         #:position => :center,
         :width => 535,
         :column_widths => [80,275,50,60,70],
-        :cell_style => {:size => 12 }
+        :cell_style => {:size => 10 }
         )
     
     #table.row(0).columns(0..4).background_color = "000000"

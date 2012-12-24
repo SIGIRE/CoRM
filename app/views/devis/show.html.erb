@@ -74,7 +74,7 @@
           <tr>
             <td><%= item.ref %></td>
             <td style="width: 60%;"><%= item.designation %></td>
-            <td style="width: 5%; text-align :center;"><%= item.quantite %></td>
+            <td style="width: 5%; text-align :center;"><%= (number_with_precision(item.quantite, :precision => 2, :locale => :fr) || 0) %></td>
             <td style="text-align :right;"><%= item.prix_ht %> €</td>
             <td style="text-align :right;"><%= item.total_ht %> €</td>
           </tr>
@@ -83,7 +83,7 @@
         
         <div class="pull-right">
           <div class="span2"><strong> Total HT :</strong></div><div class="span1" style="text-align: right;"><%=number_to_currency(@devi.total_ht, :locale => :fr) %></div><br />
-          <div class="span2"><strong> TVA <%= @devi.tva.to_s %> % :</strong></div><div class="span1" style="text-align: right;"><%=number_to_currency(@devi.total_tva, :locale => :fr) %></div><br />
+          <div class="span2"><strong> TVA <%= @devi.taux_tva.to_s %> % :</strong></div><div class="span1" style="text-align: right;"><%=number_to_currency(@devi.total_tva, :locale => :fr) %></div><br />
           <div class="span2"><strong> Total TTC :</strong></div><div class="span1" style="text-align: right;"><%=number_to_currency(@devi.total_ttc, :locale => :fr) %></div><br />
         </div>
         

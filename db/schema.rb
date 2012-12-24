@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121010172409) do
+ActiveRecord::Schema.define(:version => 20121224100356) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -102,24 +102,37 @@ ActiveRecord::Schema.define(:version => 20121010172409) do
     t.string   "ref_compte"
     t.string   "mode_reg"
     t.integer  "validite"
-    t.float    "tva"
     t.boolean  "done"
-    t.float    "total_ht"
-    t.float    "total_tva"
-    t.float    "total_ttc"
     t.string   "fichier_joint_file_name"
     t.string   "fichier_joint_content_type"
     t.integer  "fichier_joint_file_size"
     t.datetime "fichier_joint_updated_at"
     t.string   "created_by"
     t.string   "updated_by"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
     t.integer  "compte_id"
     t.integer  "contact_id"
     t.integer  "user_id"
     t.integer  "opportunite_id"
     t.integer  "modele_id"
+    t.integer  "total_ht_cents",             :default => 0,     :null => false
+    t.string   "total_ht_currency",          :default => "USD", :null => false
+    t.integer  "total_ttc_cents",            :default => 0,     :null => false
+    t.string   "total_ttc_currency",         :default => "USD", :null => false
+    t.string   "societe"
+    t.string   "adresse1"
+    t.string   "adresse2"
+    t.string   "cp"
+    t.string   "ville"
+    t.string   "pays"
+    t.string   "nom"
+    t.string   "prenom"
+    t.string   "civilite"
+    t.string   "fonction"
+    t.decimal  "taux_tva"
+    t.integer  "total_tva_cents",            :default => 0,     :null => false
+    t.string   "total_tva_currency",         :default => "USD", :null => false
   end
 
   create_table "documents", :force => true do |t|
@@ -159,12 +172,14 @@ ActiveRecord::Schema.define(:version => 20121010172409) do
   create_table "items", :force => true do |t|
     t.string   "ref"
     t.text     "designation"
-    t.float    "quantite"
-    t.float    "prix_ht"
-    t.float    "total_ht"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.integer  "devi_id"
+    t.integer  "prix_ht_cents",     :default => 0,     :null => false
+    t.string   "prix_ht_currency",  :default => "USD", :null => false
+    t.integer  "total_ht_cents",    :default => 0,     :null => false
+    t.string   "total_ht_currency", :default => "USD", :null => false
+    t.decimal  "quantite"
   end
 
   create_table "modeles", :force => true do |t|

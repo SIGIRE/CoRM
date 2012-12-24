@@ -9,7 +9,7 @@
     </div>
     
     <div class="span2">
-      <h6>Quantité : </h6><%= f.text_field :quantite , :class =>"filter_tfield"%>
+      <h6>Quantité : </h6><%= f.text_field :quantite , :class =>"filter_tfield", :value => (number_with_precision(f.object.quantite, :precision => 2) || 0)%>
     </div>
   
     <div class="span2">

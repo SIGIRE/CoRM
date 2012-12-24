@@ -33,25 +33,40 @@ class DevisController < ApplicationController
     @devi = Devi.new(params[:devi])
     @devi.created_by = current_user.nom_complet
     
+    @devi.societe = @devi.compte.societe unless @devi.compte.nil?
+    @devi.adresse1 = @devi.compte.adresse1 unless @devi.compte.nil?
+    @devi.adresse2 = @devi.compte.adresse2 unless @devi.compte.nil?
+    @devi.cp = @devi.compte.cp unless @devi.compte.nil?
+    @devi.ville = @devi.compte.ville unless @devi.compte.nil?
+    @devi.pays = @devi.compte.pays unless @devi.compte.nil?
+    @devi.nom = @devi.contact.nom unless @devi.contact.nil?
+    @devi.prenom = @devi.contact.prenom unless @devi.contact.nil?
+    @devi.civilite = @devi.contact.civilite unless @devi.contact.nil?
+    @devi.fonction = @devi.contact.fonction unless @devi.contact.nil?
+    
+    
     #initialisation des variables pour les calculs de prix et total
     @devi.total_ht = 0
-    @devi.tva = 19.60
+    @devi.taux_tva = 19.60
     
 
     
     #calcul effectué pour chaque item du devis
     @devi.items.each do |i|
-      if !i.quantite.nil? && !i.prix_ht.nil?
-        i.total_ht = i.quantite*i.prix_ht
+      if !i.quantite.nil? && !i.prix_ht.nil? then
+        i.total_ht = i.prix_ht * i.quantite
         @devi.total_ht += i.total_ht
+      else
+        i.total_ht = 0
       end
     end
     
-    @devi.total_tva = @devi.total_ht*(@devi.tva/100)
+    @devi.total_tva = @devi.total_ht*(@devi.taux_tva/100)
     @devi.total_ttc = @devi.total_ht+@devi.total_tva    
     
     respond_to do |format|
       if @devi.save
+        self.create_event(false)
         format.html  { redirect_to compte_evenements_url(@devi.compte_id), :notice => "Le devis a été créé" }
         format.json  { render :json => @devi,
                       :status => :created}
@@ -69,24 +84,41 @@ class DevisController < ApplicationController
 
   def update
     @devi = Devi.find(params[:id])
+    
+    @devi.update_attributes(params[:devi])
+    
     @devi.updated_by = current_user.nom_complet
+    
+    @devi.societe = @devi.compte.societe unless @devi.compte.nil?
+    @devi.adresse1 = @devi.compte.adresse1 unless @devi.compte.nil?
+    @devi.adresse2 = @devi.compte.adresse2 unless @devi.compte.nil?
+    @devi.cp = @devi.compte.cp unless @devi.compte.nil?
+    @devi.ville = @devi.compte.ville unless @devi.compte.nil?
+    @devi.pays = @devi.compte.pays unless @devi.compte.nil?
+    @devi.nom = @devi.contact.nom unless @devi.contact.nil?
+    @devi.prenom = @devi.contact.prenom unless @devi.contact.nil?
+    @devi.civilite = @devi.contact.civilite unless @devi.contact.nil?
+    @devi.fonction = @devi.contact.fonction unless @devi.contact.nil?    
     
     #initialisation
     @devi.total_ht = 0
-  
+    
     #calcul pour chaque item
     @devi.items.each do |i|
-      if !i.quantite.nil? && !i.prix_ht.nil?
-        i.total_ht = i.quantite*i.prix_ht
+      if !i.quantite.nil? && !i.prix_ht.nil? then
+        i.total_ht = i.prix_ht * i.quantite
         @devi.total_ht += i.total_ht
+      else
+        i.total_ht = 0
       end
     end
     
-    @devi.total_tva = @devi.total_ht*(@devi.tva/100)
+    @devi.total_tva = @devi.total_ht*(@devi.taux_tva/100)
     @devi.total_ttc = @devi.total_ht+@devi.total_tva
     
-    if @devi.update_attributes(params[:devi])
-      redirect_to @devi, :notice => "Le devis a été mis à jour."
+    if @devi.save #update_attributes(params[:devi])
+      self.create_event(true)
+      redirect_to compte_evenements_url(@devi.compte_id), :notice => "Le devis a été modifié"
     else
       render :action => 'edit'
     end
@@ -127,6 +159,29 @@ class DevisController < ApplicationController
   def update_opportunite_select
     opportunites = Opportunite.where(:compte_id => params[:id]).order(:nom)
     render :partial => "opportunites" , :locals =>{:opportunites => opportunites }  
+  end
+  
+  
+  def create_event(bool)
+    #hash typé pour les params d'un evenement
+    hash = Hash.new
+    #hash["type_id"] = Type.where('UPPER(libelle) = "DEVIS" and UPPER(sens) = "SORTANT"')
+    hash["compte_id"] = params[:devi][:compte_id]
+    hash["contact_id"] = params[:devi][:contact_id]
+    hash["debut"] = Time.now
+    hash["fin"] = hash["debut"]
+
+    numdevis = (params[:id])
+
+    if(bool == true)
+      hash["modified_by"] = current_user.nom_complet
+      hash["notes"] = "Devis n°" + numdevis.to_s + " modifié."
+    else
+      hash["created_by"] = current_user.nom_complet
+      hash["notes"] = "Devis n°" + @devi.id.to_s + " créé."
+    end
+    
+    @evenement = Evenement.create(hash)
   end
   
 end

@@ -22,5 +22,10 @@ class Devi < ActiveRecord::Base
   
   STATUTS = ["Sauvegardé", "En cours", "Accepté", "Refusé"]
 
+  monetize :total_ht_cents
+  monetize :total_tva_cents
+  monetize :total_ttc_cents
+
+
   scope :by_compte, lambda { |compte| where("compte_id = ?", compte.id) unless compte.nil? }
 end

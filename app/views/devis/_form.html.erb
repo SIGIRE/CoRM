@@ -38,12 +38,12 @@
     
     
     <div class="page-header">
-      <h3> Items </h3>
+      <h3> Lignes du devis </h3>
     </div>
     
     <div class="field" style="margin-left: 2em;">
       <%= f.fields_for :items %>
-      <%= f.link_to_add "Ajouter un item", :items ,{:class => "btn btn-success"}%>
+      <%= f.link_to_add "Ajouter une ligne", :items ,{:class => "btn btn-success"}%>
       <br /><br />
       <!--<h4>Total HT = <%#= f.text_field :total_ht , :style =>"width: 80px; text-align: right;", :disabled => true%> €</h4>-->
     </div>
