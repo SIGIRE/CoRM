@@ -36,7 +36,7 @@ namespace :deploy do
    
    desc "Change owner of the tmp folder"
    task :change_owner_tmp do
-    run "chown -R apache:apache #{app_path}"
+    run "chown -R apache:apache #{deploy_to}"
    end   
    
 end
