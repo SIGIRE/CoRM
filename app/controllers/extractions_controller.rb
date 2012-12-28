@@ -19,7 +19,7 @@ class ExtractionsController < ApplicationController
     
     @comptes = Compte.by_cp(params[:code_postal]).by_pays(params[:pays]).by_tags(params[:produits]).by_user(params[:user]).by_genre(params[:genres]).by_origine(params[:origines])
 
-    comptes_csv = CSV.generate do |csv|
+    comptes_csv = CSV.generate(:col_sep => ';') do |csv|
       # header row
       csv << ['id', 'societe', 'adresse1', 'adresse2', 'cp', 'ville', 'pays', 'tel', 'fax', 'email', 'web', 'code_compta', 'genre', 'collaborateur', 'origine']
       # data row

@@ -1,5 +1,7 @@
 class Compte < ActiveRecord::Base
   
+  before_save :uppercase_societe
+  
   has_many :contacts
   has_many :evenements
   has_many :taches
@@ -35,6 +37,9 @@ class Compte < ActiveRecord::Base
   scope :by_origine, lambda { |origine| where("origine_id IN (?)", origine) unless origine.blank? }   
   
   
+  def uppercase_societe
+    self.societe.upcase!
+  end
   
   
   #def self.to_csv (options = {})

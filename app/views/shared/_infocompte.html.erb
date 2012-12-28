@@ -1,34 +1,14 @@
 
 <pre>
 <%= link_to image_tag("glyphicons/glyphicons_020_home.png"), edit_compte_path(@compte),{:title => "Éditer le compte"} %> <i>(<%= @compte.genre %>)</i>
-<b><%= @compte.societe %></b>
-<%= @compte.adresse1 unless @compte.adresse1 == ""%>
-<%= @compte.adresse2 unless @compte.adresse2 == ""%>
-<%= @compte.cp %> <%= @compte.ville %>
-
-<% if @compte.adresse1 != "" %>
-<%= @compte.adresse1 %>
-<% end %>
-<% if @compte.adresse2 != "" %>
-<%= @compte.adresse2 %>
-<% end %>
-<% if @compte.ville != "" %>
-<%= @compte.ville %>
-<% end %>
-<% if @compte.cp != "" %>
-<%= @compte.cp %>
-<% end %>
-
-<% if @compte.tel != "" %>
-Tél : <%= @compte.tel %>
-<% end %>
-<% if @compte.fax != "" %>
-Fax : <%= @compte.fax %>
-<% end %>
-<% if @compte.email != "" %>
-<%= mail_to(@compte.email) %>
-<% end %>
-<%= if !(@compte.web).nil?  then link_to @compte.web, @compte.web, :target => "_blank"  end %>
+<b><%= @compte.societe unless @compte.societe.blank? %></b>
+<%= @compte.adresse1 unless @compte.adresse1.blank? %>
+<%= @compte.adresse2 unless @compte.adresse2.blank? %>
+<%= @compte.cp unless @compte.cp.blank? %> <%= @compte.ville unless @compte.ville.blank? %>
+<%= "Tél : " + @compte.tel unless @compte.tel.blank? %>
+<%= "Fax : " + @compte.fax unless @compte.fax.blank? %>
+<%= mail_to(@compte.email) unless @compte.email.blank?%>
+<%= link_to(@compte.web, @compte.web, :target => "_blank") unless @compte.web.blank?%>
 </pre>
 
 <hr>

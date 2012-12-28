@@ -82,6 +82,7 @@ class ComptesController < ApplicationController
     @compte = Compte.find(params[:id])
     @compte.modified_by = current_user.nom_complet
     
+    
     if params[:display_compte_produit].nil?
       @compte.produits.clear
     else

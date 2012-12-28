@@ -22,7 +22,7 @@
 
       <div>
         <% @comptes = Compte.order('societe ASC').all %>
-        <h6>Comptes : </h6><%= select_tag :compte, options_from_collection_for_select(@comptes, "id", "societe", "ville"), {:include_blank => true, :multiple => :true, :size => 5, :class =>"span3"}%>
+        <h6>Comptes : </h6><%= select_tag :compte, options_from_collection_for_select(@comptes, "id", "societe", "ville"), {:include_blank => true, :multiple => :false, :size => 5, :class =>"span3"}%>
       </div>      
       
       <div>
