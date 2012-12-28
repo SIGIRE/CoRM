@@ -28,7 +28,7 @@ class ExtractionsController < ApplicationController
       end
     end
 
-    send_data(Iconv.conv('iso-8859-1//IGNORE', 'utf-8', comptes_csv), :type => 'test/csv; charset=iso-8859-1; header=present', :filename => 'comptes.csv') 
+    send_data(comptes_csv, :type => 'test/csv; charset=utf-8; header=present', :filename => 'comptes.csv') 
   end
   
   
@@ -49,7 +49,8 @@ class ExtractionsController < ApplicationController
       end
     end
 
-    send_data(Iconv.conv('iso-8859-1//IGNORE', 'utf-8', contacts_csv), :type => 'test/csv; charset=iso-8859-1; header=present', :filename => 'contacts.csv')     
+    send_data(contacts_csv, :type => 'test/csv; charset=utf-8; header=present', :filename => 'contacts.csv')
+    #send_data(Iconv.conv('iso-8859-1//IGNORE', 'utf-8', contacts_csv), :type => 'test/csv; charset=iso-8859-1; header=present', :filename => 'contacts.csv')     
   end
   
   

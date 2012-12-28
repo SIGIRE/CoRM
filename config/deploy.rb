@@ -9,9 +9,9 @@ set :keep_releases, 20
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-role :web, "demo-crm.sigire.net"                          # Your HTTP server, Apache/etc
-role :app, "demo-crm.sigire.net"                          # This may be the same as your `Web` server
-role :db,  "demo-crm.sigire.net", :primary => true # This is where Rails migrations will run
+role :web, "demo-crm.sigire.net" #, "demo-crm.sigire.net"                          # Your HTTP server, Apache/etc
+role :app, "demo-crm.sigire.net" #,  "demo-crm.sigire.net"                        # This may be the same as your `Web` server
+role :db,  "demo-crm.sigire.net", :primary => true #, "demo-crm.sigire.net", :primary => true # This is where Rails migrations will run
 #role :db,  "your slave db-server here"
 
 # if you want to clean up old releases on each deploy uncomment this:

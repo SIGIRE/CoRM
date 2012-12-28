@@ -1,6 +1,5 @@
 //= require jquery
 //= require jquery_ujs
-//= require jquery_nested_form
 //= require ./modal_comptes.js
 //= require ./modal_contacts.js
 //= require bootstrap
