@@ -3,15 +3,20 @@
   <div class="row-fluid show-grid" style="margin-top: 1em; ">
     
     <div class="span2">
-        D&eacute;but : <%= f.text_field :debut, :value => Date.today.strftime("%d/%m/%y"), :class =>"event_date" %>
+        D&eacute;but : <%= f.text_field :debut, :value => Date.today.strftime("%d/%m/%Y"), :class =>"event_date" %>
      </div>
     
     <div class="span3" style="margin-left: 0em; padding-top: 1.35em;">
          à <%= f.time_select :debut , :class => "event_time" %>
     </div>
     
+    
+<!--    <div class="span3" style="margin-left: 0em; padding-top: 1.35em;">
+         à <%= select_time Time.now, :prefix => :debut_time, :class => "event_time" %>
+    </div>-->
+    
     <div class="span2">
-        Fin : <%= f.text_field :fin, :value => Date.today.strftime("%d/%m/%y"), :class =>"event_date" %>
+        Fin : <%= f.text_field :fin, :value => Date.today.strftime("%d/%m/%Y"), :class =>"event_date" %>
     </div>
     
     <div class="span3" style="margin-left: 0em; padding-top: 1.35em;">

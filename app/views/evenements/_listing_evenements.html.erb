@@ -7,9 +7,9 @@
         <div>
           <small>
             N° <%= evenement.id %> -
-            D&eacute;but :  <%= evenement.debut.strftime("%d/%m/%y à %H:%M")%> -
-            Fin :  <%= evenement.fin.strftime("%d/%m/%y à %H:%M") %> -
-            (<%= distance_of_time_in_words(evenement.debut, evenement.fin) %>) - 
+            D&eacute;but :  <%= evenement.debut.strftime("%d/%m/%y à %H:%M") unless evenement.debut.blank?%> -
+            Fin :  <%= evenement.fin.strftime("%d/%m/%y à %H:%M") unless evenement.fin.blank? %> -
+            (<%= distance_of_time_in_words(evenement.debut, evenement.fin) unless (evenement.debut.blank? or evenement.fin.blank?) %>) - 
             Contact : <strong><%= if evenement.contact.nil?  then "Néant" else evenement.contact.nom_complet  end%></strong> -
             Type : <strong><%= if evenement.type.nil? then "Néant" else evenement.type.type_complet end %></strong> - 
             Créé il y a  <%= distance_of_time_in_words_to_now(evenement.updated_at) %> par <%= evenement.created_by %> - 

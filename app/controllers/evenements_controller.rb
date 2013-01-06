@@ -38,6 +38,7 @@ class EvenementsController < ApplicationController
   def new
     @evenement = Evenement.new
     @evenement.compte_id = params[:compte_id]
+    @evenement.fin = Date.today
 
     respond_to do |format|
       format.html # new.html.erb
@@ -55,7 +56,13 @@ class EvenementsController < ApplicationController
   def create
     @evenement = Evenement.new(params[:evenement])
     @evenement.created_by = current_user.nom_complet
-    #@evenement.modified_by = current_user.email
+
+    @evenement.debut = params[:evenement][:debut]
+    @evenement.debut = @evenement.debut.change({:hour => params[:evenement]["debut(4i)"].to_i, :min => params[:evenement]["debut(5i)"].to_i}) 
+
+    @evenement.fin = params[:evenement][:fin]
+    @evenement.fin = @evenement.fin.change({:hour => params[:evenement]["fin(4i)"].to_i, :min => params[:evenement]["fin(5i)"].to_i}) 
+  
    
     #si le checkbox est cochée 
     if params[:generate]=="yes"
