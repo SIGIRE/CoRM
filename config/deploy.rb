@@ -1,6 +1,6 @@
 require 'bundler/capistrano'
 set :user, "root"
-set :application, "CRM demo"
+set :application, "CRM"
 set :deploy_to, "/webapps/crm/"
 set :repository,  "git@git.sigire.net:/home/git/crm.git"
 set :branch,  "master"
@@ -9,9 +9,9 @@ set :keep_releases, 20
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-role :web, "demo-crm.sigire.net", "crm.sigire.net"                          # Your HTTP server, Apache/etc
-role :app, "demo-crm.sigire.net",   "crm.sigire.net"                        # This may be the same as your `Web` server
-role :db,  "demo-crm.sigire.net", "crm.sigire.net", :primary => true #, "demo-crm.sigire.net", :primary => true # This is where Rails migrations will run
+role :web, "crm.ligepack.com" #"demo-crm.sigire.net", "crm.sigire.net"                          # Your HTTP server, Apache/etc
+role :app, "crm.ligepack.com" #"demo-crm.sigire.net",   "crm.sigire.net"                        # This may be the same as your `Web` server
+role :db,  "crm.ligepack.com", :primary => true #"demo-crm.sigire.net", "crm.sigire.net", :primary => true #, "demo-crm.sigire.net", :primary => true # This is where Rails migrations will run
 #role :db,  "your slave db-server here"
 
 # if you want to clean up old releases on each deploy uncomment this:

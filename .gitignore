@@ -78,3 +78,5 @@ pickle-email-*.html
 **~
 
 log/development.log
+/public/assets/logo-login.png
+
