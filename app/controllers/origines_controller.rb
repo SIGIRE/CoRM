@@ -61,7 +61,7 @@ class OriginesController < ApplicationController
    
     respond_to do |format|
       if @origine.update_attributes(params[:origine])
-        format.html  { redirect_to(@origine, :notice => "L' origine a ete mis a jour.") }
+        format.html  { redirect_to(origines_url, :notice => "L' origine a ete mis a jour.") }
         format.json  { head :no_content }
       else
         format.html  { render :action => "edit" }

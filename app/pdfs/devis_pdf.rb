@@ -52,8 +52,8 @@ class DevisPdf < Prawn::Document
   end
   
   def logo
-    logopath =  "#{Rails.root}/app/assets/images/logo-sigire.png"
-    image logopath, :width => 80, :height => 80
+    logopath = @devi.modele.fichier_joint.path # "#{Rails.root}/app/assets/images/logo-sigire.png"
+    image logopath #, :width => 80, :height => 80
   end
   
   def entete

@@ -17,7 +17,7 @@ class Compte < ActiveRecord::Base
   paginates_per 10
   
   
-  GENRES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire','Autre']
+  GENRES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire', 'Adhérent', 'Autre']
   validates_inclusion_of :genre, :in => GENRES
   
   #COMPTES_EXPORT_COLUMNS = ['id', 'societe', 'adresse1', 'adresse2', 'cp', 'ville', 'pays', 'tel', 'fax', 'email', 'web', 'code_compta', 'genre']

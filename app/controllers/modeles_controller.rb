@@ -48,7 +48,7 @@ class ModelesController < ApplicationController
     @modele = Modele.find(params[:id])
     
     if @modele.update_attributes(params[:modele])
-      redirect_to @modele, :notice => "Le modèle a été mis à jour."
+      redirect_to modeles_url, :notice => "Le modèle a été mis à jour."
     else
       render :action => 'edit'
     end

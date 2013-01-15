@@ -27,8 +27,8 @@ class Contact < ActiveRecord::Base
   scope :by_tags, lambda { |tags| joins(:produits).where("produits.id IN (?)", tags) unless tags.blank? }  
   scope :by_cp_compte, lambda { |cp_compte| joins(:compte).where("comptes.cp LIKE ?", cp_compte + '%') unless cp_compte.blank? } 
   scope :by_pays_compte, lambda { |pays_compte| joins(:compte).where("comptes.pays" => pays_compte) unless pays_compte.blank? } 
-  scope :by_genre_compte, lambda { |genre_compte| joins(:compte).where("comptes.genre IN ?", genre_compte) unless genre_compte.blank? } 
-  scope :by_origine_compte, lambda { |origine_compte| joins(:compte).where("comptes.origine_id IN ?", origine_compte) unless origine_compte.blank? } 
+  scope :by_genre_compte, lambda { |genre_compte| joins(:compte).where("comptes.genre IN (?)", genre_compte) unless genre_compte.blank? } 
+  scope :by_origine_compte, lambda { |origine_compte| joins(:compte).where("comptes.origine_id IN (?)", origine_compte) unless origine_compte.blank? } 
   scope :by_user_compte, lambda { |user_compte| joins(:compte).where("comptes.user_id" => user_compte) unless user_compte.blank? } 
 
   

@@ -19,7 +19,7 @@
         <div class="span2">Référence : </div><%= f.text_field :ref %>
       </div>
       <div class="field">
-        <div class="span2"> Date : </div> <%= f.text_field :date %>
+        <div class="span2"> Date : </div> <%= f.text_field :date, :value => (f.object.date.strftime("%d/%m/%Y") unless f.object.date.nil?) %>
       </div>
       <div class="field">
         <div class="span2"> Compte : </div> <%= f.collection_select :compte_id, Compte.order('societe ASC').all, :id, :societe%>
