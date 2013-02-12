@@ -65,8 +65,9 @@ class EvenementsController < ApplicationController
   
    
     #si le checkbox est cochée 
-    if params[:generate]=="yes"
+    if params[:generate]== "yes"
       #on génère une tâche
+      @evenement.notes2 = params[:notes]
       self.create_tache
     end
     
