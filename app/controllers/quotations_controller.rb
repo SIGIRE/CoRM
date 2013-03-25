@@ -37,11 +37,11 @@ class QuotationsController < ApplicationController
     @quotation.created_by = current_user.full_name
     
     @quotation.company = @quotation.account.company unless @quotation.account.nil?
-    @quotation.adress1 = @quotation.account.adresse1 unless @quotation.account.nil?
-    @quotation.adress2 = @quotation.account.adresse2 unless @quotation.account.nil?
-    @quotation.zip = @quotation.account.cp unless @quotation.account.nil?
-    @quotation.city = @quotation.account.ville unless @quotation.account.nil?
-    @quotation.country = @quotation.account.pays unless @quotation.account.nil?
+    @quotation.adress1 = @quotation.account.adress1 unless @quotation.account.nil?
+    @quotation.adress2 = @quotation.account.adress2 unless @quotation.account.nil?
+    @quotation.zip = @quotation.account.zip unless @quotation.account.nil?
+    @quotation.city = @quotation.account.city unless @quotation.account.nil?
+    @quotation.country = @quotation.account.country unless @quotation.account.nil?
     @quotation.surname = @quotation.contact.surname unless @quotation.contact.nil?
     @quotation.forename = @quotation.contact.forename unless @quotation.contact.nil?
     @quotation.title = @quotation.contact.title unless @quotation.contact.nil?
@@ -53,7 +53,7 @@ class QuotationsController < ApplicationController
     
     # For each lines, calculate the total exclude taxes
     @quotation.lines.each do |line|
-      if !line.quantity.nil? && !line.prix_ht.nil? then
+    if !line.quantity.nil? && !line.price_excl_tax.nil? then
         line.total_excl_tax = line.prix_excl_tax * line.quantity
         @quotation.total_excl_tax += line.total_excl_tax
       else

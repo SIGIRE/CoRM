@@ -12,7 +12,7 @@ Crm::Application.routes.draw do
 
 
   
-  match 'devis/update_contact_select/:id', :controller=>'quotations', :action => 'update_contact_select'
+  match 'quotations/update_contact_select/:id', :controller=>'quotations', :action => 'update_contact_select'
   match 'quotations/update_opportunity_select/:id', :controller=>'quotations', :action => 'update_opportunity_select'
   resources :quotations
 

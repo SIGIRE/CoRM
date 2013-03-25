@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
           </a>
           
-          <%= link_to image_tag("logo_crm_small.png"), root_path ,:class =>"brand" %>
+          <%= link_to image_tag("logo_crm_small.png"), url_for(:controller => 'tasks', :action => 'filter') ,:class =>"brand" %>
           
           
           <div class="nav-collapse" style="margin-top: 5px;">
@@ -30,7 +30,7 @@
 	      <% end %>
 	      
 		
-              <%= link_to image_tag("icons/compte_blanc.png", :size => "16x16")+" Accounts".html_safe, accounts_path %></li>
+              <%= link_to image_tag("icons/compte_blanc.png", :size => "16x16")+" Comptes".html_safe, accounts_path %></li>
 
 	      <% if params[:controller] == 'contacts' then %>
                	<li class="active">
@@ -75,6 +75,7 @@
             
             <%= form_tag("/accounts/search", :method => "get", :class =>"navbar-search", :id =>"navsearch") do %>
               <%= text_field_tag :account , nil , {:class =>"search-query span3", :placeholder => "Rechercher un compte", :data => { :provide => 'typeahead', :source => Account.find(:all,:select=>'company').map(&:company)}, :autocomplete=>"off"}%>
+	      <ul id="search-list" class="typeahead dropdown-menu"></ul>
 	      <span class="add-on"><%= link_to image_tag("icons/search_blanc.png", :size => "16x16"), "#", :onclick=>"document.getElementById('navsearch').submit()" %></span>
             <% end %>
 
