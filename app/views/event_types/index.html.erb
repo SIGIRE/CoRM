@@ -15,9 +15,9 @@
   <% @eventtypes.each do |type| %>
     <tr>
       <td><%= type.id %></td>
-      <td><%= type.libelle %></td>
+      <td><%= type.label %></td>
       <td><%= type.direction %></td>
-      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_eventtype_path(type),{:title => "Éditer le type"}%></td>
+      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_eventType_path(type),{:title => "Éditer le type"}%></td>
      </tr>
   <% end %>
   </tbody>

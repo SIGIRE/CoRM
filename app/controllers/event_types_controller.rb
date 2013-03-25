@@ -5,8 +5,6 @@
 #
 class EventTypesController < ApplicationController
   
-  before_filter :authenticate_user!
-  
   ##
   # Show the full list of EventType by paginate_by
   #
@@ -29,7 +27,6 @@ class EventTypesController < ApplicationController
   #
   def show
     @eventtype = EventType.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @type }
@@ -43,7 +40,6 @@ class EventTypesController < ApplicationController
   # GET /eventtypes/new.json
   def new
     @eventtype = EventType.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render :json => @type }
@@ -53,7 +49,7 @@ class EventTypesController < ApplicationController
   ##
   # Render a page to edit one occurence of EventType
   #
-  # GET /eventtypes/1/edit
+  # GET /type-evenements/1/edit
   def edit
     @eventtype = EventType.find(params[:id])
   end
@@ -65,12 +61,12 @@ class EventTypesController < ApplicationController
   # POST /eventtypes.json
   def create
     @eventtype = EventType.new(params[:type])
-    @eventtype.created_by = current_user.full_name
-    @eventtype.modified_by = current_user.full_name
+    @eventtype.created_by = current_user.id
+    @eventtype.modified_by = current_user.id
 
     respond_to do |format|
       if @eventtype.save
-        format.html { redirect_to eventtypes_url, :notice => 'Le type a été créé.' }
+        format.html { redirect_to eventTypes_url, :notice => 'Le type a été créé.' }
         format.json { render :json => @eventtype, :status => :created, :location => @eventtype }
       else
         format.html { render :action => "new" }
@@ -90,7 +86,7 @@ class EventTypesController < ApplicationController
 
     respond_to do |format|
       if @eventtype.update_attributes(params[:type])
-        format.html { redirect_to eventtypes_path, :notice => 'Le type a été mis à jour.' }
+        format.html { redirect_to eventTypes_path, :notice => 'Le type a été mis à jour.' }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }
@@ -109,8 +105,9 @@ class EventTypesController < ApplicationController
     @eventtype.destroy
 
     respond_to do |format|
-      format.html { redirect_to eventtypes_url }
+      format.html { redirect_to eventTypes_url }
       format.json { head :no_content }
     end
   end
+  
 end

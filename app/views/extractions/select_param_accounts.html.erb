@@ -2,19 +2,14 @@
      <div class="well">
        <div class="row-fluid">
          <div class="span3">
-           <h3>Extraction des contacts</h3>
+           <h3>Extraction des comptes</h3>
          </div>
        </div>
-     </div> 
+     </div>
 </div>
-
 <div class="container-fluid" style= "background-color: #D8D8D8; margin-top: 0em; ">
-  <%= form_tag({:controller => "extractions", :action => "contacts", format: :csv}, :method => "get") do %>
+  <%= form_tag({:controller => "extractions", :action => "accounts", format: :csv}, :method => "get") do %>
 
-      <div>
-        <% @accounts = Account.order('company ASC').all %>
-        <h6>Comptes : </h6><%= select_tag :account, options_from_collection_for_select(@accounts, "id", "company", "city"), {:include_blank => true, :multiple => :false, :size => 5, :class =>"span3"}%>
-      </div>      
       
       <div>
         <h6>Code Postal commence par : </h6><%= text_field_tag :zip, nil,  {:class=>"span3"} %>
@@ -26,7 +21,7 @@
       
       <div>
         <% @tags = Tag.order('name ASC').all %>
-        <h6>Tags du contact: </h6><%= select_tag :tags, options_from_collection_for_select(@tags, "id", "name"), {:include_blank => true, :multiple => :true, :size => 5, :class =>"span3 filter_statut"}%>
+        <h6>Tags : </h6><%= select_tag :tags, options_from_collection_for_select(@tags, "id", "name"), {:include_blank => true, :multiple => :true, :size => 5, :class =>"span3 filter_statut"}%>
       </div>
          
       <div>
@@ -35,7 +30,7 @@
 
       <div>
         <% @origins = Origin.order('name ASC').all %>
-        <h6>Origins : </h6><%= select_tag :origins, options_from_collection_for_select(@origins, "id", "name"), {:include_blank => true, :multiple => :true, :size => 5, :class =>"span3"}%>
+        <h6>Origines : </h6><%= select_tag :origins, options_from_collection_for_select(@origins, "id", "name"), {:include_blank => true, :multiple => :true, :size => 5, :class =>"span3"}%>
       </div>      
  
       <div>
@@ -50,5 +45,3 @@
     
   <% end %>
 </div>
-
-

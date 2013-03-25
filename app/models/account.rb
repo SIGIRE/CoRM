@@ -40,7 +40,7 @@ class Account < ActiveRecord::Base
   scope :by_company, lambda { |company| where("company LIKE UPPER(?)", company)unless company.nil? }
   scope :by_contact, lambda {|contact| joins(:contacts).where('contacts.id = ?', contact.id) unless contact.nil?}
   scope :by_tel, lambda { |tel| where("tel LIKE ?", '%'+tel+'%') unless tel.blank? }
-  scope :by_zip, lambda { |cp| where("zip LIKE ?", zip + '%') unless zip.blank? }
+  scope :by_zip, lambda { |zip| where("zip LIKE ?", zip + '%') unless zip.blank? }
   scope :by_country, lambda { |country| where("country = ?", country) unless country.blank? }  
   scope :by_tags, lambda { |tags| joins(:tags).where("tags.id IN (?)", tags) unless tags.blank? }
   scope :by_user, lambda { |user| where("user_id = ?", user) unless user.blank? }

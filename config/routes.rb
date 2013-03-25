@@ -5,63 +5,44 @@ Crm::Application.routes.draw do
   match 'extractions/select_param_contacts', :controller=>'extractions', :action => 'select_param_contacts'
   match 'extractions/contacts', :controller=>'extractions', :action => 'contacts', :as => :csv
   
-  
-  resources :templates
-
+  resources :eventTypes
+  resources :quotationTemplates, :path => 'modele_devis'
   resources :quotationLines
 
 
   
   match 'quotations/update_contact_select/:id', :controller=>'quotations', :action => 'update_contact_select'
   match 'quotations/update_opportunity_select/:id', :controller=>'quotations', :action => 'update_opportunity_select'
-  resources :quotations
-
-
+  
+  resources :quotations, :path => 'devis'
   resources :relations
-
-
   resources :documents
 
-
-
-
-
-
   devise_for :user, :path => '/', :path_names => { :sign_in => "login" , :sign_up => "register"},  
-  #devise_for :user, :path => '/', :path_names => { :sign_in => "login" },  
   :controllers => { :registrations => "registrations" }
-
-
-
+  
   match 'opportunities/update_contact_select/:id', :controller=>'opportunities', :action => 'update_contact_select'
+  
   resources :opportunities do
     collection do
       get 'filter'
     end
   end
 
-
-
   resources :origins
-  
-  
   resources :tags
 
-
   match 'tasks/update_contact_select/:id', :controller=>'tasks', :action => 'update_contact_select'
+  
   resources :tasks do
     collection do
       get 'filter'
     end
   end
-  
-  
-  
-  resources :eventtypes
 
 
   match 'accounts/delete_tag', :controller=>"accounts", :action =>'delete_tag'
-  resources :accounts do
+  resources :accounts, :path => 'compte' do
     collection do
       get 'search'
       get 'search_tel'
@@ -72,13 +53,10 @@ Crm::Application.routes.draw do
     resources :events
     resources :contacts
   end
+  match 'accounts', :controller => 'accounts', :action => 'index'
   
-  
-
-  resources :events
-
-
-
+  resources :events, :path => 'evenement'
+  match 'evenements', :controller => 'events', :action => 'index'
 
   resources :contacts do
     collection do
