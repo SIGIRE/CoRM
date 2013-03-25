@@ -1,0 +1,135 @@
+<div class="container-fluid">
+  
+  <div class="page-header">
+    <h1>Opportunité n°<%= @opportunity.id %> </h1>
+  </div>
+
+  <div class="well">
+    
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td>  
+            <div class="span2">
+              <h3>Statut :</h3>
+              <% if @opportunity.statut == "Détectée"%>
+                <span class="badge badge-info">
+              <% elsif @opportunity.statut == "En cours"%>
+                <span class="badge badge-warning">
+              <% elsif @opportunity.statut == "Gagnée"%>
+                <span class="badge badge-success">
+              <% elsif @opportunity.statut == "Perdue"%>
+                <span class="badge badge-important">
+              <% else %>
+                <span class="badge badge-info">
+              <% end %>
+              <%= @opportunity.statut %></span>
+            </div>
+          </td>
+    
+	  <td>
+            <div class="span2">
+              <h3> Compte :</h3>
+              <%= if !@opportunity.account.nil? then link_to @opportunity.account.company , @opportunity.account end%>
+            </div>
+          </td>
+    
+          <% if !@opportunity.contact.nil? %>
+          <td>
+            <div class="span2">
+              <h3> Contact :</h3>
+              <%= link_to @opportunity.contact.full_name, @opportunity.contact %>
+            </div>
+          </td>
+          <% end %>
+
+	  <% if !@opportunity.term.nil? %>
+          <td>
+            <div class="span2">
+              <h3>Echéance :</h3>
+              <%= @opportunity.term.strftime("%d/%m/%y") %>
+            </div>
+          </td>
+	  <% end %>
+        </tr>
+        
+        <tr>
+          <td colspan="4">
+              <h3>Libellé :</h3>
+              <%= @opportunity.name %>
+            
+          </td>
+        </tr>
+    
+        <tr>
+          <td colspan="4">
+            <h3>Description :</h3>
+            <%= simple_format(@opportunity.description) %>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+	    <h3>Montant estimé :</h3>
+	    <strong> <%= @opportunity.amount %>  € HT </strong>
+          </td>
+	  <td colspan="3">
+	    <h3>Marge estimée :</h3>
+	    <strong> <%= @opportunity.profit %>  € HT </strong>
+          </td>
+        </tr>
+    
+        <% if @opportunity.attach.exists? %>
+        <tr>
+          <td colspan="4">
+            <h3> Pièce jointe :</h3>
+            <%= link_to (image_tag("glyphicons/glyphicons_036_file.png") + ' ' + @opportunity.attach_file_name), @opportunity.attach.url, :target => "_blank"%>
+          </td>
+        </tr>
+        <% end %>
+      
+        <tr>
+          <td colspan="4">
+            <h3>Collaborateur : </h3><strong><%= @opportunity.user.full_name %></strong> : <%= mail_to(@opportunity.user.email) %>
+          </td>
+        </tr>
+      
+      
+        <tr>
+          <td colspan="4">
+            <h3>Remarques :</h3>
+            <%= simple_format(@opportunity.remark) %>
+          </td>
+        </tr>
+                
+                
+        <tr>
+          <td colspan="4">
+	    <h3>Créée par : </h3><%= @opportunity.created_by %><strong style="margin-left: 3em;"> Le : </strong><%= @opportunity.created_at.strftime("%d/%m/%y à %H:%M") %>
+          </td>
+        </tr>
+        
+        <% if !@opportunity.updated_by.nil? %>
+        <tr>
+          <td colspan="4">
+              <h3>Modifiée par :</h3><%= @opportunity.updated_by %>
+              <strong style="margin-left: 3em;"> Le : </strong><%= @opportunity.updated_at.strftime("%d/%m/%y à %H:%M") %>        
+          </td>
+        </tr>
+        <% end %>
+      
+        <tr>
+          <td colspan="4">
+            <div class="pull-left">
+              <%= link_to image_tag("glyphicons/glyphicons_221_unshare.png"), :back %>
+              <%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_opportunity_path(@opportunity) %>   
+            </div>
+            <div class="pull-right">
+              <%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), @opportunity, :confirm => 'Confirmer la suppression ?', :method => :delete %>
+            </div>
+          </td>
+        </tr>
+       </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<!-- <div class="container-fluid" style= "background-color: #EEEEEE; margin-bottom: 18px;"> -->
+<div class="container-fluid" style= "background-color:  #D8D8D8; margin-top: 0em; ">
+  
+  <%= form_for(:filter, :url => { :action => 'filter' } , :html => {:method => :get} ) do |f| %>
+    <div class="row-fluid show-grid" style="margin-top: 1em;">
+      
+      <div class="span2">
+        <h6>Société : </h6><%= f.text_field :company , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_accounts}, :autocomplete=>"off"%>
+      </div>
+      
+      <div class="span2">
+        <h6>Contact : </h6><%= f.text_field :contact , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_contacts}, :autocomplete=>"off"%>
+      </div>
+      
+      <div class="span2">
+        <h6>Téléphone : </h6><%= f.text_field :tel, :class =>"filter_tfield"%>
+      </div>
+      
+      <div class="span1" style="margin-top: 18px;">
+        <%= f.submit "Filtrer", :class =>"btn "%>
+      </div>
+    </div>
+  <% end %>
+  
+</div>

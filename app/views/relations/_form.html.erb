@@ -12,17 +12,17 @@
   <% end %>
 
   <div class="field">
-    <div class="span2"><%= f.label :nom %></div>
-    <%= f.text_field :nom %>
+    <div class="span2"><%= f.label :name %></div>
+    <%= f.text_field :name %>
   </div>
   
   <div class="field">
     <div class="span2"> Compte : </div>
-      <%= f.collection_select :compte1_id, Compte.order('societe ASC').all, :id, :societe, {:include_blank => true} %>
+      <%= f.collection_select :account1_id, Account.order('company ASC').all, :id, :company, {:include_blank => true} %>
   </div>
   <div class="field">
     <div class="span2"> Compte lié : </div>
-      <%= f.collection_select :compte2_id, Compte.order('societe ASC').all, :id, :societe, {:include_blank => true} %>
+      <%= f.collection_select :account2_id, Account.order('company ASC').all, :id, :company, {:include_blank => true} %>
   </div>
   
   <div class="field">

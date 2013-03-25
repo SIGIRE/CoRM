@@ -1,0 +1,39 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal">×</button>
+  <h3>Ajout de tags</h3>
+</div>
+<div class="modal-body">
+  <div class="span3" style="margin-left: 50px;">
+  <h4>Tag(s) disponible(s) :</h4>
+  <% @tags = Tag.order('name ASC').all %>
+  <%= select_tag :tag, options_from_collection_for_select(@tags, "id", "name"), {:size => 6, :multiple => true} %>
+  </div>
+  
+  <div class="span2" style="padding-top: 3em; margin-left: 2em; margin-right: 2em;">
+    
+    <a id="account_add_tag" class="btn btn-success btn-mini" href="#" style="margin-bottom: 1em; margin-left : 3em;">
+      <i class="icon-arrow-right icon-white"></i>
+      Ajouter
+    </a>
+    <br />
+    <br />
+    
+    <a id="account_remove_tag" class="btn btn-warning btn-mini" href="#" style="margin-bottom: 1em; margin-left : 3em;">
+      <i class="icon-arrow-left icon-white"></i>
+      Retirer
+    </a>
+  
+  </div>
+  
+  <div class="span3">
+    <h4>Tag(s) associé(s) :</h4>
+    <%= select_tag :account_tag, options_from_collection_for_select(@account.tags.order('name ASC').all, "id", "name"), {:size => 6, :multiple => true} %>
+    
+    
+    
+  </div>
+</div>
+<div class="modal-footer">
+  <a href="#" id="account_cancel_add" class="btn" data-dismiss="modal">Annuler </a>
+  <a href="#" id="account_submit_add" class="btn btn-primary" data-dismiss="modal">Valider</a>
+</div>

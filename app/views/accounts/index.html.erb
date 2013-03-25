@@ -1,0 +1,31 @@
+<%= render 'filter', :locals => { :filter => @filter }%>
+<%= render 'title', :locals => { :title => @title }%>
+
+<div class="container-fluid" style="margin-top: 1em;">
+  
+  <table class="table table-bordered table-striped">
+    <tr>
+      <th>Id</th>
+      <th>Soci&eacute;t&eacute;</th>
+      <th>Ville</th>    
+      <th>Genre</th>
+      <th>Téléphone</th>
+      <th>Éditer</th>       
+    </tr>
+  
+  <% @accounts.each do |account| %>
+    <tr>
+      <td><%= account.id %></td>
+      <td><%= link_to account.company, account_events_url(account),{:title => "Afficher les évenements"} %></td>
+      <td><%= account.city %></td>    
+      <td><%= account.category %></td>
+      <td><%= account.tel %></td>
+      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_account_path(account),{:title => "Éditer le compte"} %></td>
+    </tr>
+  <% end %>
+  </table>
+  <%= paginate @accounts %>
+  
+
+</div>
+

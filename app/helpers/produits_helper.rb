@@ -1,2 +1,0 @@
-module ProduitsHelper
-end

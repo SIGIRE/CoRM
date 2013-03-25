@@ -1,0 +1,51 @@
+<%= render 'filter', :locals => { :filter => @filter }%>
+<%= render 'title', :locals => { :title => @title }%>
+
+<div class="container-fluid">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Statut</th>
+        <th>Compte</th>
+        <th>Description</th>
+        <th>Contact</th>
+        <th>Échéance</th>
+        <th>Collaborateur</th>
+        <th>Éditer</th>      
+      </tr>
+    </thead>
+    <tbody>
+      <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.id %></td>
+        <td>
+          <% if task.statut == "A faire"%>
+            <span class="badge badge-important">
+          <% elsif task.statut == "En cours"%>
+            <span class="badge badge-warning">
+          <% elsif task.statut == "Terminé"%>
+            <span class="badge badge-success">
+          <% elsif task.statut == "Annulé"%>
+            <span class="badge badge-inverse">
+          <% else %>
+            <span class="badge badge-info">
+          <% end %>
+          <%= task.statut %></span>
+        </td>
+        <td><%= if !task.account.nil? then link_to task.account.company , account_events_url(task.account),{:title => "Afficher les évenements"} end%></td>
+        <td class="descrip"><%= truncate(task.notes, :length => 300, :separator => ' ')%></td>
+        <td><%= if !task.contact.nil? then link_to task.contact.full_name, edit_contact_path(task.contact),{:title => "Éditer le contact"}  end%></td>
+        <td><%= task.term.split('/').reverse!.join('/') %></td>
+        <td><%= if !task.user.nil? then task.user.full_name end%></td>
+        <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_task_path(task) ,{:title => "Éditer la tâche"}  %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <br />
+  
+  <%= paginate @tasks %> 
+
+</div>

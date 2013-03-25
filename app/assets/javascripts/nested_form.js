@@ -10,11 +10,12 @@ jQuery(function($) {
       var link    = e.currentTarget;
       var assoc   = $(link).attr('data-association');            // Name of child
       var content = $('#' + assoc + '_fields_blueprint').html(); // Fields template
-
+      console.log("Assoc", assoc, "Content", content);
       // Make the context correct by replacing new_<parents> with the generated ID
       // of each of the parent objects
-      var context = ($(link).closest('.fields').find('input:first').attr('name') || '').replace(new RegExp('\[[a-z]+\]$'), '');
-
+      var context = ($(link).closest('.fields').find('input:first-child').attr('name') || '').replace(new RegExp('\[[a-z]+\]$'), '');
+/*      quotation[quotation_lines_attributes][0][id]*/
+console.log($(link).closest('.fields'), $(link).attr('data-association'), context);
       // context will be something like this for a brand new form:
       // project[tasks_attributes][new_1255929127459][assignments_attributes][new_1255929128105]
       // or for an edit form:
@@ -40,7 +41,6 @@ jQuery(function($) {
       var regexp  = new RegExp('new_' + assoc, 'g');
       var new_id  = new Date().getTime();
       content     = content.replace(regexp, "new_" + new_id);
-
       var field = this.insertFields(content, assoc, link);
       $(link).closest("form")
         .trigger({ type: 'nested:fieldAdded', field: field })

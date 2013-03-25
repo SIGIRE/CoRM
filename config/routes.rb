@@ -1,20 +1,20 @@
 Crm::Application.routes.draw do  
 
-  match 'extractions/select_param_comptes', :controller=>'extractions', :action => 'select_param_comptes'
-  match 'extractions/comptes', :controller=>'extractions', :action => 'comptes', :as => :csv
+  match 'extractions/select_param_accounts', :controller=>'extractions', :action => 'select_param_accounts'
+  match 'extractions/accounts', :controller=>'extractions', :action => 'accounts', :as => :csv
   match 'extractions/select_param_contacts', :controller=>'extractions', :action => 'select_param_contacts'
   match 'extractions/contacts', :controller=>'extractions', :action => 'contacts', :as => :csv
   
   
-  resources :modeles
+  resources :templates
 
-  resources :items
+  resources :quotationLines
 
 
   
-  match 'devis/update_contact_select/:id', :controller=>'devis', :action => 'update_contact_select'
-  match 'devis/update_opportunite_select/:id', :controller=>'devis', :action => 'update_opportunite_select'
-  resources :devis
+  match 'devis/update_contact_select/:id', :controller=>'quotations', :action => 'update_contact_select'
+  match 'quotations/update_opportunity_select/:id', :controller=>'quotations', :action => 'update_opportunity_select'
+  resources :quotations
 
 
   resources :relations
@@ -33,8 +33,8 @@ Crm::Application.routes.draw do
 
 
 
-  match 'opportunites/update_contact_select/:id', :controller=>'opportunites', :action => 'update_contact_select'
-  resources :opportunites do
+  match 'opportunities/update_contact_select/:id', :controller=>'opportunities', :action => 'update_contact_select'
+  resources :opportunities do
     collection do
       get 'filter'
     end
@@ -42,14 +42,14 @@ Crm::Application.routes.draw do
 
 
 
-  resources :origines
+  resources :origins
   
   
-  resources :produits
+  resources :tags
 
 
-  match 'taches/update_contact_select/:id', :controller=>'taches', :action => 'update_contact_select'
-  resources :taches do
+  match 'tasks/update_contact_select/:id', :controller=>'tasks', :action => 'update_contact_select'
+  resources :tasks do
     collection do
       get 'filter'
     end
@@ -57,25 +57,25 @@ Crm::Application.routes.draw do
   
   
   
-  resources :types
+  resources :eventtypes
 
 
-  match 'comptes/delete_produit', :controller=>"comptes", :action =>'delete_produit'
-  resources :comptes do
+  match 'accounts/delete_tag', :controller=>"accounts", :action =>'delete_tag'
+  resources :accounts do
     collection do
       get 'search'
       get 'search_tel'
-      get 'update_produits'
+      get 'update_tags'
       get 'filter'
-      post 'add_produit'
+      post 'add_tag'
     end
-    resources :evenements
+    resources :events
     resources :contacts
   end
   
   
 
-  resources :evenements
+  resources :events
 
 
 
@@ -88,7 +88,7 @@ Crm::Application.routes.draw do
   end
 
   
-  root :to => 'taches#index'
+  root :to => 'tasks#index'
 
 
   resources :about

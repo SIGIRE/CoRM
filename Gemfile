@@ -1,3 +1,8 @@
+# Using ruby 1.9.3p194
+# Using rubygems 1.8.23
+# Using Rails 3.2.12
+# Using Rake 10.0.3
+
 source 'https://rubygems.org'
 
 gem 'rails'
@@ -5,8 +10,7 @@ gem 'rails'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg'
-
+gem 'pg', '~> 0.14.1'
 gem 'json'
 
 # Gems used only for assets and not required
@@ -19,44 +23,21 @@ group :assets do
   # gem 'therubyracer'
 
   gem 'uglifier', '>= 1.0.3'
-  gem 'bootstrap-sass'
+  gem 'bootstrap-sass', '~> 2.3.1.0'
+
   gem 'execjs'
+
 end
 
-gem 'jquery-rails'
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the web server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-gem 'capistrano', :group => :development
-
-# To use debugger
-# gem 'ruby-debug'
-
-
 gem 'therubyracer'
-gem 'devise'
-# gem 'activeadmin'
-gem "meta_search"
-# gem "activerecord-sqlserver-adapter"
-# gem "ruby-odbc"
-gem 'kaminari'
-gem 'paperclip'
-# gem "formtastic", "~> 2.1.1"
-gem "cancan"
-gem "nested_form"
-gem "prawn_rails"
-
-# gem "zurb-foundation", :group => :assets
-# gem 'skeleton-rails'
-
-# gem 'ruport'
-# gem 'acts_as_reportable'
-gem 'money-rails'
+gem 'jquery-rails', '~> 2.2.1'
+gem 'jquery-ui-rails', '~> 4.0.2'
+gem 'capistrano', '~> 2.14.2', :group => :development
+gem 'devise', '~> 2.2.3'
+gem 'meta_search', '~> 1.1.3'
+gem 'kaminari', '~> 0.14.1'
+gem 'paperclip', '~> 3.4.1'
+gem 'cancan', '~> 1.6.9'
+gem 'nested_form', '~> 0.3.1'
+gem 'prawn_rails', '~> 0.0.11'
+gem 'money-rails', '~> 0.8.0'

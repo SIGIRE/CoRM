@@ -13,19 +13,19 @@
 
 
   <div class="field">
-    <div class="span2"><%= f.label :nom %></div>
-    <%= f.text_field :nom %>
+    <div class="span2"><%= f.label :name %></div>
+    <%= f.text_field :name %>
   </div>
   
   <div class="field" style="margin-bottom: 1em;">
-    <div class="span2">Fichier-joint :</div>  <div class="span3" style="margin-left: 0em;"><%= f.file_field :fichier_joint, :style=>'width: 20em;' %></div>
+    <div class="span2">Fichier-joint :</div>  <div class="span3" style="margin-left: 0em;"><%= f.file_field :attach, :style=>'width: 20em;' %></div>
     <br /><br />
   </div>
   
   <div class="field">
     <div class="span2">Fichier-joint actuel :</div>
-    <% if @document.fichier_joint.exists? %>
-       <%= link_to (image_tag("glyphicons/glyphicons_036_file.png") + ' ' + @document.fichier_joint_file_name), @document.fichier_joint.url, :target => "_blank"%>
+    <% if @document.attach.exists? %>
+       <%= link_to (image_tag("glyphicons/glyphicons_036_file.png") + ' ' + @document.attach_file_name), @document.attach.url, :target => "_blank"%>
     <% end %>
     <br /><br />
   </div>
@@ -42,5 +42,5 @@
         <%= f.submit :class =>"btn btn-primary"%>
   </div>
   
-  <%= f.hidden_field :compte_id %>
+  <%= f.hidden_field :account_id %>
 <% end %>

@@ -1,0 +1,28 @@
+<%= render 'title', :locals => { :title => @title }%>
+
+<div class="container-fluid">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Libell&eacute;</th>
+        <th>Sens</th>  
+        <th>Éditer</th>
+      </tr>
+    </thead>
+    
+  <tbody>
+  <% @eventtypes.each do |type| %>
+    <tr>
+      <td><%= type.id %></td>
+      <td><%= type.libelle %></td>
+      <td><%= type.direction %></td>
+      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_eventtype_path(type),{:title => "Éditer le type"}%></td>
+     </tr>
+  <% end %>
+  </tbody>
+  </table>
+  
+  <%= paginate @eventtypes %>
+</div>
+

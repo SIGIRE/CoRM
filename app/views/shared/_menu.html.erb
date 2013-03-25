@@ -13,24 +13,24 @@
           
           <div class="nav-collapse" style="margin-top: 5px;">
             <ul class="nav" style="font-size: 14px;">
-	      <% if params[:controller] == 'taches' then %>
+	      <% if params[:controller] == 'tasks' then %>
                	<li class="active">
 	      <% else %>
 		<li>
 	      <% end %>
 	      
-              <%= link_to image_tag("icons/tache_blanc.png", :size => "16x16")+" Tâches".html_safe, url_for(:controller => 'taches', :action => 'filter') %></li>
+              <%= link_to image_tag("icons/tache_blanc.png", :size => "16x16")+" Tâches".html_safe, url_for(:controller => 'tasks', :action => 'filter') %></li>
 
-	      <% if params[:controller] == 'comptes' then %>
+	      <% if params[:controller] == 'accounts' then %>
 		<li class="active">
-	      <% elsif params[:controller] == 'evenements' then%>
+	      <% elsif params[:controller] == 'events' then%>
 		<li class="active">
 	      <% else %>
 		<li>
 	      <% end %>
 	      
 		
-              <%= link_to image_tag("icons/compte_blanc.png", :size => "16x16")+" Comptes".html_safe, comptes_path %></li>
+              <%= link_to image_tag("icons/compte_blanc.png", :size => "16x16")+" Accounts".html_safe, accounts_path %></li>
 
 	      <% if params[:controller] == 'contacts' then %>
                	<li class="active">
@@ -43,9 +43,9 @@
 	      
 	      
 	      
-	      <% if params[:controller] == 'devis' then %>
+	      <% if params[:controller] == 'quotations' then %>
 		<li class="active dropdown">
-	      <% elsif params[:controller] == 'opportunites' then%>
+	      <% elsif params[:controller] == 'opportunities' then%>
 		<li class="active dropdown">
 	      <% elsif params[:controller] == 'extractions' then%>
 		<li class="active dropdown">  
@@ -59,10 +59,10 @@
 	      </a>
 	      
 	      <ul class="dropdown-menu">
-		<li><%= link_to image_tag("icons/opportunites2.png", :size => "18x16")+" Opportunités".html_safe, opportunites_path %></li>
-		<li><%= link_to image_tag("icons/euro2.png", :size => "16x16")+" Devis".html_safe, devis_path %></li>
+		<li><%= link_to image_tag("icons/opportunites2.png", :size => "18x16")+" Opportunités".html_safe, opportunities_path %></li>
+		<li><%= link_to image_tag("icons/euro2.png", :size => "16x16")+" Devis".html_safe, quotations_path %></li>
 		<li class="divider"></li>
-		<li><%= link_to image_tag("icons/fiches.png", :size => "16x16")+" Extraction Comptes".html_safe, url_for(:controller => 'extractions', :action => 'select_param_comptes') %></li>
+		<li><%= link_to image_tag("icons/fiches.png", :size => "16x16")+" Extraction Accounts".html_safe, url_for(:controller => 'extractions', :action => 'select_param_accounts') %></li>
 		<li><%= link_to image_tag("icons/fiches.png", :size => "16x16")+" Extraction Contacts".html_safe, url_for(:controller => 'extractions', :action => 'select_param_contacts') %></li>
 	      </ul>
               </li>
@@ -73,8 +73,8 @@
 		
             </ul>
             
-            <%= form_tag("/comptes/search", :method => "get", :class =>"navbar-search", :id =>"navsearch") do %>
-              <%= text_field_tag :compte , nil , {:class =>"search-query span3", :placeholder => "Rechercher un compte", :data => { :provide => 'typeahead', :source => Compte.find(:all,:select=>'societe').map(&:societe)}, :autocomplete=>"off"}%>
+            <%= form_tag("/accounts/search", :method => "get", :class =>"navbar-search", :id =>"navsearch") do %>
+              <%= text_field_tag :account , nil , {:class =>"search-query span3", :placeholder => "Rechercher un compte", :data => { :provide => 'typeahead', :source => Account.find(:all,:select=>'company').map(&:company)}, :autocomplete=>"off"}%>
 	      <span class="add-on"><%= link_to image_tag("icons/search_blanc.png", :size => "16x16"), "#", :onclick=>"document.getElementById('navsearch').submit()" %></span>
             <% end %>
 
@@ -85,13 +85,13 @@
                   <%= image_tag("glyphicons/glyphicons_280_settings.png", :size => "16x16")%>
 		</a>
 		<ul class="dropdown-menu">
-		  <li><%= link_to '<i class="icon-book"></i> Types'.html_safe, types_path %></li>
+		  <li><%= link_to '<i class="icon-book"></i> Types'.html_safe, eventtypes_path %></li>
 		  <li class="divider"></li>
-		  <li><%= link_to '<i class="icon-barcode"></i> Tags'.html_safe, produits_path %></li>
+		  <li><%= link_to '<i class="icon-barcode"></i> Tags'.html_safe, tags_path %></li>
 		  <li class="divider"></li>
-		  <li><%= link_to image_tag("icons/origine.png", :size => "16x16")+" Origines".html_safe, origines_path %></li>
+		  <li><%= link_to image_tag("icons/origine.png", :size => "16x16")+" Origines".html_safe, origins_path %></li>
 		  <li class="divider"></li>
-		  <li><%= link_to image_tag("glyphicons/glyphicons_159_picture.png", :size => "16x16")+" Modèles".html_safe, modeles_path %></li>		  
+		  <li><%= link_to image_tag("glyphicons/glyphicons_159_picture.png", :size => "16x16")+" Modèles".html_safe, templates_path %></li>		  
 		  <li class="divider"></li>
         	  <li><%= link_to image_tag("icons/apropos.png", :size => "16x16")+" À propos".html_safe, "/about" %></li>
 		</ul>
@@ -99,7 +99,7 @@
 
 	      <ul class="btn-group pull-right">
 		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-		  <i class="icon-user"></i><%= current_user.prenom%>
+		  <i class="icon-user"></i><%= current_user.full_name %>
 		  <span class="caret"></span>
 		</a>
 		<ul class="dropdown-menu">

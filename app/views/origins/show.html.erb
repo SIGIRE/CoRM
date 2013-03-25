@@ -1,0 +1,57 @@
+<div class="container-fluid">
+  
+  <div class="page-header">
+    <h1>Origine n°<%= @origin.id %> </h1>
+  </div>
+
+  <div class="well">
+    <p id="notice"><%= notice %></p>
+    
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td>  
+            <div class="span2">
+              <h3>Nom :</h3>
+              <%= @origin.name %></span>
+            </div>
+          </td>
+        </tr>
+    
+        <tr>
+          <td colspan="4">
+            <h3>Description :</h3>
+            <%= simple_format(@origin.description) %>
+          </td>
+        </tr>
+      
+        <tr>
+          <td colspan="4">
+              <h3>Créée par : </h3><%= @origin.created_by %><strong style="margin-left: 3em;"> Le : </strong><%= @origin.created_at.strftime("%d/%m/%y à %H:%M") %>
+          </td>
+        </tr>
+        
+        <% if !@origin.updated_by.nil? %>
+        <tr>
+          <td colspan="4">
+              <h3>Modifiée par :</h3><%= @origin.updated_by %>
+              <strong style="margin-left: 3em;"> Le : </strong><%= @origin.updated_at.strftime("%d/%m/%y à %H:%M") %>
+          </td>
+        </tr>
+        <% end %>
+     
+        <tr>
+          <td colspan="4">
+            <div class="pull-left">
+              <%= link_to image_tag("glyphicons/glyphicons_221_unshare.png"), :back %>
+              <%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_origin_path(@origin) %>   
+            </div>
+            <div class="pull-right">
+              <%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), @origin, :confirm => 'Confirmer la suppression ?', :method => :delete %>
+            </div>
+          </td>
+        </tr>
+       </tbody>
+    </table>
+  </div>
+</div>

@@ -13,7 +13,7 @@
           <td>  
             <div class="span2">
               <h3>Nom :</h3>
-              <%= @document.nom %></span>
+              <%= @document.name %></span>
             </div>
           </td>
         </tr>
@@ -21,16 +21,16 @@
         <tr>
           <td>  
               <h3>Compte :</h3>
-              <%= link_to @document.compte.societe , @document.compte %></span>
+              <%= link_to @document.account.company , @document.account %></span>
             </div>
           </td>
         </tr>
         
-        <% if @document.fichier_joint.exists? %>
+        <% if @document.attach.exists? %>
         <tr>
           <td>
             <h3> Pièce jointe :</h3>
-            <%= link_to (image_tag("glyphicons/glyphicons_036_file.png") + ' ' + @document.fichier_joint_file_name), @document.fichier_joint.url, :target => "_blank"%>
+            <%= link_to (image_tag("glyphicons/glyphicons_036_file.png") + ' ' + @document.attach_file_name), @document.attach.url, :target => "_blank"%>
           </td>
         </tr>
         <% end %>

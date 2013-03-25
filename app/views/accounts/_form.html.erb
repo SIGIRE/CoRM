@@ -1,0 +1,95 @@
+<%= form_for(@account, :html => { :class => "well "}) do |f| %>
+  <% if @account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@account.errors.count, "error") %> prohibited this compte from being saved:</h2>
+
+      <ul>
+      <% @account.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <div class="span2"> Société : </div> <%= f.text_field :company , :style=>'width: 30em;'  %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Adresse : </div> <%= f.text_field :adress1, :style=>'width: 30em;' %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Adresse (suite) : </div> <%= f.text_field :adress2, :style=>'width: 30em;' %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> CP : </div> <%= f.text_field :zip, :style=>'width: 30em;' %>
+  </div>
+  
+  <div class="field">
+   <div class="span2">Ville : </div> <%= f.text_field :city, :style=>'width: 30em;' %>
+  </div>
+  
+  <div class="field">
+   <div class="span2"> Pays : </div> <%= f.text_field :country, :style=>'width: 30em;' %>
+  </div>
+  
+  <div class="field">
+   <div class="span2"> Tel : </div> <%= f.text_field :tel, :style=>'width: 30em;' %>
+  </div>
+  
+  <div class="field">
+   <div class="span2"> Fax : </div> <%= f.text_field :fax, :style=>'width: 30em;' %>
+  </div>
+  
+  <div class="field">
+   <div class="span2"> E-mail : </div> <%= f.text_field :email, :style=>'width: 30em;' %>
+  </div>
+  
+  <div class="field">
+   <div class="span2"> Site web : </div> <%= f.text_field :web, :style=>'width: 30em;' %>
+  </div>  
+  
+  <div class="field">
+    <div class="span2"> Origine : </div> <%= f.collection_select :origin_id, Origin.order('name ASC').all, :id, :name %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Genre : </div> <%= f.select :category, Account::CATEGORIES%>
+  </div>
+
+  <div class="field">
+    <div class="span2"> Tag(s) associé(s) : </div>
+    <%= select_tag :display_account_tag, options_from_collection_for_select(@account.tags.order('name ASC').all, "id", "name"), {:size => 6, :multiple => true} %>
+    <a id="account_add_button" class="btn btn-success btn-mini" data-toggle="modal" href="#account_tag_modal" style="margin-bottom: 1em; margin-left: 2em;">Modifier Tag</a>
+  </div>
+  
+  <div class="modal hide fade" id="account_tag_modal" style="width: 900px; margin-left: -450px;">
+    <%= render "modal_tags" %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Code comptable : </div> <%= f.text_field :accounting_code, :style=>'width: 30em;' %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Utilisateur : </div> <%= f.collection_select :user_id, User.all, :id, :full_name %>
+  </div>
+  
+  <div class="field">
+    <div class="span2">Notes : </div> <%= f.text_area :notes , :display_with => :simple_format, :rows => "5", :style=>'width: 30em;'%>
+  </div>
+
+<br>
+  
+  <div class="row">
+    <div class="span2"> <%= f.submit :class =>"btn btn-primary",:id =>"account_validate_form"%> </div>
+    <div class="pull-right ">
+      <%= if !@account.id.nil? then  link_to image_tag("glyphicons/glyphicons_016_bin.png"), @account,:title => "Supprimer le compte", :confirm => 'Confirmer la suppression ?', :method => :delete end %>
+    </div>
+  </div>
+ 
+
+<% end %>

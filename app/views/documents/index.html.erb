@@ -15,9 +15,9 @@
       <% @documents.each do |document| %>
         <tr>
          <td><%= link_to document.id, document %></td>
-         <td><%= document.nom %></td>
-         <td><%= link_to document.compte.societe , document.compte %></td>
-         <td><%= link_to (image_tag("glyphicons/glyphicons_036_file.png") + ' ' + document.fichier_joint_file_name), document.fichier_joint.url, :target => "_blank"%></td>
+         <td><%= document.name %></td>
+         <td><%= link_to document.account.company , document.account %></td>
+         <td><%= link_to (image_tag("glyphicons/glyphicons_036_file.png") + ' ' + document.attach_file_name), document.attach.url, :target => "_blank"%></td>
          <td><%= truncate(document.notes, :length => 600, :separator => ' ') %></td>
          <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), document %></td>
          <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_document_path(document) %></td>

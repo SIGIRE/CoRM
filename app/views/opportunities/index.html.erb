@@ -1,0 +1,74 @@
+<%= render 'filter', :locals => { :filter => @filter }%>
+
+<%= render 'title', :locals => { :title => @title }%>
+
+
+<div class="container-fluid">
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Statut</th>
+        <th>Compte</th>
+        <th>Libellé</th>
+        <th>Contact</th>
+        <th>Estimation</th>
+        <th>Marge</th>
+        <th>Echéance</th>
+        <th>Collaborateur</th>
+        <th>Editer</th>
+        <th>Supp.</th>	
+      </tr>
+    </thead>
+    
+    <tbody>
+      <% @opportunities.each do |opportunity| %>
+      <tr>
+        <td><%= link_to opportunity.id, opportunity %></td>
+        <td>
+          <% if opportunity.statut == "Détectée"%>
+            <span class="badge badge-important">
+          <% elsif opportunity.statut == "En cours"%>
+            <span class="badge badge-warning">
+          <% elsif opportunity.statut == "Gagnée"%>
+            <span class="badge badge-success">
+          <% elsif opportunity.statut == "Perdue"%>
+            <span class="badge badge-inverse">
+          <% else %>
+            <span class="badge badge-info">
+          <% end %>
+          <%= opportunity.statut %></span>
+        </td>
+        <td><%= if !opportunity.account.nil? then link_to opportunity.account.company , account_events_url(opportunity.account) end%></td>
+        <td><%= opportunity.name %></td>
+        <td><%= if !opportunity.contact.nil? then link_to opportunity.contact.surname, opportunity.contact end%></td>
+        <td style="text-align :right;">
+          <% if !opportunity.amount.nil? %>
+            <%= number_to_currency(opportunity.amount, :locale => :fr)  %> <strong> HT </strong>
+          <% end %>
+        </td>
+	<td style="text-align :right;">
+          <% if !opportunity.profit.nil? %>
+            <%= number_to_currency(opportunity.profit, :locale => :fr)  %> <strong> HT </strong>
+          <% end %>
+        </td>
+        <td><%= if !opportunity.term.nil? then opportunity.term.strftime("%d/%m/%y") end%></td>
+        <td><%= if !opportunity.user.nil? then opportunity.user.full_name end%></td>
+        <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_opportunity_path(opportunity) %></td>
+        <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), opportunity, :title => "Supprimer l'Opportunité", :confirm => 'Confirmer la suppression ?', :method => :delete %></td>   
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <br />
+  
+  <%= paginate @opportunities %>
+  
+  <div class="page-header pull-right" style="text-align: right;">
+    <h4> Montant total estimé : <%=number_to_currency(@total_amount, :locale => :fr) %>  HT</h4> <br /> 
+    <h4> Marge totale estimée : <%=number_to_currency(@total_profit, :locale => :fr) %>  HT</h4> 
+  </div>
+
+
+</div>

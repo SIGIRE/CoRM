@@ -1,94 +1,112 @@
-$(function(){
+$(function() {
     
-//gestion de l'ajout de produit a un compte
-  $("#contact_ajout_produit").click(function() {
-    var prods = [];
-    $('#produit option:selected').each(function(i,item) {
-      prods[$(item).val()] = $(item).text();
-    });
-    //$('#produit option:selected').hide();
-    $('#produit option:selected').remove();
+    /**
+    * Get the list of tags by id
+    * @param {String} tag|contact
+    * @return {Array} Array of tags [val => text]
+    */
+    var getTagsList = function(selector) {
+        var tags = new Array(), that;
+	selector = selector.indexOf('#') == -1 ? '#' + selector : selector;
+        $(selector).each(function(i) {
+            that = $(this);
+	    if (that.text() == undefined) { return; }
+            tags[that.val()] = that.text();
+        });
+        return tags;
+    };
+
+    /* Init */
+    var initial_tags = getTagsList('tag option'), initial_tags_contact = getTagsList('contact_tag option');
     
-    
-    $.each(prods, function(key, value) {
-      if(value){
-	$('#contact_produit').append($('<option></option>').val(key).html(value));
-      }
-    });
-    
-  });  
+    /* Adding a tag to a Contact Handler */
+    $("#contact_add_tag").click(function() {
+        var tags = getTagsList('tag option:selected'), contact_tagHTML = $('#contact_tag');
+        console.log(tags);
+	for (var key in tags) {
+	    if (tags[key])
+		contact_tagHTML.append(
+		    corm.createHTML('option', {
+			content: tags[key],
+			value: key
+		    })
+		);
+	}
+	$('#tag option:selected').remove();
+    });  
  
-  //gestion de la suppression de produit lié au compte
-  $("#contact_retirer_produit").click(function() {
-    var prods = [];
-    $('#contact_produit option:selected').each(function(i,item) {
-      prods[$(item).val()] = $(item).text();
-    });
-    
-    $('#contact_produit option:selected').remove();
-    
-    $.each(prods, function(key, value) {
-      if(value){
-	//$("#produit option[value='"+key+"']").show();
-	$('#produit').append($('<option></option>').val(key).html(value));
-      }
-    });
-    
+  /* Remove a tag from the Contact tag list */
+  $("#contact_remove_tag").click(function() {
+    var tags = getTagsList('contact_tag option:selected'), tagHTML = $('#tag');
+    for (var key in tags) {
+	if (tags[key])
+	    tagHTML.append(
+		corm.createHTML('option', {
+		    content: tags[key],
+		    value: key
+		})
+	    );	
+    }
+    $('#contact_tag option:selected').remove();
   });
   
-  //retirer de la liste des produits à ajoutés les produits déja liés au compte
-  $("#contact_ajout_button").click(function() {
-    var prods = [];
-    $('select#contact_produit').find('option').each(function(i,item) {
-      prods[$(item).val()] = $(item).text();
-    });
-    
-    $.each(prods, function(key, value) {
-      if(value){
-	//$("#produit option[value='"+key+"']").hide();
-	$("#produit option[value='"+key+"']").remove();
-      }
-    });
-    
+  /* Remove from the Tags list, tags which are already linked to the contact */
+  $("#contact_add_button").click(function() {
+    var tags = getTagsList('select#contact_tag option');
+    for (var key in tags){
+	$('#tag option[value="' + key + '"]').remove();
+    }
   });
   
-  //selectionner tous les produits de la liste lié au compte lors de validation
-  $("#contact_valider_ajout").click(function() {
-    
-    var prods = [];
-    $('select#contact_produit').find('option').each(function(i,item) {
-      $(item).attr('selected',true);
-      prods[$(item).val()] = $(item).text();
-    });
-    
-    $('#display_contact_produit').find('option').each(function(i,item) {
-      $(item).remove();
-    });
-    
-    $.each(prods, function(key, value) {
-      if(value){
-	$('#display_contact_produit').append($('<option></option>').val(key).html(value));
-      }
-    });
-    
-    
+  /* Get all tags linked to the contact in the modal window and add it to the main form for edition/creation */
+  $("#contact_submit_add").click(function() {
+    var tags = getTagsList('select#contact_tag option');
+    /* Empty the list of tags in the main form for creation/edition */
+    var main_form_select_tags = $('#display_contact_tag');
+    main_form_select_tags.html('');
+    for (var key in tags) {
+	/*tags[key].setAttribute('selected', 'true');*/
+	main_form_select_tags.append(
+	    corm.createHTML('option', {
+		content: tags[key],
+		value: key
+	    })
+	);
+    }
+    initial_tags = getTagsList('select#tag option');
+    initial_tags_contact = tags.slice(0);
   });
   
-  //gestion lors de l'annulation
-  $("#contact_annuler_ajout").click(function() {
-    var prods = [];
-    $('select#contact_produit').find('option').each(function(i,item) {
-      $(item).attr('selected',false);
-    });
-    
+  /* Manage cancellation */
+  $("#contact_cancel_add").click(function() {
+    var contact_tagHTML = $('select#contact_tag'), tagHTML = $('select#tag'), key;
+    contact_tagHTML.html('');
+    tagHTML.html('');
+    for (key in initial_tags_contact) {
+	contact_tagHTML.append(
+	    corm.createHTML('option', {
+		content: initial_tags_contact[key],
+		value: key
+	    })
+	);
+    }
+    for (key in initial_tags) {
+	tagHTML.append(
+	    corm.createHTML('option', {
+		content: initial_tags[key],
+		value: key
+	    })
+	);
+    }
   });
   
-  //gestion validation formulaire
+  /* Check before submit */
   $("#contact_validate_form").click(function() {
-    
-    $('select#display_contact_produit').attr('disabled',false);
-    $('select#display_contact_produit').find('option').each(function(i,item) {
-      $(item).attr('selected',true);
+    var select = $('select#display_contact_tag');
+    /* Be sure the select field is not disabled */
+    select.attr('disabled',false);
+    select.find('option').each(function() {
+        $(this).attr('selected', true);
     }); 
   });
   

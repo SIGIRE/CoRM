@@ -12,15 +12,15 @@
   <% end %>
 
   <div class="field">
-    <div class="span2"> Nom : </div> <%= f.text_field :nom, :style=>'width: 30em;' %>
+    <div class="span2"> Nom : </div> <%= f.text_field :surname, :style=>'width: 30em;' %>
   </div>
   
   <div class="field">
-    <div class="span2"> Prénom : </div> <%= f.text_field :prenom , :style=>'width: 30em;'%>
+    <div class="span2"> Prénom : </div> <%= f.text_field :forename , :style=>'width: 30em;'%>
   </div>
   
   <div class="field">
-    <div class="span2"> Civilité : </div> <%= f.select :civilite, Contact::CIVILITES %>
+    <div class="span2"> Civilité : </div> <%= f.select :title, Contact::TITLES %>
   </div>
   
   <div class="field">
@@ -40,11 +40,11 @@
   </div>
   
   <div class="field">
-    <div class="span2"> Fonction : </div> <%= f.text_field :fonction, :style=>'width: 30em;' %>
+    <div class="span2"> Fonction : </div> <%= f.text_field :job, :style=>'width: 30em;' %>
   </div>
   
   <div class="field">
-    <div class="span2"> Compte associé : </div> <%= f.collection_select :compte_id, Compte.order('societe ASC').all, :id, :societe %>
+    <div class="span2"> Compte associé : </div> <%= f.collection_select :account_id, Account.order('company ASC').all, :id, :company %>
   </div>
   
   <div class="field">
@@ -53,11 +53,11 @@
   
   <div class="field">
     <div class="span2"> Tag(s) associé(s) : </div>
-    <%= select_tag :display_contact_produit, options_from_collection_for_select(@contact.produits.order('nom ASC').all, "id", "nom"), {:size => 6, :multiple => true, :disabled => true} %>
-    <a id="contact_ajout_button" class="btn btn-success btn-mini" data-toggle="modal" href="#contact_produit_modal" style="margin-bottom: 1em; margin-left: 2em;">Modifier Tag</a>
+    <%= select_tag :display_contact_tag, options_from_collection_for_select(@contact.tags.order('name ASC').all, "id", "name"), {:size => 6, :multiple => true, :disabled => true} %>
+    <a id="contact_ajout_button" class="btn btn-success btn-mini" data-toggle="modal" href="#contact_tag_modal" style="margin-bottom: 1em; margin-left: 2em;">Modifier Tag</a>
   </div>
   
-  <div class="modal hide fade" id="contact_produit_modal" style="width: 900px; margin-left: -450px;">
+  <div class="modal hide fade" id="contact_tag_modal" style="width: 900px; margin-left: -450px;">
     
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal">×</button>
@@ -68,20 +68,20 @@
       
       <div class="span3" style="margin-left: 50px;">
       <h4>Liste des tags :</h4>
-      <% @produits = Produit.order('nom ASC').all %>
-      <%= select_tag :produit, options_from_collection_for_select(@produits, "id", "nom"), {:size => 6, :multiple => true} %>
+      <% @tags = Tag.order('name ASC').all %>
+      <%= select_tag :tag, options_from_collection_for_select(@tags, "id", "name"), {:size => 6, :multiple => true} %>
       </div>
       
       <div class="span2" style="padding-top: 3em; margin-left: 2em; margin-right: 2em;">
         
-        <a id="contact_ajout_produit" class="btn btn-success btn-mini" href="#" style="margin-bottom: 1em; margin-left : 3em;">
+        <a id="contact_add_tag" class="btn btn-success btn-mini" href="#" style="margin-bottom: 1em; margin-left : 3em;">
           <i class="icon-arrow-right icon-white"></i>
           Ajouter
         </a>
         <br />
         <br />
         
-        <a id="contact_retirer_produit" class="btn btn-warning btn-mini" href="#" style="margin-bottom: 1em; margin-left : 3em;">
+        <a id="contact_remove_tag" class="btn btn-warning btn-mini" href="#" style="margin-bottom: 1em; margin-left : 3em;">
           <i class="icon-arrow-left icon-white"></i>
           Retirer
         </a>
@@ -90,14 +90,14 @@
       
       <div class="span3">
         <h4>Tag(s) associé(s) au contact :</h4>
-        <%= select_tag :contact_produit, options_from_collection_for_select(@contact.produits.order('nom ASC').all, "id", "nom"), {:size => 6, :multiple => true} %>
+        <%= select_tag :contact_tag, options_from_collection_for_select(@contact.tags.order('name ASC').all, "id", "nom"), {:size => 6, :multiple => true} %>
       </div>
       
     </div>
     
     <div class="modal-footer">
-      <a href="#" id="contact_annuler_ajout" class="btn" data-dismiss="modal">Annuler </a>
-      <a href="#" id="contact_valider_ajout" class="btn btn-primary" data-dismiss="modal">Valider</a>
+      <a href="#" id="contact_cancel_add" class="btn" data-dismiss="modal">Annuler </a>
+      <a href="#" id="contact_submit_add" class="btn btn-primary" data-dismiss="modal">Valider</a>
     </div>
     
   </div>
@@ -105,7 +105,7 @@
   <br>
   
    <div class="row">
-    <div class="span2"> <%= f.submit :class =>"btn btn-primary",:id =>"contact_validate_form"%> </div>
+    <div class="span2"> <%= f.submit :class =>"btn btn-primary",:id =>"contact_submit_form"%> </div>
     <div class="pull-right ">
       <%= if !@contact.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @contact, :title => "Supprimer le contact", :confirm => 'Confirmer la suppression ?', :method => :delete end %> 
     </div>

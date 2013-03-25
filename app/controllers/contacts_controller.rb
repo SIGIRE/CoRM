@@ -1,17 +1,23 @@
 # encoding: utf-8
 
+##
+# This class manage Contacts and render all pages necessary for CRUD and for add/remove tags
+# 
 class ContactsController < ApplicationController
   
   before_filter :authenticate_user!
   
+  ##
+  # Show the full list of Contact by paginate_by
+  #
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = Contact.order("nom").page(params[:page])
+    @contacts = Contact.order("surname").page(params[:page])
     
     #infos typeahead
-    @autocomplete_comptes = Compte.find(:all,:select=>'societe').map(&:societe)
-    @autocomplete_contacts = Contact.find(:all,:select=>'nom').map(&:nom)
+    @autocomplete_accounts = Account.find(:all,:select=>'company').map(&:company)
+    @autocomplete_contacts = Contact.find(:all,:select=>'surname').map(&:surname)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -19,6 +25,9 @@ class ContactsController < ApplicationController
     end
   end
 
+  ##
+  # Show one occurence of Contact
+  #
   # GET /contacts/1
   # GET /contacts/1.json
   def show
@@ -30,6 +39,9 @@ class ContactsController < ApplicationController
     end
   end
 
+  ##
+  # Show the form to create a new Contact
+  #
   # GET /contacts/new
   # GET /contacts/new.json
   def new
@@ -41,33 +53,39 @@ class ContactsController < ApplicationController
     end
   end
 
+  ##
+  # Show the filled form with the Contact you want to modify
+  #
   # GET /contacts/1/edit
   def edit
     @contact = Contact.find(params[:id])
   end
 
+  ##
+  # Create action for a Contact
+  #
   # POST /contacts
   # POST /contacts.json
   def create
     @contact = Contact.new(params[:contact])
-    @contact.created_by = current_user.nom_complet
+    @contact.created_by = current_user.full_name
 
-    #gestion de la relation has and belongs to many entre comptes et produits
-    #s'il n'y a plus aucun produit associé, on supprime les liens
+    # Manage the has_and_belongs relation between Accounts and Tags
+    # if there is no one associate tag, we delete links
     if params[:display_contact_produit].nil?
-      @contact.produits.clear
+      @contact.tags.clear
     #sinon on recrée tous les liens avec les produits, dont les nouveaux produits
     else
-      produit = Produit.find(params[:display_contact_produit])
-      @contact.produits.clear
-      @contact.produits << produit
+      tag = Tag.find(params[:display_contact_tag])
+      @contact.tags.clear
+      @contact.tags << tag
     end
         
     respond_to do |format|
       if @contact.save
         format.html {
-          if  (@contact.compte).nil?  then redirect_to contacts_path, :notice => 'Le contact a été créé.'
-          else redirect_to compte_evenements_url(@contact.compte_id), :notice => "Le contact a été créé."
+          if  (@contact.account).nil?  then redirect_to contacts_path, :notice => 'Le contact a été créé.'
+          else redirect_to account_events_url(@contact.account_id), :notice => "Le contact a été créé."
           end
         }
         
@@ -79,26 +97,29 @@ class ContactsController < ApplicationController
     end
   end
 
+  ##
+  # Save a Contact which already exists
+  #
   # PUT /contacts/1
   # PUT /contacts/1.json
   def update
     @contact = Contact.find(params[:id])
-    @contact.modified_by = current_user.nom_complet
+    @contact.modified_by = current_user.full_name
     
-    #même traitement qu'a la creation
-    if params[:display_contact_produit].nil?
-      @contact.produits.clear
+    # same treatment as #create
+    if params[:display_contact_tag].nil?
+      @contact.tags.clear
     else
-      produit = Produit.find(params[:display_contact_produit])
-      @contact.produits.clear
-      @contact.produits << produit
+      tag = Tag.find(params[:display_contact_tag])
+      @contact.tags.clear
+      @contact.tags << tag
     end
 
     respond_to do |format|
       if @contact.update_attributes(params[:contact])
         format.html {
-          if  (@contact.compte).nil?  then redirect_to contacts_path, :notice => 'Le contact a été mis à jour.'
-          else redirect_to compte_evenements_url(@contact.compte_id), :notice => 'Le contact a été mis à jour.'
+          if  (@contact.account).nil?  then redirect_to contacts_path, :notice => 'Le contact a été mis à jour.'
+          else redirect_to account_events_url(@contact.account_id), :notice => 'Le contact a été mis à jour.'
           end }
         format.json { head :no_content }
       else
@@ -108,6 +129,9 @@ class ContactsController < ApplicationController
     end
   end
 
+  ##
+  # Remove a Contact from the DataBase
+  #
   # DELETE /contacts/1
   # DELETE /contacts/1.json
   def destroy
@@ -120,22 +144,22 @@ class ContactsController < ApplicationController
     end
   end
   
-  
-  #gestion des filtres
+  ##
+  # Filter Contact on the index page
+  #
   def filter
 
     #infos typeahead
-    @autocomplete_comptes = Compte.find(:all,:select=>'societe').map(&:societe)
-    @autocomplete_contacts = Contact.find(:all,:select=>'nom').map(&:nom)
+    @autocomplete_accounts = Account.find(:all,:select=>'company').map(&:company)
+    @autocomplete_contacts = Contact.find(:all,:select=>'surname').map(&:surname)
 
-    #données du filtre
-    societe = params[:filter][:societe]
-    nom = params[:filter][:nom]
+    # filter data
+    company = params[:filter][:company]
+    surname = params[:filter][:surname]
     tel = params[:filter][:tel]
-
-    #tri sur les contacts en fonction des valeurs des filtres
-    @contacts = Contact.by_societe(societe).by_nom(nom).by_tel(tel)
-    @contacts = @contacts.order("nom ASC").page(params[:page])
+    # sort contacts with filter values
+    @contacts = Contact.by_company(company).by_surname(surname).by_tel(tel)
+    @contacts = @contacts.order("surname ASC").page(params[:page])
     
     respond_to do |format|
       format.html  { render :action => "index" }

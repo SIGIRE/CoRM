@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Libelle:</b>
+  <%= @eventtype.libelle %>
+</p>
+
+<p>
+  <b>Direction:</b>
+  <%= @eventtype.direction %>
+</p>
+
+<p>
+  <b>Created by:</b>
+  <%= @eventtype.created_by %>
+</p>
+
+<p>
+  <b>Modified by:</b>
+  <%= @eventtype.modified_by %>
+</p>
+
+
+<%= link_to 'Edit', edit_eventtype_path(@type) %> |
+<%= link_to 'Back', eventtype_path %>

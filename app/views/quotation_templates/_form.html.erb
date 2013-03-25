@@ -1,0 +1,87 @@
+<div class="well">
+  
+  <%= form_for(@template) do |f| %>
+    <% if @template.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@template.errors.count, "error") %> prohibited this template from being saved:</h2>
+  
+        <ul>
+        <% @template.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+  
+    <div class="field"> 
+      <div class="span2">Societe : </div><%= f.text_field :company %>
+    </div>
+    
+    <div class="field"> 
+      <div class="span2">Adresse : </div><%= f.text_field :adress %>
+    </div>
+    
+    <div class="field"> 
+      <div class="span2">Ville : </div><%= f.text_field :city %>
+    </div>
+    
+    <div class="field"> 
+      <div class="span2">Code postal : </div><%= f.text_field :zip %>
+    </div>
+    
+    <div class="field"> 
+      <div class="span2">Pays : </div><%= f.text_field :country %>
+    </div>
+    
+    <div class="field"> 
+      <div class="span2">Téléphone : </div><%= f.text_field :tel %>
+    </div>
+    
+    <div class="field"> 
+      <div class="span2">Fax : </div><%= f.text_field :fax %>
+    </div>
+    
+    <div class="field"> 
+      <div class="span2">Site internet : </div><%= f.text_field :web %>
+    </div>
+    
+    <div class="field"> 
+      <div class="span2">E-mail : </div><%= f.text_field :email %>
+    </div>
+    
+    <div class="field"> 
+      <div class="span2">Infos sur le capital : </div><%= f.text_field :capital %>
+    </div>
+    
+    <div class="field"> 
+      <div class="span2">APE : </div><%= f.text_field :ape %>
+    </div>
+    
+    <div class="field"> 
+      <div class="span2">SIRET : </div><%= f.text_field :company_registration_number %>
+    </div>
+    
+    <div class="field"> 
+      <div class="span2">TVA : </div><%= f.text_field :vat %>
+    </div>
+    
+    <div class="field"> 
+      <div class="span2">Logo : </div>
+      <%= f.file_field :fichier_joint, :style=>'width: 20em; margin-bottom: 1em;' %>
+      <% if @template.attach.exists? %>
+        <%= link_to (image_tag("glyphicons/glyphicons_036_file.png") + ' ' + @template.attach_file_name), @template.attach.url, :target => "_blank"%>
+      <% end %>
+    </div>
+    
+    
+  <div class="row">
+    <div class="span2"> <%= f.submit :class =>"btn btn-primary" %> </div>
+    <div class="pull-right ">
+      <%= if !@template.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @template, :title => "Supprimer le modèle", :confirm => 'Confirmer la suppression ?', :method => :delete end %> 
+    </div>
+  </div>    
+    
+    
+  <% end %>
+</div>

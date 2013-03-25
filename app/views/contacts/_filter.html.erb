@@ -4,11 +4,11 @@
     <div class="row-fluid show-grid" style="margin-top: 1em;">
       
       <div class="span2">
-        <h6>Société : </h6><%= f.text_field :societe , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_comptes}, :autocomplete=>"off"%>
+        <h6>Société : </h6><%= f.text_field :company , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_accounts}, :autocomplete=>"off"%>
       </div>
       
       <div class="span2">
-        <h6>Nom : </h6><%= f.text_field :nom , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_contacts}, :autocomplete=>"off"%>
+        <h6>Nom : </h6><%= f.text_field :surname , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_contacts}, :autocomplete=>"off"%>
       </div>
       
       <div class="span2">

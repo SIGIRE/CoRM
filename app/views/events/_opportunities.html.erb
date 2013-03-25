@@ -1,0 +1,99 @@
+<div class="container-fluid" style="margin-top: 1em;">
+   
+
+     <div class="well">
+       <div class="row-fluid">
+         <div class="span8">
+           <h3>Liste des Opportunités</h3>
+         </div>
+         <div class="pull-right">
+           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_opportunity_path(:account_id => @account.id) ,{:title => "Créer une opportunité"}%>
+         </div>
+       </div>
+     </div>
+
+         
+</div>
+
+<div class="container-fluid">
+	
+	<% if Opportunity.by_account(@account).blank? %>
+		<h4> Aucune opportunité n'est rattachée à ce account </h4>
+	<% else %>
+        
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Statut</th>
+        <th>Libellé</th>
+        <th>Contact</th>
+        <th>Estimation</th>
+				<th>Marge</th>
+        <th>Echéance</th>
+        <th>Collaborateur</th>
+        <th>Voir</th>
+        <th>Editer</th>
+      </tr>
+    </thead>
+    <tbody>
+	
+			<% @opportunities = Opportunity.by_account(@account).order('name ASC').page(params[:page]) %>
+			<% @total_amount = 0 %>
+			<% @total_profit = 0 %>
+			<% @opportunities.each do |opportunity| %>
+				<% if opportunity.statut=="Détectée" || opportunity.statut=="En cours" %>
+					<% @total_amount += opportunity.amount %>
+					<% @total_profit += opportunity.profit %>
+				<% end %>
+        <tr>
+          <td><%= link_to opportunity.id, opportunity %></td>
+          <td>
+            <% if opportunity.statut == "Détectée"%>
+              <span class="badge badge-important">
+            <% elsif opportunity.statut == "En cours"%>
+              <span class="badge badge-warning">
+            <% elsif opportunity.statut == "Gagnée"%>
+              <span class="badge badge-success">
+            <% elsif opportunity.statut == "Perdue"%>
+              <span class="badge badge-inverse">
+            <% else %>
+              <span class="badge badge-info">
+            <% end %>
+            <%= opportunity.statut %></span>
+          </td>
+          <td><%= opportunity.name %></td>
+          <td><%= if !opportunity.contact.nil? then link_to opportunity.contact.full_name, opportunity.contact end%></td>
+          <td style="text-align :right;">
+            <% if !opportunity.amount.nil? %>
+              <%= number_to_currency(opportunity.amount, :locale => :fr)  %> <strong> HT </strong>
+            <% end %>
+          </td>
+					<td style="text-align :right;">
+        		<% if !opportunity.profit.nil? %>
+            	<%= number_to_currency(opportunity.profit, :locale => :fr)  %> <strong> HT </strong>
+          	<% end %>
+					</td>
+          <td><%= if !opportunity.term.nil? then opportunity.term.strftime("%d/%m/%y") end%></td>
+          <td><%= if !opportunity.user.nil? then opportunity.user.full_name end%></td>
+          <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), opportunity %></td>
+          <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_opportunity_path(opportunity) %></td>
+        </tr>
+        <% end %>
+      </tbody>
+  </table>
+  
+  <br />
+  
+  <%= paginate @opportunities %>
+  
+  <div class="page-header pull-right" style="text-align: right;">
+    <h4> Montant total estimé : <%=number_to_currency(@total_amount, :locale => :fr) %>  HT</h4> <br /> 
+	<h4> Marge totale estimée : <%=number_to_currency(@total_profit, :locale => :fr) %>  HT</h4> 
+  </div>
+  
+  <% end %>
+  
+
+</div>

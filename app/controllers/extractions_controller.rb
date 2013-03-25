@@ -1,9 +1,12 @@
+##
+# Class that manage data extraction from the DataBase to CSV
+#
 class ExtractionsController < ApplicationController
   
   before_filter :authenticate_user!
   
-  # GET /extractions/select_param_comptes
-  def select_param_comptes
+  # GET /extractions/select_param_accounts
+  def select_param_accounts
   end
 
   # GET /extractions/select_param_contacts
@@ -11,46 +14,85 @@ class ExtractionsController < ApplicationController
   end
 
 
-  
-  def comptes
+  ##
+  # Extracting data for Accounts
+  #
+  def accounts
     
     require 'csv'
     require 'iconv'
     
-    @comptes = Compte.by_cp(params[:code_postal]).by_pays(params[:pays]).by_tags(params[:produits]).by_user(params[:user]).by_genre(params[:genres]).by_origine(params[:origines])
+    @accounts = Account.by_zip(params[:zip]).by_country(params[:country]).by_tags(params[:tag]).by_user(params[:user]).by_category(params[:categories]).by_origin(params[:origins])
 
-    comptes_csv = CSV.generate(:col_sep => ';') do |csv|
+    accounts_csv = CSV.generate(:col_sep => ';') do |csv|
       # header row
-      csv << ['id', 'societe', 'adresse1', 'adresse2', 'cp', 'ville', 'pays', 'tel', 'fax', 'email', 'web', 'code_compta', 'genre', 'collaborateur', 'origine']
+      csv << ['id', 'company', 'adress1', 'adress2', 'ZIP code', 'City', 'Country', 'Telephone', 'Fax', 'E-Mail', 'Website', 'Accounting Code', 'Category', 'collaborator', 'origin']
       # data row
-      @comptes.each do |compte|
-        csv << [compte.id, compte.societe, compte.adresse1, compte.adresse2, compte.cp, compte.ville, compte.pays, compte.tel, compte.fax, compte.email, compte.web, compte.code_compta, compte.genre, (compte.user.nom_complet unless compte.user.nil?), (compte.origine.nom unless compte.origine.nil?) ]
+      @accounts.each do |account|
+        csv << [
+		account.id, 
+		account.company, 
+		account.adress1, 
+		account.adress2, 
+		account.zip, 
+		account.city, 
+		account.country, 
+		account.tel,
+		account.fax, 
+		account.email, 
+		account.web, 
+		account.accounting_code, 
+		account.category, 
+		(account.user.full_name unless account.user.nil?), 
+		(account.origin.name unless account.origin.nil?) 
+	]
       end
     end
 
-    send_data(comptes_csv, :type => 'test/csv; charset=utf-8; header=present', :filename => 'comptes.csv') 
+    send_data(accounts_csv, :type => 'text/csv; charset=utf-8; header=present', :filename => 'accounts.csv') 
   end
-  
-  
-  
-  
+
+  ##
+  # Extracting data for Contacts & Accounts
+  #
   def contacts
     require 'csv'
     require 'iconv'
     
-    @contacts = Contact.by_comptes(params[:compte]).by_cp_compte(params[:code_postal]).by_pays_compte(params[:pays]).by_tags(params[:produits]).by_user_compte(params[:user]).by_genre_compte(params[:genres]).by_origine_compte(params[:origines])
+    @contacts = Contact.by_accounts(params[:account]).by_zip_account(params[:code_postal]).by_country_account(params[:pays]).by_tags(params[:produits]).by_user_account(params[:user]).by_category_account(params[:genres]).by_origin_account(params[:origines])
 
     contacts_csv = CSV.generate(:col_sep => ';') do |csv|
       # header row
-      csv << ['id', 'nom', 'prenom', 'civilite', 'tel', 'fax', 'email', 'mobile', 'fonction', 'societe', 'adresse1', 'adresse2', 'cp', 'ville', 'pays', 'tel_compte', 'fax_compte', 'email_compte', 'genre', 'collaborateur', 'origine']
+      csv << ['id', 'Surname', 'Forename', 'Title', 'Telephone', 'Fax', 'E-Mail', 'Mobile', 'Fonction', 'Company', 'Adress1', 'Adress2', 'ZIP', 'City', 'Country', 'Telephone', 'Fax', 'E-Mail', 'Category', 'Collaborator', 'Origin']
       # data row
       @contacts.each do |contact|
-        csv << [contact.id, contact.nom, contact.prenom, contact.civilite, contact.tel, contact.fax, contact.email, contact.mobile, contact.fonction, (contact.compte.societe unless contact.compte.nil?), (contact.compte.adresse1 unless contact.compte.nil?), (contact.compte.adresse2 unless contact.compte.nil?), (contact.compte.cp unless contact.compte.nil?), (contact.compte.ville unless contact.compte.nil?), (contact.compte.pays unless contact.compte.nil?), (contact.compte.tel unless contact.compte.nil?), (contact.compte.fax unless contact.compte.nil?), (contact.compte.email unless contact.compte.nil?), (contact.compte.genre unless contact.compte.nil?), (contact.compte.user.nom_complet unless (contact.compte.nil? or contact.compte.user.nil?)), (contact.compte.origine.nom unless (contact.compte.nil? or contact.compte.origine.nil?)) ]
+        csv << [
+		contact.id, 
+		contact.surname, 
+		contact.forename, 
+		contact.title,
+		contact.tel, 
+		contact.fax, 
+		contact.email,
+		contact.mobile,
+		contact.job,
+		(contact.account.company unless contact.account.nil?), 
+		(contact.account.adress1 unless contact.account.nil?),
+		(contact.account.adress2 unless contact.account.nil?), 
+		(contact.account.zip unless contact.account.nil?), 
+		(contact.account.city unless contact.account.nil?), 
+		(contact.account.country unless contact.account.nil?), 
+		(contact.account.tel unless contact.account.nil?), 
+		(contact.account.fax unless contact.account.nil?), 
+		(contact.account.email unless contact.account.nil?), 
+		(contact.account.category unless contact.account.nil?), 
+		(contact.account.user.full_name unless (contact.account.nil? or contact.account.user.nil?)), 
+		(contact.account.origin.name unless (contact.account.nil? or contact.account.origin.nil?))
+	]
       end
     end
 
-    send_data(contacts_csv, :type => 'test/csv; charset=utf-8; header=present', :filename => 'contacts.csv')
-    #send_data(Iconv.conv('iso-8859-1//IGNORE', 'utf-8', contacts_csv), :type => 'test/csv; charset=iso-8859-1; header=present', :filename => 'contacts.csv')     
+    send_data(contacts_csv, :type => 'text/csv; charset=utf-8; header=present', :filename => 'contacts.csv')   
   end
   
   

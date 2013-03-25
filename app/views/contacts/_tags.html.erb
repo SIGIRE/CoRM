@@ -1,0 +1,26 @@
+<% if @contact.tags.blank? %>
+	<h4> Aucun tag n'est rattaché à ce compte </h4>
+<% else %>
+
+
+<table class="table table-bordered table-striped">
+  <tr>
+	<th>Nom</th>
+    <th>Description</th>
+    <th>Voir</th>
+  </tr>
+
+<% @tags = @contact.tags.order('name').page(params[:page]) %>
+<% @tags.each do |tag| %>
+  <tr>
+    <td><%= link_to tag.name, tag %></td>
+    <td><%= truncate(tag.description, :length => 600, :separator => ' ') %></td>
+    <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), tag %></td>
+<% end %>
+</table>
+
+<br />
+
+<%= paginate @tags %>
+
+<% end %>

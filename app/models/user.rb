@@ -1,3 +1,8 @@
+
+##
+# This class represents the final user, so he has many business, events or tasks as he wants.
+# He defined by an email and a password at least, he can have also a forename, a surname, a phone number and a mobile phone number.
+#
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -5,14 +10,19 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # nécessaire pour pouvoir modifer la valeur de ces attributs par nos propres forms
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :nom, :prenom, :tel, :mobile, :current_password
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :forename, :surname, :tel, :mobile, :current_password
   attr_accessor :current_password
 
-  def nom_complet
-    "#{prenom} #{nom}"
+  ##
+  # Get the full name of this User
+  # * *Returns*    :
+  #   - The full name as  String
+  #
+  def full_name
+     "#{forename} #{surname}"
   end
   
-  has_many :comptes
-  has_many :evenements
-  has_many :taches
+  has_many :accounts
+  has_many :events
+  has_many :tasks
 end

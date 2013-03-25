@@ -1,0 +1,28 @@
+<%= form_for(@tag, :html => { :class => "well "}) do |f| %>
+  <% if @tag.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tag.errors.count, "error") %> prohibited this produit from being saved:</h2>
+<!-- une variable dans un conditions if avec une variable d'instance ne semblant pas exister... à voir -->
+      <ul>
+      <% @tag.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <div class="span2"><%= f.label :name %></div>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <div class="span2"><%= f.label :description %></div>
+    <%= f.text_area :description, :display_with => :simple_format, :rows => "5", :style=>'width: 30em;' %>
+  </div>
+   <div class="row">
+    <div class="span2"> <%= f.submit :class =>"btn btn-primary",:id =>"tag_validate_form"%> </div>
+    <div class="pull-right ">
+      <%= if !@tag.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @tag, :title => "Supprimer le tag", :confirm => 'Confirmer la suppression ?', :method => :delete end %> 
+    </div>
+  </div>
+<% end %>

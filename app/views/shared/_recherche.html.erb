@@ -2,7 +2,7 @@
  <div class="row" style="margin-top: 1em;">
   
   <div class="span4">
-   <%= form_tag("/comptes/search", :method => "get", :class =>"form-search") do %>
+   <%= form_tag("/accounts/search", :method => "get", :class =>"form-search") do %>
     <h6>Compte
      <%= text_field_tag :query, nil, :style=>'width: 7em;' %>
      <%= submit_tag("Chercher") %></h6>
@@ -10,7 +10,7 @@
   </div>
   
   <div class="span4">
-   <%= form_tag("/comptes/search_tel", :method => "get", :class =>"form-search") do %>
+   <%= form_tag("/accounts/search_tel", :method => "get", :class =>"form-search") do %>
     <h6>Tél. Compte
      <%= text_field_tag :query, nil, :style=>'width: 7em;' %>
      <%= submit_tag("Chercher") %></h6>

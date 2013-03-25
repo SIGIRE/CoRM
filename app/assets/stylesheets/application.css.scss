@@ -1,6 +1,12 @@
 @import "bootstrap_and_overrides";
 @import "jquery-ui-1.8.21.custom";
 
+/*@mixin radius($r) {
+  -webkit-border-radius: $r;
+  -moz-border-radius: $r;
+  border-radius: $r;
+}
+*/
 #bloc-login {
   width: 548px;
   height: 198px;
@@ -10,9 +16,7 @@
   left: 50%;
   margin-top: -100px;
   margin-left: -275px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
+  /* @include radius('5px'); */
 }
 
 #logo {
@@ -46,43 +50,43 @@
   background-color: #EEEEEE;
 }
 
-#evenement_debut_1i,
-#evenement_fin_1i,
-#tache_echeance_1i
+#event_date_begin_1i,
+#event_date_end_1i,
+#task_term_1i
 {
   width:5em;
 }
 
-#evenement_debut_2i,
-#evenement_fin_2i,
-#tache_echeance_2i
+#event_date_begin_2i,
+#event_date_end_2i,
+#task_term_2i
 {
   width:8em;
 }
 
-#evenement_debut_3i,
-#evenement_fin_3i,
-#tache_echeance_3i
+#event_date_begin_3i,
+#event_date_end_3i,
+#task_term_3i
 {
   width:4em;
 }
 
-#evenement_debut_4i,
-#evenement_fin_4i,
-#tache_echeance_4i
+#event_date_begin_4i,
+#event_date_end_4i,
+#task_term_4i
 {
   width:4em;
 }
 
-#evenement_debut_5i,
-#evenement_fin_5i,
-#tache_echeance_5i
+#event_date_begin_5i,
+#event_date_end_5i,
+#task_term_5i
 {
   width:4em;
 }
 
-#evenement_notes,
-#tache_notes
+#event_notes,
+#task_notes
 {
   width:100%;
 }

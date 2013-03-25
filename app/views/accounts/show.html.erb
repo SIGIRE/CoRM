@@ -1,0 +1,174 @@
+<div class="container-fluid">
+  
+  <div class="page-header">
+    <h1>Compte n°<%= @account.id %> </h1>
+  </div>
+
+  <div class="well">
+    
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td colspan="5">
+            <div class="span2">
+              <h3>Société :</h3>
+              <%= @account.company %>
+            </div>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <div class="span2">
+              <h3> Adresse :</h3>
+              <%= @account.adress1 %>
+            </div>
+          </td>
+    
+        <% if !@account.adress2.nil? %>
+	  <td>
+            <div class="span2">
+              <h3>Adresse bis :</h3>
+              <%= @account.adress2 %>
+            </div>
+          </td>
+        <% end %>
+         
+         
+          <td>
+            <div class="span3">
+              <h3>Ville :</h3>
+               <%= @account.city %>
+            </div>
+          </td>
+          
+          <td>
+            <div class="span2">
+              <h3>Code postal :</h3>
+               <%= @account.zip %>
+            </div>
+          </td>
+          
+          <td>
+            <div class="span2">
+              <h3>Pays :</h3>
+               <%= @account.country %>
+            </div>
+          </td>
+         
+        </tr>
+        
+        <tr>
+          
+          <td>
+            <div class="span2">
+              <h3>Téléphone :</h3>
+              <%= @account.tel %>
+            </div>
+          </td>
+          
+          <td>
+            <div class="span2">
+              <h3>Fax :</h3>
+              <%= @account.fax %>
+            </div>
+          </td>
+          
+          <td>
+            <div class="span2">
+              <h3>Email :</h3>
+              <%=  mail_to(@account.email) %>
+            </div>
+          </td>
+          
+          <td colspan="2">
+            <div class="span2">
+              <h3>Site web : </h3>
+              <%= link_to @account.web, @account.web, :target => "_blank" %>
+            </div>
+          </td>
+          
+        </tr>
+        
+        <tr>
+	  <% if !@account.origin.nil? %>
+          <td>
+            <div class="span2">
+              <h3>Origine : </h3>
+              <%= @account.origin.name %>
+            </div>
+          </td>
+	  <% end %>          
+
+          <td>
+            <div class="span2">
+              <h3>Categorie : </h3>
+              <%= @account.category %>
+            </div>
+          </td>
+          
+          <td>
+            <div class="span3">
+              <h3>Code comptable : </h3>
+              <%= @account.accounting_code %>
+            </div>
+          </td>
+          
+          <td colspan="2">
+            <div class="span4">
+              <h3>Collaborateur lié : </h3>
+              <%= @account.user.full_name %> : <%= mail_to(@account.user.email) %>
+            </div>
+          </td>
+          
+        </tr>
+        
+        <% if !@account.tags.blank? %>
+        <tr>
+          <td colspan="5">
+            <h3>Tags liés au compte : </h3>
+              <%= render "tags" %>
+          </td>
+          
+        </tr>
+	<% end %>
+        
+        <tr>
+          <td colspan="5">
+              <h3>Notes :</h3>
+              <%= simple_format(@account.notes) %>
+          </td>
+        </tr>
+        
+        <tr>
+          <td colspan="5">
+              <h3>Créé par : </h3><%= @account.created_by %><strong style="margin-left: 3em;"> Le : </strong><%= @account.created_at.strftime("%d/%m/%y à %H:%M") %>
+          </td>
+        </tr>
+          
+        <% if !@account.modified_by.nil? %>
+        <tr>
+          <td colspan="5">
+              <h3>Modifié par :</h3><%= @account.modified_by %>
+              <strong style="margin-left: 3em;"> Le : </strong><%= @account.updated_at.strftime("%d/%m/%y à %H:%M") %>        
+          </td>
+        </tr>
+      <% end %>
+      
+      <tr>
+        <td colspan="5">
+          <div class="pull-left">
+            <%= link_to image_tag("glyphicons/glyphicons_221_unshare.png"), :back %>
+            <%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_account_path(@compte) %>
+            <%= link_to '<i class="icon-folder-close icon-white"></i> Voir les événements du compte'.html_safe, account_events_url(@account), {:class => "btn btn-info btn-small", :style => " margin-left : 3em;"} %>
+          </div>
+          <div class="pull-right">
+            <%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), @account, :confirm => 'Confirmer la suppression ?', :method => :delete %>
+          </div>
+        </td>
+      </tr>
+        
+      </tbody>
+    </table>
+  </div>
+</div>

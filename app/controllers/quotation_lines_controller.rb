@@ -1,0 +1,2 @@
+class QuotationLinesController < ApplicationController
+end

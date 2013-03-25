@@ -1,16 +1,19 @@
+##
+# Controller that manager User
+#
 class RegistrationsController < Devise::RegistrationsController
-
-  #controlleur pour la gestion des données du compte utilisateur,
-  #on doit passer par notre propre controlleur pour contourner/configurer devise à notre manière
-
-
-  # Authentification de l'admin
   #before_filter :authenticate
   
+  ##
+  # Render a page to edit the User
+  #
   def edit
       @user = current_user
   end
   
+  ##
+  # Process to update the User
+  #
   def update
     @user = User.find(current_user.id)
     

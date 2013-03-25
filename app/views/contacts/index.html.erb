@@ -1,5 +1,5 @@
 <%= render 'filter', :locals => { :filter => @filter }%>
-<%= render 'titre', :locals => { :titre => @titre }%>
+<%= render 'title', :locals => { :title => @title }%>
 
 <div class="container-fluid" style="margin-top: 1em;">
 
@@ -20,12 +20,12 @@
     <tr>
       <td><%= contact.id %></td>
       <td>
-        <%= if contact.civilite == "M." then image_tag("glyphicons/glyphicons_034_old_man.png") end%>
-        <%= if contact.civilite == "Mme" then image_tag("glyphicons/glyphicons_035_woman.png") end%>
+        <%= if contact.title == "M." then image_tag("glyphicons/glyphicons_034_old_man.png") end%>
+        <%= if contact.title == "Mme" then image_tag("glyphicons/glyphicons_035_woman.png") end%>
       </td>
-      <td><%= contact.nom %></td>
-      <td><%= contact.prenom %></td>
-      <td ><%= if !contact.compte.nil? then link_to contact.compte.societe , compte_evenements_url(contact.compte),{:title => "Afficher les évenements"} end%></td>
+      <td><%= contact.surname %></td>
+      <td><%= contact.forename %></td>
+      <td ><%= if !contact.account.nil? then link_to contact.account.company , account_events_url(contact.account),{:title => "Afficher les évenements"} end%></td>
       <td><%= contact.tel %></td>
       <td><%= contact.mobile %></td>
       <td><%= mail_to(contact.email)%></td>

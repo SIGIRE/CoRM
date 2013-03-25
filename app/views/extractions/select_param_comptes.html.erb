@@ -46,7 +46,7 @@
  
       <div>
         <% @users = User.order('nom ASC').all %>
-        <h6>Suivis par : </h6><%= select_tag :user, options_from_collection_for_select(@users, "id", "nom_complet"), {:include_blank => true, :size => 5, :class =>"span3 filter_coll"}%>
+        <h6>Suivis par : </h6><%= select_tag :user, options_from_collection_for_select(@users, "id", "full_name"), {:include_blank => true, :size => 5, :class =>"span3 filter_coll"}%>
       </div>
       
       

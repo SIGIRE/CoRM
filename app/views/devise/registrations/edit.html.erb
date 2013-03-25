@@ -13,10 +13,10 @@
     </div>
     
     <div class="field">Prénom : <br />
-    <%= f.text_field :prenom %></div>
+    <%= f.text_field :forename %></div>
 
     <div class="field">Nom : <br />
-    <%= f.text_field :nom %></div>
+    <%= f.text_field :surname %></div>
        
     <div class="field">Tél fixe : <br />
     <%= f.text_field :tel %></div>
@@ -27,7 +27,7 @@
     <div class="modal hide fade" id="edit_profile_modal">
       
       <div class="modal-header">
-        <button type="button" class="close" id="profil_annuler" data-dismiss="modal">×</button>
+        <button type="button" class="close" id="profil_cancel" data-dismiss="modal">×</button>
         <h3>Modification du mot de passe</h3>
       </div>
       
@@ -51,8 +51,8 @@
       </div>
       
       <div class="modal-footer">
-        <a href="#" id="profil_annuler" class="btn" data-dismiss="modal">Annuler </a>
-        <a href="#" id="profil_valider" class="btn btn-primary" data-dismiss="modal">Valider</a>
+        <a href="#" id="profil_cancel" class="btn" data-dismiss="modal">Annuler </a>
+        <a href="#" id="profil_submit" class="btn btn-primary" data-dismiss="modal">Valider</a>
       </div>
       
   </div>

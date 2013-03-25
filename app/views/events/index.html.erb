@@ -1,0 +1,46 @@
+<div class="container-fluid" style="margin-top: 1em;">
+  
+  <div class="row-fluid">
+    
+    <% if params.has_key?(:account_id) %>
+     
+      <div class="span3" >
+      <%= render "shared/infoaccount" %>
+      </div>   
+     
+      <div class="span9">
+	
+    <%  else %>
+      
+      <div class="span12">
+	
+    <% end %>
+
+    <ul class="nav nav-tabs">
+      <li class="active">
+	<a href="#events" data-toggle="tab">Évènements</a>
+      </li>
+      <li><a href="#opportunities" data-toggle="tab">Opportunités</a></li>
+      <li><a href="#tags" data-toggle="tab">Tags</a></li>
+      <li><a href="#documents" data-toggle="tab">Documents</a></li>
+      <li><a href="#relations" data-toggle="tab">Relations</a></li>
+      <li><a href="#quotations" data-toggle="tab">Devis</a></li>
+    </ul>
+    
+    <div class="tab-content">
+      <div class="tab-pane active" id="events"><%= render "events" unless @account.nil? %></div>
+      <div class="tab-pane" id="opportunities"><%= render "opportunities" %></div>
+      <div class="tab-pane" id="tags"><%= render "accounts/tags" %></div>
+      <div class="tab-pane" id="documents"><%= render "documents" %></div>
+      <div class="tab-pane" id="relations"><%= render "relations" %></div>
+      <div class="tab-pane" id="quotations"><%= render "quotations" %></div>
+    </div>
+
+      </div>
+  </div>
+</div>
+  
+<div class="modal hide fade" id="account_tag_modal" style="width: 900px; margin-left: -450px;">
+    <%= render "accounts/modal_tags" %>
+</div>
+

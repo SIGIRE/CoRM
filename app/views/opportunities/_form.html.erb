@@ -1,0 +1,81 @@
+<%= form_for(@opportunity , :html => { :class => "well "}) do |f| %>
+  <% if @opportunity.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@opportunity.errors.count, "error") %> prohibited this opportunity from being saved:</h2>
+
+      <ul>
+      <% @opportunity.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field"> 
+    <div class="span2"> Libellé : </div>
+    <%= f.text_field :name %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Echéance :  </div> <%= f.text_field :term %>
+  </div>  
+  
+  <div class="field">
+    <div class="span2">Description : </div> <%= f.text_area :description , :display_with => :simple_format, :rows => "5", :style=>'width: 30em;'%>
+  </div>
+  
+  <div class="field">
+      <div class="span2"> Compte : </div>
+      <%= f.collection_select :account_id, Account.order('company ASC').all, :id, :company, {:include_blank => true} %>
+  </div>
+  
+  <div class="field" id="nameContacts">
+    <%= render :partial => 'contacts' %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Affectée à : </div> <%= f.collection_select :user_id, User.all, :id, :full_name %>
+  </div>
+  
+  <div class="field">
+    <div class="span2">Pièce jointe :</div>  <%= f.file_field :attach, :style=>'width: 20em;' %>
+  </div>
+
+  <div class="field">
+    <div class="span2"> Statut : </div> <%= f.select :statut, Opportunity::STATUTS %>
+  </div>
+  
+  <div class="field">
+    <div class="span2">Remarque : </div> <%= f.text_area :remark , :display_with => :simple_format, :rows => "5", :style=>'width: 30em;'%>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Montant estimé :  </div>
+    <% if @opportunity.amount.nil? %>
+      <%= f.text_field :amount , :value => "00.00" , :local => :fr%>
+    <% else %>
+      <%= f.text_field :amount , :local => :fr%>
+    <% end %>
+    <strong>€ HT</strong>
+  </div>
+
+  <div class="field">
+    <div class="span2"> Marge estimé :  </div>
+    <% if @opportunity.profit.nil? %>
+      <%= f.text_field :profit , :value => "00.00" , :local => :fr%>
+    <% else %>
+      <%= f.text_field :profit , :local => :fr%>
+    <% end %>
+    <strong>€ HT</strong>
+  </div> 
+  
+  <br /><br /><br />
+  
+  <div class="field">
+    <div class="span2" >
+      <%= link_to image_tag("glyphicons/glyphicons_221_unshare.png"),:back %>
+    </div>
+        <%= f.submit :class =>"btn btn-primary"%>
+  </div>
+
+<% end %>

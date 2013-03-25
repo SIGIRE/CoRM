@@ -1,0 +1,2 @@
+module QuotationLinesHelper
+end

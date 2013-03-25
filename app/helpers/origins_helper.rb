@@ -1,0 +1,2 @@
+module OriginsHelper
+end

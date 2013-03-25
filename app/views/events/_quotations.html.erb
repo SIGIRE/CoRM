@@ -1,0 +1,76 @@
+<div class="container-fluid" style="margin-top: 1em;">
+   
+
+     <div class="well">
+       <div class="row-fluid">
+         <div class="span8">
+           <h3>Liste des Devis</h3>
+         </div>
+         <div class="pull-right">
+           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_quotation_path(:account_id => @account.id) ,{:title => "Créer un quotations"}%>
+         </div>
+       </div>
+     </div>
+
+         
+</div>
+
+
+
+<div class="container-fluid">
+  
+  <% if Quotation.by_account(@account).blank? %>
+    <h4> Aucun Devis n'est rattaché à ce compte </h4>
+  <% else %>
+    
+    <table class="table table-bordered table-striped">
+      <tr>
+        <th>Id</th>
+        <th>Statut</th>
+        <th>Référence</th>
+        <th>Opportunité</th>
+        <th>Total HT</th>
+        <th>Date</th>
+        <th>Editer</th>
+        <th>Supp.</th>
+        <th>PDF</th>         
+      </tr>
+    
+    <% @quotations = Quotation.by_account(@account).order('date').page(params[:page]) %>
+    <% @quotations.each do |quotation| %>
+    <tr>
+        <td><%= quotation.id %></td>
+        <td>
+            <% if quotation.statut == "Sauvegardé"%>
+              <span class="badge badge-important">
+            <% elsif quotation.statut == "En cours"%>
+              <span class="badge badge-warning">
+            <% elsif quotation.statut == "Accepté"%>
+              <span class="badge badge-success">
+            <% elsif quotation.statut == "Refusé"%>
+              <span class="badge badge-inverse">
+            <% else %>
+              <span class="badge badge-info">
+            <% end %>
+            <%= quotation.statut %></span>
+          </td>
+        <td><%= quotation.ref %></td>
+        <td>
+          <% if !quotation.opportunity.nil? %>
+            <%= link_to quotation.opportunity.name , quotation.opportunity%>
+          <% end %>
+        </td>
+        <td style="text-align :right;"><%= number_to_currency(quotation.total_excl_tax, :locale => :fr) %></td>
+        <td><%= if !quotation.date.nil? then quotation.date.strftime("%d/%m/%Y") end%></td>
+        <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_path(quotation) %></td>
+        <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), quotation, :title => "Supprimer le quotations", :confirm => 'Confirmer la suppression ?', :method => :delete %></td>          
+        <td><%= link_to image_tag("glyphicons/glyphicons_015_print.png"), quotation_path(quotation, :format => "pdf") %></td>
+    </tr>    
+    <% end %>
+    </table>
+    
+  <% end %>
+  
+
+    
+</div>

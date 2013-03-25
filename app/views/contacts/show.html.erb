@@ -12,21 +12,21 @@
           <td>
             <div class="span2">
               <h3>Civilite:</h3>
-              <%= @contact.civilite %>
+              <%= @contact.title %>
             </div>
           </td>
           
           <td>
             <div class="span2">
               <h3> Nom :</h3>
-              <%= @contact.nom %>
+              <%= @contact.surname %>
             </div>
           </td>
     
 	  <td colspan="2">
             <div class="span2">
               <h3> Prénom :</h3>
-              <%= @contact.prenom %>
+              <%= @contact.forename %>
             </div>
           </td>
          
@@ -66,12 +66,12 @@
         <tr>
           <td colspan="1">
               <h3>Compte :</h3>
-              <%= link_to @contact.compte.societe , compte_evenements_url(@contact.compte) %> 
+              <%= link_to @contact.account.company , account_events_url(@contact.account) %> 
           </td>
           
           <td colspan="3">
               <h3>Fonction :</h3>
-              <%= @contact.fonction %> 
+              <%= @contact.job %> 
           </td>
           
         </tr>
@@ -86,7 +86,7 @@
         <tr>
           <td colspan="4">
             <h3>Produit(s) associé(s) : </h3>
-              <%= render "produits" %>
+              <%= render "tags" %>
           </td>
         </tr>
         

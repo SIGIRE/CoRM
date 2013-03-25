@@ -1,0 +1,61 @@
+<%= render 'title', :locals => { :title => @title }%>
+
+<div class="container-fluid">
+    
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Statut</th>
+        <th>Référence</th>
+        <th>Compte</th>
+        <th>Opportunité</th>
+        <th>Total HT</th>
+        <th>Date</th>
+        <th>Editer</th>
+        <th>Supp.</th>
+        <th>PDF</th>        
+      </tr>
+    </thead>
+    
+    <tbody>
+    <% @quotations.each do |quotation| %>
+    <tr>
+        <td><%= quotation.id %></td>
+        <td>
+            <% if quotation.statut == "Sauvegardé"%>
+              <span class="badge badge-important">
+            <% elsif quotation.statut == "En cours"%>
+              <span class="badge badge-warning">
+            <% elsif quotation.statut == "Accepté"%>
+              <span class="badge badge-success">
+            <% elsif quotation.statut == "Refusé"%>
+              <span class="badge badge-inverse">
+            <% else %>
+              <span class="badge badge-info">
+            <% end %>
+            <%= quotation.statut %></span>
+          </td>
+        <td><%= quotation.ref %></td>
+        <td><%= link_to quotation.account.company , quotation.account %></td>
+        <td>
+          <% if !quotation.opportunity.nil? %>
+            <%= link_to quotation.opportunity.name , quotation.opportunity %>
+          <% end %>  
+        </td>
+        <td style="text-align :right;"><%= quotation.total_excl_tax.to_s + " "%> <%= currency_symbol %></td>
+        <td><%= if !quotation.date.nil? then quotation.date.strftime("%d/%m/%Y") end%></td>
+        <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_path(quotation) %></td>
+        <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), quotation, :title => "Supprimer le devis", :confirm => 'Confirmer la suppression ?', :method => :delete %></td>          
+        <td><%= link_to image_tag("glyphicons/glyphicons_015_print.png"), quotation_path(quotation, :format => "pdf") %></td>
+    </tr>
+    <% end %>
+    </tbody>
+    </table>
+  
+  <br />
+  
+  <%= paginate @quotations %>
+  
+  
+  </div>

@@ -1,0 +1,92 @@
+<div class="well">
+  <%= nested_form_for @quotation do |f| %>
+    <% if @quotation.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@quotation.errors.count, "error") %> prohibited this Quotation from being saved:</h2>
+  
+        <ul>
+        <% @quotation.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <div class="page-header">
+      <h3> En-tête </h3>
+    </div>
+      <div class="field"> 
+        <div class="span2">Référence : </div><%= f.text_field :ref %>
+      </div>
+      <div class="field">
+        <div class="span2"> Date : </div> <%= f.text_field :date, :value => (f.object.date.strftime("%d/%m/%Y") unless f.object.date.nil?) %>
+      </div>
+      <div class="field">
+        <div class="span2"> Compte : </div> <%= f.collection_select :account_id, Account.order('company ASC').all, :id, :company %>
+      </div>
+      <div class="field">
+        <div class="span2"> Référence client : </div> <%= f.text_field :ref_account %>
+      </div>
+      
+      <div class="field" id="nameContacts">
+        <%= render :partial => 'contacts' %>
+      </div>
+      <div class="field">
+        <div class="span2"> Collaborateur : </div> <%= f.collection_select :user_id, User.all, :id, :full_name %>
+      </div>
+    <hr />
+    
+    
+    <div class="page-header">
+      <h3> Lignes du devis </h3>
+    </div>
+    
+    <div class="field" style="margin-left: 2em;">
+      <%= f.fields_for :quotation_lines %>
+      <%= f.link_to_add "Ajouter une ligne", :quotation_lines ,{:class => "btn btn-success"} %>
+      <br /><br />
+      <!-- <h4>Total HT = <%#= f.text_field :total_excl_tax , :style =>"width: 80px; text-align: right;", :disabled => true %> €</h4> -->
+    </div>
+    <br />
+    
+    <div class="field">
+      
+    </div>
+    <hr />
+    
+    <div class="page-header">
+      <h3> Modalités </h3>
+    </div>
+      <div class="field"> 
+        <div class="span2">Validité du devis : </div><%= f.text_field :validity %> jours
+      </div>
+      <div class="field"> 
+        <div class="span2">Mode de règlement : </div><%= f.text_field :mode_reg %>
+      </div>
+    <hr />
+      
+    <div class="page-header">
+      <h3> Propriétés </h3>
+    </div>
+      <div class="field"> 
+        <div class="span2">Fichier-joint : </div><%= f.file_field :attach, :style=>'width: 20em; margin-bottom: 1em;' %>
+      </div>
+      <div class="field"> 
+        <div class="span2">Statut : </div><%= f.select :statut, Quotation::STATUTS %>
+      </div>
+      <div class="field" id="nameOpportunite">
+        <%= render :partial => 'opportunities' %>
+      </div>
+      <div class="field"> 
+        <div class="span2">Modèle : </div><%= f.collection_select :quotation_template_id, QuotationTemplate.order('company ASC').all, :id, :company %>
+      </div>
+    <hr />
+    
+    <div class="field">
+      <div class="span2" >
+        <%= link_to image_tag("glyphicons/glyphicons_221_unshare.png"),:back %>
+      </div>
+          <%= f.submit 'Sauvegarder le devis', :class =>"btn btn-primary"%>
+    </div>
+  <% end %>
+</div>

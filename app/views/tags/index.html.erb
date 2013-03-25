@@ -1,0 +1,31 @@
+<%= render 'title', :locals => { :title => @title }%>
+
+<div class="container-fluid">
+  
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nom</th>
+        <th>Description</th>
+        <th>Éditer</th>
+      </tr>
+    </thead>
+    
+  <tbody>
+  <% @tags.each do |tag| %>
+    <tr>
+      <td><%= tag.id %></td>
+      <td><%= tag.name %></td>
+      <td><%= truncate(tag.description, :length => 300, :separator => ' ')%></td>
+      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_tag_path(tag),{:title => "Éditer le tag"} %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  </table>
+  
+  <br />
+  
+  <%= paginate @tags %>
+  
+</div>
