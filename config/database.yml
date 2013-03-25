@@ -1,0 +1,12 @@
+
+common: &common
+  adapter: postgresql
+  username: userDB
+  password: pw
+  host: localhost
+  pool: 5
+  
+
+development:
+  <<: *common
+  database: co-rm_local
