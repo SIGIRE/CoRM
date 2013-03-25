@@ -22,8 +22,8 @@ class EventTypesController < ApplicationController
   ##
   # Show one occurence of EventType
   #
-  # GET /eventtypes/1
-  # GET /eventtypes/1.json
+  # GET /type-evenements/1
+  # GET /type-evenements/1.json
   #
   def show
     @eventtype = EventType.find(params[:id])
@@ -36,8 +36,8 @@ class EventTypesController < ApplicationController
   ##
   # Render a page with a form to create a new EventType
   #
-  # GET /eventtypes/new
-  # GET /eventtypes/new.json
+  # GET /type-evenements/new
+  # GET /type-evenements/new.json
   def new
     @eventtype = EventType.new
     respond_to do |format|
@@ -57,15 +57,15 @@ class EventTypesController < ApplicationController
   ##
   # Save an instance of EventType to the DB
   #
-  # POST /eventtypes
-  # POST /eventtypes.json
+  # POST /type-evenements
+  # POST /type-evenements.json
   def create
     @eventtype = EventType.new(params[:type])
     @eventtype.created_by = current_user.id
     @eventtype.modified_by = current_user.id
-
+    
     respond_to do |format|
-      if @eventtype.save
+      if @eventtype.update_attributes(params[:event_type])
         format.html { redirect_to eventTypes_url, :notice => 'Le type a été créé.' }
         format.json { render :json => @eventtype, :status => :created, :location => @eventtype }
       else
@@ -78,14 +78,13 @@ class EventTypesController < ApplicationController
   ##
   # Save an instance of EventType which already exists
   #
-  # PUT /eventtypes/1
-  # PUT /eventtypes/1.json
+  # PUT /type-evenements/1
+  # PUT /type-evenements/1.json
   def update
     @eventtype = EventType.find(params[:id])
     @eventtype.modified_by = current_user.full_name
-
     respond_to do |format|
-      if @eventtype.update_attributes(params[:type])
+      if @eventtype.update_attributes(params[:event_type])
         format.html { redirect_to eventTypes_path, :notice => 'Le type a été mis à jour.' }
         format.json { head :no_content }
       else
@@ -98,8 +97,8 @@ class EventTypesController < ApplicationController
   ##
   # Delete an EventType stored into the DB
   #
-  # DELETE /eventtypes/1
-  # DELETE /eventtypes/1.json
+  # DELETE /type-evenements/1
+  # DELETE /type-evenements/1.json
   def destroy
     @eventtype = EventType.find(params[:id])
     @eventtype.destroy

@@ -5,11 +5,9 @@ Crm::Application.routes.draw do
   match 'extractions/select_param_contacts', :controller=>'extractions', :action => 'select_param_contacts'
   match 'extractions/contacts', :controller=>'extractions', :action => 'contacts', :as => :csv
   
-  resources :eventTypes
-  resources :quotationTemplates, :path => 'modele_devis'
+  resources :eventTypes, :path => 'type-evenements'
+  resources :quotationTemplates, :path => 'modele-devis'
   resources :quotationLines
-
-
   
   match 'quotations/update_contact_select/:id', :controller=>'quotations', :action => 'update_contact_select'
   match 'quotations/update_opportunity_select/:id', :controller=>'quotations', :action => 'update_opportunity_select'
