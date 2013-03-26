@@ -54,7 +54,7 @@
   <div class="field">
     <div class="span2"> Tag(s) associé(s) : </div>
     <%= select_tag :display_contact_tag, options_from_collection_for_select(@contact.tags.order('name ASC').all, "id", "name"), {:size => 6, :multiple => true, :disabled => true} %>
-    <a id="contact_ajout_button" class="btn btn-success btn-mini" data-toggle="modal" href="#contact_tag_modal" style="margin-bottom: 1em; margin-left: 2em;">Modifier Tag</a>
+    <a id="contact_add_button" class="btn btn-success btn-mini" data-toggle="modal" href="#contact_tag_modal" style="margin-bottom: 1em; margin-left: 2em;">Modifier Tag</a>
   </div>
   
   <div class="modal hide fade" id="contact_tag_modal" style="width: 900px; margin-left: -450px;">
@@ -90,7 +90,7 @@
       
       <div class="span3">
         <h4>Tag(s) associé(s) au contact :</h4>
-        <%= select_tag :contact_tag, options_from_collection_for_select(@contact.tags.order('name ASC').all, "id", "nom"), {:size => 6, :multiple => true} %>
+        <%= select_tag :contact_tag, options_from_collection_for_select(@contact.tags.order('name ASC').all, "id", "name"), {:size => 6, :multiple => true} %>
       </div>
       
     </div>

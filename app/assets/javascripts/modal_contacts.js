@@ -65,13 +65,15 @@ $(function() {
     var main_form_select_tags = $('#display_contact_tag');
     main_form_select_tags.html('');
     for (var key in tags) {
-	/*tags[key].setAttribute('selected', 'true');*/
+      if (tags[key]) {
 	main_form_select_tags.append(
 	    corm.createHTML('option', {
 		content: tags[key],
-		value: key
+		value: key,
+		selected: 'selected'
 	    })
 	);
+      }
     }
     initial_tags = getTagsList('select#tag option');
     initial_tags_contact = tags.slice(0);
@@ -101,13 +103,13 @@ $(function() {
   });
   
   /* Check before submit */
-  $("#contact_validate_form").click(function() {
+  $("#contact_submit_form").click(function(e) {
     var select = $('select#display_contact_tag');
     /* Be sure the select field is not disabled */
     select.attr('disabled',false);
     select.find('option').each(function() {
-        $(this).attr('selected', true);
-    }); 
+        $(this).attr('selected', 'selected');
+    });
   });
   
 });

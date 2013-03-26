@@ -50,21 +50,12 @@ $(function(){
             $("#nameContacts").html(data);
         }
     );
-  });
-  
-  //generation dynamique de la liste "opportunite" dans l'edition d'un devis
-  $("#quotation_account_id").change(function() {
-
-    var account = $('select#quotation_account_id :selected').val();
-    if(account == "") { account="0"; }
-    
     $.get('/quotations/update_opportunity_select/' + account, 
         function(data){
             $("#nameOpportunity").html(data);
         }
     );
   });
-  
   
   // gestion de la check box lors de la creation d'un event
   $("#generate").change(function() {

@@ -4,15 +4,13 @@
 # Controller that manages Relation
 #
 class RelationsController < ApplicationController
-  
-  before_filter :authenticate_user!
 
   ##
   # Render the page to show the form to create a new Relation
   #
   def new
     @relation = Relation.new
-    @relation.account1_id = params[:account1_id]
+    @relation.account1_id = params[:account_id_1]
     
     respond_to do |format|
       format.html  # new.html.erb
