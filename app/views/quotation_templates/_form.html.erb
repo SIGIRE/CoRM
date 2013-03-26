@@ -1,6 +1,6 @@
 <div class="well">
   
-  <%= form_for(@template, :url => quotationTemplate_path(@template)) do |f| %>
+  <%= form_for(@template) do |f| %>
     <% if @template.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@template.errors.count, "error") %> prohibited this template from being saved:</h2>
@@ -77,7 +77,7 @@
   <div class="row">
     <div class="span2"> <%= f.submit :class =>"btn btn-primary" %> </div>
     <div class="pull-right ">
-      <%= if !@template.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), quotationTemplate_path, :title => "Supprimer le modèle", :confirm => 'Confirmer la suppression ?', :method => :delete end %> 
+      <%= if !@template.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @template, :title => "Supprimer le modèle", :confirm => 'Confirmer la suppression ?', :method => :delete end %> 
     </div>
   </div>    
     

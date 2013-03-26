@@ -48,13 +48,13 @@ class QuotationsController < ApplicationController
     @quotation.job = @quotation.contact.job unless @quotation.contact.nil?
     
     # Store variables to calculate price & total
-    @quotation.total_excl_tva = 0
+    @quotation.total_excl_tax = 0
     @quotation.VAT_rate = 19.60
     
     # For each lines, calculate the total exclude taxes
-    @quotation.lines.each do |line|
-    if !line.quantity.nil? && !line.price_excl_tax.nil? then
-        line.total_excl_tax = line.prix_excl_tax * line.quantity
+    @quotation.quotation_lines.each do |line|
+      if !line.quantity.nil? && !line.price_excl_tax.nil? then
+        line.total_excl_tax = line.price_excl_tax * line.quantity
         @quotation.total_excl_tax += line.total_excl_tax
       else
         line.total_ht = 0

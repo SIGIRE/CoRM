@@ -5,8 +5,29 @@ Crm::Application.routes.draw do
   match 'extractions/select_param_contacts', :controller=>'extractions', :action => 'select_param_contacts'
   match 'extractions/contacts', :controller=>'extractions', :action => 'contacts', :as => :csv
   
-  resources :eventTypes, :path => 'type-evenements'
-  resources :quotationTemplates, :path => 'modele-devis'
+  # Resources needed for form_for support with a composed name Class (eventType)
+  #
+  #resources :eventTypes, :path => 'type-evenement'
+  match 'type-evenements(.:format)', to: 'eventTypes#index', via: :get, as: :event_types
+  match 'type-evenements(.:format)', to: 'eventTypes#create', via: :post, as: :event_types
+  match 'type-evenement/new(.:format)', to:'eventTypes#new', via: :get, as: :new_event_type
+  match 'type-evenement/:id/edit(.:format)', to: 'eventTypes#edit', via: :get, as: :edit_event_type
+  match 'type-evenement/:id(.:format)', to: 'eventTypes#show', via: :get, as: :event_type
+  match 'type-evenement/:id(.:format)', to: 'eventTypes#update', via: :put, as: :event_type
+  match 'type-evenement/:id(.:format)', to: 'eventTypes#delete', via: :delete, as: :event_type
+  
+  # Resources needed for form_for support with a composed name Class (quotationTemplate)
+  #
+  #resources :eventTypes, :path => 'type-evenement'
+  match 'modele-devis(.:format)', to: 'quotationTemplates#index', via: :get, as: :quotation_templates
+  match 'modele-devis(.:format)', to: 'quotationTemplates#create', via: :post, as: :quotation_templates
+  match 'modele-devis/new(.:format)', to:'quotationTemplates#new', via: :get, as: :new_quotation_template
+  match 'modele-devis/:id/edit(.:format)', to: 'quotationTemplates#edit', via: :get, as: :edit_quotation_template
+  match 'modele-devis/:id(.:format)', to: 'quotationTemplates#show', via: :get, as: :quotation_template
+  match 'modele-devis/:id(.:format)', to: 'quotationTemplates#update', via: :put, as: :quotation_template
+  match 'modele-devis/:id(.:format)', to: 'quotationTemplates#delete', via: :delete, as: :quotation_template
+  #resources :quotationTemplates, :path => 'modele-devis'
+  
   resources :quotationLines
   
   match 'quotations/update_contact_select/:id', :controller=>'quotations', :action => 'update_contact_select'

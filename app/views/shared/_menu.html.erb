@@ -86,13 +86,13 @@
                   <%= image_tag("glyphicons/glyphicons_280_settings.png", :size => "16x16")%>
 		</a>
 		<ul class="dropdown-menu">
-		  <li><%= link_to '<i class="icon-book"></i> Types'.html_safe, eventTypes_path %></li>
+		  <li><%= link_to '<i class="icon-book"></i> Types'.html_safe, event_types_path %></li>
 		  <li class="divider"></li>
 		  <li><%= link_to '<i class="icon-barcode"></i> Tags'.html_safe, tags_path %></li>
 		  <li class="divider"></li>
 		  <li><%= link_to image_tag("icons/origine.png", :size => "16x16")+" Origines".html_safe, origins_path %></li>
 		  <li class="divider"></li>
-		  <li><%= link_to image_tag("glyphicons/glyphicons_159_picture.png", :size => "16x16")+" Modèles".html_safe, quotationTemplates_path %></li>		  
+		  <li><%= link_to image_tag("glyphicons/glyphicons_159_picture.png", :size => "16x16")+" Modèles".html_safe, quotation_templates_path %></li>		  
 		  <li class="divider"></li>
         	  <li><%= link_to image_tag("icons/apropos.png", :size => "16x16")+" À propos".html_safe, "/about" %></li>
 		</ul>
@@ -100,7 +100,7 @@
 
 	      <ul class="btn-group pull-right">
 		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-		  <i class="icon-user"></i><%= current_user.full_name %>
+		  <i class="icon-user"></i><%= current_user.forename %>
 		  <span class="caret"></span>
 		</a>
 		<ul class="dropdown-menu">

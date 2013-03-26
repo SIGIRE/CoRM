@@ -36,7 +36,7 @@ class QuotationTemplatesController < ApplicationController
     
     respond_to do |format|
       if @template.save
-        format.html  { redirect_to quotationTemplates_url, :notice => "Le modèle a été créé" }
+        format.html  { redirect_to quotation_templates_url, :notice => "Le modèle a été créé" }
         format.json  { render :json => @template,
                       :status => :created}
       else
@@ -61,7 +61,7 @@ class QuotationTemplatesController < ApplicationController
     @template = QuotationTemplate.find(params[:id])
     
     if @template.update_attributes(params[:quotation_template])
-      redirect_to quotationTemplates_url, :notice => "Le modèle a été mis à jour."
+      redirect_to quotation_templates_url, :notice => "Le modèle a été mis à jour."
     else
       render :action => 'edit'
     end
@@ -73,7 +73,7 @@ class QuotationTemplatesController < ApplicationController
   def destroy
     @template = QuotationTemplate.find(params[:id])
     @template.destroy
-    redirect_to quotationTemplates_url, :notice => "Le modèle a été supprimé."
+    redirect_to quotation_templates_url, :notice => "Le modèle a été supprimé."
   end
   
 end

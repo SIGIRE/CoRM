@@ -66,7 +66,7 @@ class EventTypesController < ApplicationController
     
     respond_to do |format|
       if @eventtype.update_attributes(params[:event_type])
-        format.html { redirect_to eventTypes_url, :notice => 'Le type a été créé.' }
+        format.html { redirect_to event_types_url, :notice => 'Le type a été créé.' }
         format.json { render :json => @eventtype, :status => :created, :location => @eventtype }
       else
         format.html { render :action => "new" }
@@ -85,7 +85,7 @@ class EventTypesController < ApplicationController
     @eventtype.modified_by = current_user.full_name
     respond_to do |format|
       if @eventtype.update_attributes(params[:event_type])
-        format.html { redirect_to eventTypes_path, :notice => 'Le type a été mis à jour.' }
+        format.html { redirect_to event_types_path, :notice => 'Le type a été mis à jour.' }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }
@@ -104,7 +104,7 @@ class EventTypesController < ApplicationController
     @eventtype.destroy
 
     respond_to do |format|
-      format.html { redirect_to eventTypes_url }
+      format.html { redirect_to event_types_url }
       format.json { head :no_content }
     end
   end
