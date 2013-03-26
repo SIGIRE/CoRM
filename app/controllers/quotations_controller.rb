@@ -17,6 +17,7 @@ class QuotationsController < ApplicationController
     @quotation = Quotation.new
     @quotation.user = current_user
     @quotation.account_id = params[:account_id]
+    @quotation.account = Account.order('company ASC').first();
     
     # Instanciate a default line
     1.times { @quotation.quotation_lines.build } ## hum, hum
