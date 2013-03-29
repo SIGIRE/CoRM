@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130319085638) do
+ActiveRecord::Schema.define(:version => 20130325104624) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company"
@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(:version => 20130319085638) do
     t.string   "country"
     t.string   "accounting_code"
     t.text     "notes"
-    t.string   "created_by"
-    t.string   "modified_by"
+    t.integer  "created_by"
+    t.integer  "modified_by"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.integer  "user_id"
@@ -36,8 +36,8 @@ ActiveRecord::Schema.define(:version => 20130319085638) do
   end
 
   create_table "accounts_tags", :id => false, :force => true do |t|
-    t.integer "account_id"
-    t.integer "tag_id"
+    t.integer "account_id", :null => false
+    t.integer "tag_id",     :null => false
   end
 
   create_table "admin_notes", :force => true do |t|
@@ -81,16 +81,16 @@ ActiveRecord::Schema.define(:version => 20130319085638) do
     t.string   "email"
     t.string   "job"
     t.text     "notes"
-    t.string   "created_by"
-    t.string   "modified_by"
+    t.integer  "created_by"
+    t.integer  "modified_by"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "account_id"
   end
 
   create_table "contacts_tags", :id => false, :force => true do |t|
-    t.integer "contact_id"
-    t.integer "tag_id"
+    t.integer "contact_id", :null => false
+    t.integer "tag_id",     :null => false
   end
 
   create_table "documents", :force => true do |t|
@@ -100,8 +100,8 @@ ActiveRecord::Schema.define(:version => 20130319085638) do
     t.string   "attach_content_type"
     t.integer  "attach_file_size"
     t.datetime "attach_updated_at"
-    t.string   "created_by"
-    t.string   "updated_by"
+    t.integer  "created_by"
+    t.integer  "updated_by"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.integer  "account_id"
@@ -120,8 +120,8 @@ ActiveRecord::Schema.define(:version => 20130319085638) do
     t.datetime "date_begin"
     t.datetime "date_end"
     t.text     "notes"
-    t.string   "created_by"
-    t.string   "modified_by"
+    t.integer  "created_by"
+    t.integer  "modified_by"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.integer  "contact_id"
@@ -147,8 +147,8 @@ ActiveRecord::Schema.define(:version => 20130319085638) do
     t.string   "attach_content_type"
     t.integer  "attach_file_size"
     t.datetime "attach_updated_at"
-    t.string   "created_by"
-    t.string   "updated_by"
+    t.integer  "created_by"
+    t.integer  "updated_by"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.integer  "account_id"
@@ -160,8 +160,8 @@ ActiveRecord::Schema.define(:version => 20130319085638) do
   create_table "origins", :force => true do |t|
     t.string   "name"
     t.text     "description"
-    t.string   "created_by"
-    t.string   "updated_by"
+    t.integer  "created_by"
+    t.integer  "updated_by"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -213,8 +213,8 @@ ActiveRecord::Schema.define(:version => 20130319085638) do
     t.string   "attach_content_type"
     t.integer  "attach_file_size"
     t.datetime "attach_updated_at"
-    t.string   "created_by"
-    t.string   "updated_by"
+    t.integer  "created_by"
+    t.integer  "updated_by"
     t.datetime "created_at",                                 :null => false
     t.datetime "updated_at",                                 :null => false
     t.integer  "account_id"
@@ -252,8 +252,8 @@ ActiveRecord::Schema.define(:version => 20130319085638) do
   create_table "tags", :force => true do |t|
     t.string   "name"
     t.text     "description"
-    t.string   "created_by"
-    t.string   "updated_by"
+    t.integer  "created_by"
+    t.integer  "updated_by"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -262,9 +262,9 @@ ActiveRecord::Schema.define(:version => 20130319085638) do
     t.text     "notes"
     t.string   "statut"
     t.datetime "created_at",          :null => false
-    t.string   "created_by"
+    t.integer  "created_by"
     t.datetime "modified_at"
-    t.string   "modified_by"
+    t.integer  "modified_by"
     t.datetime "updated_at",          :null => false
     t.integer  "contact_id"
     t.integer  "account_id"

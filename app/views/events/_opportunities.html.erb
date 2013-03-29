@@ -76,7 +76,7 @@
           	<% end %>
 					</td>
           <td><%= if !opportunity.term.nil? then opportunity.term.strftime("%d/%m/%y") end%></td>
-          <td><%= if !opportunity.user.nil? then opportunity.user.full_name end%></td>
+          <td><%= if !opportunity.author.nil? then opportunity.user.full_name end%></td>
           <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), opportunity %></td>
           <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_opportunity_path(opportunity) %></td>
         </tr>

@@ -1,6 +1,7 @@
 class AddUserRelation < ActiveRecord::Migration
-  
-  @element = Hash[
+  # Fields to update
+  def init
+    @elements = Hash[
       "events" => [
         "created_by",
         "modified_by"
@@ -35,11 +36,22 @@ class AddUserRelation < ActiveRecord::Migration
       ],
       "tasks" => [
         "created_by",
-        "updated_by"
+        "modified_by"
       ],
     ]
+  end
   
   def up
+    # add Primary Key
+    execute <<-SQL
+      ALTER TABLE accounts_tags
+        ADD CONSTRAINT pk_accounts_tags
+        PRIMARY KEY (account_id, tag_id);
+        
+      ALTER TABLE contacts_tags
+        ADD CONSTRAINT pk_contacts_tags
+        PRIMARY KEY (contact_id, tag_id);
+    SQL
     
     # modified_by objects
     
@@ -51,6 +63,9 @@ class AddUserRelation < ActiveRecord::Migration
     
     changeTablesUp(Contact, :created_by)
     changeTablesUp(Contact, :modified_by)
+    
+    changeTablesUp(Task, :created_by)
+    changeTablesUp(Task, :modified_by)
     
     # updated_by objects
     
@@ -68,9 +83,8 @@ class AddUserRelation < ActiveRecord::Migration
     
     changeTablesUp(Tag, :created_by)
     changeTablesUp(Tag, :updated_by)
-    
-    changeTablesUp(Task, :created_by)
-    changeTablesUp(Task, :updated_by)
+
+    init()
     
     @elements.each do |table_name, table|
       table.each do |column|
@@ -81,9 +95,19 @@ class AddUserRelation < ActiveRecord::Migration
   end
 
   def down
+    # rem Primary Key
+    execute <<-SQL
+      ALTER TABLE accounts_tags
+        DROP CONSTRAINT IF EXISTS pk_accounts_tags;
+        
+      ALTER TABLE contacts_tags
+        DROP CONSTRAINT IF EXISTS pk_contacts_tags;
+    SQL
+    
+    init()
     # Drop foreign key
     # ALTER TABLE
-    @element.each { |table_name, table|
+    @elements.each { |table_name, table|
       table.each { |column|
         remFK(table_name, column)
         changeTableType(table_name, column, "integer", "string")
@@ -109,6 +133,9 @@ class AddUserRelation < ActiveRecord::Migration
     changeTablesDown(Contact, :created_by)
     changeTablesDown(Contact, :modified_by)
     
+    changeTablesDown(Task, :created_by)
+    changeTablesDown(Task, :modified_by)
+    
     # updated_by objects
     
     changeTablesDown(Document, :created_by)
@@ -126,25 +153,27 @@ class AddUserRelation < ActiveRecord::Migration
     changeTablesDown(Tag, :created_by)
     changeTablesDown(Tag, :updated_by)
     
-    changeTablesDown(Task, :created_by)
-    changeTablesDown(Task, :updated_by)
-    
   end
   
   ##
   # 
   #
   def changeTablesUp(o, field)
+    # Get class name for logs
     class_name = o.new.class.name
     logger.info("BEGIN on #{class_name}")
+    # for each value in the table
     o.all.each do |value|
+      # split field ('created_by' => 'Matthieu BOHEAS' ==> ['Matthieu', 'BOHEAS'])
       names = value[field].blank?  ? '' : value[field].split(' ')
       # if the Array/String length > 0, then add it to the users array with line key
       if names.length > 0
+        # Get the user if exists
         currentUser = User.where({ :surname => names[1], :forename => names[0] }).first()
         if currentUser.nil?
           currentUser = User.where({ :surname => names[0], :forename => names[1] }).first()
         end
+        # if user exists, update created_by by currentUser.id
         if !currentUser.nil?
           logger.info("Change #{class_name}.#{field} from #{currentUser.full_name} to #{currentUser.id.to_s}")
           value.update_attributes({ field => currentUser.id.to_s })
@@ -153,7 +182,7 @@ class AddUserRelation < ActiveRecord::Migration
         end
       end
     end
-    
+    logger.info("END OF #{class_name}")
   end
   
   ##
@@ -192,11 +221,13 @@ class AddUserRelation < ActiveRecord::Migration
   end
   
   def addFK(table, column)
+    logger.info("ADD FOREIGN KEY TO #{table} AT #{column}")
     query = "ALTER TABLE #{table} ADD CONSTRAINT \"fk_users_#{table}_#{column}\" FOREIGN KEY (#{column}) REFERENCES users(id);"
     execute(query)
   end
   
   def remFK(table, column)
-    execute "ALTER TABLE #{table} DROP CONSTRAINT \"fk_users_#{table}_#{column}\";"
+    logger.info("REMOVE FOREIGN KEY TO #{table} AT #{column}")
+    execute "ALTER TABLE #{table} DROP CONSTRAINT IF EXISTS \"fk_users_#{table}_#{column}\";"
   end
 end

@@ -15,6 +15,8 @@ class Task < ActiveRecord::Base
   belongs_to :contact
   belongs_to :account
   belongs_to :user
+  belongs_to :author, :foreign_key => 'created_by', :class_name => 'User'
+  belongs_to :editor, :foreign_key => 'modified_by', :class_name => 'User'
   
   paginates_per 10
   

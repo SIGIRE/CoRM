@@ -1,7 +1,7 @@
 # Using ruby 1.9.3p194
 # Using rubygems 1.8.23
 # Using Rails 3.2.12
-# Using Rake 10.0.3
+# Using Rake 10.0.4
 
 source 'https://rubygems.org'
 
