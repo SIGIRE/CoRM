@@ -21,12 +21,12 @@ class RegistrationsController < Devise::RegistrationsController
     
     #si le champs password est non vide, on considère 
     successfully_updated = if password_changed
-      #on effectue un update qui demande d'avoir entré un mot de passe
-      @user.update_with_password(params[:user])
-    else
-      #sinon on effectue un update sans mot de passe, ce qui signifie que le mot de passe n'a pas été modifié
-      @user.update_without_password(params[:user])
-    end
+            #on effectue un update qui demande d'avoir entré un mot de passe
+            @user.update_with_password(params[:user])
+        else
+            #sinon on effectue un update sans mot de passe, ce qui signifie que le mot de passe n'a pas été modifié
+            @user.update_without_password(params[:user])
+        end
 
     if successfully_updated
       # Sign in the user bypassing validation in case his password changed
@@ -39,10 +39,10 @@ class RegistrationsController < Devise::RegistrationsController
 
 
   #protected
-    def authenticate
-      authenticate_or_request_with_http_basic do |username, password|
-        username == "admin" && password == "password"  
-    end  
+  def authenticate
+    authenticate_or_request_with_http_basic do |username, password|
+      username == "admin" && password == "password"
+    end
   end
   
 end

@@ -5,8 +5,6 @@
 #
 class DocumentsController < ApplicationController
   
-  before_filter :authenticate_user!
-  
   ##
   # Show the full list of Document by paginate_by
   #
@@ -38,7 +36,7 @@ class DocumentsController < ApplicationController
   #
   def create
     @document = Document.new(params[:document])
-    @document.created_by = current_user.full_name
+    @document.created_by = current_user.id
     
     respond_to do |format|
       if @document.save
@@ -77,7 +75,7 @@ class DocumentsController < ApplicationController
   #
   def update
     @document = Document.find(params[:id])
-    @document.updated_by = current_user.full_name
+    @document.updated_by = current_user.id
    
     respond_to do |format|
       if @document.update_attributes(params[:document])

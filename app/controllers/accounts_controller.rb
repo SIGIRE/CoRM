@@ -70,8 +70,7 @@ class AccountsController < ApplicationController
   # POST /accounts.json
   def create
     @account = Account.new(params[:account])
-    @account.created_by = current_user.full_name
-    @account.modified_by = current_user.full_name
+    @account.created_by = current_user.id
     
     if params[:display_account_tag].nil?
       @account.tags.clear
@@ -99,7 +98,7 @@ class AccountsController < ApplicationController
   # PUT /accounts/1.json
   def update
     @account = Account.find(params[:id])
-    @account.modified_by = current_user.full_name
+    @account.modified_by = current_user.id
     
     
     if params[:display_account_tag].nil?

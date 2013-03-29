@@ -38,10 +38,15 @@ class AddUserRelation < ActiveRecord::Migration
         "created_by",
         "modified_by"
       ],
+      "event_types" => [
+        "created_by",
+        "modified_by"
+      ]
     ]
   end
   
   def up
+    ActiveRecord::Base.record_timestamps = false
     # add Primary Key
     execute <<-SQL
       ALTER TABLE accounts_tags
@@ -66,6 +71,9 @@ class AddUserRelation < ActiveRecord::Migration
     
     changeTablesUp(Task, :created_by)
     changeTablesUp(Task, :modified_by)
+    
+    changeTablesUp(EventType, :created_by)
+    changeTablesUp(EventType, :modified_by)
     
     # updated_by objects
     
@@ -92,9 +100,11 @@ class AddUserRelation < ActiveRecord::Migration
         addFK(table_name, column)
       end
     end
+    ActiveRecord::Base.record_timestamps = true
   end
 
   def down
+    ActiveRecord::Base.record_timestamps = false
     # rem Primary Key
     execute <<-SQL
       ALTER TABLE accounts_tags
@@ -136,6 +146,9 @@ class AddUserRelation < ActiveRecord::Migration
     changeTablesDown(Task, :created_by)
     changeTablesDown(Task, :modified_by)
     
+    changeTablesDown(EventType, :created_by)
+    changeTablesDown(EventType, :modified_by)
+    
     # updated_by objects
     
     changeTablesDown(Document, :created_by)
@@ -152,7 +165,7 @@ class AddUserRelation < ActiveRecord::Migration
     
     changeTablesDown(Tag, :created_by)
     changeTablesDown(Tag, :updated_by)
-    
+    ActiveRecord::Base.record_timestamps = true
   end
   
   ##
@@ -172,6 +185,18 @@ class AddUserRelation < ActiveRecord::Migration
         currentUser = User.where({ :surname => names[1], :forename => names[0] }).first()
         if currentUser.nil?
           currentUser = User.where({ :surname => names[0], :forename => names[1] }).first()
+          if currentUser.nil?
+            currentUser = User.find_by_email(value[field])
+            if currentUser.nil?
+              if User.where({ :surname => names[1] }).count() == 1
+                currentUser = User.where({ :surname => names[1] }).first()
+              elsif User.where({ :forename => names[0] }).count() == 1
+                currentUser = User.where({ :forename => names[0] }).first()
+              end
+            end
+            
+          end
+          
         end
         # if user exists, update created_by by currentUser.id
         if !currentUser.nil?
@@ -179,6 +204,7 @@ class AddUserRelation < ActiveRecord::Migration
           value.update_attributes({ field => currentUser.id.to_s })
         else
           logger.info('The current User does not exist or table field is not filled')
+          value.update_attributes({ field => nil })
         end
       end
     end

@@ -110,8 +110,8 @@ ActiveRecord::Schema.define(:version => 20130325104624) do
   create_table "event_types", :force => true do |t|
     t.string   "label"
     t.string   "direction"
-    t.string   "created_by"
-    t.string   "modified_by"
+    t.integer  "created_by"
+    t.integer  "modified_by"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end

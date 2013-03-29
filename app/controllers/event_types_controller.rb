@@ -8,48 +8,48 @@ class EventTypesController < ApplicationController
   ##
   # Show the full list of EventType by paginate_by
   #
-  # GET /eventtypes
-  # GET /eventtypes.json
+  # GET /type-evenements
+  # GET /type-evenements.json
   def index
     @eventtypes = EventType.order("label","direction").page(params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @types }
+      format.json { render :json => @eventtypes }
     end
   end
 
   ##
   # Show one occurence of EventType
   #
-  # GET /type-evenements/1
-  # GET /type-evenements/1.json
+  # GET /type-evenement/1
+  # GET /type-evenement/1.json
   #
   def show
     @eventtype = EventType.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @type }
+      format.json { render :json => @eventtype }
     end
   end
 
   ##
   # Render a page with a form to create a new EventType
   #
-  # GET /type-evenements/new
-  # GET /type-evenements/new.json
+  # GET /type-evenement/new
+  # GET /type-evenement/new.json
   def new
     @eventtype = EventType.new
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render :json => @type }
+      format.json { render :json => @eventtype }
     end
   end
   
   ##
   # Render a page to edit one occurence of EventType
   #
-  # GET /type-evenements/1/edit
+  # GET /type-evenement/1/edit
   def edit
     @eventtype = EventType.find(params[:id])
   end
@@ -57,12 +57,11 @@ class EventTypesController < ApplicationController
   ##
   # Save an instance of EventType to the DB
   #
-  # POST /type-evenements
-  # POST /type-evenements.json
+  # POST /type-evenement
+  # POST /type-evenement.json
   def create
     @eventtype = EventType.new(params[:type])
     @eventtype.created_by = current_user.id
-    @eventtype.modified_by = current_user.id
     
     respond_to do |format|
       if @eventtype.update_attributes(params[:event_type])
@@ -78,11 +77,11 @@ class EventTypesController < ApplicationController
   ##
   # Save an instance of EventType which already exists
   #
-  # PUT /type-evenements/1
-  # PUT /type-evenements/1.json
+  # PUT /type-evenement/1
+  # PUT /type-evenement/1.json
   def update
     @eventtype = EventType.find(params[:id])
-    @eventtype.modified_by = current_user.full_name
+    @eventtype.modified_by = current_user.id
     respond_to do |format|
       if @eventtype.update_attributes(params[:event_type])
         format.html { redirect_to event_types_path, :notice => 'Le type a été mis à jour.' }
@@ -97,8 +96,8 @@ class EventTypesController < ApplicationController
   ##
   # Delete an EventType stored into the DB
   #
-  # DELETE /type-evenements/1
-  # DELETE /type-evenements/1.json
+  # DELETE /type-evenement/1
+  # DELETE /type-evenement/1.json
   def destroy
     @eventtype = EventType.find(params[:id])
     @eventtype.destroy

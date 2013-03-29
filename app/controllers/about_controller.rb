@@ -5,8 +5,6 @@
 #
 class AboutController < ApplicationController
   
-  before_filter :authenticate_user!
-  
   ##
   # About page
   #

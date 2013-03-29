@@ -5,8 +5,6 @@
 #
 class EventsController < ApplicationController
   
-  before_filter :authenticate_user!
-  
   ##
   # Show the full list of Events  
   #
@@ -73,6 +71,7 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     @event = Event.new(params[:event])
+    @event.created_by = current_user.id
     
     @event.date_begin = params[:event][:date_begin]
     @event.date_begin = @event.date_begin.change({:hour => params[:event]["date_begin(4i)"].to_i, :min => params[:event]["date_begin(5i)"].to_i}) 
@@ -88,7 +87,6 @@ class EventsController < ApplicationController
       self.create_task
     end
     
-    @event.created_by = current_user.id
     respond_to do |format|
       if @event.save
         format.html { redirect_to account_events_url(@event.account_id), :notice => "L'évènement a été créé." }

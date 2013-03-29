@@ -23,6 +23,6 @@
   </tbody>
   </table>
   
-  <%= paginate @eventtypes %>
+  <%= paginate @eventtypes, :params => {:controller => "eventTypes", :action => 'index', :page => @page } %>
 </div>
 

@@ -33,7 +33,7 @@ class TagsController < ApplicationController
   #
   def create
     @tag = Tag.new(params[:tag])
-    @tag.created_by = current_user.full_name
+    @tag.created_by = current_user.id
     
     respond_to do |format|
       if @tag.save
@@ -72,7 +72,7 @@ class TagsController < ApplicationController
   #
   def update
     @tag = Tag.find(params[:id])
-    @tag.updated_by = current_user.full_name
+    @tag.updated_by = current_user.id
    
     respond_to do |format|
       if @tag.update_attributes(params[:tag])

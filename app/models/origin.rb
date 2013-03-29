@@ -6,8 +6,16 @@
 class Origin < ActiveRecord::Base
 
   has_many :account
-  belongs_to :author, :foreign_key => 'created_by', :class_name => 'User'
-  belongs_to :editor, :foreign_key => 'updated_by', :class_name => 'User'
+  belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
+  belongs_to :editor_user, :foreign_key => 'updated_by', :class_name => 'User'
   
   paginates_per 10
+  
+  def author
+    return author_user || User::default
+  end
+  
+  def editor
+    return editor_user || User::default
+  end
 end

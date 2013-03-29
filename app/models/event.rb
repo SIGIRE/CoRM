@@ -8,14 +8,20 @@ class Event < ActiveRecord::Base
   belongs_to :account
   belongs_to :event_type
   belongs_to :user
-  belongs_to :author, :foreign_key => 'created_by', :class_name => 'User'
-  belongs_to :editor, :foreign_key => 'modified_by', :class_name => 'User'
-  #belongs_to :user
+  belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
+  belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
   belongs_to :task
   
   paginates_per 10
   
   has_attached_file :attach
   
+  def author
+    return author_user || User::default
+  end
+  
+  def editor
+    return editor_user || User::default
+  end
   
 end

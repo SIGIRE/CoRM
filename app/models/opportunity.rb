@@ -9,8 +9,8 @@ class Opportunity < ActiveRecord::Base
   belongs_to :contact
   belongs_to :account
   belongs_to :user
-  belongs_to :author, :foreign_key => 'created_by', :class_name => 'User'
-  belongs_to :editor, :foreign_key => 'updated_by', :class_name => 'User'
+  belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
+  belongs_to :editor_user, :foreign_key => 'updated_by', :class_name => 'User'
   
   paginates_per 10
   
@@ -18,6 +18,14 @@ class Opportunity < ActiveRecord::Base
   validates_inclusion_of :statut, :in => STATUTS
   
   has_attached_file :attach
+  
+  def author
+    return author_user || User::default
+  end
+  
+  def editor
+    return editor_user || User::default
+  end
   
   scope :by_statut, lambda { |statut| where("statut LIKE ?", statut+'%') }
   scope :by_account, lambda { |account| where("account_id = ?", account.id) unless account.nil? }

@@ -13,13 +13,19 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :forename, :surname, :tel, :mobile, :current_password
   attr_accessor :current_password
 
+  @@default_user = User.new({:email => '', :forename => 'Neant', :surname => '' })
+
+  def self.default
+     return @@default_user
+  end
+
   ##
   # Get the full name of this User
   # * *Returns*    :
   #   - The full name as  String
   #
   def full_name
-     "#{forename} #{surname}"
+      "#{forename} #{surname}"
   end
   
   has_many :accounts

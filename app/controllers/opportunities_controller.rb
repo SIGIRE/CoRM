@@ -60,7 +60,7 @@ class OpportunitiesController < ApplicationController
   #
   def create
     @opportunity = Opportunity.new(params[:opportunity])
-    @opportunity.created_by = current_user.full_name
+    @opportunity.created_by = current_user.id
     
     if @opportunity.amount.nil?
       @opportunity.amount = 0
@@ -95,7 +95,7 @@ class OpportunitiesController < ApplicationController
   #
   def update
     @opportunity = Opportunity.find(params[:id])
-    @opportunity.updated_by = current_user.full_name
+    @opportunity.updated_by = current_user.id
     
     if params[:opportunity][:amount].blank?
       params[:opportunity][:amount] = 0

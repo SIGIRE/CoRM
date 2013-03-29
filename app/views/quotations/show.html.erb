@@ -134,7 +134,7 @@
         </div><br />
         
         <div class="field">
-          <strong>Créé par : </strong><%= @quotation.created_by %><strong style="margin-left: 3em;"> Le : </strong><%= @quotation.created_at.strftime("%d/%m/%Y à %H:%M") %>
+          <strong>Créé par : </strong><%= @quotation.author.full_name %><strong style="margin-left: 3em;"> Le : </strong><%= @quotation.created_at.strftime("%d/%m/%Y à %H:%M") %>
         </div>
         
       </div>

@@ -92,14 +92,14 @@
         
         <tr>
           <td colspan="4">
-              <h3>Créé par : </h3><%= @contact.created_by %><strong style="margin-left: 3em;"> Le : </strong><%= @contact.created_at.strftime("%d/%m/%y à %H:%M") %>
+              <h3>Créé par : </h3><%= @contact.author.fullname %><strong style="margin-left: 3em;"> Le : </strong><%= @contact.created_at.strftime("%d/%m/%y à %H:%M") %>
           </td>
         </tr>
           
         <% if !@contact.modified_by.nil? %>
         <tr>
           <td colspan="4">
-              <h3>Modifié par :</h3><%= @contact.modified_by %>
+              <h3>Modifié par :</h3><%= @contact.editor.full_name %>
               <strong style="margin-left: 3em;"> Le : </strong><%= @contact.updated_at.strftime("%d/%m/%y à %H:%M") %>        
           </td>
         </tr>

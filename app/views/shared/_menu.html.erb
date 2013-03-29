@@ -73,7 +73,7 @@
 		
             </ul>
             
-            <%= form_tag("/accounts/search", :method => "get", :class =>"navbar-search", :id =>"navsearch") do %>
+            <%= form_tag(search_accounts_path, :method => "get", :class =>"navbar-search", :id =>"navsearch") do %>
               <%= text_field_tag :account , nil , {:class =>"search-query span3", :placeholder => "Rechercher un compte", :data => { :provide => 'typeahead', :source => Account.find(:all,:select=>'company').map(&:company)}, :autocomplete=>"off"}%>
 	      <ul id="search-list" class="typeahead dropdown-menu"></ul>
 	      <span class="add-on"><%= link_to image_tag("icons/search_blanc.png", :size => "16x16"), "#", :onclick=>"document.getElementById('navsearch').submit()" %></span>

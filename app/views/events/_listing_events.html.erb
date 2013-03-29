@@ -12,7 +12,7 @@
             (<%= distance_of_time_in_words(event.date_begin, event.date_end) unless (event.date_begin.blank? or event.date_end.blank?) %>) - 
             Contact : <strong><%= if event.contact.nil?  then "Néant" else event.contact.full_name  end%></strong> -
             Type : <strong><%= if event.event_type.nil? then "Néant" else event.event_type.full_type end %></strong> - 
-            Créé il y a  <%= distance_of_time_in_words_to_now(event.updated_at) %> par <%= event.created_by %> - 
+            Créé il y a  <%= distance_of_time_in_words_to_now(event.updated_at) %> par <%= event.author.full_name %> - 
             <% if !event.task.nil? %>
               <strong> Lié à la Tache n° <%= event.task.id %> </strong>
             <% end %>

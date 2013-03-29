@@ -17,12 +17,14 @@
 
 <p>
   <b>Created by:</b>
-  <%= @event.created_by %>
+  <%= @event.author.full_name %>
 </p>
 
 <p>
   <b>Modified by:</b>
-  <%= @event.modified_by %>
+  <% if (!@event.modified_by.nil?) %>
+    <%= @event.editor.full_name %>
+  <% end %>
 </p>
 
 

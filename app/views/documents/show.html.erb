@@ -44,14 +44,14 @@
       
         <tr>
           <td>
-              <h3>Créée par : </h3><%= @document.created_by %><strong style="margin-left: 3em;"> Le : </strong><%= @document.created_at.strftime("%d/%m/%Y à %H:%M") %>
+              <h3>Créée par : </h3><%= @document.author.full_name %><strong style="margin-left: 3em;"> Le : </strong><%= @document.created_at.strftime("%d/%m/%Y à %H:%M") %>
           </td>
         </tr>
         
         <% if !@document.updated_by.nil? %>
         <tr>
           <td>
-              <h3>Modifiée par :</h3><%= @document.updated_by %>
+              <h3>Modifiée par :</h3><%= @document.editor.full_name %>
               <strong style="margin-left: 3em;"> Le : </strong><%= @document.updated_at.strftime("%d/%m/%Y à %H:%M") %>
           </td>
         </tr>

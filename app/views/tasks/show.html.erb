@@ -75,14 +75,14 @@
       
         <tr>
           <td colspan="4">
-              <h3>Créée par : </h3><%= @task.created_by %><strong style="margin-left: 3em;"> Le : </strong><%= @task.created_at.strftime("%d/%m/%y à %H:%M") %>
+              <h3>Créée par : </h3><%= @task.author.full_name %><strong style="margin-left: 3em;"> Le : </strong><%= @task.created_at.strftime("%d/%m/%y à %H:%M") %>
           </td>
         </tr>
         
         <% if !@task.modified_by.nil? %>
         <tr>
           <td colspan="4">
-              <h3>Modifiée par :</h3><%= @task.modified_by %>
+              <h3>Modifiée par :</h3><%= @task.editor.full_name %>
               <strong style="margin-left: 3em;"> Le : </strong><%= @task.updated_at.strftime("%d/%m/%y à %H:%M") %>        
           </td>
         </tr>

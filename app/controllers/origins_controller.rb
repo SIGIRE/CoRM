@@ -36,7 +36,7 @@ class OriginsController < ApplicationController
   #
   def create
     @origin = Origin.new(params[:origin])
-    @origin.created_by = current_user.full_name
+    @origin.created_by = current_user.id
     
     respond_to do |format|
       if @origin.save
@@ -72,7 +72,7 @@ class OriginsController < ApplicationController
   #
   def update
     @origin = Origin.find(params[:id])
-    @origin.updated_by = current_user.full_name
+    @origin.updated_by = current_user.id
    
     respond_to do |format|
       if @origin.update_attributes(params[:origin])

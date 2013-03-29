@@ -39,7 +39,7 @@ class QuotationsController < ApplicationController
   #
   def create
     @quotation = Quotation.new(params[:quotation])
-    @quotation.created_by = current_user.full_name
+    @quotation.created_by = current_user.id
     
     @quotation.company = @quotation.account.company unless @quotation.account.nil?
     @quotation.adress1 = @quotation.account.adress1 unless @quotation.account.nil?
@@ -99,7 +99,7 @@ class QuotationsController < ApplicationController
     
     @quotation.update_attributes(params[:quotation])
     
-    @quotation.updated_by = current_user.full_name
+    @quotation.updated_by = current_user.id
     
     @quotation.company = @quotation.account.company unless @quotation.account.nil?
     @quotation.adress1 = @quotation.account.adress1 unless @quotation.account.nil?

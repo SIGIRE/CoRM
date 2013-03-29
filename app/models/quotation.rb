@@ -19,8 +19,8 @@ class Quotation < ActiveRecord::Base
   belongs_to :contact
   belongs_to :account
   belongs_to :user
-  belongs_to :author, :foreign_key => 'created_by', :class_name => 'User'
-  belongs_to :editor, :foreign_key => 'updated_by', :class_name => 'User'
+  belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
+  belongs_to :editor_user, :foreign_key => 'updated_by', :class_name => 'User'
   belongs_to :quotation_template
   
   has_many :quotation_lines, :dependent => :destroy
@@ -40,6 +40,13 @@ class Quotation < ActiveRecord::Base
   monetize :total_VAT_cents
   monetize :total_incl_tax_cents
 
+  def author
+    return author_user || User::default
+  end
+  
+  def editor
+    return editor_user || User::default
+  end
 
   scope :by_account, lambda { |account| where("account_id = ?", account.id) unless account.nil? }
 end

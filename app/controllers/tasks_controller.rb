@@ -67,8 +67,7 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(params[:task])
-    @task.created_by = current_user.full_name
-    @task.modified_by = current_user.full_name
+    @task.created_by = current_user.id
     
     #idem que dans edit
     @task.term = @task.term.split('/').reverse!.join('/')
@@ -101,7 +100,7 @@ class TasksController < ApplicationController
   # PUT /tasks/1.json
   def update
     @task = Task.find(params[:id])
-    @task.modified_by = current_user.full_name
+    @task.modified_by = current_user.id
     params[:task][:term] = params[:task][:term].split('/').reverse!.join('/')
         
     respond_to do |format|
@@ -197,9 +196,9 @@ class TasksController < ApplicationController
     
     # to test
     if(updated == true)
-      hash["modified_by"] = current_user.full_name
+      hash["modified_by"] = current_user.id
     else
-      hash["created_by"] = current_user.full_name
+      hash["created_by"] = current_user.id
     end
     
     hash["task_id"] = @task.id

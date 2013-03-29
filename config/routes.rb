@@ -42,7 +42,7 @@ Crm::Application.routes.draw do
   
   match 'opportunities/update_contact_select/:id', :controller=>'opportunities', :action => 'update_contact_select'
   
-  resources :opportunities do
+  resources :opportunities, :path => 'opportunite' do
     collection do
       get 'filter'
     end
@@ -53,7 +53,7 @@ Crm::Application.routes.draw do
 
   match 'tasks/update_contact_select/:id', :controller=>'tasks', :action => 'update_contact_select'
   
-  resources :tasks do
+  resources :tasks, :path => 'tache' do
     collection do
       get 'filter'
     end
@@ -69,10 +69,10 @@ Crm::Application.routes.draw do
       get 'filter'
       post 'add_tag'
     end
-    resources :events
+    resources :events, :path => 'evenements'
     resources :contacts
   end
-  match 'accounts', :controller => 'accounts', :action => 'index'
+  match 'comptes', :controller => 'accounts', :action => 'index'
   
   resources :events, :path => 'evenement'
   match 'evenements', :controller => 'events', :action => 'index'

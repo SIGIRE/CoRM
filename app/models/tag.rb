@@ -11,6 +11,14 @@ class Tag < ActiveRecord::Base
   
   paginates_per 10
   
+  def author
+    return author_user || User::default
+  end
+  
+  def editor
+    return editor_user || User::default
+  end
+  
   scope :by_account_with_contacts, lambda { |account| where("account_id = ?", account.id) unless account.nil? }
   
 end

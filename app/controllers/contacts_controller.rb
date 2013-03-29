@@ -5,8 +5,6 @@
 # 
 class ContactsController < ApplicationController
   
-  before_filter :authenticate_user!
-  
   ##
   # Show the full list of Contact by paginate_by
   #
@@ -68,7 +66,7 @@ class ContactsController < ApplicationController
   # POST /contacts.json
   def create
     @contact = Contact.new(params[:contact])
-    @contact.created_by = current_user.full_name
+    @contact.created_by = current_user.id
 
     # Manage the has_and_belongs relation between Accounts and Tags
     # if there is no one associate tag, we delete links
@@ -104,7 +102,7 @@ class ContactsController < ApplicationController
   # PUT /contacts/1.json
   def update
     @contact = Contact.find(params[:id])
-    @contact.modified_by = current_user.full_name
+    @contact.modified_by = current_user.id
     
     # same treatment as #create
     if params[:display_contact_tag].nil?
