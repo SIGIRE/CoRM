@@ -17,7 +17,7 @@
   </div>
   
   <div class="field">
-    <div class="span2"> Echéance :  </div> <%= f.text_field :term, { :require => 'require' } %>
+    <div class="span2"> Echéance :  </div> <%= f.text_field :term %>
   </div>  
   
   <div class="field">
@@ -26,7 +26,7 @@
   
   <div class="field">
       <div class="span2"> Compte : </div>
-      <%= f.collection_select :account_id, Account.order('company ASC').all, :id, :company, {:include_blank => true}, { :require => 'require' } %>
+      <%= f.collection_select :account_id, Account.order('company ASC').all, :id, :company, {:include_blank => true}, { :required => 'required' } %>
   </div>
   
   <div class="field" id="nameContacts">

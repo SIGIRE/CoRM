@@ -13,10 +13,10 @@
     </div>
     
     <div class="field">Prénom : <br />
-    <%= f.text_field :forename %></div>
+    <%= f.text_field :forename, { :required => 'required' } %></div>
 
     <div class="field">Nom : <br />
-    <%= f.text_field :surname %></div>
+    <%= f.text_field :surname, { :required => 'required' } %></div>
        
     <div class="field">Tél fixe : <br />
     <%= f.text_field :tel %></div>
@@ -33,6 +33,11 @@
       
       <div class="modal-body">
         <div class="span3">
+          Mot de passe actuel : (obligatoire)<br />
+          <%= f.password_field :current_password, :id => "c_pwd" %>
+        </div>
+        
+        <div class="span3">
           Nouveau mot de passe : <br />
           <%= f.password_field :password, {:id => "pwd", :autocomplete => "off"} %>
         </div>
@@ -40,12 +45,6 @@
         <div class="span3">
           Confirmer mot de passe : <br />
         <%= f.password_field :password_confirmation , :id => "pwd_confirm"%>
-        </div>
-  
-        
-        <div class="span3">
-          Mot de passe actuel : (obligatoire)<br />
-          <%= f.password_field :current_password, :id => "c_pwd" %>
         </div>
       
       </div>
