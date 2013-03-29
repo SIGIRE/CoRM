@@ -58,7 +58,7 @@
       <h3> Modalités </h3>
     </div>
       <div class="field"> 
-        <div class="span2">Validité du devis : </div><%= f.text_field :validity %> jours
+        <div class="span2">Validité du devis : </div><%= f.text_field :validity, { :required => 'required' } %> jours
       </div>
       <div class="field"> 
         <div class="span2">Mode de règlement : </div><%= f.text_field :mode_reg %>
@@ -78,7 +78,7 @@
         <%= render :partial => 'opportunities' %>
       </div>
       <div class="field"> 
-        <div class="span2">Modèle : </div><%= f.collection_select :quotation_template_id, QuotationTemplate.order('company ASC').all, :id, :company %>
+        <div class="span2">Modèle : </div><%= f.collection_select :quotation_template_id, QuotationTemplate.order('company ASC').all, :id, :company, { :required => 'required' } %>
       </div>
     <hr />
     
