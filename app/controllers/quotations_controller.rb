@@ -196,10 +196,10 @@ class QuotationsController < ApplicationController
     quotationNum = (params[:id])
 
     if(updated == true)
-      hash["modified_by"] = current_user.full_name
+      hash["modified_by"] = current_user.id
       hash["notes"] = "Devis n°" + quotationNum.to_s + " modifié."
     else
-      hash["created_by"] = current_user.full_name
+      hash["created_by"] = current_user.id
       hash["notes"] = "Devis n°" + @quotation.id.to_s + " créé."
     end
     

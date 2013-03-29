@@ -149,7 +149,7 @@
         <% if !@account.modified_by.nil? %>
         <tr>
           <td colspan="5">
-              <h3>Modifié par :</h3><%= @account.editor.fullname %>
+              <h3>Modifié par :</h3><%= @account.editor.full_name %>
               <strong style="margin-left: 3em;"> Le : </strong><%= @account.updated_at.strftime("%d/%m/%y à %H:%M") %>        
           </td>
         </tr>
