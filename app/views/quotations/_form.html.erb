@@ -19,10 +19,10 @@
         <div class="span2">Référence : </div><%= f.text_field :ref %>
       </div>
       <div class="field">
-        <div class="span2"> Date : </div> <%= f.text_field :date, :value => (f.object.date.strftime("%d/%m/%Y") unless f.object.date.nil?) %>
+        <div class="span2"> Date : </div> <%= f.text_field :date, { :required => 'required', :value => (f.object.date.strftime("%d/%m/%Y") unless f.object.date.nil?) } %>
       </div>
       <div class="field">
-        <div class="span2"> Compte : </div> <%= f.collection_select :account_id, Account.order('company ASC').all, :id, :company %>
+        <div class="span2"> Compte : </div> <%= f.collection_select :account_id, Account.order('company ASC').all, :id, :company, { :required => 'required' } %>
       </div>
       <div class="field">
         <div class="span2"> Référence client : </div> <%= f.text_field :ref_account %>

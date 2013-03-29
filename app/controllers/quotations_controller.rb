@@ -162,7 +162,7 @@ class QuotationsController < ApplicationController
   def destroy
     @quotation = Quotation.find(params[:id])
     @quotation.destroy
-    redirect_to quotation_url, :notice => "Le devis a été supprimé."
+    redirect_to quotations_url, :notice => "Le devis a été supprimé."
   end
   
   ##
