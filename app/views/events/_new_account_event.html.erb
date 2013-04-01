@@ -16,7 +16,7 @@
     </div>-->
     
     <div class="span2">
-        date_end : <%= f.text_field :date_end, :value => Date.today.strftime("%d/%m/%Y"), :class =>"event_date" %>
+        Fin : <%= f.text_field :date_end, :value => Date.today.strftime("%d/%m/%Y"), :class =>"event_date" %>
     </div>
     
     <div class="span3" style="margin-left: 0em; padding-top: 1.35em;">
@@ -41,7 +41,7 @@
            
   <div >
     Description : <br />
-    <%= f.text_area :notes, :display_with => :simple_format, :rows => "5"  %>
+    <%= f.text_area :notes, :display_with => :simple_format, :rows => "5", :style=>'width: 50em;'  %>
   </div>
   
   <div>
@@ -51,7 +51,7 @@
   <br />
   
   <div>
-    <%= check_box_tag :generate, "yes" %> Générer une tâche lié à cet événement
+    <%= check_box_tag :generate, "yes" %> Générer une tâche liée à cet évènement
 
   </div>
   <br />
@@ -79,7 +79,7 @@
   <div class="row">
     
     <div class="span4">
-       Description : <br /> <%= text_area_tag :notes , nil,:display_with => :simple_format, :rows => "5", :style=>'width: 30em;'%>
+       Description : <br /> <%= text_area_tag :notes, nil,:display_with => :simple_format, :rows => "5", :style=>'width: 30em;'%>
     </div>
     
   </div>
@@ -89,7 +89,7 @@
   
   <%= f.hidden_field :account_id %>
   <div class="actions">
-    <%= f.submit :class =>"btn btn-primary" %>
+    <%= f.submit 'Créer un Évènement', :class =>"btn btn-primary" %>
   </div>
     
 <% end %>

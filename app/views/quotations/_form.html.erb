@@ -50,7 +50,7 @@
     <br />
     
     <div class="field">
-      
+
     </div>
     <hr />
     
@@ -81,12 +81,12 @@
         <div class="span2">Modèle : </div><%= f.collection_select :quotation_template_id, QuotationTemplate.order('company ASC').all, :id, :company, { :required => 'required' } %>
       </div>
     <hr />
-    
-    <div class="field">
-      <div class="span2" >
-        <%= link_to image_tag("glyphicons/glyphicons_221_unshare.png"),:back %>
-      </div>
-          <%= f.submit 'Sauvegarder le devis', :class =>"btn btn-primary"%>
+ 
+     <div class="row">
+	<%= if !@quotation.id.nil? then f.submit 'Modifier ce Devis', :class =>"btn btn-primary",:id =>"quotation_submit_form" else f.submit 'Créer un Devis', :class =>"btn btn-primary",:id =>"quotation_submit_form" end %>
+      <%= if !@quotation.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @quotation, :title => "Supprimer ce Devis", :class =>"pull-right btn", :confirm => 'Confirmer la suppression ?', :method => :delete end %> 
     </div>
+  </div>
+
   <% end %>
 </div>

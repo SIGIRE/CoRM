@@ -3,12 +3,10 @@
 
      <div class="well">
        <div class="row-fluid">
-         <div class="span3">
-           <h3>Liste des Relations</h3>
+         <div class="span9">
+           <h3>Relation(s) de <%= @account.company %></h3>
          </div>
-         <div class="pull-right">
-           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_relation_path(:account_id_1 => @account.id) ,{:title => "Créer une relation"}%>
-         </div>
+           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_relation_path(:account_id_1 => @account.id) ,{:title => "Créer une relation", :class =>"pull-right btn"}%>
        </div>
      </div>
 
@@ -19,32 +17,30 @@
 <div class="container-fluid">
   
  <% if Relation.by_account(@account).blank? %>
-  <h4> Aucune relation n'affectée à ce compte </h4>
+  <h4> Aucune Relation n'affectée à ce compte </h4>
  <% else %>
 
     <table class="table table-bordered table-striped">
       <tr>
-        <th>Id</th>
-        <th>Nom</th>
-        <th>Compte lié</th>
-        <th>Editer</th>
-        <th>Supp.</th>  
+        <th><center>Id</center></th>
+        <th><center>Nom</center></th>
+        <th><center>Compte lié</center></th>
+        <th><center>Éditer</center></th> 
       </tr>
     
     <% @relations = Relation.by_account(@account).order('name').page(params[:page]) %>
     <% @relations.each do |relation| %>
       <tr>
-        <td><%= relation.id %></td>
-        <td style="width: 15em;"><%= relation.name %></td>
-        <td>
+        <td><center><%= relation.id %></center></td>
+        <td style="width: 15em;"><center><%= relation.name %></center></td>
+        <td><center>
           <% if relation.account2.id == @account.id %>
             <%= link_to relation.account1.company, relation.account1 %>
           <% else %>
             <%= link_to relation.account2.company, relation.account2 %>
           <% end %>
-        </td>
-        <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_relation_path(relation) %></td>
-        <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), relation, :confirm => 'Confirmer la suppression ?', :method => :delete  %></td>
+        </center></td>
+        <td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_relation_path(relation) ,{:title => "Modifier la relation", :class =>"btn"} %></center></td>
     <% end %>
     </table>
     

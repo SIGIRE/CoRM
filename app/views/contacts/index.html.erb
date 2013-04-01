@@ -5,31 +5,31 @@
 
   <table class="table table-bordered table-striped">
     <tr>
-      <th>Id</th>
-      <th>Civ.</th>
-      <th>Nom</th>
-      <th>Pr&eacute;nom</th>
-      <th>Soci&eacute;t&eacute;.</th>    
-      <th>T&eacute;l</th>
-      <th>Mobile</th>
-      <th>Email</th>
-      <th>Editer</th>        
+      <th><center>Id</center></th>
+      <th><center>Civ.</center></th>
+      <th><center>Nom</center></th>
+      <th><center>Pr&eacute;nom</center></th>
+      <th><center>Soci&eacute;t&eacute;</center></th>
+      <th><center>T&eacute;l</center></th>
+      <th><center>Mobile</center></th>
+      <th><center>E-mail</center></th>
+      <th><center>Éditer</center></th>        
     </tr>
   
   <% @contacts.each do |contact| %>
     <tr>
-      <td><%= contact.id %></td>
-      <td>
+      <td><center><%= contact.id %></center></td>
+      <td><center>
         <%= if contact.title == "M." then image_tag("glyphicons/glyphicons_034_old_man.png") end%>
         <%= if contact.title == "Mme" then image_tag("glyphicons/glyphicons_035_woman.png") end%>
-      </td>
-      <td><%= contact.surname %></td>
-      <td><%= contact.forename %></td>
-      <td ><%= if !contact.account.nil? then link_to contact.account.company , account_events_url(contact.account),{:title => "Afficher les évenements"} end%></td>
-      <td><%= contact.tel %></td>
-      <td><%= contact.mobile %></td>
-      <td><%= mail_to(contact.email)%></td>
-      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_contact_path(contact),{:title => "Éditer le contact"} %></td>
+      </center></td>
+      <td><center><%= contact.surname %></center></td>
+      <td><center><%= contact.forename %></center></td>
+      <td ><center><%= if !contact.account.nil? then link_to contact.account.company , account_events_url(contact.account),{:title => "Afficher les évenements"} end%></center></td>
+      <td><center><%= contact.tel %></center></td>
+      <td><center><%= contact.mobile %></center></td>
+      <td><center><%= mail_to(contact.email)%></center></td>
+      <td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_contact_path(contact),{:title => "Éditer le contact", :class =>"btn"} %></center></td>
     </tr>
   <% end %>
   </table>

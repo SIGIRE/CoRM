@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <div class="span2"><%= f.label :name %></div>
+    <div class="span2">Nom : </div>
     <%= f.text_field :name %>
   </div>
   
@@ -26,9 +26,7 @@
   </div>
   
   <div class="field">
-    <div class="span2" >
-      <%= link_to image_tag("glyphicons/glyphicons_221_unshare.png"), :back %>
-    </div>
-    <%= f.submit :class =>"btn btn-primary"%>
+    <%= f.submit 'Créer une Relation', :class =>"btn btn-primary"%>
+	<%= if !@relation.id.nil? then  link_to image_tag("glyphicons/glyphicons_016_bin.png"), @relation,:title => "Supprimer le compte", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %>
   </div>
 <% end %>

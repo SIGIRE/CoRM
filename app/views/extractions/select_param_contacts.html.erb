@@ -1,13 +1,14 @@
-<div class="container-fluid" style="margin-top: 1em;">
-     <div class="well">
-       <div class="row-fluid">
-         <div class="span3">
-           <h3>Extraction des contacts</h3>
+<div class="container-fluid">
+   
+   <div class="well" style="margin-top: 1em;">
+      <div class="row-fluid">
+         <div class="span9">
+         <h3>Extraction des contacts</h3>
          </div>
-       </div>
-     </div> 
+          <%= link_to image_tag("glyphicons/glyphicons_210_left_arrow.png"), :back ,{:title => "Retour", :class=>"pull-right btn"} %>
+      </div>
+   </div>
 </div>
-
 <div class="container-fluid" style= "background-color: #D8D8D8; margin-top: 0em; ">
   <%= form_tag({:controller => "extractions", :action => "contacts", format: :csv}, :method => "get") do %>
 

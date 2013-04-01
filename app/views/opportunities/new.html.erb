@@ -1,9 +1,14 @@
 <div class="container-fluid">
-   
+
    <div class="well" style="margin-top: 1em;">
-      <h2>Opportunité [Nouvelle]</h2>
+     <div class="row-fluid">
+       <div class="span3">
+         <h3>Opportunité (Nouvelle)</h3>
+        </div>
+          <%= link_to image_tag("glyphicons/glyphicons_210_left_arrow.png"), :back ,{:title => "Retour", :class =>"pull-right btn"}%>
+     </div>
    </div>
 
-   <%= render 'form' %>
+<%= render 'form' %>
 
 </div>

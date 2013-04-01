@@ -5,9 +5,7 @@
        <div class="span9">
          <h3><%= @contact.forename + ' ' + @contact.surname %> (Édition)</h3>
         </div>
-        <div class="pull-right">
-          <%= link_to image_tag("glyphicons/glyphicons_210_left_arrow.png"), :back ,{:title => "Retour"} %>
-        </div>
+          <%= link_to image_tag("glyphicons/glyphicons_210_left_arrow.png"), :back ,{:title => "Retour", :class =>"pull-right btn"} %>
      </div>
    </div>
 

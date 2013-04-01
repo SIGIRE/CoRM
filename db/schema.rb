@@ -173,9 +173,9 @@ ActiveRecord::Schema.define(:version => 20130325104624) do
     t.datetime "updated_at",                                 :null => false
     t.integer  "quotation_id"
     t.integer  "price_excl_tax_cents",    :default => 0,     :null => false
-    t.string   "price_excl_tax_currency", :default => "USD", :null => false
+    t.string   "price_excl_tax_currency", :default => "EUR", :null => false
     t.integer  "total_excl_tax_cents",    :default => 0,     :null => false
-    t.string   "total_excl_tax_currency", :default => "USD", :null => false
+    t.string   "total_excl_tax_currency", :default => "EUR", :null => false
     t.decimal  "quantity"
   end
 
@@ -223,9 +223,9 @@ ActiveRecord::Schema.define(:version => 20130325104624) do
     t.integer  "opportunity_id"
     t.integer  "quotation_template_id"
     t.integer  "total_excl_tax_cents",    :default => 0,     :null => false
-    t.string   "total_excl_tax_currency", :default => "USD", :null => false
+    t.string   "total_excl_tax_currency", :default => "EUR", :null => false
     t.integer  "total_incl_tax_cents",    :default => 0,     :null => false
-    t.string   "total_incl_tax_currency", :default => "USD", :null => false
+    t.string   "total_incl_tax_currency", :default => "EUR", :null => false
     t.string   "company"
     t.string   "adress1"
     t.string   "adress2"
@@ -238,7 +238,7 @@ ActiveRecord::Schema.define(:version => 20130325104624) do
     t.string   "job"
     t.decimal  "VAT_rate"
     t.integer  "total_VAT_cents",         :default => 0,     :null => false
-    t.string   "total_VAT_currency",      :default => "USD", :null => false
+    t.string   "total_VAT_currency",      :default => "EUR", :null => false
   end
 
   create_table "relations", :force => true do |t|

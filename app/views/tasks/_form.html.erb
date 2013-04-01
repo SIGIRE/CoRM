@@ -14,9 +14,9 @@
 
   <div class="field">
     
-      <div class="span2"> Account : </div>
+      <div class="span2"> Compte : </div>
       <%= f.collection_select :account_id, Account.order('company ASC').all, :id, :company, {:include_blank => true} %>
-      <span class="label label-info" id="task_notice"  style="display: none; margin-left: 2em;"><i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le account correspondant</span>
+      <span class="label label-info" id="task_notice"  style="display: none; margin-left: 2em;"><i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant</span>
     
   </div> 
 
@@ -34,7 +34,7 @@
   </div>
   
   <div class="field">
-    <div class="span2">Description : </div> <%= f.text_area :notes , :display_with => :simple_format, :rows => "5", :style=>'width: 30em;'%>
+	  <div class="span2">Description : </div> <%= f.text_area :notes , { :required => 'required', :display_with => :simple_format, :rows => "5", :style=>'width: 30em;'} %>
   </div>
 
   <div class="field">
@@ -73,10 +73,9 @@
   <br /><br />
     
   <div class="row">
-      <%= f.submit :class =>"btn btn-primary"%>
-         <div class="pull-right ">
-          <%= if !@task.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @task, :title => "Supprimer la tâche" , :confirm => 'Confirmer la suppression ?', :method => :delete end %>
-         </div>    
+	  <%= if !@task.id.nil? then f.submit 'Modifier cette Tâche', :class =>"btn btn-primary" else f.submit 'Créer une Tâche', :class =>"btn btn-primary" end %>
+
+      <%= if !@task.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @task, :title => "Supprimer la tâche" , :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %>    
   </div>
 
 <% end %>

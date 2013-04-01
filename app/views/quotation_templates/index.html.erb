@@ -5,18 +5,18 @@
   <table class="table table-bordered table-striped">
    <thead> 
     <tr>
-        <th>Id</th>
-        <th>Societe</th>
-        <th>Éditer</th>
+        <th><center>Id</center></th>
+        <th><center>Societe</center></th>
+        <th><center>Éditer</center></th>
     </tr>
    </thead>
    
   <tbody> 
   <% @templates.each do |template| %>
     <tr>
-      <td><%= template.id %></td>
-      <td><%= template.company %></td>
-      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_template_path(template),{:title => "Éditer le modèle"} %></td>      
+      <td><center><%= template.id %></center></td>
+      <td><center><%= template.company %></center></td>
+      <td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_template_path(template),{:title => "Éditer le modèle", :class=>"btn"} %></center></td>      
     </tr>
   <% end %>
   </tbody>

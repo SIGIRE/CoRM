@@ -13,12 +13,11 @@
 
 
   <div class="field">
-    <div class="span2"><%= f.label :name %></div>
-    <%= f.text_field :name %>
+    <div class="span2">Nom : </div><%= f.text_field :name ,{ :required => 'required' } %>
   </div>
   
   <div class="field" style="margin-bottom: 1em;">
-    <div class="span2">Fichier-joint :</div>  <div class="span3" style="margin-left: 0em;"><%= f.file_field :attach, :style=>'width: 20em;' %></div>
+    <div class="span2">Fichier-joint :</div>  <div class="span3" style="margin-left: 0em;"><%= f.file_field :attach ,{ :required => 'required', :style=>'width: 20em;'} %></div>
     <br /><br />
   </div>
   
@@ -35,11 +34,10 @@
     <%= f.text_area :notes, :display_with => :simple_format, :rows => "5", :style=>'width: 40em;' %>
   </div>
   
-  <div class="field">
-    <div class="span2" >
-      <%= link_to image_tag("glyphicons/glyphicons_221_unshare.png"), :back %>
-    </div>
-        <%= f.submit :class =>"btn btn-primary"%>
+ 
+     <div class="row">
+	  <%= if !@document.id.nil? then f.submit 'Modifier ce Document', :class =>"btn btn-primary",:id =>"document_submit_form" else f.submit 'Créer un Document', :class =>"btn btn-primary",:id =>"document_submit_form" end %>
+      <%= if !@document.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @document, :title => "Supprimer le document", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
   </div>
   
   <%= f.hidden_field :account_id %>

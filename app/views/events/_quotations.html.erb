@@ -4,12 +4,12 @@
      <div class="well">
        <div class="row-fluid">
          <div class="span8">
-           <h3>Liste des Devis</h3>
+           <h3>Devis de <%= @account.company %> </h3>
          </div>
-         <div class="pull-right">
-           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_quotation_path(:account_id => @account.id) ,{:title => "Créer un quotations"}%>
-         </div>
+		<div class="pull-right">
+           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_quotation_path(:account_id => @account.id)  ,{:title => "Créer un devis", :class =>"btn"}%>
        </div>
+	   </div>
      </div>
 
          
@@ -25,22 +25,21 @@
     
     <table class="table table-bordered table-striped">
       <tr>
-        <th>Id</th>
-        <th>Statut</th>
-        <th>Référence</th>
-        <th>Opportunité</th>
-        <th>Total HT</th>
-        <th>Date</th>
-        <th>Editer</th>
-        <th>Supp.</th>
-        <th>PDF</th>         
+        <th><center>Id</center></th>
+        <th><center>Statut</center></th>
+        <th><center>Référence</center></th>
+        <th><center>Opportunité</center></th>
+        <th><center>Total HT</center></th>
+        <th><center>Date</center></th>
+        <th><center>Éditer</center></th>
+        <th><center>PDF</center></th>         
       </tr>
     
     <% @quotations = Quotation.by_account(@account).order('date').page(params[:page]) %>
     <% @quotations.each do |quotation| %>
     <tr>
-        <td><%= quotation.id %></td>
-        <td>
+        <td><center><%= quotation.id %></center></td>
+        <td><center>
             <% if quotation.statut == "Sauvegardé"%>
               <span class="badge badge-important">
             <% elsif quotation.statut == "En cours"%>
@@ -53,18 +52,17 @@
               <span class="badge badge-info">
             <% end %>
             <%= quotation.statut %></span>
-          </td>
-        <td><%= quotation.ref %></td>
-        <td>
+          </center></td>
+        <td><center><%= quotation.ref %></center></td>
+        <td><center>
           <% if !quotation.opportunity.nil? %>
             <%= link_to quotation.opportunity.name , quotation.opportunity%>
           <% end %>
-        </td>
+        </center></td>
         <td style="text-align :right;"><%= number_to_currency(quotation.total_excl_tax, :locale => :fr) %></td>
-        <td><%= if !quotation.date.nil? then quotation.date.strftime("%d/%m/%Y") end%></td>
-        <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_path(quotation) %></td>
-        <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), quotation, :title => "Supprimer le quotations", :confirm => 'Confirmer la suppression ?', :method => :delete %></td>          
-        <td><%= link_to image_tag("glyphicons/glyphicons_015_print.png"), quotation_path(quotation, :format => "pdf") %></td>
+        <td><center><%= if !quotation.date.nil? then quotation.date.strftime("%d/%m/%Y") end%></center></td>
+        <td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_path(quotation) ,{:title => "Modifier le devis", :class =>"btn"} %></center></td>          
+        <td><center><%= link_to image_tag("glyphicons/glyphicons_015_print.png"), quotation_path(quotation, :format => "pdf"),{:title => "Afficher le PDF", :class =>"btn"} %></center></td>
     </tr>    
     <% end %>
     </table>

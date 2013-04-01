@@ -5,20 +5,20 @@
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th>Id</th>
-        <th>Nom</th>
-        <th>Description</th>
-        <th>Éditer</th>
+        <th><center>Id</center></th>
+        <th><center>Nom</center></th>
+        <th><center>Description</center></th>
+        <th><center>Éditer</center></th>
       </tr>
     </thead>
     
   <tbody>
   <% @tags.each do |tag| %>
     <tr>
-      <td><%= tag.id %></td>
-      <td><%= tag.name %></td>
-      <td><%= truncate(tag.description, :length => 300, :separator => ' ')%></td>
-      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_tag_path(tag),{:title => "Éditer le tag"} %></td>
+      <td><center><%= tag.id %></center></td>
+      <td><center><%= tag.name %></center></td>
+      <td><center><%= truncate(tag.description, :length => 75, :separator => ' ')%></center></td>
+      <td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_tag_path(tag),{:title => "Éditer le tag", :class =>"btn"} %></center></td>
     </tr>
   <% end %>
   </tbody>

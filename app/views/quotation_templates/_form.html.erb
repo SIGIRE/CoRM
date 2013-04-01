@@ -14,7 +14,7 @@
   
   
     <div class="field"> 
-      <div class="span2">Societe : </div><%= f.text_field :company %>
+      <div class="span2">Societe : </div><%= f.text_field :company ,{ :required => 'required'}%>
     </div>
     
     <div class="field"> 
@@ -67,7 +67,7 @@
     
     <div class="field"> 
       <div class="span2">Logo : </div>
-      <%= f.file_field :attach, :style=>'width: 20em; margin-bottom: 1em;' %>
+      <%= f.file_field :attach,{ :required => 'required', :style=>'width: 20em; margin-bottom: 1em;'} %>
       <% if @template.attach.exists? %>
         <%= link_to (image_tag("glyphicons/glyphicons_036_file.png") + ' ' + @template.attach_file_name), @template.attach.url, :target => "_blank"%>
       <% end %>
@@ -75,10 +75,9 @@
     
     
   <div class="row">
-    <div class="span2"> <%= f.submit :class =>"btn btn-primary" %> </div>
-    <div class="pull-right ">
-      <%= if !@template.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @template, :title => "Supprimer le modèle", :confirm => 'Confirmer la suppression ?', :method => :delete end %> 
-    </div>
+    <%= if !@template.id.nil? then f.submit 'Modifier ce Modèle', :class =>"btn btn-primary",:id =>"template_validate_form" else f.submit 'Créer un Modèle', :class =>"btn btn-primary",:id =>"template_validate_form" end%>
+    <%= if !@template.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @template, :title => "Supprimer le modèle", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn", :method => :delete end %> 
+
   </div>    
     
     

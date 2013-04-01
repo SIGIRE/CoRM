@@ -19,9 +19,7 @@
             
           </small>
         </div>
-        <div class="pull-right">
-          <%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), event_path(event),  :data => { :confirm => 'Confirmer la Suppression?' }, :method => :delete %>
-        </div>
+          <%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), event_path(event),  :data => { :confirm => 'Confirmer la Suppression?'},:class =>"pull-right btn" ,:title => "Supprimer l'évènement", :method => :delete %>
       </div>
         
       

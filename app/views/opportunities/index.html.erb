@@ -7,25 +7,24 @@
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th>Id</th>
-        <th>Statut</th>
-        <th>Compte</th>
-        <th>Libellé</th>
-        <th>Contact</th>
-        <th>Estimation</th>
-        <th>Marge</th>
-        <th>Echéance</th>
-        <th>Collaborateur</th>
-        <th>Editer</th>
-        <th>Supp.</th>	
+        <th><center>Id</center></th>
+        <th><center>Statut</center></th>
+        <th><center>Compte</center></th>
+        <th><center>Libellé</center></th>
+        <th><center>Contact</center></th>
+        <th><center>Estimation</center></th>
+        <th><center>Marge</center></th>
+        <th><center>Échéance</center></th>
+        <th><center>Collaborateur</center></th>
+        <th><center>Éditer</center></th>
       </tr>
     </thead>
     
     <tbody>
       <% @opportunities.each do |opportunity| %>
       <tr>
-        <td><%= link_to opportunity.id, opportunity %></td>
-        <td>
+        <td><center><%= link_to opportunity.id, opportunity %></center></td>
+        <td><center>
           <% if opportunity.statut == "Détectée"%>
             <span class="badge badge-important">
           <% elsif opportunity.statut == "En cours"%>
@@ -38,10 +37,10 @@
             <span class="badge badge-info">
           <% end %>
           <%= opportunity.statut %></span>
-        </td>
-        <td><%= if !opportunity.account.nil? then link_to opportunity.account.company , account_events_url(opportunity.account) end%></td>
-        <td><%= opportunity.name %></td>
-        <td><%= if !opportunity.contact.nil? then link_to opportunity.contact.surname, opportunity.contact end%></td>
+        </center></td>
+        <td><center><%= if !opportunity.account.nil? then link_to opportunity.account.company , account_events_url(opportunity.account) end%></center></td>
+        <td><center><%= opportunity.name %></center></td>
+        <td><center><%= if !opportunity.contact.nil? then link_to opportunity.contact.surname, opportunity.contact end%></center></td>
         <td style="text-align :right;">
           <% if !opportunity.amount.nil? %>
             <%= number_to_currency(opportunity.amount, :locale => :fr)  %> <strong> HT </strong>
@@ -52,10 +51,9 @@
             <%= number_to_currency(opportunity.profit, :locale => :fr)  %> <strong> HT </strong>
           <% end %>
         </td>
-        <td><%= if !opportunity.term.nil? then opportunity.term.strftime("%d/%m/%y") end%></td>
-        <td><%= if !opportunity.user.nil? then opportunity.user.full_name end%></td>
-        <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_opportunity_path(opportunity) %></td>
-        <td><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), opportunity, :title => "Supprimer l'Opportunité", :confirm => 'Confirmer la suppression ?', :method => :delete %></td>   
+        <td><center><%= if !opportunity.term.nil? then opportunity.term.strftime("%d/%m/%y") end%></center></td>
+        <td><center><%= if !opportunity.user.nil? then opportunity.user.full_name end%></center></td>
+        <td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_opportunity_path(opportunity),{:title => "Éditer l'opportunité", :class =>"btn"}  %></center></td>
       </tr>
       <% end %>
     </tbody>

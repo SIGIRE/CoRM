@@ -5,22 +5,24 @@
   
   <table class="table table-bordered table-striped">
     <tr>
-      <th>Id</th>
-      <th>Soci&eacute;t&eacute;</th>
-      <th>Ville</th>    
-      <th>Genre</th>
-      <th>Téléphone</th>
-      <th>Éditer</th>       
+      <th><center>Id</center></th>
+      <th><center>Soci&eacute;t&eacute;</center></th>
+      <th><center>Adresse</center></th>	  
+      <th><center>Genre</center></th>
+      <th><center>Téléphone</center></th>
+	  <th><center>Site Web</center></th>
+      <th><center>Éditer</center></th>       
     </tr>
   
   <% @accounts.each do |account| %>
     <tr>
-      <td><%= account.id %></td>
-      <td><%= link_to account.company, account_events_url(account),{:title => "Afficher les évenements"} %></td>
-      <td><%= account.city %></td>    
-      <td><%= account.category %></td>
-      <td><%= account.tel %></td>
-      <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_account_path(account),{:title => "Éditer le compte"} %></td>
+      <td><center><%= account.id %></center></td>
+      <td><center><%= link_to account.company, account_events_url(account),{:title => "Afficher les évenements"} %></center></td>
+      <td><center><%= account.adress1%> <%= account.adress2%> <%= account.city %></center></td> 
+      <td><center><%= account.category %></center></td>
+      <td><center><%= account.tel %></center></td>
+	  <td><%= link_to account.web, account.web, :target => "_blank" %></td>
+      <td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_account_path(account),{:title => "Éditer le compte", :class =>"btn"} %></center></td>
     </tr>
   <% end %>
   </table>

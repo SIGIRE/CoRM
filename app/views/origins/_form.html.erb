@@ -12,17 +12,15 @@
   <% end %>
 
   <div class="field">
-    <div class="span2"><%= f.label :name %></div>
-    <%= f.text_field :name %>
+    <div class="span2">Nom :</div><%= f.text_field :name,{ :required => 'required'} %>
   </div>
   <div class="field">
     <div class="span2"><%= f.label :description %></div>
     <%= f.text_area :description, :display_with => :simple_format, :rows => "5", :style=>'width: 30em;' %>
   </div>
    <div class="row">
-    <div class="span2"> <%= f.submit :class =>"btn btn-primary",:id =>"origin_validate_form"%> </div>
-    <div class="pull-right ">
-      <%= if !@origin.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @origin, :title => "Supprimer l'origin", :confirm => 'Confirmer la suppression ?', :method => :delete end %> 
+    <%= if !@origin.id.nil? then f.submit 'Modifier cette Origine', :class =>"btn btn-primary",:id =>"origin_validate_form" else f.submit 'Créer une Origine', :class =>"btn btn-primary",:id =>"origin_validate_form" end%>
+    <%= if !@origin.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @origin, :title => "Supprimer l'origin", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn", :method => :delete end %> 
     </div>
   </div>
 <% end %>
