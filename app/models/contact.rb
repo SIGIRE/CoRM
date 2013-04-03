@@ -13,7 +13,16 @@ class Contact < ActiveRecord::Base
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
   
+  validate :valid
+  
   paginates_per 10
+  
+  def valid
+    if (self.surname.blank? && self.forename.blank?)
+      self.errors.add(:forename, 'can\'t be blank')
+      self.errors.add(:surname, 'can\'t be blank')
+    end
+  end
   
   def author
     return author_user || User::default
@@ -27,7 +36,7 @@ class Contact < ActiveRecord::Base
   # Get the complete name of this person.
   #
   def full_name
-    "#{title} #{forename} #{surname}"
+    "#{title} #{forename} #{UnicodeUtils.upcase(surname, I18n.locale)}"
   end
   
   ##

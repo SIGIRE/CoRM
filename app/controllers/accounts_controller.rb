@@ -200,7 +200,7 @@ class AccountsController < ApplicationController
     @account.tags  << @tag
 
     respond_to do |format|
-        format.html  { redirect_to account_events_url(@account.id), :notice => "Affectation du produit effectuée!" }
+        format.html  { redirect_to account_events_url(@account.id), :notice => "Affectation du Tag effectuée!" }
         format.json  { render :json => @tag }
     end    
     
@@ -216,7 +216,7 @@ class AccountsController < ApplicationController
     @account.tags.delete(@tag)
 
     respond_to do |format|
-        format.html  { redirect_to account_events_url(@account.id), :notice => "Suppression de l'affectation du tag effectuée!" }
+        format.html  { redirect_to account_events_url(@account.id), :notice => "Suppression de l'affectation du Tag effectuée!" }
         format.json  { render :json => @tag }
     end    
     

@@ -90,7 +90,6 @@ $(function(){
     var prix = $(this).val();
     $("#quotation_lines_attributes_0_total_excl_tax").val(qt*prix);
   });
-
 });
 
 

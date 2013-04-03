@@ -59,7 +59,7 @@ class Account < ActiveRecord::Base
   # Set the business name to upper
   #
   def uppercase_company
-    self.company.upcase!
+    UnicodeUtils.upcase(self.company, I18n.locale)
   end
   
 end

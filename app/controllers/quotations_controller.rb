@@ -14,17 +14,15 @@ class QuotationsController < ApplicationController
   
   
   def new
-    @quotation = Quotation.new
+    @quotation = Quotation.new(params[:quotation])
     @quotation.user = current_user
     @quotation.account_id = params[:account_id]
     if (!params[:account_id].blank?)
       @quotation.account = Account.find(params[:account_id]);
     end
     
-    
-    
     # Instanciate a default line
-    1.times { @quotation.quotation_lines.build } ## hum, hum
+    1.times { @quotation.quotation_lines.build }
     
     respond_to do |format|
       format.html  # new.html.erb
@@ -55,7 +53,6 @@ class QuotationsController < ApplicationController
     # Store variables to calculate price & total
     @quotation.total_excl_tax = 0
     @quotation.VAT_rate = 19.60
-    
     # For each lines, calculate the total exclude taxes
     @quotation.quotation_lines.each do |line|
       if !line.quantity.nil? && !line.price_excl_tax.nil? then
@@ -65,21 +62,28 @@ class QuotationsController < ApplicationController
         line.total_ht = 0
       end
     end
-    
     # VAT and including taxes
     @quotation.total_VAT = @quotation.total_excl_tax * (@quotation.VAT_rate / 100)
     @quotation.total_incl_tax = @quotation.total_excl_tax + @quotation.total_VAT
     
-    respond_to do |format|
-      if @quotation.save
-        self.create_event(false)
-        format.html  { redirect_to account_events_url(@quotation.account_id), :notice => "Le devis a été créé" }
-        format.json  { render :json => @quotation,
-                      :status => :created}
-      else
+    if @quotation.valid
+      respond_to do |format|
+        if @quotation.save
+          self.create_event(false)
+          format.html  { redirect_to account_events_url(@quotation.account_id), :notice => "Le devis a été créé" }
+          format.json  { render :json => @quotation,
+                        :status => :created}
+        else
+          format.html  { render :action => "new" }
+          format.json  { render :json => @quotation.errors,
+                        :status => :unprocessable_entity }
+        end
+      end
+    else
+      @quotation.errors.add('ligne devis', 'must have one line')
+      respond_to do |format|
         format.html  { render :action => "new" }
-        format.json  { render :json => @quotation.errors,
-                      :status => :unprocessable_entity }
+        format.json { render :json => @quotation.errors }
       end
     end
   end
@@ -162,7 +166,8 @@ class QuotationsController < ApplicationController
   def destroy
     @quotation = Quotation.find(params[:id])
     @quotation.destroy
-    redirect_to quotations_url, :notice => "Le devis a été supprimé."
+    url = @quotation.account_id.nil? ? quotations_path : account_events_url(Account.find(@quotation.account_id))
+    redirect_to url, :notice => "Le devis a été supprimé."
   end
   
   ##

@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   #   - The full name as  String
   #
   def full_name
-      "#{forename} #{surname}"
+      "#{forename} #{UnicodeUtils.upcase(surname, I18n.locale)}"
   end
   
   has_many :accounts

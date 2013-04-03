@@ -19,4 +19,8 @@ class QuotationLine < ActiveRecord::Base
     write_attribute(:quantity, quantity.gsub(',', '.'))
   end
   
+  def valid
+    return (self.total_excl_tax > 0 and self.quantity > 0 and !self.ref.blank?)
+  end
+  
 end

@@ -6,7 +6,7 @@
 source 'https://rubygems.org'
 
 gem 'rails'
-
+gem 'unicode_utils'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

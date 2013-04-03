@@ -47,6 +47,14 @@ class Quotation < ActiveRecord::Base
   def editor
     return editor_user || User::default
   end
+  
+  def valid
+    if self.quotation_lines.class.name.downcase === 'array' and self.quotation_lines.length > 0
+      return ((self.quotation_lines.each {|line| if (!line.valid) then return false end }) == false ? false : true)
+    else
+      return false
+    end
+  end
 
   scope :by_account, lambda { |account| where("account_id = ?", account.id) unless account.nil? }
 end

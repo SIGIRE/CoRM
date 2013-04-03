@@ -16,9 +16,14 @@
 <div class="container-fluid">
        <div class="row-fluid">
          <div class="span9">
+	  <%
+	       @tags = @account.tags.order('name').page(params[:page])
+	       @tags_select_tmp = Tag.order('name ASC').all
+	       @tags_select = @tags_select_tmp.reject { |e| @tags.include? e }
+	  %>
           <%= form_tag({:controller => "accounts", :action => "add_tag", :account_id => @account.id}, :method => "post") do %>
-            <% @tags = Tag.order('name ASC').all %>
-            <%= select_tag :tag_id, options_from_collection_for_select(@tags, "id", "name") %>
+            
+            <%= select_tag :tag_id, options_from_collection_for_select(@tags_select, "id", "name") %>
             <%= submit_tag("Affecter") %>
           <% end %>
           </div>
@@ -36,17 +41,15 @@
     <th><center>Nom</center></th>
     <th><center>Description</center></th>
     <th><center>Supprimer</center></th>
-    <th><center>Test</center></th>
   </tr>
   </thead>
   <tbody>
-<% @tags = @account.tags.order('name').page(params[:page]) %>
+
 
 <% @tags.each do |tag| %>
   <tr>
     <td style="width: 15em;"><center><%= tag.name %></center></td>
     <td><%= truncate(tag.description, :length => 500, :separator => ' ') %></td>
-    <td><center><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), :controller => "accounts", :action => "delete_tag", :account_id => @account.id, :tag_id => tag.id %></center></td>
     <td><center><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), :controller => "accounts", :action => "delete_tag", :account_id => @account.id, :tag_id => tag.id %></center></td>
 	<% end %>
   </tbody>

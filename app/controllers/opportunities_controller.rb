@@ -13,7 +13,7 @@ class OpportunitiesController < ApplicationController
     @autocomplete_accounts = Account.find(:all,:select=>'company').map(&:company)
     @autocomplete_contacts = Contact.find(:all,:select=>'surname').map(&:surname)
     
-    @opportunities = Opportunity.by_user(current_user).where("statut IN ('Détectée', 'En cours')").order('name').page(params[:page])
+    @opportunities = Opportunity.by_user(current_user).where("statut IN ('Détectée', 'En cours')").order('term desc').page(params[:page])
     
     #initialisation puis calcul des totaux
     @total_amount = 0
@@ -178,7 +178,7 @@ class OpportunitiesController < ApplicationController
 
     # sort by filter values
     @opportunities = Opportunity.by_statut(statut).by_term(date_begin, date_end).by_account(account).by_contact(contact).by_user(user)
-    @opportunities = @opportunities.order("term ASC,statut DESC").page(params[:page])
+    @opportunities = @opportunities.order("term DESC,statut DESC").page(params[:page])
     
     # Get totals after an user search calcul des totaux après une recherche sur l'utilisateur
     @total_amount = 0

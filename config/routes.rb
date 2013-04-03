@@ -14,7 +14,7 @@ Crm::Application.routes.draw do
   match 'type-evenement/:id/edit(.:format)', to: 'eventTypes#edit', via: :get, as: :edit_event_type
   match 'type-evenement/:id(.:format)', to: 'eventTypes#show', via: :get, as: :event_type
   match 'type-evenement/:id(.:format)', to: 'eventTypes#update', via: :put, as: :event_type
-  match 'type-evenement/:id(.:format)', to: 'eventTypes#delete', via: :delete, as: :event_type
+  match 'type-evenement/:id(.:format)', to: 'eventTypes#destroy', via: :delete, as: :event_type
   
   # Resources needed for form_for support with a composed name Class (quotationTemplate)
   #
@@ -25,7 +25,7 @@ Crm::Application.routes.draw do
   match 'modele-devis/:id/edit(.:format)', to: 'quotationTemplates#edit', via: :get, as: :edit_quotation_template
   match 'modele-devis/:id(.:format)', to: 'quotationTemplates#show', via: :get, as: :quotation_template
   match 'modele-devis/:id(.:format)', to: 'quotationTemplates#update', via: :put, as: :quotation_template
-  match 'modele-devis/:id(.:format)', to: 'quotationTemplates#delete', via: :delete, as: :quotation_template
+  match 'modele-devis/:id(.:format)', to: 'quotationTemplates#destroy', via: :delete, as: :quotation_template
   #resources :quotationTemplates, :path => 'modele-devis'
   
   resources :quotationLines

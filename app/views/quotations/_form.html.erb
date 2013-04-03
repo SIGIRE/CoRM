@@ -83,7 +83,13 @@
     <hr />
  
      <div class="row">
-	<%= if !@quotation.id.nil? then f.submit 'Modifier ce Devis', :class =>"btn btn-primary",:id =>"quotation_submit_form" else f.submit 'Créer un Devis', :class =>"btn btn-primary",:id =>"quotation_submit_form" end %>
+	<%=
+          if !@quotation.id.nil?
+            f.submit('Modifier ce Devis', :class =>"btn btn-primary", :id =>"quotation_submit_form" )
+          else
+            f.submit('Créer un Devis', :class =>"btn btn-primary", :id =>"quotation_submit_form" )
+          end
+        %>
       <%= if !@quotation.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @quotation, :title => "Supprimer ce Devis", :class =>"pull-right btn", :confirm => 'Confirmer la suppression ?', :method => :delete end %> 
     </div>
   </div>
