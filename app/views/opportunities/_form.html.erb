@@ -26,7 +26,7 @@
   
   <div class="field">
       <div class="span2"> Compte : </div>
-      <%= f.collection_select :account_id, Account.order('company ASC').all, :id, :company, {:include_blank => true}, { :required => 'required' } %>
+      <%= f.collection_select :account_id, Account.order('company ASC').all, :id, :company, {:include_blank => true}, { :class => 'required' } %>
   </div>
   
   <div class="field" id="nameContacts">

@@ -2,12 +2,14 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require jquery_nested_form
+//= require jquery.validate
 //= require bootstrap
-//= require ./Modernizr.js
+
 /* for the shared functions */
 //= require ./corm_lib.js
+
 /* real application javascript functions */
-//= require ./corm_app.js 
+//= require ./corm_app.js
 
 /**
 * These two scripts are exactly the same

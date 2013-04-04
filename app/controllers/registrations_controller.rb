@@ -2,7 +2,12 @@
 # Controller that manager User
 #
 class RegistrationsController < Devise::RegistrationsController
-  #before_filter :authenticate
+  skip_before_filter :require_no_authentication
+  before_filter :is_authorized?
+  
+  def index
+    @users = User.all
+  end
   
   ##
   # Render a page to edit the User
@@ -43,6 +48,18 @@ class RegistrationsController < Devise::RegistrationsController
     authenticate_or_request_with_http_basic do |username, password|
       username == "admin" && password == "password"
     end
+  end
+
+  def is_authorized?()
+    if (User.all.length == 0)
+      return true
+    elsif (!current_user.nil?)
+      if(current_user.super_user?)
+        return true
+      end
+    end
+    flash[:alert] = I18n.t("devise.failure.not_authorized")
+    redirect_to root_path
   end
   
 end

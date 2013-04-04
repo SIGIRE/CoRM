@@ -1,0 +1,172 @@
+/* Overrides of Bootstrap */
+@mixin radius($r) {
+  -webkit-border-radius: $r;
+  -moz-border-radius: $r;
+  border-radius: $r;
+}
+
+input, textarea, select {
+  &.required:focus {
+    $shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px rgba(200,0,0,.6)!important;
+    -webkit-box-shadow: $shadow;
+    -moz-box-shadow: $shadow;
+    box-shadow: $shadow;
+    border-color: rgba(200,0,0,.6);
+  }
+}
+div.field {
+  & label.error {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    color: $red;
+    font-weight: 900;
+    padding-left: 15px;
+  }
+}
+
+.row {
+  margin-top: 1em; 
+  padding-left: 30px; 
+}
+
+.filter_statut {
+  width: 110%;
+}
+.filter_coll {
+  width: 100%;
+}
+.filter_date {
+  width: 100%;
+}
+.filter_tfield {
+  width: 100%;
+}
+.navbar {
+  margin-bottom: 0px;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.navbar .brand {
+  -moz-transition: all 0.2s linear 0s;
+  color: $black;
+  float: left;
+  font-weight: bold;
+  margin-right: 20px;
+  padding-left: 0;
+  padding-right: 0;
+  font-size: 30px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.125);
+}
+.tab {
+  margin-left: 3em;
+}
+.alert {
+  margin-top: 18px;
+}
+.event_time {
+  width: 100%;
+}
+.event_date {
+  width: 80%;
+}
+
+img {
+  vertical-align: text-top;
+}
+
+h6 {
+  text-transform: none;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+#bloc-login {
+  width: 548px;
+  height: 198px;
+  border: 1px solid #D5D5D5;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -275px;
+  @include border-radius(5px);
+}
+
+#logo {
+  float: left;
+  width: 180px;
+  height: 180px;
+  padding: 9px 13px 9px 12px;
+  display: block;
+
+}
+
+#login {
+  float: right;
+  width: 319px;
+  height: 174px;
+  padding: 12px;
+  display: block;
+  margin: 0;
+  background-color: #EEEEEE;
+}
+
+#bloc-mdp{
+  width: 548px;
+  height: 198px;
+  border: 1px solid #D5D5D5;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -100px;
+  margin-left: -275px;
+  background-color: #EEEEEE;
+}
+
+#event_date_begin_1i,
+#event_date_end_1i,
+#task_term_1i
+{
+  width:5em;
+}
+
+#event_date_begin_2i,
+#event_date_end_2i,
+#task_term_2i
+{
+  width:8em;
+}
+
+#event_date_begin_3i,
+#event_date_end_3i,
+#task_term_3i
+{
+  width:4em;
+}
+
+#event_date_begin_4i,
+#event_date_end_4i,
+#task_term_4i
+{
+  width:4em;
+}
+
+#event_date_begin_5i,
+#event_date_end_5i,
+#task_term_5i
+{
+  width:4em;
+}
+
+#event_notes,
+#task_notes
+{
+  width:100%;
+}
+

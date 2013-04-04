@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130325104624) do
+ActiveRecord::Schema.define(:version => 20130404134942) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company"
@@ -173,9 +173,9 @@ ActiveRecord::Schema.define(:version => 20130325104624) do
     t.datetime "updated_at",                                 :null => false
     t.integer  "quotation_id"
     t.integer  "price_excl_tax_cents",    :default => 0,     :null => false
-    t.string   "price_excl_tax_currency", :default => "EUR", :null => false
+    t.string   "price_excl_tax_currency", :default => "USD", :null => false
     t.integer  "total_excl_tax_cents",    :default => 0,     :null => false
-    t.string   "total_excl_tax_currency", :default => "EUR", :null => false
+    t.string   "total_excl_tax_currency", :default => "USD", :null => false
     t.decimal  "quantity"
   end
 
@@ -199,6 +199,8 @@ ActiveRecord::Schema.define(:version => 20130325104624) do
     t.datetime "attach_updated_at"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
+    t.integer  "created_by"
+    t.integer  "updated_by"
   end
 
   create_table "quotations", :force => true do |t|
@@ -223,9 +225,9 @@ ActiveRecord::Schema.define(:version => 20130325104624) do
     t.integer  "opportunity_id"
     t.integer  "quotation_template_id"
     t.integer  "total_excl_tax_cents",    :default => 0,     :null => false
-    t.string   "total_excl_tax_currency", :default => "EUR", :null => false
+    t.string   "total_excl_tax_currency", :default => "USD", :null => false
     t.integer  "total_incl_tax_cents",    :default => 0,     :null => false
-    t.string   "total_incl_tax_currency", :default => "EUR", :null => false
+    t.string   "total_incl_tax_currency", :default => "USD", :null => false
     t.string   "company"
     t.string   "adress1"
     t.string   "adress2"
@@ -238,7 +240,7 @@ ActiveRecord::Schema.define(:version => 20130325104624) do
     t.string   "job"
     t.decimal  "VAT_rate"
     t.integer  "total_VAT_cents",         :default => 0,     :null => false
-    t.string   "total_VAT_currency",      :default => "EUR", :null => false
+    t.string   "total_VAT_currency",      :default => "USD", :null => false
   end
 
   create_table "relations", :force => true do |t|
@@ -247,6 +249,8 @@ ActiveRecord::Schema.define(:version => 20130325104624) do
     t.datetime "updated_at",  :null => false
     t.integer  "account1_id"
     t.integer  "account2_id"
+    t.integer  "created_by"
+    t.integer  "updated_by"
   end
 
   create_table "tags", :force => true do |t|
@@ -277,8 +281,8 @@ ActiveRecord::Schema.define(:version => 20130325104624) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                  :default => "",    :null => false
+    t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -291,8 +295,10 @@ ActiveRecord::Schema.define(:version => 20130325104624) do
     t.string   "surname"
     t.string   "tel"
     t.string   "mobile"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.boolean  "is_admin",               :default => false
+    t.boolean  "is_super_user",          :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

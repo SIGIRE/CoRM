@@ -67,16 +67,14 @@
 	      </ul>
               </li>
 		
-		
-		
-		
-		
             </ul>
             
-            <%= form_tag(search_accounts_path, :method => "get", :class =>"navbar-search", :id =>"navsearch") do %>
-              <%= text_field_tag :account , nil , {:class =>"search-query span3", :placeholder => "Rechercher un compte", :data => { :provide => 'typeahead', :source => Account.find(:all,:select=>'company').map(&:company)}, :autocomplete=>"off"}%>
+            <%= form_tag(search_accounts_path, :method => "get", :class =>"form-search", :id =>"navsearch") do %>
+	      <div class="input-append">
+		<%= text_field_tag :account , nil , {:class =>"search-query span3", :placeholder => "Rechercher un compte", :data => { :provide => 'typeahead', :source => Account.find(:all,:select=>'company').map(&:company)}, :autocomplete=>"off", :type => 'search'}%>
+		<button type="submit" onclick="document.getElementById('navsearch').submit()" class="btn"><span class="icon-search"></span></button>
+	      </div>
 	      <ul id="search-list" class="typeahead dropdown-menu"></ul>
-	      <span class="add-on"><%= link_to image_tag("icons/search_blanc.png", :size => "16x16"), "#", :onclick=>"document.getElementById('navsearch').submit()" %></span>
             <% end %>
 
 	    <% if user_signed_in? %>

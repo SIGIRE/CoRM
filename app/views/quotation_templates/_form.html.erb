@@ -14,7 +14,7 @@
   
   
     <div class="field"> 
-      <div class="span2">Societe : </div><%= f.text_field :company ,{ :required => 'required'}%>
+      <div class="span2">Societe : </div><%= f.text_field :company ,{ :class => 'required'}%>
     </div>
     
     <div class="field"> 
@@ -67,7 +67,7 @@
     
     <div class="field"> 
       <div class="span2">Logo : </div>
-      <%= f.file_field :attach,{ :required => 'required', :style=>'width: 20em; margin-bottom: 1em;'} %>
+      <%= f.file_field :attach,{ :class => 'required', :style=>'width: 20em; margin-bottom: 1em;'} %>
       <% if @template.attach.exists? %>
         <%= link_to (image_tag("glyphicons/glyphicons_036_file.png") + ' ' + @template.attach_file_name), @template.attach.url, :target => "_blank"%>
       <% end %>

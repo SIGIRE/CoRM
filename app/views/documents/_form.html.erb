@@ -13,11 +13,11 @@
 
 
   <div class="field">
-    <div class="span2">Nom : </div><%= f.text_field :name ,{ :required => 'required' } %>
+    <div class="span2">Nom : </div><%= f.text_field :name ,{ :class => 'required' } %>
   </div>
   
   <div class="field" style="margin-bottom: 1em;">
-    <div class="span2">Fichier-joint :</div>  <div class="span3" style="margin-left: 0em;"><%= f.file_field :attach ,{ :required => 'required', :style=>'width: 20em;'} %></div>
+    <div class="span2">Fichier-joint :</div>  <div class="span3" style="margin-left: 0em;"><%= f.file_field :attach ,{ :class => 'required', :style=>'width: 20em;'} %></div>
     <br /><br />
   </div>
   

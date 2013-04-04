@@ -19,6 +19,14 @@ class User < ActiveRecord::Base
      return @@default_user
   end
 
+  def super_user?()
+    return ( (is_super_user == true) | (is_super_user == 1) )
+  end
+
+  def admin?()
+    return ( (is_admin == true) | (is_admin == 1) )
+  end
+
   ##
   # Get the full name of this User
   # * *Returns*    :

@@ -19,10 +19,10 @@
         <div class="span2">Référence : </div><%= f.text_field :ref %>
       </div>
       <div class="field">
-        <div class="span2"> Date : </div> <%= f.text_field :date, { :required => 'required', :value => (f.object.date.strftime("%d/%m/%Y") unless f.object.date.nil?) } %>
+        <div class="span2"> Date : </div> <%= f.text_field :date, { :class => 'required', :value => (f.object.date.strftime("%d/%m/%Y") unless f.object.date.nil?) } %>
       </div>
       <div class="field">
-        <div class="span2"> Compte : </div> <%= f.collection_select :account_id, Account.order('company ASC').all, :id, :company, { :required => 'required' } %>
+        <div class="span2"> Compte : </div> <%= f.collection_select :account_id, Account.order('company ASC').all, :id, :company, { :class => 'required' } %>
       </div>
       <div class="field">
         <div class="span2"> Référence client : </div> <%= f.text_field :ref_account %>
@@ -58,7 +58,7 @@
       <h3> Modalités </h3>
     </div>
       <div class="field"> 
-        <div class="span2">Validité du devis : </div><%= f.text_field :validity, { :required => 'required' } %> jours
+        <div class="span2">Validité du devis : </div><%= f.text_field :validity, { :class => 'required' } %> jours
       </div>
       <div class="field"> 
         <div class="span2">Mode de règlement : </div><%= f.text_field :mode_reg %>
@@ -78,7 +78,7 @@
         <%= render :partial => 'opportunities' %>
       </div>
       <div class="field"> 
-        <div class="span2">Modèle : </div><%= f.collection_select :quotation_template_id, QuotationTemplate.order('company ASC').all, :id, :company, { :required => 'required' } %>
+        <div class="span2">Modèle : </div><%= f.collection_select :quotation_template_id, QuotationTemplate.order('company ASC').all, :id, :company, { :class => 'required' } %>
       </div>
     <hr />
  
