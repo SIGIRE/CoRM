@@ -132,15 +132,35 @@ $(document).ready(function() {
   $('form').each(function() {
     $(this).validate({});
   });
-  
-  $('#typeahead-search-account').on('keyup', function() {
-    $(this).typeahead({
-      source: function (typeahead, query) {
-        return $.get('/compte/search', { query: query }, function (data) {
-            return data;//typeahead.process(data);
-        });
+  var searchField = $('#typeahead-search-account');
+  var sourceTable = null;
+  searchField.typeahead({
+    source: function (typeahead, query) {
+      $.ajax({
+        url: '/compte/search?account=' + typeahead,
+        type: 'GET',
+        dataType: 'json',
+        success: function(o) {
+          sourceTable = o, companies = new Array();
+          for (var i in o) {
+            companies.push(i);
+          }
+          query(companies);
+        }
+      });
+    },
+    updater: function(item) {
+      var id;
+      for (var i in sourceTable) {
+        if (i == item) {
+          id = sourceTable[i]; break;
+        }
       }
-    });
+      if (id) {
+        window.location.href = '/compte/'+id+'/evenements';
+      }
+      return item;
+    }
   });
 
   /* Generate the contact list in task edition */

@@ -139,24 +139,24 @@ class AccountsController < ApplicationController
   #
   #
   def search
-    if params[:account].strip().blank?
-      respond_to do |format|
-        format.json { render :json => ['Aucun compte'] }
+    if !params.nil?
+      if params[:account].strip().blank?
+        format.json { render :json => {'Aucun compte' => nil} }
+        return false
       end
-      return false
-    end
-    company = "%#{params[:account].strip}%"
-    
-    @accounts = Array.new
-    Account.find(:all, :conditions => ['company LIKE ?', company], :select => 'company').each {|a| @accounts.push(a.company) }
-    
-    #respond_to do |format|
-      if !@accounts.nil? and !@accounts.length == 0
-        render :json => @accounts
+      company = UnicodeUtils.upcase("%#{params[:account].strip}%")
+      # get from db
+      accounts = {}
+      Account.find(:all, :conditions => ['company LIKE ?', company], :select => 'id, company').each {|a|
+        accounts[a.company] = a.id
+      }
+      # response
+      if !accounts.nil? and accounts.length > 0
+        render :json => accounts
       else
-        render :json => ['Aucun compte']
+        render :json => {'Aucun compte' => nil}
       end
-    #end
+    end
   end
   
   ##
