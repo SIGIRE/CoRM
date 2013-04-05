@@ -12,7 +12,7 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     @page = params[:page]
-    @tasks = Task.where("user_id =? AND statut IN ('En cours','A faire')", current_user).order("statut ASC ,term ASC").page(@page)
+    @tasks = Task.where("user_id =? AND statut IN ('En cours','A faire')", current_user.id).order("statut ASC ,term ASC").page(@page)
           
     respond_to do |format|
       format.html # index.html.erb
@@ -140,8 +140,13 @@ class TasksController < ApplicationController
   # Generate dynamically a Contact List by the Account
   #
   def update_contact_select
+    
     contacts = Contact.where(:account_id => params[:id]).order(:surname)
-    render :partial => "contacts" , :locals =>{:contacts => contacts }  
+    respond_to do |format|
+      format.json { render :json => contacts }
+      format.js
+    end
+    # render :partial => "contacts" , :locals =>{:contacts => contacts }  
   end
   
   ##

@@ -15,5 +15,5 @@
 * These two scripts are exactly the same
 * just replaced accoutnt -> contact
 */
-//= require ./modal_accounts.js
-//= require ./modal_contacts.js
+// require ./modal_accounts.js
+// require ./modal_contacts.js

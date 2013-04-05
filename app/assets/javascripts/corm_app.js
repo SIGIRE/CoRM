@@ -128,50 +128,64 @@ $(document).ready(function() {
   $("#quotation_date").datepicker();
   $("#task_term").datepicker();
   
-  //$('form').validate();
   $('form').each(function() {
     $(this).validate({});
   });
-  var searchField = $('#typeahead-search-account');
-  var sourceTable = null;
-  searchField.typeahead({
-    source: function (typeahead, query) {
-      $.ajax({
-        url: '/compte/search?account=' + typeahead,
-        type: 'GET',
-        dataType: 'json',
-        success: function(o) {
-          sourceTable = o, companies = new Array();
-          for (var i in o) {
-            companies.push(i);
+  
+  /* Search account bar */
+  $('.typeahead-search-account').each(function(index) {
+    var that = $(this);
+    that.typeahead({
+      source: function (typeahead, query) {
+        $.ajax({
+          url: '/compte/search?account=' + typeahead,
+          type: 'GET',
+          dataType: 'json',
+          success: function(o) {
+            that.dataSource = o, companies = new Array();
+            for (var i in o) {
+              companies.push(i);
+            }
+            query(companies);
           }
-          query(companies);
+        });
+      },
+      updater: function(item) {
+        var id = null;
+        for (var i in that.dataSource) {
+          if (i == item) {
+            id = that.dataSource[i]; break;
+          }
         }
-      });
-    },
-    updater: function(item) {
-      var id;
-      for (var i in sourceTable) {
-        if (i == item) {
-          id = sourceTable[i]; break;
+        if (id) {
+          window.location.href = '/compte/'+id+'/evenements';
         }
+        return item;
       }
-      if (id) {
-        window.location.href = '/compte/'+id+'/evenements';
-      }
-      return item;
-    }
+    });
   });
 
-  /* Generate the contact list in task edition */
+  /* Generate the contact list by accounts in task edition */
   $("#task_account_id").change(function() {
-  
     var account = $('select#task_account_id :selected').val();
     if(account == "") { account="0"; }
   
     $.get('/tasks/update_contact_select/' + account, 
       function(data){
-          $("#nameContacts").html(data);
+          var option; var that = $('#task_contact_id');
+          that.empty();
+          
+          option = corm.createHTML('option');
+          that.append(option);
+          
+          for (var i in data) {
+            option = corm.createHTML('option', {
+              value: data[i].id,
+              content: data[i].title + ' ' + data[i].forename + ' ' + data[i].surname
+            });
+            that.append(option);
+            console.log(option);
+          }
       }
     );
     if(account != "0"){
@@ -199,17 +213,22 @@ $(document).ready(function() {
   
     var account = $('select#quotation_account_id :selected').val();
     if(account == "") { account="0"; }
+    if ($('#nameContact')) {
+      $.get('/quotations/update_contact_select/' + account, 
+        function(data){
+            $("#nameContacts").html(data);
+        }
+      );
+    }
+    if ($('#nameOpportunity')) {
+      $.get('/quotations/update_opportunity_select/' + account, 
+        function(data){
+            $("#nameOpportunity").html(data);
+        }
+      );
+    }
     
-    $.get('/quotations/update_contact_select/' + account, 
-      function(data){
-          $("#nameContacts").html(data);
-      }
-    );
-    $.get('/quotations/update_opportunity_select/' + account, 
-      function(data){
-          $("#nameOpportunity").html(data);
-      }
-    );
+    
   });
   
   // gestion de la check box lors de la creation d'un event

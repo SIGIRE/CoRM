@@ -7,21 +7,23 @@
   <% if !@task.account.nil? %>
     
     <!-- on affiche les données initiales -->
-    <%= collection_select :task, :contact_id, Contact.where(:account_id => @task.account.id).order(:surname), :id, :full_name, {:include_blank => true}, :remote=>true %>
+    <%= collection_select :task, :contact_id, Contact.where(:account_id => @task.account.id).order(:surname), :id, :full_name, {:include_blank => true} %>
   
   <% else %>
     
     <!-- sinon on affiche des blancs -->
-    <%= collection_select  :task, :contact_id, Contact.where(:account_id => 0), :id, :full_name, {:include_blank => true}, :remote=>true %>
+    <%= collection_select  :task, :contact_id, Contact.where(:account_id => 0), :id, :full_name, {:include_blank => true} %>
   
   <% end %> 
 
 <% else %>
   
   <!-- sinon on affiche les contacts triés -->
-  <%= collection_select  :task, :contact_id, contacts , :id, :full_name, {:include_blank => true}, :remote=>true %>
+  <%= collection_select  :task, :contact_id, contacts , :id, :full_name, {:include_blank => true} %>
 
 <% end %>
+<% if !flash[:notice].nil? %>
 <div class="span2">
   <%= flash[:notice] %>
 </div>
+<% end %>
