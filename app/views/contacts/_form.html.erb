@@ -102,7 +102,22 @@
     
   </div>
   
-  <br>
+  <br />
+  	
+	<div class="field">
+    <% if !@contact.id.nil? %>
+		<div class="span9"> Créé par : <%= @contact.author.full_name %>, le </strong><%= @contact.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+		
+		<% if !@contact.modified_by.nil? %>
+			<div class="span9"> Dernièrement modifié par : <%= @contact.editor.full_name %>, le <%= @contact.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+		
+		<% else %>
+		<% end %>
+		
+	<% end %>
+	</div>
+	  
+	<hr />
   
    <div class="row">
 	  <%= if !@contact.id.nil? then f.submit 'Modifier ce Contact', :class =>"btn btn-primary",:id =>"contact_submit_form" else f.submit 'Créer un Contact', :class =>"btn btn-primary",:id =>"contact_submit_form" end %>

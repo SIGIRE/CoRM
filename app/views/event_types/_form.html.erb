@@ -19,6 +19,23 @@
     <div class="span2"> Direction : </div> <%= f.text_field :direction , :style=>'width: 30em;'%>
   </div>
   
+    <br />
+  	
+	<div class="field">
+    <% if !@eventtype.id.nil? %>
+		<div class="span9"> Créé par : <%= @eventtype.author.full_name %>, le </strong><%= @eventtype.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+		
+		<% if !@eventtype.modified_by.nil? %>
+			<div class="span9"> Dernièrement modifié par : <%= @eventtype.editor.full_name %>, le <%= @eventtype.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+		
+		<% else %>
+		<% end %>
+		
+	<% end %>
+	</div>
+	  
+	<hr />
+  
    <div class="row">
    	<%= if !@eventtype.id.nil? then f.submit 'Modifier ce Type', :class =>"btn btn-primary",:id =>"eventtype_validate_form" else f.submit 'Créer un Type', :class =>"btn btn-primary",:id =>"eventtype_validate_form" end%>
 	<%= if !@eventtype.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"),@eventtype,:title => "Supprimer le type", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 

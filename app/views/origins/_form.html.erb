@@ -11,6 +11,7 @@
     </div>
   <% end %>
 
+ 
   <div class="field">
     <div class="span2">Nom :</div><%= f.text_field :name,{ :class => 'required'} %>
   </div>
@@ -18,6 +19,24 @@
     <div class="span2"><%= f.label :description %></div>
     <%= f.text_area :description, :display_with => :simple_format, :rows => "5", :style=>'width: 30em;' %>
   </div>
+  
+          <br />
+  	
+	<div class="field">
+    <% if !@origin.id.nil? %>
+		<div class="span9"> Créé par : <%= @origin.author.full_name %>, le </strong><%= @origin.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+		
+		<% if !@origin.updated_by.nil? %>
+			<div class="span9"> Dernièrement modifié par : <%= @origin.editor.full_name %>, le <%= @origin.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+		
+		<% else %>
+		<% end %>
+		
+	<% end %>
+	</div>
+	  
+	<hr />
+  
    <div class="row">
     <%= if !@origin.id.nil? then f.submit 'Modifier cette Origine', :class =>"btn btn-primary",:id =>"origin_validate_form" else f.submit 'Créer une Origine', :class =>"btn btn-primary",:id =>"origin_validate_form" end%>
     <%= if !@origin.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @origin, :title => "Supprimer l'origin", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn", :method => :delete end %> 
