@@ -70,7 +70,22 @@
     </div>
   </div>
   </div>
-  <br /><br />
+  <br />
+  	
+	<div class="field">
+    <% if !@task.id.nil? %>
+		<div class="span9"> Créée par : <%= @task.author.full_name %>, le </strong><%= @task.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+		
+		<% if !@task.modified_by.nil? %>
+			<div class="span9"> Dernièrement modifiée par : <%= @task.editor.full_name %>, le <%= @task.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+		
+		<% else %>
+		<% end %>
+	
+	<% end %>
+	</div>
+	  
+	<hr />
     
   <div class="row">
 	  <%= if !@task.id.nil? then f.submit 'Modifier cette Tâche', :class =>"btn btn-primary" else f.submit 'Créer une Tâche', :class =>"btn btn-primary" end %>
