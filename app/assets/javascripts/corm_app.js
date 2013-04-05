@@ -133,12 +133,14 @@ $(document).ready(function() {
     $(this).validate({});
   });
   
-  $('#typeahead-search-account').typeahead({
-    source: function (typeahead, query) {
+  $('#typeahead-search-account').on('keyup', function() {
+    $(this).typeahead({
+      source: function (typeahead, query) {
         return $.get('/compte/search', { query: query }, function (data) {
             return data;//typeahead.process(data);
         });
-    }
+      }
+    });
   });
 
   /* Generate the contact list in task edition */
