@@ -17,6 +17,7 @@ gem 'compass'
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2'
+  gem 'jquery-ui-rails'
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -31,8 +32,8 @@ end
 
 gem 'therubyracer'
 
-gem 'jquery-rails', '~> 2.2.1'
-gem 'jquery-ui-rails', '~> 4.0.2'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'jquery-validation-rails'
 gem 'nested_form'
 

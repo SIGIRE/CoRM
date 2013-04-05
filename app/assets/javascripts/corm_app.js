@@ -128,8 +128,9 @@ $(document).ready(function() {
   $("#quotation_date").datepicker();
   $("#task_term").datepicker();
   
+  $.validator.messages.required = "Ce champs est requis !";
   $('form').each(function() {
-    $(this).validate({});
+    $(this).validate();
   });
   
   /* Search account bar */
@@ -151,14 +152,18 @@ $(document).ready(function() {
         });
       },
       updater: function(item) {
-        var id = null;
-        for (var i in that.dataSource) {
-          if (i == item) {
-            id = that.dataSource[i]; break;
+        if (that.hasClass('not-links')) {
+          corm.getContactsByAccount(item);
+        } else {
+          var id = null;
+          for (var i in that.dataSource) {
+            if (i == item) {
+              id = that.dataSource[i]; break;
+            }
           }
-        }
-        if (id) {
-          window.location.href = '/compte/'+id+'/evenements';
+          if (id) {
+            window.location.href = '/compte/'+id+'/evenements';
+          }
         }
         return item;
       }
@@ -166,34 +171,7 @@ $(document).ready(function() {
   });
 
   /* Generate the contact list by accounts in task edition */
-  $("#task_account_id").change(function() {
-    var account = $('select#task_account_id :selected').val();
-    if(account == "") { account="0"; }
   
-    $.get('/tasks/update_contact_select/' + account, 
-      function(data){
-          var option; var that = $('#task_contact_id');
-          that.empty();
-          
-          option = corm.createHTML('option');
-          that.append(option);
-          
-          for (var i in data) {
-            option = corm.createHTML('option', {
-              value: data[i].id,
-              content: data[i].title + ' ' + data[i].forename + ' ' + data[i].surname
-            });
-            that.append(option);
-            console.log(option);
-          }
-      }
-    );
-    if(account != "0"){
-      $("#task_notice").show();
-    } else{
-      $("#task_notice").hide();
-    }
-  });
 
   // Generate contact list in opportunity edtion
   $("#opportunity_account_id").change(function() {

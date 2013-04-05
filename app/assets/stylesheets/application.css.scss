@@ -2,6 +2,8 @@ $navbarBackgroundHighlight: #333;
 $navbarBackground: lighten($navbarBackgroundHighlight, 5%);
 $navbarBorder: lighten($navbarBackground, 12%);
 @import "bootstrap";
-//= require "./jquery-ui.css"
+/*
+ *= require jquery.ui.all
+ */
 @import "./bootstrap_overrides.css.scss";
 @import "bootstrap-responsive";
