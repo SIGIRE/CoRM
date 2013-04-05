@@ -7,6 +7,7 @@
       <tr>
         <th><center>Id</center></th>
         <th><center>Statut</center></th>
+        <th><center>Priorité</center></th>
         <th><center>Compte</center></th>
         <th><center>Description</center></th>
         <th><center>Contact</center></th>
@@ -17,8 +18,16 @@
     </thead>
     <tbody>
       <% @tasks.each do |task| %>
-      <tr>
-        <td><center><%= task.id %></center></td>
+      
+	  <% if task.priority == "Haut"%>
+	  	  <tr class="error">
+	       <% elsif task.priority == "Urgent"%>
+	  	  <tr class="error" style="font-weight:bold;">
+		  <% elsif task.priority == "Bas"%>
+	  	  <tr class="info">
+       <% end %>
+
+	  <td><center><%= task.id %></center></td>
         <td><center>
           <% if task.statut == "A faire"%>
             <span class="badge badge-important">
@@ -33,6 +42,7 @@
           <% end %>
           <%= task.statut %></span>
         </center></td>
+		<td><center><%= task.priority %></center></td>
         <td><center><%= if !task.account.nil? then link_to task.account.company , account_events_url(task.account),{:title => "Afficher les évenements"} end%></center></td>
         <td class="descrip"><%= truncate(task.notes, :length => 300, :separator => ' ')%></td>
         <td><center><%= if !task.contact.nil? then link_to task.contact.full_name, edit_contact_path(task.contact),{:title => "Éditer le contact"}  end%></center></td>

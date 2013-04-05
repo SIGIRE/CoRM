@@ -41,6 +41,10 @@
     <div class="span2"> Statut : </div> <%= f.select :statut, Task::STATUTS %>
   </div>
   
+   <div class="field">
+    <div class="span2"> Priorité : </div> <%= f.select :priority, Task::PRIORITIES, :selected => @task.priority.nil? ? "Normal" : @task.priority %>
+  </div>
+  
   <div class="field">
     <div class="span2"> Echéance :  </div> <%= f.text_field :term %>
   </div>  

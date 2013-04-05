@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130404134942) do
+ActiveRecord::Schema.define(:version => 20130405122238) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company"
@@ -278,6 +278,7 @@ ActiveRecord::Schema.define(:version => 20130404134942) do
     t.string   "attach_content_type"
     t.integer  "attach_file_size"
     t.datetime "attach_updated_at"
+    t.string   "priority"
   end
 
   create_table "users", :force => true do |t|

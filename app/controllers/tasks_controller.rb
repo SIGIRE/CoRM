@@ -12,8 +12,9 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     @page = params[:page]
-    @tasks = Task.where("user_id =? AND statut IN ('En cours','A faire')", current_user).order("statut ASC ,term ASC").page(@page)
-          
+    @tasks = Task.where("user_id =? AND statut IN ('En cours','A faire')", current_user.id).order("statut ASC ,term ASC").page(@page)
+	#@tasks = Task.by_user(current_user).order("statut ASC ,term ASC").page(@page)
+	
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @tasks , :filter => @filter }
@@ -84,7 +85,7 @@ class TasksController < ApplicationController
         
         #pour que la task ait un id 
         self.create_event(false)
-        format.html { redirect_to tasks_path, :notice => 'La tâche a été créée.' }
+        format.html { redirect_to filter_tasks_path, :notice => 'La tâche a été créée.' }
         format.json { render :json => @task, :status => :created, :location => @task }
       else
         format.html { render :action => "new" }
@@ -112,7 +113,7 @@ class TasksController < ApplicationController
 	    end
         
         self.create_event(true)
-        format.html { redirect_to tasks_url, :notice => 'La tâche a été mise à jour.' }
+        format.html { redirect_to filter_tasks_url, :notice => 'La tâche a été mise à jour.' }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }
@@ -153,9 +154,11 @@ class TasksController < ApplicationController
     if params.has_key?(:filter) then
       @email_filter = params[:filter][:user_email]
       @statut_filter = params[:filter][:statut]
+	  @priority_filter = params[:filter][:priority]
     else
       @email_filter = current_user.email
       @statut_filter = "Non terminé"
+	  @priority_filter = ""
     end
     
     # Search User by @email_filer
@@ -163,11 +166,14 @@ class TasksController < ApplicationController
 
     # Sort tasks by statut_filter
     if @statut_filter == "Non terminé" then
-	    @tasks = Task.by_statut_non_termine(@statut_filter).by_user(user)
+	    @tasks = Task.by_statut_non_termine(@statut_filter).by_user(user).by_priority(@priority_filter)
     else
-        @tasks = Task.by_statut(@statut_filter).by_user(user)
+        @tasks = Task.by_statut(@statut_filter).by_user(user).by_priority(@priority_filter)
     end
     
+	# Sort task by priority
+	#@tasks = Task.by_priority(@priority_filter).by_user(user)
+	
     @tasks = @tasks.order("term ASC,statut DESC").page(params[:page])
     
     respond_to do |format|

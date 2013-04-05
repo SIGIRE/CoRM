@@ -11,6 +11,7 @@ class Task < ActiveRecord::Base
   
   #pour la verif des changements à l'update
   include ActiveModel::Dirty
+
   
   belongs_to :contact
   belongs_to :account
@@ -37,11 +38,22 @@ class Task < ActiveRecord::Base
 
   validates_inclusion_of :statut, :in => STATUTS
   
+  
+  ##
+  # Define the priorities of a Task
+  #
+  PRIORITIES = ["Bas", "Normal", "Haut", "Urgent"]
+  PRIORITIES_A_FILTRER = PRIORITIES
+  
+  validates_inclusion_of :priority, :in => PRIORITIES
+  
   has_attached_file :attach
   Paperclip.interpolates :with_content_type do |attachment, style|
     "#{attachment.instance.with_content_type}"
   end
   
+  #scope :by_priority, lambda { |priority| where("priority = ?", priority) }
+  scope :by_priority, lambda { |priority| where("priority LIKE ?", priority+'%') }
   scope :by_statut, lambda { |statut| where("statut LIKE ?", statut+'%') }
   scope :by_statut_non_termine, lambda { |statut| where("statut IN ('A faire', 'En cours')") }
   scope :by_account, lambda { |account| where("account_id = ?", account.id) unless account.nil? }
