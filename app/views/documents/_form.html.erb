@@ -16,19 +16,15 @@
     <div class="span2">Nom : </div><%= f.text_field :name ,{ :class => 'required' } %>
   </div>
   
-  <div class="field" style="margin-bottom: 1em;">
-    <div class="span2">Fichier-joint :</div>  <div class="span3" style="margin-left: 0em;"><%= f.file_field :attach ,{ :class => 'required', :style=>'width: 20em;'} %></div>
-    <br /><br />
-  </div>
   
-  <div class="field">
-    <div class="span2">Fichier-joint actuel :</div>
-    <% if @document.attach.exists? %>
-       <%= link_to (image_tag("glyphicons/glyphicons_062_attach.png") + ' ' + @document.attach_file_name), @document.attach.url, :target => "_blank"%>
-    <% end %>
-    <br /><br />
-  </div>
+  	<% if @document.attach.exists? %> 
+		<div class="field"><div class="span2">Document actuel : </div><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + @document.attach_file_name, @document.attach.url, :target => '_blank' %></div>
+		<div class="field"><div class="span2">Modifier le document : </div><%= f.file_field :attach, :style=>'width: 20em;' %></div>
+		<% else %>
+		<div class="field"><div class="span2">Document : </div><%= f.file_field :attach, {:style=>'width: 20em;', :class => 'required' } %></div>
+	<% end %>
   
+     <br />
   <div class="field">
     <div class="span2"><%= f.label :notes %></div>
     <%= f.text_area :notes, :display_with => :simple_format, :rows => "5", :style=>'width: 40em;' %>

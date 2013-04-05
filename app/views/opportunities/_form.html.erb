@@ -37,12 +37,16 @@
     <div class="span2"> Affectée à : </div> <%= f.collection_select :user_id, User.all, :id, :full_name %>
   </div>
   
-   <div class="field">
-    <div class="span2">Pièce jointe :</div>  <%= if @opportunity.attach.exists? then link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + @opportunity.attach_file_name, @opportunity.attach.url, :target => '_blank' end%>
-                                             <%= f.file_field :attach, :style=>'width: 20em;' %>
- 
-       
-  </div>
+  
+	<% if @opportunity.attach.exists? %> 
+		<div class="field"><div class="span2">Pièce jointe actuelle : </div><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + @opportunity.attach_file_name, @opportunity.attach.url, :target => '_blank' %></div>
+		<div class="field"><div class="span2">Modifier pièce jointe : </div><%= f.file_field :attach, :style=>'width: 20em;' %></div>
+		<% else %>
+		<div class="field"><div class="span2">Pièce jointe : </div><%= f.file_field :attach, :style=>'width: 20em;' %></div>
+	<% end %>
+	
+        
+
   
   
   <div class="field">
