@@ -130,9 +130,15 @@ $(document).ready(function() {
   
   //$('form').validate();
   $('form').each(function() {
-    $(this).validate({
-      debug: true  
-    });
+    $(this).validate({});
+  });
+  
+  $('#typeahead-search-account').typeahead({
+    source: function (typeahead, query) {
+        return $.get('/compte/search', { query: query }, function (data) {
+            return data;//typeahead.process(data);
+        });
+    }
   });
 
   /* Generate the contact list in task edition */

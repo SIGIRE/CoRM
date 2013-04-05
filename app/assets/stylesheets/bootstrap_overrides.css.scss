@@ -1,8 +1,6 @@
-/* Overrides of Bootstrap */
-@mixin radius($r) {
-  -webkit-border-radius: $r;
-  -moz-border-radius: $r;
-  border-radius: $r;
+input[type=search] {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 input, textarea, select {
@@ -60,6 +58,8 @@ div.field {
   padding-right: 0;
   font-size: 30px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.125);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 .tab {
   margin-left: 3em;
@@ -104,7 +104,6 @@ h6 {
   height: 180px;
   padding: 9px 13px 9px 12px;
   display: block;
-
 }
 
 #login {
