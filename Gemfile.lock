@@ -202,8 +202,8 @@ DEPENDENCIES
   compass
   devise (~> 2.2.3)
   execjs
-  jquery-rails (~> 2.2.1)
-  jquery-ui-rails (~> 4.0.2)
+  jquery-rails
+  jquery-ui-rails
   jquery-validation-rails
   json
   kaminari (~> 0.14.1)
