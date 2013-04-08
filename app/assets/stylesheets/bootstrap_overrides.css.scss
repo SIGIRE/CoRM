@@ -1,4 +1,7 @@
-
+#profile_settings_buttons {
+  position: absolute;
+  top: -1px;
+}
 
 input, textarea, select {
   &.required:focus {
