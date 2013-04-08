@@ -137,6 +137,18 @@ $(document).ready(function() {
   $('form').each(function() {
     $(this).validate();
   });
+  /* AccountSearchBar Animation */
+  $('#account').on('focus', function() {
+    $('#nav-menu').addClass('focused');
+  });
+  $('#account').on('blur', function() {
+    setTimeout(
+      function (args) {
+        $('#nav-menu').removeClass('focused');
+      },
+      300
+    );
+  });
   
   /* Search account bar */
   $('.typeahead-search-account').each(function(index) {
@@ -144,7 +156,7 @@ $(document).ready(function() {
     that.typeahead({
       source: function (typeahead, query) {
         $.ajax({
-          url: '/compte/search?account=' + typeahead,
+          url: '/compte/search?account=' + typeahead + '&as=json',
           type: 'GET',
           dataType: 'json',
           success: function(o) {
