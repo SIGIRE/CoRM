@@ -28,11 +28,11 @@ $navbarBackground: #2C2C2C;
   -moz-border-bottom-right-radius: $radius;
   border-bottom-right-radius: $radius;
 }
-@mixin transit(@param, @duration) {
-  transition: @param @duration;
-  -moz-transition: @param @duration; /* Firefox 4 */
-  -webkit-transition: @param @duration; /* Safari and Chrome */
-  -o-transition: @param @duration; /* Opera */
+@mixin transit($param, $duration) {
+  transition: $param $duration;
+  -moz-transition: $param $duration; /* Firefox 4 */
+  -webkit-transition: $param $duration; /* Safari and Chrome */
+  -o-transition: $param $duration; /* Opera */
 }
 /*
  *= require jquery.ui.all

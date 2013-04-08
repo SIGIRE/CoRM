@@ -9,10 +9,10 @@
           </a>
           
           <%= link_to image_tag("logo_crm_small.png"), url_for(:controller => 'tasks', :action => 'filter') ,:class =>"brand" %>
-          <div class="nav-collapse" style="margin-top: 5px;">
+          <div id="form-search-container" class="nav-collapse" style="margin-top: 5px;">
             <%= form_tag(search_accounts_path, :method => "get", :class =>"form-search", :id =>"form-search") do %>
 	      <div class="input-append">
-		<%= text_field_tag :account , nil , {:class =>"search-query span3", :placeholder => "Rechercher un compte", :autocomplete=>"off", :type => 'search', :class => 'typeahead-search-account'} #:data => { :provide => 'typeahead', :source => Account.find(:all,:select=>'company').map(&:company)},
+		<%= text_field_tag :account , nil , {:class =>"search-query span3", :placeholder => " Rechercher", :autocomplete=>"off", :type => 'search', :class => 'typeahead-search-account'} #:data => { :provide => 'typeahead', :source => Account.find(:all,:select=>'company').map(&:company)},
 		%>
 		<button type="submit" class="btn"><span class="icon-search"></span></button>
 	      </div>
@@ -58,55 +58,36 @@
 	  %>
 	  <div style="clear: both; display: block;">
             <ul class="nav" style="font-size: 14px;">
-	      <% if params[:controller] == 'tasks' then %>
-               	<li class="active">
-	      <% else %>
-		<li>
-	      <% end %>
-	      
-              <%= link_to image_tag("icons/tache_blanc.png", :size => "16x16")+" Tâches".html_safe, url_for(:controller => 'tasks', :action => 'filter') %></li>
-
-	      <% if params[:controller] == 'accounts' then %>
-		<li class="active">
-	      <% elsif params[:controller] == 'events' then%>
-		<li class="active">
-	      <% else %>
-		<li>
-	      <% end %>
-	      
+	      <!-- TASKS -->
+	      <% cssClass = params[:controller] == 'tasks' ? 'active' : '' %>
+              <li<%= " class=\"#{cssClass}\"" %>>
+		<%= link_to image_tag("icons/tache_blanc.png", :size => "16x16")+" Tâches".html_safe, url_for(:controller => 'tasks', :action => 'filter') %>
+	      </li>
+	      <!-- ACTORS -->
+	      <% cssClass = params[:controller] == 'accounts' or params[:controller] == 'events' or params[:controller] == 'contacts' ? cssClass = 'active' : '' %>
+	      <li class="dropdown<%= if !cssClass.blank? then " #{cssClass}" end %>">
+	        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		  <%= image_tag("icons/ventes.png", :size => "16x16")+' Acteurs <span class="caret"></span>'.html_safe %>
+	        </a>
+	        <ul class="dropdown-menu">
+		  <li><%= link_to " Comptes".html_safe, accounts_path %></li>
+		  <li><%= link_to " Contacts".html_safe, contacts_path %></li>
+	        </ul>
+	      </li>
+	      <% cssClass = params[:controller] == 'quotations' or params[:controller] == 'opportunities' ? 'active' : '' %>
+	      <li class="dropdown<%= if !cssClass.blank? then " #{cssClass}" end %>">
+	        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		  <%= image_tag("icons/ventes.png", :size => "16x16")+' Activité <span class="caret"></span>'.html_safe %>
+	        </a>
 		
-              <%= link_to image_tag("icons/compte_blanc.png", :size => "16x16")+" Comptes".html_safe, accounts_path %></li>
-
-	      <% if params[:controller] == 'contacts' then %>
-               	<li class="active">
-	      <% else %>
-		<li>
-	      <% end %>
-	      
-              <%= link_to image_tag("icons/3people_blanc2.png", :size => "20x16")+" Contacts".html_safe, contacts_path %></li>
-
-	      <% if params[:controller] == 'quotations' then %>
-		<li class="active dropdown">
-	      <% elsif params[:controller] == 'opportunities' then%>
-		<li class="active dropdown">
-	      <% elsif params[:controller] == 'extractions' then%>
-		<li class="active dropdown">  
-	      <% else %>
-		<li class="dropdown">
-	      <% end %>
-	      
-	      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		<%= image_tag("icons/ventes.png", :size => "16x16")+' Activité <span class="caret"></span>'.html_safe %>
-	      </a>
-	      
-	      <ul class="dropdown-menu">
-		<li><%= link_to image_tag("icons/opportunites2.png", :size => "18x16")+" Opportunités".html_safe, opportunities_path %></li>
-		<li><%= link_to image_tag("icons/euro2.png", :size => "16x16")+" Devis".html_safe, quotations_path %></li>
-		<li class="divider"></li>
-		<li><%= link_to image_tag("icons/fiches.png", :size => "16x16")+" Extraction Comptes".html_safe, url_for(:controller => 'extractions', :action => 'select_param_accounts') %></li>
-		<li><%= link_to image_tag("icons/fiches.png", :size => "16x16")+" Extraction Contacts".html_safe, url_for(:controller => 'extractions', :action => 'select_param_contacts') %></li>
-	      </ul>
-              </li>
+	        <ul class="dropdown-menu">
+		  <li><%= link_to image_tag("icons/opportunites2.png", :size => "18x16")+" Opportunités".html_safe, opportunities_path %></li>
+	          <li><%= link_to image_tag("icons/euro2.png", :size => "16x16")+" Devis".html_safe, quotations_path %></li>
+		  <li class="divider"></li>
+		  <li><%= link_to image_tag("icons/fiches.png", :size => "16x16")+" Extraction Comptes".html_safe, url_for(:controller => 'extractions', :action => 'select_param_accounts') %></li>
+		  <li><%= link_to image_tag("icons/fiches.png", :size => "16x16")+" Extraction Contacts".html_safe, url_for(:controller => 'extractions', :action => 'select_param_contacts') %></li>
+	        </ul>
+              </li>	
 		
             </ul>
 	  </div>

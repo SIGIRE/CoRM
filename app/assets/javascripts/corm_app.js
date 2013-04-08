@@ -119,7 +119,12 @@ BrowserDetect.init();
 
 
 $(document).ready(function() {
-  
+  var alerts = $('.alert');
+  setTimeout(function() {
+    alerts.fadeOut(2000);
+  }, 3000, function() {
+    alerts.remove();
+  });
   $("#filter_begin").datepicker();
   $("#filter_end").datepicker();
   $("#tache_term").datepicker();
