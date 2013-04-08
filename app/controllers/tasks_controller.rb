@@ -66,6 +66,7 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
+	params[:task][:account]=Account.find_by_company(params[:task][:account])
     @task = Task.new(params[:task])
     @task.created_by = current_user.id
     
@@ -99,6 +100,7 @@ class TasksController < ApplicationController
   # PUT /tasks/1
   # PUT /tasks/1.json
   def update
+    params[:task][:account]=Account.find_by_company(params[:task][:account])
     @task = Task.find(params[:id])
     @task.modified_by = current_user.id
     params[:task][:term] = params[:task][:term].split('/').reverse!.join('/')

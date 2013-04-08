@@ -16,7 +16,7 @@
     
       <div class="span2"> Compte : </div>
       <!-- <%= f.collection_select :account_id, Account.order('company ASC').all, :id, :company, {:include_blank => true} %> -->
-      <p><input type="search" class="typeahead-search-account not-links" id="task_account_id" /><span class="label label-info" id="task_notice"  style="display: none; margin-left: 2em;"><i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant</span></p>
+      <p><%= f.text_field :account, {:class => "typeahead-search-account not-links" , :id =>"task_account_id" , :type=> "search" } %><span class="label label-info" id="task_notice"  style="display: none; margin-left: 2em;"><i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant</span></p>
       
     
   </div> 
