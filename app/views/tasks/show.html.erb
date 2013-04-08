@@ -54,7 +54,7 @@
         <tr>
           <td colspan="4">
             <h3>Description :</h3>
-            <%= simple_format(@task.notes) %>
+			<%= simple_format(@task.notes , {}, :sanitize => false)%>
           </td>
         </tr>
     

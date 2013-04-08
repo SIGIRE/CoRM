@@ -33,7 +33,7 @@ class QuotationTemplatesController < ApplicationController
   #
   def create
     @template = QuotationTemplate.new(params[:quotation_template])
-    
+    @template.created_by = current_user.id   
     respond_to do |format|
       if @template.save
         format.html  { redirect_to quotation_templates_url, :notice => "Le modèle a été créé" }
@@ -59,7 +59,7 @@ class QuotationTemplatesController < ApplicationController
   #
   def update
     @template = QuotationTemplate.find(params[:id])
-    
+    @template.updated_by = current_user.id    
     if @template.update_attributes(params[:quotation_template])
       redirect_to quotation_templates_url, :notice => "Le modèle a été mis à jour."
     else

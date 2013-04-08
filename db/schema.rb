@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130404134942) do
+ActiveRecord::Schema.define(:version => 20130408094433) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company"
@@ -70,6 +70,22 @@ ActiveRecord::Schema.define(:version => 20130404134942) do
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
+
+  create_table "ckeditor_assets", :force => true do |t|
+    t.string   "data_file_name",                  :null => false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.integer  "assetable_id"
+    t.string   "assetable_type",    :limit => 30
+    t.string   "type",              :limit => 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], :name => "idx_ckeditor_assetable"
+  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], :name => "idx_ckeditor_assetable_type"
 
   create_table "contacts", :force => true do |t|
     t.string   "surname"
@@ -173,9 +189,9 @@ ActiveRecord::Schema.define(:version => 20130404134942) do
     t.datetime "updated_at",                                 :null => false
     t.integer  "quotation_id"
     t.integer  "price_excl_tax_cents",    :default => 0,     :null => false
-    t.string   "price_excl_tax_currency", :default => "USD", :null => false
+    t.string   "price_excl_tax_currency", :default => "EUR", :null => false
     t.integer  "total_excl_tax_cents",    :default => 0,     :null => false
-    t.string   "total_excl_tax_currency", :default => "USD", :null => false
+    t.string   "total_excl_tax_currency", :default => "EUR", :null => false
     t.decimal  "quantity"
   end
 
@@ -225,9 +241,9 @@ ActiveRecord::Schema.define(:version => 20130404134942) do
     t.integer  "opportunity_id"
     t.integer  "quotation_template_id"
     t.integer  "total_excl_tax_cents",    :default => 0,     :null => false
-    t.string   "total_excl_tax_currency", :default => "USD", :null => false
+    t.string   "total_excl_tax_currency", :default => "EUR", :null => false
     t.integer  "total_incl_tax_cents",    :default => 0,     :null => false
-    t.string   "total_incl_tax_currency", :default => "USD", :null => false
+    t.string   "total_incl_tax_currency", :default => "EUR", :null => false
     t.string   "company"
     t.string   "adress1"
     t.string   "adress2"
@@ -240,7 +256,7 @@ ActiveRecord::Schema.define(:version => 20130404134942) do
     t.string   "job"
     t.decimal  "VAT_rate"
     t.integer  "total_VAT_cents",         :default => 0,     :null => false
-    t.string   "total_VAT_currency",      :default => "USD", :null => false
+    t.string   "total_VAT_currency",      :default => "EUR", :null => false
   end
 
   create_table "relations", :force => true do |t|
@@ -278,6 +294,8 @@ ActiveRecord::Schema.define(:version => 20130404134942) do
     t.string   "attach_content_type"
     t.integer  "attach_file_size"
     t.datetime "attach_updated_at"
+    t.string   "priority"
+    t.string   "title"
   end
 
   create_table "users", :force => true do |t|

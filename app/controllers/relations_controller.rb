@@ -23,7 +23,7 @@ class RelationsController < ApplicationController
   #
   def create
     @relation = Relation.new(params[:relation])   
-    
+    @relation.created_by = current_user.id
     respond_to do |format|
       if @relation.save
         format.html  { redirect_to account_events_url(@relation.account1_id), :notice => "La relation a été créée" }
@@ -49,7 +49,7 @@ class RelationsController < ApplicationController
   #
   def update
     @relation = Relation.find(params[:id])
-    
+    @relation.updated_by = current_user.id    
     respond_to do |format|
       if @relation.update_attributes(params[:relation])
         format.html  { redirect_to account_events_url(@relation.account1_id), :notice => "La relation a été mise à jour." }
