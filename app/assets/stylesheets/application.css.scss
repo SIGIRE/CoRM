@@ -1,6 +1,41 @@
 $navbarBackgroundHighlight: #333;
 $navbarBackground: lighten($navbarBackgroundHighlight, 5%);
 $navbarBorder: lighten($navbarBackground, 12%);
+$navbarText: #999;
+$navbarLinkColor: #999;
+$navbarLinkColorHover: #EEE;
+$navbarLinkColorActive: #FFF;
+$navbarBackground: #2C2C2C;
+
 @import "bootstrap";
+@mixin border-radius-top-left($radius) {
+  -webkit-border-top-left-radius: $radius;
+  -moz-border-top-left-radius: $radius;
+  border-top-left-radius: $radius;
+}
+@mixin border-radius-bottom-left($radius) {
+  -webkit-border-bottom-left-radius: $radius;
+  -moz-border-bottom-left-radius: $radius;
+  border-bottom-left-radius: $radius;
+}
+@mixin border-radius-top-right($radius) {
+  -webkit-border-top-right-radius: $radius;
+  -moz-border-top-right-radius: $radius;
+  border-top-right-radius: $radius;
+}
+@mixin border-radius-bottom-right($radius) {
+  -webkit-border-bottom-right-radius: $radius;
+  -moz-border-bottom-right-radius: $radius;
+  border-bottom-right-radius: $radius;
+}
+@mixin transit($param, $duration) {
+  transition: $param $duration;
+  -moz-transition: $param $duration; /* Firefox 4 */
+  -webkit-transition: $param $duration; /* Safari and Chrome */
+  -o-transition: $param $duration; /* Opera */
+}
+/*
+ *= require jquery.ui.all
+ */
 @import "./bootstrap_overrides.css.scss";
 @import "bootstrap-responsive";

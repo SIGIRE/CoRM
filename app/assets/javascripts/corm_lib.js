@@ -24,6 +24,30 @@
                 }
             }
             return HTML;
+        },
+        getContactsByAccount: function(account) {
+          $.get('/tasks/update_contact_select/' + account, 
+            function(data){
+                var option; var that = $('#task_contact_id');
+                that.empty();
+                
+                option = corm.createHTML('option');
+                that.append(option);
+                
+                for (var i in data) {
+                  option = corm.createHTML('option', {
+                    value: data[i].id,
+                    content: data[i].title + ' ' + data[i].forename + ' ' + data[i].surname
+                  });
+                  that.append(option);
+                }
+            }
+          );
+          if(account != "0"){
+            $("#task_notice").show();
+          } else{
+            $("#task_notice").hide();
+          }
         }
     
     };

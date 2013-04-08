@@ -75,8 +75,7 @@ pickle-email-*.html
 # vim artifacts
 **.swp
 
+Gemfile.lock
+*.*~
 **~
-
-log/development.log
-/public/assets/logo-login.png
-
+/public/assets

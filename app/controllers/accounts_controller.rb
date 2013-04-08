@@ -15,13 +15,12 @@ class AccountsController < ApplicationController
     @accounts = Account.order("company").page(params[:page])
     
     #creation des ensembles contenant les comptes et contacts pour l'utilisation du typeahead
-    #@autocomplete_accounts = Account.find(:all,:select=>'company').map(&:company) #societe
-    #@autocomplete_contacts = Contact.find(:all,:select=>'surname').map(&:surname) #nom
+    @autocomplete_accounts = Account.find(:all,:select=>'company').map(&:company) #societe
+    @autocomplete_contacts = Contact.find(:all,:select=>'surname').map(&:surname) #nom
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render :json => @accounts }
-      #format.csv { send_data @comptes.to_csv }
     end
   end
 
@@ -140,27 +139,24 @@ class AccountsController < ApplicationController
   #
   #
   def search
-    if params[:account].strip().blank?
-      respond_to do |format|
-        format.json { render :json => ['Aucun compte'] }
+    if !params.nil?
+      if params[:account].strip().blank?
+        format.json { render :json => {'Aucun compte' => nil} }
+        return false
       end
-      return false
-    end
-    company = "%#{params[:account].strip}%"
-    
-    @accounts = Array.new
-    Account.find(:all, :conditions => ['company LIKE ?', company], :select => 'company').each {|a| @accounts.push(a.company) }
-    
-    #respond_to do |format|
-      if !@accounts.nil?
-        #format.html { redirect_to account_events_url(@account.id)}
-        #format.json { render :json => @accounts }
-        render :json => @accounts
+      company = UnicodeUtils.upcase("%#{params[:account].strip}%")
+      # get from db
+      accounts = {}
+      Account.find(:all, :conditions => ['company LIKE ?', company], :select => 'id, company').each {|a|
+        accounts[a.company] = a.id
+      }
+      # response
+      if !accounts.nil? and accounts.length > 0
+        render :json => accounts
       else
-        #format.json { render :json => ['Aucun compte'] }
-        render :json => ['Aucun compte']
+        render :json => {'Aucun compte' => nil}
       end
-    #end
+    end
   end
   
   ##
@@ -191,7 +187,7 @@ class AccountsController < ApplicationController
     
     respond_to do |format|
       format.html  { render :action => "index" }
-      format.json { render :json => @accounts }
+      #format.json { render :json => @accounts }
     end
   end
   

@@ -12,7 +12,7 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     @page = params[:page]
-    @tasks = Task.where("user_id =? AND statut IN ('En cours','A faire')", current_user).order("statut ASC ,term ASC").page(@page)
+    @tasks = Task.where("user_id =? AND statut IN ('En cours','A faire')", current_user.id).order("statut ASC ,term ASC").page(@page)
           
     respond_to do |format|
       format.html # index.html.erb
@@ -140,8 +140,24 @@ class TasksController < ApplicationController
   # Generate dynamically a Contact List by the Account
   #
   def update_contact_select
-    contacts = Contact.where(:account_id => params[:id]).order(:surname)
-    render :partial => "contacts" , :locals =>{:contacts => contacts }  
+    if !params[:id].nil?
+      if params[:id].is_a? Integer 
+	contacts = Contact.where(:account_id => params[:id]).select('id, surname, forename, title').order(:surname)
+      elsif params[:id].is_a? String 
+	contacts = Contact.joins('INNER JOIN accounts ON accounts.id = contacts.account_id').where('company LIKE ?', params[:id]+'%').select('contacts.id, contacts.surname, contacts.forename, contacts.title').order(:surname)
+      end
+      if !contacts.nil?
+	respond_to do |format|
+	  format.json { render :json => contacts }
+	end
+	return false
+      end
+    end
+    c = Contact.new({ 'surname' => 'Aucun contacts' })
+    respond_to do |format|
+      format.json { render :json => [c] }
+    end
+    # render :partial => "contacts" , :locals =>{:contacts => contacts }  
   end
   
   ##

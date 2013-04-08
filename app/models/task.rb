@@ -47,6 +47,6 @@ class Task < ActiveRecord::Base
   scope :by_account, lambda { |account| where("account_id = ?", account.id) unless account.nil? }
   scope :by_contact, lambda { |contact| where("contact_id = ?", contact.id) unless contact.nil? }
   scope :by_user, lambda { |user| where( "user_id = ?", user.id) unless user.nil? }
-  scope :by_term, lambda { |date_begin,date_end|  where( "term BETWEEN ? AND ? OR echeance = ?", date_begin, date_end +'%','')}
+  scope :by_term, lambda { |date_begin,date_end|  where( "term BETWEEN ? AND ? OR term = ?", date_begin, date_end +'%', '')}
   
 end

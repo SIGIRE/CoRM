@@ -1,6 +1,6 @@
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
+//= require jquery.ui.all
 //= require jquery_nested_form
 //= require jquery.validate
 //= require bootstrap
@@ -15,5 +15,5 @@
 * These two scripts are exactly the same
 * just replaced accoutnt -> contact
 */
-//= require ./modal_accounts.js
-//= require ./modal_contacts.js
+// require ./modal_accounts.js
+// require ./modal_contacts.js
