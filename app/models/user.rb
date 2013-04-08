@@ -13,6 +13,15 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :forename, :surname, :tel, :mobile, :current_password
   attr_accessor :current_password
 
+  def new(args, opt)
+   if args.forname and self.forname.nil?
+      args.name = args.forename
+      args.forename = nil
+   end
+   
+   super(args, opt)
+  end
+
   @@default_user = User.new({:email => '', :forename => 'Neant', :surname => '' })
 
   def self.default
