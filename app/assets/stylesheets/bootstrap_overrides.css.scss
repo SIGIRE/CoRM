@@ -1,8 +1,3 @@
-input[type=search] {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
 input, textarea, select {
   &.required:focus {
     $shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px rgba(200,0,0,.6)!important;
@@ -13,13 +8,35 @@ input, textarea, select {
   }
 }
 div.field {
-  & label.error {
+  label.error {
     display: inline-block;
     vertical-align: middle;
     font-size: 14px;
     color: $red;
     font-weight: 900;
     padding-left: 15px;
+  }
+}
+/* Override the text-shadow */
+.navbar {
+  margin-bottom: 0px;
+  ul.nav > li > a {
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.3) !important;
+  padding: 2px 15px;
+  }
+}
+
+.nav > li > a {
+  display: inline-block;
+  font-size: 12px;
+}
+
+form#form-search {
+  display: inline-block;
+  width: auto;
+  input[type=search] {
+    @include border-radius(15px 0 0 15px);
+    width: 150px;
   }
 }
 
@@ -40,9 +57,11 @@ div.field {
 .filter_tfield {
   width: 100%;
 }
-.navbar {
-  margin-bottom: 0px;
+
+.label-info {
+  line-height: 16px;
 }
+  
 
 .table td {
   vertical-align: middle;
