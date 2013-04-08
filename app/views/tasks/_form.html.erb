@@ -20,11 +20,6 @@
     
   </div> 
 
-
- 
-
-
-
   <div class="field" id="nameContacts">
     <%= render :partial => 'contacts' %>
   </div>
@@ -33,11 +28,16 @@
     <div class="span2"> Affectée à : </div> <%= f.collection_select :user_id, User.all, :id, :full_name %> <%= check_box_tag :mail, "yes"%> Envoyer un email à ce collaborateur
   </div>
   
-  <div class="field">
-	  <div class="span2">Description : </div> <%= f.text_area :notes , { :class => 'required', :display_with => :simple_format, :rows => "5", :style=>'width: 30em;'} %>
+    <div class="field">
+    <div class="span2"> Sujet : </div> <%= f.text_field :title , { :required => 'required', :style=>'width: 30em;'} %>
   </div>
-
+  
   <div class="field">
+	  <div class="span2">Description : </div> <%= f.cktext_area :notes, :ckeditor => {:toolbar => "MyToolbar"} %>
+  </div>
+ <br />
+
+ <div class="field">
     <div class="span2"> Statut : </div> <%= f.select :statut, Task::STATUTS %>
   </div>
   
