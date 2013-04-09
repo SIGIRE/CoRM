@@ -1,5 +1,3 @@
-
-
 <div id="bloc-login">
   <div id="logo">
   <%= image_tag("logo-login.png") %>
@@ -11,12 +9,12 @@
     <%= devise_error_messages! %>
     
       <div class="field" >
-          <div align="center"><h3>CRM</h3>
+          <div align="center"><h3>CoRM</h3>
             <strong>Veuillez vous identifier</strong>
           </div>
           <br />
-          <div align="right">Identifiant <%= f.email_field :email %> </div>
-          <div align="right">Mot de passe <%= f.password_field :password %></div>
+          <div align="right">Identifiant <%= f.email_field :email, { :required => 'required'} %> </div>
+          <div align="right">Mot de passe <%= f.password_field :password, { :required => 'required'} %></div>
           <div class="pull-right">
             <% if devise_mapping.rememberable? -%>
               <%= f.check_box :remember_me %> Mémoriser

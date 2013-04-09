@@ -12,7 +12,7 @@
           <div align="center"><h3>Mot de passe oublié ?</h3>
           </div>
           <br /><br />
-          <div align="right">Email : <%= f.email_field :email %> </div>
+          <div align="right">Votre e-mail : <%= f.email_field :email, { :required => 'required'} %> </div>
           <br /><br />
           <div class="pull-right">
             <%= f.submit "M'envoyer les instructions", :class =>"btn btn-primary" %>

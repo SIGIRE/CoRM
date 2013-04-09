@@ -61,5 +61,19 @@ class Account < ActiveRecord::Base
   def uppercase_company
     UnicodeUtils.upcase(self.company, I18n.locale)
   end
+
+  def full_adress
+	tmp = self.adress1
+	if !self.adress2.blank?
+		tmp += ', ' + self.adress2
+	end
+	if !self.zip.blank?
+		tmp += ', ' + self.zip
+	end
+	if !self.city.blank?
+		tmp += ', ' + self.city
+	end	
+	return tmp
+  end
   
 end
