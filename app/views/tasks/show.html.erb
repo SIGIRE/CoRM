@@ -2,7 +2,7 @@
    
    <div class="well" style="margin-top: 1em;">
       <div class="row-fluid">
-        <div class="span3">
+        <div class="span9">
           <h3>Tâche n°<%= @task.id %></h3>
          </div>
           <%= link_to image_tag("glyphicons/glyphicons_210_left_arrow.png"), :back ,{:title => "Retour", :class =>"pull-right btn"} %>
@@ -12,31 +12,33 @@
 
 </div>
 
-  <div class="field">
-    <div class="span2"> Affectée à : </div> 
-  </div>
-  
-    <div class="field">
-    <div class="span2"> Sujet : </div> <%= @task.title  %>
-  </div>
-  
-  <div class="field">
-	  <div class="span2">Description : </div> <%= @task.notes %>
-  </div>
- <br />
 
- <div class="field">
-    <div class="span2"> Statut : </div> <%= @task.statut %>
-  </div>
+<div class="container-fluid" style="margin-top: 1em;"">
+<div class="well">
 
-  </div>
- 
-<div class="container-fluid">
-  
-  <div class="well">
-    
-    <div class="span2">
-              Statut :
+<table class="table table-bordered table-striped">
+<tbody>
+<!-- TASK INFORMATIONS -->	
+		<tr>
+		<td>
+		<center><h4>Tâche</h4></center>
+		</tr>
+		</td>
+
+<tr>
+<td>
+	<% if !@task.title.nil? %>
+	<strong>Sujet : </strong>
+			<%= @task.title  %>
+	<% end %> 
+
+	<% if !@task.priority.nil? %>
+		<br/>
+		<strong>Priorité : </strong>
+			<%= @task.priority %>
+	<% end %> 	
+	<br/>
+    <strong>Statut : </strong>
               <% if @task.statut == "A faire"%>
                 <span class="badge badge-important">
               <% elsif @task.statut == "En cours"%>
@@ -49,63 +51,161 @@
                 <span class="badge badge-info">
               <% end %>
               <%= @task.statut %></span>
-            </div>
-          </td>
+
+
+	
+	<% if !@task.notes.blank? %>
+		<br/>
+			<strong>Description : </strong>
+			<div style="background-color: #fff; padding: 1px 15px;"> <%= simple_format(@task.notes , {}, :sanitize => false)%> </div>
+	<% end %>
+ 	
     
+	<% if @task.attach.exists? %>
 
-            <div class="span2">
-              Compte :
-              <%= if !@task.account.nil? then link_to @task.account.company , @task.account end%>
-            </div>
-
-    
-          <% if !@task.contact.nil? %>
-
-            <div class="span2">
-              Contact :
-              <%= link_to @task.contact.full_name, @task.contact %>
-            </div>
-
-          <% end %>
+	<strong>Pièce jointe : </strong>
+		<%= link_to (image_tag("glyphicons/glyphicons_062_attach.png") + ' ' + @task.attach_file_name), @task.attach.url, :target => "_blank",:title => "Télécharger le fichier" %>
+	<% end %>
 
 
-            <div class="span2">
-              Echéance :
-              <%= @task.term.split('/').reverse!.join('/') %>
-            </div>
+  <% if current_user.email == @task.user.email %>
+	<% then %>
+		<br/>
+		<strong>Affectée à : </strong> moi-même
+  <% else %>
+  	<br/>
+	<strong>Affectée à : </strong> <%= @task.user.full_name %> - <%= mail_to(@task.user.email) %>
+  <% end %>
 
-            Description :
-			<%= simple_format(@task.notes , {}, :sanitize => false)%>
+	<% if !@task.term.blank? %>
+	<br/>
+	<strong>Échéance : </strong> 
+			<%= @task.term.split('/').reverse!.join('/') %>
+	<% end %>  
 
-    
-        <% if @task.attach.exists? %>
 
-             Pièce jointe :
-            <%= link_to (image_tag("glyphicons/glyphicons_036_file.png") + ' ' + @task.attach_file_name), @task.attach.url, :target => "_blank"%>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- END TASK INFORMATIONS -->  
+  
 
-        <% end %>
-
-Collaborateur : <strong><%= @task.user.full_name %></strong> : <%= mail_to(@task.user.email) %>
-
-        
-	<div class="field">
-    <% if !@task.id.nil? %>
-		<div class="span9"> Créée par : <%= @task.author.full_name %>, le </strong><%= @task.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+<!-- ACCOUNT -->
+	<% if !@task.account.nil? %>
+<table class="table table-bordered table-striped">
+<tbody>
+		<tr>
+		<td>
+		<center><h4>Compte</h4></center>
+		</tr>
+		</td>
 		
-		<% if !@task.modified_by.nil? %>
-			<div class="span9"> Dernièrement modifiée par : <%= @task.editor.full_name %>, le <%= @task.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+		<tr>
+		<td>
+		<strong>Société : </strong>
+		<%= link_to @task.account.company , @task.account,:title => "Afficher le compte" %>
 		
-		<% else %>
+
+		<% if !@task.account.full_adress.blank? %>		
+			<br/>
+			<strong>Adresse : </strong> 
+				<%= @task.account.full_adress %>
+		<% end %>
+		
+		<% if !@task.account.tel.blank? %>
+			<br/>
+		<strong>Téléphone : </strong>
+				<%= @task.account.tel %> 
+		<% end %>
+		
+		<% if !@task.account.category.blank? %>
+			<br/>
+		<strong>Genre : </strong>
+				<%= @task.account.category %> 
 		<% end %>
 	
-	<% end %>
-	</div>
 	
-      
+	<% end %>
+<!-- END ACCOUNT -->
+</td>
+</tr>
+</tbody>
+</table>
+
+	
+<!-- CONTACT -->	
+	<% if !@task.contact.nil? %>
+	<table class="table table-bordered table-striped">
+	<tbody>
+		<tr>
+		<td>
+		<center><h4>Contact</h4></center>
+		</tr>
+		</td>
+		<tr>
+		<td>
+		<strong>Nom : </strong>
+			<%= link_to @task.contact.full_name, @task.contact,:title => "Afficher le contact" %>
+			<% if !@task.contact.email.blank? %>
+				- <%= mail_to(@task.contact.email)%>
+			<% end %></div>
+			
+			<% if !@task.contact.job.blank? %>
+			<br/>			
+			<strong>Fonction : </strong>
+					<%= @task.contact.job %> 	
+			<% end %>			
+
+			<% if !@task.contact.tel.blank? %>
+			<br/>
+			<strong>Téléphone : </strong>
+					<%= @task.contact.tel %> 	
+			<% end %>
+
+
+			<% if !@task.contact.mobile.blank? %>
+			<br/>
+			<strong>Mobile : </strong> 
+					<%= @task.contact.mobile %> 		
+			<% end %>
+		</div>
+	<% end %>
+<!-- END CONTACT -->
+</td>
+</tr>
+</tbody>
+</table>
+
+
+<!-- OTHER INFO -->
+		<table class="table table-bordered table-striped">
+	<tbody>
+		<tr>
+		<td>
+	<center><h4>Informations complémentaires</h4></center>
+		</tr>
+		</td>
+		<tr>
+		<td>
+	<strong>Créée par : </strong>
+		<%= @task.author.full_name %>, le <%= @task.created_at.strftime("%d/%m/%y à %H:%M") %>
+		<br/>
+		<% if !@task.modified_by.nil? %>
+			<strong><abbr title="Dernière modification">Modifiée par : </abbr></strong>
+			<%= @task.editor.full_name %>, le <%= @task.updated_at.strftime("%d/%m/%y à %H:%M") %>
+			<br />
+		<% end %>		
+<!-- END OTHER INFO -->
+</tr>
+</td>
+</tbody>
+</table>
+<hr/>	     
   <div class="row">
       <%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), @task, :title => "Supprimer la tâche" , :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete %>    
-  </div>	  
-	  
-        
-
+  </div>	
 </div>
+</div>
+
+ 

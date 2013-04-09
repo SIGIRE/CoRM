@@ -66,6 +66,7 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
+	params[:task][:account]=Account.find_by_company(params[:task][:account])
     @task = Task.new(params[:task])
     @task.created_by = current_user.id
     
@@ -84,7 +85,7 @@ class TasksController < ApplicationController
         
         #pour que la task ait un id 
         self.create_event(false)
-        format.html { redirect_to tasks_path, :notice => 'La tâche a été créée.' }
+        format.html { redirect_to filter_tasks_path, :notice => 'La tâche a été créée.' }
         format.json { render :json => @task, :status => :created, :location => @task }
       else
         format.html { render :action => "new" }
@@ -99,6 +100,7 @@ class TasksController < ApplicationController
   # PUT /tasks/1
   # PUT /tasks/1.json
   def update
+    params[:task][:account]=Account.find_by_company(params[:task][:account])
     @task = Task.find(params[:id])
     @task.modified_by = current_user.id
     params[:task][:term] = params[:task][:term].split('/').reverse!.join('/')
@@ -112,7 +114,7 @@ class TasksController < ApplicationController
 	    end
         
         self.create_event(true)
-        format.html { redirect_to tasks_url, :notice => 'La tâche a été mise à jour.' }
+        format.html { redirect_to filter_tasks_path, :notice => 'La tâche a été mise à jour.' }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }
@@ -131,7 +133,7 @@ class TasksController < ApplicationController
     @task.destroy
 
     respond_to do |format|
-      format.html { redirect_to tasks_url }
+      format.html { redirect_to filter_tasks_path }
       format.json { head :no_content }
     end
   end
