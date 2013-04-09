@@ -39,3 +39,7 @@ $navbarBackground: #2C2C2C;
  */
 @import "./bootstrap_overrides.css.scss";
 @import "bootstrap-responsive";
+
+.cke_reset {
+    display: inline-block !important;
+}

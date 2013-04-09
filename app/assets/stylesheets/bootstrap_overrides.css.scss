@@ -35,7 +35,7 @@ $button-line-height: 35;
   position: absolute;
   left: $nav-menu-position-left + px;
   top: ($form-search-position-top / 2) + px;
-  @include transit(opacity, .2s);
+  @include transit(opacity, 0.2s);
   &.focused {
     opacity: 0;
   }

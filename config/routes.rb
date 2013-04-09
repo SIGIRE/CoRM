@@ -1,9 +1,27 @@
 Crm::Application.routes.draw do  
- 
+  
+  def set_route(pp, ps, c)
+  # ex:    c => Tag
+    # GET    tags/ => tags_path
+    match "#{pp}(.:format)",   :controller => c,  :action => 'index',     :via => :get,   :as => c
+    # POST   tags/ => tags_path(:tag)
+    match "#{pp}(.:format)",   :controller => c,  :action => 'create',    :via => :post,  :as => c
+    # GET    tags/new => new_tag_path
+    match "#{ps}/new(.:format)",         :controller => c,  :action => 'new',       :via => :get,   :as => "new_#{c.singularize}"
+    # GET    tags/:id/edit
+    match "#{ps}/:id/edit(.:format)",    :controller => c,  :action => 'edit',      :via => :get,   :as => "edit_#{c.singularize}"
+    # GET    tags/:id => tag_path(:tag)
+    match "#{ps}/:id(.:format)",         :controller => c,  :action => 'show',      :via => :get,   :as => "#{c.singularize}"
+    # PUT    tags/:id => tag_path(:tag)
+    match "#{ps}/:id(.:format)",         :controller => c,  :action => 'update',    :via => :put,   :as => "#{c.singularize}"
+    # DELETE tags/:id => tag_path(:tag)
+    match "#{ps}/:id(.:format)",         :controller => c,  :action => 'destroy',   :via => :delete, :as => "#{c.singularize}"
+  end
+  
   mount Ckeditor::Engine => '/ckeditor'
 
   match 'extractions/select_param_accounts', :controller=>'extractions', :action => 'select_param_accounts'
-  match 'extractions/accounts', :controller=>'extractions', :action => 'accounts', :as => :csv
+  match 'extractions/comptes', :controller=>'extractions', :action => 'accounts', :as => :csv
   match 'extractions/select_param_contacts', :controller=>'extractions', :action => 'select_param_contacts'
   match 'extractions/contacts', :controller=>'extractions', :action => 'contacts', :as => :csv
   
@@ -31,39 +49,41 @@ Crm::Application.routes.draw do
   #resources :quotationTemplates, :path => 'modele-devis'
   
   resources :quotationLines
-  
-  match 'quotations/update_contact_select/:id', :controller=>'quotations', :action => 'update_contact_select'
-  match 'quotations/update_opportunity_select/:id', :controller=>'quotations', :action => 'update_opportunity_select'
-  
-  resources :quotations, :path => 'devis'
-  resources :relations
-  resources :documents
+
+  # Quotations routes
+  set_route('devis', 'devis', 'quotations')  
+  match 'devis/update_contact_select/:id', :controller=>'quotations', :action => 'update_contact_select'
+  match 'devis/update_opportunity_select/:id', :controller=>'quotations', :action => 'update_opportunity_select'
+
+  # Relations routes
+  set_route('relations', 'relation', 'relations')
+  # Documents routes
+  set_route('documents', 'document', 'documents')
   
   devise_for :user, :path => '/', :path_names => { :sign_in => "login", :sign_out => 'logout', :sign_up => "register" },  
   :controllers => { :registrations => "registrations" }
-  
-  
-  match 'opportunities/update_contact_select/:id', :controller=>'opportunities', :action => 'update_contact_select'
-  
-  resources :opportunities, :path => 'opportunite' do
-    collection do
-      get 'filter'
-    end
-  end
 
-  resources :origins
-  resources :tags
+  # Opportunities routes
+  set_route('opportunites', 'opportunite', 'opportunities')  
+  match 'opportunites/update_contact_select/:id', :controller=>'opportunities', :action => 'update_contact_select'
+  match 'opportunites/filter(.:format)', :controller => 'opportunities', :action => 'filter', :via => :get, :as => "filter_opportunity_index"
+
+
+  # Origin routes
+  # resources :origins
+  set_route('origines', 'origine', 'origins');
+  # Tag routes
+  # resources :tags
+  set_route('tags', 'tag', 'tags');
 
   match 'tasks/update_contact_select/:id', :controller=>'tasks', :action => 'update_contact_select'
   
-  resources :tasks, :path => 'tache' do
-    collection do
-      get 'filter'
-    end
-  end
+  # Tasks routes
+  set_route('taches', 'tache', 'tasks')
+  match 'taches/filter(.:format)', :controller => 'tasks', :action => 'filter', :via => :get, :as => "filter_task_index"
 
-
-  match 'accounts/delete_tag', :controller=>"accounts", :action =>'delete_tag'
+  # TODO: Accounts
+  match 'comptes/delete_tag', :controller=> 'accounts', :action =>'delete_tag'
   resources :accounts, :path => 'compte' do
     collection do
       get 'search'
@@ -77,16 +97,13 @@ Crm::Application.routes.draw do
   end
   match 'comptes', :controller => 'accounts', :action => 'index'
   
-  resources :events, :path => 'evenement'
-  match 'evenements', :controller => 'events', :action => 'index'
+  # Events routes
+  set_route('evenements', 'evenement', 'events')
 
-  resources :contacts do
-    collection do
-      get 'search'
-      get 'filter'
-    end
-  end
-
+  # Contacts routes
+  set_route('contacts', 'contact', 'contacts');
+  match 'contacts/search(.:format)', :controller => 'contacts', :action => 'search', :via => :get, :as => "search_contact_index"
+  match 'contacts/filter(.:format)', :controller => 'contacts', :action => 'filter', :via => :get, :as => "search_contact_index"
   
   root :to => 'tasks#index'
 

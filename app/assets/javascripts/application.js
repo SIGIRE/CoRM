@@ -3,6 +3,7 @@
 //= require jquery.ui.all
 //= require jquery_nested_form
 //= require jquery.validate
+//= require ./pre-bootstrap.js
 //= require bootstrap
 //= require ckeditor/init
 

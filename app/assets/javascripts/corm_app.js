@@ -1,130 +1,12 @@
-var BrowserDetect = {
-  init: function () {
-    this.browser = this.searchString(this.dataBrowser) || "An unknown browser";
-    this.version = this.searchVersion(navigator.userAgent)
-      || this.searchVersion(navigator.appVersion)
-      || "an unknown version";
-    this.OS = this.searchString(this.dataOS) || "an unknown OS";
-  },
-  searchString: function (data) {
-    for (var i=0;i<data.length;i++) {
-      var dataString = data[i].string;
-      var dataProp = data[i].prop;
-      this.versionSearchString = data[i].versionSearch || data[i].identity;
-      if (dataString) {
-        if (dataString.indexOf(data[i].subString) != -1)
-          return data[i].identity;
-      }
-      else if (dataProp)
-        return data[i].identity;
-    }
-  },
-  searchVersion: function (dataString) {
-    var index = dataString.indexOf(this.versionSearchString);
-    if (index == -1) return;
-    return parseFloat(dataString.substring(index+this.versionSearchString.length+1));
-  },
-  dataBrowser: [
-    {
-      string: navigator.userAgent,
-      subString: "Chrome",
-      identity: "Chrome"
-    },
-    {
-      string: navigator.userAgent,
-      subString: "OmniWeb",
-      versionSearch: "OmniWeb/",
-      identity: "OmniWeb"
-    },
-    {
-      string: navigator.vendor,
-      subString: "Apple",
-      identity: "Safari",
-      versionSearch: "Version"
-    },
-    {
-      prop: window.opera,
-      identity: "Opera",
-      versionSearch: "Version"
-    },
-    {
-      string: navigator.vendor,
-      subString: "iCab",
-      identity: "iCab"
-    },
-    {
-      string: navigator.vendor,
-      subString: "KDE",
-      identity: "Konqueror"
-    },
-    {
-      string: navigator.userAgent,
-      subString: "Firefox",
-      identity: "Firefox"
-    },
-    {
-      string: navigator.vendor,
-      subString: "Camino",
-      identity: "Camino"
-    },
-    {               // for newer Netscapes (6+)
-      string: navigator.userAgent,
-      subString: "Netscape",
-      identity: "Netscape"
-    },
-    {
-      string: navigator.userAgent,
-      subString: "MSIE",
-      identity: "Explorer",
-      versionSearch: "MSIE"
-    },
-    {
-      string: navigator.userAgent,
-      subString: "Gecko",
-      identity: "Mozilla",
-      versionSearch: "rv"
-    },
-    {               // for older Netscapes (4-)
-      string: navigator.userAgent,
-      subString: "Mozilla",
-      identity: "Netscape",
-      versionSearch: "Mozilla"
-    }
-  ],
-  dataOS : [
-    {
-      string: navigator.platform,
-      subString: "Win",
-      identity: "Windows"
-    },
-    {
-      string: navigator.platform,
-      subString: "Mac",
-      identity: "Mac"
-    },
-    {
-      string: navigator.userAgent,
-      subString: "iPhone",
-      identity: "iPhone/iPod"
-    },
-    {
-      string: navigator.platform,
-      subString: "Linux",
-      identity: "Linux"
-    }
-  ]
-
-};
-BrowserDetect.init();
-
-
 $(document).ready(function() {
+  /* AlertBox fadeout */
   var alerts = $('.alert');
   setTimeout(function() {
     alerts.fadeOut(2000);
   }, 3000, function() {
     alerts.remove();
   });
+  /* datepicker for all this classes/ids */
   $("#filter_begin").datepicker();
   $("#filter_end").datepicker();
   $("#tache_term").datepicker();
@@ -133,56 +15,113 @@ $(document).ready(function() {
   $("#quotation_date").datepicker();
   $("#task_term").datepicker();
   
+  /* jQuery Validator about .required class */
   $.validator.messages.required = "Ce champs est requis !";
   $('form').each(function() {
     $(this).validate();
   });
+  
   /* AccountSearchBar Animation */
   $('#account').on('focus', function() {
     $('#nav-menu').addClass('focused');
+    /* Disabled dropdowns */
+    //$('#nav-menu li.dropdown').attr('data-toggle', '').children('a.dropdown-toggle').attr('data-toggle', '');
   });
   $('#account').on('blur', function() {
     setTimeout(
       function (args) {
         $('#nav-menu').removeClass('focused');
+        /* Renabled dropdowns */
+        //$('#nav-menu li.dropdown').attr('data-toggle', 'dropdown').children('a.dropdown-toggle').attr('data-toggle', 'dropdown');
       },
       300
     );
   });
   
-  /* Search account bar */
+  var typeAheadInfo = {};
+  
+  /* Search account bar - Modify render function */
+  $.fn.typeahead.Constructor.prototype.render = function(info, items) {
+     var that = this;
+     types = {};
+     if (!info.by) {
+        if (items[0].name) {
+            info.by = 'id';
+        } else {
+            info.by = 'name';
+        }
+     }
+     items = $(items).map(function (i, item) {
+       if (item.type == 'info') { return; }
+       if (item.type && !types[item.type])  { types[item.type] = 0; }     
+       if (types[item.type] < 5 && item.type != 'info') {
+         i = $(that.options.item).attr('data-value', info[item.type + '_url'].replace('[:id]', item[info.by]));
+         i.find('a').html(that.highlighter(item.name));
+         types[item.type]++;
+         return i[0];
+       }
+     });
+     items.first().addClass('active');
+     this.$menu.html(items);
+     return this;
+  };
+  /* Search account bar - Modify process function */
+  $.fn.typeahead.Constructor.prototype.process = function(items) {
+      var that = this;
+      item_info = items[0];
+      items = $.grep(items, function (item) {
+        return that.matcher(item.name||'');
+      });
+      items = this.sorter(items);
+      if (!items.length) {
+        return this.shown ? this.hide() : this;
+      }
+      
+      return this.render(item_info, items.slice(0, this.options.items)).show();
+  };
+  /* Search account bar - Modify sorter function */ 
+  $.fn.typeahead.Constructor.prototype.sorter = function(items) {
+    var o = new Object();
+    for(var i = 0; i < items.length; i++) {
+      if (items[i].type && !o[items[i].type] && items[i].type != 'info') { o[items[i].type] = new Array(); }
+      if (o[items[i].type])
+          o[items[i].type].push(items[i]);
+    }
+    var beginswith = []
+    , caseSensitive = []
+    , caseInsensitive = []
+    , item;
+    for(var type in o) {
+      for (var index in o[type]) {
+        item = o[type][index];
+        if (!item.name.toLowerCase().indexOf(this.query.toLowerCase())) beginswith.push(item)
+            else if (~item.name.indexOf(this.query)) caseSensitive.push(item)
+            else caseInsensitive.push(item)
+      }
+    }
+    return beginswith.concat(caseSensitive, caseInsensitive) 
+  };
+  
   $('.typeahead-search-account').each(function(index) {
-    var that = $(this);
-    that.typeahead({
+    var that = this;
+    $(this).typeahead({
       source: function (typeahead, query) {
         $.ajax({
-          url: '/compte/search?account=' + typeahead + '&as=json',
+          url: '/compte/search.json?account=' + typeahead,
           type: 'GET',
           dataType: 'json',
           success: function(o) {
-            that.dataSource = o, companies = new Array();
-            for (var i in o) {
-              companies.push(i);
+            var classe = $(that).attr('class').split(' ');
+            for (var i in classe) {
+                if (classe[i].substr(0, 3) == 'by_') o[0].by = classe[i].substr(3, classe[i].length);
             }
-            query(companies);
+            query(o);
           }
         });
       },
       updater: function(item) {
-        if (that.hasClass('not-links')) {
-          corm.getContactsByAccount(item);
-        } else {
-          var id = null;
-          for (var i in that.dataSource) {
-            if (i == item) {
-              id = that.dataSource[i]; break;
-            }
-          }
-          if (id) {
-            window.location.href = '/compte/'+id+'/evenements';
-          }
-        }
-        return item;
+        window.location = item;
+        return 'Veuillez patientez...';
       }
     });
   });

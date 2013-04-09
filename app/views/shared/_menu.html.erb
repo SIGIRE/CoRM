@@ -9,9 +9,13 @@
           
           <%= link_to image_tag("logo_crm_small.png"), url_for(:controller => 'tasks', :action => 'filter') ,:class =>"brand" %>
           <div id="form-search-container" class="nav-collapse">
-            <%= form_tag(search_accounts_path + '?as=html', :method => "get", :class =>"form-search", :id =>"form-search") do %>
+            <%= form_tag(search_accounts_path, :method => "get", :class =>"form-search", :id =>"form-search") do %>
 	      <div class="input-append">
-		<%= text_field_tag :account , nil , {:class =>"search-query span3", :placeholder => " Rechercher", :autocomplete=>"off", :type => 'search', :class => 'typeahead-search-account'} #:data => { :provide => 'typeahead', :source => Account.find(:all,:select=>'company').map(&:company)},
+		<%= text_field_tag :account , nil , { 
+		:class =>"search-query span3 typeahead-search-account by_id", 
+		:placeholder => " Rechercher un acteur", 
+		:autocomplete=>"off", 
+		:type => 'search'}
 		%>
 		<button type="submit" class="btn"><span class="icon-search"></span></button>
 	      </div>

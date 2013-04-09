@@ -31,7 +31,7 @@ class AccountsController < ApplicationController
   # GET /accounts/1.json
   def show
     @account = Account.find(params[:id])
-    session[:account_id] = @account.id
+
     
     respond_to do |format|
       format.html # show.html.erb
@@ -136,38 +136,27 @@ class AccountsController < ApplicationController
   
   ##
   # Called by the main search bar
-  #
+  # search?account=[xxx] [&as=json]
   #
   def search
-    if !params.nil?
-      if params[:account].strip().blank?
-        respond_to do |format|
-          format.text { render :text => {'Aucun compte' => nil } }
-        end
-        return false
-      end
+    if !params.nil? and !params[:account].nil?
       company = UnicodeUtils.upcase("%#{params[:account].strip}%")
-
-      
-      if params[:as] == 'json'
-        # get from db
-        accounts = {}
-        Account.find(:all, :conditions => ['company LIKE ?', company], :select => 'id, company').each {|a|
-          accounts[a.company] = a.id
+      if params[:format] and params[:format] != 'html' then
+        @elements = Array.new
+        @elements.push({ :type => 'info', 'account_url' => '/compte/[:id]/evenements', 'contact_url' => '/contact/[:id]' })
+        Account.where('company LIKE ?', company).select('id, company AS name').limit(10).each {|e|
+          @elements.push({ :id => e.id, :name => e.name, :type => 'account' }) 
         }
-        if !accounts.nil? and accounts.length > 0
-          render :json => accounts
-        else
-          render :json => {'Aucun compte' => nil}
-        end
-        return true
+        Contact.where('surname LIKE ? OR forename LIKE ?', company, company).select('id, title, forename, surname').limit(10).each {|e|
+          @elements.push({ :id => e.id, :name => e.full_name, :type => 'contact' })
+        }
+        @response = @elements
       else
-        # get from db
-        @accounts = Account.find(:all, :conditions => ['company LIKE ?', company])
-        respond_to do |format|
-          format.html { render :action => :index }
-          format.json { render :json => @accounts }
-        end
+        @accounts = Account.where('company LIKE ?', company).page(params[:page]).per(25)
+      end
+      respond_to do |format|
+        format.html { render :action => :index }
+        format.json { render :json => @elements }
       end
     end
   end
