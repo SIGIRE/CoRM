@@ -1,7 +1,6 @@
 <div class="navbar">
   <div class="navbar-inner">
-    <div class="container-fluid">
-      <div id="left-bar-container">
+      <div id="left-bar-container">	
           <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -9,8 +8,8 @@
           </a>
           
           <%= link_to image_tag("logo_crm_small.png"), url_for(:controller => 'tasks', :action => 'filter') ,:class =>"brand" %>
-          <div id="form-search-container" class="nav-collapse" style="margin-top: 5px;">
-            <%= form_tag(search_accounts_path, :method => "get", :class =>"form-search", :id =>"form-search") do %>
+          <div id="form-search-container" class="nav-collapse">
+            <%= form_tag(search_accounts_path + '?as=html', :method => "get", :class =>"form-search", :id =>"form-search") do %>
 	      <div class="input-append">
 		<%= text_field_tag :account , nil , {:class =>"search-query span3", :placeholder => " Rechercher", :autocomplete=>"off", :type => 'search', :class => 'typeahead-search-account'} #:data => { :provide => 'typeahead', :source => Account.find(:all,:select=>'company').map(&:company)},
 		%>
@@ -18,69 +17,68 @@
 	      </div>
 	      <ul id="search-list" class="typeahead dropdown-menu"></ul>
             <% end %>
-
+	  </div>
+        
 	    <%
 	    # MENU
 	  %>
-	    <div style="clear: both; display: block;">
+	    <div id="nav-menu">
 	      <ul class="nav" style="font-size: 14px;">
 		<!-- TASKS -->
-		<% cssClass = params[:controller] == 'tasks' ? 'active' : '' %>
-		<li<%= " class=\"#{cssClass}\"" %>>
-		  <%= link_to image_tag("icons/tache_blanc.png", :size => "16x16")+" Tâches".html_safe, url_for(:controller => 'tasks', :action => 'filter') %>
+		<% cssClass = (params[:controller] == 'tasks') ? 'active' : '' %>
+		<li class="<%= "#{cssClass} "%>">
+		  <%= link_to " Tâches".html_safe, url_for(:controller => 'tasks', :action => 'filter') %>
+		    
 		</li>
 		<!-- ACTORS -->
-		<% cssClass = params[:controller] == 'accounts' or params[:controller] == 'events' or params[:controller] == 'contacts' ? cssClass = 'active' : '' %>
+		<% cssClass = (params[:controller] == 'accounts' or params[:controller] == 'events' or params[:controller] == 'contacts') ? cssClass = 'active' : '' %>
 		<li class="dropdown<%= if !cssClass.blank? then " #{cssClass}" end %>">
 		  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		    <%= image_tag("icons/ventes.png", :size => "16x16")+' Acteurs <span class="caret"></span>'.html_safe %>
+		    Acteurs
+		    <span class="caret"></span>
 		  </a>
 		  <ul class="dropdown-menu">
-		    <li><%= link_to " Comptes".html_safe, accounts_path %></li>
-		    <li><%= link_to " Contacts".html_safe, contacts_path %></li>
+		    <li><%= link_to "Comptes".html_safe, accounts_path %></li>
+		    <li><%= link_to "Contacts".html_safe, contacts_path %></li>
 		  </ul>
 		</li>
-		<% cssClass = params[:controller] == 'quotations' or params[:controller] == 'opportunities' ? 'active' : '' %>
+		<!-- TRADES -->
+		<% cssClass = (params[:controller] == 'quotations' or params[:controller] == 'opportunities') ? 'active' : '' %>
 		<li class="dropdown<%= if !cssClass.blank? then " #{cssClass}" end %>">
 		  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		    <%= image_tag("icons/ventes.png", :size => "16x16")+' Activité <span class="caret"></span>'.html_safe %>
+		    Commerce
+		    <span class="caret"></span>
 		  </a>
 		  
 		  <ul class="dropdown-menu">
-		    <li><%= link_to image_tag("icons/opportunites2.png", :size => "18x16")+" Opportunités".html_safe, opportunities_path %></li>
-		    <li><%= link_to image_tag("icons/euro2.png", :size => "16x16")+" Devis".html_safe, quotations_path %></li>
+		    <li><%= link_to "Opportunités".html_safe, opportunities_path %></li>
+		    <li><%= link_to "Devis".html_safe, quotations_path %></li>
 		  </ul>
-		</li>	
-		  
+		</li>
+		<% cssClass=nil %>
+		<li class="dropdown<%= if !cssClass.blank? then " #{cssClass}" end %>">
+		  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		    Marketing
+		    <span class="caret"></span>
+		  </a>
+		  <ul class="dropdown-menu">
+		    <li><a href="#">A venir...</a></li>
+		  </ul>
+		</li>
 	      </ul>
 	    </div>	
 	  </div>
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
+      <!--
+      image_tag("icons/tache_blanc.png", :size => "16x16")
+      image_tag("icons/ventes.png", :size => "16x16")
+      image_tag("icons/ventes.png", :size => "16x16")
+      image_tag("icons/ventes.png", :size => "16x16")
+      
+      image_tag("icons/opportunites2.png", :size => "18x16")+
+      image_tag("icons/euro2.png", :size => "16x16")+
+      -->
 	    <% if user_signed_in? %>
 	    <div id="profile_settings_buttons">
-	      <ul class="btn-group">
-		<a class="btn dropdown-toggle " data-toggle="dropdown" href="#">
-                  <%= image_tag("glyphicons/glyphicons_280_settings.png", :size => "16x16")%>
-		</a>
-		<ul class="dropdown-menu">
-		  <li><%= link_to '<i class="icon-book"></i> Types'.html_safe, event_types_path %></li>
-		  <li><%= link_to '<i class="icon-barcode"></i> Tags'.html_safe, tags_path %></li>
-		  <li><%= link_to image_tag("icons/origine.png", :size => "16x16")+" Origines".html_safe, origins_path %></li>
-		  <li><%= link_to image_tag("glyphicons/glyphicons_159_picture.png", :size => "16x16")+" Modèles".html_safe, quotation_templates_path %></li>		  
-        	  <li><%= link_to image_tag("icons/apropos.png", :size => "16x16")+" À propos".html_safe, "/about" %></li>
-		  <li><%= link_to image_tag("icons/fiches.png", :size => "16x16")+" Extraction Comptes".html_safe, url_for(:controller => 'extractions', :action => 'select_param_accounts') %></li>
-		  <li><%= link_to image_tag("icons/fiches.png", :size => "16x16")+" Extraction Contacts".html_safe, url_for(:controller => 'extractions', :action => 'select_param_contacts') %></li>
-		</ul>
-	      </ul>
-
 	      <ul class="btn-group">
 		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 		  <i class="icon-user"></i><%= current_user.forename %>
@@ -92,10 +90,25 @@
 		  <li><%= link_to image_tag("icons/deco.png", :size => "16x16")+" Déconnexion", destroy_user_session_path, :data => {:confirm => 'Confirmer la déconnexion ?'}, :method => :delete %></li>
 		</ul>
 	      </ul>
+	      
+	      <ul class="btn-group">
+		<a class="btn dropdown-toggle " data-toggle="dropdown" href="#">
+                  <%= image_tag("glyphicons/glyphicons_280_settings.png", :size => "16x16")%>
+		</a>
+		<ul class="dropdown-menu dropdown-settings">
+		  <li><%= link_to '<i class="icon-book"></i> Types'.html_safe, event_types_path %></li>
+		  <li><%= link_to '<i class="icon-barcode"></i> Tags'.html_safe, tags_path %></li>
+		  <li><%= link_to image_tag("icons/origine.png", :size => "16x16")+" Origines".html_safe, origins_path %></li>
+		  <li><%= link_to image_tag("glyphicons/glyphicons_159_picture.png", :size => "16x16")+" Modèles".html_safe, quotation_templates_path %></li>		  
+        	  <li><%= link_to image_tag("icons/apropos.png", :size => "16x16")+" À propos".html_safe, "/about" %></li>
+		  <li><%= link_to image_tag("icons/fiches.png", :size => "16x16")+" Extraction Comptes".html_safe, url_for(:controller => 'extractions', :action => 'select_param_accounts') %></li>
+		  <li><%= link_to image_tag("icons/fiches.png", :size => "16x16")+" Extraction Contacts".html_safe, url_for(:controller => 'extractions', :action => 'select_param_contacts') %></li>
+		</ul>
+	      </ul>
+
+	      
 	    </div>
 	    <% end %>
           </div>
-    </div>
-  </div>
 </div>
 
