@@ -16,7 +16,14 @@
     
       <div class="span2"> Compte : </div>
       <!-- <%= f.collection_select :account_id, Account.order('company ASC').all, :id, :company, {:include_blank => true} %> -->
-      <p><%= f.text_field :account, {:class => "typeahead-search-account not-links" , :id =>"task_account_id" , :type=> "search" } %><span class="label label-info" id="task_notice"  style="display: none; margin-left: 2em;"><i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant</span></p>
+      <%
+        company = ""
+	if !@task.account.nil?
+	  company = @task.account.company.html_safe
+	end
+      %>
+      <p><input value="<%= company %>" class="typeahead-search-account search_account by_name as_value" type="search" data-function='var f = function(i) { $("#task_account_id").val(i.id); getContact("/taches/update_contact_select/", i.id, function(o) { var item = ""; for(var i in o) { item += "<option value=\"" + o[i].id + "\">" + o[i].title + " " + o[i].forename + " " + o[i].surname + "</option>"; } $("#task_contact_id").html(item); }); return i.name; };' /><span class="label label-info" id="task_notice"  style="display: none; margin-left: 2em;"><i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant</span></p>
+    <%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'task_account_id', :include_blank => true } %>
       
     
   </div> 

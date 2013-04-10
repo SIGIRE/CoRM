@@ -7,7 +7,7 @@
             <%= form_tag(search_accounts_path, :method => "get", :class =>"form-search", :id =>"form-search") do %>
 	      <div class="input-append">
 		<%= text_field_tag :account , nil , { 
-		:class =>"search-query span3 typeahead-search-account by_id", 
+		:class =>"search-query span3 typeahead-search-account by_id as_url search_account search_contact", 
 		:placeholder => " Rechercher un acteur", 
 		:autocomplete=>"off", 
 		:type => 'search'}

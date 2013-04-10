@@ -24,7 +24,6 @@ group :assets do
   # gem 'therubyracer'
 
   gem 'uglifier', '>= 1.0.3'
-  gem 'bootstrap-sass', '~> 2.3.1.0'
 
   gem 'execjs'
 
@@ -36,6 +35,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-validation-rails'
 gem 'nested_form'
+gem 'bootstrap-sass', '~> 2.3.1.0'
 
 gem 'capistrano', '~> 2.14.2', :group => :development
 gem 'devise', '~> 2.2.3'

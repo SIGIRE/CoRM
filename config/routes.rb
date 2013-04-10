@@ -76,11 +76,11 @@ Crm::Application.routes.draw do
   # resources :tags
   set_route('tags', 'tag', 'tags');
 
-  match 'tasks/update_contact_select/:id', :controller=>'tasks', :action => 'update_contact_select'
+  match 'taches/update_contact_select/:id', :controller=>'tasks', :action => 'update_contact_select'
   
   # Tasks routes
   set_route('taches', 'tache', 'tasks')
-  match 'taches/filter(.:format)', :controller => 'tasks', :action => 'filter', :via => :get, :as => "filter_task_index"
+  match 'taches/filter(.:format)', :controller => 'tasks', :action => 'filter', :via => :get, :as => "filter_tasks"
 
   # TODO: Accounts
   match 'comptes/delete_tag', :controller=> 'accounts', :action =>'delete_tag'

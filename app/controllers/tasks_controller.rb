@@ -66,17 +66,14 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-	params[:task][:account]=Account.find_by_company(params[:task][:account])
     @task = Task.new(params[:task])
     @task.created_by = current_user.id
     
     #idem que dans edit
     @task.term = @task.term.split('/').reverse!.join('/')
     
-    
     respond_to do |format|
       if @task.save
-        
 	#si le checkbox est cochée 
 	if params[:mail]=="yes"
 	  #mailing
@@ -100,7 +97,6 @@ class TasksController < ApplicationController
   # PUT /tasks/1
   # PUT /tasks/1.json
   def update
-    params[:task][:account]=Account.find_by_company(params[:task][:account])
     @task = Task.find(params[:id])
     @task.modified_by = current_user.id
     params[:task][:term] = params[:task][:term].split('/').reverse!.join('/')
@@ -138,27 +134,28 @@ class TasksController < ApplicationController
     end
   end
   
+  def isInt?(i)
+    return i =~ /^-?[0-9]+$/
+  end
+  
   ##
   # Generate dynamically a Contact List by the Account
   #
   def update_contact_select
     if !params[:id].nil?
-      if params[:id].is_a? Integer 
-	contacts = Contact.where(:account_id => params[:id]).select('id, surname, forename, title').order(:surname)
-      elsif params[:id].is_a? String 
+      int = params[:id].to_i if self.isInt?(params[:id])
+      if !int.nil?
+	contacts = Contact.where(:account_id => int).select('id, surname, forename, title').order(:surname)
+      else
 	contacts = Contact.joins('INNER JOIN accounts ON accounts.id = contacts.account_id').where('company LIKE ?', params[:id]+'%').select('contacts.id, contacts.surname, contacts.forename, contacts.title').order(:surname)
       end
       if !contacts.nil?
-	respond_to do |format|
-	  format.json { render :json => contacts }
-	end
-	return false
+	render :json => contacts
+	return true
       end
     end
-    c = Contact.new({ 'surname' => 'Aucun contacts' })
-    respond_to do |format|
-      format.json { render :json => [c] }
-    end 
+    c = Contact.new({ 'forename' => 'Aucun contacts' })
+    render :json => [c]
   end
   
   ##
