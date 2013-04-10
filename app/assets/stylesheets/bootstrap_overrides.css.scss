@@ -1,22 +1,41 @@
-$form-search-position-left: 114;
-$form-search-size-width: 80;
-$form-search-position-top: 10;
-$form-search-size-width-onfocused: 300;
-$nav-menu-position-left: ($form-search-position-left + $form-search-size-width) + 65;
-$nav-menu-item-width: 90;
+/*
+ * ----------------------------------
+ * -       Locales variables        -
+ * ----------------------------------
+*/
+$form-search-position-left: 114px;
+$form-search-size-width: 80px;
+$form-search-position-top: 10px;
+$form-search-size-width-onfocused: 300px;
+$nav-menu-position-left: ($form-search-position-left + $form-search-size-width) + 65px;
+$nav-menu-item-width: 90px;
 
-$settings-dropdown-min-width: 160;
-$settings-dropdown-left: -($settings-dropdown-min-width) + 15;
+$settings-dropdown-min-width: 160px;
+$settings-dropdown-left: -($settings-dropdown-min-width) + 35px;
 
-$button-line-height: 35;
+$button-line-height: 35px;
+
+/*
+ * NavBar variables
+ */
+$navbarTextColorShadow: #ee5c47;
+
+/*
+ * ----------------------------------
+ * -         Corm App scss          -
+ * ----------------------------------
+*/
 
 #profile_settings_buttons {
   position: relative;
   float: right;
-  top: ($form-search-position-top / 2) + px;
+  top: ($form-search-position-top / 2);
   .dropdown-settings {
-    min-width: ($settings-dropdown-min-width) + px;
-    left: $settings-dropdown-left + px;
+    min-width: ($settings-dropdown-min-width);
+    left: $settings-dropdown-left;
+  }
+  .btn-group:first-child {
+    margin-left: 0;
   }
 }
 
@@ -25,33 +44,41 @@ $button-line-height: 35;
 }
 
 #form-search-container {
-  top: $form-search-position-top + px;
-  left: $form-search-position-left + px;
-  position:absolute;
-  margin: 0;
+    display: inline-block;
+    float: left;
+    position: relative;
+    z-index: 50;
 }
 
 #nav-menu {
+  left: $nav-menu-position-left + 8px;
+  padding: 2px 0;
   position: absolute;
-  left: $nav-menu-position-left + px;
-  top: ($form-search-position-top / 2) + px;
-  @include transit(opacity, 0.2s);
-  &.focused {
+  top: 5px;
+  @include transit(opacity, 0.5s);
+  &.focus {
     opacity: 0;
   }
 }
 
 form#form-search {
-  display: inline-block;
   width: auto;
   margin: 0;
-  input[type=search] {
-    @include border-radius(15px 0 0 15px);
-    width: $form-search-size-width + px;
-    @include transit(width, .5s);
-    &:focus {
-	width: $form-search-size-width-onfocused + px;
+  padding: 10px;
+  background-color: #303030;
+  cursor: default;
+  @include gradient-vertical($navbarBackgroundHighlight, $navbarBackground);
+  @include transit(padding, 0.8s);
+  &.focus {
+    padding-right: 43%;
+    input[type=search] {
+      width: $form-search-size-width-onfocused;
     }
+  }
+  input[type=search] {
+    @include transit(width, .5s);
+    @include border-radius(15px 0 0 15px);
+    width: $form-search-size-width;
   }
 }
 
@@ -77,31 +104,78 @@ div.field {
 /* Override the text-shadow */
 .navbar {
   margin-bottom: 0px;
+  .dropdown-menu {
+    .divider {
+      margin: 2px 1px;
+    }
+  }
   ul.nav > li {
-    line-height: $button-line-height + px;
+    line-height: $button-line-height;
     margin-left: 1px;
+    background: transparent !important;
+    @include transit(color, .4s);
+    color: #999;
+    &:hover {
+      color: #FFF;
+      > a, .caret {
+	color: inherit;
+	background: transparent !important;
+	box-shadow: none;
+      }
+    }
+    &.active {
+      color: #FFF !important;
+      background: transparent;
+      a {
+	text-shadow: 0 0 0.2em $navbarTextColorShadow !important;
+      }
+      &:hover > a {
+	background: transparent !important;
+	box-shadow: none !important;
+      }
+      & .dropdown-menu li {
+	a {
+	  color: #000 !important;
+	  text-shadow: none !important;
+	}
+	&:hover a {
+	  color: #FFF !important;
+	}
+      }
+      > a, .caret {
+	color: inherit;
+	box-shadow: none;
+	background: transparent !important;
+	text-shadow: inherit;
+      }
+    }
     > a {
-      text-shadow: 0 -1px 0 rgba(0,0,0,0.3) !important;
       padding: 2px 10px;
       display: inline-block;
       font-size: 16px;
       text-align: center;
+      color: inherit;
+      background: transparent !important;
     }
     .caret {
       margin-top: 16px !important;
       margin-left: 3px;
+      color: inherit;
     }
   }
 }
-
 .alert {
+  z-index: 1000;
   position: absolute;
-  top: 0;
+  width: auto;
+  top: $navbarHeight;
+  left: 30px;
   margin: 0 auto;
   opacity: 1;
   @include border-radius(0);
   p {
     display: inline;
+    font-size: 16px;
   }
 }
 
@@ -110,7 +184,7 @@ div.field {
   padding-left: 30px; 
 }
 
-.filter_statut {
+.filter_statut, .filter_priority {
   width: 110%;
 }
 .filter_coll {
@@ -126,21 +200,21 @@ div.field {
 .label-info {
   line-height: 16px;
 }
-  
 
 .table td {
   vertical-align: middle;
 }
-
 .navbar {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  > .navbar-inner {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
   .brand {
     -moz-transition: all 0.2s linear 0s;
     color: $black;
     float: left;
     font-weight: bold;
-    margin-right: 20px;
+    margin-right: 5px;
     margin-left: -7px;
     padding-left: 0;
     padding-right: 0;
