@@ -1,22 +1,22 @@
-$form-search-position-left: 114;
-$form-search-size-width: 80;
-$form-search-position-top: 10;
-$form-search-size-width-onfocused: 300;
-$nav-menu-position-left: ($form-search-position-left + $form-search-size-width) + 65;
+$form-search-position-left: 114px;
+$form-search-size-width: 80px;
+$form-search-position-top: 10px;
+$form-search-size-width-onfocused: 300px;
+$nav-menu-position-left: ($form-search-position-left + $form-search-size-width) + 65px;
 $nav-menu-item-width: 90px;
 
-$settings-dropdown-min-width: 160;
-$settings-dropdown-left: -($settings-dropdown-min-width) + 15;
+$settings-dropdown-min-width: 160px;
+$settings-dropdown-left: -($settings-dropdown-min-width) + 15px;
 
-$button-line-height: 35;
+$button-line-height: 35px;
 
 #profile_settings_buttons {
   position: relative;
   float: right;
-  top: ($form-search-position-top / 2) + px;
+  top: ($form-search-position-top / 2);
   .dropdown-settings {
-    min-width: ($settings-dropdown-min-width) + px;
-    left: $settings-dropdown-left + px;
+    min-width: ($settings-dropdown-min-width);
+    left: $settings-dropdown-left;
   }
   .btn-group:first-child {
     margin-left: 0;
@@ -28,16 +28,14 @@ $button-line-height: 35;
 }
 
 #form-search-container {
-    background-color: #303030;
     display: inline-block;
     float: left;
-    
     position: relative;
     z-index: 50;
 }
 
 #nav-menu {
-  left: $nav-menu-position-left + 25 + px;
+  left: $nav-menu-position-left + 25px;
   padding: 2px 0;
   position: absolute;
   top: 5px;
@@ -52,17 +50,18 @@ form#form-search {
   margin: 0;
   padding: 10px;
   background-color: #303030;
+  @include gradient-vertical($navbarBackgroundHighlight, $navbarBackground);
   @include transit(padding, 0.8s);
   &.focus {
     padding-right: 43%;
     input[type=search] {
-      width: $form-search-size-width-onfocused + px;
+      width: $form-search-size-width-onfocused;
     }
   }
   input[type=search] {
     @include transit(width, .5s);
     @include border-radius(15px 0 0 15px);
-    width: $form-search-size-width + px;
+    width: $form-search-size-width;
   }
 }
 
@@ -89,7 +88,7 @@ div.field {
 .navbar {
   margin-bottom: 0px;
   ul.nav > li {
-    line-height: $button-line-height + px;
+    line-height: $button-line-height;
     margin-left: 1px;
     > a {
       text-shadow: 0 -1px 0 rgba(0,0,0,0.3) !important;
@@ -137,15 +136,16 @@ div.field {
 .label-info {
   line-height: 16px;
 }
-  
 
 .table td {
   vertical-align: middle;
 }
 
 .navbar {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  > .navbar-inner {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
   .brand {
     -moz-transition: all 0.2s linear 0s;
     color: $black;
