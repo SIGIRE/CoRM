@@ -48,7 +48,7 @@
         <td><center><%= if !task.contact.nil? then link_to task.contact.full_name, edit_contact_path(task.contact),{:title => "Éditer le contact"}  end%></center></td>
         <td><center><%= task.term.split('/').reverse!.join('/') %></center></td>
         <td><center><%= if !task.user.nil? then task.user.full_name end%></center></td>
-        <td><center><%= link_to image_tag("glyphicons/glyphicons_150_check.png"), task_path(task) ,{:title => "Afficher la tâche", :class =>"btn"}  %></center></td>
+        <td><center><%= link_to image_tag("glyphicons/glyphicons_350_visual.png"), task_path(task) ,{:title => "Afficher la tâche", :class =>"btn"}  %></center></td>
       </tr>
       <% end %>
     </tbody>

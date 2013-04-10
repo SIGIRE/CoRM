@@ -316,4 +316,8 @@ h6 {
   text-transform: uppercase;
 }
 
-
+.show_title {
+	text-overflow: ellipsis;
+  	white-space: nowrap;
+	overflow: hidden;
+}

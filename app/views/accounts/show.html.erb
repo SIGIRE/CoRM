@@ -3,7 +3,8 @@
    <div class="well" style="margin-top: 1em;">
       <div class="row-fluid">
         <div class="span9">
-          <h3>Compte n°<%= @account.id %></h3>
+          <!--<h1>Compte n°<%= @account.id %></h1>-->
+		  <h1 class="show_title" >Compte : <%= @account.company %></h1>
          </div>
           <%= link_to image_tag("glyphicons/glyphicons_210_left_arrow.png"), :back ,{:title => "Retour", :class =>"pull-right btn"} %>
 		  <%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_account_path(@account),{:title => "Éditer", :class =>"pull-right btn"} %> 
@@ -20,140 +21,160 @@
 		<tr>
 	
 		<td colspan="2">
-			<center><h4>Compte</h4></center>
+			<center><h2>Détails</h2></center>
 		</td>
 
 		</tr>
 		
-		<tr>
+
 	<% if !@account.company.nil? %>
-		<td>
-			<strong>Société</strong>
+		<tr>
+		<td class="span3">
+			<h3>Société</h3>
 		</td>
 		<td>
 			<%= @account.company  %>
 		</td>
-	<% end %>
 		</tr>
+	<% end %>
+
 		
-		<tr>
 	<% if !@account.full_adress.blank? %>
+		<tr>
 		<td>
-			<strong>Adresse</strong>
+			<h3>Adresse</h3>
 		</td>
 		<td>
 			<%= @account.full_adress  %>
 		</td>
+		</tr>
 	<% end %>
-		</tr>		
+		
 
-		<tr>
+
 	<% if !@account.country.blank? %>
+		<tr>
 		<td>
-			<strong>Pays</strong>
+			<h3>Pays</h3>
 		</td>
 		<td>
 			<%= @account.country  %>
 		</td>
+		</tr>	
 	<% end %>
-		</tr>			
+			
 		
-		<tr>
+
 	<% if !@account.tel.blank? %>
+		<tr>
 		<td>
-			<strong>Téléphone</strong>
+			<h3>Téléphone</h3>
 		</td>
 		<td>
 			<%= @account.tel  %>
 		</td>
+		</tr>
 	<% end %>
-		</tr>		
+		
 
-		<tr>		
+		
 	<% if !@account.fax.blank? %>
+		<tr>
 		<td>
-			<strong>Fax</strong>
+			<h3>Fax</h3>
 		</td>
 		<td>
 			<%= @account.fax  %>
 		</td>
+		</tr>
 	<% end %>
-		</tr>		
+		
 
-		<tr>		
 	<% if !@account.email.blank? %>
+		<tr>
 		<td>
-			<strong>Adresse e-mail</strong>
+			<h3>Adresse e-mail</h3>
 		</td>
 		<td>
 			<%= mail_to(@account.email)  %>
 		</td>
-	<% end %>
 		</tr>	
+	<% end %>
+	
 		
-		<tr>
+
 	<% if !@account.web.blank? %>
+		<tr>
 		<td>
-			<strong>Site Web</strong>
+			<h3>Site Web</h3>
 		</td>
 		<td>
 			<%= link_to @account.web, @account.web, :target => "_blank" %>
 		</td>
+		</tr>
 	<% end %>
-		</tr>		
+		
 
-		<tr>
+
 	<% if !@account.category.blank? %>
+		<tr>
 		<td>
-			<strong>Genre</strong>
+			<h3>Genre</h3>
 		</td>
 		<td>
 			<%= @account.category %>
 		</td>
-	<% end %>
 		</tr>
+	<% end %>
 
-		<tr>
+
+
 	<% if !@account.origin.nil? %>
+		<tr>
 		<td>
-			<strong>Origine</strong>
+			<h3>Origine</h3>
 		</td>
 		<td>
 			<%= @account.origin.name %>
 		</td>
+		</tr>
 	<% end %>
-		</tr>		
+		
 
-		<tr>
+
 	<% if !@account.user.nil?%>
+		<tr>
 	<% if current_user.email == @account.user.email %>
 		<% then %>
 		<td>
-			<strong>Collaborateur lié</strong>
+			<h3>Collaborateur lié</h3>
 		</td>
 		<td>
 			moi-même
 		</td>
 		<% else %>
 		<td>
-			<strong>Collaborateur lié</strong>
+			<h3>Collaborateur lié</h3>
 		</td>
 		<td>
 			<%= @account.user.full_name %> - <%= mail_to(@account.user.email) %>
 		</td>
 	<% end %>
-	<% end %>
 		</tr>
+	<% end %>
+
 
 	<% if  !@account.accounting_code.blank? %>
+		<tr>
 		<td>
-			<strong>Code comptable</strong>
+			<h3>Code comptable</h3>
 		</td>
 		<td>
 			<%= @account.accounting_code %>
 		</td>
-	<% end %>
 		</tr>
+	<% end %>
+
 		
 </tbody>
 </table>	
@@ -164,7 +185,7 @@
 	<tbody>
 		<tr>
 		<td colspan="2">
-		<center><h4>Notes</h4></center>
+		<center><h2>Notes</h2></center>
 		</td>
 		</tr>
 		<tr>
@@ -176,34 +197,73 @@
 	</table>
 	<% end %>			
 		
-		
+<!-- CONTACT INFO -->
+	<% if !@account.contacts.nil? %>
+	<table class="table table-bordered table-striped">
+	<tbody>
+		<tr>
+			<td>
+		        <center><h2>Contact</h2></center>
+		    </td>
+		</tr>
+		<% @account.contacts.each do |contact| %>
+		<tr>
+		    <td>
+				Nom
+		    </td>
+			
+			<td>
+				<%= link_to contact.full_name ,  contact_path(contact), {:title => "Afficher le contact"}  %>
+		    </td>
+			
+		</tr>
+		<% end %>
+	</tbody>
+	</table>
+	<% end %>	
+<!--CONTACT INFO -->		
 		
 	<!-- OTHER INFO -->
 		<table class="table table-bordered table-striped">
 	<tbody>
 		<tr>
 		<td colspan="2">
-		<center><h4>Informations complémentaires</h4></center>
+		<center><h2>Informations complémentaires</h2></center>
 		</tr>
 		</td>
 		<tr>
-		<td><strong>Créé par</strong></td>
-		<td><%= @account.author.full_name %>, le <%= @account.created_at.strftime("%d/%m/%y à %H:%M") %>
-		</td>
-		<% if !@account.modified_by.nil? %>
-		<tr>
-		<td><strong><abbr title="Dernière modification">Modifié par</abbr></strong></td>
-		<td><%= @account.editor.full_name %>, le <%= @account.updated_at.strftime("%d/%m/%y à %H:%M") %></td>
+		<td class="span3"><h3>Créé par</h3></td>
+		
+		<% if current_user.email == @account.author.email %>
+			<% then %>
+			<td>moi-même, le <%= @account.created_at.strftime("%d/%m/%y à %H:%M") %></td>
+			<% else %>
+			<td><%= @account.author.full_name %>, le <%= @account.created_at.strftime("%d/%m/%y à %H:%M") %></td>
+		<% end %>
 		</tr>
-		<% end %>		
+
+				<% if !@account.modified_by.nil? %>
+		<tr>
+			<% if current_user.email == @account.editor.email %>
+				<% then %>
+					<td class="span3"><h3><abbr title="Dernière modification">Modifié par</abbr></h3></td>
+					<td>moi-même, le <%= @account.created_at.strftime("%d/%m/%y à %H:%M") %></td>
+				<% else %>
+					<td class="span3"><h3><abbr title="Dernière modification">Modifié par</abbr></h3></td>
+					<td><%= @account.editor.full_name %>, le <%= @account.updated_at.strftime("%d/%m/%y à %H:%M") %></td>
+			<% end %>
+		</tr>
+		<% end %>
+		
 <!-- END OTHER INFO -->
 	
 		
 		
 </tbody>
 </table>
+
 <hr/>	     
   <div class="row">
       <%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), @account, :title => "Supprimer la tâche" , :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete %>    
   </div>	
-
+  </div>

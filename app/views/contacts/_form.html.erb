@@ -44,7 +44,7 @@
   </div>
   
   <div class="field">
-    <div class="span2"> Compte associé : </div> <%= f.collection_select :account_id, Account.order('company ASC').all, :id, :company %>
+    <div class="span2"> Compte associé : </div> <%= f.collection_select :account_id, Account.order('company ASC').all, :id, :company, {:include_blank => true} %>
   </div>
   
   <div class="field">

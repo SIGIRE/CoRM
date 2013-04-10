@@ -1,123 +1,255 @@
 <div class="container-fluid">
-  
-  <div class="page-header">
-    <h1>Contact n°<%= @contact.id %> </h1>
-  </div>
+   
+   <div class="well" style="margin-top: 1em;">
+      <div class="row-fluid">
+        <div class="span9">
+		  <h1 class="show_title" >Contact : <%= @contact.full_name %></h1>
+         </div>
+          <%= link_to image_tag("glyphicons/glyphicons_210_left_arrow.png"), :back ,{:title => "Retour", :class =>"pull-right btn"} %>
+		  <%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_contact_path(@contact),{:title => "Éditer", :class =>"pull-right btn"} %> 
+      </div>
+   </div>
 
-  <div class="well">
-    
-    <table class="table table-striped">
-      <tbody>
-        <tr>
-          <td>
-            <div class="span2">
-              <h3>Civilite:</h3>
-              <%= @contact.title %>
-            </div>
-          </td>
-          
-          <td>
-            <div class="span2">
-              <h3> Nom :</h3>
-              <%= @contact.surname %>
-            </div>
-          </td>
-    
-	  <td colspan="2">
-            <div class="span2">
-              <h3> Prénom :</h3>
-              <%= @contact.forename %>
-            </div>
-          </td>
-         
-        </tr>
-        
-        <tr>
-          <td>
-            <div class="span2">
-              <h3>Téléphone :</h3>
-              <%= @contact.tel %>
-            </div>
-          </td>
-          
-          <td>
-            <div class="span2">
-              <h3>Fax :</h3>
-              <%= @contact.fax %>
-            </div>
-          </td>
-          
-          <td>
-            <div class="span2">
-              <h3>Mobile : </h3>
-              <%= @contact.mobile %>
-            </div>
-          </td>
-
-          <td>
-            <div class="span2">
-              <h3>Email :</h3>
-              <%=  mail_to(@contact.email) %>
-            </div>
-          </td>
-          
-        </tr>
-        
-        <tr>
-          <td colspan="1">
-              <h3>Compte :</h3>
-              <%= link_to @contact.account.company , account_events_url(@contact.account) %> 
-          </td>
-          
-          <td colspan="3">
-              <h3>Fonction :</h3>
-              <%= @contact.job %> 
-          </td>
-          
-        </tr>
-        
-        <tr>
-          <td colspan="4">
-              <h3>Notes :</h3>
-              <%= simple_format(@contact.notes) %>
-          </td>
-        </tr>
-        
-        <tr>
-          <td colspan="4">
-            <h3>Produit(s) associé(s) : </h3>
-              <%= render "tags" %>
-          </td>
-        </tr>
-        
-        <tr>
-          <td colspan="4">
-              <h3>Créé par : </h3><%= @contact.author.full_name %><strong style="margin-left: 3em;"> Le : </strong><%= @contact.created_at.strftime("%d/%m/%y à %H:%M") %>
-          </td>
-        </tr>
-          
-        <% if !@contact.modified_by.nil? %>
-        <tr>
-          <td colspan="4">
-              <h3>Modifié par :</h3><%= @contact.editor.full_name %>
-              <strong style="margin-left: 3em;"> Le : </strong><%= @contact.updated_at.strftime("%d/%m/%y à %H:%M") %>        
-          </td>
-        </tr>
-	<% end %>
-      
-      <tr>
-        <td colspan="4">
-          <div class="pull-left">
-            <%= link_to image_tag("glyphicons/glyphicons_221_unshare.png"), :back %>
-            <%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_contact_path(@contact) %>   
-          </div>
-          <div class="pull-right">
-            <%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), @contact, :confirm => 'Confirmer la suppression ?', :method => :delete %>
-          </div>
-        </td>
-      </tr>
-        
-      </tbody>
-    </table>
-  </div>
 </div>
+
+<div class="container-fluid" style="margin-top: 1em;"">
+<div class="well">
+
+<table class="table table-bordered table-striped">
+<tbody>
+		<tr>
+		<td colspan="2">
+		<center><h2>Détails</h2></center>
+		</td>
+		</tr>
+		
+	<% if !@contact.title.blank? %>
+		<tr>
+		<td class="span3">
+			<h3>Civilité</h3>
+		</td>
+		<td>
+        <%= if @contact.title == "M." then image_tag("glyphicons/glyphicons_034_old_man.png") end%>
+        <%= if @contact.title == "Mme" then image_tag("glyphicons/glyphicons_035_woman.png") end%>
+		</td>
+		</tr>
+	<% end %>		
+
+		<% if !@contact.forename.blank? %>
+		<tr>
+		<td>
+			<h3>Prénom</h3>
+		</td>
+		<td>
+			<%= @contact.forename  %>
+		</td>
+		</tr>
+	<% end %>
+	
+	<% if !@contact.surname.blank? %>
+		<tr>
+		<td>
+			<h3>Nom</h3>
+		</td>
+		<td>
+			<%= @contact.surname  %>
+		</td>
+		</tr>
+	<% end %>	
+	
+	<% if !@contact.tel.blank? %>
+		<tr>
+		<td>
+			<h3>Téléphone</h3>
+		</td>
+		<td>
+			<%= @contact.tel  %>
+		</td>
+		</tr>
+	<% end %>
+
+
+	<% if !@contact.mobile.blank? %>
+		<tr>
+		<td>
+			<h3>Mobile</h3>
+		</td>
+		<td>
+			<%= @contact.mobile  %>
+		</td>
+		</tr>
+	<% end %>	
+
+	<% if !@contact.fax.blank? %>
+		<tr>
+		<td>
+			<h3>Fax</h3>
+		</td>
+		<td>
+			<%= @contact.fax  %>
+		</td>
+		</tr>
+	<% end %>	
+	
+	
+	<% if !@contact.email.blank? %>
+		<tr>
+		<td>
+			<h3>Adresse e-mail</h3>
+		</td>
+		<td>
+			<%= mail_to(@contact.email)  %>
+		</td>
+		</tr>
+	<% end %>
+	
+	<% if !@contact.job.blank? %>
+		<tr>
+		<td>
+			<h3>Fonction</h3>
+		</td>
+		<td>
+			<%= @contact.job  %>
+		</td>
+		</tr>
+	<% end %>	
+
+</tbody>
+</table>
+
+<!-- NOTES -->		
+		
+	<% if !@contact.notes.blank? %>
+	<table class="table table-bordered table-striped">
+	<tbody>
+		<tr>
+		<td colspan="2">
+		<center><h2>Notes</h2></center>
+		</td>
+		</tr>
+		<tr>
+		<td>
+		<div style="background-color: #fff; padding: 1px 15px;"> <%= simple_format(@contact.notes , {}, :sanitize => false)%> </div>
+		</td>
+		</tr>
+	</tbody>
+	</table>
+	<% end %>
+
+	
+	<!-- ACCOUNT INFO -->
+	<% if !@contact.account.nil? %>	
+		<table class="table table-bordered table-striped">
+		<tbody>
+		<tr>
+		<td colspan="2">
+		<center><h2>Compte</h2></center>
+		</tr>
+		</td>
+		
+	
+		<tr>
+		<td class="span3">
+			<h3>Société</h3>
+		</td>
+		<td>
+			<%= link_to (@contact.account.company), account_path(@contact.account),{:title => "Afficher le compte"}  %>
+		</td>
+		</tr>
+	
+	
+		<% if !@contact.account.full_adress.blank? %>
+		<tr>
+		<td>
+			<h3>Adresse</h3>
+		</td>
+		<td>
+			<%= @contact.account.full_adress  %>
+		</td>
+		</tr>
+	<% end %>
+	
+		<% if !@contact.account.tel.blank? %>
+		<tr>
+		<td>
+			<h3>Téléphone</h3>
+		</td>
+		<td>
+			<%= @contact.account.tel  %>
+		</td>
+		</tr>
+	<% end %>
+		
+
+		
+	<% if !@contact.account.fax.blank? %>
+		<tr>
+		<td>
+			<h3>Fax</h3>
+		</td>
+		<td>
+			<%= @contact.account.fax  %>
+		</td>
+		</tr>
+	<% end %>
+	
+	<% if !@contact.account.category.blank? %>
+		<tr>
+		<td>
+			<h3>Genre</h3>
+		</td>
+		<td>
+			<%= @contact.account.category %>
+		</td>
+		</tr>
+	<% end %>	
+	
+			</tbody>
+	</table>
+		<% end %>
+		
+<!-- END ACCOUNT INFO -->
+	
+
+	<!-- OTHER INFO -->
+		<table class="table table-bordered table-striped">
+	<tbody>
+		<tr>
+		<td colspan="2">
+		<center><h2>Informations complémentaires</h2></center>
+		</tr>
+		</td>
+		<tr>
+		<td class="span3"><h3>Créé par</h3></td>
+		
+		<% if current_user.email == @contact.author.email %>
+			<% then %>
+			<td>moi-même, le <%= @contact.created_at.strftime("%d/%m/%y à %H:%M") %></td>
+			<% else %>
+			<td><%= @contact.author.full_name %>, le <%= @contact.created_at.strftime("%d/%m/%y à %H:%M") %></td>
+		<% end %>
+		</tr>
+
+				<% if !@contact.modified_by.nil? %>
+		<tr>
+			<% if current_user.email == @contact.editor.email %>
+				<% then %>
+					<td class="span3"><h3><abbr title="Dernière modification">Modifié par</abbr></h3></td>
+					<td>moi-même, le <%= @contact.created_at.strftime("%d/%m/%y à %H:%M") %></td>
+				<% else %>
+					<td class="span3"><h3><abbr title="Dernière modification">Modifié par</abbr></h3></td>
+					<td><%= @contact.editor.full_name %>, le <%= @contact.updated_at.strftime("%d/%m/%y à %H:%M") %></td>
+			<% end %>
+		</tr>
+		<% end %>
+		
+<!-- END OTHER INFO -->
+
+</tbody>
+</table>
+
+<hr/>	     
+  <div class="row">
+      <%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), @contact, :title => "Supprimer le contact" , :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete %>    
+  </div>	
+  </div>

@@ -53,7 +53,7 @@
   </div>  
   
   <div class="field">
-    <div class="span2"> Origine : </div> <%= f.collection_select :origin_id, Origin.order('name ASC').all, :id, :name %>
+    <div class="span2"> Origine : </div> <%= f.collection_select :origin_id, Origin.order('name ASC').all, :id, :name, :include_blank => true %>
   </div>
   
   <div class="field">
@@ -79,7 +79,8 @@
   </div>
   
   <div class="field">
-    <div class="span2">Notes : </div> <%= f.text_area :notes , :display_with => :simple_format, :rows => "5", :style=>'width: 30em;'%>
+    <div class="span2">Notes : </div> <%= f.cktext_area :notes, :ckeditor => {:toolbar => "MyToolbar"} %>
+	<!--<%= f.text_area :notes , :display_with => :simple_format, :rows => "5", :style=>'width: 30em;'%>-->
   </div>
 
   <br />

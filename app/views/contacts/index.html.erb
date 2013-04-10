@@ -13,7 +13,7 @@
       <th><center>T&eacute;l</center></th>
       <th><center>Mobile</center></th>
       <th><center>E-mail</center></th>
-      <th><center>Éditer</center></th>        
+      <th><center>Afficher</center></th>        
     </tr>
   
   <% @contacts.each do |contact| %>
@@ -29,7 +29,7 @@
       <td><center><%= contact.tel %></center></td>
       <td><center><%= contact.mobile %></center></td>
       <td><center><%= mail_to(contact.email)%></center></td>
-      <td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_contact_path(contact),{:title => "Éditer le contact", :class =>"btn"} %></center></td>
+      <td><center><%= link_to image_tag("glyphicons/glyphicons_350_visual.png"), contact_path(contact),{:title => "Afficher le contact", :class =>"btn"} %></center></td>
     </tr>
   <% end %>
   </table>

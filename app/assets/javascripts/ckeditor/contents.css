@@ -1,3 +1,10 @@
-.body-yellow {
-    background-color: yellow;
+body {
+  width: 768px;
+  font-size: 14px;
+  color: black;
+  background-color: yellow;
+}
+ol,ul,dl {
+  *margin-right:0px;
+  padding:4 20px;
 }
