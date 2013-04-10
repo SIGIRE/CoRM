@@ -3,7 +3,7 @@ $form-search-size-width: 80;
 $form-search-position-top: 10;
 $form-search-size-width-onfocused: 300;
 $nav-menu-position-left: ($form-search-position-left + $form-search-size-width) + 65;
-$nav-menu-item-width: 90;
+$nav-menu-item-width: 90px;
 
 $settings-dropdown-min-width: 160;
 $settings-dropdown-left: -($settings-dropdown-min-width) + 15;
@@ -18,6 +18,9 @@ $button-line-height: 35;
     min-width: ($settings-dropdown-min-width) + px;
     left: $settings-dropdown-left + px;
   }
+  .btn-group:first-child {
+    margin-left: 0;
+  }
 }
 
 #left-bar-container {
@@ -25,33 +28,41 @@ $button-line-height: 35;
 }
 
 #form-search-container {
-  top: $form-search-position-top + px;
-  left: $form-search-position-left + px;
-  position:absolute;
-  margin: 0;
+    background-color: #303030;
+    display: inline-block;
+    float: left;
+    
+    position: relative;
+    z-index: 50;
 }
 
 #nav-menu {
+  left: $nav-menu-position-left + 25 + px;
+  padding: 2px 0;
   position: absolute;
-  left: $nav-menu-position-left + px;
-  top: ($form-search-position-top / 2) + px;
-  @include transit(opacity, 0.2s);
-  &.focused {
+  top: 5px;
+  @include transit(opacity, 0.5s);
+  &.focus {
     opacity: 0;
   }
 }
 
 form#form-search {
-  display: inline-block;
   width: auto;
   margin: 0;
+  padding: 10px;
+  background-color: #303030;
+  @include transit(padding, 0.8s);
+  &.focus {
+    padding-right: 43%;
+    input[type=search] {
+      width: $form-search-size-width-onfocused + px;
+    }
+  }
   input[type=search] {
+    @include transit(width, .5s);
     @include border-radius(15px 0 0 15px);
     width: $form-search-size-width + px;
-    @include transit(width, .5s);
-    &:focus {
-	width: $form-search-size-width-onfocused + px;
-    }
   }
 }
 

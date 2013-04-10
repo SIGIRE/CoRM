@@ -20,22 +20,19 @@ $(document).ready(function() {
   $('form').each(function() {
     $(this).validate();
   });
-  
+  var navMenuBar = $('#nav-menu'), formSearchBar = $('#form-search'), accountField = $('#account');
   /* AccountSearchBar Animation */
-  $('#account').on('focus', function() {
-    $('#nav-menu').addClass('focused');
-    /* Disabled dropdowns */
-    //$('#nav-menu li.dropdown').attr('data-toggle', '').children('a.dropdown-toggle').attr('data-toggle', '');
+  accountField.on('focus', function() {
+    corm.AccountFieldIsFocused = true;
+    formSearchBar.addClass('focus');
+    navMenuBar.addClass('focus');
   });
-  $('#account').on('blur', function() {
-    setTimeout(
-      function (args) {
-        $('#nav-menu').removeClass('focused');
-        /* Renabled dropdowns */
-        //$('#nav-menu li.dropdown').attr('data-toggle', 'dropdown').children('a.dropdown-toggle').attr('data-toggle', 'dropdown');
-      },
-      300
-    );
+  accountField.on('blur', function() {
+    setTimeout(function() {
+      formSearchBar.removeClass('focus');
+      navMenuBar.removeClass('focus');
+    }, 100);
+    
   });
   
   var typeAheadInfo = {};
