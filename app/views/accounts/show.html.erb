@@ -202,20 +202,86 @@
 	<table class="table table-bordered table-striped">
 	<tbody>
 		<tr>
+			<td colspan="6">
+		        <center><h2>Contacts</h2></center>
+		    </td>
+		</tr>
+		<tr>
 			<td>
-		        <center><h2>Contact</h2></center>
+		        <center><h4>Nom</h4></center>
+		    </td>
+			<td>
+		        <center><h4>Téléphone</h4></center>
+		    </td>
+			<td>
+		        <center><h4>Mobile</h4></center>
+		    </td>
+			<td>
+		        <center><h4>E-mail</h4></center>
+		    </td>
+			<td>
+		        <center><h4>Fonction</h4></center>
 		    </td>
 		</tr>
 		<% @account.contacts.each do |contact| %>
 		<tr>
-		    <td>
-				Nom
-		    </td>
+
+			<% if !contact.full_name.blank? %>
+				<% then %>
+					<td>
+						<center><%= link_to contact.full_name ,  contact_path(contact), {:title => "Afficher le contact"}  %></center>
+					</td>
+				<% else %>
+					<td>
+						<center>-</center>
+					</td>
+			<% end %>
 			
-			<td>
-				<%= link_to contact.full_name ,  contact_path(contact), {:title => "Afficher le contact"}  %>
-		    </td>
+			<% if !contact.tel.blank? %>
+				<% then %>
+					<td>
+						<center><%= contact.tel%></center>
+					</td>
+				<% else %>
+					<td>
+						<center>-</center>
+					</td>
+			<% end %>
 			
+
+			<% if !contact.mobile.blank? %>
+				<% then %>
+					<td>
+						<center><%= contact.mobile %></center>
+					</td>
+				<% else %>
+					<td>
+						<center>-</center>
+					</td>
+			<% end %>
+
+			<% if !contact.email.blank? %>
+				<% then %>
+					<td>
+						<center><%= mail_to(contact.email) %></center>
+					</td>
+				<% else %>
+					<td>
+						<center>-</center>
+					</td>
+			<% end %>
+			
+			<% if !contact.job.blank? %>
+				<% then %>
+					<td>
+						<center><%= contact.job %></center>
+					</td>
+				<% else %>
+					<td>
+						<center>-</center>
+					</td>
+			<% end %>			
+
 		</tr>
 		<% end %>
 	</tbody>
