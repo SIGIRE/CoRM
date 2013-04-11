@@ -96,14 +96,25 @@
                   <%= image_tag("glyphicons/glyphicons_280_settings.png", :size => "16x16")%>
 		</a>
 		<ul class="dropdown-menu dropdown-settings">
-		  <li><%= link_to 'Types'.html_safe, event_types_path %></li>
-		  <li><%= link_to 'Tags'.html_safe, tags_path %></li>
+			<li class="dropdown-submenu pull-left">
+			<a tabindex="-1" href="#">Configuration</a>
+			<ul class="dropdown-menu ">
+		  <li><%= link_to "Types".html_safe, event_types_path %></li>
+		  <li><%= link_to "Tags".html_safe, tags_path %></li>
 		  <li><%= link_to "Origines".html_safe, origins_path %></li>
-		  <li><%= link_to "Modèles".html_safe, quotation_templates_path %></li>		  
-        	  <li><%= link_to "À propos".html_safe, "/about" %></li>
-		  <li><%= link_to "Extraction Comptes".html_safe, url_for(:controller => 'extractions', :action => 'select_param_accounts') %></li>
-		  <li><%= link_to "Extraction Contacts".html_safe, url_for(:controller => 'extractions', :action => 'select_param_contacts') %></li>
-		</ul>
+		  <li><%= link_to "Modèles".html_safe, quotation_templates_path %></li>				
+			</ul>
+			</li>
+			<li class="dropdown-submenu pull-left">
+			<a tabindex="-1" href="#">Extraction</a>
+			<ul class="dropdown-menu ">
+		  <li><%= link_to "Comptes".html_safe, url_for(:controller => 'extractions', :action => 'select_param_accounts') %></li>
+		  <li><%= link_to "Contacts".html_safe, url_for(:controller => 'extractions', :action => 'select_param_contacts') %></li>
+		  			</ul>
+			</li>
+		  <li class="divider"></li>
+          <li><%= link_to "À propos".html_safe, "/about" %></li>
+		  </ul>
 	      </ul>
 
 	      

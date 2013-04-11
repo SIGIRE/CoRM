@@ -3,7 +3,8 @@
 
 <div class="container-fluid" style="margin-top: 1em;">
 
-  <table class="table table-bordered table-striped">
+  <table class="table table-bordered table-striped table-hover">
+      <thead>
     <tr>
       <th><center>Id</center></th>
       <th><center>Civ.</center></th>
@@ -15,23 +16,75 @@
       <th><center>E-mail</center></th>
       <th><center>Afficher</center></th>        
     </tr>
-  
+      </thead>
+	  <tbody>
   <% @contacts.each do |contact| %>
     <tr>
-      <td><center><%= contact.id %></center></td>
-      <td><center>
-        <%= if contact.title == "M." then image_tag("glyphicons/glyphicons_034_old_man.png") end%>
-        <%= if contact.title == "Mme" then image_tag("glyphicons/glyphicons_035_woman.png") end%>
-      </center></td>
-      <td><center><%= contact.surname %></center></td>
-      <td><center><%= contact.forename %></center></td>
-      <td ><center><%= if !contact.account.nil? then link_to contact.account.company , account_events_url(contact.account),{:title => "Afficher les évenements"} end%></center></td>
-      <td><center><%= contact.tel %></center></td>
-      <td><center><%= contact.mobile %></center></td>
-      <td><center><%= mail_to(contact.email)%></center></td>
+		<% if !contact.id.nil? %>
+			<% then %>
+				<td><center><%= contact.id %></center></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %>      
+	  
+		<% if !contact.title.blank? %>
+			<% then %>
+				<td><center>
+					<%= if contact.title == "M." then image_tag("glyphicons/glyphicons_034_old_man.png") end%>
+					<%= if contact.title == "Mme" then image_tag("glyphicons/glyphicons_035_woman.png") end%>
+				</center></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %>
+
+		<% if !contact.surname.blank? %>
+			<% then %>
+				<td><center><%= contact.surname %></center></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %> 		
+		
+		<% if !contact.forename.blank? %>
+			<% then %>
+				<td><center><%= contact.forename %></center></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %> 		
+		
+		<% if !contact.account.nil? %>
+			<% then %>
+				<td ><center><%= link_to contact.account.company , account_events_url(contact.account),{:title => "Afficher les évenements"} %></center></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %> 
+
+		
+		<% if !contact.tel.blank? %>
+			<% then %>
+				<td><center><%= contact.tel %></center></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %> 
+
+		<% if !contact.mobile.blank? %>
+			<% then %>
+				<td><center><%= contact.mobile %></center></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %>		
+
+		<% if !contact.email.blank? %>
+			<% then %>
+				<td><center><%= mail_to(contact.email)%></center></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %>
+
+
       <td><center><%= link_to image_tag("glyphicons/glyphicons_350_visual.png"), contact_path(contact),{:title => "Afficher le contact", :class =>"btn"} %></center></td>
     </tr>
   <% end %>
+  </tbody>
   </table>
   
   <%= paginate @contacts %> 

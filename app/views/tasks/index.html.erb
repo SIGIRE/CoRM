@@ -2,7 +2,7 @@
 <%= render 'title', :locals => { :title => @title }%>
 
 <div class="container-fluid">
-  <table class="table table-bordered table-striped">
+  <table class="table table-bordered table-striped table-hover">
     <thead>
       <tr>
         <th><center>#</center></th>
@@ -38,16 +38,52 @@
           <% elsif task.statut == "Annulé"%>
             <span class="badge badge-inverse">
           <% else %>
-            <span class="badge badge-info">
+            -
           <% end %>
           <%= task.statut %></span>
         </center></td>
-		<td><center><%= task.priority %></center></td>
-        <td><center><%= if !task.account.nil? then link_to task.account.company , account_events_url(task.account),{:title => "Afficher les évenements"} end%></center></td>
-        <td><%= link_to truncate(task.title, :length => 75, :separator => ' '), task_path(task),{:title => "Afficher la tâche"} %></td>
-        <td><center><%= if !task.contact.nil? then link_to task.contact.full_name, edit_contact_path(task.contact),{:title => "Éditer le contact"}  end%></center></td>
-        <td><center><%= task.term.split('/').reverse!.join('/') %></center></td>
-        <td><center><%= if !task.user.nil? then task.user.full_name end%></center></td>
+		
+		<% if !task.priority.blank? %>
+			<% then %>
+				<td><center><%= task.priority %></center></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %>
+		
+		<% if !task.account.nil? %>
+			<% then %>
+				<td><center><%= link_to task.account.company , account_events_url(task.account),{:title => "Afficher les évenements"} %></center></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %>
+		<% if !task.title.blank? %>
+			<% then %>
+				<td><%= link_to truncate(task.title, :length => 75, :separator => ' '), task_path(task),{:title => "Afficher la tâche"} %></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %>
+
+		<% if !task.contact.nil? %>
+			<% then %>
+				<td><center><%= link_to task.contact.full_name, contact_path(task.contact),{:title => "Affciher le contact"}  %></center></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %>		
+
+		<% if !task.term.blank? %>
+			<% then %>		
+				<td><center><%= task.term.split('/').reverse!.join('/') %></center></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %>
+
+		<% if !task.user.nil? %>
+			<% then %>		
+				<td><center><%= task.user.full_name %></center></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %>
+
         <td><center><%= link_to image_tag("glyphicons/glyphicons_350_visual.png"), task_path(task) ,{:title => "Afficher la tâche", :class =>"btn"}  %></center></td>
       </tr>
       <% end %>

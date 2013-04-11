@@ -3,9 +3,10 @@
 
 <div class="container-fluid" style="margin-top: 1em;">
   
-  <table class="table table-bordered table-striped">
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
     <tr>
-      <th><center>#</center></th>
+	  <th><center>#</center></th>
       <th><center>Soci&eacute;t&eacute;</center></th>
       <th><center>Adresse</center></th>	  
       <th><center>Genre</center></th>
@@ -13,18 +14,56 @@
 	  <th><center>Site Web</center></th>
       <th><center>Afficher</center></th>       
     </tr>
-  
+    </thead>
+	<tbody>
   <% @accounts.each do |account| %>
     <tr>
-      <td><center><%= account.id %></center></td>
-      <td><center><%= link_to account.company, account_events_url(account),{:title => "Afficher les évenements"} %></center></td>
-      <td><center><%= account.full_adress%></center></td> 
-      <td><center><%= account.category %></center></td>
-      <td><center><%= account.tel %></center></td>
-	  <td><%= link_to account.web, account.web, :target => "_blank" %></td>
+		<% if !account.id.blank? %>
+			<% then %>
+					<td><center><%= account.id %></center></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %>
+
+		<% if !account.company.nil? %>
+			<% then %>
+				<td><center><%= link_to account.company, account_events_url(account),{:title => "Afficher les évenements"} %></center></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %>
+
+		<% if !account.full_adress.blank? %>
+			<% then %>
+				<td><center><%= account.full_adress %></center></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %>
+      
+		<% if !account.category.nil? %>
+			<% then %>
+				<td><center><%= account.category %></center></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %>
+
+		<% if !account.tel.blank? %>
+			<% then %>
+				<td><center><%= account.tel %></center></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %>
+
+		<% if !account.web.blank? %>
+			<% then %>
+				<td><%= link_to account.web, account.web, :target => "_blank" %></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %>
+
       <td><center><%= link_to image_tag("glyphicons/glyphicons_350_visual.png"), account_path(account),{:title => "Afficher le compte", :class =>"btn"} %></center></td>
     </tr>
   <% end %>
+  </tbody>
   </table>
   <%= paginate @accounts %>
   
