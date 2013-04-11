@@ -8,7 +8,7 @@
 # Status may be: To Do|In progress|Finished|Cancelled
 #
 class Task < ActiveRecord::Base
-  
+  resourcify
   #pour la verif des changements à l'update
   include ActiveModel::Dirty
 

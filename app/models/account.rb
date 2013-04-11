@@ -10,6 +10,8 @@
 #
 class Account < ActiveRecord::Base
   
+  resourcify
+  
   before_save :uppercase_company
   
   has_many :contacts

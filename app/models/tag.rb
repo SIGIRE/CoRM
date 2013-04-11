@@ -3,7 +3,7 @@
 # It can have and belongs to many Account and Contacts
 #
 class Tag < ActiveRecord::Base
-  
+  resourcify
   has_and_belongs_to_many :accounts
   has_and_belongs_to_many :contacts
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'

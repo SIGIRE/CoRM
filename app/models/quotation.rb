@@ -7,7 +7,7 @@
 # It can have some status as: Saved|In Progress|Accepted|Refused
 #
 class Quotation < ActiveRecord::Base
-  
+  resourcify
   attr_accessible :quotation_lines_attributes
   
   # Necessary to update fields with a nested form

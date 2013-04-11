@@ -5,6 +5,10 @@
 #
 class EventTypesController < ApplicationController
   
+  def getAbility
+    return Ability.new(current_user)
+  end
+  
   ##
   # Show the full list of EventType by paginate_by
   #
@@ -51,7 +55,12 @@ class EventTypesController < ApplicationController
   #
   # GET /type-evenement/1/edit
   def edit
-    @eventtype = EventType.find(params[:id])
+    if getAbility.can? :update, EventType
+      @eventtype = EventType.find(params[:id])
+    else
+      redirect_to event_types_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.EventType'))
+      return false
+    end
   end
 
   ##

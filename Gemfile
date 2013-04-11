@@ -24,7 +24,7 @@ group :assets do
   # gem 'therubyracer'
 
   gem 'uglifier', '>= 1.0.3'
-gem 'bootstrap-sass', '~> 2.3.1.0'
+  gem 'bootstrap-sass', '~> 2.3.1.0'
   gem 'execjs'
 
 end
@@ -36,13 +36,14 @@ gem 'jquery-ui-rails'
 gem 'jquery-validation-rails'
 gem 'nested_form'
 
+gem 'devise'
+gem 'cancan'
+gem 'rolify'
 
 gem 'capistrano', '~> 2.14.2', :group => :development
-gem 'devise', '~> 2.2.3'
 gem 'meta_search', '~> 1.1.3'
 gem 'kaminari', '~> 0.14.1'
 gem 'paperclip', '~> 3.4.1'
-gem 'cancan', '~> 1.6.9'
 gem 'prawn_rails', '~> 0.0.11'
 gem 'money-rails', '~> 0.8.0'
 gem 'ckeditor'

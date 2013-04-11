@@ -2,8 +2,7 @@
 # This class represents a relation between two Companies.
 #
 class Relation < ActiveRecord::Base
-  # attr_accessible :title, :body
-  
+  resourcify
   belongs_to :account1, :class_name => 'Account'
   belongs_to :account2, :class_name => 'Account'
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'

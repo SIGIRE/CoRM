@@ -9,12 +9,14 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  rolify
+  
   # nécessaire pour pouvoir modifer la valeur de ces attributs par nos propres forms
   attr_accessible :email, :password, :password_confirmation, :remember_me, :forename, :surname, :tel, :mobile, :current_password
   attr_accessor :current_password
 
   def new(args, opt)
-   if args.forname and self.forname.nil?
+   if args.forname.nil? and self.forname.nil?
       args.name = args.forename
       args.forename = nil
    end
@@ -22,18 +24,10 @@ class User < ActiveRecord::Base
    super(args, opt)
   end
 
-  @@default_user = User.new({:email => '', :forename => 'Neant', :surname => '' })
+  @@default_user = User.new({:email => '', :forename => 'Neant', :surname => ''})
 
   def self.default
      return @@default_user
-  end
-
-  def super_user?()
-    return ( (is_super_user == true) | (is_super_user == 1) )
-  end
-
-  def admin?()
-    return ( (is_admin == true) | (is_admin == 1) )
   end
 
   ##

@@ -11,7 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130411090544) do
+ActiveRecord::Schema.define(:version => 20130411141321) do
+
+  create_table "abilities", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "accounts", :force => true do |t|
     t.string   "company"
@@ -189,9 +194,9 @@ ActiveRecord::Schema.define(:version => 20130411090544) do
     t.datetime "updated_at",                                 :null => false
     t.integer  "quotation_id"
     t.integer  "price_excl_tax_cents",    :default => 0,     :null => false
-    t.string   "price_excl_tax_currency", :default => "EUR", :null => false
+    t.string   "price_excl_tax_currency", :default => "USD", :null => false
     t.integer  "total_excl_tax_cents",    :default => 0,     :null => false
-    t.string   "total_excl_tax_currency", :default => "EUR", :null => false
+    t.string   "total_excl_tax_currency", :default => "USD", :null => false
     t.decimal  "quantity"
   end
 
@@ -241,9 +246,9 @@ ActiveRecord::Schema.define(:version => 20130411090544) do
     t.integer  "opportunity_id"
     t.integer  "quotation_template_id"
     t.integer  "total_excl_tax_cents",    :default => 0,     :null => false
-    t.string   "total_excl_tax_currency", :default => "EUR", :null => false
+    t.string   "total_excl_tax_currency", :default => "USD", :null => false
     t.integer  "total_incl_tax_cents",    :default => 0,     :null => false
-    t.string   "total_incl_tax_currency", :default => "EUR", :null => false
+    t.string   "total_incl_tax_currency", :default => "USD", :null => false
     t.string   "company"
     t.string   "adress1"
     t.string   "adress2"
@@ -256,7 +261,7 @@ ActiveRecord::Schema.define(:version => 20130411090544) do
     t.string   "job"
     t.decimal  "VAT_rate"
     t.integer  "total_VAT_cents",         :default => 0,     :null => false
-    t.string   "total_VAT_currency",      :default => "EUR", :null => false
+    t.string   "total_VAT_currency",      :default => "USD", :null => false
     t.string   "label"
   end
 
@@ -269,6 +274,17 @@ ActiveRecord::Schema.define(:version => 20130411090544) do
     t.integer  "created_by"
     t.integer  "updated_by"
   end
+
+  create_table "roles", :force => true do |t|
+    t.string   "name"
+    t.integer  "resource_id"
+    t.string   "resource_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
+  add_index "roles", ["name"], :name => "index_roles_on_name"
 
   create_table "tags", :force => true do |t|
     t.string   "name"
@@ -322,5 +338,12 @@ ActiveRecord::Schema.define(:version => 20130411090544) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "users_roles", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+  end
+
+  add_index "users_roles", ["user_id", "role_id"], :name => "index_users_roles_on_user_id_and_role_id"
 
 end

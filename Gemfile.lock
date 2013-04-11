@@ -162,6 +162,7 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.4)
+    rolify (3.2.0)
     ruby-rc4 (0.1.5)
     sass (3.2.7)
     sass-rails (3.2.6)
@@ -195,12 +196,12 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass (~> 2.3.1.0)
-  cancan (~> 1.6.9)
+  cancan
   capistrano (~> 2.14.2)
   ckeditor
   coffee-rails (~> 3.2.1)
   compass
-  devise (~> 2.2.3)
+  devise
   execjs
   jquery-rails
   jquery-ui-rails
@@ -214,6 +215,7 @@ DEPENDENCIES
   pg (~> 0.14.1)
   prawn_rails (~> 0.0.11)
   rails
+  rolify
   sass-rails (~> 3.2)
   therubyracer
   uglifier (>= 1.0.3)

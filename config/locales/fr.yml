@@ -273,3 +273,34 @@ fr:
   app:
     default:
       subject: Sujet
+      undefine_article_male: un
+      undefine_article_female: une
+      undefine_article_plural: des
+    actions:
+      create: créer
+      new: créer
+      update: éditer
+      edit: éditer
+      destroy: supprimer
+    cancan:
+      messages:
+        unauthorized: "Vous n'êtes pas autoriser à [action] [undefined_article] [model]"
+    controllers:
+      EventType: "type d'évènement"
+      Event: évènement
+      Account: compte
+      Contact: contact
+      Quotation: Devis
+      QuotationLine: ligne de devis
+      QuotationTemplate: modèle
+      Relation: relation
+      Tag: tag
+      Task: Tache
+      User: Utilisateur
+      Opportunity: opportunité
+      Document: document
+      Origin: origine
+      Role: role
+      Ability: droit
+      
+      

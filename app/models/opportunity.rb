@@ -6,6 +6,8 @@
 #
 class Opportunity < ActiveRecord::Base
   
+  resourcify
+  
   belongs_to :contact
   belongs_to :account
   belongs_to :user

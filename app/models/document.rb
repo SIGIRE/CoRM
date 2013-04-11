@@ -4,6 +4,8 @@
 #
 class Document < ActiveRecord::Base
   
+  resourcify
+  
   belongs_to :account
   belongs_to :user
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'

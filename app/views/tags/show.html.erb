@@ -13,7 +13,7 @@
           <td>  
             <div class="span2">
               <h3>Nom :</h3>
-              <%= @tag.nom %></span>
+              <%= @tag.name %></span>
             </div>
           </td>
         </tr>
@@ -44,11 +44,15 @@
           <td colspan="4">
             <div class="pull-left">
               <%= link_to image_tag("glyphicons/glyphicons_221_unshare.png"), :back %>
-              <%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_tag_path(@tag) %>   
+              <% if current_user.has_role? :super_user or current_user.has_role? :admin %>
+                <%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_tag_path(@tag) %>   
+              <% end %>
             </div>
+            <% if current_user.has_role? :super_user or current_user.has_role? :admin %>
             <div class="pull-right">
               <%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), @tag, :confirm => 'Confirmer la suppression ?', :method => :delete %>
             </div>
+            <% end %>
           </td>
         </tr>
        </tbody>

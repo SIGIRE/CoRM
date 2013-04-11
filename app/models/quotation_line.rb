@@ -3,6 +3,7 @@
 # a quantity and a Duty-Free Price
 #
 class QuotationLine < ActiveRecord::Base
+  resourcify
   belongs_to :Quotation
   
   monetize :price_excl_tax_cents

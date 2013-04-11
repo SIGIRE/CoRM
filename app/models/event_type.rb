@@ -3,6 +3,9 @@
 # it is defined by an action (call) and a direction (incoming, outgoing)
 #
 class EventType < ActiveRecord::Base
+
+  resourcify
+  
   has_many :events
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'

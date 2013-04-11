@@ -32,11 +32,9 @@ Crm::Application.configure do
   # Do not compress assets
   config.assets.compress = false
 
-  config.assets.precompile += %w( corm_app.js )
-
 
   # Expands the lines which load the assets
-  config.assets.debug = true
+  config.assets.debug = false
 
 
 end

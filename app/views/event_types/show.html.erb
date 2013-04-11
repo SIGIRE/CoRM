@@ -17,11 +17,12 @@
 
 <p>
   <b>Modified by:</b>
-  <% if (!@eventtype.updated_by.nil?) %>
+  <% if (!@eventtype.modified_by.nil?) %>
     <%= @eventtype.editor.full_name %>
   <% end %>
 </p>
 
 
-<%= link_to 'Edit', edit_event_type_path(@type) %> |
+<%= link_to 'Edit', edit_event_type_path(@eventtype) %> |
+
 <%= link_to 'Back', event_type_path %>

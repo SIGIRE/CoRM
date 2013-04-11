@@ -3,7 +3,7 @@
 # It can contains a file
 #
 class QuotationTemplate < ActiveRecord::Base
-
+resourcify
   has_many :quotation
   has_attached_file :attach
   

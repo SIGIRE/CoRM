@@ -4,6 +4,9 @@
 # So, an Event is defined by a Contact, an Account, an EventType, a User and a Task
 #
 class Event < ActiveRecord::Base
+
+  resourcify
+
   belongs_to :contact
   belongs_to :account
   belongs_to :event_type
