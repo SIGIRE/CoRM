@@ -236,8 +236,8 @@ fr:
       inactive: "Votre compte n'est pas encore activé."
       not_authorized: "Vous n'êtes pas autorisé à effectuer cette action"
     sessions:
-      signed_in: "Connecté."
-      signed_out: "Déconnecté."
+      signed_in: "Vous êtes à présent connecté."
+      signed_out: "Vous vous êtes correctement déconnecté."
     passwords:
       send_instructions: 'Vous allez recevoir les instructions de réinitialisation du mot de passe dans quelques instants'
       updated: 'Votre mot de passe a été édité avec succès, vous êtes maintenant connecté'

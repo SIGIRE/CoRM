@@ -34,7 +34,7 @@
   </div>
   
   <div class="field">
-    <div class="span2"> Affectée à : </div> <%= f.collection_select :user_id, User.all, :id, :full_name %> <img src="/assets/icons/loading.gif" class="loading hidden" /> <%= check_box_tag :mail, "yes"%> Envoyer un email à ce collaborateur
+    <div class="span2"> Affectée à : </div> <%= f.collection_select :user_id, User.all, :id, :full_name %> <%= check_box_tag :mail, "yes"%> Envoyer un email à ce collaborateur
   </div>
   
     <div class="field">

@@ -1,3 +1,5 @@
+
+/*= require ./jquery-ui.css */
 $navbarBackgroundHighlight: #333;
 $navbarBackground: lighten($navbarBackgroundHighlight, 5%);
 $navbarBorder: lighten($navbarBackground, 12%);
@@ -8,6 +10,7 @@ $navbarLinkColorActive: #FFF;
 $navbarBackground: #2C2C2C;
 
 @import "bootstrap";
+
 @mixin border-radius-top-left($radius) {
   -webkit-border-top-left-radius: $radius;
   -moz-border-top-left-radius: $radius;
@@ -34,9 +37,7 @@ $navbarBackground: #2C2C2C;
   -webkit-transition: $param $duration; /* Safari and Chrome */
   -o-transition: $param $duration; /* Opera */
 }
-/*
- *= require jquery.ui.all
- */
+
 @import "./bootstrap_overrides.css.scss";
 @import "bootstrap-responsive";
 

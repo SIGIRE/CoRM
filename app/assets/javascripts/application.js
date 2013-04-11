@@ -1,6 +1,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.datepicker
+//= require jquery.ui.datepicker-fr
 //= require jquery_nested_form
 //= require jquery.validate
 //= require bootstrap

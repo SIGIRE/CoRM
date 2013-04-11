@@ -9,14 +9,19 @@ $(document).ready(function() {
   });
   
   /* datepicker for all this classes/ids */
-  $("#filter_begin").datepicker();
-  $("#filter_end").datepicker();
-  $("#tache_term").datepicker();
-  $(".event_date").datepicker(); /* OK */
-  $("#opportunity_term").datepicker(); /* OK */
-  $("#quotation_date").datepicker();
-  $("#task_term").datepicker();
-  
+  if (true) {
+    var lang = $.datepicker.regional[ 'fr' ];
+    $.datepicker.setDefaults({
+      dateFormat: "dd/mm/yy"
+    });
+    $("#filter_begin").datepicker(lang);
+    $("#filter_end").datepicker(lang);
+    $("#tache_term").datepicker(lang);
+    $(".event_date").datepicker(lang);
+    $("#opportunity_term").datepicker(lang);
+    $("#quotation_date").datepicker(lang);
+    $("#task_term").datepicker(lang); 
+  }
   /* jQuery Validator about .required class */
   $.validator.messages.required = "Ce champs est requis !";
   $('form').each(function() {
