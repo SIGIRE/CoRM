@@ -22,7 +22,8 @@
 	  company = @task.account.company.html_safe
 	end
       %>
-      <p><input value="<%= company %>" class="typeahead-search-account search_account by_name as_value" type="search" data-function='var f = function(i) { $("#task_account_id").val(i.id); getContact("/taches/update_contact_select/", i.id, function(o) { var item = ""; for(var i in o) { item += "<option value=\"" + o[i].id + "\">" + o[i].title + " " + o[i].forename + " " + o[i].surname + "</option>"; } $("#task_contact_id").html(item); }); return i.name; };' /><span class="label label-info" id="task_notice"  style="display: none; margin-left: 2em;"><i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant</span></p>
+      
+      <p><input value="<%= company %>" id="task-account-search" type="search" /><img src="/assets/icons/loading.gif" class="loading hidden" /><span class="label label-info" id="task_notice"  style="display: none; margin-left: 2em;"><i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant</span></p>
     <%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'task_account_id', :include_blank => true } %>
       
     
@@ -33,7 +34,7 @@
   </div>
   
   <div class="field">
-    <div class="span2"> Affectée à : </div> <%= f.collection_select :user_id, User.all, :id, :full_name %> <%= check_box_tag :mail, "yes"%> Envoyer un email à ce collaborateur
+    <div class="span2"> Affectée à : </div> <%= f.collection_select :user_id, User.all, :id, :full_name %> <img src="/assets/icons/loading.gif" class="loading hidden" /> <%= check_box_tag :mail, "yes"%> Envoyer un email à ce collaborateur
   </div>
   
     <div class="field">

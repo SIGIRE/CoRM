@@ -147,9 +147,11 @@ class AccountsController < ApplicationController
         Account.where('company LIKE ?', company).select('id, company AS name').limit(10).each {|e|
           @elements.push({ :id => e.id, :name => e.name, :type => 'account' }) 
         }
-        Contact.where('surname LIKE ? OR forename LIKE ?', company, company).select('id, title, forename, surname').limit(10).each {|e|
-          @elements.push({ :id => e.id, :name => e.full_name, :type => 'contact' })
-        }
+        if (!params[:contacts].nil? and params[:contacts] == 'true')
+          Contact.where('surname LIKE ? OR forename LIKE ?', company, company).select('id, title, forename, surname').limit(10).each {|e|
+            @elements.push({ :id => e.id, :name => e.full_name, :type => 'contact' })
+          } 
+        end
         @response = @elements
       else
         @accounts = Account.where('company LIKE ?', company).page(params[:page]).per(25)
