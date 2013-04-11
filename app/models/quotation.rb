@@ -13,7 +13,7 @@ class Quotation < ActiveRecord::Base
   # Necessary to update fields with a nested form
   attr_accessible :ref, :date, :account_id, :ref_account, :user_id, :validity, 
     :mode_reg, :statut, :opportunity_id, :attach, :contact_id, :quotation_template_id,
-    :created_by, :updated_by
+    :created_by, :updated_by, :label
   
   belongs_to :opportunity
   belongs_to :contact

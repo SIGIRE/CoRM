@@ -13,16 +13,16 @@
 </div>
 
 <div class="container-fluid" style="margin-top: 1em;"">
-<div class="well">
 
-<table class="table table-bordered table-striped">
-<tbody>
+<table class="table table-bordered table-striped table-hover">
+	<thead>
 		<tr>
 		<td colspan="2">
 		<center><h2>Détails</h2></center>
 		</td>
 		</tr>
-		
+	</thead>
+		<tbody>		
 	<% if !@contact.title.blank? %>
 		<tr>
 		<td class="span3">
@@ -37,7 +37,7 @@
 
 		<% if !@contact.forename.blank? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Prénom</h3>
 		</td>
 		<td>
@@ -48,7 +48,7 @@
 	
 	<% if !@contact.surname.blank? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Nom</h3>
 		</td>
 		<td>
@@ -59,7 +59,7 @@
 	
 	<% if !@contact.tel.blank? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Téléphone</h3>
 		</td>
 		<td>
@@ -71,7 +71,7 @@
 
 	<% if !@contact.mobile.blank? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Mobile</h3>
 		</td>
 		<td>
@@ -82,7 +82,7 @@
 
 	<% if !@contact.fax.blank? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Fax</h3>
 		</td>
 		<td>
@@ -94,7 +94,7 @@
 	
 	<% if !@contact.email.blank? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Adresse e-mail</h3>
 		</td>
 		<td>
@@ -105,7 +105,7 @@
 	
 	<% if !@contact.job.blank? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Fonction</h3>
 		</td>
 		<td>
@@ -120,16 +120,18 @@
 <!-- NOTES -->		
 		
 	<% if !@contact.notes.blank? %>
-	<table class="table table-bordered table-striped">
-	<tbody>
+	<table class="table table-bordered table-striped table-hover">
+	<thead>
 		<tr>
 		<td colspan="2">
 		<center><h2>Notes</h2></center>
 		</td>
 		</tr>
+	</thead>
+	<tbody>
 		<tr>
 		<td>
-		<div style="background-color: #fff; padding: 1px 15px;"> <%= simple_format(@contact.notes , {}, :sanitize => false)%> </div>
+		<%= simple_format(@contact.notes , {}, :sanitize => false)%> 
 		</td>
 		</tr>
 	</tbody>
@@ -139,15 +141,15 @@
 	
 	<!-- ACCOUNT INFO -->
 	<% if !@contact.account.nil? %>	
-		<table class="table table-bordered table-striped">
-		<tbody>
+		<table class="table table-bordered table-striped table-hover">
+		<thead>
 		<tr>
 		<td colspan="2">
 		<center><h2>Compte</h2></center>
 		</tr>
 		</td>
-		
-	
+		</thead>		
+		<tbody>
 		<tr>
 		<td class="span3">
 			<h3>Société</h3>
@@ -160,7 +162,7 @@
 	
 		<% if !@contact.account.full_adress.blank? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Adresse</h3>
 		</td>
 		<td>
@@ -171,7 +173,7 @@
 	
 		<% if !@contact.account.tel.blank? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Téléphone</h3>
 		</td>
 		<td>
@@ -184,7 +186,7 @@
 		
 	<% if !@contact.account.fax.blank? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Fax</h3>
 		</td>
 		<td>
@@ -195,7 +197,7 @@
 	
 	<% if !@contact.account.category.blank? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Genre</h3>
 		</td>
 		<td>
@@ -212,13 +214,16 @@
 	
 
 	<!-- OTHER INFO -->
-		<table class="table table-bordered table-striped">
-	<tbody>
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
 		<tr>
 		<td colspan="2">
 		<center><h2>Informations complémentaires</h2></center>
-		</tr>
 		</td>
+		</tr>
+			</thead>
+		
+			<tbody>
 		<tr>
 		<td class="span3"><h3>Créé par</h3></td>
 		
@@ -252,4 +257,3 @@
   <div class="row">
       <%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), @contact, :title => "Supprimer le contact" , :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete %>    
   </div>	
-  </div>

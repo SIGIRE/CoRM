@@ -14,10 +14,9 @@
 </div>
 
 <div class="container-fluid" style="margin-top: 1em;"">
-<div class="well">
 
-<table class="table table-bordered table-striped">
-<tbody>
+<table class="table table-bordered table-striped table-hover">
+    <thead>
 		<tr>
 	
 		<td colspan="2">
@@ -25,7 +24,8 @@
 		</td>
 
 		</tr>
-		
+		    </thead>
+<tbody>		
 
 	<% if !@account.company.nil? %>
 		<tr>
@@ -41,7 +41,7 @@
 		
 	<% if !@account.full_adress.blank? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Adresse</h3>
 		</td>
 		<td>
@@ -54,7 +54,7 @@
 
 	<% if !@account.country.blank? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Pays</h3>
 		</td>
 		<td>
@@ -67,7 +67,7 @@
 
 	<% if !@account.tel.blank? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Téléphone</h3>
 		</td>
 		<td>
@@ -80,7 +80,7 @@
 		
 	<% if !@account.fax.blank? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Fax</h3>
 		</td>
 		<td>
@@ -92,7 +92,7 @@
 
 	<% if !@account.email.blank? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Adresse e-mail</h3>
 		</td>
 		<td>
@@ -105,7 +105,7 @@
 
 	<% if !@account.web.blank? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Site Web</h3>
 		</td>
 		<td>
@@ -118,7 +118,7 @@
 
 	<% if !@account.category.blank? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Genre</h3>
 		</td>
 		<td>
@@ -131,7 +131,7 @@
 
 	<% if !@account.origin.nil? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Origine</h3>
 		</td>
 		<td>
@@ -146,14 +146,14 @@
 		<tr>
 	<% if current_user.email == @account.user.email %>
 		<% then %>
-		<td>
+		<td class="span3">
 			<h3>Collaborateur lié</h3>
 		</td>
 		<td>
 			moi-même
 		</td>
 		<% else %>
-		<td>
+		<td class="span3">
 			<h3>Collaborateur lié</h3>
 		</td>
 		<td>
@@ -166,7 +166,7 @@
 
 	<% if  !@account.accounting_code.blank? %>
 		<tr>
-		<td>
+		<td class="span3">
 			<h3>Code comptable</h3>
 		</td>
 		<td>
@@ -181,16 +181,19 @@
 		
 		
 	<% if !@account.notes.blank? %>
-	<table class="table table-bordered table-striped">
-	<tbody>
+	<table class="table table-bordered table-striped table-hover">
+	<thead>
 		<tr>
 		<td colspan="2">
 		<center><h2>Notes</h2></center>
 		</td>
 		</tr>
+		</thead>
+			<tbody>
 		<tr>
 		<td>
-		<div style="background-color: #fff; padding: 1px 15px;"> <%= simple_format(@account.notes , {}, :sanitize => false)%> </div>
+		<!-- <div style="background-color: #fff; padding: 1px 15px;"> <%= simple_format(@account.notes , {}, :sanitize => false)%> </div> -->
+		<%= simple_format(@account.notes , {}, :sanitize => false)%>
 		</td>
 		</tr>
 	</tbody>
@@ -199,13 +202,15 @@
 		
 <!-- CONTACT INFO -->
 	<% if !@account.contacts.nil? %>
-	<table class="table table-bordered table-striped">
-	<tbody>
+	<table class="table table-bordered table-striped table-hover">
+	<thead>
 		<tr>
 			<td colspan="6">
 		        <center><h2>Contacts</h2></center>
 		    </td>
 		</tr>
+	</thead>		
+			<tbody>
 		<tr>
 			<td>
 		        <center><h4>Nom</h4></center>
@@ -290,13 +295,15 @@
 <!--CONTACT INFO -->		
 		
 	<!-- OTHER INFO -->
-		<table class="table table-bordered table-striped">
-	<tbody>
+		<table class="table table-bordered table-striped table-hover">
+		<thead>
 		<tr>
 		<td colspan="2">
 		<center><h2>Informations complémentaires</h2></center>
-		</tr>
 		</td>
+		</tr>
+		</thead>
+		<tbody>
 		<tr>
 		<td class="span3"><h3>Créé par</h3></td>
 		
@@ -304,7 +311,7 @@
 			<% then %>
 			<td>moi-même, le <%= @account.created_at.strftime("%d/%m/%y à %H:%M") %></td>
 			<% else %>
-			<td><%= @account.author.full_name %>, le <%= @account.created_at.strftime("%d/%m/%y à %H:%M") %></td>
+			<td class="span3"><%= @account.author.full_name %>, le <%= @account.created_at.strftime("%d/%m/%y à %H:%M") %></td>
 		<% end %>
 		</tr>
 
@@ -332,4 +339,4 @@
   <div class="row">
       <%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), @account, :title => "Supprimer la tâche" , :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete %>    
   </div>	
-  </div>
+
