@@ -85,12 +85,17 @@ $(document).ready(function() {
     return beginswith.concat(caseSensitive, caseInsensitive) 
   };
   
+  var tolerance = 0;
+  
   /*
    * Main Search Bar
    * GET *.html
    */
   $('#main-search-bar').typeahead({
     source: function(typeahead, query) {
+      if (typeahead.trim().length <= tolerance) {
+        return false;
+      }
       $.ajax({
           url: '/compte/search.json?contacts=true&account=' + typeahead,
           type: 'GET',
@@ -117,6 +122,9 @@ $(document).ready(function() {
    */
   $('#task-account-search').typeahead({
     source: function(typeahead, query) {
+      if (typeahead.trim().length <= tolerance) {
+        return false;
+      }
       $.ajax({
           url: '/compte/search.json?account=' + typeahead,
           type: 'GET',

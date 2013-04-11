@@ -9,7 +9,7 @@ $(document).ready(function() {
   });
   
   /* datepicker for all this classes/ids */
-  if (true) {
+  if ($.datepicker) {
     var lang = $.datepicker.regional[ 'fr' ];
     $.datepicker.setDefaults({
       dateFormat: "dd/mm/yy"
@@ -22,11 +22,14 @@ $(document).ready(function() {
     $("#quotation_date").datepicker(lang);
     $("#task_term").datepicker(lang); 
   }
-  /* jQuery Validator about .required class */
-  $.validator.messages.required = "Ce champs est requis !";
-  $('form').each(function() {
-    $(this).validate();
-  });
+  if ($.validator) {
+    /* jQuery Validator about .required class */
+    $.validator.messages.required = "Ce champs est requis !";
+    $('form').each(function() {
+      $(this).validate();
+    }); 
+  }
+  
   
   // Generate contact list in opportunity edtion
   $("#opportunity_account_id").change(function() {
