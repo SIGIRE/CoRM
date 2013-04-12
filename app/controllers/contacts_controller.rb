@@ -43,11 +43,16 @@ class ContactsController < ApplicationController
   # GET /contacts/new
   # GET /contacts/new.json
   def new
-    @contact = Contact.new
+    if @ability.can? :create, Contact
+      @contact = Contact.new
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @contact }
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render :json => @contact }
+      end
+    else
+      redirect_to contacts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
+      return false
     end
   end
 
@@ -56,7 +61,12 @@ class ContactsController < ApplicationController
   #
   # GET /contacts/1/edit
   def edit
-    @contact = Contact.find(params[:id])
+    if @ability.can? :update, Contact
+      @contact = Contact.find(params[:id])
+    else
+      redirect_to contacts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
+      return false
+    end
   end
 
   ##
@@ -65,33 +75,38 @@ class ContactsController < ApplicationController
   # POST /contacts
   # POST /contacts.json
   def create
-    @contact = Contact.new(params[:contact])
-    @contact.created_by = current_user.id
-
-    # Manage the has_and_belongs relation between Accounts and Tags
-    # if there is no one associate tag, we delete links
-    if params[:display_contact_produit].nil?
-      @contact.tags.clear
-    #sinon on recrée tous les liens avec les produits, dont les nouveaux produits
-    else
-      tag = Tag.find(params[:display_contact_tag])
-      @contact.tags.clear
-      @contact.tags << tag
-    end
-        
-    respond_to do |format|
-      if @contact.save
-        format.html {
-          if  (@contact.account).nil?  then redirect_to contacts_path, :notice => 'Le contact a été créé.'
-          else redirect_to account_events_url(@contact.account_id), :notice => "Le contact a été créé."
-          end
-        }
-        
-        format.json { render :json => @contact, :status => :created, :location => @contact }
+    if @ability.can? :create, Contact
+      @contact = Contact.new(params[:contact])
+      @contact.created_by = current_user.id
+  
+      # Manage the has_and_belongs relation between Accounts and Tags
+      # if there is no one associate tag, we delete links
+      if params[:display_contact_produit].nil?
+        @contact.tags.clear
+      #sinon on recrée tous les liens avec les produits, dont les nouveaux produits
       else
-        format.html { render :action => "new" }
-        format.json { render :json => @contact.errors, :status => :unprocessable_entity }
+        tag = Tag.find(params[:display_contact_tag])
+        @contact.tags.clear
+        @contact.tags << tag
       end
+          
+      respond_to do |format|
+        if @contact.save
+          format.html {
+            if  (@contact.account).nil?  then redirect_to contacts_path, :notice => 'Le contact a été créé.'
+            else redirect_to account_events_url(@contact.account_id), :notice => "Le contact a été créé."
+            end
+          }
+          
+          format.json { render :json => @contact, :status => :created, :location => @contact }
+        else
+          format.html { render :action => "new" }
+          format.json { render :json => @contact.errors, :status => :unprocessable_entity }
+        end
+      end
+    else
+      redirect_to contacts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
+      return false
     end
   end
 
@@ -101,29 +116,33 @@ class ContactsController < ApplicationController
   # PUT /contacts/1
   # PUT /contacts/1.json
   def update
-    @contact = Contact.find(params[:id])
-    @contact.modified_by = current_user.id
-    
-    # same treatment as #create
-    if params[:display_contact_tag].nil?
-      @contact.tags.clear
-    else
-      tag = Tag.find(params[:display_contact_tag])
-      @contact.tags.clear
-      @contact.tags << tag
-    end
-
-    respond_to do |format|
-      if @contact.update_attributes(params[:contact])
-        format.html {
-          if  (@contact.account).nil?  then redirect_to contacts_path, :notice => 'Le contact a été mis à jour.'
-          else redirect_to account_events_url(@contact.account_id), :notice => 'Le contact a été mis à jour.'
-          end }
-        format.json { head :no_content }
+    if @ability.can? :update, Contact
+      @contact = Contact.find(params[:id])
+      @contact.modified_by = current_user.id
+      
+      # same treatment as #create
+      if params[:display_contact_tag].nil?
+        @contact.tags.clear
       else
-        format.html { render :action => "edit" }
-        format.json { render :json => @contact.errors, :status => :unprocessable_entity }
+        tag = Tag.find(params[:display_contact_tag])
+        @contact.tags.clear
+        @contact.tags << tag
       end
+      respond_to do |format|
+        if @contact.update_attributes(params[:contact])
+          format.html {
+            if  (@contact.account).nil?  then redirect_to contacts_path, :notice => 'Le contact a été mis à jour.'
+            else redirect_to account_events_url(@contact.account_id), :notice => 'Le contact a été mis à jour.'
+            end }
+          format.json { head :no_content }
+        else
+          format.html { render :action => "edit" }
+          format.json { render :json => @contact.errors, :status => :unprocessable_entity }
+        end
+      end
+    else
+      redirect_to contacts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
+      return false
     end
   end
 
@@ -133,12 +152,17 @@ class ContactsController < ApplicationController
   # DELETE /contacts/1
   # DELETE /contacts/1.json
   def destroy
-    @contact = Contact.find(params[:id])
-    @contact.destroy
-
-    respond_to do |format|
-      format.html { redirect_to contacts_url }
-      format.json { head :no_content }
+    if @ability.can? :destroy, Contact
+      @contact = Contact.find(params[:id])
+      @contact.destroy
+  
+      respond_to do |format|
+        format.html { redirect_to contacts_url }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to contacts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
+      return false
     end
   end
   

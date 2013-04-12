@@ -25,7 +25,7 @@ $(document).ready(function() {
   if ($.validator) {
     /* jQuery Validator about .required class */
     $.validator.messages.required = "Ce champs est requis !";
-    $('form').each(function() {
+    $('form:not(#new_user)').each(function() {
       $(this).validate();
     }); 
   }
@@ -36,7 +36,7 @@ $(document).ready(function() {
     var account = $('select#opportunity_account_id :selected').val();
     if(account == "") { account="0"; }
   
-    $.get('/opportunities/update_contact_select/' + account, 
+    $.get('/opportunites/update_contact_select/' + account, 
       function(data){
         $("#nameContacts").html(data);
       }
@@ -50,14 +50,14 @@ $(document).ready(function() {
     var account = $('select#quotation_account_id :selected').val();
     if(account == "") { account="0"; }
     if ($('#nameContact')) {
-      $.get('/quotations/update_contact_select/' + account, 
+      $.get('/devis/update_contact_select/' + account, 
         function(data){
             $("#nameContacts").html(data);
         }
       );
     }
     if ($('#nameOpportunity')) {
-      $.get('/quotations/update_opportunity_select/' + account, 
+      $.get('/devis/update_opportunity_select/' + account, 
         function(data){
             $("#nameOpportunity").html(data);
         }

@@ -5,10 +5,6 @@
 #
 class EventTypesController < ApplicationController
   
-  def getAbility
-    return Ability.new(current_user)
-  end
-  
   ##
   # Show the full list of EventType by paginate_by
   #
@@ -30,11 +26,18 @@ class EventTypesController < ApplicationController
   # GET /type-evenement/1.json
   #
   def show
-    @eventtype = EventType.find(params[:id])
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @eventtype }
+    if @ability.can? :read, EventType
+      @eventtype = EventType.find(params[:id])
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render :json => @eventtype }
+      end
+    else
+      redirect_to event_types_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.EventType'))
+      return false
     end
+    
+    
   end
 
   ##
@@ -43,10 +46,15 @@ class EventTypesController < ApplicationController
   # GET /type-evenement/new
   # GET /type-evenement/new.json
   def new
-    @eventtype = EventType.new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @eventtype }
+    if @ability.can? :create, EventType
+      @eventtype = EventType.new
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render :json => @eventtype }
+      end
+    else
+      redirect_to event_types_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.EventType'))
+      return false
     end
   end
   
@@ -55,7 +63,7 @@ class EventTypesController < ApplicationController
   #
   # GET /type-evenement/1/edit
   def edit
-    if getAbility.can? :update, EventType
+    if @ability.can? :update, EventType
       @eventtype = EventType.find(params[:id])
     else
       redirect_to event_types_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.EventType'))
@@ -69,17 +77,22 @@ class EventTypesController < ApplicationController
   # POST /type-evenement
   # POST /type-evenement.json
   def create
-    @eventtype = EventType.new(params[:type])
-    @eventtype.created_by = current_user.id
-    
-    respond_to do |format|
-      if @eventtype.update_attributes(params[:event_type])
-        format.html { redirect_to event_types_url, :notice => 'Le type a été créé.' }
-        format.json { render :json => @eventtype, :status => :created, :location => @eventtype }
-      else
-        format.html { render :action => "new" }
-        format.json { render :json => @eventtype.errors, :status => :unprocessable_entity }
+    if @ability.can? :create, EventType
+      @eventtype = EventType.new(params[:type])
+      @eventtype.created_by = current_user.id
+      
+      respond_to do |format|
+        if @eventtype.update_attributes(params[:event_type])
+          format.html { redirect_to event_types_url, :notice => 'Le type a été créé.' }
+          format.json { render :json => @eventtype, :status => :created, :location => @eventtype }
+        else
+          format.html { render :action => "new" }
+          format.json { render :json => @eventtype.errors, :status => :unprocessable_entity }
+        end
       end
+    else
+      redirect_to event_types_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.EventType'))
+      return false
     end
   end
 
@@ -89,16 +102,21 @@ class EventTypesController < ApplicationController
   # PUT /type-evenement/1
   # PUT /type-evenement/1.json
   def update
-    @eventtype = EventType.find(params[:id])
-    @eventtype.modified_by = current_user.id
-    respond_to do |format|
-      if @eventtype.update_attributes(params[:event_type])
-        format.html { redirect_to event_types_path, :notice => 'Le type a été mis à jour.' }
-        format.json { head :no_content }
-      else
-        format.html { render :action => "edit" }
-        format.json { render :json => @eventtype.errors, :status => :unprocessable_entity }
+    if @ability.can? :update, EventType
+      @eventtype = EventType.find(params[:id])
+      @eventtype.modified_by = current_user.id
+      respond_to do |format|
+        if @eventtype.update_attributes(params[:event_type])
+          format.html { redirect_to event_types_path, :notice => 'Le type a été mis à jour.' }
+          format.json { head :no_content }
+        else
+          format.html { render :action => "edit" }
+          format.json { render :json => @eventtype.errors, :status => :unprocessable_entity }
+        end
       end
+    else
+      redirect_to event_types_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.EventType'))
+      return false
     end
   end
 
@@ -108,12 +126,17 @@ class EventTypesController < ApplicationController
   # DELETE /type-evenement/1
   # DELETE /type-evenement/1.json
   def destroy
-    @eventtype = EventType.find(params[:id])
-    @eventtype.destroy
-
-    respond_to do |format|
-      format.html { redirect_to event_types_url }
-      format.json { head :no_content }
+    if @ability.can? :destroy, EventType
+      @eventtype = EventType.find(params[:id])
+      @eventtype.destroy
+  
+      respond_to do |format|
+        format.html { redirect_to event_types_url }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to event_types_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.EventType'))
+      return false
     end
   end
   

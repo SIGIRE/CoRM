@@ -4,11 +4,11 @@
     <h2>Édition du compte utilisateur</h2>
   </div>
   
-  <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put , :class => "well"}) do |f| %>
+  <%= form_for(@user, :url => user_path(@user), :html => { :method => :put , :class => "well"}) do |f| %>
     <%= devise_error_messages! %>
   
     <div class="field">Login : <br />
-    <%= f.email_field :email , :disabled => true %>
+    <%= f.email_field :email , :disabled => @email_disabled %>
     <a id="profil_mdp" class="btn btn-success btn-small" data-toggle="modal" href="#edit_profile_modal" style="margin-bottom: 8px;">Modifier mon mot de passe</a>
     </div>
     
@@ -23,6 +23,8 @@
     
     <div class="field">Tél mobile : <br />
     <%= f.text_field :mobile %></div>
+    
+    <div class="field"><label for="user[enabled]" class="checkbox">Activé<input <%= (@user.enabled == true ? 'checked=checked' : '') %> type="checkbox" name="user[enabled]" id="user[enabled]" value="1" /></label></div>
     
     <div class="modal hide fade" id="edit_profile_modal">
       
@@ -46,7 +48,6 @@
           Confirmer mot de passe : <br />
         <%= f.password_field :password_confirmation , :id => "pwd_confirm"%>
         </div>
-      
       </div>
       
       <div class="modal-footer">

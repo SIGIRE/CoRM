@@ -30,12 +30,15 @@ class AccountsController < ApplicationController
   # GET /accounts/1
   # GET /accounts/1.json
   def show
-    @account = Account.find(params[:id])
-
-    
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @account }
+    if @ability.can? :read, Account
+      @account = Account.find(params[:id])
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render :json => @account }
+      end
+    else
+      redirect_to accounts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      return false
     end
   end
 
@@ -45,12 +48,17 @@ class AccountsController < ApplicationController
   # GET /accounts/new
   # GET /accounts/new.json
   def new
-    @account = Account.new
-    @account.user = current_user
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @account }
+    if @ability.can? :create, Account
+      @account = Account.new
+      @account.user = current_user
+  
+      respond_to do |format|
+        format.html # new.html.erb
+        format.json { render :json => @account }
+      end
+    else
+      redirect_to accounts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      return false
     end
   end
 
@@ -59,7 +67,12 @@ class AccountsController < ApplicationController
   #
   # GET /accounts/1/edit
   def edit
-    @account = Account.find(params[:id])
+    if @ability.can? :update, Account
+      @account = Account.find(params[:id])
+    else
+      redirect_to accounts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      return false
+    end
   end
 
   ##
@@ -68,25 +81,30 @@ class AccountsController < ApplicationController
   # POST /accounts
   # POST /accounts.json
   def create
-    @account = Account.new(params[:account])
-    @account.created_by = current_user.id
-    
-    if params[:display_account_tag].nil?
-      @account.tags.clear
-    else
-      tag = Tag.find(params[:display_account_tag])
-      @account.tags.clear
-      @account.tags << tag #unless @compte.produits.exists?(produit)
-    end
-
-    respond_to do |format|
-      if @account.save
-        format.html { redirect_to accounts_path, :notice => 'Le compte a été créé.' }
-        format.json { render :json => @account, :status => :created, :location => @account }
+    if @ability.can? :create, Account
+      @account = Account.new(params[:account])
+      @account.created_by = current_user.id
+      
+      if params[:display_account_tag].nil?
+        @account.tags.clear
       else
-        format.html { render :action => "new" }
-        format.json { render :json => @account.errors, :status => :unprocessable_entity }
+        tag = Tag.find(params[:display_account_tag])
+        @account.tags.clear
+        @account.tags << tag #unless @compte.produits.exists?(produit)
       end
+  
+      respond_to do |format|
+        if @account.save
+          format.html { redirect_to accounts_path, :notice => 'Le compte a été créé.' }
+          format.json { render :json => @account, :status => :created, :location => @account }
+        else
+          format.html { render :action => "new" }
+          format.json { render :json => @account.errors, :status => :unprocessable_entity }
+        end
+      end
+    else
+      redirect_to accounts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      return false
     end
   end
 
@@ -96,26 +114,30 @@ class AccountsController < ApplicationController
   # PUT /accounts/1
   # PUT /accounts/1.json
   def update
-    @account = Account.find(params[:id])
-    @account.modified_by = current_user.id
-    
-    
-    if params[:display_account_tag].nil?
-      @account.tags.clear
-    else
-      tag = Tag.find(params[:display_account_tag])
-      @account.tags.clear
-      @account.tags << tag #unless @compte.produits.exists?(produit)
-    end
-    
-    respond_to do |format|
-      if @account.update_attributes(params[:account])
-        format.html { redirect_to account_events_url(@account.id), :notice => 'Le compte a été mis à jour.' }
-        format.json { head :no_content }
+    if @ability.can? :update, Account
+      @account = Account.find(params[:id])
+      @account.modified_by = current_user.id
+      
+      if params[:display_account_tag].nil?
+        @account.tags.clear
       else
-        format.html { render :action => "edit" }
-        format.json { render :json => @account.errors, :status => :unprocessable_entity }
+        tag = Tag.find(params[:display_account_tag])
+        @account.tags.clear
+        @account.tags << tag #unless @compte.produits.exists?(produit)
       end
+      
+      respond_to do |format|
+        if @account.update_attributes(params[:account])
+          format.html { redirect_to account_events_url(@account.id), :notice => 'Le compte a été mis à jour.' }
+          format.json { head :no_content }
+        else
+          format.html { render :action => "edit" }
+          format.json { render :json => @account.errors, :status => :unprocessable_entity }
+        end
+      end 
+    else
+      redirect_to accounts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      return false
     end
   end
 
@@ -125,12 +147,17 @@ class AccountsController < ApplicationController
   # DELETE /accounts/1
   # DELETE /accounts/1.json
   def destroy
-    @account = Account.find(params[:id])
-    @account.destroy
-
-    respond_to do |format|
-      format.html { redirect_to accounts_url }
-      format.json { head :no_content }
+    if @ability.can? :destroy, Account
+      @account = Account.find(params[:id])
+      @account.destroy
+  
+      respond_to do |format|
+        format.html { redirect_to accounts_url }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to accounts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      return false
     end
   end
   
@@ -191,7 +218,7 @@ class AccountsController < ApplicationController
     
     respond_to do |format|
       format.html  { render :action => "index" }
-      #format.json { render :json => @accounts }
+      format.json { render :json => @accounts }
     end
   end
   
@@ -199,33 +226,37 @@ class AccountsController < ApplicationController
   # Add a Tag to an Account
   #
   def add_tag
-
-    @tag = Tag.find(params[:tag_id])
-    @account = Account.find(params[:account_id])
-    @account.tags  << @tag
-
-    respond_to do |format|
-        format.html  { redirect_to account_events_url(@account.id), :notice => "Affectation du Tag effectuée!" }
-        format.json  { render :json => @tag }
-    end    
-    
+    if @ability.can? update, Account
+      @tag = Tag.find(params[:tag_id])
+      @account = Account.find(params[:account_id])
+      @account.tags  << @tag
+      respond_to do |format|
+          format.html  { redirect_to account_events_url(@account.id), :notice => "Affectation du Tag effectuée!" }
+          format.json  { render :json => @tag }
+      end
+    else
+      redirect_to accounts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      return false
+    end
   end
   
   ##
   # Remove a Tag from an Account
   #
   def delete_tag
-
-    @tag = Tag.find(params[:tag_id])
-    @account = Account.find(params[:account_id])
-    @account.tags.delete(@tag)
-
-    respond_to do |format|
-        format.html  { redirect_to account_events_url(@account.id), :notice => "Suppression de l'affectation du Tag effectuée!" }
-        format.json  { render :json => @tag }
-    end    
-    
-  end
+    if @ability.can? update, Account
+      @tag = Tag.find(params[:tag_id])
+      @account = Account.find(params[:account_id])
+      @account.tags.delete(@tag)
   
+      respond_to do |format|
+          format.html  { redirect_to account_events_url(@account.id), :notice => "Suppression de l'affectation du Tag effectuée!" }
+          format.json  { render :json => @tag }
+      end
+    else
+      redirect_to accounts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      return false
+    end
+  end
   
 end

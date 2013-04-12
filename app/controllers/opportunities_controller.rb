@@ -33,6 +33,10 @@ class OpportunitiesController < ApplicationController
   # Display one occurence of Opportunity
   #
   def show
+    if @ability.cannot? :read, Opportunity
+      redirect_to opportunities_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Opportunity'))
+	  return false
+    end
     @opportunity = Opportunity.find(params[:id])
    
     respond_to do |format|
@@ -45,6 +49,10 @@ class OpportunitiesController < ApplicationController
   # Redner the page to create a new Opportunity
   #
   def new
+    if @ability.cannot? :create, Opportunity
+      redirect_to opportunities_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Opportunity'))
+	  return false
+    end
     @opportunity = Opportunity.new
     @opportunity.user = current_user
     @opportunity.account_id = params[:account_id]
@@ -59,6 +67,10 @@ class OpportunitiesController < ApplicationController
   # Process to save a new Opportunity
   #
   def create
+    if @ability.cannot? :create, Opportunity
+      redirect_to opportunities_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Opportunity'))
+	  return false
+    end
     @opportunity = Opportunity.new(params[:opportunity])
     @opportunity.created_by = current_user.id
     
@@ -72,7 +84,7 @@ class OpportunitiesController < ApplicationController
     
     respond_to do |format|
       if @opportunity.save
-        format.html  { redirect_to account_events_url(@opportunity.account_id), :notice => "L'opportunity a ete creee" }
+        format.html  { redirect_to account_events_url(@opportunity.account_id), :notice => "l'Opportunité a été créée" }
         format.json  { render :json => @opportunity,
                       :status => :created}
       else
@@ -87,6 +99,10 @@ class OpportunitiesController < ApplicationController
   # Render the page to edit an Opportunity
   #
   def edit
+    if @ability.cannot? :update, Opportunity
+      redirect_to opportunities_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Opportunity'))
+	  return false
+    end
     @opportunity = Opportunity.find(params[:id])
   end
   
@@ -94,6 +110,10 @@ class OpportunitiesController < ApplicationController
   # Process to save an existing Opportunity
   #
   def update
+    if @ability.cannot? :update, Opportunity
+      redirect_to opportunities_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Opportunity'))
+	  return false
+    end
     @opportunity = Opportunity.find(params[:id])
     @opportunity.updated_by = current_user.id
     
@@ -120,6 +140,10 @@ class OpportunitiesController < ApplicationController
   # Process to remove an existing opportunity from the database
   #
   def destroy
+    if @ability.cannot? :destroy, Opportunity
+      redirect_to opportunities_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Opportunity'))
+	  return false
+    end
     @opportunity = Opportunity.find(params[:id])
     @opportunity.destroy
    

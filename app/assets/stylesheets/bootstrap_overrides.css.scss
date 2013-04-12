@@ -405,4 +405,21 @@ img.loading {
   vertical-align: baseline;
 }
 
+label.checkbox {
+    font-size: 14px;
+    padding: 8px;
+    width: 206px;
+    &:hover {
+        background-color: #E1E1E1;
+    }
+    &:active {
+        background-color: #D1D1D1;
+    }
+    input[type=checkbox] {
+        margin-left: 0;
+        margin-right: 5px;
+        border: 0;
+    }
+}
+
 

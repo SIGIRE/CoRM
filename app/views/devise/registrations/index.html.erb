@@ -2,7 +2,42 @@
   <div class="page-header">
     <h2>Utilisateurs de l'application</h2>
   </div>
-
-  <%= table_for(@users) %>
-
+  <p>
+    <strong>Utilisateurs: </strong><%= @real_users_count %>
+    <% if current_user.has_role? :admin %>
+    <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_user_path ,{:title => "Ajouter", :class=>"btn"} %>
+    <% end %>
+  </p>
+  <% if @users.length > 0 %>
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th><center>#</center></th>
+        <th><center>Email</center></th>
+        <th><center>Nom</center></th>
+        <th><center>Roles</center></th>
+        <% if current_user.has_role? :admin %>
+        <th><center>Etat</center></th>
+        <th><center>Editer</center></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |u| %>
+      <tr>
+        <td><center><%= u.id %></center></td>
+        <td><%= link_to u.email, edit_user_path(u) %></td>
+        <td><%= u.full_name %></td>
+        <td><% u.roles.each do |r| %><%= r.name + ', ' %><% end %></td>
+        <% if current_user.has_role? :admin %>
+        <td><center><%= (u.enabled ? "Activé" : "Désactivé") %></center></td>
+        <% end %>
+        <% if current_user.has_role? :super_user %>
+        <td><center><%= link_to "Editer", edit_user_path(u) ,{:title => "Ajouter", :class=>"btn"} %></center></td>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <% end %>
 </div>

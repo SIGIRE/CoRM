@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   rolify
   
   # nécessaire pour pouvoir modifer la valeur de ces attributs par nos propres forms
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :forename, :surname, :tel, :mobile, :current_password
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :forename, :surname, :tel, :mobile, :current_password, :enabled
   attr_accessor :current_password
 
   def new(args, opt)

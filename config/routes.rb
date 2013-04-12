@@ -52,21 +52,45 @@ Crm::Application.routes.draw do
 
   # Quotations routes
   set_route('devis', 'devis', 'quotations')  
-  match 'devis/update_contact_select/:id', :controller=>'quotations', :action => 'update_contact_select'
-  match 'devis/update_opportunity_select/:id', :controller=>'quotations', :action => 'update_opportunity_select'
+  match '/devis/update_contact_select/:id', :controller=>'quotations', :action => 'update_contact_select'
+  match '/devis/update_opportunity_select/:id', :controller=>'quotations', :action => 'update_opportunity_select'
 
   # Relations routes
   set_route('relations', 'relation', 'relations')
   # Documents routes
   set_route('documents', 'document', 'documents')
   
-  devise_for :user, :path => '/', :path_names => { :sign_in => "login", :sign_out => 'logout', :sign_up => "register" },  
-  :controllers => { :registrations => "registrations" }
+  # TODO: DEVISE
+  devise_for :user, :path_names => { :sign_in => 'login', :sign_out => 'logout', :sign_up => 'register' }, :controllers => { :registrations => 'registrations' }, :skip => [ :registrations ]
+  #devise_for :user, :path => '/', :path_names => { :sign_in => "login", :sign_out => 'logout', :sign_up => "register" },  
+  #:controllers => { :registrations => "registrations" }
+  #devise_for :user, :controllers => { :registrations => "registrations" }
+  devise_scope :user do
+#    match '/login(.:format)',           :to => 'devise/sessions#new',       :via => :get,    :as => 'new_user_session'
+#    match '/login(.:format)',           :to => 'devise/sessions#create',    :via => :post,   :as => 'user_session'
+#    match '/logout(.:format)',          :to => 'devise/sessions#destroy',   :via => :delete, :as => 'destroy_user_#session'
+    
+#    match '/password(.:format)',        :to => 'devise/passwords#create',   :via => :post,  :as => 'user_password'
+#    match '/password/new(.:format)',    :to => 'devise/sessions#new',       :via => :get,   :as => 'new_user_password'
+#    match '/password/edit(.:format)',   :to => 'devise/sessions#edit',      :via => :get,   :as => 'edit_user_password'
+#    match '/password(.:format)',        :to => 'devise/sessions#update',    :via => :put,   :as => 'edit_user_password'
+  
+    match '/users(.:format)', :controller => 'registrations', :action => 'index', :via => :get, :as => 'users'
+    match '/user/:id/edit(.:format)', :controller => 'registrations', :action => 'edit', :via => :get, :as => 'edit_user'
+    match '/user/new', :controller => 'registrations', :action => 'new', :via => :get, :as => 'new_user'
+    match '/user/:id(.:format)', :controller => 'registrations', :action => 'show', :via => :get, :as => 'user'
+    match '/user/:id', :controller => 'registrations', :action => 'update', :via => :put, :as => 'user'
+    match '/user/:id', :controller => 'registrations', :action => 'destroy', :via => :delete, :as => 'user'
+    match '/users', :controller => 'registrations', :action => 'create', :via => :post, :as => 'users'
+  end
+
+#  match '/users(.:format)', :controller => 'users', :action => 'index', :via => :get, :as => 'users'
+#  match '/password/new(.:)'
 
   # Opportunities routes
   set_route('opportunites', 'opportunite', 'opportunities')  
-  match 'opportunites/update_contact_select/:id', :controller=>'opportunities', :action => 'update_contact_select'
-  match 'opportunites/filter(.:format)', :controller => 'opportunities', :action => 'filter', :via => :get, :as => "filter_opportunity_index"
+  match '/opportunites/update_contact_select/:id', :controller=>'opportunities', :action => 'update_contact_select'
+  match '/opportunites/filter(.:format)', :controller => 'opportunities', :action => 'filter', :via => :get, :as => "filter_opportunity_index"
 
 
   # Origin routes
@@ -82,7 +106,7 @@ Crm::Application.routes.draw do
   set_route('taches', 'tache', 'tasks')
   match 'taches/filter(.:format)', :controller => 'tasks', :action => 'filter', :via => :get, :as => "filter_tasks"
 
-  # TODO: Accounts
+  # Accounts
   match 'comptes/delete_tag', :controller=> 'accounts', :action =>'delete_tag'
   resources :accounts, :path => 'compte' do
     collection do

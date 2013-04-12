@@ -15,13 +15,16 @@ class Ability
       can :manage, Opportunity
       can :manage, Quotation
       can :manage, QuotationLine
+      can :manage, Document
       if user.has_role? :super_user
         # Only super_user can manage settings
         can :manage, QuotationTemplate
         can :manage, Tag
         can :manage, Origin
         can :manage, EventType
-        can [:read, :edit], User
+        # can   #index #show #update & #edit
+        can [:read, :update], User
+        # cannot  #new #create
       else
         can :read, QuotationTemplate
         can :read, Tag
@@ -31,10 +34,7 @@ class Ability
         cannot :write, Tag
         cannot :write, Origin
         cannot :write, EventType
-        can [:read, :update], User do |u|
-            u.id == current_user.id
-        end
-        cannot [:create, :destroy], User
+        can [:read, :edit], User
       end
       
     end

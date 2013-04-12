@@ -23,11 +23,16 @@ class OriginsController < ApplicationController
   # Render a page to create new Origin
   #
   def new
-    @origin = Origin.new
-    
-    respond_to do |format|
-      format.html  # new.html.erb
-      format.json  { render :json => @origin }
+    if @ability.can? :create, Origin
+      @origin = Origin.new
+      
+      respond_to do |format|
+        format.html  # new.html.erb
+        format.json  { render :json => @origin }
+      end
+    else
+      redirect_to origins_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Origin'))
+      return false
     end
   end
   
@@ -35,19 +40,22 @@ class OriginsController < ApplicationController
   # Process to insert a new Origin into the DataBase
   #
   def create
-    @origin = Origin.new(params[:origin])
-    @origin.created_by = current_user.id
-    
-    respond_to do |format|
-      if @origin.save
-        format.html  { redirect_to origins_path, :notice => "L'origine a ete creee" }
-        format.json  { render :json => @origin,
-                      :status => :created}
-      else
-        format.html  { render :action => "new" }
-        format.json  { render :json => @origin.errors,
-                      :status => :unprocessable_entity }
+    if @ability.can? :create, Origin
+      @origin = Origin.new(params[:origin])
+      @origin.created_by = current_user.id
+      
+      respond_to do |format|
+        if @origin.save
+          format.html  { redirect_to origins_path, :notice => "L'origine a ete creee" }
+          format.json  { render :json => @origin, :status => :created}
+        else
+          format.html  { render :action => "new" }
+          format.json  { render :json => @origin.errors, :status => :unprocessable_entity }
+        end
       end
+    else
+      redirect_to origins_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Origin'))
+      return false
     end
   end
   
@@ -55,33 +63,48 @@ class OriginsController < ApplicationController
   # Render a page to display an Origin
   #
   def show
-    @origin = Origin.find(params[:id])
-   
-    respond_to do |format|
-      format.html  # show.html.erb
-      format.json  { render :json => @origin }
+    if @ability.can? :read, Origin
+      @origin = Origin.find(params[:id])
+     
+      respond_to do |format|
+        format.html  # show.html.erb
+        format.json  { render :json => @origin }
+      end
+    else
+      redirect_to origins_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Origin'))
+      return false
     end
   end
   
   def edit
-    @origin = Origin.find(params[:id])
+    if @ability.can? :update, Origin
+      @origin = Origin.find(params[:id])
+    else
+      redirect_to origins_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Origin'))
+      return false
+    end
   end
   
   ##
   # Process that udpate an existing Origin
   #
   def update
-    @origin = Origin.find(params[:id])
-    @origin.updated_by = current_user.id
-   
-    respond_to do |format|
-      if @origin.update_attributes(params[:origin])
-        format.html  { redirect_to(origins_url, :notice => "L' origine a ete mis a jour.") }
-        format.json  { head :no_content }
-      else
-        format.html  { render :action => "edit" }
-        format.json  { render :json => @origin.errors, :status => :unprocessable_entity }
+    if @ability.can? :update, Origin
+      @origin = Origin.find(params[:id])
+      @origin.updated_by = current_user.id
+     
+      respond_to do |format|
+        if @origin.update_attributes(params[:origin])
+          format.html  { redirect_to(origins_url, :notice => "L' origine a ete mis a jour.") }
+          format.json  { head :no_content }
+        else
+          format.html  { render :action => "edit" }
+          format.json  { render :json => @origin.errors, :status => :unprocessable_entity }
+        end
       end
+    else
+      redirect_to origins_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Origin'))
+      return false
     end
   end
   
@@ -89,12 +112,16 @@ class OriginsController < ApplicationController
   # Process that remove an Origin from the DB
   #
   def destroy
-    @origin = Origin.find(params[:id])
-    @origin.destroy
-   
-    respond_to do |format|
-      format.html { redirect_to origins_url }
-      format.json { head :no_content }
+    if @ability.can? :destroy, Origin
+      @origin = Origin.find(params[:id])
+      @origin.destroy
+      respond_to do |format|
+        format.html { redirect_to origins_url }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to origins_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Origin'))
+      return false
     end
   end
 

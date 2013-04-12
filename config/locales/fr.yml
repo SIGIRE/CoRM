@@ -248,8 +248,9 @@ fr:
       send_instructions: 'Vous allez recevoir les instructions nécessaires à la confirmation de votre compte dans quelques minutes'
       send_paranoid_instructions: 'Si votre e-mail existe dans notre base de données, vous allez bientôt recevoir un e-mail contenant les instructions de confirmation de votre compte.'
       confirmed: 'Votre compte a été validé, vous êtes maintenant connecté'
+      account_created: 'Le compte [user] a été correctement créé.'
     registrations:
-      signed_up: 'Bienvenu, vous êtes connecté'
+      signed_up: 'Bienvenue, vous êtes connecté'
       signed_up_but_unconfirmed: 'Un message contenant un lien de confirmation a été envoyé à votre adresse email. Ouvrez ce lien pour activer votre compte.'
       signed_up_but_inactive: "Vous êtes bien enregistré. Vous ne pouvez cependant pas vous connecter car votre compte n'est pas encore activé."
       signed_up_but_locked: "Vous êtes bien enregistré. Vous ne pouvez cependant pas vous connecter car votre compte est verrouillé."
@@ -282,6 +283,8 @@ fr:
       update: éditer
       edit: éditer
       destroy: supprimer
+      show: afficher
+      do: faire
     cancan:
       messages:
         unauthorized: "Vous n'êtes pas autoriser à [action] [undefined_article] [model]"
@@ -290,17 +293,16 @@ fr:
       Event: évènement
       Account: compte
       Contact: contact
-      Quotation: Devis
+      Quotation: devis
       QuotationLine: ligne de devis
       QuotationTemplate: modèle
       Relation: relation
       Tag: tag
-      Task: Tache
-      User: Utilisateur
+      Task: tâche
+      User: utilisateur
       Opportunity: opportunité
       Document: document
       Origin: origine
       Role: role
       Ability: droit
-      
-      
+      Extraction: extraction

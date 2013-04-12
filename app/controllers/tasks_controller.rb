@@ -25,13 +25,18 @@ class TasksController < ApplicationController
   #
   # GET /tasks/1
   # GET /tasks/1.json
-  def show
-    @task = Task.find(params[:id])
-    
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @task }
-    end
+  def show 
+	if @ability.can? :read, Task
+	  @task = Task.find(params[:id])
+	  
+	  respond_to do |format|
+		format.html # show.html.erb
+		format.json { render :json => @task }
+	  end
+    else
+	  redirect_to tasks_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
+	  return false
+	end
   end
   
   ##
@@ -40,13 +45,18 @@ class TasksController < ApplicationController
   # GET /tasks/new
   # GET /tasks/new.json
   def new
-    @task = Task.new
-    @task.user = current_user
-    
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render :json => @task }
-    end
+	if @ability.can? :create, Task
+	  @task = Task.new
+	  @task.user = current_user
+	  
+	  respond_to do |format|
+		format.html # new.html.erb
+		format.json { render :json => @task }
+	  end
+    else
+	  redirect_to tasks_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
+	  return false
+	end
   end
 
   ##
@@ -54,10 +64,14 @@ class TasksController < ApplicationController
   #
   # GET /tasks/1/edit
   def edit
-    @task = Task.find(params[:id])
-    
-    #conversion de la string term pour qu'elle soit formatté correctement pour l'afficahge
-    @task.term = @task.term.split('/').reverse!.join('/')
+	if @ability.can? :update, Task
+	  @task = Task.find(params[:id])
+	  #conversion de la string term pour qu'elle soit formatté correctement pour l'afficahge
+	  @task.term = @task.term.split('/').reverse!.join('/')	
+    else
+	  redirect_to tasks_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
+	  return false
+	end
   end
 
   ##
@@ -66,29 +80,33 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.new(params[:task])
-    @task.created_by = current_user.id
-    
-    #idem que dans edit
-    @task.term = @task.term.split('/').reverse!.join('/')
-    
-    respond_to do |format|
-      if @task.save
-	#si le checkbox est cochée 
-	if params[:mail]=="yes"
-	  #mailing
-	  UserMailer.create_task_email(@task.user,@task).deliver
+    if @ability.can? :create, Task
+	  @task = Task.new(params[:task])
+	  @task.created_by = current_user.id
+	  
+	  #idem que dans edit
+	  @task.term = @task.term.split('/').reverse!.join('/')
+	  
+	  respond_to do |format|
+		if @task.save
+		  #si le checkbox est cochée 
+		  if params[:mail]=="yes"
+			#mailing
+			UserMailer.create_task_email(@task.user,@task).deliver
+		  end
+		  #pour que la task ait un id 
+		  self.create_event(false)
+		  format.html { redirect_to filter_tasks_path, :notice => 'La tâche a été créée.' }
+		  format.json { render :json => @task, :status => :created, :location => @task }
+		else
+		  format.html { render :action => "new" }
+		  format.json { render :json => @task.errors, :status => :unprocessable_entity }
+		end
+	  end
+    else
+	  redirect_to tasks_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
+	  return false
 	end
-        
-        #pour que la task ait un id 
-        self.create_event(false)
-        format.html { redirect_to filter_tasks_path, :notice => 'La tâche a été créée.' }
-        format.json { render :json => @task, :status => :created, :location => @task }
-      else
-        format.html { render :action => "new" }
-        format.json { render :json => @task.errors, :status => :unprocessable_entity }
-      end
-    end
   end
 
   ##
@@ -97,26 +115,31 @@ class TasksController < ApplicationController
   # PUT /tasks/1
   # PUT /tasks/1.json
   def update
-    @task = Task.find(params[:id])
-    @task.modified_by = current_user.id
-    params[:task][:term] = params[:task][:term].split('/').reverse!.join('/')
-        
-    respond_to do |format|
-      if @task.update_attributes(params[:task])
-	    #si le checkbox est cochée 
-	    if params[:mail]=="yes"
-	      #mailing
-	      UserMailer.update_task_email(@task.user,@task).deliver
-	    end
-        
-        self.create_event(true)
-        format.html { redirect_to filter_tasks_path, :notice => 'La tâche a été mise à jour.' }
-        format.json { head :no_content }
-      else
-        format.html { render :action => "edit" }
-        format.json { render :json => @task.errors, :status => :unprocessable_entity }
-      end
-    end
+	if @ability.can? :update, Task
+	  @task = Task.find(params[:id])
+	  @task.modified_by = current_user.id
+	  params[:task][:term] = params[:task][:term].split('/').reverse!.join('/')
+		  
+	  respond_to do |format|
+		if @task.update_attributes(params[:task])
+		  #si le checkbox est cochée 
+		  if params[:mail]=="yes"
+			#mailing
+			UserMailer.update_task_email(@task.user,@task).deliver
+		  end
+		  
+		  self.create_event(true)
+		  format.html { redirect_to filter_tasks_path, :notice => 'La tâche a été mise à jour.' }
+		  format.json { head :no_content }
+		else
+		  format.html { render :action => "edit" }
+		  format.json { render :json => @task.errors, :status => :unprocessable_entity }
+		end
+	  end
+    else
+	  redirect_to tasks_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
+	  return false
+	end
   end
 
   ##
@@ -125,13 +148,18 @@ class TasksController < ApplicationController
   # DELETE /tasks/1
   # DELETE /tasks/1.json
   def destroy
-    @task = Task.find(params[:id])
-    @task.destroy
-
-    respond_to do |format|
-      format.html { redirect_to filter_tasks_path }
-      format.json { head :no_content }
-    end
+	if @ability.can? :destroy, Task
+	  @task = Task.find(params[:id])
+	  @task.destroy
+  
+	  respond_to do |format|
+		format.html { redirect_to filter_tasks_path }
+		format.json { head :no_content }
+	  end
+    else
+	  redirect_to tasks_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
+	  return false
+	end
   end
   
   def isInt?(i)
@@ -202,26 +230,28 @@ class TasksController < ApplicationController
   #   - +updated+ -> if the object is updated(true) or created(false)
   #
   def create_event(updated)
-    
-    #hash typé pour les params d'un event
-    hash = Hash.new
-    hash["event_type_id"] = params[:event_type][:id]
-    hash["account_id"] = params[:task][:account_id]
-    hash["contact_id"] = params[:task][:contact_id]
-    hash["date_begin"] = Time.now
-    hash["date_end"] = hash["date_begin"]
-    hash["notes"] = params[:notes]
-    hash["notes2"] = params[:task][:notes]
-    
-    # to test
-    if(updated == true)
-      hash["modified_by"] = current_user.id
-    else
-      hash["created_by"] = current_user.id
-    end
-    
-    hash["task_id"] = @task.id
-    @event = Event.create(hash)
+	type updated ? :update : :create
+    if @ability.can? type, Event
+	  #hash typé pour les params d'un event
+	  hash = Hash.new
+	  hash["event_type_id"] = params[:event_type][:id]
+	  hash["account_id"] = params[:task][:account_id]
+	  hash["contact_id"] = params[:task][:contact_id]
+	  hash["date_begin"] = Time.now
+	  hash["date_end"] = hash["date_begin"]
+	  hash["notes"] = params[:notes]
+	  hash["notes2"] = params[:task][:notes]
+	  
+	  # to test
+	  if(updated == true)
+		hash["modified_by"] = current_user.id
+	  else
+		hash["created_by"] = current_user.id
+	  end
+	  
+	  hash["task_id"] = @task.id
+	  @event = Event.create(hash)
+	end
   end
   
 end

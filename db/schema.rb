@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130411141321) do
+ActiveRecord::Schema.define(:version => 20130412094539) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -332,8 +332,7 @@ ActiveRecord::Schema.define(:version => 20130411141321) do
     t.string   "mobile"
     t.datetime "created_at",                                :null => false
     t.datetime "updated_at",                                :null => false
-    t.boolean  "is_admin",               :default => false
-    t.boolean  "is_super_user",          :default => false
+    t.boolean  "enabled",                :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
