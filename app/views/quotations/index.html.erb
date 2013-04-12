@@ -12,7 +12,7 @@
         <th><center>Opportunité</center></th>
         <th><center>Total HT</center></th>
         <th><center>Date</center></th>
-        <th><center>Afficher</center></th>
+        <th><center>Éditer</center></th>
         <th><center>PDF</center></th>        
       </tr>
     </thead>
@@ -46,14 +46,14 @@
 		
 		<% if !quotation.label.blank? %>
 			<% then %>
-				<td><center><%= link_to quotation.label, quotation_path(quotation) ,{:title => "Afficher le devis"} %></center></td>
+				<td><center><%= link_to quotation.label, edit_quotation_path(quotation) ,{:title => "Éditer le devis"} %></center></td>
 			<% else %>
 				<td><center>-</center></td>
 		<% end %> 		
 
 		<% if !quotation.opportunity.nil? %>
 			<% then %>
-				<td><center><%= link_to quotation.opportunity.name , opportunity_path(quotation),{:title => "Afficher l'opportunité"} %></center></td>
+				<td><center><%= link_to quotation.opportunity.name , edit_opportunity_path(quotation),{:title => "Éditer l'opportunité"} %></center></td>
 			<% else %>
 				<td><center>-</center></td>
 		<% end %>		
@@ -74,7 +74,7 @@
         
 
         
-		<td><center><%= link_to image_tag("glyphicons/glyphicons_350_visual.png"), quotation_path(quotation),{:title => "Afficher le devis", :class =>"btn"} %></center></td>
+		<td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_path(quotation),{:title => "Éditer le devis", :class =>"btn"} %></center></td>
         
 		<td><center><%= link_to image_tag("glyphicons/glyphicons_015_print.png"), quotation_path(quotation, :format => "pdf"),{:title => "Afficher le PDF", :class =>"btn"} %></center></td>
     </tr>

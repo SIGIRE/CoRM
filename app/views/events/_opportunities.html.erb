@@ -25,7 +25,7 @@
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th><center>Id</center></th>
+        <th><center>#</center></th>
         <th><center>Statut</center></th>
         <th><center>Libellé</center></th>
         <th><center>Contact</center></th>
@@ -47,7 +47,7 @@
 					<% @total_profit += opportunity.profit %>
 				<% end %>
         <tr>
-          <td><center><%= link_to opportunity.id, opportunity %></center></td>
+          <td><center><%= opportunity.id %></center></td>
           <td><center>
             <% if opportunity.statut == "Détectée"%>
               <span class="badge badge-important">
@@ -58,12 +58,12 @@
             <% elsif opportunity.statut == "Perdue"%>
               <span class="badge badge-inverse">
             <% else %>
-              <span class="badge badge-info">
+              -
             <% end %>
             <%= opportunity.statut %></span>
           </center></td>
           <td><center><%= opportunity.name %></center></td>
-          <td><center><%= if !opportunity.contact.nil? then link_to opportunity.contact.full_name, opportunity.contact end%></center></td>
+          <td><center><%= if !opportunity.contact.nil? then link_to opportunity.contact.full_name, edit_contact_path(opportunity.contact),{:title => "Éditer le contact"} end%></center></td>
           <td style="text-align :right;">
             <% if !opportunity.amount.nil? %>
               <%= number_to_currency(opportunity.amount, :locale => :fr)  %> <strong> HT </strong>

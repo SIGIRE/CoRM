@@ -79,7 +79,7 @@
   </div>
   
   <div class="field">
-    <div class="span2">Notes : </div> <%= f.cktext_area :notes, :ckeditor => {:toolbar => "MyToolbar"} %>
+    <div class="span2">Notes : </div> <%=f.text_area :notes , :display_with => :simple_format, :rows => "5", :style=>'width: 30em;' %>
 	<!--<%= f.text_area :notes , :display_with => :simple_format, :rows => "5", :style=>'width: 30em;'%>-->
   </div>
 
