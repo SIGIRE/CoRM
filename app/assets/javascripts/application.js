@@ -5,7 +5,6 @@
 //= require jquery_nested_form
 //= require jquery.validate
 //= require bootstrap
-//= require ckeditor/init
 
 /* for the shared functions */
 //= require ./corm_lib.js

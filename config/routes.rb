@@ -18,7 +18,7 @@ Crm::Application.routes.draw do
     match "#{ps}/:id(.:format)",         :controller => c,  :action => 'destroy',   :via => :delete, :as => "#{c.singularize}"
   end
   
-  mount Ckeditor::Engine => '/ckeditor'
+ # mount Ckeditor::Engine => '/ckeditor'
 
   match 'extractions/select_param_accounts', :controller=>'extractions', :action => 'select_param_accounts'
   match 'extractions/comptes', :controller=>'extractions', :action => 'accounts', :as => :csv
