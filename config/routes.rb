@@ -61,14 +61,11 @@ Crm::Application.routes.draw do
   set_route('documents', 'document', 'documents')
   
   # TODO: DEVISE
-  devise_for :user, :path_names => { :sign_in => 'login', :sign_out => 'logout', :sign_up => 'register' }, :controllers => { :registrations => 'registrations' }, :skip => [ :registrations ]
-  #devise_for :user, :path => '/', :path_names => { :sign_in => "login", :sign_out => 'logout', :sign_up => "register" },  
-  #:controllers => { :registrations => "registrations" }
-  #devise_for :user, :controllers => { :registrations => "registrations" }
+  devise_for :user, :path_names => { :sign_in => 'login', :sign_out => 'logout', :sign_up => 'register' }, :controllers => { :registrations => 'registrations' }, :skip => [ :registrations, :sessions ]
   devise_scope :user do
-#    match '/login(.:format)',           :to => 'devise/sessions#new',       :via => :get,    :as => 'new_user_session'
-#    match '/login(.:format)',           :to => 'devise/sessions#create',    :via => :post,   :as => 'user_session'
-#    match '/logout(.:format)',          :to => 'devise/sessions#destroy',   :via => :delete, :as => 'destroy_user_#session'
+    get '/user/login(.:format)',        :to => 'devise/sessions#new',        :as => :new_user_session
+    post '/user/login(.:format)',       :to => 'registrations#session_new', :as => :user_session
+    match '/user/logout(.:format)',          :to => 'devise/sessions#destroy', :via => Devise.mappings[:user].sign_out_via, :as => :destroy_user_session
     
 #    match '/password(.:format)',        :to => 'devise/passwords#create',   :via => :post,  :as => 'user_password'
 #    match '/password/new(.:format)',    :to => 'devise/sessions#new',       :via => :get,   :as => 'new_user_password'
@@ -83,9 +80,6 @@ Crm::Application.routes.draw do
     match '/user/:id', :controller => 'registrations', :action => 'destroy', :via => :delete, :as => 'user'
     match '/users', :controller => 'registrations', :action => 'create', :via => :post, :as => 'users'
   end
-
-#  match '/users(.:format)', :controller => 'users', :action => 'index', :via => :get, :as => 'users'
-#  match '/password/new(.:)'
 
   # Opportunities routes
   set_route('opportunites', 'opportunite', 'opportunities')  

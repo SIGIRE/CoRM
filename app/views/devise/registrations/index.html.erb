@@ -3,7 +3,7 @@
     <h2>Utilisateurs de l'application</h2>
   </div>
   <p>
-    <strong>Utilisateurs: </strong><%= @real_users_count %>
+    <strong>Utilisateurs actifs: </strong><%= @real_users_count %>
     <% if current_user.has_role? :admin %>
     <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_user_path ,{:title => "Ajouter", :class=>"btn"} %>
     <% end %>
@@ -18,7 +18,7 @@
         <th><center>Roles</center></th>
         <% if current_user.has_role? :admin %>
         <th><center>Etat</center></th>
-        <th><center>Editer</center></th>
+        <th><center><% if current_user.has_role? :super_user %>Editer<%else%>Afficher<%end%></center></th>
         <% end %>
       </tr>
     </thead>
@@ -33,7 +33,9 @@
         <td><center><%= (u.enabled ? "Activé" : "Désactivé") %></center></td>
         <% end %>
         <% if current_user.has_role? :super_user %>
-        <td><center><%= link_to "Editer", edit_user_path(u) ,{:title => "Ajouter", :class=>"btn"} %></center></td>
+        <td><center><%= link_to "Editer", edit_user_path(u) ,{:title => "Editer #{u.full_name}", :class=>"btn"} %></center></td>
+        <% else %>
+        <td><center><%= link_to "Afficher", user_path(u) ,{:title => "Afficher #{u.full_name}", :class=>"btn"} %></center></td>
         <% end %>
       </tr>
     <% end %>

@@ -26,6 +26,10 @@ class Account < ActiveRecord::Base
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
   belongs_to :origin
 
+  def new(attributes = nil, options = {})
+	super(attributes, options)
+  end
+
   def author
     return author_user || User::default
   end

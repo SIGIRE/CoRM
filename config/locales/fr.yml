@@ -228,8 +228,9 @@ fr:
     failure:
       already_authenticated: "Vous êtes déjà connecté !"
       unauthenticated: "Vous devez vous connecter ou vous inscrire pour continuer."
+      incorrect: "Votre email ou mot de passe est incorrect."
       unconfirmed: "Vous devez valider votre compte pour continuer."
-      locked: "Votre compte est verrouillé."
+      locked: "Votre compte est verrouillé. Veuillez contacter un adminstrateur."
       invalid: "Email ou mot de passe incorrect."
       invalid_token: "Jeton d'authentification incorrect."
       timeout: "Votre session est expirée, veuillez vous reconnecter pour continuer."

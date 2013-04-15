@@ -34,29 +34,20 @@
   </div>
   
   <div class="field">
-    <div class="span2"> Affectée à : </div> <%= f.collection_select :user_id, User.all, :id, :full_name %>
+    <div class="span2"> Affectée à : </div> <%= f.collection_select :user_id, @users, :id, :full_name %>
   </div>
-  
-  
-	<% if @opportunity.attach.exists? %> 
-		<div class="field"><div class="span2">Pièce jointe actuelle : </div><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + @opportunity.attach_file_name, @opportunity.attach.url, :target => '_blank' %></div>
-		<div class="field"><div class="span2">Modifier pièce jointe : </div><%= f.file_field :attach, :style=>'width: 20em;' %></div>
-		<% else %>
-		<div class="field"><div class="span2">Pièce jointe : </div><%= f.file_field :attach, :style=>'width: 20em;' %></div>
-	<% end %>
-	
-        
-
-  
-  
+  <% if @opportunity.attach.exists? %> 
+	  <div class="field"><div class="span2">Pièce jointe actuelle : </div><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + @opportunity.attach_file_name, @opportunity.attach.url, :target => '_blank' %></div>
+	  <div class="field"><div class="span2">Modifier pièce jointe : </div><%= f.file_field :attach, :style=>'width: 20em;' %></div>
+	  <% else %>
+	  <div class="field"><div class="span2">Pièce jointe : </div><%= f.file_field :attach, :style=>'width: 20em;' %></div>
+  <% end %>
   <div class="field">
     <div class="span2"> Statut : </div> <%= f.select :statut, Opportunity::STATUTS %>
   </div>
-  
   <div class="field">
     <div class="span2">Remarque : </div> <%= f.text_area :remark , :display_with => :simple_format, :rows => "5", :style=>'width: 30em;'%>
   </div>
-  
   <div class="field">
     <div class="span2"> Montant estimé :  </div>
     <% if @opportunity.amount.nil? %>
@@ -66,7 +57,6 @@
     <% end %>
     <strong>€ HT</strong>
   </div>
-
   <div class="field">
     <div class="span2"> Marge estimé :  </div>
     <% if @opportunity.profit.nil? %>
@@ -76,29 +66,25 @@
     <% end %>
     <strong>€ HT</strong>
   </div> 
-  
   <br />
-  	
-	<div class="field">
-    <% if !@opportunity.id.nil? %>
-		<div class="span9"> Créée par : <%= @opportunity.author.full_name %>, le </strong><%= @opportunity.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
-		<% if !@opportunity.updated_by.nil? %>
-			<div class="span9"> Dernièrement modifiée par : <%= @opportunity.editor.full_name %>, le <%= @opportunity.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
-		<% else %>
-		<% end %>
-		
-	<% end %>
-	</div>
+  <div class="field">
+  <% if !@opportunity.id.nil? %>
+	  <div class="span9"> Créée par : <%= @opportunity.author.full_name %>, le </strong><%= @opportunity.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
 	  
-	<hr />
-  
-     <div class="row">
-	   <%= if !@opportunity.id.nil? then f.submit 'Modifier cette Opportunité', :class =>"btn btn-primary",:id =>"opportunity_submit_form" else f.submit 'Créer une Opportunité', :class =>"btn btn-primary",:id =>"opportunity_submit_form" end %>
-      <%= if !@opportunity.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @opportunity, :title => "Supprimer cette Opportunité", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
-    </div>
+	  <% if !@opportunity.updated_by.nil? %>
+		  <div class="span9"> Dernièrement modifiée par : <%= @opportunity.editor.full_name %>, le <%= @opportunity.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+	  
+	  <% else %>
+	  <% end %>
+	  
+  <% end %>
   </div>
+	
+  <hr />
   
-
+   <div class="row">
+	 <%= if !@opportunity.id.nil? then f.submit 'Modifier cette Opportunité', :class =>"btn btn-primary",:id =>"opportunity_submit_form" else f.submit 'Créer une Opportunité', :class =>"btn btn-primary",:id =>"opportunity_submit_form" end %>
+	<%= if !@opportunity.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @opportunity, :title => "Supprimer cette Opportunité", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
+  </div>
+</div>
 <% end %>

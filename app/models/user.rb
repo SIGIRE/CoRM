@@ -11,23 +11,16 @@ class User < ActiveRecord::Base
 
   rolify
   
+  has_many :accounts
+  has_many :events
+  has_many :tasks
+  
   # nécessaire pour pouvoir modifer la valeur de ces attributs par nos propres forms
   attr_accessible :email, :password, :password_confirmation, :remember_me, :forename, :surname, :tel, :mobile, :current_password, :enabled
   attr_accessor :current_password
 
-  def new(args, opt)
-   if args.forname.nil? and self.forname.nil?
-      args.name = args.forename
-      args.forename = nil
-   end
-   
-   super(args, opt)
-  end
-
-  @@default_user = User.new({:email => '', :forename => 'Neant', :surname => ''})
-
   def self.default
-     return @@default_user
+     return User.new({:email => '', :forename => 'Neant', :surname => ''})
   end
 
   ##
@@ -39,7 +32,14 @@ class User < ActiveRecord::Base
       "#{forename} #{UnicodeUtils.upcase(surname, I18n.locale)}"
   end
   
-  has_many :accounts
-  has_many :events
-  has_many :tasks
+  ##
+  # Get all real users of application (without disabled and admins)
+  # * *Returns*    :
+  #   - Array of Users
+  #
+  def self.all_reals
+      admin = User.joins(:roles).where("roles.name = 'admin'").first()
+      return User.where(:enabled => true).reject{|e| e.id == admin.id}
+  end
+  
 end

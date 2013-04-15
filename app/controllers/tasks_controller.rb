@@ -48,7 +48,7 @@ class TasksController < ApplicationController
 	if @ability.can? :create, Task
 	  @task = Task.new
 	  @task.user = current_user
-	  
+	  @users = User.where(:enabled => true)
 	  respond_to do |format|
 		format.html # new.html.erb
 		format.json { render :json => @task }
@@ -66,6 +66,7 @@ class TasksController < ApplicationController
   def edit
 	if @ability.can? :update, Task
 	  @task = Task.find(params[:id])
+	  @users = User.all_reals
 	  #conversion de la string term pour qu'elle soit formatté correctement pour l'afficahge
 	  @task.term = @task.term.split('/').reverse!.join('/')	
     else
@@ -173,9 +174,9 @@ class TasksController < ApplicationController
     if !params[:id].nil?
       int = params[:id].to_i if self.isInt?(params[:id])
       if !int.nil?
-	contacts = Contact.where(:account_id => int).select('id, surname, forename, title').order(:surname)
+		contacts = Contact.where(:account_id => int).select('id, surname, forename, title').order(:surname)
       else
-	contacts = Contact.joins('INNER JOIN accounts ON accounts.id = contacts.account_id').where('company LIKE ?', params[:id]+'%').select('contacts.id, contacts.surname, contacts.forename, contacts.title').order(:surname)
+		contacts = Contact.joins('INNER JOIN accounts ON accounts.id = contacts.account_id').where('company LIKE ?', params[:id]+'%').select('contacts.id, contacts.surname, contacts.forename, contacts.title').order(:surname)
       end
       if !contacts.nil?
 	render :json => contacts
@@ -230,7 +231,7 @@ class TasksController < ApplicationController
   #   - +updated+ -> if the object is updated(true) or created(false)
   #
   def create_event(updated)
-	type updated ? :update : :create
+	type = updated ? :update : :create
     if @ability.can? type, Event
 	  #hash typé pour les params d'un event
 	  hash = Hash.new

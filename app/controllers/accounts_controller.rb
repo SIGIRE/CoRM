@@ -84,6 +84,7 @@ class AccountsController < ApplicationController
     if @ability.can? :create, Account
       @account = Account.new(params[:account])
       @account.created_by = current_user.id
+      @account.company = @account.uppercase_company
       
       if params[:display_account_tag].nil?
         @account.tags.clear
@@ -117,13 +118,13 @@ class AccountsController < ApplicationController
     if @ability.can? :update, Account
       @account = Account.find(params[:id])
       @account.modified_by = current_user.id
-      
+      @account.company = @account.uppercase_company
       if params[:display_account_tag].nil?
         @account.tags.clear
       else
         tag = Tag.find(params[:display_account_tag])
         @account.tags.clear
-        @account.tags << tag #unless @compte.produits.exists?(produit)
+        @account.tags << tag
       end
       
       respond_to do |format|

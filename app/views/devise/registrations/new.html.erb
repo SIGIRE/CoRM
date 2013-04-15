@@ -14,16 +14,26 @@
 
   <div><%= f.label :password_confirmation, 'Confirmation du mot de passe' %>
   <%= f.password_field :password_confirmation, { :required => 'required' } %></div>
-  
  
   <div><%= f.label :forename, 'Prénom' %> <i></i>
   <%= f.text_field :forename, { :required => 'required' } %></div>
 
   <div><%= f.label :surname, 'Nom' %> <i></i>
   <%= f.text_field :surname, { :required => 'required' } %></div>
-  
-  <div><label for="user[enabled]" class="checkbox">Activé<input type="checkbox" checked="checked" name="user[enabled]" id="user[enabled]" value="1" /></label></div>
-  
+  <% if !@first_creation %>
+    <div>
+      <label for="user[enabled]" class="checkbox">
+        Activé
+        <input type="checkbox" checked="checked" name="user[enabled]" id="user[enabled]" value="1" />
+      </label>
+    </div>
+    <div>
+        <label for="user[super]" class="checkbox">
+          Super Utilisateur
+          <input <%= (@user.has_role?(:super_user) ? 'checked=checked' : '') %> type="checkbox" name="user[super]" id="user[super]" value="1" />
+        </label>
+      </div>
+  <% end %>
   <div><%= f.submit "Créer", :class =>"btn btn-primary" %></div>
   <br />
   <%= link_to image_tag("glyphicons/glyphicons_210_left_arrow.png"), :back %>

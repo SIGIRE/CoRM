@@ -56,7 +56,7 @@ class OpportunitiesController < ApplicationController
     @opportunity = Opportunity.new
     @opportunity.user = current_user
     @opportunity.account_id = params[:account_id]
-    
+    @users = User.where(:enabled => true)
     respond_to do |format|
       format.html  # new.html.erb
       format.json  { render :json => @opportunity }
@@ -104,6 +104,7 @@ class OpportunitiesController < ApplicationController
 	  return false
     end
     @opportunity = Opportunity.find(params[:id])
+    @users = User.all_reals
   end
   
   ##

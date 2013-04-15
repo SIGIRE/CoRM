@@ -1,0 +1,16 @@
+<div class="container-fluid">
+  
+  <div class="page-header">
+    <h2><%= @user.full_name %></h2>
+  </div>
+    <div class="field"><p>Email : <%= link_to @user.email, "mailto:#{@user.email}" %></p>
+    <div class="field">
+        <p>Tél fixe :</p>
+        <p><%= @user.tel %></p>
+        <p>Mobile :</p>
+        <p><%= @user.mobile %></p>
+    </div>
+      
+  </div>
+
+</div>

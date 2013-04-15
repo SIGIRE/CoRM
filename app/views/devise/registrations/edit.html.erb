@@ -8,23 +8,40 @@
     <%= devise_error_messages! %>
   
     <div class="field">Login : <br />
-    <%= f.email_field :email , :disabled => @email_disabled %>
-    <a id="profil_mdp" class="btn btn-success btn-small" data-toggle="modal" href="#edit_profile_modal" style="margin-bottom: 8px;">Modifier mon mot de passe</a>
+      <%= f.email_field :email , :disabled => @email_disabled %>
+      <a id="profil_mdp" class="btn btn-success btn-small" data-toggle="modal" href="#edit_profile_modal" style="margin-bottom: 8px;">Modifier mon mot de passe</a>
     </div>
     
     <div class="field">Prénom : <br />
-    <%= f.text_field :forename, { :class => 'required' } %></div>
+      <%= f.text_field :forename, { :class => 'required' } %>
+    </div>
 
     <div class="field">Nom : <br />
-    <%= f.text_field :surname, { :class => 'required' } %></div>
+      <%= f.text_field :surname, { :class => 'required' } %>
+    </div>
        
     <div class="field">Tél fixe : <br />
-    <%= f.text_field :tel %></div>
+      <%= f.text_field :tel %>
+    </div>
     
     <div class="field">Tél mobile : <br />
-    <%= f.text_field :mobile %></div>
+      <%= f.text_field :mobile %>
+    </div>
+    <% if current_user.has_role? :super_user then %>
+      <div class="field">
+        <label for="user[enabled]" class="checkbox">
+          Activé
+          <input <%= (@user.enabled == true ? 'checked=checked' : '') %> type="checkbox" name="user[enabled]" id="user[enabled]" value="1" />
+        </label>
+      </div>
+      <div class="field">
+        <label for="user[super]" class="checkbox">
+          Super Utilisateur
+          <input <%= (@user.has_role?(:super_user) ? 'checked=checked' : '') %> type="checkbox" name="user[super]" id="user[super]" value="1" />
+        </label>
+      </div>
+    <% end %>
     
-    <div class="field"><label for="user[enabled]" class="checkbox">Activé<input <%= (@user.enabled == true ? 'checked=checked' : '') %> type="checkbox" name="user[enabled]" id="user[enabled]" value="1" /></label></div>
     
     <div class="modal hide fade" id="edit_profile_modal">
       

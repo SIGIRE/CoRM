@@ -16,6 +16,7 @@ class Ability
       can :manage, Quotation
       can :manage, QuotationLine
       can :manage, Document
+      can :read, User
       if user.has_role? :super_user
         # Only super_user can manage settings
         can :manage, QuotationTemplate
@@ -23,7 +24,7 @@ class Ability
         can :manage, Origin
         can :manage, EventType
         # can   #index #show #update & #edit
-        can [:read, :update], User
+        can :update, User
         # cannot  #new #create
       else
         can :read, QuotationTemplate
@@ -34,7 +35,6 @@ class Ability
         cannot :write, Tag
         cannot :write, Origin
         cannot :write, EventType
-        can [:read, :edit], User
       end
       
     end

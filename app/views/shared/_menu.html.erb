@@ -93,15 +93,13 @@
 	      
 	      <ul class="btn-group">
 		<a class="btn dropdown-toggle " data-toggle="dropdown" href="#">
-                  <%= image_tag("glyphicons/glyphicons_280_settings.png", :size => "16x16")%>
+              <%= image_tag("glyphicons/glyphicons_280_settings.png", :size => "16x16")%>
 		</a>
 		<ul class="dropdown-menu dropdown-settings">
-		  <% if (current_user.has_role? :super_user) %>
-		    <li><%= link_to "Utilisateurs".html_safe, users_path %></li>
-		  <% end %>
 			<li class="dropdown-submenu pull-left">
 			<a tabindex="-1" href="#">Configuration</a>
 			<ul class="dropdown-menu ">
+		  <li><%= link_to "Utilisateurs".html_safe, users_path %></li>
 		  <li><%= link_to "Types".html_safe, event_types_path %></li>
 		  <li><%= link_to "Tags".html_safe, tags_path %></li>
 		  <li><%= link_to "Origines".html_safe, origins_path %></li>
