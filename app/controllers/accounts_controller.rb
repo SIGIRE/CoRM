@@ -81,7 +81,7 @@ class AccountsController < ApplicationController
 
     respond_to do |format|
       if @account.save
-        format.html { redirect_to accounts_path, :notice => 'Le compte a été créé.' }
+        format.html { redirect_to account_events_url(@account.id), :notice => 'Le compte a été créé.' }
         format.json { render :json => @account, :status => :created, :location => @account }
       else
         format.html { render :action => "new" }
@@ -143,7 +143,7 @@ class AccountsController < ApplicationController
       company = UnicodeUtils.upcase("%#{params[:account].strip}%")
       if params[:format] and params[:format] != 'html' then
         @elements = Array.new
-        @elements.push({ :type => 'info', 'account_url' => '/compte/[:id]/evenements', 'contact_url' => '/contact/[:id]' })
+        @elements.push({ :type => 'info', 'account_url' => '/compte/[:id]/evenements', 'contact_url' => '/contact/[:id]/edit' })
         Account.where('company LIKE ?', company).select('id, company AS name').limit(10).each {|e|
           @elements.push({ :id => e.id, :name => e.name, :type => 'account' }) 
         }

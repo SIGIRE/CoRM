@@ -105,11 +105,12 @@ Crm::Application.routes.draw do
   match 'contacts/search(.:format)', :controller => 'contacts', :action => 'search', :via => :get, :as => "search_contact_index"
   match 'contacts/filter(.:format)', :controller => 'contacts', :action => 'filter', :via => :get, :as => "search_contact_index"
   
-  root :to => 'tasks#index'
-
+  #root :to => 'tasks#index'
+  root :to => 'home#index'
 
   resources :about
 
+  resources :home
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

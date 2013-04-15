@@ -13,8 +13,7 @@
         <th><center>Contact</center></th>
         <th><center>Échéance</center></th>
         <th><center>Collaborateur</center></th>
-        <th><center>Éditer</center></th>  
-        <th><center>Détails</center></th>      
+        <th><center>Éditer</center></th>        
       </tr>
     </thead>
     <tbody>
@@ -86,8 +85,7 @@
 		<% end %>
 
 		<td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_task_path(task) ,{:title => "Éditer la tâche", :class =>"btn"}  %></center></td>
-        <td><center><%= link_to image_tag("glyphicons/glyphicons_153_more_windows.png"), task_path(task) ,{:title => "Plus d'informations", :class =>"btn"}  %></center></td>
-      </tr>
+ </tr>
       <% end %>
     </tbody>
   </table>

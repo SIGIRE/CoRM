@@ -12,8 +12,7 @@
       <th><center>Genre</center></th>
       <th><center>Téléphone</center></th>
 	  <th><center>Site Web</center></th>
-      <th><center>Éditer</center></th>  
-      <th><center>Détails</center></th>         
+      <th><center>Éditer</center></th>        
     </tr>
     </thead>
 	<tbody>
@@ -61,8 +60,7 @@
 				<td><center>-</center></td>
 		<% end %>
 		<td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_account_path(account) ,{:title => "Éditer le compte", :class =>"btn"}  %></center></td>
-        <td><center><%= link_to image_tag("glyphicons/glyphicons_153_more_windows.png"), account_path(account) ,{:title => "Plus d'informations", :class =>"btn"}  %></center></td>
-    </tr>
+  </tr>
   <% end %>
   </tbody>
   </table>

@@ -12,6 +12,7 @@
         <th><center>Opportunité</center></th>
         <th><center>Total HT</center></th>
         <th><center>Date</center></th>
+        <th><center>Collaborateur</center></th>
         <th><center>Éditer</center></th>
         <th><center>PDF</center></th>        
       </tr>
@@ -72,7 +73,12 @@
 				<td><center>-</center></td>
 		<% end %> 
         
-
+		<% if !quotation.user.nil? %>
+			<% then %>
+				<td><center><%= quotation.user.full_name %></center></td>
+			<% else %>
+				<td><center>-</center></td>
+		<% end %>	
         
 		<td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_path(quotation),{:title => "Éditer le devis", :class =>"btn"} %></center></td>
         

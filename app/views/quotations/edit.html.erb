@@ -6,9 +6,7 @@
          <h1>Édition du Devis n°<%= @quotation.id %></h1>
         </div>
           <%= link_to image_tag("glyphicons/glyphicons_210_left_arrow.png"), :back ,{:title => "Retour", :class =>"pull-right btn"}%>
-  		  <%= link_to image_tag("glyphicons/glyphicons_153_more_windows.png"), :quotation ,{:title => "Plus d'informations", :class =>"pull-right btn"}%>
-
-     </div>
+		</div>
    </div>
 
 <%= render 'form' %>

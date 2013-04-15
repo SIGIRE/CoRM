@@ -28,11 +28,11 @@
   <div class="row-fluid show-grid" style="margin-top: 1em;">
     
     <div class="span3" style="margin-right: 9em;">
-        Contact :  <%= f.collection_select :contact_id, @account.contacts.order('surname'), :id, :full_name, :class =>"filter_coll" %>
+        Contact :  <%= f.collection_select :contact_id, @account.contacts.order('surname'), :id, :full_name, :class =>"filter_coll", :include_blank => true %>
     </div>
     
     <div class="span2">
-        Type :  <%= f.collection_select :event_type_id, EventType.all, :id, :full_type, :class =>"filter_coll"%>
+        Type :  <%= f.collection_select :event_type_id, EventType.order('label'), :id, :full_type, :class =>"filter_coll", :include_blank => true %>
     </div>
     
   </div>
