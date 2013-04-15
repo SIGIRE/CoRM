@@ -53,7 +53,7 @@ class Task < ActiveRecord::Base
   end
   
   #scope :by_priority, lambda { |priority| where("priority = ?", priority) }
-  scope :by_priority, lambda { |priority| where("priority LIKE ?", priority+'%') }
+  scope :by_priority, lambda { |priority| where("priority = ?", priority) }
   scope :by_statut, lambda { |statut| where("statut LIKE ?", statut+'%') }
   scope :by_statut_non_termine, lambda { |statut| where("statut IN ('A faire', 'En cours')") }
   scope :by_account, lambda { |account| where("account_id = ?", account.id) unless account.nil? }

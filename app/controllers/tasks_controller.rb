@@ -200,17 +200,33 @@ class TasksController < ApplicationController
     else
       @email_filter = current_user.email
       @statut_filter = "Non terminé"
-	  @priority_filter = ""
+	  @priority_filter = nil
     end
-    
+
+    if @priority_filter.blank?
+	  @priority_filter = nil
+	elsif @priority_filter.is_a? String then
+	  Task::PRIORITIES.each_with_index do |value, index|
+		if value == @priority_filter
+		  @priority_filter = index
+		end
+	  end
+	end
     # Search User by @email_filer
     user = User.find(:first, :conditions => ['email LIKE ?', @email_filter])
 
     # Sort tasks by statut_filter
     if @statut_filter == "Non terminé" then
-	    @tasks = Task.by_statut_non_termine(@statut_filter).by_user(user).by_priority(@priority_filter)
+	    @tasks = Task.by_statut_non_termine(@statut_filter).by_user(user)
+	    if !@priority_filter.nil?
+		  @tasks = @tasks.by_priority(@priority_filter)
+		end
+		
     else
-        @tasks = Task.by_statut(@statut_filter).by_user(user).by_priority(@priority_filter)
+        @tasks = Task.by_statut(@statut_filter).by_user(user)
+        if !@priority_filter.nil?
+		  @tasks = @tasks.by_priority(@priority_filter)
+		end
     end
     
 	# Sort task by priority

@@ -8,7 +8,7 @@
       </div>
 
       <div class="span2">
-        <h6>Priorité : </h6><%= f.select :priority, Task::PRIORITIES_A_FILTRER,{:include_blank => "Tous", :selected => @priority_filter}, :class => "filter_priority" %>
+        <h6>Priorité : </h6><%= f.select :priority, Task::PRIORITIES_A_FILTRER,{:include_blank => "Tous", :selected => !@priority_filter.nil? ? Task::PRIORITIES_A_FILTRER[@priority_filter] : 0}, :class => "filter_priority" %>
       </div>
       
       <div class="span2">
