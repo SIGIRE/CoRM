@@ -23,7 +23,7 @@
 	end
       %>
       
-      <p><input value="<%= company %>" id="task-account-search" type="search" /><img src="/assets/icons/loading.gif" class="loading hidden" /><span class="label label-info" id="task_notice"  style="display: none; margin-left: 2em;"><i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant</span></p>
+      <p><input value="<%= company %>" id="task-account-search" type="search" autocomplete="off" /><img src="/assets/icons/loading.gif" class="loading hidden" /><span class="label label-info" id="task_notice"  style="display: none; margin-left: 2em;"><i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant</span></p>
     <%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'task_account_id', :include_blank => true } %>
       
     
@@ -32,7 +32,7 @@
   <div class="field" id="nameContacts">
     <%= render :partial => 'contacts' %>
   </div>
-  
+ 
   <div class="field">
     <div class="span2"> Affectée à : </div> <%= f.collection_select :user_id, @users, :id, :full_name %> <%= check_box_tag :mail, "yes"%> Envoyer un email à ce collaborateur
   </div>
@@ -42,7 +42,7 @@
   </div>
   
   <div class="field">
-	  <div class="span2">Description : </div> <%= f.cktext_area :notes, :ckeditor => {:toolbar => "MyToolbar"} %>
+	  <div class="span2">Description : </div> <%= f.text_area :notes , :display_with => :simple_format, :rows => "5", :style=>'width: 30em;'%>
   </div>
  <br />
 
@@ -70,23 +70,24 @@
   <br />
 
   <div class="field">
-    <div class="span2"><%= check_box_tag :generate, "yes" %> Infos de l'événement</div>
+    <div class="span9"><%= check_box_tag :generate, "yes" %> Infos de l'événement</div>
   </div>
+  <br />
   <br />
   
   <div id="task_values" style="display: none;">
-  <div class="row">
-    <div class="span12">
-      Type de l'évènement : <br /> <%= collection_select :event_type, :id ,EventType.order('label'),:id, :full_type, {:style =>"width: 100%"}%>
+  <div class="field">
+    <div class="span2">Type de l'évènement : </div> 
+		<%= collection_select :event_type, :id ,EventType.order('label'),:id, :full_type, {:style =>"width: 100%", :include_blank => true }%>
     </div>
-  </div>
+ 
   
-  <div class="row">
-    <div class="span12">
-      Notes de l'évènement : <br /> <%= text_area_tag :notes , nil,:display_with => :simple_format, :rows => "5", :style=>'width: 30em;'%>
+  <div class="field">
+    <div class="span2">Notes de l'évènement : </div>
+		<%= text_area_tag :notes , nil,:display_with => :simple_format, :rows => "5", :style=>'width: 30em;' %>
     </div>
   </div>
-  </div>
+
   <br />
   	
 	<div class="field">

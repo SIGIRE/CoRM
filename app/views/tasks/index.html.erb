@@ -13,7 +13,7 @@
         <th><center>Contact</center></th>
         <th><center>Échéance</center></th>
         <th><center>Collaborateur</center></th>
-        <th><center>Afficher</center></th>      
+        <th><center>Éditer</center></th>        
       </tr>
     </thead>
     <tbody>
@@ -58,14 +58,14 @@
 		<% end %>
 		<% if !task.title.blank? %>
 			<% then %>
-				<td><%= link_to truncate(task.title, :length => 75, :separator => ' '), task_path(task),{:title => "Afficher la tâche"} %></td>
+				<td><%= link_to truncate(task.title, :length => 75, :separator => ' '), edit_task_path(task),{:title => "Éditer la tâche"} %></td>
 			<% else %>
 				<td><center>-</center></td>
 		<% end %>
 
 		<% if !task.contact.nil? %>
 			<% then %>
-				<td><center><%= link_to task.contact.full_name, contact_path(task.contact),{:title => "Affciher le contact"}  %></center></td>
+				<td><center><%= link_to task.contact.full_name, edit_contact_path(task.contact),{:title => "Éditer le contact"}  %></center></td>
 			<% else %>
 				<td><center>-</center></td>
 		<% end %>		
@@ -84,8 +84,8 @@
 				<td><center>-</center></td>
 		<% end %>
 
-        <td><center><%= link_to image_tag("glyphicons/glyphicons_350_visual.png"), task_path(task) ,{:title => "Afficher la tâche", :class =>"btn"}  %></center></td>
-      </tr>
+		<td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_task_path(task) ,{:title => "Éditer la tâche", :class =>"btn"}  %></center></td>
+ </tr>
       <% end %>
     </tbody>
   </table>

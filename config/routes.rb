@@ -18,7 +18,7 @@ Crm::Application.routes.draw do
     match "#{ps}/:id(.:format)",         :controller => c,  :action => 'destroy',   :via => :delete, :as => "#{c.singularize}"
   end
   
-  mount Ckeditor::Engine => '/ckeditor'
+ # mount Ckeditor::Engine => '/ckeditor'
 
   match 'extractions/select_param_accounts', :controller=>'extractions', :action => 'select_param_accounts'
   match 'extractions/comptes', :controller=>'extractions', :action => 'accounts', :as => :csv
@@ -123,11 +123,12 @@ Crm::Application.routes.draw do
   match 'contacts/search(.:format)', :controller => 'contacts', :action => 'search', :via => :get, :as => "search_contact_index"
   match 'contacts/filter(.:format)', :controller => 'contacts', :action => 'filter', :via => :get, :as => "search_contact_index"
   
-  root :to => 'tasks#index'
-
+  #root :to => 'tasks#index'
+  root :to => 'home#index'
 
   resources :about
 
+  resources :home
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

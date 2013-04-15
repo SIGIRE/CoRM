@@ -21,6 +21,8 @@ class RegistrationsController < Devise::RegistrationsController
         @users = User.order('enabled DESC, id DESC').all
       elsif current_user.has_role? :super_user
         @users = User.order('id DESC').joins('LEFT JOIN users_roles ON ( users_roles.user_id = users.id )').joins('LEFT JOIN roles ON ( users_roles.role_id = roles.id )').where("users.enabled = TRUE").reject{|e| e.has_role? :admin }
+      else
+        @users = User.all_reals
       end
     else
       redirect_to root_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.User'))
@@ -32,7 +34,9 @@ class RegistrationsController < Devise::RegistrationsController
       if (!e.has_role? :admin and e.enabled)
         @real_users_count += 1
       end
-    }
+    } 
+    
+    
   end
   
   def new

@@ -12,7 +12,7 @@
       <th><center>Genre</center></th>
       <th><center>Téléphone</center></th>
 	  <th><center>Site Web</center></th>
-      <th><center>Afficher</center></th>       
+      <th><center>Éditer</center></th>        
     </tr>
     </thead>
 	<tbody>
@@ -59,9 +59,8 @@
 			<% else %>
 				<td><center>-</center></td>
 		<% end %>
-
-      <td><center><%= link_to image_tag("glyphicons/glyphicons_350_visual.png"), account_path(account),{:title => "Afficher le compte", :class =>"btn"} %></center></td>
-    </tr>
+		<td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_account_path(account) ,{:title => "Éditer le compte", :class =>"btn"}  %></center></td>
+  </tr>
   <% end %>
   </tbody>
   </table>

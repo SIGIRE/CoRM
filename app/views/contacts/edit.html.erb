@@ -3,10 +3,10 @@
    <div class="well" style="margin-top: 1em;">
      <div class="row-fluid">
        <div class="span9">
-         <h3><%= @contact.forename + ' ' + @contact.surname %> (Édition)</h3>
+         <h1 class="show_title">Édition Contact : <%= @contact.forename + ' ' + @contact.surname %></h1>
         </div>
           <%= link_to image_tag("glyphicons/glyphicons_210_left_arrow.png"), :back ,{:title => "Retour", :class =>"pull-right btn"} %>
-     </div>
+		</div>
    </div>
 
 <%= render 'form' %>

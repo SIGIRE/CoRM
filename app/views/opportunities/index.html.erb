@@ -16,7 +16,7 @@
         <th><center>Marge</center></th>
         <th><center>Échéance</center></th>
         <th><center>Collaborateur</center></th>
-        <th><center>Afficher</center></th>
+        <th><center>Éditer</center></th>   
       </tr>
     </thead>
     
@@ -54,7 +54,7 @@
 		
 		<% if !opportunity.name.blank? %>
 			<% then %>
-				<td><center><%= link_to opportunity.name, opportunity,{:title => "Afficher l'opportunité"} %></center></td>
+				<td><center><%= link_to opportunity.name,  edit_opportunity_path(opportunity),{:title => "Éditer l'opportunité"} %></center></td>
 			<% else %>
 				<td><center>-</center></td>
 		<% end %>         
@@ -95,8 +95,8 @@
 		<% end %>		
       
         
-		<td><center><%= link_to image_tag("glyphicons/glyphicons_350_visual.png"), opportunity_path(opportunity),{:title => "Afficher l'opportunité", :class =>"btn"}  %></center></td>
-      </tr>
+		<td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_opportunity_path(opportunity),{:title => "Éditer l'opportunité", :class =>"btn"}  %></center></td>
+ </tr>
       <% end %>
     </tbody>
   </table>

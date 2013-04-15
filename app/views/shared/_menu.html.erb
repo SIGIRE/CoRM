@@ -2,13 +2,13 @@
   <div class="navbar-inner">
       <div id="left-bar-container">	
           
-          <%= link_to image_tag("logo_crm_small.png"), url_for(:controller => 'tasks', :action => 'filter') ,:class =>"brand" %>
+          <%= link_to image_tag("logo_crm_small.png"), url_for(:controller => 'home', :action => 'index' ) ,:class =>"brand" , :title => "Tableau de bord" %>
           <div id="form-search-container" class="nav-collapse">
             <%= form_tag(search_accounts_path, :method => "get", :class =>"form-search", :id =>"form-search") do %>
 	      <div class="input-append">
 		<%= text_field_tag :account , nil , { 
 		:class =>"span3", 
-		:placeholder => " Rechercher un acteur", 
+		:placeholder => " Rechercher un acteur...", 
 		:autocomplete=> "off", 
 		:type => 'search',
 		:id => 'main-search-bar' }
@@ -55,17 +55,8 @@
 		    <li><%= link_to "Devis".html_safe, quotations_path %></li>
 		  </ul>
 		</li>
-		<% cssClass=nil %>
-		<li class="dropdown<%= if !cssClass.blank? then " #{cssClass}" end %>">
-		  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		    Marketing
-		    <span class="caret"></span>
-		  </a>
-		  <ul class="dropdown-menu">
-		    <li><a href="#">A venir...</a></li>
-		  </ul>
-		</li>
-	      </ul>
+
+	      
 	    </div>	
 	  </div>
       <!--
@@ -93,7 +84,7 @@
 	      
 	      <ul class="btn-group">
 		<a class="btn dropdown-toggle " data-toggle="dropdown" href="#">
-              <%= image_tag("glyphicons/glyphicons_280_settings.png", :size => "16x16")%>
+                  <%= image_tag("glyphicons/glyphicons_280_settings.png", :size => "16x16")%>
 		</a>
 		<ul class="dropdown-menu dropdown-settings">
 			<li class="dropdown-submenu pull-left">

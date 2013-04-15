@@ -234,7 +234,7 @@
 			<% if !contact.full_name.blank? %>
 				<% then %>
 					<td>
-						<center><%= link_to contact.full_name ,  contact_path(contact), {:title => "Afficher le contact"}  %></center>
+						<center><%= link_to contact.full_name ,  edit_contact_path(contact), {:title => "Éditer le contact"}  %></center>
 					</td>
 				<% else %>
 					<td>
