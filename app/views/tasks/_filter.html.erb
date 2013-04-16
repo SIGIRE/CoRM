@@ -1,8 +1,5 @@
 <div class="container-fluid" style= "background-color: #D8D8D8; margin-top: 0em; ">
-  
   <%= form_for(:filter, :url => { :action => 'filter' } , :html => {:method => :get} ) do |f| %>
-
-     
       <div class="span2">
         <h6>Statut : </h6>
         <%= f.select :statut, Task::STATUTS_A_FILTRER, {:include_blank => "Tous", :selected => @statut_filter}, :class => "filter_statut" %>

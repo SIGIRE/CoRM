@@ -23,7 +23,7 @@
       </div>
       
       <div class="span2">
-        <h6>Collaborateur : </h6><%= f.collection_select :user, User.order('email ASC').all, :id, :full_name, {:include_blank => "Tous"} , :class =>"filter_coll"%>
+        <h6>Collaborateur : </h6><%= f.collection_select :user, User.all_reals, :id, :full_name, {:include_blank => "Tous"} , :class =>"filter_coll"%>
       </div>
       
       <div class="span1" style="margin-top: 18px;">
