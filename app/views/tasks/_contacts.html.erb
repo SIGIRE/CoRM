@@ -1,18 +1,14 @@
 <div class="span2"> Contact : </div>
 <% if contacts.nil? %>
   <% if !@task.account.nil? %>
-    <%= collection_select :task, :contact_id, Contact.where(:account_id => @task.account.id).order(:surname),
-    :id, :full_name, {:include_blank => true}, {:id => 'contact_id'} %> <img src="/assets/icons/loading.gif" class="loading hidden" />
-  
+    <%= collection_select :task, :contact_id, Contact.where(:account_id => @task.account.id).order(:surname),:id, :full_name, {:include_blank => true}, {:id => 'contact_id'} %>
   <% else %>
-    <%= collection_select  :task, :contact_id, Contact.where(:account_id => 0), :id, :full_name, {:include_blank => true}, { :id => 'contact_id'} %> <img src="/assets/icons/loading.gif" class="loading hidden" />
-  
+    <%= collection_select  :task, :contact_id, Contact.where(:account_id => 0), :id, :full_name, {:include_blank => true}, { :id => 'contact_id'} %>
   <% end %> 
-
 <% else %>
   <%= collection_select  :task, :contact_id, contacts , :id, :full_name, {:include_blank => true}, { :id => 'contact_id'} %>
-
 <% end %>
+<%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
 <% if !flash[:notice].nil? %>
 <div class="span2">
   <%= flash[:notice] %>

@@ -26,7 +26,19 @@
         <div class="span2"> Date : </div> <%= f.text_field :date, { :class => 'required', :value => (f.object.date.strftime("%d/%m/%Y") unless f.object.date.nil?) } %>
       </div>
       <div class="field">
-        <div class="span2"> Compte : </div> <%= f.collection_select :account_id, Account.order('company ASC').all, :id, :company, { :class => 'required' } %>
+		<div class="span2"> Compte : </div>
+		<% company = ""
+		 if !@quotation.account.nil?
+		   company = @quotation.account.company.html_safe
+		 end %>
+		<p>
+		  <input value="<%= company %>" id="account-search" type="search" autocomplete="off" />
+		  <%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
+		  <span class="label label-info" id="task_notice"  style="display: none; margin-left: 2em;">
+			  <i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant
+		  </span>
+		</p>
+		<%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id' } %>
       </div>
       <div class="field">
         <div class="span2"> Référence client : </div> <%= f.text_field :ref_account %>

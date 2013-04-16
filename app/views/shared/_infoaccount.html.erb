@@ -1,6 +1,8 @@
 <pre>
   <%= link_to image_tag("glyphicons/glyphicons_020_home.png"), edit_account_path(@account),{:title => "Éditer le compte"} %> <i>(<%= @account.category %>)</i>
-  <b><%= @account.company unless @account.company.blank? %></b>
+  <b>
+    <%= @account.company unless @account.company.blank? %>
+  </b>
   <%= @account.adress1 unless @account.adress1.blank? %>
   <%= @account.adress2 unless @account.adress2.blank? %>
   <%= @account.zip unless @account.zip.blank? %> <%= @account.city unless @account.city.blank? %>
@@ -9,31 +11,33 @@
   <%= mail_to(@account.email) unless @account.email.blank?%>
   <%= link_to(@account.web, @account.web, :target => "_blank") unless @account.web.blank?%>
 </pre>
-
 <hr>
-  
-<pre>
-<% @account.contacts.order_by_surname.each do |contact| %>
-<div style="background-color: #FAFAFA;">
-<% if contact.title == "Mme"%>
-<%= link_to image_tag("glyphicons/glyphicons_035_woman.png"), edit_contact_path(contact),{:title => "Éditer le contact"} %> <% if contact.job != "" %> <i>(<%= contact.job %>)</i> <% end %>
-<% elsif contact.title == "M." %>
-<%= link_to image_tag("glyphicons/glyphicons_034_old_man.png"), edit_contact_path(contact),{:title => "Éditer le contact"} %> <% if contact.job != "" %> <i>(<%= contact.job %>)</i> <% end %>
-<% end %> 
-<b><%= contact.title %> <%= contact.surname %> <%= contact.forename %></b>
-<% if contact.tel != "" %>
-Tél : <%= contact.tel %>
-<% end %>
-<% if contact.fax != "" %>
-Fax : <%= contact.fax %>
-<% end %>
-<% if contact.mobile != "" %>
-Mobile : <%= contact.mobile %>
-<% end %>
-<% if contact.email != "" %>
-<%= mail_to(contact.email) %>
-<% end %>
-</div>
+  <% @account.contacts.order_by_surname.each do |contact| %>
+  <div class="contact-container">
+    <% if contact.title == "Mme"%>
+      <%= link_to image_tag("glyphicons/glyphicons_035_woman.png"), edit_contact_path(contact),{:title => "Éditer le contact"} %> <% if !contact.job.blank? then %> <i class="contact-job">(<%= contact.job %>)</i><% end %>
+    <% elsif contact.title == "M." %>
+      <%= link_to image_tag("glyphicons/glyphicons_034_old_man.png"), edit_contact_path(contact),{:title => "Éditer le contact"} %><% if !contact.job.blank? then %><i class="contact-job"> (<%= contact.job %>)</i><% end %>
+    <% end %>
+    
+    <p>
+      <b><%= contact.title %> <%= contact.full_name %></b>
+    </p>
+    <p>
+      <% if !contact.tel.blank? %>
+        Tél : <%= contact.tel %><br />
+      <% end %>
+      <% if !contact.fax.blank? %>
+        Fax : <%= contact.fax %><br />
+      <% end %>
+      <% if !contact.mobile.blank? %>
+        Mobile : <%= contact.mobile %><br />
+      <% end %>
+      <% if contact.email != "" %>
+        <%= mail_to(contact.email) %><br />
+      <% end %>
+    </p>
+  </div>
 <% end %><hr>
 <%= form_for ( [@account, @account.contacts.new]) do |f| %>
 <div class = ""><%=image_tag("glyphicons/glyphicons_006_user_add.png")%></div>
@@ -48,5 +52,3 @@ Mobile : <%= contact.mobile %>
   <%= f.hidden_field :account_id %>
   <div class = "actions"><%= f.submit %></div>
 <% end %>
-</pre>
-  

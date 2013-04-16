@@ -1,24 +1,11 @@
 <div class="span2"> Contact : </div>
-
-<!-- si aucun contact n'est retourné par le javascript -->
 <% if contacts.nil? %>
-  
-  <!-- si le tache a deja un compte d'affecté -->
   <% if !@quotation.account.nil? %>
-    
-    <!-- on affiche les données initiales -->
-    <%= collection_select :quotation, :contact_id, Contact.where(:account_id => @quotation.account.id).order(:surname), :id, :full_name, {:include_blank => true}, :remote=>true %>
-  
+    <%= collection_select :quotation, :contact_id, Contact.where(:account_id => @quotation.account.id).order(:surname), :id, :full_name, {:include_blank => true}, { :id => 'contact_id'} %>
   <% else %>
-    
-    <!-- sinon on affiche des blancs -->
-    <%= collection_select  :quotation, :contact_id, Contact.where(:account_id => 0), :id, :full_name, {:include_blank => true}, :remote=>true %>
-  
+    <%= collection_select  :quotation, :contact_id, Contact.where(:account_id => 0), :id, :full_name, {:include_blank => true}, { :id => 'contact_id'} %>
   <% end %> 
-
 <% else %>
-  
-  <!-- sinon on affiche les contacts triés -->
-  <%= collection_select  :quotation, :contact_id, contacts , :id, :full_name, {:include_blank => true}, :remote => true %>
-
+  <%= collection_select  :quotation, :contact_id, contacts , :id, :full_name, {:include_blank => true}, { :id => 'contact_id'} %>
 <% end %>
+<%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>

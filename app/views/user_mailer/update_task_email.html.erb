@@ -28,14 +28,8 @@
           <% end %>
           
           <strong> Statut : </strong><%= @task.statut %><br />
-          
-          <% if !@task.term.blank? %>
           <strong> Echéance : </strong> <%= @task.term.split('/').reverse!.join('/') %>
-          <% end %> 
-        </p>
-        <p>
-          <h4>Sujet</h4>
-          <%= @task.title %>
+          <strong> Sujet : </strong> <%= @task.title %>
         </p>
         <p><h4> Description : </h4>
           <%= truncate(@task.notes, :length => 150, :separator => ' ')%>

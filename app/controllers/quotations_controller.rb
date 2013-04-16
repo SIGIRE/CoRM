@@ -18,7 +18,7 @@ class QuotationsController < ApplicationController
       redirect_to quotations_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
 	  return false
     end
-    @users = User.where(:enabled => true)
+    @users = User.all_reals
     @quotation = Quotation.new(params[:quotation])
     @quotation.user = current_user
     @quotation.account_id = params[:account_id]

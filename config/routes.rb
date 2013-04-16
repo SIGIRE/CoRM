@@ -128,7 +128,7 @@ Crm::Application.routes.draw do
 
   resources :about
 
-  resources :home
+  # resources :home
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

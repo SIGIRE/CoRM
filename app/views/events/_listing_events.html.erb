@@ -7,7 +7,7 @@
         <div>
           <small>
             N° <%= event.id %> -
-            D&eacute;but :  <%= event.date_begin.strftime("%d/%m/%y à %H:%M") unless event.date_begin.blank?%> -
+            Début :  <%= event.date_begin.strftime("%d/%m/%y à %H:%M") unless event.date_begin.blank?%> -
             Fin :  <%= event.date_end.strftime("%d/%m/%y à %H:%M") unless event.date_end.blank? %> -
             (<%= distance_of_time_in_words(event.date_begin, event.date_end) unless (event.date_begin.blank? or event.date_end.blank?) %>) - 
             Contact : <strong><%= if event.contact.nil?  then "Néant" else event.contact.full_name  end%></strong> -
@@ -16,13 +16,10 @@
             <% if !event.task.nil? %>
               <strong>- Lié à la Tache n° <%= event.task.id %> </strong>
             <% end %>
-            
           </small>
         </div>
           <%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), event_path(event),  :data => { :confirm => 'Confirmer la Suppression?'},:class =>"pull-right btn" ,:title => "Supprimer l'évènement", :method => :delete %>
       </div>
-        
-      
       <% if !event.task.nil? %>
        <div class="row">
         <div class="span12" >
@@ -39,7 +36,7 @@
       <% if !event.notes2.blank? %>
       <div class="row">
         <pre>
-        <%= simple_format (event.notes2) %>
+        <%= simple_format(event.notes2) %>
         </pre>
       </div>
     <% end %>
