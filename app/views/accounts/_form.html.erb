@@ -29,7 +29,7 @@
   </div>
   
   <div class="field">
-   <div class="span2">Ville : </div> <%= f.text_field :city, :style=>'width: 30em;' %>
+   <div class="span2"> Ville : </div> <%= f.text_field :city, :style=>'width: 30em;' %>
   </div>
   
   <div class="field">
@@ -75,7 +75,7 @@
   </div>
   
   <div class="field">
-    <div class="span2"> Utilisateur : </div> <%= f.collection_select :user_id, User.all, :id, :full_name %>
+    <div class="span2"> Collaborateur : </div> <%= f.collection_select :user_id, @users, :id, :full_name %>
   </div>
   
   <div class="field">

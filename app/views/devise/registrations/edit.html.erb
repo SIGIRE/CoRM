@@ -1,46 +1,58 @@
-<div class="container-fluid">
+<div class="container-fluid" style="margin-top: 1em;">
   
-  <div class="page-header">
-    <h2>Édition du compte utilisateur</h2>
-  </div>
+     <div class="well">
+       <div class="row-fluid">
+         <div class="span9">
+           <h1>Édition du compte Utilisateur</h1></div>
+		     <%= link_to image_tag("glyphicons/glyphicons_210_left_arrow.png"), :back ,{:title => "Retour", :class =>"pull-right btn"} %>
+		</div>
+	 </div>
   
   <%= form_for(@user, :url => user_path(@user), :html => { :method => :put , :class => "well"}) do |f| %>
     <%= devise_error_messages! %>
   
-    <div class="field">Login : <br />
-      <%= f.email_field :email , :disabled => @email_disabled %>
+    <div class="field"> <div class="span1">Login : </div> <%= f.email_field :email , :disabled => @email_disabled, :style=>'width: 20em;' %>
       <a id="profil_mdp" class="btn btn-success btn-small" data-toggle="modal" href="#edit_profile_modal" style="margin-bottom: 8px;">Modifier mon mot de passe</a>
     </div>
     
-    <div class="field">Prénom : <br />
-      <%= f.text_field :forename, { :class => 'required' } %>
+    <div class="field"> <div class="span1">Prénom : </div>
+      <%= f.text_field :forename, { :class => 'required', :style=>'width: 20em;' } %>
     </div>
 
-    <div class="field">Nom : <br />
-      <%= f.text_field :surname, { :class => 'required' } %>
+    <div class="field"><div class="span1"> Nom : </div>
+      <%= f.text_field :surname, { :class => 'required', :style=>'width: 20em;' } %>
     </div>
        
-    <div class="field">Tél fixe : <br />
-      <%= f.text_field :tel %>
+    <div class="field"><div class="span1"> Tél fixe : </div>
+      <%= f.text_field :tel, { :style=>'width: 20em;' } %>
     </div>
     
-    <div class="field">Tél mobile : <br />
-      <%= f.text_field :mobile %>
+    <div class="field"> <div class="span1">Mobile : </div>
+      <%= f.text_field :mobile, { :style=>'width: 20em;' } %>
     </div>
-    <% if current_user.has_role? :super_user then %>
+    <% if current_user.has_role? :admin then %>
       <div class="field">
         <label for="user[enabled]" class="checkbox">
           Activé
           <input <%= (@user.enabled == true ? 'checked=checked' : '') %> type="checkbox" name="user[enabled]" id="user[enabled]" value="1" />
         </label>
       </div>
-      <div class="field">
+	  <div class="field">
+        <label for="user[super]" class="checkbox">
+          Super Utilisateur
+          <input <%= (@user.has_role?(:super_user) ? 'checked=checked' : '') %> type="checkbox" name="user[super]" id="user[super]" value="1" />
+        </label>
+      </div>
+	<% else %>
+	  <div class="field">
         <label for="user[super]" class="checkbox">
           Super Utilisateur
           <input <%= (@user.has_role?(:super_user) ? 'checked=checked' : '') %> type="checkbox" name="user[super]" id="user[super]" value="1" />
         </label>
       </div>
     <% end %>
+	
+	
     
     
     <div class="modal hide fade" id="edit_profile_modal">
@@ -74,8 +86,7 @@
       
   </div>
   
-  <div class="field">
-    <%= link_to image_tag("glyphicons/glyphicons_210_left_arrow.png"), :back ,{:title => "Retour"} %>
+  <div>
     <%= f.submit "Modifier", :class =>"btn btn-primary" , :style =>"margin-left: 122px;"%>
   </div>
   

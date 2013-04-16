@@ -1,24 +1,33 @@
-<div class="container-fluid">
-  <div class="page-header">
-    <h2>Utilisateurs de l'application</h2>
-  </div>
-  <p>
-    <strong>Utilisateurs actifs: </strong><%= @real_users_count %>
-    <% if current_user.has_role? :admin %>
-    <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_user_path ,{:title => "Ajouter", :class=>"btn"} %>
+<div class="container-fluid" style="margin-top: 1em;">
+  
+     <div class="well">
+       <div class="row-fluid">
+         <div class="span9">
+           <h1>Utilisateurs enregistrés</h1></div>
+		       <% if current_user.has_role? :admin %>
+    <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_user_path ,{:title => "Créer un utilisateur", :class=>"btn pull-right"} %>
     <% end %>
+         
+		</div>
+	 </div>
+  <p>
+    <h3>Utilisateurs actifs actuellement : <%= @real_users_count %> </h3>
+
   </p>
   <% if @users.length > 0 %>
+  </br>
   <table class="table table-bordered table-striped table-hover">
     <thead>
       <tr>
         <th><center>#</center></th>
-        <th><center>Email</center></th>
+        <th><center>Adresse e-mail</center></th>
         <th><center>Nom</center></th>
-        <th><center>Roles</center></th>
+        <th><center>Rôles</center></th>
         <% if current_user.has_role? :admin %>
-        <th><center>Etat</center></th>
-        <th><center><% if current_user.has_role? :super_user %>Editer<%else%>Afficher<%end%></center></th>
+			<th><center>État</center></th>
+			<th><center><% if current_user.has_role? :super_user %>Éditer<%else%>Afficher<%end%></center></th>
+		<% else %>
+			<th><center><% if current_user.has_role? :super_user %>Éditer<%else%>Afficher<%end%></center></th>
         <% end %>
       </tr>
     </thead>
@@ -33,7 +42,7 @@
         <td><center><%= (u.enabled ? "Activé" : "Désactivé") %></center></td>
         <% end %>
         <% if current_user.has_role? :super_user %>
-        <td><center><%= link_to "Editer", edit_user_path(u) ,{:title => "Editer #{u.full_name}", :class=>"btn"} %></center></td>
+        <td><center><%= link_to "Éditer", edit_user_path(u) ,{:title => "Éditer #{u.full_name}", :class=>"btn"} %></center></td>
         <% else %>
         <td><center><%= link_to "Afficher", user_path(u) ,{:title => "Afficher #{u.full_name}", :class=>"btn"} %></center></td>
         <% end %>

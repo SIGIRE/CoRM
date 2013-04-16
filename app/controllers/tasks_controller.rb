@@ -48,7 +48,7 @@ class TasksController < ApplicationController
 	if @ability.can? :create, Task
 	  @task = Task.new
 	  @task.user = current_user
-	  @users = User.where(:enabled => true)
+	  @users = User.all_reals
 	  respond_to do |format|
 		format.html # new.html.erb
 		format.json { render :json => @task }
