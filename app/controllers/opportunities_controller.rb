@@ -73,24 +73,20 @@ class OpportunitiesController < ApplicationController
     end
     @opportunity = Opportunity.new(params[:opportunity])
     @opportunity.created_by = current_user.id
-    
     if @opportunity.amount.nil?
       @opportunity.amount = 0
     end
-
     if @opportunity.profit.nil?
       @opportunity.profit = 0
     end
-    
     respond_to do |format|
       if @opportunity.save
+        if params[:mail] == 'yes'
+          UserMailer.mail_for(current_user, @opportunity, true).deliver
+        end
         format.html  { redirect_to account_events_url(@opportunity.account_id), :notice => "l'Opportunité a été créée" }
-        format.json  { render :json => @opportunity,
-                      :status => :created}
       else
         format.html  { render :action => "new" }
-        format.json  { render :json => @opportunity.errors,
-                      :status => :unprocessable_entity }
       end
     end
   end
@@ -128,11 +124,12 @@ class OpportunitiesController < ApplicationController
    
     respond_to do |format|
       if @opportunity.update_attributes(params[:opportunity])
+        if params[:mail] == 'yes'
+          UserMailer.mail_for(@opportunity.user, @opportunity, true).deliver
+        end
         format.html  { redirect_to account_events_url(@opportunity.account_id), :notice => "L' opportunity a ete mise a jour." }
-        format.json  { head :no_content }
       else
         format.html  { render :action => "edit" }
-        format.json  { render :json => @opportunity.errors, :status => :unprocessable_entity }
       end
     end
   end

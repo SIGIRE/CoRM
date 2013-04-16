@@ -1,52 +1,51 @@
-<!DOCTYPE html>
-<html lang="fr" direction="ltr">
-  <head>
-    <meta content="multipart/alternative"; charset=UTF-8" http-equiv="Content-Type" />
-  </head>
-  <body>
-    <div class="container-fluid">
-      <div class="page-header">
-        <h2>Création de la <%= @created_object %> n° <%= @object.id %></h2>
-      </div>
+<!DOCTYPE html><html lang="fr" direction="ltr"><head><meta content="multipart/alternative"; charset=UTF-8" http-equiv="Content-Type" /></head><body>
+<div class="container-fluid">
+  <div class="page-header">
+    <h2>Création de la <%= @created_object %> n° <%= @object.id %></h2>
+  </div>
+  
+  <div class="well">
+    <p>Bonjour, <%= @user.full_name %></p>
+    <p>
+    <% if @created %>
+        CRM SIGIRE vous informe qu'une nouvelle <%= @created_object %> vient de vous être affectée.
+    <% else %>
+        CRM SIGIRE vous informe que les données d'une <%= @created_object %> vous étant affectée ont été modifiées.
+    <% end %>
+      <br/>
+    </p>
+    <p>
+      <h4> Informations : </h4>
+      <% if defined? @object.label and !@object.label.blank? %>
+        <strong> Libellé : </strong><%= @object.label %>
+        <br />
+      <% elsif defined? @object.name and !@object.name.blank? %>
+        <strong> Libellé : </strong><%= @object.name %>
+        <br />
+      <% end %>
+      <% if defined? @object.account and !@object.account.nil? %>
+        <strong> Compte : </strong><%= @object.account.company %>
+        <br />
+      <% end %>
       
-      <div class="well">
-        <p>Bonjour, <%= @user.full_name %></p>
-        <p>
-        <% if @created %>
-            CRM SIGIRE vous informe qu'une nouvelle <%= @created_object %> vient de vous être affectée.
-        <% else %>
-            CRM SIGIRE vous informe que les données d'une <%= @created_object %> vous étant affectée ont été modifiées.
-        <% end %>
-          <br/>
-        </p>
-        <p><h4> Informations : </h4>
-          <% if !@object.account.nil? %>
-            <strong> Compte : </strong><%= @object.account.company %>
-            <br />
-          <% end %>
-          
-          <% if !@object.contact.nil? %>
-            <strong> Contact : </strong><%= @object.contact.full_name %>
-            <br />
-          <% end %>
-          
-          <strong> Statut : </strong><%= @task.statut %><br />
-          
-          <% if !@task.contact.nil? %>
-          <strong> Echéance : </strong> <%= @task.term.split('/').reverse!.join('/') %>
-          <% end %>
-          
-        </p>
-        <p><h4> Description : </h4>
-          <%= truncate(@task.notes, :length => 150, :separator => ' ')%>
-        </p>
-        <p>
-          Pour obtenir d'avantages d'informations sur cette tâche, veuillez cliquer sur ce lien : <%= link_to "Lien vers la tâche", @url %> <%#= taches_url(:host => "http://192.168.0.67:3000") %>.
-        </p>
-        
-      </div>
-      
-    </div>
-    
-  </body>
-</html>
+      <% if defined? @object.contact and !@object.contact.nil? %>
+        <strong> Contact : </strong><%= @object.contact.full_name %>
+        <br />
+      <% end %>
+      <% if defined? @object.statut and !@object.statut.blank? %>
+        <strong> Statut : </strong><%= @object.statut %><br />
+        <br />
+      <% end %>
+      <% if defined? @object.term and !@object.term.blank? %>
+      <strong> Echéance : </strong> <%= @object.term.to_s %>
+      <% end %>
+    </p>
+    <% if defined? @object.notes and !@object.notes.blank? %>
+      <p><h4> Description : </h4>
+        <%= truncate(@object.notes, :length => 150, :separator => ' ')%>
+      </p>
+    <% end %>
+    <p>Pour obtenir d'avantages d'informations sur cette tâche, veuillez cliquer sur <%= link_to "ce lien", @url %></p>
+  </div>
+</div>
+</body></html>

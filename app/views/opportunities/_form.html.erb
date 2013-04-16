@@ -34,7 +34,7 @@
           <i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant
         </span>
       </p>
-      <%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'task_account_id', :include_blank => true } %>
+      <%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id', :include_blank => true } %>
   </div>
   <div class="field" id="nameContacts">
     <%= render :partial => 'contacts' %>
@@ -43,7 +43,7 @@
     <div class="span2"> Affectée à : </div>
 	  <p><%= f.collection_select :user_id, @users, :id, :full_name %>
 		<label for="opportunity_mail" class="checkbox right-field">
-          <input type="checkbox" name="opportunity[mail]" id="opportunity_mail" value="yes" />Envoyer un Mail à ce collaborateur
+          <input type="checkbox" name="mail" id="opportunity_mail" value="yes" />Envoyer un Mail à ce collaborateur
         </label>
 	  </p>
   </div>

@@ -31,13 +31,8 @@
           <strong> Echéance : </strong> <%= @task.term.split('/').reverse!.join('/') %>
           <strong> Sujet : </strong> <%= @task.title %>
         </p>
-        <p><h4> Description : </h4>
-          <%= truncate(@task.notes, :length => 150, :separator => ' ')%>
-        </p>
-        <p>
-          Pour obtenir d'avantages d'informations sur cette tâche, veuillez cliquer sur ce lien : <%= link_to "Lien vers la tâche", @url %> <%#= taches_url(:host => "http://192.168.0.67:3000") %>.
-        </p>
-        
+        <p><h4> Description : </h4><%= truncate(@task.notes, :length => 150, :separator => ' ')%></p>
+        <p>Pour obtenir d'avantages d'informations sur cette tâche, veuillez cliquer sur ce lien : <%= link_to "Lien vers la tâche", @url %> <%#= taches_url(:host => "http://192.168.0.67:3000") %>.</p>
       </div>
       
     </div>
