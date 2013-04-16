@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130412094539) do
+ActiveRecord::Schema.define(:version => 20130415155306) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -194,9 +194,9 @@ ActiveRecord::Schema.define(:version => 20130412094539) do
     t.datetime "updated_at",                                 :null => false
     t.integer  "quotation_id"
     t.integer  "price_excl_tax_cents",    :default => 0,     :null => false
-    t.string   "price_excl_tax_currency", :default => "EUR", :null => false
+    t.string   "price_excl_tax_currency", :default => "USD", :null => false
     t.integer  "total_excl_tax_cents",    :default => 0,     :null => false
-    t.string   "total_excl_tax_currency", :default => "EUR", :null => false
+    t.string   "total_excl_tax_currency", :default => "USD", :null => false
     t.decimal  "quantity"
   end
 
@@ -246,9 +246,9 @@ ActiveRecord::Schema.define(:version => 20130412094539) do
     t.integer  "opportunity_id"
     t.integer  "quotation_template_id"
     t.integer  "total_excl_tax_cents",    :default => 0,     :null => false
-    t.string   "total_excl_tax_currency", :default => "EUR", :null => false
+    t.string   "total_excl_tax_currency", :default => "USD", :null => false
     t.integer  "total_incl_tax_cents",    :default => 0,     :null => false
-    t.string   "total_incl_tax_currency", :default => "EUR", :null => false
+    t.string   "total_incl_tax_currency", :default => "USD", :null => false
     t.string   "company"
     t.string   "adress1"
     t.string   "adress2"
@@ -261,7 +261,7 @@ ActiveRecord::Schema.define(:version => 20130412094539) do
     t.string   "job"
     t.decimal  "VAT_rate"
     t.integer  "total_VAT_cents",         :default => 0,     :null => false
-    t.string   "total_VAT_currency",      :default => "EUR", :null => false
+    t.string   "total_VAT_currency",      :default => "USD", :null => false
     t.string   "label"
   end
 
@@ -311,7 +311,7 @@ ActiveRecord::Schema.define(:version => 20130412094539) do
     t.string   "attach_content_type"
     t.integer  "attach_file_size"
     t.datetime "attach_updated_at"
-    t.string   "priority"
+    t.integer  "priority"
     t.string   "title"
   end
 

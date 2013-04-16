@@ -51,7 +51,7 @@
   </div>
   
    <div class="field">
-    <div class="span2"> Priorité : </div> <%= f.select :priority, Task::PRIORITIES, :selected => @task.priority.nil? ? "Normal" : @task.priority %>
+    <div class="span2"> Priorité : </div> <%= f.select :priority, Task::PRIORITIES, :selected => @task.priority.nil? ? 1 : Task::PRIORITIES[@task.priority] %>
   </div>
   
   <div class="field">
