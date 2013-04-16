@@ -51,7 +51,7 @@ class AccountsController < ApplicationController
     if @ability.can? :create, Account
       @account = Account.new
       @account.user = current_user
-  
+  	  @users = User.all_reals
       respond_to do |format|
         format.html # new.html.erb
         format.json { render :json => @account }
@@ -69,6 +69,7 @@ class AccountsController < ApplicationController
   def edit
     if @ability.can? :update, Account
       @account = Account.find(params[:id])
+	  @users = User.all_reals
     else
       redirect_to accounts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
       return false
