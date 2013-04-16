@@ -45,7 +45,7 @@ class Task < ActiveRecord::Base
   PRIORITIES = ["Bas", "Normal", "Haut", "Urgent"]
   PRIORITIES_A_FILTRER = PRIORITIES
   
-  validates_inclusion_of :priority, :in => PRIORITIES
+  validates_inclusion_of :priority, :in => 0..PRIORITIES.length
   
   has_attached_file :attach
   Paperclip.interpolates :with_content_type do |attachment, style|

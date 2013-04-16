@@ -4,11 +4,17 @@
 
      
       <div class="span2">
-        <h6>Statut : </h6><%= f.select :statut, Task::STATUTS_A_FILTRER,{:include_blank => "Tous", :selected => @statut_filter}, :class => "filter_statut" %>
+        <h6>Statut : </h6>
+        <%= f.select :statut, Task::STATUTS_A_FILTRER, {:include_blank => "Tous", :selected => @statut_filter}, :class => "filter_statut" %>
       </div>
-
       <div class="span2">
-        <h6>Priorité : </h6><%= f.select :priority, Task::PRIORITIES_A_FILTRER,{:include_blank => "Tous", :selected => !@priority_filter.nil? ? Task::PRIORITIES_A_FILTRER[@priority_filter] : 0}, :class => "filter_priority" %>
+        <h6>Priorité : </h6>
+        <select name="filter[priority]" id="filter_priority" class="filter_priority">
+          <option value="">Tous</option>
+          <% Task::PRIORITIES.each_with_index do |value, index| %>
+            <option value="<%= index %>"<%= if @priority_filter == index then ' selected=selected' end %>><%= value %></option>
+          <% end %>
+        </select>
       </div>
       
       <div class="span2">

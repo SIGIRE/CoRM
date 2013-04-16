@@ -17,8 +17,16 @@ module Crm
 		Devise::SessionsController.layout "layout_for_sessions_controller"
 		Devise::PasswordsController.layout "layout_for_sessions_controller" 
 	end
+	
+	CORM = {
+	  :host => 'localhost',
+	  :smtp => {
+		:host => 'smtp-out.sigire.net',
+		:port => 25
+	  }
+	}
     
-	config.action_mailer.default_url_options = { :host => 'crm.ligepack.com' }
+	config.action_mailer.default_url_options = { :host => 'localhost' }
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

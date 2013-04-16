@@ -1,114 +1,87 @@
 <%= render 'filter', :locals => { :filter => @filter }%>
-
 <%= render 'title', :locals => { :title => @title }%>
-
-
 <div class="container-fluid">
   <table class="table table-bordered table-striped table-hover">
     <thead>
       <tr>
-        <th><center>#</center></th>
-        <th><center>Statut</center></th>
-        <th><center>Compte</center></th>
-        <th><center>Libellé</center></th>
-        <th><center>Contact</center></th>
-        <th><center>Estimation</center></th>
-        <th><center>Marge</center></th>
-        <th><center>Échéance</center></th>
-        <th><center>Collaborateur</center></th>
-        <th><center>Éditer</center></th>   
+        <th class="text-center">#</th>
+        <th class="text-center">Statut</th>
+        <th class="text-center">Compte</th>
+        <th class="text-center">Libellé</th>
+        <th class="text-center">Contact</th>
+        <th class="text-center">Estimation</th>
+        <th class="text-center">Marge</th>
+        <th class="text-center">Échéance</th>
+        <th class="text-center">Collaborateur</th>
+        <th class="text-center">Éditer</th>   
       </tr>
     </thead>
-    
     <tbody>
       <% @opportunities.each do |opportunity| %>
       <tr>
 		<% if !opportunity.id.nil? %>
-			<% then %>
-				<td><center><%= opportunity.id %></center></td>
-			<% else %>
-				<td><center>-</center></td>
+		<td class="text-center"><%= opportunity.id %></td>
+		<% else %>
+		<td class="text-center">-</td>
 		<% end %>       
-        
-		<td><center>
+		<td class="text-center">
           <% if opportunity.statut == "Détectée"%>
-            <span class="badge badge-important">
+          <span class="badge badge-important">
           <% elsif opportunity.statut == "En cours"%>
-            <span class="badge badge-warning">
+          <span class="badge badge-warning">
           <% elsif opportunity.statut == "Gagnée"%>
-            <span class="badge badge-success">
+          <span class="badge badge-success">
           <% elsif opportunity.statut == "Perdue"%>
-            <span class="badge badge-inverse">
+          <span class="badge badge-inverse">
           <% else %>
-            -
+          -
           <% end %>
-          <%= opportunity.statut %></span>
-        </center></td>
-
+		  <%= opportunity.statut %>
+		  </span>
+        </td>
 		<% if !opportunity.account.nil? %>
-			<% then %>
-				<td><center><%= link_to opportunity.account.company , account_events_url(opportunity.account),{:title => "Afficher les évènements"} %></center></td>
-			<% else %>
-				<td><center>-</center></td>
+		<td class="text-center"><%= link_to opportunity.account.company , account_events_url(opportunity.account),{:title => "Afficher les évènements"} %></td>
+		<% else %>
+		<td class="text-center">-</td>
 		<% end %>         
-		
 		<% if !opportunity.name.blank? %>
-			<% then %>
-				<td><center><%= link_to opportunity.name,  edit_opportunity_path(opportunity),{:title => "Éditer l'opportunité"} %></center></td>
-			<% else %>
-				<td><center>-</center></td>
+		<td class="text-center"><%= link_to opportunity.name,  edit_opportunity_path(opportunity),{:title => "Éditer l'opportunité"} %></td>
+		<% else %>
+		<td class="text-center">-</td>
 		<% end %>         
-		
 		<% if !opportunity.contact.nil? %>
-			<% then %>
-				<td><center><%= link_to opportunity.contact.surname, opportunity.contact ,{:title => "Afficher le contact"} %></center></td>
-			<% else %>
-				<td><center>-</center></td>
+		<td class="text-center"><%= link_to opportunity.contact.surname, opportunity.contact ,{:title => "Afficher le contact"} %></td>
+		<% else %>
+		<td class="text-center">-</td>
 		<% end %>       
-		
 		<% if !opportunity.amount.nil? %>
-			<% then %>
-				<td style="text-align :right;"><%= number_to_currency(opportunity.amount, :locale => :fr)  %> <strong> HT </strong></td>
-			<% else %>
-				<td><center>-</center></td>
+		<td style="text-align :right;"><%= number_to_currency(opportunity.amount, :locale => :fr)  %> <strong> HT </strong></td>
+		<% else %>
+		<td class="text-center">-</td>
 		<% end %>
-        
 		<% if !opportunity.profit.nil? %>
-			<% then %>
-				<td style="text-align :right;"><%= number_to_currency(opportunity.profit, :locale => :fr)  %> <strong> HT </strong></td>
-			<% else %>
-				<td><center>-</center></td>
+		<td style="text-align :right;"><%= number_to_currency(opportunity.profit, :locale => :fr)  %> <strong> HT </strong></td>
+		<% else %>
+		<td class="text-center">-</td>
 		<% end %>
-	
 		<% if !opportunity.term.nil? %>
-			<% then %>
-				<td><center><%=  opportunity.term.strftime("%d/%m/%y") %></center></td>
-			<% else %>
-				<td><center>-</center></td>
+		<td class="text-center"><%=  opportunity.term.strftime("%d/%m/%y") %></td>
+		<% else %>
+		<td class="text-center">-</td>
 		<% end %>
-		
 		<% if !opportunity.user.nil? %>
-			<% then %>
-				<td><center><%= opportunity.user.full_name %></center></td>
-			<% else %>
-				<td><center>-</center></td>
-		<% end %>		
-      
-        
-		<td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_opportunity_path(opportunity),{:title => "Éditer l'opportunité", :class =>"btn"}  %></center></td>
- </tr>
+		<td class="text-center"><%= opportunity.user.full_name %></td>
+		<% else %>
+		<td class="text-center">-</td>
+		<% end %>
+		<td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_opportunity_path(opportunity),{:title => "Éditer l'opportunité", :class =>"btn"}  %></td>
+      </tr>
       <% end %>
     </tbody>
   </table>
-  
-  <br />
-  
   <%= paginate @opportunities %>
-  
-  <div class="page-header pull-right" style="text-align: right;">
-    <h4> Montant total estimé : <%=number_to_currency(@total_amount, :locale => :fr) %>  HT</h4> <br /> 
-    <h4> Marge totale estimée : <%=number_to_currency(@total_profit, :locale => :fr) %>  HT</h4> 
+  <div class="page-header pull-right text-right">
+    <h4> Montant total estimé : <%= number_to_currency(@total_amount, :locale => :fr) %>  HT</h4><br />
+    <h4> Marge totale estimée : <%= number_to_currency(@total_profit, :locale => :fr) %>  HT</h4> 
   </div>
-
-
 </div>

@@ -1,39 +1,35 @@
 <div class="container-fluid">
-  
   <div class="page-header">
     <h1>Opportunité n°<%= @opportunity.id %> </h1>
   </div>
-
   <div class="well">
-    
     <table class="table table-striped">
       <tbody>
         <tr>
-          <td>  
+          <td>
             <div class="span2">
               <h3>Statut :</h3>
               <% if @opportunity.statut == "Détectée"%>
-                <span class="badge badge-info">
+              <span class="badge badge-info">
               <% elsif @opportunity.statut == "En cours"%>
-                <span class="badge badge-warning">
+              <span class="badge badge-warning">
               <% elsif @opportunity.statut == "Gagnée"%>
-                <span class="badge badge-success">
-              <% elsif @opportunity.statut == "Perdue"%>
-                <span class="badge badge-important">
+              <span class="badge badge-success">
+			  <% elsif @opportunity.statut == "Perdue"%>
+              <span class="badge badge-important">
               <% else %>
-                <span class="badge badge-info">
+              <span class="badge badge-info">
               <% end %>
-              <%= @opportunity.statut %></span>
-            </div>
+				<%= @opportunity.statut %>
+			  </span>
+			</div>
           </td>
-    
-	  <td>
+		  <td>
             <div class="span2">
               <h3> Compte :</h3>
               <%= if !@opportunity.account.nil? then link_to @opportunity.account.company , @opportunity.account end%>
             </div>
           </td>
-    
           <% if !@opportunity.contact.nil? %>
           <td>
             <div class="span2">
@@ -42,22 +38,19 @@
             </div>
           </td>
           <% end %>
-
-	  <% if !@opportunity.term.nil? %>
+		  <% if !@opportunity.term.nil? %>
           <td>
             <div class="span2">
               <h3>Echéance :</h3>
               <%= @opportunity.term.strftime("%d/%m/%y") %>
             </div>
           </td>
-	  <% end %>
+		  <% end %>
         </tr>
-        
         <tr>
           <td colspan="4">
               <h3>Libellé :</h3>
               <%= @opportunity.name %>
-            
           </td>
         </tr>
     

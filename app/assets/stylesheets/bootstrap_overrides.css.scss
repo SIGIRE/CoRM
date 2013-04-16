@@ -67,6 +67,7 @@ form#form-search {
   padding: 10px;
   background-color: #303030;
   cursor: default;
+  display: inline-block;
   @include gradient-vertical($navbarBackgroundHighlight, $navbarBackground);
   @include transit(padding, 0.8s);
   &.focus {
@@ -408,7 +409,7 @@ img.loading {
 label.checkbox {
     font-size: 14px;
     padding: 8px;
-    width: 206px;
+    width: auto;
     &:hover {
         background-color: #E1E1E1;
     }
@@ -420,6 +421,22 @@ label.checkbox {
         margin-right: 5px;
         border: 0;
     }
+	&.right-field {
+	  padding: 5px;
+	  vertical-align: top;
+	  display: inline-block;
+	}
 }
 
+.text-center {
+  text-align: center !important;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.no-margin {
+  margin: 0;
+}
 

@@ -1,0 +1,24 @@
+
+Tâche n°<%= @task.id %> : Création de la tâche
+===============================================
+
+Bonjour, <%= @user.full_name %>
+ 
+CRM SIGIRE vous informe qu'une nouvelle tâche vient de vous être affectée.
+
+Informations :
+
+<% if !@task.account.nil? %>
+Compte : <%= @task.account.company %>,
+<% end %>
+
+<% if !@task.contact.nil? %>
+Contact : <%= @task.contact.full_name %>,
+<% end %>
+
+Statut : <%= @task.statut %>, Echéance : <%= @task.term %> 
+
+Description :
+<%= truncate(@task.notes, :length => 150, :separator => ' ')%>
+ 
+Pour obtenir d'avantages d'informations sur cette tâche, veuillez cliquer sur ce lien : <%= link_to @url, @url %>

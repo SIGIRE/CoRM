@@ -48,7 +48,7 @@ class TasksController < ApplicationController
 	if @ability.can? :create, Task
 	  @task = Task.new
 	  @task.user = current_user
-	  @users = User.where(:enabled => true)
+	  @users = User.all_reals
 	  respond_to do |format|
 		format.html # new.html.erb
 		format.json { render :json => @task }
@@ -82,27 +82,19 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     if @ability.can? :create, Task
+	  params[:task][:priority] = params[:task][:priority].to_i
 	  @task = Task.new(params[:task])
 	  @task.created_by = current_user.id
-	  
-	  #idem que dans edit
 	  @task.term = @task.term.split('/').reverse!.join('/')
-	  
-	  respond_to do |format|
-		if @task.save
-		  #si le checkbox est cochée 
-		  if params[:mail]=="yes"
-			#mailing
-			UserMailer.create_task_email(@task.user,@task).deliver
-		  end
-		  #pour que la task ait un id 
-		  self.create_event(false)
-		  format.html { redirect_to filter_tasks_path, :notice => 'La tâche a été créée.' }
-		  format.json { render :json => @task, :status => :created, :location => @task }
-		else
-		  format.html { render :action => "new" }
-		  format.json { render :json => @task.errors, :status => :unprocessable_entity }
-		end
+	  if @task.save
+	    if params[:mail] == "yes"
+		  UserMailer.create_task_email(@task.user, @task).deliver
+	    end
+        self.create_event(false)
+		redirect_to filter_tasks_url, :notice => 'La tâche a été créée.'
+	  else
+	    @users = User.all_reals
+        render :action => 'new'
 	  end
     else
 	  redirect_to tasks_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
@@ -126,7 +118,7 @@ class TasksController < ApplicationController
 		  #si le checkbox est cochée 
 		  if params[:mail]=="yes"
 			#mailing
-			UserMailer.update_task_email(@task.user,@task).deliver
+			UserMailer.update_task_email(@task.user, @task).deliver
 		  end
 		  
 		  self.create_event(true)

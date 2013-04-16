@@ -1,14 +1,13 @@
-
 <pre>
-<%= link_to image_tag("glyphicons/glyphicons_020_home.png"), edit_account_path(@account),{:title => "Éditer le compte"} %> <i>(<%= @account.category %>)</i>
-<b><%= @account.company unless @account.company.blank? %></b>
-<%= @account.adress1 unless @account.adress1.blank? %>
-<%= @account.adress2 unless @account.adress2.blank? %>
-<%= @account.zip unless @account.zip.blank? %> <%= @account.city unless @account.city.blank? %>
-<%= "Tél : " + @account.tel unless @account.tel.blank? %>
-<%= "Fax : " + @account.fax unless @account.fax.blank? %>
-<%= mail_to(@account.email) unless @account.email.blank?%>
-<%= link_to(@account.web, @account.web, :target => "_blank") unless @account.web.blank?%>
+  <%= link_to image_tag("glyphicons/glyphicons_020_home.png"), edit_account_path(@account),{:title => "Éditer le compte"} %> <i>(<%= @account.category %>)</i>
+  <b><%= @account.company unless @account.company.blank? %></b>
+  <%= @account.adress1 unless @account.adress1.blank? %>
+  <%= @account.adress2 unless @account.adress2.blank? %>
+  <%= @account.zip unless @account.zip.blank? %> <%= @account.city unless @account.city.blank? %>
+  <%= "Tél : " + @account.tel unless @account.tel.blank? %>
+  <%= "Fax : " + @account.fax unless @account.fax.blank? %>
+  <%= mail_to(@account.email) unless @account.email.blank?%>
+  <%= link_to(@account.web, @account.web, :target => "_blank") unless @account.web.blank?%>
 </pre>
 
 <hr>
