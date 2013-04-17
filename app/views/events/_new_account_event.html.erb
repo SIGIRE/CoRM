@@ -1,6 +1,6 @@
 <%= form_for([@account, @event_new], :html => { :class => "well ", :multipart => true}) do |f| %>
   <div class="row row-fluid by_2">
-    <div class="field-group by_2">
+    <div class="field-group">
       <div class="field small-date">
         <p><%= f.label :date_begin, "Début :", :class => 'top' %><%= f.text_field :date_begin, :value => Date.today.strftime("%d/%m/%Y"), :class =>"event_date" %></p>
       </div>

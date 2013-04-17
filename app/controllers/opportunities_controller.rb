@@ -34,7 +34,8 @@ class OpportunitiesController < ApplicationController
   #
   def show
     if @ability.cannot? :read, Opportunity
-      redirect_to opportunities_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Opportunity'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Opportunity'))
+      redirect_to opportunities_url
 	  return false
     end
     @opportunity = Opportunity.find(params[:id])
@@ -50,7 +51,8 @@ class OpportunitiesController < ApplicationController
   #
   def new
     if @ability.cannot? :create, Opportunity
-      redirect_to opportunities_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Opportunity'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Opportunity'))
+      redirect_to opportunities_url
 	  return false
     end
     @opportunity = Opportunity.new
@@ -68,7 +70,8 @@ class OpportunitiesController < ApplicationController
   #
   def create
     if @ability.cannot? :create, Opportunity
-      redirect_to opportunities_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Opportunity'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Opportunity'))
+      redirect_to opportunities_url
 	  return false
     end
     @opportunity = Opportunity.new(params[:opportunity])
@@ -90,6 +93,7 @@ class OpportunitiesController < ApplicationController
           format.html  { redirect_to root_url(@opportunity.account_id), :notice => "l'opportunité a été créée" }
         end
       else
+        flash[:error] = t('app.save_undefined_error')
         format.html  { render :action => "new" }
       end
     end
@@ -100,7 +104,8 @@ class OpportunitiesController < ApplicationController
   #
   def edit
     if @ability.cannot? :update, Opportunity
-      redirect_to opportunities_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Opportunity'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Opportunity'))
+      redirect_to opportunities_url
 	  return false
     end
     @opportunity = Opportunity.find(params[:id])
@@ -112,7 +117,8 @@ class OpportunitiesController < ApplicationController
   #
   def update
     if @ability.cannot? :update, Opportunity
-      redirect_to opportunities_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Opportunity'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Opportunity'))
+      redirect_to opportunities_url
 	  return false
     end
     @opportunity = Opportunity.find(params[:id])
@@ -133,6 +139,7 @@ class OpportunitiesController < ApplicationController
         end
         format.html  { redirect_to account_events_url(@opportunity.account_id), :notice => "L' opportunity a ete mise a jour." }
       else
+        flash[:error] = t('app.save_undefined_error')
         format.html  { render :action => "edit" }
       end
     end
@@ -143,7 +150,8 @@ class OpportunitiesController < ApplicationController
   #
   def destroy
     if @ability.cannot? :destroy, Opportunity
-      redirect_to opportunities_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Opportunity'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Opportunity'))
+      redirect_to opportunities_url
 	  return false
     end
     @opportunity = Opportunity.find(params[:id])

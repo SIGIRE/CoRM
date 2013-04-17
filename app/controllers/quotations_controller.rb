@@ -7,7 +7,7 @@ class QuotationsController < ApplicationController
     @quotations = Quotation.order('ref').page(params[:page])
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @quotation}
+      format.json { render :json => @quotation }
     end
     
   end
@@ -15,7 +15,8 @@ class QuotationsController < ApplicationController
   
   def new
     if @ability.cannot? :create, Quotation
-      redirect_to quotations_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
+      redirect_to quotations_url
 	  return false
     end
     @users = User.all_reals
@@ -42,7 +43,8 @@ class QuotationsController < ApplicationController
   #
   def create
     if @ability.cannot? :create, Quotation
-      redirect_to quotations_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
+      redirect_to quotations_url
 	  return false
     end
     @quotation = Quotation.new(params[:quotation])
@@ -83,13 +85,14 @@ class QuotationsController < ApplicationController
           format.json  { render :json => @quotation,
                         :status => :created}
         else
+          flash[:error] = t('app.save_undefined_error')
           format.html  { render :action => "new" }
           format.json  { render :json => @quotation.errors,
                         :status => :unprocessable_entity }
         end
       end
     else
-      @quotation.errors.add('ligne devis', 'must have one line')
+      @quotation.errors.add('ligne devis', 'doit au moins comporter une ligne')
       respond_to do |format|
         format.html  { render :action => "new" }
         format.json { render :json => @quotation.errors }
@@ -102,7 +105,8 @@ class QuotationsController < ApplicationController
   #
   def edit
     if @ability.cannot? :update, Quotation
-      redirect_to quotations_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
+      redirect_to quotations_url
 	  return false
     end
     @users = User.all_reals
@@ -114,7 +118,8 @@ class QuotationsController < ApplicationController
   #
   def update
     if @ability.cannot? :update, Quotation
-      redirect_to quotations_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
+      redirect_to quotations_url
 	  return false
     end
     @quotation = Quotation.find(params[:id])
@@ -155,6 +160,7 @@ class QuotationsController < ApplicationController
       self.create_event(true)
       redirect_to account_events_url(@quotation.account_id), :notice => "Le devis a été modifié"
     else
+      flash[:error] = t('app.save_undefined_error')
       render :action => 'edit'
     end
   end
@@ -165,7 +171,8 @@ class QuotationsController < ApplicationController
   #
   def show
     if @ability.cannot? :read, Quotation
-      redirect_to quotations_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
+      redirect_to quotations_url
 	  return false
     end
     @quotation = Quotation.find(params[:id])
@@ -187,7 +194,8 @@ class QuotationsController < ApplicationController
   #
   def destroy
     if @ability.cannot? :destroy, Quotation
-      redirect_to quotations_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
+      redirect_to quotations_url
 	  return false
     end
     @quotation = Quotation.find(params[:id])

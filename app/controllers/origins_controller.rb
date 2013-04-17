@@ -31,7 +31,8 @@ class OriginsController < ApplicationController
         format.json  { render :json => @origin }
       end
     else
-      redirect_to origins_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Origin'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Origin'))
+      redirect_to origins_url
       return false
     end
   end
@@ -54,7 +55,8 @@ class OriginsController < ApplicationController
         end
       end
     else
-      redirect_to origins_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Origin'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Origin'))
+      redirect_to origins_url
       return false
     end
   end
@@ -71,7 +73,8 @@ class OriginsController < ApplicationController
         format.json  { render :json => @origin }
       end
     else
-      redirect_to origins_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Origin'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Origin'))
+      redirect_to origins_url
       return false
     end
   end
@@ -80,7 +83,8 @@ class OriginsController < ApplicationController
     if @ability.can? :update, Origin
       @origin = Origin.find(params[:id])
     else
-      redirect_to origins_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Origin'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Origin'))
+      redirect_to origins_url
       return false
     end
   end
@@ -98,12 +102,14 @@ class OriginsController < ApplicationController
           format.html  { redirect_to(origins_url, :notice => "L' origine a ete mis a jour.") }
           format.json  { head :no_content }
         else
+          flash[:error] = t('app.save_undefined_error')
           format.html  { render :action => "edit" }
           format.json  { render :json => @origin.errors, :status => :unprocessable_entity }
         end
       end
     else
-      redirect_to origins_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Origin'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Origin'))
+      redirect_to origins_url
       return false
     end
   end
@@ -120,7 +126,8 @@ class OriginsController < ApplicationController
         format.json { head :no_content }
       end
     else
-      redirect_to origins_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Origin'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Origin'))
+      redirect_to origins_url
       return false
     end
   end

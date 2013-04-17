@@ -80,7 +80,8 @@ class DocumentsController < ApplicationController
   #
   def edit
     if @ability.cannot? :update, Document
-      redirect_to documents_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Document'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Document'))
+      redirect_to documents_url
 	  return false
     end
     @document = Document.find(params[:id])
@@ -91,7 +92,8 @@ class DocumentsController < ApplicationController
   #
   def update
     if @ability.cannot? :update, Document
-      redirect_to documents_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Document'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Document'))
+      redirect_to documents_url
 	  return false
     end
     @document = Document.find(params[:id])
@@ -102,6 +104,7 @@ class DocumentsController < ApplicationController
         format.html  { redirect_to account_events_url(@document.account_id) , :notice => 'Le document a ete mis a jour.' }
         format.json  { head :no_content }
       else
+        flash[:error] = t('app.save_undefined_error')
         format.html  { render :action => "edit" }
         format.json  { render :json => @document.errors, :status => :unprocessable_entity }
       end
@@ -113,7 +116,8 @@ class DocumentsController < ApplicationController
   #
   def destroy
     if @ability.cannot? :destroy, Document
-      redirect_to documents_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Document'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Document'))
+      redirect_to documents_url
 	  return false
     end
     @document = Document.find(params[:id])

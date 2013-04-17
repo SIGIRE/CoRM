@@ -10,7 +10,8 @@ class RelationsController < ApplicationController
   #
   def new
     if @ability.cannot? :create, Relation
-      redirect_to account_events_url(@relation.account1_id), :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Relation'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Relation'))
+      redirect_to account_events_url(@relation.account1_id)
 	  return false
     end
     @relation = Relation.new
@@ -27,7 +28,8 @@ class RelationsController < ApplicationController
   #
   def create
     if @ability.cannot? :create, Relation
-      redirect_to account_events_url(@relation.account1_id), :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Relation'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Relation'))
+      redirect_to account_events_url(@relation.account1_id)
 	  return false
     end
     @relation = Relation.new(params[:relation])   
@@ -50,7 +52,8 @@ class RelationsController < ApplicationController
   #
   def edit
     if @ability.cannot? :update, Relation
-      redirect_to account_events_url(@relation.account1_id), :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Relation'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Relation'))
+      redirect_to account_events_url(@relation.account1_id)
 	  return false
     end
     @relation = Relation.find(params[:id])
@@ -61,7 +64,8 @@ class RelationsController < ApplicationController
   #
   def update
     if @ability.cannot? :update, Relation
-      redirect_to account_events_url(@relation.account1_id), :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Relation'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Relation'))
+      redirect_to account_events_url(@relation.account1_id)
 	  return false
     end
     @relation = Relation.find(params[:id])
@@ -82,7 +86,8 @@ class RelationsController < ApplicationController
   #
   def destroy
     if @ability.cannot? :destroy, Relation
-      redirect_to account_events_url(@relation.account1_id), :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Relation'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Relation'))
+      redirect_to account_events_url(@relation.account1_id)
 	  return false
     end
     @relation = Relation.find(params[:id])

@@ -273,6 +273,7 @@ fr:
       unlock_instructions:
         subject: "Instructions pour déverrouiller le compte"
   app:
+    save_undefined_error: "Une erreur est survenue pendant l'enregistrement"
     default:
       subject: Sujet
       undefine_article_male: un

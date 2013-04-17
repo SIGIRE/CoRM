@@ -28,7 +28,8 @@ class TagsController < ApplicationController
         format.json  { render :json => @tag }
       end
     else
-      redirect_to tags_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Tag'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Tag'))
+      redirect_to tags_url
       return false
     end
   end
@@ -47,13 +48,15 @@ class TagsController < ApplicationController
           format.json  { render :json => @tag,
                         :status => :created}
         else
+          flash[:error] = t('app.save_undefined_error')
           format.html  { render :action => "new" }
           format.json  { render :json => @tag.errors,
                         :status => :unprocessable_entity }
         end
       end
     else
-      redirect_to tags_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Tag'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Tag'))
+      redirect_to tags_url
       return false
     end
   end
@@ -70,7 +73,8 @@ class TagsController < ApplicationController
         format.json  { render :json => @tag }
       end
     else
-      redirect_to tags_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Tag'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Tag'))
+      redirect_to tags_url
       return false
     end
   end
@@ -82,7 +86,8 @@ class TagsController < ApplicationController
     if @ability.can? :update, Tag
       @tag = Tag.find(params[:id])
     else
-      redirect_to tags_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Tag'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Tag'))
+      redirect_to tags_url
       return false
     end
   end
@@ -100,12 +105,14 @@ class TagsController < ApplicationController
           format.html  { redirect_to(tags_url, :notice => 'Le Tag a ete mis a jour.') }
           format.json  { head :no_content }
         else
+          flash[:error] = t('app.save_undefined_error')
           format.html  { render :action => "edit" }
           format.json  { render :json => @tag.errors, :status => :unprocessable_entity }
         end
       end
     else
-      redirect_to tags_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Tag'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Tag'))
+      redirect_to tags_url
       return false
     end
   end
@@ -123,7 +130,8 @@ class TagsController < ApplicationController
         format.json { head :no_content }
       end
     else
-      redirect_to tags_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Tag'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Tag'))
+      redirect_to tags_url
       return false
     end
   end

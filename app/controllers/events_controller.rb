@@ -19,7 +19,6 @@ class EventsController < ApplicationController
       @events = @account.events.order("date_begin DESC").page(params[:page])
       @event_new = @account.events.build 
     end
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @events }
@@ -33,7 +32,8 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     if @ability.cannot? :read, Event
-      redirect_to events_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Event'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Event'))
+      redirect_to events_url
 	  return false
     end
     @event = Event.date_end(params[:id])
@@ -51,7 +51,8 @@ class EventsController < ApplicationController
   # GET /events/new.json
   def new
     if @ability.cannot? :create, Event
-      redirect_to events_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Event'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Event'))
+      redirect_to events_url
 	  return false
     end
     @event = Event.new
@@ -70,7 +71,8 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     if @ability.cannot? :update, Event
-      redirect_to events_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Event'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Event'))
+      redirect_to events_url
 	  return false
     end
     @event = Event.find(params[:id])
@@ -83,7 +85,8 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     if @ability.cannot? :create, Event
-      redirect_to events_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Event'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Event'))
+      redirect_to events_url
 	  return false
     end
     @event = Event.new(params[:event])
@@ -94,17 +97,16 @@ class EventsController < ApplicationController
 
     @event.date_end = params[:event][:date_end]
     @event.date_end = @event.date_end.change({:hour => params[:event]["date_end(4i)"].to_i, :min => params[:event]["date_end(5i)"].to_i}) 
-  
-   
-    #si le checkbox est cochée 
     if params[:generate]== "yes"
-      #on génère une tâche
       @event.notes2 = params[:notes]
       self.create_task
     end
     
     respond_to do |format|
       if @event.save
+        if params[:generate] == "yes" and params[:mail] == "yes"
+          UserMailer.mail_for(@event.user, @event.task, true).deliver
+        end
         format.html { redirect_to account_events_url(@event.account_id), :notice => "L'évènement a été créé." }
         format.json { render :json => @event, :status => :created, :location => @event }
       else
@@ -121,7 +123,8 @@ class EventsController < ApplicationController
   # PUT /events/1.json
   def update
     if @ability.cannot? :update, Event
-      redirect_to events_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Event'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Event'))
+      redirect_to events_url
 	  return false
     end
     @event = Event.find(params[:id])
@@ -145,16 +148,14 @@ class EventsController < ApplicationController
   # DELETE /events/1.json
   def destroy
     if @ability.cannot? :destroy, Event
-      redirect_to opportunities_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Event'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Event'))
+      redirect_to opportunities_url
 	  return false
     end
     @event = Event.find(params[:id])
     @event.destroy
-
-    respond_to do |format|
-      format.html { redirect_to account_events_url(@event.account_id) }
-      format.json { head :no_content }
-    end
+    flash[:notice] = "L'évenement a été correctement supprimé"
+    redirect_to account_events_url(@event.account_id)
   end
   
   ##
@@ -173,15 +174,12 @@ class EventsController < ApplicationController
     hash["created_by"] = current_user.id
     
     # Create the task with the hash
-    @task = Task.create(hash)
-    @event.task_id = @task.id
-
-    # if the checkbox is checked
-    if params[:mail]=="yes"
-        # mailing
-        UserMailer.create_task_email(@task.user,@task).deliver
+    @task = Task.new(hash)
+    if @task.save
+      @event.task_id = @task.id
+      return true
+    else
+      return false
     end
-
   end
-  
 end

@@ -27,7 +27,8 @@ class QuotationTemplatesController < ApplicationController
         format.json  { render :json => @template }
       end
     else
-      redirect_to quotation_templates_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.QuotationTemplate'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.QuotationTemplate'))
+      redirect_to quotation_templates_url
       return false
     end
   end
@@ -45,13 +46,15 @@ class QuotationTemplatesController < ApplicationController
           format.json  { render :json => @template,
                         :status => :created}
         else
+          flash[:error] = t('app.save_undefined_error')
           format.html  { render :action => "new" }
           format.json  { render :json => @template.errors,
                         :status => :unprocessable_entity }
         end
       end
     else
-      redirect_to quotation_templates_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.QuotationTemplate'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.QuotationTemplate'))
+      redirect_to quotation_templates_url
       return false
     end
   end
@@ -63,7 +66,8 @@ class QuotationTemplatesController < ApplicationController
     if @ability.can? :update, QuotationTemplate
       @template = QuotationTemplate.find(params[:id])
     else
-      redirect_to quotation_templates_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.QuotationTemplate'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.QuotationTemplate'))
+      redirect_to quotation_templates_url
       return false
     end
   end
@@ -78,10 +82,12 @@ class QuotationTemplatesController < ApplicationController
       if @template.update_attributes(params[:quotation_template])
         redirect_to quotation_templates_url, :notice => "Le modèle a été mis à jour."
       else
+        flash[:error] = t('app.save_undefined_error')
         render :action => 'edit'
       end
     else
-      redirect_to quotation_templates_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.QuotationTemplate'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.QuotationTemplate'))
+      redirect_to quotation_templates_url
       return false
     end
   end
@@ -95,7 +101,8 @@ class QuotationTemplatesController < ApplicationController
       @template.destroy
       redirect_to quotation_templates_url, :notice => "Le modèle a été supprimé."
     else
-      redirect_to quotation_templates_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.QuotationTemplate'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.QuotationTemplate'))
+      redirect_to quotation_templates_url
       return false
     end
   end

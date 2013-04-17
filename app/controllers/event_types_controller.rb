@@ -33,7 +33,8 @@ class EventTypesController < ApplicationController
         format.json { render :json => @eventtype }
       end
     else
-      redirect_to event_types_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.EventType'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.EventType'))
+      redirect_to event_types_url
       return false
     end
     
@@ -53,7 +54,8 @@ class EventTypesController < ApplicationController
         format.json { render :json => @eventtype }
       end
     else
-      redirect_to event_types_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.EventType'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.EventType'))
+      redirect_to event_types_url
       return false
     end
   end
@@ -66,7 +68,8 @@ class EventTypesController < ApplicationController
     if @ability.can? :update, EventType
       @eventtype = EventType.find(params[:id])
     else
-      redirect_to event_types_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.EventType'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.EventType'))
+      redirect_to event_types_url
       return false
     end
   end
@@ -86,12 +89,14 @@ class EventTypesController < ApplicationController
           format.html { redirect_to event_types_url, :notice => 'Le type a été créé.' }
           format.json { render :json => @eventtype, :status => :created, :location => @eventtype }
         else
+          flash[:error] = t('app.save_undefined_error')
           format.html { render :action => "new" }
           format.json { render :json => @eventtype.errors, :status => :unprocessable_entity }
         end
       end
     else
-      redirect_to event_types_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.EventType'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.EventType'))
+      redirect_to event_types_url
       return false
     end
   end
@@ -110,12 +115,14 @@ class EventTypesController < ApplicationController
           format.html { redirect_to event_types_path, :notice => 'Le type a été mis à jour.' }
           format.json { head :no_content }
         else
+          flash[:error] = t('app.save_undefined_error')
           format.html { render :action => "edit" }
           format.json { render :json => @eventtype.errors, :status => :unprocessable_entity }
         end
       end
     else
-      redirect_to event_types_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.EventType'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.EventType'))
+      redirect_to event_types_url
       return false
     end
   end
@@ -135,7 +142,8 @@ class EventTypesController < ApplicationController
         format.json { head :no_content }
       end
     else
-      redirect_to event_types_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.EventType'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.EventType'))
+      redirect_to event_types_url
       return false
     end
   end

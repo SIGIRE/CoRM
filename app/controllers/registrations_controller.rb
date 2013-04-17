@@ -1,3 +1,6 @@
+#!/bin/env ruby
+# encoding: utf-8
+
 ##
 # Controller that manager User
 #
@@ -10,7 +13,8 @@ class RegistrationsController < Devise::RegistrationsController
   #
   def index
     if !isLogged
-      redirect_to new_user_session_url, :notice => "Vous devez etre connecte pour acceder a cette partie de l'application"
+      flash[:error] = "Vous devez etre connecté pour accéder à cette partie de l'application".html_safe
+      redirect_to new_user_session_url
       return false
     end
     # get Ability for this user
@@ -25,7 +29,8 @@ class RegistrationsController < Devise::RegistrationsController
         @users = User.all_reals
       end
     else
-      redirect_to root_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.User'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.User'))
+      redirect_to root_url
       return false
     end
     
@@ -34,9 +39,7 @@ class RegistrationsController < Devise::RegistrationsController
       if (!e.has_role? :admin and e.enabled)
         @real_users_count += 1
       end
-    } 
-    
-    
+    }
   end
   
   def new
@@ -46,15 +49,19 @@ class RegistrationsController < Devise::RegistrationsController
         if a.can? :create, User
           @user = User.new if @user.nil?
         else
-          redirect_to root_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.User'))
+          flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.User'))
+          redirect_to root_url
           return false
         end
       else
-        redirect_to new_user_session_url, :notice => "Vous devez etre connecte pour acceder a cette partie de l'application"
+        flash[:error] = "Vous devez etre connecté pour accéder à cette partie de l'application".html_safe
+        redirect_to new_user_session_url
         return false
       end
     else
       @user = User.new(:forename => 'Admin', :surname => 'SIGIRE', :email => 'admin@sigire.fr')
+      @user.add_role(:admin)
+      @user.add_role(:super_user)
       @first_creation = true
     end
   end
@@ -65,10 +72,12 @@ class RegistrationsController < Devise::RegistrationsController
       if a.can? :read, User or current_user.id == params[:id]
         @user = User.find(params[:id])
       else
-        redirect_to root_url, :notice => "Vous n'avez pas les droits pour visualiser cette page."
+        flash[:error] = "Vous n'avez pas les droits pour visualiser cette page."
+        redirect_to root_url
       end
     else
-      redirect_to new_user_session_url, :notice => "Vous devez etre connecte !"
+      flash[:error] = "Vous devez etre connecté pour accéder à cette partie de l'application".html_safe
+      redirect_to new_user_session_url
     end
   end
   
@@ -113,7 +122,8 @@ class RegistrationsController < Devise::RegistrationsController
   def edit
     # if he's not logged in, redirect him
     if !isLogged
-      redirect_to new_user_session_url, :notice => "Vous devez etre connecte pour acceder a cette partie de l'application"
+      flash[:error] = "Vous devez etre connecté pour accéder à cette partie de l'application"
+      redirect_to new_user_session_url
       return false
     end
     # get his ability
@@ -125,7 +135,8 @@ class RegistrationsController < Devise::RegistrationsController
       if current_user.id.to_s == params[:id] # this is his account
         @user = current_user
       else # this is not his account
-        redirect_to root_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.User'))
+        flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.User'))
+        redirect_to root_url
         return false
       end
     elsif current_user.has_role? :super_user # this is an admin, yeah !
@@ -139,7 +150,8 @@ class RegistrationsController < Devise::RegistrationsController
   #
   def update
     if !isLogged
-      redirect_to new_user_session_url, :notice => "Vous devez etre connecte pour acceder a cette partie de l'application"
+      flash[:error] = "Vous devez etre connecté pour accéder à cette partie de l'application"
+      redirect_to new_user_session_url
       return false
     end
     if current_user.has_role? :super_user
@@ -169,7 +181,7 @@ class RegistrationsController < Devise::RegistrationsController
       elsif (@user.has_role?(:super_user) and !superUserRole)
         @user.remove_role(:super_user)
       end
-      redirect_to (current_user.has_role?(:super_user) ? users_url : root_path)
+      redirect_to (current_user.has_role?(:super_user) ? users_path : root_path)
     else
       render "edit"
     end
@@ -177,7 +189,8 @@ class RegistrationsController < Devise::RegistrationsController
   
   def destroy
     if !isLogged
-      redirect_to new_user_session_url, :notice => "Vous devez etre connecte pour acceder a cette partie de l'application"
+      flash[:error] = "Vous devez etre connecté pour accéder à cette partie de l'application"
+      redirect_to new_user_session_url
       return false
     end
     return false
@@ -213,7 +226,8 @@ class RegistrationsController < Devise::RegistrationsController
         redirect_to new_user_session_url, :notice => t('devise.failure.locked')
       end
     else
-      redirect_to new_user_session_url, :notice => t('devise.failure.incorrect')
+      flash[:error] = t('devise.failure.incorrect')
+      redirect_to new_user_session_url
     end
   end
   

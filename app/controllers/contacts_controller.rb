@@ -51,7 +51,8 @@ class ContactsController < ApplicationController
         format.json { render :json => @contact }
       end
     else
-      redirect_to contacts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
+      redirect_to contacts_url
       return false
     end
   end
@@ -64,7 +65,8 @@ class ContactsController < ApplicationController
     if @ability.can? :update, Contact
       @contact = Contact.find(params[:id])
     else
-      redirect_to contacts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
+      redirect_to contacts_url
       return false
     end
   end
@@ -83,7 +85,6 @@ class ContactsController < ApplicationController
       # if there is no one associate tag, we delete links
       if params[:display_contact_produit].nil?
         @contact.tags.clear
-      #sinon on recrée tous les liens avec les produits, dont les nouveaux produits
       else
         tag = Tag.find(params[:display_contact_tag])
         @contact.tags.clear
@@ -94,18 +95,19 @@ class ContactsController < ApplicationController
         if @contact.save
           format.html {
             if  (@contact.account).nil?  then redirect_to contacts_path, :notice => 'Le contact a été créé.'
-            else redirect_to account_events_url(@contact.account_id), :notice => "Le contact a été créé."
+            else redirect_to account_events_url(@contact.account_id), :notice => 'Le contact a été créé.'
             end
           }
-          
           format.json { render :json => @contact, :status => :created, :location => @contact }
         else
+          flash[:error] = t('app.save_undefined_error')
           format.html { render :action => "new" }
           format.json { render :json => @contact.errors, :status => :unprocessable_entity }
         end
       end
     else
-      redirect_to contacts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
+      redirect_to contacts_url
       return false
     end
   end
@@ -136,12 +138,14 @@ class ContactsController < ApplicationController
             end }
           format.json { head :no_content }
         else
+          flash[:error] = t('app.save_undefined_error')
           format.html { render :action => "edit" }
           format.json { render :json => @contact.errors, :status => :unprocessable_entity }
         end
       end
     else
-      redirect_to contacts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
+      redirect_to contacts_url
       return false
     end
   end
@@ -161,7 +165,8 @@ class ContactsController < ApplicationController
         format.json { head :no_content }
       end
     else
-      redirect_to contacts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
+      redirect_to contacts_url
       return false
     end
   end

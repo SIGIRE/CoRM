@@ -13,12 +13,8 @@ class HomeController < ApplicationController
   def index
     @page = params[:page]
     @tasks = Task.where("user_id =? AND statut IN ('En cours','A faire')", current_user.id).order("statut ASC ,priority ASC").limit(5) or nil
-    
-
-	
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @tasks , :filter => @filter }
     end
   end
   

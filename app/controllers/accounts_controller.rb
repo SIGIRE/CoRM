@@ -37,7 +37,8 @@ class AccountsController < ApplicationController
         format.json { render :json => @account }
       end
     else
-      redirect_to accounts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      redirect_to accounts_url
       return false
     end
   end
@@ -57,7 +58,8 @@ class AccountsController < ApplicationController
         format.json { render :json => @account }
       end
     else
-      redirect_to accounts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      redirect_to accounts_url
       return false
     end
   end
@@ -71,7 +73,8 @@ class AccountsController < ApplicationController
       @account = Account.find(params[:id])
 	  @users = User.all_reals
     else
-      redirect_to accounts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      redirect_to accounts_url
       return false
     end
   end
@@ -100,12 +103,14 @@ class AccountsController < ApplicationController
           format.html { redirect_to accounts_path, :notice => 'Le compte a été créé.' }
           format.json { render :json => @account, :status => :created, :location => @account }
         else
+          flash[:error] = t('app.save_undefined_error')
           format.html { render :action => "new" }
           format.json { render :json => @account.errors, :status => :unprocessable_entity }
         end
       end
     else
-      redirect_to accounts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      redirect_to accounts_url
       return false
     end
   end
@@ -133,12 +138,14 @@ class AccountsController < ApplicationController
           format.html { redirect_to account_events_url(@account.id), :notice => 'Le compte a été mis à jour.' }
           format.json { head :no_content }
         else
+          flash[:error] = t('app.save_undefined_error')
           format.html { render :action => "edit" }
           format.json { render :json => @account.errors, :status => :unprocessable_entity }
         end
       end 
     else
-      redirect_to accounts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      redirect_to accounts_url
       return false
     end
   end
@@ -158,14 +165,15 @@ class AccountsController < ApplicationController
         format.json { head :no_content }
       end
     else
-      redirect_to accounts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      redirect_to accounts_url
       return false
     end
   end
   
   ##
   # Called by the main search bar
-  # search?account=[xxx] [&as=json]
+  # search?account=[xxx]
   #
   def search
     if !params.nil? and !params[:account].nil?
@@ -237,7 +245,8 @@ class AccountsController < ApplicationController
           format.json  { render :json => @tag }
       end
     else
-      redirect_to accounts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      redirect_to accounts_url
       return false
     end
   end
@@ -256,7 +265,8 @@ class AccountsController < ApplicationController
           format.json  { render :json => @tag }
       end
     else
-      redirect_to accounts_url, :notice => t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+      redirect_to accounts_url
       return false
     end
   end
