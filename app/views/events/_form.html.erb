@@ -11,16 +11,17 @@
     </div>
   <% end %>
 
+    <div class="field">
+      <%= f.label :date_begin %><br />
+      <%= f.datetime_select :date_begin %>
+    </div>
+    <div class="field">
+      <%= f.label :date_end %><br />
+      <%= f.datetime_select :date_end %>
+    </div>
+
   <div class="field">
-    <%= f.label :date_begin %><br />
-    <%= f.datetime_select :date_begin %>
-  </div>
-  <div class="field">
-    <%= f.label :date_end %><br />
-    <%= f.datetime_select :date_end %>
-  </div>
-  <div class="field">
-    <%= f.label :compte_id %><br />
+    <%= f.label :account_id %><br />
     <%= f.collection_select :account_id, Account.all, :id, :company %>
   </div>    
   <div class="field">

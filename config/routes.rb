@@ -11,7 +11,7 @@ Crm::Application.routes.draw do
     # GET    tags/:id/edit
     match "#{ps}/:id/edit(.:format)",    :controller => c,  :action => 'edit',      :via => :get,   :as => "edit_#{c.singularize}"
     # GET    tags/:id => tag_path(:tag)
-    match "#{ps}/:id(.:format)",         :controller => c,  :action => 'show',      :via => :get,   :as => "#{c.singularize}"
+    #match "#{ps}/:id(.:format)",         :controller => c,  :action => 'show',      :via => :get,   :as => "#{c.singularize}"
     # PUT    tags/:id => tag_path(:tag)
     match "#{ps}/:id(.:format)",         :controller => c,  :action => 'update',    :via => :put,   :as => "#{c.singularize}"
     # DELETE tags/:id => tag_path(:tag)

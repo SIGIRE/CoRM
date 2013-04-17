@@ -6,30 +6,26 @@
 source 'https://rubygems.org'
 
 gem 'rails'
+# for multi-byte char
 gem 'unicode_utils'
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
+# Database Adapter
 gem 'pg', '~> 0.14.1'
-gem 'json'
-gem 'compass'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2'
-  gem 'jquery-ui-rails'
   gem 'coffee-rails', '~> 3.2.1'
 
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer'
-
   gem 'uglifier', '>= 1.0.3'
-  gem 'bootstrap-sass', '~> 2.3.1.0'
   gem 'execjs'
-
 end
 
+gem 'json'
 gem 'therubyracer'
+
+gem 'sass-rails',   '~> 3.2'
+
+gem 'bootstrap-sass', '~> 2.3.1.0'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'

@@ -1,54 +1,100 @@
-<pre>
-  <%= link_to image_tag("glyphicons/glyphicons_020_home.png"), edit_account_path(@account),{:title => "Éditer le compte"} %> <i>(<%= @account.category %>)</i>
-  <b>
-    <%= @account.company unless @account.company.blank? %>
-  </b>
-  <%= @account.adress1 unless @account.adress1.blank? %>
-  <%= @account.adress2 unless @account.adress2.blank? %>
-  <%= @account.zip unless @account.zip.blank? %> <%= @account.city unless @account.city.blank? %>
-  <%= "Tél : " + @account.tel unless @account.tel.blank? %>
-  <%= "Fax : " + @account.fax unless @account.fax.blank? %>
-  <%= mail_to(@account.email) unless @account.email.blank?%>
-  <%= link_to(@account.web, @account.web, :target => "_blank") unless @account.web.blank?%>
-</pre>
+<div id="account-info-container">
+  <p>
+    <%= link_to image_tag("glyphicons/glyphicons_020_home.png"), edit_account_path(@account),{:title => "Éditer le compte"} %> <i>(<%= @account.category %>)</i><br />
+  <% if !@account.company.blank? %>
+    <b><%= @account.company %></b><br />
+  <% end %>
+  <% if !@account.adress1.blank? %>
+    <%= @account.adress1 %><br />
+  <% end %>
+  <% if !@account.adress2.blank? %>
+    <%= @account.adress2 %><br />
+  <% end %>
+  <% if !@account.zip.blank? or !@account.city.blank? %>
+    <%= @account.zip unless @account.zip.blank? %><%= @account.city unless @account.city.blank? %><br />
+  <% end %>
+  <% if !@account.tel.blank? %>
+    <%= "Tél : " + @account.tel %><br />
+  <% end %>
+  <% if !@account.fax.blank? %>
+    <%= "Fax : " + @account.fax %><br />
+  <% end %>
+  <% if !@account.email.blank? %>
+    <%= mail_to(@account.email) %><br />
+  <% end %>
+  <% if !@account.web.blank? %>
+    <%= link_to(@account.web, @account.web, :target => "_blank") %>
+  <% end %>
+  </p>
+</div>
 <hr>
-  <% @account.contacts.order_by_surname.each do |contact| %>
+<% if !@account.contacts.nil? and @account.contacts.length > 0 %>
+<% @account.contacts.order_by_surname.each do |contact| %>
   <div class="contact-container">
     <% if contact.title == "Mme"%>
       <%= link_to image_tag("glyphicons/glyphicons_035_woman.png"), edit_contact_path(contact),{:title => "Éditer le contact"} %> <% if !contact.job.blank? then %> <i class="contact-job">(<%= contact.job %>)</i><% end %>
     <% elsif contact.title == "M." %>
       <%= link_to image_tag("glyphicons/glyphicons_034_old_man.png"), edit_contact_path(contact),{:title => "Éditer le contact"} %><% if !contact.job.blank? then %><i class="contact-job"> (<%= contact.job %>)</i><% end %>
     <% end %>
-    
     <p>
-      <b><%= contact.title %> <%= contact.full_name %></b>
-    </p>
-    <p>
-      <% if !contact.tel.blank? %>
-        Tél : <%= contact.tel %><br />
-      <% end %>
-      <% if !contact.fax.blank? %>
-        Fax : <%= contact.fax %><br />
-      <% end %>
-      <% if !contact.mobile.blank? %>
-        Mobile : <%= contact.mobile %><br />
-      <% end %>
-      <% if contact.email != "" %>
-        <%= mail_to(contact.email) %><br />
-      <% end %>
+      <b><%= contact.full_name %></b><br />
+    <% if !contact.tel.blank? %>
+      Tél : <%= contact.tel %><br />
+    <% end %>
+    <% if !contact.fax.blank? %>
+      Fax : <%= contact.fax %><br />
+    <% end %>
+    <% if !contact.mobile.blank? %>
+      Mobile : <%= contact.mobile %><br />
+    <% end %>
+    <% if contact.email != "" %>
+      <%= mail_to(contact.email) %><br />
+    <% end %>
     </p>
   </div>
-<% end %><hr>
-<%= form_for ( [@account, @account.contacts.new]) do |f| %>
-<div class = ""><%=image_tag("glyphicons/glyphicons_006_user_add.png")%></div>
-  <div class = "pull-right">Prénom <%= f.text_field :forename ,  :style=>'width: 13em;' %></div>
-  <div class = "pull-right">Nom <%= f.text_field :surname,  :style=>'width: 13em;'  %></div>
-  <div class = "pull-right"><%= f.select :title, Contact::TITLES, { }, { :style => 'width: 13em;'} %></div>
-  <div class = "pull-right">Tél <%= f.text_field :tel,  :style=>'width: 13em;' %></div>
-  <div class = "pull-right">Fax <%= f.text_field :fax ,  :style=>'width: 13em;'%></div>
-  <div class = "pull-right">Mobile <%= f.text_field :mobile,  :style=>'width: 13em;' %></div>
-  <div class = "pull-right">E-Mail <%= f.text_field :email ,  :style=>'width: 13em;'%></div>
-  <div class = "pull-right">Fonction <%= f.text_field :job ,  :style=>'width: 13em;'%></div>
+<% end # end each
+%>
+<hr />
+<% end #end if
+%>
+<%= form_for( [@account, @account.contacts.new], :html => {:class => 'well'}) do |f| %>
+<p><%=image_tag("glyphicons/glyphicons_006_user_add.png")%>Ajouter un contact</p>
+  <div class="row small-fields">
+    <div class="field">
+      <label class="top">
+        Prenom
+      </label>
+      <%= f.text_field :forename %>
+    </div>
+    <div class="field full">
+      <label class="top">Nom</label>
+      <%= f.text_field :surname %>
+    </div>
+    <div class="field full">
+      <label class="top">Titre</label>
+      <%= select :contact, :title, Contact::TITLES, { :include_blank => true } %>
+    </div>
+    <div class="field full">
+      <label class="top">Tel</label>
+      <%= f.text_field :tel %>
+    </div>
+    <div class="field full">
+      <label class="top">Fax</label>
+      <%= f.text_field :fax %>
+    </div>
+    <div class="field full">
+      <label class="top">Mobile</label>
+      <%= f.text_field :mobile %>
+    </div>
+    <div class="field full">
+      <label class="top">E-Mail</label>
+      <%= f.text_field :email %>
+    </div>
+    <div class="field full">
+      <label class="top">Fonction</label>
+      <%= f.text_field :job %>
+    </div>
+  </div>
   <%= f.hidden_field :account_id %>
   <div class = "actions"><%= f.submit %></div>
 <% end %>

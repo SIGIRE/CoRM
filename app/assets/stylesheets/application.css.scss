@@ -1,5 +1,5 @@
 
-/*= require ./jquery-ui.css */
+//= require ./jquery-ui.css
 $navbarBackgroundHighlight: #333;
 $navbarBackground: lighten($navbarBackgroundHighlight, 5%);
 $navbarBorder: lighten($navbarBackground, 12%);
@@ -8,7 +8,7 @@ $navbarLinkColor: #999;
 $navbarLinkColorHover: #EEE;
 $navbarLinkColorActive: #FFF;
 $navbarBackground: #2C2C2C;
-
+// I gather this file is a starting point for the project.
 @import "bootstrap";
 
 @mixin border-radius-top-left($radius) {
@@ -39,8 +39,5 @@ $navbarBackground: #2C2C2C;
 }
 
 @import "./bootstrap_overrides.css.scss";
+@import "./corm_form.scss";
 @import "bootstrap-responsive";
-
-.cke_reset {
-    display: inline-block !important;
-}

@@ -1,0 +1,53 @@
+form {
+  .row {
+	div, p, a, ul, li, select, input, textarea {
+	  display: inline-block;
+	}
+  }
+  .field-group {
+    
+  }
+  .by_2 div {
+	width: 49%;
+  }
+  .by_3 div {
+	width: 33%;
+  }
+  .by_4 div {
+	width: 24%;
+  }
+  .by_5 div {
+	width: 19%;
+  }
+  .field {
+	&.date { }
+	&.small-date {
+	  width: 160px;
+	}
+	&.time {
+	  width: 150px;
+	}
+	&.full {
+	  width: 99%;
+	}
+  }
+}
+
+label {
+  font-size: 13px;
+  line-height: 18px;
+  display: inline-block;
+  &.top {
+	display: block;
+	margin-bottom: 0;
+  }
+}
+
+.small-fields {
+  input, textarea {
+    width: 80%;
+  }
+  select {
+    width: 86%;
+  }
+}
