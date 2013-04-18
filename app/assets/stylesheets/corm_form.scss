@@ -1,35 +1,35 @@
 form {
   .row {
-	div, p, a, ul, li, select, input, textarea {
-	  display: inline-block;
-	}
+    margin-top: 0;
+    div, p, a, ul, li, select, input, textarea {
+      display: inline-block;
+    }
   }
   .field-group {
     
   }
   .by_2 div {
-	width: 49%;
+    width: 49%;
   }
   .by_3 div {
-	width: 33%;
+    width: 33%;
   }
   .by_4 div {
-	width: 24%;
+    width: 24%;
   }
   .by_5 div {
-	width: 19%;
+    width: 19%;
   }
   .field {
-	&.date { }
-	&.small-date {
-	  width: 160px;
-	}
-	&.time {
-	  width: 150px;
-	}
-	&.full {
-	  width: 99%;
-	}
+    &.small-date {
+      width: 160px;
+    }
+    &.time {
+      width: 150px;
+    }
+    &.full {
+      width: 99%;
+    }
   }
 }
 
@@ -38,8 +38,29 @@ label {
   line-height: 18px;
   display: inline-block;
   &.top {
-	display: block;
-	margin-bottom: 0;
+    display: block;
+    margin-bottom: 0;
+  }
+  &.checkbox {
+    font-size: 14px;
+    padding: 8px;
+    width: auto;
+    &:hover {
+      background-color: #E1E1E1;
+    }
+    &:active {
+      background-color: #D1D1D1;
+    }
+    input[type=checkbox] {
+      margin-left: 0;
+      margin-right: 5px;
+      border: 0;
+    }
+    &.right-field {
+      padding: 5px;
+      vertical-align: top;
+      display: inline-block;
+    }
   }
 }
 

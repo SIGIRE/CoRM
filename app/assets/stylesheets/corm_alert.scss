@@ -1,0 +1,38 @@
+.alert {
+  position: absolute;
+  display: block;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  margin:0;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  border-radius: 0;
+  opacity: 1;
+  text-align: center;
+  p {
+	padding: 18px 0;
+	margin: 0;
+	display: inline-block;
+	
+    text-shadow: none;
+    font-size: 22px;
+    color: #FFFFFF;
+  }
+  &.notice {
+    background-color: rgba(0, 173, 238, 0.7);
+  }
+  &.error {
+    background-color: rgba(255,0,0,0.8);
+  }
+  > button.close {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    line-height: 30px;
+    font-size: 40px;
+    color: #000;
+  }
+}

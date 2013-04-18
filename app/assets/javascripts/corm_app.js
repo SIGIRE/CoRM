@@ -8,6 +8,19 @@ $(document).ready(function() {
     alerts.remove();
   });
   
+  $(document).on('click', '#listing-event .event', function() {
+    var div = $(this).find('div.more');
+    div.toggle();
+  });
+  $(document).on('click', '#toggle-events-more', function() {
+    var checked = $(this).children('input').is(':checked');
+    if (checked) {
+      $('#listing-event .more').show();
+    } else {
+      $('#listing-event .more').hide();
+    }
+  });
+  
   /* datepicker for all this classes/ids */
   if ($.datepicker) {
     var lang = $.datepicker.regional[ 'fr' ];

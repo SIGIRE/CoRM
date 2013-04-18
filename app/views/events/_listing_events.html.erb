@@ -1,70 +1,52 @@
-<table class="table table-striped">
-<% @events.each do |event| %>
-  <tr>
-    <td>
-      <blockquote>
-        <div>
-        <div>
-          <small>
-            N° <%= event.id %> -
-            Début :  <%= event.date_begin.strftime("%d/%m/%y à %H:%M") unless event.date_begin.blank?%> -
-            Fin :  <%= event.date_end.strftime("%d/%m/%y à %H:%M") unless event.date_end.blank? %> -
-            (<%= distance_of_time_in_words(event.date_begin, event.date_end) unless (event.date_begin.blank? or event.date_end.blank?) %>) - 
-            Contact : <strong><%= if event.contact.nil?  then "Néant" else event.contact.full_name  end%></strong> -
-            Type : <strong><%= if event.event_type.nil? then "Néant" else event.event_type.full_type end %></strong> - 
-            Créé il y a  <%= distance_of_time_in_words_to_now(event.updated_at) %> par <%= event.author.full_name %>
-            <% if !event.task.nil? %>
-              <strong>- Lié à la Tache n° <%= event.task.id %> </strong>
-            <% end %>
-          </small>
-        </div>
-          <%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), event_path(event),  :data => { :confirm => 'Confirmer la Suppression?'},:class =>"pull-right btn" ,:title => "Supprimer l'évènement", :method => :delete %>
+<% if !@events.nil? and @events.length > 0 %>
+<div id="listing-event">
+  <label class="checkbox" id="toggle-events-more">
+    <input type="checkbox" />Déplier tous les évenements
+  </label>
+  <% @events.each do |e| %>
+  <div class="event-container">
+    <div class="event small">
+      <div class="message">
+        <p>
+          <strong><%= e.author.full_name %></strong> a effectué <strong><%= if e.event_type.nil? then "Néant" else e.event_type.full_type end %></strong>
+          avec <strong><%= if e.contact.nil? then "Néant" else e.contact.full_name end%></strong>.<% if !e.task.nil? %> <br /><%= link_to "Lié à la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% end %>
+        </p>
+      <div class="more">
+        <h4>Plus d'informations</h4>
+        <ul>
+          <li>N° <%= e.id %></li>
+        <% if !e.date_begin.blank? %>
+          <li>Début : <%= e.date_begin.strftime("%d/%m/%y à %H:%M") %></li>
+        <% end %>
+        <% if !e.date_end.blank? %>
+          <li>Fin : <%= e.date_end.strftime("%d/%m/%y à %H:%M") %></li>
+        <% end %>
+        <% if !e.account.nil? %>
+          <li>Compte : <%= e.account.company %></li>
+        <% end %>
+        <% if !e.contact.nil? %>
+          <li>Contact : <%= e.contact.full_name %></li>
+        <% end %>
+        <% if !e.event_type.nil? %>
+          <li><%= e.event_type.full_type %></li>
+        <% end %>
+        </ul>
+        <% if !e.notes.blank? %>
+          <div class="notes"><%= e.notes %></div>
+        <% end %>
+        <% if e.user_id == current_user.id or current_user.has_role? :super_user %>
+          <%= link_to "Supprimer", event_path(e), :data => { :confirm => 'Confirmer la Suppression?'},:class => "" , :title => "Supprimer l'évènement", :method => :delete %>
+        <% end %>
       </div>
-      <% if !event.task.nil? %>
-       <div class="row">
-        <div class="span12" >
-          <% if event.modified_by.blank? %>
-            La <%= link_to "Tâche n°" + event.task.id.to_s , edit_task_path(event.task) %> vient d'être créée.
-          <% else %>
-            La <%= link_to "Tâche n°" + event.task.id.to_s , edit_task_path(event.task) %> vient d'être modifiée.
-          <% end%>
-        </div>
-       </div>
-      <% end %>
-      
-      
-      <% if !event.notes2.blank? %>
-      <div class="row">
-        <pre>
-        <%= simple_format(event.notes2) %>
-        </pre>
       </div>
-    <% end %>
-
-      
-      <% if !event.notes.blank? %>
-      <div class="row">
-        <%= simple_format (event.notes) %><br />
+      <div class="time">
+        <p>
+          il y a <%= distance_of_time_in_words_to_now(e.updated_at) %>
+        </p>
       </div>
-    <% end %>
-    
-   
-    
-      <% if event.attach.exists? %>
-      <div> 
-        Fichier joint : 
-        <%= link_to (image_tag("glyphicons/glyphicons_036_file.png") + ' ' + event.attach_file_name), event.attach.url, :target => "_blank" %>
-      </div>
-      <hr />
-      <% end %>
-
-
-      
-      
-      </blockquote>
-    </td>
-  </tr>
+    </div>
+  </div>
+  <% end %>
+</div>
 <% end %>
-</table>
-
 <%= paginate @events %>
