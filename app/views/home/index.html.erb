@@ -81,7 +81,7 @@
 													 <strong><%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %></strong>
 													 <% if !e.contact.nil? and !e.event_type.nil? %>
 															 a <%= action %> <strong><i><%= e.event_type.full_type %></i></strong>.
-													 <% if !e.contact.nil? %><strong><%= "avec #{e.contact.full_name}" %></strong><% end %><% if !e.task.nil? %> <br /><%= link_to "#{task_action} la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% end %>.
+													 <% if !e.contact.nil? %>avec<strong><%= " #{e.contact.full_name}" %></strong><% end %><% if !e.task.nil? %> <br /><%= link_to "#{task_action} la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% end %>.
 													 <% elsif !e.task.nil? %>
 														 a <%= action %> <%= link_to "la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>.
 													 <% elsif !e.event_type.nil? %>
@@ -98,7 +98,7 @@
 							 </div>
 					</div>
      </div>
-		 <div class="row row-center by_2">
+		 <div class="row row-center by_2 align-table">
 					<div>
 							 <div id="home_opportunity" class="home-block">
 										<div class="home-title">
@@ -106,8 +106,16 @@
 												 <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_opportunity_path ,{:title => "Créer une opportunité", :class=>"pull-right btn", :style => 'display: inline-block'} %>
 										</div>
 										<% @opportunities.each do |o| %>
-										<div class="row">
-												 
+										<div class="row row-stripped by_4">
+												 <div>
+															<span class="ellipse text-center"><%= o.name %></span>
+												 </div>
+												 <div>
+															<span class="ellipse text-center"><% if !o.account.nil? %><%= o.account.company %><% else %>Pas de compte associé<% end  %></span>
+												 </div>
+												 <div>
+															<span class="ellipse text-center"><%= o.name %></span>
+												 </div>
 										</div>
 							      <% end %>
 							 </div>
@@ -115,9 +123,25 @@
 					<div>
 							 <div id="home_quotation" class="home-block">
 										<div class="home-title">
-												 <h2>Dernièrs <%= t('app.model.Quotation').pluralize.downcase %></h2>
+												 <h2>Derniers <%= t('app.model.Quotation').pluralize.downcase %></h2>
 												 <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_quotation_path ,{:title => "Créer une devis", :class=>"pull-right btn", :style => 'display: inline-block'} %>
 										</div>
+										<% @quotations.each do |q| %>
+										<div class="row row-stripped by_4">
+												 <div>
+															<span><%= link_to(q.ref, edit_quotation_path(q)) %></span>
+												 </div>
+												 <div>
+															<span class="ellipse"><%if !q.account.nil? %><%= link_to(q.account.company, account_events_path(q.account)) %><% else %>Pas de compte associé<% end %></span>
+												 </div>
+												 <div>
+															<span class="ellipse"><% if !q.author.nil? %><%= q.author.full_name %><% end %></span>
+												 </div>
+												 <div>
+															<span class="ellipse"><% if !q.label.nil? %><%= q.label %><% end %></span>
+												 </div>
+										</div>
+							      <% end %>
 							 </div>
 					</div>
 		 </div>

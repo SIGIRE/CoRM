@@ -28,25 +28,25 @@
         getContactsByAccount: function(account) {
           $.get('/tasks/update_contact_select/' + account, 
             function(data){
-                var option; var that = $('#task_contact_id');
-                that.empty();
+                var option; var that = document.getElementById('task_contact_id');
+                that.innerHTML = '';
                 
                 option = corm.createHTML('option');
-                that.append(option);
+                that.appendChild(option);
                 
                 for (var i in data) {
                   option = corm.createHTML('option', {
                     value: data[i].id,
                     content: data[i].title + ' ' + data[i].forename + ' ' + data[i].surname
                   });
-                  that.append(option);
+                  that.appendChild(option);
                 }
             }
           );
           if(account != "0"){
-            $("#task_notice").show();
+            $(document.getElementById('task_notice')).show();
           } else{
-            $("#task_notice").hide();
+            $(document.getElementById('task_notice')).hide();
           }
         }
     

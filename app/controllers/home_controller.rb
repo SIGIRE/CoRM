@@ -18,6 +18,7 @@ class HomeController < ApplicationController
     # events-block
     @events = Event.order('id DESC').limit(6)
     @opportunities = Opportunity.last_modified(5)
+    @quotations = Quotation.last_modified(5)
     respond_to do |format|
       format.html # index.html.erb
     end

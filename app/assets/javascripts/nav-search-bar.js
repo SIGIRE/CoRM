@@ -122,7 +122,7 @@ $(document).ready(function() {
    */
   $('#account-search').typeahead({
     source: function(typeahead, query) {
-      if (typeahead.trim().length <= tolerance) {
+      if (typeahead.trim().length < tolerance) {
         return false;
       }
       $.ajax({
@@ -130,13 +130,13 @@ $(document).ready(function() {
           type: 'GET',
           dataType: 'json',
           beforeSend: function() {
-            $('#contact_id').html(corm.createHTML('option'));
-            $('#account-search').parent().children('.loading').removeClass('hidden');
+            $(document.getElementById('contact_id')).html(corm.createHTML('option'));
+            $(document.getElementById('account-search')).parent().children('.loading').removeClass('hidden');
           },
           success: function(o) {
             corm_var['account-search-typeahead'] = o.slice(0);
             query(o);
-            var parent = $('#account-search').parent();
+            var parent = $(document.getElementById('account-search')).parent();
             parent.children('.loading').addClass('hidden');
             parent.children('.label').show();
           }
@@ -150,8 +150,8 @@ $(document).ready(function() {
           break;
         }
       }
-      $("#account_id").val(item.id);
-      var select = $('#contact_id');
+      $(document.getElementById('account_id')).val(item.id);
+      var select = $(document.getElementById('contact_id'));
       var contact_full_name = function(c) {
         return c.title + ' ' + c.forename + ' ' + c.surname;
       }
@@ -160,13 +160,13 @@ $(document).ready(function() {
         url: "/taches/update_contact_select/" + item.id,
         dataType: 'json',
         beforeSend: function() {
-          $('#contact_id').parent().children('.loading').removeClass('hidden');
+          select.parent().children('.loading').removeClass('hidden');
         },
         success: function(o) {
           for (var index in o) {
             select.append(corm.createHTML('option', { content: contact_full_name(o[index]) + '', value: o[index].id }));
           }
-          $('#contact_id').parent().children('.loading').addClass('hidden');
+          select.parent().children('.loading').addClass('hidden');
         }
       });
       return item.name;
