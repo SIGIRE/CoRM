@@ -31,6 +31,13 @@ $navbarTextColorShadow: #ee5c47;
  * ----------------------------------
 **/
 
+#title-bar {
+	z-index: 0;
+	border-radius-top-left: 0;
+	border-radius-top-right: 0;
+	margin-top: 15px;
+}
+
 #profile_settings_buttons {
   position: relative;
   float: right;
@@ -314,9 +321,6 @@ img.loading {
   margin: 0 5px;
   vertical-align: baseline;
 }
-
-
-
 .text-center {
   text-align: center !important;
 }
@@ -349,6 +353,79 @@ img.loading {
   vertical-align: middle;
 }
 
+* > .row.row-stripped {
+	&:nth-child(even) {
+		background-color: #f9f9f9;
+	}
+	&:hover {
+		background-color: whitesmoke;
+	}
+}
+
+.row {
+	margin-top: 0;
+}
+
+.no-padding{
+	padding: 0;
+}
+
+.no-margin {
+	margin: 0;
+}
+
+.by_2 {
+	&.align-table {
+		> div {
+			display: inline-table;
+		}
+	}
+	> div {
+	  display: inline-block;
+	  width: 49%;
+	}
+}
+.by_3 {
+	&.align-table {
+		> div {
+			display: inline-table;
+		}
+	}
+	> div {
+	  display: inline-block;
+	  width: 32%;
+	}
+}
+.by_4 {
+	&.align-table {
+		> div {
+			display: inline-table;
+		}
+	}
+	> div {
+	  display: inline-block;
+	  width: 24%;
+	}
+}
+.by_5 {
+	&.align-table {
+		> div {
+			display: inline-table;
+		}
+	}
+	> div {
+	  display: inline-block;
+	  width: 18%;
+	}
+}
+
+.ellipse {
+	display: block;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap
+}
+
 p {
 	&.right, .right {
 		text-align: right;
@@ -364,6 +441,71 @@ p {
 	}
 }
 
+/* Home */
+.home-block {
+	width: 95%;
+	margin: 5px auto;
+	.home-title {
+		@include border-radius-top-right(5px);
+		@include border-radius-top-left(5px);
+		padding: 6px 8px;
+		border: 1px solid #ddd;
+	  > h2 {
+			display: inline-block;
+			width: 80%;
+			text-indent: 15px;
+		}
+		> .btn {
+			display: inline-block;
+			float: right;
+			vertical-align: middle;
+		}
+	}
+	.row {
+		
+		margin-left: 0;
+		width: auto;
+		padding: 8px 0;
+		overflow: hidden;
+		border-left: 1px solid #ddd;
+		border-right: 1px solid #ddd;
+		border-bottom: 1px solid #ddd;
+		&.padded {
+			padding: 8px 16px;
+			p, a {
+				padding: 0;
+				margin: 0;
+			}
+		}
+		> div {
+			vertical-align: middle;
+			margin: 5px 0.5%;
+			&.badge-container {
+				width: 22%;
+				text-align: center;
+			}
+			&.company-name-container {
+				width: 23%;
+				margin: 0 1%;
+			}
+			&.task-subject-container {
+				width: 46%;
+			}
+		}
+		&:last-child {
+			@include border-radius-bottom-right(5px);
+			@include border-radius-bottom-left(5px);
+		}
+	}
+}
+
+#home_events {
+	.row {
+		padding: 2px 16px;
+	}
+}
+
+/* Account Events */
 #listing-event {
 	.event-container {
 		clear: both;

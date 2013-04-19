@@ -308,3 +308,10 @@ fr:
       Role: role
       Ability: droit
       Extraction: extraction
+    model:
+      Account: Compte
+      Contact: Contact
+      Quotation: Devis
+      Task: Tâche
+      Opportunity: Opportunité
+      Event: Evenement

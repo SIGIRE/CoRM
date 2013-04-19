@@ -4,21 +4,10 @@ form {
     div, p, a, ul, li, select, input, textarea {
       display: inline-block;
     }
-  }
-  .field-group {
-    
-  }
-  .by_2 div {
-    width: 49%;
-  }
-  .by_3 div {
-    width: 33%;
-  }
-  .by_4 div {
-    width: 24%;
-  }
-  .by_5 div {
-    width: 19%;
+    &.row-center {
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
   .field {
     &.small-date {
@@ -30,6 +19,15 @@ form {
     &.full {
       width: 99%;
     }
+    p {
+			&.full {
+				display: block;
+        input {
+          display: block;
+          width: 99%;
+        }
+			}
+		}
   }
 }
 

@@ -40,15 +40,28 @@
 		  <!-- TRADES -->
 		  <% cssClass = (params[:controller] == 'quotations' or params[:controller] == 'opportunities') ? 'active' : '' %>
 		  <li class="dropdown<%= if !cssClass.blank? then " #{cssClass}" end %>">
-			<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-			  Commerce
-			  <span class="caret"></span>
-			</a>
-			<ul class="dropdown-menu">
-			  <li><%= link_to "Opportunités".html_safe, opportunities_path %></li>
-			  <li><%= link_to "Devis".html_safe, quotations_path %></li>
-			</ul>
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					Commerce
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li><%= link_to "Opportunités".html_safe, opportunities_path %></li>
+					<li><%= link_to "Devis".html_safe, quotations_path %></li>
+				</ul>
 		  </li>
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+					Ajouter
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu">
+					<li><%= link_to t('app.model.Quotation'), new_quotation_path %></li>
+					<li><%= link_to t('app.model.Opportunity'), new_opportunity_path %></li>
+					<li><%= link_to t('app.model.Task'), new_task_path %></li>
+					<li><%= link_to t('app.model.Contact'), new_contact_path %></li>
+					<li><%= link_to t('app.model.Account'), new_account_path %></li>
+				</ul>
+			</li>
 		</ul>
 	  </div>
 	</div>

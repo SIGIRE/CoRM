@@ -8,8 +8,38 @@
     <div class="event small">
       <div class="message">
         <p>
-          <strong><%= e.author.full_name %></strong> a effectué <strong><%= if e.event_type.nil? then "Néant" else e.event_type.full_type end %></strong>
-          avec <strong><%= if e.contact.nil? then "Néant" else e.contact.full_name end%></strong>.<% if !e.task.nil? %> <br /><%= link_to "Lié à la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% end %>
+          <%
+          action = nil
+          if e.modified_by.blank?
+            action = 'créé'
+          else
+            action = 'modifié'
+          end
+          task_action = "Création de "
+          if !e.task.nil?
+            if e.task.modified_by.nil? and e.created_by == e.task.created_by
+              task_action = 'Création de '
+            elsif !e.task.modified_by.nil? and e.modified_by == e.task.modified_by
+              
+              task_action = 'Modification de '
+            end
+          end
+          %>
+          <% if e.task.nil? or e.modified_by.nil? %>
+            <strong><%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %></strong>
+            <% if !e.contact.nil? and !e.event_type.nil? %>
+                a <%= action %> <strong><i><%= e.event_type.full_type %></i></strong>.
+            <% if !e.contact.nil? %><strong><%= "avec #{e.contact.full_name}" %></strong><% end %>. <% if !e.task.nil? %> <br /><%= link_to "#{task_action} la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% end %>.
+            <% elsif !e.task.nil? %>
+              a <%= action %> <%= link_to "la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>.
+            <% elsif !e.event_type.nil? %>
+              a <%= action %> <strong><i><%= e.event_type.full_type %></i></strong>.
+            <% else %>
+              a éffectué une action.
+            <% end %>
+          <% else %>
+            <strong><%= e.editor.full_name %></strong> a modifié <%= link_to "la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>
+          <% end %>
         </p>
       <div class="more">
         <h4>Plus d'informations</h4>
@@ -34,7 +64,7 @@
         <% if !e.notes.blank? %>
           <div class="notes"><%= e.notes %></div>
         <% end %>
-        <% if e.user_id == current_user.id or current_user.has_role? :super_user %>
+        <% if e.created_by == current_user.id or e.modified_by == current_user.id or current_user.has_role? :super_user %>
           <%= link_to "Supprimer", event_path(e), :data => { :confirm => 'Confirmer la Suppression?'},:class => "" , :title => "Supprimer l'évènement", :method => :delete %>
         <% end %>
       </div>

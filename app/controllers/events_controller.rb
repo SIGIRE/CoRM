@@ -16,7 +16,7 @@ class EventsController < ApplicationController
       @events = Event.page(params[:page])
     else
       @account = Account.find(params[:account_id])    
-      @events = @account.events.order("date_begin DESC").page(params[:page])
+      @events = @account.events.order("id DESC").page(params[:page])
       @event_new = @account.events.build 
     end
     respond_to do |format|
@@ -165,13 +165,15 @@ class EventsController < ApplicationController
     
     # Create a new hashtable with the same key as can do the TasksController
     hash = Hash.new
-    hash["account_id"] = params[:event][:account_id]
-    hash["contact_id"] = params[:event][:contact_id]
-    hash["user_id"] = params[:user_id]
-    hash["notes"] = params[:notes]
-    hash["statut"] = params[:statut][:statut]
-    hash["term"] = params[:term].split('/').reverse!.join('/')
-    hash["created_by"] = current_user.id
+    hash['account_id'] = params[:event][:account_id]
+    hash['contact_id'] = params[:event][:contact_id]
+    hash['user_id'] = params[:user_id]
+    hash['notes'] = params[:notes]
+    hash['statut'] = params[:statut][:statut]
+    hash['term'] = params[:term].split('/').reverse!.join('/')
+    hash['created_by'] = current_user.id
+    hash['priority'] = params[:priority].to_i
+    hash['title'] = params[:title]
     
     # Create the task with the hash
     @task = Task.new(hash)

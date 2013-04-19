@@ -1,313 +1,124 @@
-<div class="container-fluid" style="margin-top: 1em;">
-   
-
-     <div class="well">
-       <div class="row-fluid">
-           <h1>Tableau de bord</h1>
-        </div>
+<div class="container-fluid">
+     <div class="well" id="title-bar">
+          <div class="row-fluid">
+              <h1>Tableau de bord</h1>
+          </div>
      </div>
-
-         
+     <div class="row row-center by_2 align-table">
+					<div>
+							 <div id="home_tasks" class="home-block">
+										<div class="home-title">
+												 <h2>Dernières <%= t('app.model.Task').pluralize.downcase %></h2>
+												 <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_task_path ,{:title => "Créer une tâche", :class=>"pull-right btn", :style => 'display: inline-block'} %>
+										</div>
+										<% @tasks.each do |t|
+											priority_class_mod = nil
+											if t.priority == 2
+												 priority_class_mod = ' error'
+											elsif t.priority == 3
+												 priority_class_mod = ' error bold'
+											elsif t.priority == 0
+												 priority_class_mod = ' info'
+											end
+										%>
+										<div class="row row-stripped by_3<%= priority_class_mod unless priority_class_mod.nil? %>">
+										<%
+										badge_statut_class = nil
+										if t.statut == "A faire"
+										  badge_statut_class = ' badge-important'
+										elsif t.statut == "En cours"
+										  badge_statut_class = ' badge-warning'
+										elsif t.statut == "Terminé"
+										  badge_statut_class = ' badge-success'
+										elsif t.statut == "Annulé"
+										  badge_statut_class = ' badge-inverse'
+										end %>
+												 <div class="badge-container">
+													 <span class="badge<%= badge_statut_class unless badge_statut_class.nil? %>"><%= t.statut %></span>
+												 </div>
+												 <div class="company-name-container">
+															<span class="ellipse"><% if !t.account.nil? %><%= link_to t.account.company, account_events_path(t.account), :title => 'Compte: ' + t.account.company %><% else %>Pas de compte<% end %></span>
+												 </div>
+												 <div class="task-subject-container">
+													 <span class="ellipse"><%= link_to (!t.title.blank?() ? t.title : "Pas de sujet"), edit_task_path(t), :title => 'Sujet: ' + t.title %></span>
+												 </div>
+										</div>
+							 <% end %>
+							 <a href="<%= tasks_path %>" title="Afficher les tâches restantes">
+										<div class="row row-stripped">
+												 <p class="center no-margin">Afficher les <%= @tasks_count %> tâches restantes</p>
+										</div>
+							 </a>
+							 </div>
+							 
+					</div>
+					<div>
+							 <div id="home_events" class="home-block">
+										<div class="home-title">
+												 <h2>Derniers <%= t('app.model.Event').pluralize.downcase %></h2>
+										</div>
+										<% @events.each do |e| %>
+										<div class="row row-stripped padded">
+												 <p><strong><%= link_to e.account.company, account_events_path(e.account.id) %></strong> : 
+												 <%
+												 action = nil
+												 if e.modified_by.blank?
+													 action = 'créé'
+												 else
+													 action = 'modifié'
+												 end
+												 task_action = "Création de "
+												 if !e.task.nil?
+													 if e.task.modified_by.nil? and e.created_by == e.task.created_by
+														 task_action = 'Création de '
+													 elsif !e.task.modified_by.nil? and e.modified_by == e.task.modified_by
+														 
+														 task_action = 'Modification de '
+													 end
+												 end
+												 %>
+												 <% if e.task.nil? or e.modified_by.nil? %>
+													 <strong><%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %></strong>
+													 <% if !e.contact.nil? and !e.event_type.nil? %>
+															 a <%= action %> <strong><i><%= e.event_type.full_type %></i></strong>.
+													 <% if !e.contact.nil? %><strong><%= "avec #{e.contact.full_name}" %></strong><% end %><% if !e.task.nil? %> <br /><%= link_to "#{task_action} la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% end %>.
+													 <% elsif !e.task.nil? %>
+														 a <%= action %> <%= link_to "la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>.
+													 <% elsif !e.event_type.nil? %>
+														 a <%= action %> <strong><i><%= e.event_type.full_type %></i></strong>.
+													 <% else %>
+														 a éffectué une action.
+													 <% end %>
+												 <% else %>
+													 <strong><%= e.editor.full_name %></strong> a modifié <%= link_to "la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>
+												 <% end %>
+											 </p>
+										</div>
+										<% end %>
+							 </div>
+					</div>
+     </div>
+		 <div class="row row-center by_2">
+					<div>
+							 <div id="home_opportunity" class="home-block">
+										<div class="home-title">
+												 <h2>Dernières <%= t('app.model.Opportunity').pluralize.downcase %></h2>
+												 <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_opportunity_path ,{:title => "Créer une opportunité", :class=>"pull-right btn", :style => 'display: inline-block'} %>
+										</div>
+										<% @opportunities.each do |o| %>
+										<div class="row">
+												 
+										</div>
+							      <% end %>
+							 </div>
+					</div>
+					<div>
+							 <div id="home_quotation" class="home-block">
+										<div class="home-title">
+												 <h2>Dernièrs <%= t('app.model.Quotation').pluralize.downcase %></h2>
+												 <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_quotation_path ,{:title => "Créer une devis", :class=>"pull-right btn", :style => 'display: inline-block'} %>
+										</div>
+							 </div>
+					</div>
+		 </div>
 </div>
-<div class="span20">
-<!-- Bloc TASK -->
-<div class="span6">
-<div class="container-fluid">
-  <table class="table table-bordered table-striped table-hover">
-    <thead>
-      <tr>
-	    <th colspan="4">
-		<div class="row-fluid">		
-			<div class="span3">
-			<h2><%= link_to " Tâches".html_safe, url_for(:controller => 'tasks', :action => 'filter'), {:title => "Afficher les tâches"} %></h2>
-				</div>
-           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_task_path ,{:title => "Créer une tâche", :class=>"pull-right btn"} %>
-			</div>
-		</th>
-	</tr>
-	<tr>
-        <th><center>#</center></th>
-        <th><center>Statut</center></th>
-        <th><center>Compte</center></th>
-        <th><center>Sujet</center></th> 
-      </tr>
-    </thead>
-    <tbody>
-      <% @tasks.each do |task| %>
-      
-	  <% if task.priority == "Haut"%>
-	  	  <tr class="error">
-	       <% elsif task.priority == "Urgent"%>
-	  	  <tr class="error" style="font-weight:bold;">
-		  <% elsif task.priority == "Bas"%>
-	  	  <tr class="info">
-       <% end %>
-
-	  <td><center><%= task.id %></center></td>
-        <td><center>
-          <% if task.statut == "A faire"%>
-            <span class="badge badge-important">
-          <% elsif task.statut == "En cours"%>
-            <span class="badge badge-warning">
-          <% elsif task.statut == "Terminé"%>
-            <span class="badge badge-success">
-          <% elsif task.statut == "Annulé"%>
-            <span class="badge badge-inverse">
-          <% else %>
-            -
-          <% end %>
-          <%= task.statut %></span>
-        </center></td>
-		
-
-		
-		<% if !task.account.nil? %>
-			<% then %>
-				<td><center><%= link_to task.account.company , account_events_url(task.account),{:title => "Afficher les évenements"} %></center></td>
-			<% else %>
-				<td><center>-</center></td>
-		<% end %>
-		<% if !task.title.blank? %>
-			<% then %>
-				<td><%= link_to truncate(task.title, :length => 75, :separator => ' '), edit_task_path(task),{:title => "Éditer la tâche"} %></td>
-			<% else %>
-				<td><center>-</center></td>
-		<% end %>
-
- </tr>
- 
-      <% end %>
-	<tr>
-	<td colspan ="4"> <%= link_to "Afficher le reste des Tâches".html_safe, url_for(:controller => 'tasks', :action => 'filter'), {:title => "Afficher les tâches"} %></td>
-	</tr>
-    </tbody>
-  </table>
-</div>
-</div>
-<!-- END Bloc TASK -->
-
-
-<!-- Bloc TASK TEST -->
-<div class="span6">
-<div class="container-fluid">
-  <table class="table table-bordered table-striped table-hover">
-    <thead>
-      <tr>
-	    <th colspan="4">
-		<div class="row-fluid">		
-			<div class="span3">
-			<h2><%= link_to " Tâches".html_safe, url_for(:controller => 'tasks', :action => 'filter'), {:title => "Afficher les tâches"} %></h2>
-				</div>
-           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_task_path ,{:title => "Créer une tâche", :class=>"pull-right btn"} %>
-			</div>
-		</th>
-	</tr>
-	<tr>
-        <th><center>#</center></th>
-        <th><center>Statut</center></th>
-        <th><center>Compte</center></th>
-        <th><center>Sujet</center></th> 
-      </tr>
-    </thead>
-    <tbody>
-      <% @tasks.each do |task| %>
-      
-	  <% if task.priority == "Haut"%>
-	  	  <tr class="error">
-	       <% elsif task.priority == "Urgent"%>
-	  	  <tr class="error" style="font-weight:bold;">
-		  <% elsif task.priority == "Bas"%>
-	  	  <tr class="info">
-       <% end %>
-
-	  <td><center><%= task.id %></center></td>
-        <td><center>
-          <% if task.statut == "A faire"%>
-            <span class="badge badge-important">
-          <% elsif task.statut == "En cours"%>
-            <span class="badge badge-warning">
-          <% elsif task.statut == "Terminé"%>
-            <span class="badge badge-success">
-          <% elsif task.statut == "Annulé"%>
-            <span class="badge badge-inverse">
-          <% else %>
-            -
-          <% end %>
-          <%= task.statut %></span>
-        </center></td>
-		
-
-		
-		<% if !task.account.nil? %>
-			<% then %>
-				<td><center><%= link_to task.account.company , account_events_url(task.account),{:title => "Afficher les évenements"} %></center></td>
-			<% else %>
-				<td><center>-</center></td>
-		<% end %>
-		<% if !task.title.blank? %>
-			<% then %>
-				<td><%= link_to truncate(task.title, :length => 75, :separator => ' '), edit_task_path(task),{:title => "Éditer la tâche"} %></td>
-			<% else %>
-				<td><center>-</center></td>
-		<% end %>
-
- </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-</div>
-<!-- END Bloc TASK TEST-->
-</div>
-
-<!-- -------------------------------------------------- -->
-
-<div class="span20">
-<!-- Bloc TASK -->
-<div class="span6">
-<div class="container-fluid">
-  <table class="table table-bordered table-striped table-hover">
-    <thead>
-      <tr>
-	    <th colspan="4">
-		<div class="row-fluid">		
-			<div class="span3">
-			<h2><%= link_to " Tâches".html_safe, url_for(:controller => 'tasks', :action => 'filter'), {:title => "Afficher les tâches"} %></h2>
-				</div>
-           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_task_path ,{:title => "Créer une tâche", :class=>"pull-right btn"} %>
-			</div>
-		</th>
-	</tr>
-	<tr>
-        <th><center>#</center></th>
-        <th><center>Statut</center></th>
-        <th><center>Compte</center></th>
-        <th><center>Sujet</center></th> 
-      </tr>
-    </thead>
-    <tbody>
-      <% @tasks.each do |task| %>
-      
-	  <% if task.priority == "Haut"%>
-	  	  <tr class="error">
-	       <% elsif task.priority == "Urgent"%>
-	  	  <tr class="error" style="font-weight:bold;">
-		  <% elsif task.priority == "Bas"%>
-	  	  <tr class="info">
-       <% end %>
-
-	  <td><center><%= task.id %></center></td>
-        <td><center>
-          <% if task.statut == "A faire"%>
-            <span class="badge badge-important">
-          <% elsif task.statut == "En cours"%>
-            <span class="badge badge-warning">
-          <% elsif task.statut == "Terminé"%>
-            <span class="badge badge-success">
-          <% elsif task.statut == "Annulé"%>
-            <span class="badge badge-inverse">
-          <% else %>
-            -
-          <% end %>
-          <%= task.statut %></span>
-        </center></td>
-		
-
-		
-		<% if !task.account.nil? %>
-			<% then %>
-				<td><center><%= link_to task.account.company , account_events_url(task.account),{:title => "Afficher les évenements"} %></center></td>
-			<% else %>
-				<td><center>-</center></td>
-		<% end %>
-		<% if !task.title.blank? %>
-			<% then %>
-				<td><%= link_to truncate(task.title, :length => 75, :separator => ' '), edit_task_path(task),{:title => "Éditer la tâche"} %></td>
-			<% else %>
-				<td><center>-</center></td>
-		<% end %>
-
- </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-</div>
-<!-- END Bloc TASK -->
-
-
-<!-- Bloc TASK TEST -->
-<div class="span6">
-<div class="container-fluid">
-  <table class="table table-bordered table-striped table-hover">
-    <thead>
-      <tr>
-	    <th colspan="4">
-		<div class="row-fluid">		
-			<div class="span3">
-			<h2><%= link_to " Tâches".html_safe, url_for(:controller => 'tasks', :action => 'filter'), {:title => "Afficher les tâches"} %></h2>
-				</div>
-           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_task_path ,{:title => "Créer une tâche", :class=>"pull-right btn"} %>
-			</div>
-		</th>
-	</tr>
-	<tr>
-        <th><center>#</center></th>
-        <th><center>Statut</center></th>
-        <th><center>Compte</center></th>
-        <th><center>Sujet</center></th> 
-      </tr>
-    </thead>
-    <tbody>
-      <% @tasks.each do |task| %>
-      
-	  <% if task.priority == "Haut"%>
-	  	  <tr class="error">
-	       <% elsif task.priority == "Urgent"%>
-	  	  <tr class="error" style="font-weight:bold;">
-		  <% elsif task.priority == "Bas"%>
-	  	  <tr class="info">
-       <% end %>
-
-	  <td><center><%= task.id %></center></td>
-        <td><center>
-          <% if task.statut == "A faire"%>
-            <span class="badge badge-important">
-          <% elsif task.statut == "En cours"%>
-            <span class="badge badge-warning">
-          <% elsif task.statut == "Terminé"%>
-            <span class="badge badge-success">
-          <% elsif task.statut == "Annulé"%>
-            <span class="badge badge-inverse">
-          <% else %>
-            -
-          <% end %>
-          <%= task.statut %></span>
-        </center></td>
-		
-
-		
-		<% if !task.account.nil? %>
-			<% then %>
-				<td><center><%= link_to task.account.company , account_events_url(task.account),{:title => "Afficher les évenements"} %></center></td>
-			<% else %>
-				<td><center>-</center></td>
-		<% end %>
-		<% if !task.title.blank? %>
-			<% then %>
-				<td><%= link_to truncate(task.title, :length => 75, :separator => ' '), edit_task_path(task),{:title => "Éditer la tâche"} %></td>
-			<% else %>
-				<td><center>-</center></td>
-		<% end %>
-
- </tr>
-      <% end %>
-    </tbody>
-  </table>
-</div>
-</div>
-<!-- END Bloc TASK TEST-->
-
-
-
-

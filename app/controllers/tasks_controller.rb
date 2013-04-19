@@ -94,7 +94,7 @@ class TasksController < ApplicationController
 	    if params[:mail] == "yes"
 		  UserMailer.mail_for(@task.user, @task, true).deliver
 	    end
-        self.create_event(false)
+      self.create_event(false)
 		redirect_to filter_tasks_url, :notice => 'La tâche a été créée.'
 	  else
 	    @users = User.all_reals
@@ -113,25 +113,41 @@ class TasksController < ApplicationController
   # PUT /tasks/1
   # PUT /tasks/1.json
   def update
-	if @ability.can? :update, Task
-	  @task = Task.find(params[:id])
-	  @task.modified_by = current_user.id
-	  params[:task][:term] = params[:task][:term].split('/').reverse!.join('/')
-	  
-	  if @task.update_attributes(params[:task])
-		if params[:mail]=="yes"
-		  UserMailer.mail_for(@task.user, @task, false).deliver
+		if @ability.can? :update, Task
+			@task = Task.find(params[:id])
+			@task.modified_by = current_user.id
+			params[:task][:term] = params[:task][:term].split('/').reverse!.join('/')
+			# check deep equality
+			t = Task.new(params[:task])
+			isEqual = (@task.title 								== t.title and
+								 @task.priority 						== t.priority and
+								 @task.term 								== t.term and
+						     @task.statut 							== t.statut and
+						     @task.notes 								== t.notes and
+						     @task.contact_id 					== t.contact_id and
+						     @task.user_id 							== t.user_id and
+						     @task.account_id 					== t.account_id and
+						     @task.attach_file_name 		== t.attach_file_name and
+						     @task.attach_file_size 		== t.attach_file_size and
+						     @task.attach_content_type 	== t.attach_content_type)
+			if !isEqual
+				if @task.update_attributes(params[:task])
+					if params[:mail]=="yes"
+						UserMailer.mail_for(@task.user, @task, false).deliver
+					end
+					self.create_event(true)
+					redirect_to filter_tasks_path, :notice => 'La tâche a été mise à jour.'
+				else
+					render :action => "edit"
+				end
+			else
+				redirect_to filter_tasks_path
+			end
+		else
+			flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
+			redirect_to tasks_url
+			return false
 		end
-		self.create_event(true)
-		redirect_to filter_tasks_path, :notice => 'La tâche a été mise à jour.'
-	  else
-		render :action => "edit"
-	  end
-    else
-	  flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
-	  redirect_to tasks_url
-	  return false
-	end
   end
 
   ##
@@ -249,9 +265,9 @@ class TasksController < ApplicationController
 	  
 	  # to test
 	  if(updated == true)
-		hash["modified_by"] = current_user.id
+			hash["modified_by"] = current_user.id
 	  else
-		hash["created_by"] = current_user.id
+			hash["created_by"] = current_user.id
 	  end
 	  
 	  hash["task_id"] = @task.id

@@ -29,6 +29,10 @@ class Opportunity < ActiveRecord::Base
     return editor_user || User::default
   end
   
+  def last_modified(how_many)
+    return Opportunity.order('updated_at DESC, created_at DESC').limit(how_many)
+  end
+  
   scope :by_statut, lambda { |statut| where("statut LIKE ?", statut+'%') }
   scope :by_account, lambda { |account| where("account_id = ?", account.id) unless account.nil? }
   scope :by_contact, lambda { |contact| where("contact_id = ?", contact.id) unless contact.nil? }
