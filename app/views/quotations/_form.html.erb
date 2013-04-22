@@ -61,7 +61,7 @@
 		<div class="row row-fluid">
 			<div class="field full">
 				<div class="span2"><%= f.label(:user_id, t('app.fields.collegue') + colon) %></div>
-				<%= f.collection_select :user_id, @users, :id, :full_name, { :selected => current_user.id } %>
+				<%= f.collection_select :user_id, @users, :id, :full_name, { :selected => (@quotation.user.nil?() ? current_user.id : @quotation.user.id) } %>
 			</div>
 		</div>
     <hr />
@@ -130,7 +130,9 @@
 			<div class="field full">
 				<% if !@quotation.id.nil? %>
 				<p><%= t('app.actions.created_by') %> <strong><%= @quotation.author.full_name %></strong>, <%= t('app.at') %> <strong><%= @quotation.created_at.strftime("%d/%m/%y à %H:%M") %></strong>.</p>
-				<% end %>
+			<% end %>
+		</div>
+    <div class="field full">
 				<% if !@quotation.updated_by.nil? %>
 				<p><%= t('app.actions.updated_by') %> <strong><%= @quotation.editor.full_name %></strong>, <%= t('app.at') %> <strong><%= @quotation.updated_at.strftime("%d/%m/%y à %H:%M") %></strong>.</p>
 				<% end %>

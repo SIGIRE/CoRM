@@ -50,7 +50,7 @@
 		<div class="field full">
 			<div class="span2"><%= f.label(:user_id, t('app.fields.assigned') + colon) %></div>
 			<p>
-				<%= f.collection_select :user_id, @users, :id, :full_name, { :selected => current_user.id } %>
+				<%= f.collection_select :user_id, @users, :id, :full_name, { :selected => (@opportunity.user.nil?() ? current_user.id : @opportunity.user.id) } %>
 				<label for="opportunity_mail" class="checkbox right-field">
           <input type="checkbox" name="mail" id="opportunity_mail" value="yes" /><%= t('app.fields.emailToCollegue') %>
 				</label>
@@ -101,6 +101,8 @@
 			<% if !@opportunity.id.nil? %>
 			<p><%= t('app.actions.created_by') %> <strong><%= @opportunity.author.full_name %></strong>, <%= t('app.at') %> <strong><%= @opportunity.created_at.strftime("%d/%m/%y à %H:%M") %></strong>.</p>
 		  <% end %>
+		</div>
+    <div class="field full">
 			<% if !@opportunity.updated_by.nil? %>
 			<p><%= t('app.actions.updated_by') %> <strong><%= @opportunity.editor.full_name %></strong>, <%= t('app.at') %> <strong><%= @opportunity.updated_at.strftime("%d/%m/%y à %H:%M") %></strong>.</p>
 			<% end %>
