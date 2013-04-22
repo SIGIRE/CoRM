@@ -273,6 +273,7 @@ fr:
       unlock_instructions:
         subject: "Instructions pour déverrouiller le compte"
   app:
+    at: le
     save_undefined_error: "Une erreur est survenue pendant l'enregistrement"
     default:
       subject: Sujet
@@ -287,6 +288,8 @@ fr:
       destroy: supprimer
       show: afficher
       do: faire
+      created_by: "Créer par"
+      updated_by: "Dernièrement modifié par"
     cancan:
       messages:
         unauthorized: "Vous n'êtes pas autoriser à [action] [undefined_article] [model]"
@@ -314,4 +317,24 @@ fr:
       Quotation: Devis
       Task: Tâche
       Opportunity: Opportunité
-      Event: Evenement
+      Event: Évenement
+    money:
+      excl_tax: HT
+      incl_tax: TTC
+      tax: TVA
+      excluding_taxes: Hors Taxes
+      including_taxes: Toutes Taxes Comprises
+    fields:
+      colon: " : "
+      label: Libellé
+      term: Échéance
+      description: Descrition
+      assigned: "Assigné à"
+      emailToCollegue: "Envoyer un Mail à ce collaborateur"
+      update_attach: "Modifier la pièce jointe"
+      attach: "Pièce jointe"
+      present_attach: "Pièce-jointe actuelle"
+      opportunity_state: 'Statut'
+      remark: Remarque
+      estimated_amount: "Montant estimé"
+      estimated_profit: "Marge estimée"

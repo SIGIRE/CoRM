@@ -1,3 +1,4 @@
+<% colon = t('app.fields.colon') %>
 <%= form_for(@opportunity , :html => { :class => "well "}) do |f| %>
   <% if @opportunity.errors.any? %>
     <div id="error_explanation">
@@ -9,99 +10,104 @@
       </ul>
     </div>
   <% end %>
-  <div class="field"> 
-    <div class="span2"> Libellé : </div>
-    <p><%= f.text_field :name, { :class => 'required' } %></p>
-  </div>
-  <div class="field">
-    <div class="span2"> Échéance :  </div>
-	<p><%= f.text_field :term %></p>
-  </div>  
-  <div class="field">
-	  <div class="span2">Description : </div>
-	  <%= f.text_area :description, :rows => "5", :style=>'width: 30em;'%>
-  </div>
-  <div class="field">
-<div class="span2"> Compte : </div>
-    <% company = ""
-	   if !@opportunity.account.nil?
-	     company = @opportunity.account.company.html_safe
-	   end %>
-      <p>
-        <input value="<%= company %>" id="account-search" type="search" autocomplete="off" />
-		<%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
-		<span class="label label-info inline" id="task_notice" style="display: none; margin-left: 2em;">
-          <i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant
-        </span>
-      </p>
-      <%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id', :include_blank => true } %>
-  </div>
-  <div class="field" id="nameContacts">
+  <div class="row row-fluid">
+		<div class="field full"> 
+			<div class="span2"><%= f.label(:name, t('app.fields.label') + colon) %></div>
+			<div><p><%= f.text_field :name, { :class => 'required' } %></p></div>
+		</div>	
+	</div>
+  <div class="row row-fluid">
+		<div class="field full">
+			<div class="span2"><%= f.label(:term, t('app.fields.term') + colon) %></div>
+			<div><p><%= f.text_field :term %></p></div>
+		</div>
+	</div>
+	<div class="row row-fluid">
+		<div class="field full">
+			<div class="span2"><%= f.label(:description, t('app.fields.description') + colon) %></div>
+			<div><p><%= f.text_area :description, :rows => "5" %></p></div>
+		</div>
+	</div>
+  <div class="row row-fluid">
+		<div class="field full">
+			<div class="span2"><%= label_tag('account-search', t('app.model.Account') + colon) %></div>
+			<div>
+				<p>
+					<%= text_field_tag(nil, (@opportunity.account.company unless @opportunity.account.nil?), { :id => 'account-search', :type => 'search', :autocomplete => 'off' }) %>
+					<%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
+					<span class="label label-info inline" id="task_notice" style="display: none; margin-left: 2em;">
+					  <i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant
+					</span>
+					<%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id' } %>
+				</p>
+			</div>
+		</div>
+	</div>
+  <div id="nameContacts">
     <%= render :partial => 'contacts' %>
   </div>
-  <div class="field">
-    <div class="span2"> Affectée à : </div>
-	  <p><%= f.collection_select :user_id, @users, :id, :full_name %>
-		<label for="opportunity_mail" class="checkbox right-field">
-          <input type="checkbox" name="mail" id="opportunity_mail" value="yes" />Envoyer un Mail à ce collaborateur
-        </label>
-	  </p>
+	<div class="row row-fluid">
+		<div class="field full">
+			<div class="span2"><%= f.label(:user_id, t('app.fields.assigned') + colon) %></div>
+			<p>
+				<%= f.collection_select :user_id, @users, :id, :full_name, { :selected => current_user.id } %>
+				<label for="opportunity_mail" class="checkbox right-field">
+          <input type="checkbox" name="mail" id="opportunity_mail" value="yes" /><%= t('app.fields.emailToCollegue') %>
+				</label>
+			</p>
+	  </div>
   </div>
-  <% if @opportunity.attach.exists? %> 
-	<div class="field">
-	  <div class="span2">Pièce jointe actuelle : </div>
-	  <%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + @opportunity.attach_file_name, @opportunity.attach.url, :target => '_blank' %>
+  <% if @opportunity.attach.exists? %>
+	<div class="row row-fluid">
+		<div class="field full">
+			<div class="span2"><%= content_tag(:p, t('app.fields.present_attach')) %></div>
+		  <p><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + @opportunity.attach_file_name, @opportunity.attach.url, :target => '_blank' %></p>
+	  </div>
+  </div>
+  <% end %>
+	<div class="row row-fluid">
+		<div class="field full">
+			<div class="span2"><%= f.label(:attach, (@opportunity.attach.exists?() ? t('app.fields.update_attach') : t('app.fields.attach')) + colon) %></div>
+			<%= f.file_field :attach %>
+	  </div>
+  </div>
+	<div class="row row-fluid">
+		<div class="field full">
+			<div class="span2"><%= f.label(:statut ,t('app.fields.opportunity_state') + colon) %></div>
+			<p><%= f.select :statut, Opportunity::STATUTS %></p>
+		</div>
 	</div>
-	<div class="field">
-	  <div class="span2">Modifier pièce jointe : </div>
-	  <%= f.file_field :attach, :style=>'width: 20em;' %>
+	<div class="row row-fluid">
+		<div class="field full">
+			<div class="span2"><%= f.label(:remark, t('app.fields.remark')) %></div>
+			<p><%= f.text_area :remark , :rows => "5" %></p>
+		</div>
 	</div>
-	<% else %>
-	<div class="field">
-	  <div class="span2">Pièce jointe : </div>
-	  <%= f.file_field :attach, :style=>'width: 20em;' %>
+	<div class="row row-fluid">
+		<div class="field full">
+			<div class="span2"><%= f.label(:amount, t('app.fields.estimated_amount') + colon) %></div>
+			<p><%= f.text_field(:amount, :value => (@opportunity.amount.blank?() ? '00.00' : @opportunity.amount), :local => :fr) %><span class="bold">&nbsp;€ <%= t('app.money.excl_tax') %></span></p></p>
+		</div>
+  </div>
+	<div class="row row-fluid">
+		<div class="field full">
+      <div class="span2"><%= f.label(:profit, t('app.fields.estimated_profit') + colon) %></div>
+			<p><%= f.text_field :profit , :value => (@opportunity.profit.blank?() ? '00.00' : @opportunity.profit), :local => :fr %><span class="bold">&nbsp;€ <%= t('app.money.excl_tax') %></span></p>
+  </div>
+	<% if !@opportunity.author.nil? or !@opportunity.editor.nil? %>
+	<div class="row row-fluid">
+		<div class="field full">
+			<% if !@opportunity.id.nil? %>
+			<p><%= t('app.actions.created_by') %> <strong><%= @opportunity.author.full_name %></strong>, <%= t('app.at') %> <strong><%= @opportunity.created_at.strftime("%d/%m/%y à %H:%M") %></strong>.</p>
+		  <% end %>
+			<% if !@opportunity.updated_by.nil? %>
+			<p><%= t('app.actions.updated_by') %> <strong><%= @opportunity.editor.full_name %></strong>, <%= t('app.at') %> <strong><%= @opportunity.updated_at.strftime("%d/%m/%y à %H:%M") %></strong>.</p>
+			<% end %>
+	  </div>
 	</div>
   <% end %>
-  <div class="field">
-    <div class="span2"> Statut : </div>
-	<%= f.select :statut, Opportunity::STATUTS %>
-  </div>
-  <div class="field">
-    <div class="span2">Remarque : </div>
-	<%= f.text_area :remark , :rows => "5", :style=>'width: 30em;'%>
-  </div>
-  <div class="field">
-    <div class="span2"> Montant estimé :  </div>
-    <% if @opportunity.amount.nil? %>
-      <p><%= f.text_field :amount , :value => "00.00" , :local => :fr%><span class="bold">&nbsp;€ HT</span></p>
-    <% else %>
-      <p><%= f.text_field :amount , :local => :fr%><span class="bold">&nbsp;€ HT</span></p>
-    <% end %>
-    
-  </div>
-  <div class="field">
-    <div class="span2"> Marge estimé :  </div>
-    <% if @opportunity.profit.nil? %>
-      <p><%= f.text_field :profit , :value => "00.00" , :local => :fr %><span class="bold">&nbsp;€ HT</span></p>
-    <% else %>
-      <p><%= f.text_field :profit , :local => :fr %><span class="bold">&nbsp;€ HT</span></p>
-    <% end %>
-  </div> 
-  <div class="field">
-  <% if !@opportunity.id.nil? %>
-	  <div class="span9"> Créée par :
-	    <%= @opportunity.author.full_name %>, le <%= @opportunity.created_at.strftime("%d/%m/%y à %H:%M") %>.
-	  </div>
-	  
-	  <% if !@opportunity.updated_by.nil? %>
-	  <div class="span9 no-padding"> Dernièrement modifiée par :
-	    <%= @opportunity.editor.full_name %>, le <%= @opportunity.updated_at.strftime("%d/%m/%y à %H:%M") %>.
-	  </div>
-	  <% end %>
-  <% end %>
-  </div>
   <hr />
-  <div class="row">
+  <div class="row row-fluid">
 	<%= if !@opportunity.id.nil? then f.submit 'Modifier cette Opportunité', :class =>"btn btn-primary",:id =>"opportunity_submit_form" else f.submit 'Créer une Opportunité', :class =>"btn btn-primary",:id =>"opportunity_submit_form" end %>
 	<%= if !@opportunity.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @opportunity, :title => "Supprimer cette Opportunité", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
   </div>
