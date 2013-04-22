@@ -204,7 +204,7 @@ class RegistrationsController < Devise::RegistrationsController
   
   def session_new
     @user = User.find_by_email(params[:user][:email])
-    if @user and @user.valid_password?(params[:user][:password])
+    if !@user.nil? and @user.valid_password?(params[:user][:password])
       if @user.enabled == true
         sign_in(:user, @user)
         current_user.remember_me!
