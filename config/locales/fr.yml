@@ -318,6 +318,7 @@ fr:
       Task: Tâche
       Opportunity: Opportunité
       Event: Évenement
+      QuotationTemplate: Modèle
     money:
       excl_tax: HT
       incl_tax: TTC
@@ -330,11 +331,20 @@ fr:
       term: Échéance
       description: Descrition
       assigned: "Assigné à"
+      collegue: Collaborateur
       emailToCollegue: "Envoyer un Mail à ce collaborateur"
       update_attach: "Modifier la pièce jointe"
       attach: "Pièce jointe"
       present_attach: "Pièce-jointe actuelle"
-      opportunity_state: 'Statut'
+      state: 'Statut'
       remark: Remarque
       estimated_amount: "Montant estimé"
       estimated_profit: "Marge estimée"
+      ref: "Référence"
+      ref_account: "Référence client"
+      quotation_validity: "Validité du Devis"
+      pay_mode: "Mode de réglement"
+      designation: Désignation
+      price_excl_tax: "Prix HT"
+      profit_excl_tax: "Marge HT"
+      quantity: Quantité

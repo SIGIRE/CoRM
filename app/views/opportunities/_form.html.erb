@@ -86,15 +86,16 @@
 	<div class="row row-fluid">
 		<div class="field full">
 			<div class="span2"><%= f.label(:amount, t('app.fields.estimated_amount') + colon) %></div>
-			<p><%= f.text_field(:amount, :value => (@opportunity.amount.blank?() ? '00.00' : @opportunity.amount), :local => :fr) %><span class="bold">&nbsp;€ <%= t('app.money.excl_tax') %></span></p></p>
+			<p><%= f.text_field(:amount, :value => (@opportunity.amount.blank?() ? '00.00' : @opportunity.amount)) %><span class="bold">&nbsp;€ <%= t('app.money.excl_tax') %></span></p>
 		</div>
   </div>
 	<div class="row row-fluid">
 		<div class="field full">
       <div class="span2"><%= f.label(:profit, t('app.fields.estimated_profit') + colon) %></div>
-			<p><%= f.text_field :profit , :value => (@opportunity.profit.blank?() ? '00.00' : @opportunity.profit), :local => :fr %><span class="bold">&nbsp;€ <%= t('app.money.excl_tax') %></span></p>
+			<p><%= f.text_field :profit , :value => (@opportunity.profit.blank?() ? '00.00' : @opportunity.profit) %><span class="bold">&nbsp;€ <%= t('app.money.excl_tax') %></span></p>
+		</div>
   </div>
-	<% if !@opportunity.author.nil? or !@opportunity.editor.nil? %>
+	<% if !@opportunity.id.nil? or !@opportunity.updated_by.nil? %>
 	<div class="row row-fluid">
 		<div class="field full">
 			<% if !@opportunity.id.nil? %>
@@ -111,5 +112,4 @@
 	<%= if !@opportunity.id.nil? then f.submit 'Modifier cette Opportunité', :class =>"btn btn-primary",:id =>"opportunity_submit_form" else f.submit 'Créer une Opportunité', :class =>"btn btn-primary",:id =>"opportunity_submit_form" end %>
 	<%= if !@opportunity.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @opportunity, :title => "Supprimer cette Opportunité", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
   </div>
-</div>
 <% end %>

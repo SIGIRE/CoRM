@@ -3,6 +3,10 @@ body {
   line-height: 18px;
 }
 
+form .page-header:first  {
+	margin-top: 0;
+}
+
 /**
  * ----------------------------------
  * -       Locales variables        -
@@ -438,6 +442,9 @@ p {
 	}
 	&.justify, .justify {
 		text-align: justify;
+	}
+	&.inline {
+		display: inline !important;
 	}
 }
 
