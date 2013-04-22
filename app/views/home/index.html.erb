@@ -44,11 +44,13 @@
 												 </div>
 										</div>
 							 <% end %>
+							 <% if @tasks_count > 0 %>
 							 <a href="<%= tasks_path %>" title="Afficher les tâches restantes">
 										<div class="row row-stripped">
 												 <p class="center no-margin">Afficher les <%= @tasks_count %> tâches restantes</p>
 										</div>
 							 </a>
+					     <% end %>
 							 </div>
 							 
 					</div>
@@ -59,7 +61,7 @@
 										</div>
 										<% @events.each do |e| %>
 										<div class="row row-stripped padded">
-												 <p><strong><%= link_to e.account.company, account_events_path(e.account.id) %></strong> : 
+												 <p><% if !e.account.nil? %><strong><%= link_to e.account.company, account_events_path(e.account.id) %></strong> : <% end %>
 												 <%
 												 action = nil
 												 if e.modified_by.blank?
@@ -111,7 +113,7 @@
 															<span class="ellipse text-center"><%= o.name %></span>
 												 </div>
 												 <div>
-															<span class="ellipse text-center"><% if !o.account.nil? %><%= o.account.company %><% else %>Pas de compte associé<% end  %></span>
+															<span class="ellipse text-center"><% if !o.account.nil? %><%= link_to(o.account.company, account_events_path(o.account)) %><% else %>Pas de compte associé<% end  %></span>
 												 </div>
 												 <div>
 															<span class="ellipse text-center"><%= o.name %></span>

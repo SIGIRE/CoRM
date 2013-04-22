@@ -36,17 +36,16 @@
   <% if !@first_creation %>
 	<div>
       <label for="user[enabled]" class="checkbox">
-        Compte Activé
-        <input type="checkbox" checked="checked" name="user[enabled]" id="user[enabled]" value="1" />
+        <input type="checkbox" checked="checked" name="user[enabled]" id="user[enabled]" value="1" />Compte Activé
       </label>
 	</div>
-
-    <div>
-        <label for="user[super]" class="checkbox">
-          Droit "Super Utilisateur"
-          <input <%= (@user.has_role?(:super_user) ? 'checked=checked' : '') %> type="checkbox" name="user[super]" id="user[super]" value="1" />
-        </label>
-      </div>
+     <% if !@user.has_role?(:super_user) and current_user.has_role?(:super_user) or current_user.has_role?(:admin) %>
+  <div>
+     <label for="user[super]" class="checkbox">
+       <input <%= (@user.has_role?(:super_user) ? 'checked=checked' : '') %> type="checkbox" name="user[super]" id="user[super]" value="1" />Droit "Super Utilisateur"
+     </label>
+  </div>
+    <% end %>
   <% end %>
   <br />
   <div><%= f.submit "Créer", :class =>"btn btn-primary" %></div>

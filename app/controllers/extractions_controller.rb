@@ -7,21 +7,23 @@ class ExtractionsController < ApplicationController
   
   # GET /extractions/select_param_accounts
   def select_param_accounts
-	if !current_user.has_role? :super_user
-	  flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.do')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Extraction'))
-	  redirect_to root_url
-	  return false
-	end
+		if current_user.has_role?(:super_user) || current_user.has_role?(:admin)
+		else
+			flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.do')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Extraction'))
+			redirect_to root_url
+			return false
+		end
   end
 
   # GET /extractions/select_param_contacts
   def select_param_contacts
-	if !current_user.has_role? :super_user
-	  flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.do')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Extraction'))
-	  redirect_to root_url
-	  return false
+		if current_user.has_role?(:super_user) || current_user.has_role?(:admin)
+		else
+			flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.do')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Extraction'))
+			redirect_to root_url
+			return false
+		end
 	end
-  end
 
 
   ##

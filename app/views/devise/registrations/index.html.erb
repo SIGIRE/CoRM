@@ -11,7 +11,7 @@
 		</div>
 	 </div>
   <p>
-    <h3>Utilisateurs actifs actuellement : <%= @real_users_count %> </h3>
+    <h3>Utilisateurs actifs : <%= @all_reals_user_count %> </h3>
 
   </p>
   <% if @users.length > 0 %>
@@ -23,11 +23,9 @@
         <th><center>Adresse e-mail</center></th>
         <th><center>Nom</center></th>
         <th><center>Rôles</center></th>
-        <% if current_user.has_role? :admin %>
-			<th><center>État</center></th>
-			<th><center><% if current_user.has_role? :super_user %>Éditer<%else%>Afficher<%end%></center></th>
-		<% else %>
-			<th><center><% if current_user.has_role? :super_user %>Éditer<%else%>Afficher<%end%></center></th>
+        <% if current_user.has_role?(:super_user) or current_user.has_role?(:admin) %>
+			    <% if current_user.has_role?(:admin) %><th><center>État</center></th><% end %>
+			    <th><center>Éditer</center></th>
         <% end %>
       </tr>
     </thead>
@@ -38,13 +36,11 @@
         <td><%= link_to u.email, edit_user_path(u) %></td>
         <td><%= u.full_name %></td>
         <td><% u.roles.each do |r| %><%= r.name + ', ' %><% end %></td>
-        <% if current_user.has_role? :admin %>
+        <% if current_user.has_role?(:admin) %>
         <td><center><%= (u.enabled ? "Activé" : "Désactivé") %></center></td>
         <% end %>
-        <% if current_user.has_role? :super_user %>
+        <% if current_user.has_role?(:super_user) or current_user.has_role?(:admin) %>
         <td><center><%= link_to "Éditer", edit_user_path(u) ,{:title => "Éditer #{u.full_name}", :class=>"btn"} %></center></td>
-        <% else %>
-        <td><center><%= link_to "Afficher", user_path(u) ,{:title => "Afficher #{u.full_name}", :class=>"btn"} %></center></td>
         <% end %>
       </tr>
     <% end %>

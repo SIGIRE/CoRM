@@ -11,7 +11,7 @@
     <%= @account.adress2 %><br />
   <% end %>
   <% if !@account.zip.blank? or !@account.city.blank? %>
-    <%= @account.zip unless @account.zip.blank? %><%= @account.city unless @account.city.blank? %><br />
+    <%= @account.zip unless @account.zip.blank? %><%= " - " if !@account.zip.blank? and !@account.city.blank? %><%= @account.city unless @account.city.blank? %><br />
   <% end %>
   <% if !@account.tel.blank? %>
     <%= "Tél : " + @account.tel %><br />

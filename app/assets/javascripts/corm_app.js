@@ -65,7 +65,7 @@ $(document).ready(function() {
     if ($(document.getElementById('nameContact'))) {
       $.get('/devis/update_contact_select/' + account, 
         function(data){
-            $("#nameContacts").html(data);
+            $(document.getElementById('nameContacts')).html(data);
         }
       );
     }

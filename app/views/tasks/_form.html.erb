@@ -9,6 +9,7 @@
       </ul>
     </div>
   <% end %>
+  <!-- Account field -->
   <div class="field">
     <div class="span2"> Compte : </div>
       <% company = ""
@@ -23,13 +24,14 @@
         </span>
       </p>
       <%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id' } %>
-  </div> 
+  </div>
+	<!-- Contact field -->
   <div class="field" id="nameContacts">
     <%= render :partial => 'contacts' %>
   </div>
   <div class="field">
     <div class="span2"> Affectée à : </div> 
-      <p><%= f.collection_select :user_id, @users, :id, :full_name %>
+      <p><%= f.collection_select :user_id, @users, :id, :full_name, { :prompt => true, :selected => current_user.id } %>
 		<label for="task_mail" class="checkbox right-field">
           <input type="checkbox" name="mail" id="task_mail" value="yes" />
 		  Envoyer un Mail à ce collaborateur

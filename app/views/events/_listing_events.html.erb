@@ -35,7 +35,7 @@
             <% elsif !e.event_type.nil? %>
               a <%= action %> <strong><i><%= e.event_type.full_type %></i></strong>.
             <% else %>
-              a éffectué une action.
+              a éffectué une action <%= 'avec ' + e.contact.full_name + ' ' unless e.contact.nil? %><%=  %>.
             <% end %>
           <% else %>
             <strong><%= e.editor.full_name %></strong> a modifié <%= link_to "la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>

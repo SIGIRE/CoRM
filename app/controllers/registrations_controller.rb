@@ -28,18 +28,12 @@ class RegistrationsController < Devise::RegistrationsController
       else
         @users = User.all_reals
       end
+      @all_reals_user_count = User.all_reals.count
     else
       flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.User'))
       redirect_to root_url
       return false
     end
-    
-    @real_users_count = 0;
-    @users.each {|e|
-      if (!e.has_role? :admin and e.enabled)
-        @real_users_count += 1
-      end
-    }
   end
   
   def new
@@ -109,7 +103,6 @@ class RegistrationsController < Devise::RegistrationsController
       @user = User.new(params[:user])
       @user.save
       if !@user.has_role? :admin
-        @user.add_role :super_user
         @user.add_role :admin
       end
       redirect_to new_user_session_url, :notice => 'Vous vous etes correctement enregistre. Veuillez vous connecter.'
@@ -139,7 +132,7 @@ class RegistrationsController < Devise::RegistrationsController
         redirect_to root_url
         return false
       end
-    elsif current_user.has_role? :super_user # this is an admin, yeah !
+    elsif current_user.has_role?(:super_user) or current_user.has_role?(:admin) # this is an admin, yeah !
       @user = User.find(params[:id])
       @email_disabled = false
     end
@@ -154,15 +147,18 @@ class RegistrationsController < Devise::RegistrationsController
       redirect_to new_user_session_url
       return false
     end
-    if current_user.has_role? :super_user
+    if current_user.has_role?(:super_user) or current_user.has_role?(:admin)
       @user = User.find(params[:id])
     elsif params[:id] == current_user.id
       @user = User.find(current_user.id)
     end
+    if params[:user][:enabled]
+      params[:user][:enabled] = (params[:user][:enabled] == '1')
+    end
     
-    params[:user][:enabled] = (params[:user][:enabled] == '1')
+    
     # tmp role treatment
-    superUserRole = (params[:user][:super] == "1")
+    superUserRole = (params[:user][:super] == '1')
     params[:user].delete :super
     
     password_changed = !params[:user][:password].empty?
@@ -181,7 +177,7 @@ class RegistrationsController < Devise::RegistrationsController
       elsif (@user.has_role?(:super_user) and !superUserRole)
         @user.remove_role(:super_user)
       end
-      redirect_to (current_user.has_role?(:super_user) ? users_path : root_path)
+      redirect_to ((current_user.has_role?(:super_user) or current_user.has_role?(:admin)) ? users_path : root_path)
     else
       render "edit"
     end
