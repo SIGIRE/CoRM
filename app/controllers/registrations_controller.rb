@@ -81,8 +81,7 @@ class RegistrationsController < Devise::RegistrationsController
         if a.can? :create, User
           # Enabled and SuperUser role
           params[:user][:enabled] = (params[:user][:enabled] == '1')
-          superUserRole = (params[:user][:super] == "1")
-          params[:user].delete :super
+          superUserRole = (params[:super] == "1")
           @user = User.new(params[:user])
           # Save and add Roles
           if @user.save
@@ -102,8 +101,8 @@ class RegistrationsController < Devise::RegistrationsController
     else
       @user = User.new(params[:user])
       @user.save
-      if !@user.has_role? :admin
-        @user.add_role :admin
+      if !@user.has_role?(:admin)
+        @user.add_role(:admin)
       end
       redirect_to new_user_session_url, :notice => 'Vous vous etes correctement enregistre. Veuillez vous connecter.'
     end
@@ -152,14 +151,10 @@ class RegistrationsController < Devise::RegistrationsController
     elsif params[:id] == current_user.id
       @user = User.find(current_user.id)
     end
-    if params[:user][:enabled]
-      params[:user][:enabled] = (params[:user][:enabled] == '1')
-    end
     
-    
+    params[:user][:enabled] = (params[:user][:enabled] == '1')
     # tmp role treatment
-    superUserRole = (params[:user][:super] == '1')
-    params[:user].delete :super
+    superUserRole = (params[:super] == '1')
     
     password_changed = !params[:user][:password].empty?
     #si le champs password est non vide, on considère 
