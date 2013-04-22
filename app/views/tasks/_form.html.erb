@@ -31,7 +31,7 @@
   </div>
   <div class="field">
     <div class="span2"> Affectée à : </div> 
-      <p><%= f.collection_select :user_id, @users, :id, :full_name, { :prompt => true, :selected => current_user.id } %>
+      <p><%= f.collection_select :user_id, @users, :id, :full_name, { :selected => (@task.user.nil?() ? current_user.id : @task.user.id) } %>
 		<label for="task_mail" class="checkbox right-field">
           <input type="checkbox" name="mail" id="task_mail" value="yes" />
 		  Envoyer un Mail à ce collaborateur
