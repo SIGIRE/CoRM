@@ -46,17 +46,19 @@ class DocumentsController < ApplicationController
     @document = Document.new(params[:document])
     @document.created_by = current_user.id
     
-    respond_to do |format|
-      if @document.save
-        format.html  { redirect_to account_events_url(@document.account_id), :notice => 'Le document a été créé' }
-        format.json  { render :json => @document,
-                      :status => :created}
-      else
-        format.html  { render :action => "new" }
-        format.json  { render :json => @document.errors,
-                      :status => :unprocessable_entity }
-      end
-    end
+		if @document.save
+			e = Event.new({
+				:account_id => @document.account_id,
+				:created_by => current_user.id,
+				:notes => "Document n°#{@document.id} créé\r\nNom: #{@document.name}\r\nDescription: #{@document.notes}",
+				:user_id => current_user.id,
+				:date_begin => Time.now,
+				:date_end => Time.now })
+			e.save
+			redirect_to account_events_url(@document.account_id), :notice => 'Le document a été créé'
+		else
+			render :action => "new"
+		end
   end
   
   ##

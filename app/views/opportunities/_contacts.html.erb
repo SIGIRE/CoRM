@@ -1,13 +1,19 @@
-<div class="span2"> Contact : </div>
-<% if contacts.nil? %>
-  <% if !@opportunity.account.nil? %>
-    <%= collection_select :opportunity, :contact_id, Contact.where(:account_id => @opportunity.account.id).order(:surname), :id, :full_name, {:include_blank => true }, { :id => 'contact_id' } %>
-    <%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
-  <% else %>
-    <%= collection_select  :opportunity, :contact_id, Contact.where(:account_id => 0), :id, :full_name, {:include_blank => true}, { :id => 'contact_id' } %>
-    <%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
-  <% end %> 
-<% else %>
-  <%= collection_select  :opportunity, :contact_id, contacts , :id, :full_name, {:include_blank => true}, { :id => 'contact_id' } %>
-  <%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
-<% end %>
+<div class="row row-fluid">
+  <div class="field full">
+    <div class="span2"><%= label_tag(:contact_id, t('app.controller.Contact') + t('app.fields.colon')) %></div>
+    <div>
+      <% if contacts.nil? %>
+        <% if !@opportunity.account.nil? %>
+          <%= collection_select :opportunity, :contact_id, Contact.where(:account_id => @opportunity.account.id).order(:surname), :id, :full_name, {:include_blank => true }, { :id => 'contact_id' } %>
+          <%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
+        <% else %>
+          <%= collection_select  :opportunity, :contact_id, Contact.where(:account_id => 0), :id, :full_name, {:include_blank => true}, { :id => 'contact_id' } %>
+          <%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
+        <% end %> 
+      <% else %>
+        <%= collection_select  :opportunity, :contact_id, contacts , :id, :full_name, {:include_blank => true}, { :id => 'contact_id' } %>
+        <%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
+      <% end %>
+    </div>
+  </div>
+</div>

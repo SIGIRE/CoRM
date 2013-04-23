@@ -28,7 +28,6 @@ db/*.sqlite3
 .sass-cache
 /coverage.data
 /coverage/
-/config/config.yml
 /config/database.yml
 /db/*.javadb/
 /db/*.sqlite3
@@ -75,7 +74,7 @@ pickle-email-*.html
 # vim artifacts
 **.swp
 
-Gemfile.lock
-*.*~
+**.lock
+
 **~
 /public/assets

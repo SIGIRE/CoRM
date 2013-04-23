@@ -1,24 +1,11 @@
-<div class="span2"> Opportunité : </div>
-
-<!-- si aucun opportunite n'est retourné par le javascript -->
-<% if opportunities.nil? %>
-  
-  <!-- si le tache a deja un compte d'affecté -->
+<div class="row row-fluid"><div class="field full"><div class="span2"><%= label_tag('quotation_opportunity_id', t('app.model.Opportunity') + t('app.fields.colon')) %></div>
+<p><% if opportunities.nil? %>
   <% if !@quotation.account.nil? %>
-    
-    <!-- on affiche les données initiales -->
-    <%= collection_select :quotation, :opportunity_id, Opportunity.where(:account_id => @quotation.account.id).order(:name), :id, :name, { :include_blank => true }, :remote=>true %>
-  
+    <%= collection_select :quotation, :opportunity_id, Opportunity.where(:account_id => @quotation.account.id).order(:name), :id, :name, { :include_blank => true } %>
   <% else %>
-    
-    <!-- sinon on affiche des blancs -->
-    <%= collection_select  :quotation, :opportunity_id, Opportunity.where(:account_id => 0), :id, :name, {:include_blank => true}, :remote=>true %>
-  
+    <%= collection_select  :quotation, :opportunity_id, Opportunity.where(:account_id => 0), :id, :name, {:include_blank => true} %>
   <% end %> 
-
 <% else %>
-  
-  <!-- sinon on affiche les opportunites triés -->
-  <%= collection_select  :quotation, :opportunity_id, opportunities , :id, :name, {:include_blank => true}, :remote=>true %>
-
-<% end %>
+  <%= collection_select  :quotation, :opportunity_id, opportunities , :id, :name, {:include_blank => true} %>
+<% end %></p>
+</div></div>

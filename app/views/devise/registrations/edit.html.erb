@@ -33,17 +33,15 @@
     <% if current_user.has_role?(:admin) %>
 		 <div class="row row-fluid">
 		      <div class="field full">
-							 <label for="user[enabled]" class="checkbox">
-										<input <%= (@user.enabled == true ? 'checked=checked' : '') %> type="checkbox" name="user[enabled]" id="user[enabled]" value="1" />Compte Activé
-							 </label>
+							 <label for="user_enabled" class="checkbox"><%= check_box_tag('user[enabled]', 1, @user.enabled,{ :class => 'checkbox' }) %>Compte activé</label>
 					</div>
 		 </div>
      <% end %>
      <% if current_user.has_role?(:admin) or (current_user.has_role?(:super_user) and !@user.has_role?(:super_user)) %>
 		 <div class="row row-fluid">
 					<div class="field full">
-							 <label for="user[super]" class="checkbox">
-							   <input <%= (@user.has_role?(:super_user) ? 'checked=checked' : '') %> type="checkbox" name="user[super]" id="user[super]" value="1" />Droits "Super Utilisateur"
+							 <label for="super" class="checkbox">
+							   <%= check_box_tag('super', 1, @user.has_role?(:super_user),{ :class => 'checkbox' }) %>Droits "Super Utilisateur"
 						   </label>
 					</div>
 		 </div>

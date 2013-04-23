@@ -81,8 +81,7 @@ class RegistrationsController < Devise::RegistrationsController
         if a.can? :create, User
           # Enabled and SuperUser role
           params[:user][:enabled] = (params[:user][:enabled] == '1')
-          superUserRole = (params[:user][:super] == "1")
-          params[:user].delete :super
+          superUserRole = (params[:super] == "1")
           @user = User.new(params[:user])
           # Save and add Roles
           if @user.save
@@ -102,8 +101,8 @@ class RegistrationsController < Devise::RegistrationsController
     else
       @user = User.new(params[:user])
       @user.save
-      if !@user.has_role? :admin
-        @user.add_role :admin
+      if !@user.has_role?(:admin)
+        @user.add_role(:admin)
       end
       redirect_to new_user_session_url, :notice => 'Vous vous etes correctement enregistre. Veuillez vous connecter.'
     end
@@ -152,25 +151,18 @@ class RegistrationsController < Devise::RegistrationsController
     elsif params[:id] == current_user.id
       @user = User.find(current_user.id)
     end
-    if params[:user][:enabled]
-      params[:user][:enabled] = (params[:user][:enabled] == '1')
+    params[:user][:enabled] = current_user.has_role?(:admin) ? (params[:user][:enabled] == '1') : true
+    # tmp role treatment
+    
+    if current_user.has_role?(:admin)
+      superUserRole = (params[:super] == '1')
+    else
+      superUserRole = @user.has_role?(:super_user) ? true : (params[:super] == '1')
     end
     
     
-    # tmp role treatment
-    superUserRole = (params[:user][:super] == '1')
-    params[:user].delete :super
-    
     password_changed = !params[:user][:password].empty?
-    #si le champs password est non vide, on considère 
-    successfully_updated = if password_changed
-            #on effectue un update qui demande d'avoir entre un mot de passe
-            @user.update_with_password(params[:user])
-        else
-            #sinon on effectue un update sans mot de passe, ce qui signifie que le mot de passe n'a pas ete modifie
-            @user.update_without_password(params[:user])
-        end
-
+    successfully_updated = password_changed ? @user.update_with_password(params[:user]) : @user.update_without_password(params[:user])
     if successfully_updated
       if (!@user.has_role?(:super_user) and superUserRole)
         @user.add_role(:super_user)
@@ -212,9 +204,9 @@ class RegistrationsController < Devise::RegistrationsController
           #ensure remember_user_token is set
           if Rails.env.production?
             cookies.signed["remember_user_token"] = {
-              :value => @user.class.serialize_into_cookie(user.reload),
+              :value => @user.class.serialize_into_cookie(@user.reload),
               :expires => 3.months.from_now,
-              :domain => ".app_name.com",
+              :domain => CORM[:host],
             }
           end
         redirect_to root_url, :notice => t('devise.sessions.signed_in')

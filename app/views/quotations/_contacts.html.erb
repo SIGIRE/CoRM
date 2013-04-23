@@ -1,11 +1,19 @@
-<div class="span2"> Contact : </div>
-<% if contacts.nil? %>
-  <% if !@quotation.account.nil? %>
-    <%= collection_select :quotation, :contact_id, Contact.where(:account_id => @quotation.account.id).order(:surname), :id, :full_name, {:include_blank => true}, { :id => 'contact_id'} %>
-  <% else %>
-    <%= collection_select  :quotation, :contact_id, Contact.where(:account_id => 0), :id, :full_name, {:include_blank => true}, { :id => 'contact_id'} %>
-  <% end %> 
-<% else %>
-  <%= collection_select  :quotation, :contact_id, contacts , :id, :full_name, {:include_blank => true}, { :id => 'contact_id'} %>
-<% end %>
-<%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
+<div class="row row-fluid">
+  <div class="field full">
+    <div class="span2"><%= label_tag(:contact_id, t('app.controller.Contact') + t('app.fields.colon')) %></div>
+    <div>
+      <% if contacts.nil? %>
+        <% if !@quotation.account.nil? %>
+          <%= collection_select :quotation, :contact_id, Contact.where(:account_id => @quotation.account.id).order(:surname), :id, :full_name, {:include_blank => true }, { :id => 'contact_id' } %>
+          <%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
+        <% else %>
+          <%= collection_select  :quotation, :contact_id, Contact.where(:account_id => 0), :id, :full_name, {:include_blank => true}, { :id => 'contact_id' } %>
+          <%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
+        <% end %> 
+      <% else %>
+        <%= collection_select  :quotation, :contact_id, contacts , :id, :full_name, {:include_blank => true}, { :id => 'contact_id' } %>
+        <%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -26,18 +26,18 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show 
-	if @ability.can? :read, Task
-	  @task = Task.find(params[:id])
-	  
-	  respond_to do |format|
-		format.html # show.html.erb
-		format.json { render :json => @task }
-	  end
+		if @ability.can? :read, Task
+			@task = Task.find(params[:id])
+			
+			respond_to do |format|
+			format.html # show.html.erb
+			format.json { render :json => @task }
+			end
     else
-	  flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
-	  redirect_to tasks_url
-	  return false
-	end
+			flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
+			redirect_to tasks_url
+			return false
+		end
   end
   
   ##
@@ -47,18 +47,18 @@ class TasksController < ApplicationController
   # GET /tasks/new.json
   def new
 	if @ability.can? :create, Task
-	  @task = Task.new
-	  @task.user = current_user
-	  @users = User.all_reals
-	  respond_to do |format|
-		format.html # new.html.erb
-		format.json { render :json => @task }
-	  end
+			@task = Task.new
+			@task.user = current_user
+			@users = User.all_reals
+			respond_to do |format|
+			format.html # new.html.erb
+			format.json { render :json => @task }
+			end
     else
-	  flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
-	  redirect_to tasks_url
-	  return false
-	end
+			flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
+			redirect_to root_path
+			return false
+		end
   end
 
   ##
@@ -66,16 +66,16 @@ class TasksController < ApplicationController
   #
   # GET /tasks/1/edit
   def edit
-	if @ability.can? :update, Task
-	  @task = Task.find(params[:id])
-	  @users = User.all_reals
-	  #conversion de la string term pour qu'elle soit formatté correctement pour l'afficahge
-	  @task.term = @task.term.split('/').reverse!.join('/')	
+		if @ability.can? :update, Task
+			@task = Task.find(params[:id])
+			@users = User.all_reals
+			#conversion de la string term pour qu'elle soit formatté correctement pour l'afficahge
+			@task.term = @task.term.split('/').reverse!.join('/')	
     else
-	  flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
-	  redirect_to tasks_url
-	  return false
-	end
+			flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
+			redirect_to root_path
+		  return false
+		end
   end
 
   ##
@@ -85,26 +85,26 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     if @ability.can? :create, Task
-	  params[:task][:priority] = params[:task][:priority].to_i
-	  @task = Task.new(params[:task])
-	  @task.created_by = current_user.id
-	  @task.term = @task.term.split('/').reverse!.join('/')
-	  
-	  if @task.save
-	    if params[:mail] == "yes"
-		  UserMailer.mail_for(@task.user, @task, true).deliver
-	    end
-      self.create_event(false)
-		redirect_to filter_tasks_url, :notice => 'La tâche a été créée.'
-	  else
-	    @users = User.all_reals
-        render :action => 'new'
-	  end
+			params[:task][:priority] = params[:task][:priority].to_i
+			@task = Task.new(params[:task])
+			@task.created_by = current_user.id
+			@task.term = @task.term.split('/').reverse!.join('/')
+			
+			if @task.save
+				if params[:mail] == "yes"
+					UserMailer.mail_for(@task.user, @task, true).deliver
+				end
+				self.create_event(false)
+				redirect_to (@task.account.nil?() ? filter_tasks_path : account_events_path(@task.account)), :notice => 'La tâche a été créée.'
+			else
+				@users = User.all_reals
+				render :action => 'new'
+			end
     else
-	  flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
-	  redirect_to tasks_url
-	  return false
-	end
+			flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
+			redirect_to (@task.account.nil?() ? filter_tasks_path : account_events_path(@task.account))
+			return false
+		end
   end
 
   ##
@@ -136,16 +136,16 @@ class TasksController < ApplicationController
 						UserMailer.mail_for(@task.user, @task, false).deliver
 					end
 					self.create_event(true)
-					redirect_to filter_tasks_path, :notice => 'La tâche a été mise à jour.'
+					redirect_to (@task.account.nil?() ? filter_tasks_path : account_events_path(@task.account)), :notice => "La tâche n°#{@task.id} a été mise à jour."
 				else
 					render :action => "edit"
 				end
 			else
-				redirect_to filter_tasks_path
+				redirect_to (@task.account.nil?() ? filter_tasks_path : account_events_path(@task.account))
 			end
 		else
 			flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
-			redirect_to tasks_url
+			redirect_to root_path
 			return false
 		end
   end
@@ -178,13 +178,13 @@ class TasksController < ApplicationController
     if !params[:id].nil?
       int = params[:id].to_i if self.isInt?(params[:id])
       if !int.nil?
-		contacts = Contact.where(:account_id => int).select('id, surname, forename, title').order(:surname)
+				contacts = Contact.where(:account_id => int).select('id, surname, forename, title').order(:surname)
       else
-		contacts = Contact.joins('INNER JOIN accounts ON accounts.id = contacts.account_id').where('company LIKE ?', params[:id]+'%').select('contacts.id, contacts.surname, contacts.forename, contacts.title').order(:surname)
+				contacts = Contact.joins('INNER JOIN accounts ON accounts.id = contacts.account_id').where('company LIKE ?', params[:id]+'%').select('contacts.id, contacts.surname, contacts.forename, contacts.title').order(:surname)
       end
       if !contacts.nil?
-		render :json => contacts
-		return true
+				render :json => contacts
+				return true
       end
     end
     c = Contact.new({ 'forename' => 'Aucun contacts' })
@@ -197,25 +197,25 @@ class TasksController < ApplicationController
   def filter
     
     #filter data
-    if params.has_key?(:filter) then
+    if params.has_key?(:filter)
       @email_filter = params[:filter][:user_email]
       @statut_filter = params[:filter][:statut]
-	  @priority_filter = params[:filter][:priority]
+	    @priority_filter = params[:filter][:priority]
     else
       @email_filter = current_user.email
       @statut_filter = "Non terminé"
-	  @priority_filter = nil
+	    @priority_filter = nil
     end
 
     if @priority_filter.blank?
-	  @priority_filter = nil
-	elsif @priority_filter.is_a? String then
-	  Task::PRIORITIES.each_with_index do |value, index|
-		if value == @priority_filter
-		  @priority_filter = index
+	    @priority_filter = nil
+	  elsif @priority_filter.is_a? String
+	    Task::PRIORITIES.each_with_index do |value, index|
+				if value == @priority_filter
+					@priority_filter = index
+				end
+			end
 		end
-	  end
-	end
     # Search User by @email_filer
     user = User.find(:first, :conditions => ['email LIKE ?', @email_filter])
 
@@ -223,14 +223,13 @@ class TasksController < ApplicationController
     if @statut_filter == "Non terminé" then
 	    @tasks = Task.by_statut_non_termine(@statut_filter).by_user(user)
 	    if !@priority_filter.nil?
-		  @tasks = @tasks.by_priority(@priority_filter)
-		end
-		
+		    @tasks = @tasks.by_priority(@priority_filter)
+			end
     else
-        @tasks = Task.by_statut(@statut_filter).by_user(user)
-        if !@priority_filter.nil?
-		  @tasks = @tasks.by_priority(@priority_filter)
-		end
+      @tasks = Task.by_statut(@statut_filter).by_user(user)
+      if !@priority_filter.nil?
+				@tasks = @tasks.by_priority(@priority_filter)
+			end
     end
     
 	# Sort task by priority
@@ -253,26 +252,25 @@ class TasksController < ApplicationController
   def create_event(updated)
 	type = updated ? :update : :create
     if @ability.can? type, Event
-	  #hash typé pour les params d'un event
-	  hash = Hash.new
-	  hash["event_type_id"] = params[:event_type][:id]
-	  hash["account_id"] = params[:task][:account_id]
-	  hash["contact_id"] = params[:task][:contact_id]
-	  hash["date_begin"] = Time.now
-	  hash["date_end"] = hash["date_begin"]
-	  hash["notes"] = params[:notes]
-	  hash["notes2"] = params[:task][:notes]
-	  
-	  # to test
-	  if(updated == true)
-			hash["modified_by"] = current_user.id
-	  else
-			hash["created_by"] = current_user.id
-	  end
-	  
-	  hash["task_id"] = @task.id
-	  @event = Event.create(hash)
-	end
+			hash = Hash.new
+			hash["event_type_id"] = params[:event_type][:id]
+			hash["account_id"] = params[:task][:account_id]
+			hash["contact_id"] = params[:task][:contact_id]
+			hash["date_begin"] = Time.now
+			hash["date_end"] = hash["date_begin"]
+			hash["notes"] = params[:notes]
+			hash["notes2"] = params[:task][:notes]
+			
+			# to test
+			if(updated == true)
+				hash["modified_by"] = current_user.id
+			else
+				hash["created_by"] = current_user.id
+			end
+			
+			hash["task_id"] = @task.id
+			@event = Event.create(hash)
+		end
   end
   
 end

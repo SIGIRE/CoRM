@@ -41,8 +41,8 @@
 	</div>
      <% if !@user.has_role?(:super_user) and current_user.has_role?(:super_user) or current_user.has_role?(:admin) %>
   <div>
-     <label for="user[super]" class="checkbox">
-       <input <%= (@user.has_role?(:super_user) ? 'checked=checked' : '') %> type="checkbox" name="user[super]" id="user[super]" value="1" />Droit "Super Utilisateur"
+     <label for="super" class="checkbox">
+		   <%= check_box_tag('super', 1, @user.has_role?(:super_user),{ :class => 'checkbox' }) %>Droits "Super Utilisateur"Droit "Super Utilisateur"
      </label>
   </div>
     <% end %>

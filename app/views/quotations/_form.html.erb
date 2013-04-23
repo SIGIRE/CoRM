@@ -1,9 +1,8 @@
-<div class="well">
+<% colon = t('app.fields.colon') %><div class="well">
   <%= nested_form_for @quotation do |f| %>
     <% if @quotation.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@quotation.errors.count, "error") %> prohibited this Quotation from being saved:</h2>
-  
         <ul>
         <% @quotation.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
@@ -15,121 +14,136 @@
     <div class="page-header">
       <h3> En-tête </h3>
     </div>
-	  <div class="field"> 
-        <div class="span2">Libellé : </div><%= f.text_field :label, { :class => 'required'} %>
+		<div class="row row-fluid">
+			<div class="field full">
+				<div class="span2"><%= f.label(:label, t('app.fields.label') + colon) %></div>
+				<p><%= f.text_field :label, { :class => 'required' } %></p>
+			</div>
+		</div>
+	  <div class="row row-fluid">
+      <div class="field full"> 
+        <div class="span2"><%= f.label(:ref, t('app.fields.ref') + colon) %></div>
+				<p><%= f.text_field :ref %></p>
+			</div>
+		</div>
+	  <div class="row row-fluid">	
+      <div class="field full">
+        <div class="span2"><%= f.label(:date, t('app.fields.date') + colon) %></div>
+				<p><%= f.text_field :date, { :class => 'required', :value => (f.object.date.strftime("%d/%m/%Y") unless f.object.date.nil?) } %></p>
       </div>
-	
-      <div class="field"> 
-        <div class="span2">Référence : </div><%= f.text_field :ref %>
+		</div>
+	  <div class="row row-fluid">
+      <div class="field full">
+		    <div class="span2"> Compte : </div>
+					<% company = ""
+					 if !@quotation.account.nil?
+						 company = @quotation.account.company.html_safe
+					 end %>
+					<p>
+						<%= text_field_tag(nil, company, { :id => 'account-search', :type => 'search', :autocomplete => 'off' }) %>
+						<%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
+						<span class="label label-info" id="task_notice"  style="display: none; margin-left: 2em;">
+							<i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant
+						</span>
+		      </p>
+		      <%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id' } %>
       </div>
-      <div class="field">
-        <div class="span2"> Date : </div> <%= f.text_field :date, { :class => 'required', :value => (f.object.date.strftime("%d/%m/%Y") unless f.object.date.nil?) } %>
-      </div>
-      <div class="field">
-		<div class="span2"> Compte : </div>
-		<% company = ""
-		 if !@quotation.account.nil?
-		   company = @quotation.account.company.html_safe
-		 end %>
-		<p>
-		  <input value="<%= company %>" id="account-search" type="search" autocomplete="off" />
-		  <%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
-		  <span class="label label-info" id="task_notice"  style="display: none; margin-left: 2em;">
-			  <i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant
-		  </span>
-		</p>
-		<%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id' } %>
-  </div>
-	<div class="field" id="nameContacts">
-		<%= render :partial => 'contacts' %>
-	</div>
-  <div class="field">
-        <div class="span2"> Référence client : </div> <%= f.text_field :ref_account %>
-      </div>
-      <div class="field">
-        <div class="span2"> Collaborateur : </div> <%= f.collection_select :user_id, @users, :id, :full_name, { :prompt => true, :selected => current_user.id } %>
-      </div>
+		</div>
+		<div class="field" id="nameContacts">
+			<%= render :partial => 'contacts' %>
+		</div>	
+	  <div class="row row-fluid">
+      <div class="field full">
+				<div class="span2"><%= f.label(:ref_account, t('app.fields.ref_account') + colon) %></div>
+				<p><%= f.text_field :ref_account %></p>
+			</div>
+		</div> 
+		<div class="row row-fluid">
+			<div class="field full">
+				<div class="span2"><%= f.label(:user_id, t('app.fields.collegue') + colon) %></div>
+				<%= f.collection_select :user_id, @users, :id, :full_name, { :selected => (@quotation.user.nil?() ? current_user.id : @quotation.user.id) } %>
+			</div>
+		</div>
     <hr />
-    
-    
     <div class="page-header">
-      <h3> Lignes du devis </h3>
+      <h3>Lignes du devis</h3>
     </div>
-    
-    <div class="field" style="margin-left: 2em;">
-      <%= f.fields_for :quotation_lines %>
-      <%= f.link_to_add "Ajouter une ligne", :quotation_lines ,{:class => "btn btn-success"} %>
-      <br /><br />
-      <!-- <h4>Total HT = <%#= f.text_field :total_excl_tax , :style =>"width: 80px; text-align: right;", :disabled => true %> €</h4> -->
-    </div>
-    <br />
-    
-    <div class="field">
-
-    </div>
+		<div class="row row-fluid">
+			<div class="field full">
+        <%= f.fields_for :quotation_lines %>
+				<%= f.link_to_add "Ajouter une ligne", :quotation_lines ,{:class => "btn btn-success"} %>
+			</div>
+		</div>
     <hr />
-    
     <div class="page-header">
-      <h3> Modalités </h3>
+      <h3>Modalités</h3>
     </div>
-      <div class="field"> 
-        <div class="span2">Validité du devis : </div><%= f.text_field :validity, { :class => 'required' } %> jours
+		<div class="row row-fluid">
+			<div class="field full">
+        <div class="span2"><%= f.label(:validity, t('app.fields.quotation_validity') + colon) %></div>
+				<p><%= f.text_field :validity, { :class => 'required' } %> jours</p>
       </div>
-      <div class="field"> 
-        <div class="span2">Mode de règlement : </div><%= f.text_field :mode_reg %>
+		</div>
+		<div class="row row-fluid">
+			<div class="field full">
+        <div class="span2"><%= f.label(:validity, t('app.fields.pay_mode') + colon) %></div>
+				<p><%= f.text_field :mode_reg %></p>
       </div>
+		</div>
     <hr />
-      
+		
     <div class="page-header">
       <h3> Propriétés </h3>
     </div>
-      
-	<% if @quotation.attach.exists? %> 
-		<div class="field"><div class="span2">Fichier-joint actuel : </div><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + @quotation.attach_file_name, @quotation.attach.url, :target => '_blank' %></div>
-		<div class="field"><div class="span2">Modifier le fichier-joint : </div><%= f.file_field :attach, :style=>'width: 20em;' %></div>
-		<% else %>
-		<div class="field"><div class="span2">Fichier-joint : </div><%= f.file_field :attach, :style=>'width: 20em;'%></div>
-	<% end %>
-	
-      
-	  <div class="field"> 
-        <div class="span2">Statut : </div><%= f.select :statut, Quotation::STATUTS %>
-      </div>
-      <div class="field" id="nameOpportunity">
-        <%= render :partial => 'opportunities' %>
-      </div>
-      <div class="field"> 
-        <div class="span2">Modèle : </div><%= f.collection_select :quotation_template_id, QuotationTemplate.order('company ASC').all, :id, :company, { :class => 'required' } %>
-      </div>
-
-	    <br />
-  	
-	<div class="field">
-    <% if !@quotation.id.nil? %>
-		<div class="span9"> Créé par : <%= @quotation.author.full_name %>, le </strong><%= @quotation.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
-		<% if !@quotation.updated_by.nil? %>
-			<div class="span9"> Dernièrement modifié par : <%= @quotation.editor.full_name %>, le <%= @quotation.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
-		<% else %>
-		<% end %>
-		
-	<% end %>
-	</div>
-	  
-	<hr />
- 
-     <div class="row">
-	<%=
-          if !@quotation.id.nil?
-            f.submit('Modifier ce Devis', :class =>"btn btn-primary", :id =>"quotation_submit_form" )
-          else
-            f.submit('Créer un Devis', :class =>"btn btn-primary", :id =>"quotation_submit_form" )
-          end
-        %>
-      <%= if !@quotation.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @quotation, :title => "Supprimer ce Devis", :class =>"pull-right btn", :confirm => 'Confirmer la suppression ?', :method => :delete end %> 
+		<% if @quotation.attach.exists? %>
+		<div class="row row-fluid">
+			<div class="field full">
+				<div class="span2"><%= content_tag('label', t('app.fields.present_attach') + colon) %></div>
+				<p><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + @quotation.attach_file_name, @quotation.attach.url, :target => '_blank' %></p>
+			</div>
+		</div>
+	  <% end %>
+		<div class="row row-fluid">
+			<div class="field full">
+				<div class="span2"><%= f.label(:attach, (@quotation.attach.exists?() ? t('app.fields.update_attach') : t('app.fields.attach')) + colon) %></div>
+				<p><%= f.file_field :attach %></p>
+			</div>	
+		</div>
+		<div class="row row-fluid">
+			<div class="field full">
+				<div class="span2"><%= f.label(:statut, t('app.fields.state') + colon) %></div>
+				<%= f.select :statut, Quotation::STATUTS %>
+			</div>
+		</div>
+    <div id="nameOpportunity">
+      <%= render :partial => 'opportunities' %>
     </div>
-  </div>
-
+		<div class="row row-fluid">
+			<div class="field full"> 
+				<div class="span2"><%= f.label(:quotation_template_id, t('app.model.QuotationTemplate') + colon) %></div>
+				<p><%= f.collection_select :quotation_template_id, QuotationTemplate.order('company ASC').all, :id, :company, { :class => 'required' } %></p>
+			</div>	
+		</div>
+		<!-- Author and Editor -->
+		<% if !@quotation.id.nil? or !@quotation.updated_by.nil? %>
+		<div class="row row-fluid">
+			<div class="field full">
+				<% if !@quotation.id.nil? %>
+				<p><%= t('app.actions.created_by') %> <strong><%= @quotation.author.full_name %></strong>, <%= t('app.at') %> <strong><%= @quotation.created_at.strftime("%d/%m/%y à %H:%M") %></strong>.</p>
+			<% end %>
+		</div>
+    <div class="field full">
+				<% if !@quotation.updated_by.nil? %>
+				<p><%= t('app.actions.updated_by') %> <strong><%= @quotation.editor.full_name %></strong>, <%= t('app.at') %> <strong><%= @quotation.updated_at.strftime("%d/%m/%y à %H:%M") %></strong>.</p>
+				<% end %>
+			</div>
+		</div>
+		<% end %>
+		<hr />
+		<!-- Submit or not submit -->
+ 		<div class="row row-fluid">
+			<%= if !@quotation.id.nil? then f.submit 'Modifier ce Devis', :class =>"btn btn-primary",:id =>"quotation_submit_form" else f.submit 'Créer un Devis', :class =>"btn btn-primary",:id =>"quotation_submit_form" end %>
+			<%= if !@quotation.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @opportunity, :title => "Supprimer cet Devis", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
+		</div>
   <% end %>
 </div>
