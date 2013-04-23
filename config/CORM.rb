@@ -1,10 +1,11 @@
 # App Object
 CORM = {
   :version => '0.8.0 (nightly)',
-  :host => '192.168.0.74',
+  :host => 'localhost',
   :mail => {
     :type => :smtp,
-	:host => 'smtp-out.sigire.net',
-	:port => 25 
+	  :host => 'localhost',
+	  :port => 25,
+	  :from => 'no-reply@domain.tld'
   }
 }

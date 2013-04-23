@@ -52,7 +52,7 @@ class QuotationPdf < Prawn::Document
   end
   
   def logo
-    logopath = @quotation.quotation_template.attach.path # "#{Rails.root}/app/assets/images/logo-sigire.png"
+    logopath = @quotation.quotation_template.attach.path
     image logopath #, :width => 80, :height => 80
   end
   

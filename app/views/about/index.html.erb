@@ -6,13 +6,11 @@
     <h2>À propos</h2>
     <h4>CRM</h4>
     <br />
+    Version de CORM : <%= CORM[:version] %><br />
     Version de Rails : <%= Rails::VERSION::STRING %><br />
     Version de Ruby : <%= RUBY_VERSION %><br />
-    Version de CORM : <%= CORM[:version] %><br />
     Nom du Serveur : <%= IO.popen("hostname").readlines.to_s.sub!('\n"]','').sub!('["','') %><br />
     Version du Kernel : <%= IO.popen("uname -r").readlines.to_s.sub!('\n"]','').sub!('["','')%><br />
-    Version du Serveur Web : <%#= IO.popen("httpd -v | grep 'Server version' | head -1 | sed 's/Server version:\ //g' | sed 's/\r//g'").readlines.to_s.sub!('\n"]','').sub!('["','')%><br />
-    Version Mod_rails : <%= IO.popen("sed -n '/PassengerRoot/p' /etc/httpd/conf/httpd.conf | head -1 | sed 's/PassengerRoot\ //g'").readlines.to_s.split('/').last.sub!('\n"]','')%> <br/>
   </div>
 
 

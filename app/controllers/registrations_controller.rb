@@ -53,7 +53,7 @@ class RegistrationsController < Devise::RegistrationsController
         return false
       end
     else
-      @user = User.new(:forename => 'Admin', :surname => 'SIGIRE', :email => 'admin@sigire.fr')
+      @user = User.new(:forename => 'Admin')
       @user.add_role(:admin)
       @user.add_role(:super_user)
       @first_creation = true
@@ -100,6 +100,7 @@ class RegistrationsController < Devise::RegistrationsController
         end
     else
       @user = User.new(params[:user])
+      @user.enabled = true
       @user.save
       if !@user.has_role?(:admin)
         @user.add_role(:admin)
@@ -117,6 +118,10 @@ class RegistrationsController < Devise::RegistrationsController
       flash[:error] = "Vous devez etre connecté pour accéder à cette partie de l'application"
       redirect_to new_user_session_url
       return false
+    end
+    if (User.find(params[:id]).has_role?(:admin) and !current_user.has_role?(:admin))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.User'))
+      redirect_to root_url
     end
     # get his ability
     a = Ability.new(current_user)

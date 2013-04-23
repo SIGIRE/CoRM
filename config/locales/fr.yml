@@ -319,6 +319,9 @@ fr:
       Opportunity: Opportunité
       Event: Évenement
       QuotationTemplate: Modèle
+    roles:
+      admin: Administrateur
+      super_user: Super Utilisateur
     money:
       excl_tax: HT
       incl_tax: TTC
