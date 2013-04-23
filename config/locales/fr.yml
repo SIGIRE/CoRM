@@ -329,7 +329,7 @@ fr:
       colon: " : "
       label: Libellé
       term: Échéance
-      description: Descrition
+      description: Description
       assigned: "Assigné à"
       collegue: Collaborateur
       emailToCollegue: "Envoyer un Mail à ce collaborateur"
@@ -348,3 +348,7 @@ fr:
       price_excl_tax: "Prix HT"
       profit_excl_tax: "Marge HT"
       quantity: Quantité
+      present_document: "Document actuel"
+      update_document: "Modifier le document"
+      name: Nom
+      company: Société

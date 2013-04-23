@@ -1,5 +1,7 @@
 Crm::Application.routes.draw do  
   
+  # we'll add some variables to change routes easily.
+  
   def set_route(pp, ps, c)
   # ex:    c => Tag
     # GET    tags/ => tags_path
@@ -60,17 +62,11 @@ Crm::Application.routes.draw do
   # Documents routes
   set_route('documents', 'document', 'documents')
   
-  # TODO: DEVISE
   devise_for :user, :path_names => { :sign_in => 'login', :sign_out => 'logout', :sign_up => 'register' }, :controllers => { :registrations => 'registrations' }, :skip => [ :registrations, :sessions ]
   devise_scope :user do
     get '/user/login(.:format)',        :to => 'devise/sessions#new',        :as => :new_user_session
     post '/user/login(.:format)',       :to => 'registrations#session_new', :as => :user_session
     match '/user/logout(.:format)',          :to => 'devise/sessions#destroy', :via => Devise.mappings[:user].sign_out_via, :as => :destroy_user_session
-    
-#    match '/password(.:format)',        :to => 'devise/passwords#create',   :via => :post,  :as => 'user_password'
-#    match '/password/new(.:format)',    :to => 'devise/sessions#new',       :via => :get,   :as => 'new_user_password'
-#    match '/password/edit(.:format)',   :to => 'devise/sessions#edit',      :via => :get,   :as => 'edit_user_password'
-#    match '/password(.:format)',        :to => 'devise/sessions#update',    :via => :put,   :as => 'edit_user_password'
   
     match '/users(.:format)', :controller => 'registrations', :action => 'index', :via => :get, :as => 'users'
     match '/user/:id/edit(.:format)', :controller => 'registrations', :action => 'edit', :via => :get, :as => 'edit_user'
@@ -85,8 +81,7 @@ Crm::Application.routes.draw do
   set_route('opportunites', 'opportunite', 'opportunities')  
   match '/opportunites/update_contact_select/:id', :controller=>'opportunities', :action => 'update_contact_select'
   match '/opportunites/filter(.:format)', :controller => 'opportunities', :action => 'filter', :via => :get, :as => "filter_opportunity_index"
-
-
+  
   # Origin routes
   # resources :origins
   set_route('origines', 'origine', 'origins');

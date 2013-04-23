@@ -14,10 +14,10 @@ Crm::Application.configure do
   config.action_controller.perform_caching = false
 
   # Mail settings
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = CORM[:mail][:type]
   config.action_mailer.smtp_settings = {
-    :address => 'smtp-out.sigire.net',
-    :port => 25,
+    :address => CORM[:mail][:host],
+    :port => CORM[:mail][:port]
   #   :user_name => 'user_name',
   #   :password => 'password',
   #   :authentication => 'plain'
