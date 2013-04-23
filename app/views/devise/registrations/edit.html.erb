@@ -39,7 +39,7 @@
 					</div>
 		 </div>
      <% end %>
-     <% if current_user.has_role?(:admin) or current_user.has_role?(:super_user) and !@user.has_role?(:super_user) %>
+     <% if current_user.has_role?(:admin) or (current_user.has_role?(:super_user) and !@user.has_role?(:super_user)) %>
 		 <div class="row row-fluid">
 					<div class="field full">
 							 <label for="user[super]" class="checkbox">
