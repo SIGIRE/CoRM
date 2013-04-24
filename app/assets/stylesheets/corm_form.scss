@@ -20,6 +20,17 @@ form {
 		}
   }
   .field {
+		label {
+			&.error {
+				/* This field is required */
+				display: inline-block;
+				vertical-align: middle;
+				font-size: 14px;
+				color: $form-error-on-require-field-color;
+				font-weight: 900;
+				padding-left: 15px;
+			}
+		}
     &.small-date {
       width: 160px;
     }
@@ -70,6 +81,13 @@ label {
       display: inline-block;
     }
   }
+}
+
+span.req:before {
+	content: " *";
+	font-size: 20px;
+	color: $form-error-on-require-field-color;
+	padding-left: 5px;
 }
 
 .small-fields {

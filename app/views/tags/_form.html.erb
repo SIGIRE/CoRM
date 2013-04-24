@@ -12,11 +12,11 @@
   <% end %>
 
   <div class="field">
-    <div class="span2">Libellé :</div><%= f.text_field :name,{ :class => 'required', :style=>'width: 30em;'} %>
+    <div class="span2">Libellé :</div><%= f.text_field :name,{ :class => 'required', :style=>'width: 30em;'} %><span class="req" />
   </div>
   <div class="field">
     <div class="span2">Description :</div>
-    <%= f.text_area :description, :display_with => :simple_format, :rows => "5", :style=>'width: 30em;' %>
+    <%= f.text_area :description, :rows => "5", :style=>'width: 30em;' %>
   </div>
   
       <br />

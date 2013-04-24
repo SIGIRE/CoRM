@@ -49,18 +49,21 @@ class QuotationsController < ApplicationController
     end
     @quotation = Quotation.new(params[:quotation])
     @quotation.created_by = current_user.id
-    
-    @quotation.company = @quotation.account.company unless @quotation.account.nil?
-    @quotation.adress1 = @quotation.account.adress1 unless @quotation.account.nil?
-    @quotation.adress2 = @quotation.account.adress2 unless @quotation.account.nil?
-    @quotation.zip = @quotation.account.zip unless @quotation.account.nil?
-    @quotation.city = @quotation.account.city unless @quotation.account.nil?
-    @quotation.country = @quotation.account.country unless @quotation.account.nil?
-    @quotation.surname = @quotation.contact.surname unless @quotation.contact.nil?
-    @quotation.forename = @quotation.contact.forename unless @quotation.contact.nil?
-    @quotation.title = @quotation.contact.title unless @quotation.contact.nil?
-    @quotation.job = @quotation.contact.job unless @quotation.contact.nil?
-    
+    if !@quotation.account.nil?
+			@quotation.company = @quotation.account.company
+			@quotation.adress1 = @quotation.account.adress1
+			@quotation.adress2 = @quotation.account.adress2
+			@quotation.zip = @quotation.account.zip
+			@quotation.city = @quotation.account.city
+			@quotation.country = @quotation.account.country
+			if !@quotation.contact.nil?
+				@quotation.surname = @quotation.contact.surname
+				@quotation.forename = @quotation.contact.forename
+				@quotation.title = @quotation.contact.title
+				@quotation.job = @quotation.contact.job
+			end	
+		end
+		
     # Store variables to calculate price & total
     @quotation.total_excl_tax = 0
     @quotation.VAT_rate = 19.60
@@ -70,34 +73,19 @@ class QuotationsController < ApplicationController
         line.total_excl_tax = line.price_excl_tax * line.quantity
         @quotation.total_excl_tax += line.total_excl_tax
       else
-        line.total_ht = 0
+        line.total_excl_tax = 0
       end
     end
     # VAT and including taxes
     @quotation.total_VAT = @quotation.total_excl_tax * (@quotation.VAT_rate / 100)
     @quotation.total_incl_tax = @quotation.total_excl_tax + @quotation.total_VAT
-    
-    if @quotation.valid
-      respond_to do |format|
-        if @quotation.save
-          self.create_event(false)
-          format.html  { redirect_to account_events_url(@quotation.account_id), :notice => "Le devis a été créé" }
-          format.json  { render :json => @quotation,
-                        :status => :created}
-        else
-          flash[:error] = t('app.save_undefined_error')
-          format.html  { render :action => "new" }
-          format.json  { render :json => @quotation.errors,
-                        :status => :unprocessable_entity }
-        end
-      end
-    else
-      @quotation.errors.add('ligne devis', 'doit au moins comporter une ligne')
-      respond_to do |format|
-        format.html  { render :action => "new" }
-        format.json { render :json => @quotation.errors }
-      end
-    end
+		if @quotation.save
+			self.create_event(false)
+			redirect_to (!@quotation.account.nil? ? account_events_url(@quotation.account_id) : quotations_path), :notice => "Le devis a été créé"
+		else
+			flash[:error] = t('app.save_undefined_error')
+			render :action => "new"
+		end
   end
   
   ##
@@ -127,17 +115,31 @@ class QuotationsController < ApplicationController
     @quotation.update_attributes(params[:quotation])
     
     @quotation.updated_by = current_user.id
-    
-    @quotation.company = @quotation.account.company unless @quotation.account.nil?
-    @quotation.adress1 = @quotation.account.adress1 unless @quotation.account.nil?
-    @quotation.adress2 = @quotation.account.adress2 unless @quotation.account.nil?
-    @quotation.zip = @quotation.account.zip unless @quotation.account.nil?
-    @quotation.city = @quotation.account.city unless @quotation.account.nil?
-    @quotation.country = @quotation.account.country unless @quotation.account.nil?
-    @quotation.surname = @quotation.contact.surname unless @quotation.contact.nil?
-    @quotation.forename = @quotation.contact.forename unless @quotation.contact.nil?
-    @quotation.title = @quotation.contact.title unless @quotation.contact.nil?
-    @quotation.job = @quotation.contact.job unless @quotation.contact.nil?  
+    if !@quotation.account.nil?
+			@quotation.company = @quotation.account.company
+			@quotation.adress1 = @quotation.account.adress1
+			@quotation.adress2 = @quotation.account.adress2
+			@quotation.zip = @quotation.account.zip
+			@quotation.city = @quotation.account.city
+			@quotation.country = @quotation.account.country
+			if !@quotation.contact.nil?
+				@quotation.surname = @quotation.contact.surname
+				@quotation.forename = @quotation.contact.forename
+				@quotation.title = @quotation.contact.title
+				@quotation.job = @quotation.contact.job
+			end
+		else
+			@quotation.company = ''
+			@quotation.adress1 = ''
+			@quotation.adress2 = ''
+			@quotation.zip = ''
+			@quotation.city = ''
+			@quotation.country = ''
+			@quotation.surname = ''
+			@quotation.forename = ''
+			@quotation.title = ''
+			@quotation.job = ''
+		end
     
     #initialisation
     @quotation.total_excl_tax = 0
@@ -156,9 +158,9 @@ class QuotationsController < ApplicationController
     @quotation.total_VAT = @quotation.total_excl_tax * (@quotation.VAT_rate / 100)
     @quotation.total_incl_tax = @quotation.total_excl_tax + @quotation.total_VAT
     
-    if @quotation.save #update_attributes(params[:quotation])
+    if @quotation.save
       self.create_event(true)
-      redirect_to account_events_url(@quotation.account_id), :notice => "Le devis a été modifié"
+			redirect_to (!@quotation.account.nil? ? account_events_url(@quotation.account_id) : quotations_path), :notice => "Le devis a été modifié"
     else
       flash[:error] = t('app.save_undefined_error')
       render :action => 'edit'
@@ -228,7 +230,7 @@ class QuotationsController < ApplicationController
   def create_event(updated)
     type = updated ? :update : :create
     if @ability.cannot? type, Event
-	  return false
+	    return false
     end
     hash = Hash.new
     hash["account_id"] = params[:quotation][:account_id]

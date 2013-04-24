@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "crm@sigire.fr"
+  default from: CORM[:mail][:from]
   
   def mail_for(user, object, created)
     @created_object = t("app.controllers.#{object.class.name}")
@@ -32,7 +32,7 @@ class UserMailer < ActionMailer::Base
   def update_task_email(user,task)
     @user = user
     @task = task
-    @url = edit_task_url(task)#"https://crm.ligepack.com/taches/" + @task.id.to_s
+    @url = edit_task_url(task)
     mail(:to => user.email, :subject => "CRM : Mise a jour d'une tache") do |format|
       format.text(:content_transfer_encoding => "base64")
       format.html

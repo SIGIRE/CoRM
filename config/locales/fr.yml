@@ -318,7 +318,11 @@ fr:
       Task: Tâche
       Opportunity: Opportunité
       Event: Évenement
+      EventType: "Type d'évènement"
       QuotationTemplate: Modèle
+    roles:
+      admin: Administrateur
+      super_user: Super Utilisateur
     money:
       excl_tax: HT
       incl_tax: TTC
@@ -350,5 +354,7 @@ fr:
       quantity: Quantité
       present_document: "Document actuel"
       update_document: "Modifier le document"
+      priority: Priorité
+      subject: Sujet
       name: Nom
       company: Société

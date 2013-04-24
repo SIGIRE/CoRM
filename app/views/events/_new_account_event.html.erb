@@ -50,29 +50,29 @@
     <div class="row">
       <div class="field full">
         <p class="full">
-          <%= label_tag(:title, "Sujet :", :class=> 'top') %>
-          <%= text_field_tag :title, nil, :class => 'required' %>
+          <%= label_tag('task_title', "Sujet :", :class=> 'top') %>
+          <%= text_field_tag 'task[title]', nil, :class => 'required' %>
         </p>
       </div>
     </div>
     <div class="row">
       <div class="field">
         <p>
-          <%= label_tag(:statut, "Statut :", :class => 'top') %>
+          <%= label_tag('task_statut', "Statut :", :class => 'top') %>
           
-          <%= select :statut, :statut , Task::STATUTS %>
+          <%= select 'task', :statut , Task::STATUTS %>
         </p>
       </div>
       <div class="field">
         <p>
-          <%= label_tag :term, "Echéance :", :class => 'top' %>
-          <%= text_field_tag :term , nil ,{:id =>"task_term"}%>
+          <%= label_tag 'task_term', "Echéance :", :class => 'top' %>
+          <%= text_field_tag 'task[term]', nil ,{:id =>"task_term"}%>
         </p>
       </div>
       <div class="field">
         <p>
           <%= label_tag 'task_priorities', "Priorité :", :class => 'top' %>
-          <select name="priority" id="task_priorities">
+          <select name="task[priority]" id="task_priorities">
             <% Task::PRIORITIES.each_with_index do |value, index| %>
               <option value="<%= index %>"<%= if index == 1 then ' selected=selected' end %>><%= value %></option>
             <% end %>
@@ -94,8 +94,8 @@
     </div>
     <div class="row row-fluid">
       <div class="field full">
-        <%= f.label :notes, "Description :", :class => 'top' %>
-        <%= f.text_area  :notes, { :rows => "5" } %>
+        <%= label_tag 'task_notes', "Description :", :class => 'top' %>
+        <%= text_area_tag  'task[notes]',nil, { :rows => "5" } %>
       </div>
     </div>
   </div>

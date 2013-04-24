@@ -17,7 +17,7 @@
 		<div class="row row-fluid">
 			<div class="field full">
 				<div class="span2"><%= f.label(:label, t('app.fields.label') + colon) %></div>
-				<p><%= f.text_field :label, { :class => 'required' } %></p>
+				<p><%= f.text_field :label, { :class => 'required' } %><span class="req" /></p>
 			</div>
 		</div>
 	  <div class="row row-fluid">
@@ -29,7 +29,8 @@
 	  <div class="row row-fluid">	
       <div class="field full">
         <div class="span2"><%= f.label(:date, t('app.fields.date') + colon) %></div>
-				<p><%= f.text_field :date, { :class => 'required', :value => (f.object.date.strftime("%d/%m/%Y") unless f.object.date.nil?) } %></p>
+				<% dt = DateTime.now %>
+				<p><%= f.text_field :date, { :class => 'required', :value => (!f.object.date.nil?() ? f.object.date.strftime("%d/%m/%Y") : dt.strftime("%d/%m/%Y")) } %><span class="req" /></p>
       </div>
 		</div>
 	  <div class="row row-fluid">
@@ -46,7 +47,7 @@
 							<i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant
 						</span>
 		      </p>
-		      <%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id' } %>
+		      <%= f.text_field :account_id, { :style => 'display: none; visible: hidden;', :id => 'account_id' } %>
       </div>
 		</div>
 		<div class="field" id="nameContacts">
@@ -81,7 +82,7 @@
 		<div class="row row-fluid">
 			<div class="field full">
         <div class="span2"><%= f.label(:validity, t('app.fields.quotation_validity') + colon) %></div>
-				<p><%= f.text_field :validity, { :class => 'required' } %> jours</p>
+				<p><%= f.text_field :validity %> jours</p>
       </div>
 		</div>
 		<div class="row row-fluid">
@@ -121,7 +122,7 @@
 		<div class="row row-fluid">
 			<div class="field full"> 
 				<div class="span2"><%= f.label(:quotation_template_id, t('app.model.QuotationTemplate') + colon) %></div>
-				<p><%= f.collection_select :quotation_template_id, QuotationTemplate.order('company ASC').all, :id, :company, { :class => 'required' } %></p>
+				<p><%= f.collection_select :quotation_template_id, QuotationTemplate.order('company ASC').all, :id, :company, { :class => 'required' } %><span class="req" /></p>
 			</div>	
 		</div>
 		<!-- Author and Editor -->

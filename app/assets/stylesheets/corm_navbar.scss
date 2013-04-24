@@ -1,9 +1,13 @@
+$profile-buttons-right: 12px;
+
 
 .navbar {
   margin-bottom: 0px;
+	height: 50px;
   > .navbar-inner {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+		height: 50px;
   }
   .brand {
     -moz-transition: all 0.2s linear 0s;
@@ -28,38 +32,39 @@
     background: transparent !important;
     @include transit(color, .4s);
     color: #999;
+		display: inline-block;
     &:hover {
       color: #FFF;
       > a, .caret {
-	color: inherit;
-	background: transparent !important;
-	box-shadow: none;
+				color: inherit;
+				background: transparent !important;
+				box-shadow: none;
       }
     }
     &.active {
       color: #FFF !important;
       background: transparent;
       a {
-	text-shadow: 0 0 0.2em $navbarTextColorShadow !important;
+				text-shadow: 0 0 0.2em $navbarTextColorShadow !important;
       }
       &:hover > a {
-	background: transparent !important;
-	box-shadow: none !important;
+				background: transparent !important;
+				box-shadow: none !important;
       }
       & .dropdown-menu li {
-	a {
-	  color: #000 !important;
-	  text-shadow: none !important;
-	}
-	&:hover a {
-	  color: #FFF !important;
-	}
+				a {
+					color: #000 !important;
+					text-shadow: none !important;
+				}
+				&:hover a {
+					color: #FFF !important;
+				}
       }
       > a, .caret {
-	color: inherit;
-	box-shadow: none;
-	background: transparent !important;
-	text-shadow: inherit;
+				color: inherit;
+				box-shadow: none;
+				background: transparent !important;
+				text-shadow: inherit;
       }
     }
     > a {
@@ -75,5 +80,82 @@
       margin-left: 3px;
       color: inherit;
     }
+  }
+}
+
+#title-bar {
+	z-index: 0;
+	border-radius-top-left: 0;
+	border-radius-top-right: 0;
+	margin-top: 15px;
+}
+
+#left-bar-container {
+  position: absolute;
+	left: 30px;
+	top: 0;
+	width: 100%;
+	> div {
+		display: inline-block;
+	}
+}
+
+#right-bar-container {
+	position: absolute;
+	right: 15px;
+	> div {
+		display: inline-block;
+	}
+}
+
+#form-search-container {
+	position: absolute;
+	right: $settings-width + $profile-buttons-right;
+	top: 0;
+	z-index: 50;
+}
+
+#profile_settings_buttons {
+  position: absolute;
+	width: $settings-width;
+  right: $profile-buttons-right;
+  top: ($form-search-position-top / 2);
+  .dropdown-settings {
+    min-width: ($settings-dropdown-min-width);
+    left: $settings-dropdown-left;
+  }
+  .btn-group:first-child {
+    margin-left: 0;
+  }
+}
+
+#nav-menu {
+  padding: 2px 0;
+	margin-top: 5px;
+  position: relative;
+	float: left;
+	width: auto;
+  @include transit(opacity, 0.5s);
+  &.focus {
+    opacity: 0;
+  }
+}
+
+form#form-search {
+  margin: 0;
+  padding: 10px 10px 5px;
+  background-color: #303030;
+  cursor: default;
+  @include gradient-vertical($navbarBackgroundHighlight, $navbarBackground);
+  @include transit(padding, 0.8s);
+  &.focus {
+    input[type=search] {
+      width: $form-search-size-width-onfocused;
+    }
+  }
+  input[type=search] {
+    @include transit(width, .5s);
+    @include border-radius(15px 0 0 15px);
+    width: $form-search-size-width;
   }
 }

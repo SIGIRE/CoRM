@@ -52,12 +52,14 @@ class QuotationPdf < Prawn::Document
   end
   
   def logo
-    logopath = @quotation.quotation_template.attach.path # "#{Rails.root}/app/assets/images/logo-sigire.png"
-    image logopath #, :width => 80, :height => 80
+    if !@quotation.quotation_template.attach.nil?
+      logo_path = @quotation.quotation_template.attach.path
+      image(logo_path, :height => 80)
+    end
   end
   
   def header
-      text_box "DEVIS N° #{@quotation.id}", :size => 20, :style => :bold, :at => [0,600]
+    text_box "DEVIS N° #{@quotation.id}", :size => 20, :style => :bold, :at => [0,600]
   end
   
   
@@ -65,9 +67,9 @@ class QuotationPdf < Prawn::Document
     
     move_down 10
 
-    formatted_text_box [ { :text =>"#{@quotation.account.company} \n", :styles => [:bold], :size => 12},
-                         { :text =>"#{@quotation.account.adress1} \n", :size => 10},
-                         { :text =>"#{@quotation.account.zip} #{@quotation.account.city}", :size => 10}
+    formatted_text_box [ { :text =>"#{@quotation.account.company unless @quotation.account.nil?} \n", :styles => [:bold], :size => 12},
+                         { :text =>"#{@quotation.account.adress1 unless @quotation.account.nil?} \n", :size => 10},
+                         { :text =>"#{@quotation.account.zip unless @quotation.account.nil?} #{@quotation.account.city unless @quotation.account.nil?}", :size => 10}
                        ],
     :at => [300,cursor], :width => 300, :height => 100
   end
@@ -82,7 +84,7 @@ class QuotationPdf < Prawn::Document
     
     if @quotation.contact.nil?
       table = make_table( [ ["Numéro", "Date", "Réf. Client", "Collaborateur"],
-                          ["#{@quotation.ref}", "#{@quotation.date.strftime("%d/%m/%Y")}", "#{@quotation.ref_account}", "#{@quotation.user.full_name}"]
+                          ["#{@quotation.ref}", "#{@quotation.date.strftime("%d/%m/%Y") unless @quotation.date.blank?}", "#{@quotation.ref_account}", "#{@quotation.user.full_name}"]
                         ])
     else
       table = make_table( [ ["Numéro", "Date", "Réf. Client", "Collaborateur", "Contact"],
@@ -183,7 +185,11 @@ class QuotationPdf < Prawn::Document
   
   def condition
     move_down 20
-    text_box "Validité du devis : #{@quotation.validity} jours",
+    validity = "Validité du devis :"
+    if !@quotation.validity.blank?()
+      validity += " #{@quotation.validity} jours" 
+    end
+    text_box validity,
       :align => :center,
       :at => [0,cursor],
       :width => 200,
@@ -202,7 +208,7 @@ class QuotationPdf < Prawn::Document
     end
     
     move_down 20
-    text_box "#{@quotation.mode_reg}",
+    text_box "#{@quotation.mode_reg unless @quotation.mode_reg.blank?}",
       :align => :center,
       :at => [0,cursor],
       :width => 200,

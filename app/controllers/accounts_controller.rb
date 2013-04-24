@@ -89,7 +89,7 @@ class AccountsController < ApplicationController
       @account = Account.new(params[:account])
       @account.created_by = current_user.id
       @account.company = @account.uppercase_company
-      
+      @account.web = self.to_url(@account.web)
       if params[:display_account_tag].nil?
         @account.tags.clear
       else
@@ -125,6 +125,7 @@ class AccountsController < ApplicationController
       @account = Account.find(params[:id])
       @account.modified_by = current_user.id
       @account.company = @account.uppercase_company
+      params[:account][:web] = self.to_url(params[:account][:web])
       if params[:display_account_tag].nil?
         @account.tags.clear
       else
@@ -236,14 +237,11 @@ class AccountsController < ApplicationController
   # Add a Tag to an Account
   #
   def add_tag
-    if @ability.can? update, Account
+    if @ability.can? :update, Account
       @tag = Tag.find(params[:tag_id])
       @account = Account.find(params[:account_id])
-      @account.tags  << @tag
-      respond_to do |format|
-          format.html  { redirect_to account_events_url(@account.id), :notice => "Affectation du Tag effectuée!" }
-          format.json  { render :json => @tag }
-      end
+      @account.tags << @tag
+      redirect_to account_events_url(@account.id), :notice => "Affectation du Tag effectuée!"
     else
       flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
       redirect_to accounts_url
@@ -255,7 +253,7 @@ class AccountsController < ApplicationController
   # Remove a Tag from an Account
   #
   def delete_tag
-    if @ability.can? update, Account
+    if @ability.can? :update, Account
       @tag = Tag.find(params[:tag_id])
       @account = Account.find(params[:account_id])
       @account.tags.delete(@tag)
@@ -271,5 +269,17 @@ class AccountsController < ApplicationController
     end
   end
   
+  def to_url(url)
+		correction = nil
+    # dont start with protocol://
+    if url[/^*:\/\//] == nil
+      correction = 'http://'
+      # if it is somthing like lang.website.tld
+      if url[/^www[.]/] == nil and url[/^.*.[.].*.[.].*.$/] == nil
+        correction.concat('www.')
+      end
+    end
+    return (!correction.nil?() ? correction.concat(url) : url)
+	end
   
 end

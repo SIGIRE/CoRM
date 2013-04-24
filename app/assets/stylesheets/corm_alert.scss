@@ -13,10 +13,9 @@
   opacity: 1;
   text-align: center;
   p {
-	padding: 18px 0;
-	margin: 0;
-	display: inline-block;
-	
+		padding: 18px 0;
+		margin: 0;
+		display: inline-block;
     text-shadow: none;
     font-size: 22px;
     color: #FFFFFF;
@@ -27,6 +26,13 @@
   &.error {
     background-color: rgba(255,0,0,0.8);
   }
+	&.alert-warning {
+		/** 
+		  * Override cause of Devise. Change later
+		  * TODO: Rewrite a part of Devise alert generator
+		 **/
+		background-color: rgba(0, 173, 238, 0.7);
+	}
   > button.close {
     position: fixed;
     top: 15px;

@@ -23,7 +23,13 @@
     <%= mail_to(@account.email) %><br />
   <% end %>
   <% if !@account.web.blank? %>
-    <%= link_to(@account.web, @account.web, :target => "_blank") %>
+    <% url = @account.web %>
+    <% if !url[/http:\/\//].nil? %>
+      <% url = url[7..url.length] %>
+    <% elsif !url[/https:\/\//].nil? %>
+      <% url = url[8..url.length] %>
+    <% end %>
+    <%= link_to(url, @account.web, :target => "_blank") %>
   <% end %>
   </p>
 </div>

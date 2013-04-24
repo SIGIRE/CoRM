@@ -130,17 +130,27 @@ class TasksController < ApplicationController
 						     @task.attach_file_name 		== t.attach_file_name and
 						     @task.attach_file_size 		== t.attach_file_size and
 						     @task.attach_content_type 	== t.attach_content_type)
+			
+			# if it is the same task but checkbox to generate event is checked
+			# or task is not the same
+			# then Create Event
 			if !isEqual
 				if @task.update_attributes(params[:task])
+					flash[:notice] = "La tâche n°#{@task.id} a été mise à jour."
 					if params[:mail]=="yes"
 						UserMailer.mail_for(@task.user, @task, false).deliver
+						flash[:notice] += " Un email a été envoyé à #{@task.user.full_name}"
 					end
 					self.create_event(true)
-					redirect_to (@task.account.nil?() ? filter_tasks_path : account_events_path(@task.account)), :notice => "La tâche n°#{@task.id} a été mise à jour."
+					redirect_to (@task.account.nil?() ? filter_tasks_path : account_events_path(@task.account))
 				else
 					render :action => "edit"
 				end
 			else
+				if params[:generate] == 'yes'
+					self.create_event(true)
+					flash[:notice] = "Un évenement lié à la tâche n°#{@task.id} a été créé"
+				end
 				redirect_to (@task.account.nil?() ? filter_tasks_path : account_events_path(@task.account))
 			end
 		else

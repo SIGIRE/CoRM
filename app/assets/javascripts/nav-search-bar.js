@@ -5,16 +5,15 @@ $(document).ready(function() {
   accountField.on('focus', function() {
     corm.AccountFieldIsFocused = true;
     formSearchBar.addClass('focus');
-    navMenuBar.addClass('focus');
   });
   accountField.on('blur', function() {
-    setTimeout(function() {
-      formSearchBar.removeClass('focus');
-      navMenuBar.removeClass('focus');
-    }, 100);
-    
+    corm.AccountFieldIsFocused = false;
+    formSearchBar.removeClass('focus');
   });
-  
+  formSearchBar.on('submit', function() {
+    corm.AccountFieldIsFocused = false;
+    formSearchBar.removeClass('focus');
+  });
   var typeAheadInfo = {};
     
   /* Search account bar - Modify render function */
