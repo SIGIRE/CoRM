@@ -17,11 +17,11 @@ if !e.task.nil?
 end
 %>
 <% if e.task.nil? or e.modified_by.nil? %>
-  <strong><%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %></strong>
+  <%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %>
   <% if !e.contact.nil? and !e.event_type.nil? %>
     a <%= action %> <strong><i><%= e.event_type.full_type %></i></strong>.
     <% if !e.contact.nil? %>
-      <strong><%= "avec #{e.contact.full_name}" %></strong>
+      avec <strong><%= e.contact.full_name %></strong>
     <% end %>.
     <% if !e.task.nil? %>
       <br /><%= link_to "#{task_action} la tâche n° #{e.task.id}", edit_task_path(e.task.id) %>
@@ -31,9 +31,9 @@ end
   <% elsif !e.event_type.nil? %>
     a <%= action %> <strong><i><%= e.event_type.full_type %></i></strong>.
   <% else %>
-    a éffectué une action <%= 'avec ' + e.contact.full_name + ' ' unless e.contact.nil? %><%=  %>.
+    a éffectué une action<% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>.
   <% end %>
 <% else %>
-  <strong><%= e.editor.full_name %></strong> a modifié <%= link_to "la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>
+  <%= e.editor.full_name %> a modifié <%= link_to "la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>
 <% end %>
 </p>

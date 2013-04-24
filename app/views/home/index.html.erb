@@ -8,7 +8,7 @@
 					<div>
 							 <div id="home_tasks" class="home-block">
 										<div class="home-title">
-												 <h2>Dernières <%= t('app.model.Task').pluralize.downcase %></h2>
+												 <h2>Mes dernières <%= t('app.model.Task').pluralize.downcase %></h2>
 												 <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_task_path ,{:title => "Créer une tâche", :class=>"pull-right btn", :style => 'display: inline-block'} %>
 										</div>
 										<% @tasks.each do |t|
@@ -40,7 +40,7 @@
 															<span class="ellipse"><% if !t.account.nil? %><%= link_to t.account.company, account_events_path(t.account), :title => 'Compte: ' + t.account.company %><% else %>Pas de compte<% end %></span>
 												 </div>
 												 <div class="task-subject-container">
-													 <span class="ellipse"><%= link_to (!t.title.blank?() ? t.title : "Pas de sujet"), edit_task_path(t), :title => 'Sujet: ' + t.title %></span>
+													 <span class="ellipse"><%= link_to (!t.title.blank?() ? t.title : "Pas de sujet"), edit_task_path(t), :title => 'Editer la tâche' %></span>
 												 </div>
 										</div>
 							 <% end %>
@@ -52,7 +52,6 @@
 							 </a>
 					     <% end %>
 							 </div>
-							 
 					</div>
 					<div>
 							 <div id="home_events" class="home-block">
@@ -80,7 +79,7 @@
 												 end
 												 %>
 												 <% if e.task.nil? or e.modified_by.nil? %>
-													 <strong><%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %></strong>
+													 <%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %>
 													 <% if !e.contact.nil? and !e.event_type.nil? %>
 															 a <%= action %> <strong><i><%= e.event_type.full_type %></i></strong>.
 													 <% if !e.contact.nil? %>avec<strong><%= " #{e.contact.full_name}" %></strong><% end %><% if !e.task.nil? %> <br /><%= link_to "#{task_action} la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% end %>.
@@ -92,7 +91,7 @@
 														 a éffectué une action.
 													 <% end %>
 												 <% else %>
-													 <strong><%= e.editor.full_name %></strong> a modifié <%= link_to "la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>
+													 <%= e.editor.full_name %> a modifié <%= link_to "la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>
 												 <% end %>
 											 </p>
 										</div>
@@ -100,51 +99,4 @@
 							 </div>
 					</div>
      </div>
-		 <div class="row row-center by_2 align-table">
-					<div>
-							 <div id="home_opportunity" class="home-block">
-										<div class="home-title">
-												 <h2>Dernières <%= t('app.model.Opportunity').pluralize.downcase %></h2>
-												 <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_opportunity_path ,{:title => "Créer une opportunité", :class=>"pull-right btn", :style => 'display: inline-block'} %>
-										</div>
-										<% @opportunities.each do |o| %>
-										<div class="row row-stripped by_4">
-												 <div>
-															<span class="ellipse text-center"><%= o.name %></span>
-												 </div>
-												 <div>
-															<span class="ellipse text-center"><% if !o.account.nil? %><%= link_to(o.account.company, account_events_path(o.account)) %><% else %>Pas de compte associé<% end  %></span>
-												 </div>
-												 <div>
-															<span class="ellipse text-center"><%= o.name %></span>
-												 </div>
-										</div>
-							      <% end %>
-							 </div>
-					</div>
-					<div>
-							 <div id="home_quotation" class="home-block">
-										<div class="home-title">
-												 <h2>Derniers <%= t('app.model.Quotation').pluralize.downcase %></h2>
-												 <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_quotation_path ,{:title => "Créer une devis", :class=>"pull-right btn", :style => 'display: inline-block'} %>
-										</div>
-										<% @quotations.each do |q| %>
-										<div class="row row-stripped by_4">
-												 <div>
-															<span><%= link_to(q.ref, edit_quotation_path(q)) %></span>
-												 </div>
-												 <div>
-															<span class="ellipse"><%if !q.account.nil? %><%= link_to(q.account.company, account_events_path(q.account)) %><% else %>Pas de compte associé<% end %></span>
-												 </div>
-												 <div>
-															<span class="ellipse"><% if !q.author.nil? %><%= q.author.full_name %><% end %></span>
-												 </div>
-												 <div>
-															<span class="ellipse"><% if !q.label.nil? %><%= q.label %><% end %></span>
-												 </div>
-										</div>
-							      <% end %>
-							 </div>
-					</div>
-		 </div>
 </div>

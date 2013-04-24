@@ -13,13 +13,14 @@
   <div class="row row-fluid">
 		<div class="field full"> 
 			<div class="span2"><%= f.label(:name, t('app.fields.label') + colon) %></div>
-			<div><p><%= f.text_field :name, { :class => 'required' } %></p></div>
+			<div><p><%= f.text_field :name, { :class => 'required' } %><span class="req" /></p></div>
 		</div>	
 	</div>
   <div class="row row-fluid">
 		<div class="field full">
 			<div class="span2"><%= f.label(:term, t('app.fields.term') + colon) %></div>
-			<div><p><%= f.text_field :term %></p></div>
+			<% dt = DateTime.now %>
+			<div><p><%= f.text_field :term, { :value => (@opportunity.term.blank?() ? dt.strftime('%d/%m/%Y') : @opportunity.term.strftime('%d/%m/%Y')) } %></p></div>
 		</div>
 	</div>
 	<div class="row row-fluid">

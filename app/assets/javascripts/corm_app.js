@@ -12,14 +12,16 @@ $(document).ready(function() {
     var div = $(this).find('div.more');
     div.toggle();
   });
-  $(document).on('click', '#toggle-events-more', function() {
+  var check_event_more_fn = function() {
     var checked = $(this).children('input').is(':checked');
     if (checked) {
       $('#listing-event .more').show();
     } else {
       $('#listing-event .more').hide();
     }
-  });
+  };
+  $(document).on('click', '#toggle-events-more', check_event_more_fn);
+  check_event_more_fn.call(document.getElementById('toggle-events-more'));
   
   /* datepicker for all this classes/ids */
   if ($.datepicker) {

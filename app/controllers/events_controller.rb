@@ -101,19 +101,16 @@ class EventsController < ApplicationController
       @event.notes2 = params[:notes]
       self.create_task
     end
-    
-    respond_to do |format|
-      if @event.save
-        if params[:generate] == "yes" and params[:mail] == "yes"
-          UserMailer.mail_for(@event.user, @event.task, true).deliver
-        end
-        format.html { redirect_to account_events_url(@event.account_id), :notice => "L'évènement a été créé." }
-        format.json { render :json => @event, :status => :created, :location => @event }
-      else
-        format.html { render :action => "new" }
-        format.json { render :json => @event.errors, :status => :unprocessable_entity }
-      end
-    end
+		if @event.save
+			flash[:notice] = "L'évènement a été créé."
+			if params[:generate] == "yes" and params[:mail] == "yes"
+				UserMailer.mail_for(@event.user, @event.task, true).deliver
+				flash[:notice] += " Un email a été envoyé à #{@event.user.full_name}."
+			end
+			redirect_to account_events_url(@event.account_id)
+		else
+			render :action => "new"
+		end
   end
 
   ##
@@ -168,12 +165,12 @@ class EventsController < ApplicationController
     hash['account_id'] = params[:event][:account_id]
     hash['contact_id'] = params[:event][:contact_id]
     hash['user_id'] = params[:user_id]
-    hash['notes'] = params[:notes]
-    hash['statut'] = params[:statut][:statut]
-    hash['term'] = params[:term].split('/').reverse!.join('/')
+    hash['notes'] = params[:task][:notes]
+    hash['statut'] = params[:task][:statut]
+    hash['term'] = params[:task][:term].split('/').reverse!.join('/')
     hash['created_by'] = current_user.id
-    hash['priority'] = params[:priority].to_i
-    hash['title'] = params[:title]
+    hash['priority'] = params[:task][:priority].to_i
+    hash['title'] = params[:task][:title]
     
     # Create the task with the hash
     @task = Task.new(hash)

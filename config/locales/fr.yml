@@ -318,6 +318,7 @@ fr:
       Task: Tâche
       Opportunity: Opportunité
       Event: Évenement
+      EventType: "Type d'évènement"
       QuotationTemplate: Modèle
     roles:
       admin: Administrateur
@@ -353,5 +354,7 @@ fr:
       quantity: Quantité
       present_document: "Document actuel"
       update_document: "Modifier le document"
+      priority: Priorité
+      subject: Sujet
       name: Nom
       company: Société

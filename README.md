@@ -1,36 +1,49 @@
 # CORM
-## Le CRM qui vous facilite la vie
+### Easier than a CRM
 Version: 0.8.0 (nightly)
 
-### About CORM
-CoRM is a **Customer Relationship Manager** (CRM) designed for *small businesses* about 1 to 100 collaborators. This software helps you to manage your relations between each actor that composing the business environment.
+## About CORM
+CoRM is a **Customer Relationship Manager** (CRM) designed for businesses about 1 to 100 collaborators. This software helps you to manage your relations between each actor that composing your environment.
 
-Actually, CoRM is not modular and does not support the multilingual translation with *I18n*. These evolution are planned, so don't worry about.
+CoRM does not contain inessentials functionnalities and does not have so much required fields. This software is build to help you, not to stop you during an interview or something else.
 
+For now, CoRM is not modular and does not support the multilingual translation with *I18n*. These evolutions are planned, so don't worry about.
 
-### Getting started
+## Getting started
 
  * Install Ruby and Rails (if you don't have)
- * Download sources from git
- * Unpack zip file into a new folder
+ * Download/Unpack sources from git
 
 #### Configuration
 
- * config/database.yml - to define your database connections
- * config/routes.rb - to define your routes
+ * run 'bundle install' to add or update all gems
+ * modify config/database.yml - to define your databases connections
+ * modify config/routes.rb - to define your own routes
 
 #### Preparation
 
-**Fresh install**: you're lucky !
-'''shell
+Fresh install:
+
+```
 rake db:create
-rake db:migrate # if you are with a dev version
-rails s
-'''
+rake db:schema:load
+```
 
-**Migration from older version**:
-'''shell
+Migration from older version:
+
+```
 rake db:migrate
-rails s
-'''
+```
 
+Now, you can execute **rails s** if you're using WEBrick.
+
+Ok, your server's running but you must create the first user, the administrator of the application.
+Launch your prefered browser and goto **localhost:3000/user/new**
+
+Now, your main user is created! 
+So, it's time for you to add Events type as 'incoming call' or 'outgoing call', quotations templates to create your quotation easily and quickly...
+
+After all of that, it's time to congratulate yourself and have a coffee break.
+
+## Licence
+CoRM is under [GNU Affero Licence](http://www.gnu.org/licenses/agpl-3.0.html "GNU Affero link").
