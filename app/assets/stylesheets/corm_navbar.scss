@@ -103,21 +103,18 @@ $profile-buttons-right: 0;
 #right-bar-container {
   position: absolute;
   right: 15px;
-  > div {
-    display: inline-block;
-  }
+  width: 500px;
+  height: 50px;
 }
 
 #form-search-container {
   position: absolute;
-  right: $settings-width + $profile-buttons-right;
   top: 0;
   z-index: 50;
 }
 
 #profile_settings_buttons {
   position: absolute;
-  width: $settings-width;
   right: $profile-buttons-right;
   top: ($form-search-position-top / 2);
   .dropdown-settings {
@@ -129,8 +126,20 @@ $profile-buttons-right: 0;
   }
 }
 
+#link-button-profile {
+  padding-left: 7px;
+  padding-left: 8px;
+  > p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0;
+    margin: 0;
+  }
+}
+
 #nav-menu {
-  padding: 2px 0;
+  padding: 2px 0 2px 15px;
 	margin-top: 5px;
   position: relative;
 	float: left;

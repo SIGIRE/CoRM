@@ -38,15 +38,15 @@
 	</div>
 	<div id="right-bar-container">
 		<!-- FORM SEARCH -->
-		<div id="form-search-container">
+	    <div id="form-search-container">
 			<%= form_tag(search_accounts_path, :method => "get", :class =>"form-search", :id =>"form-search") do %>
 			<div class="input-append">
 				<%= text_field_tag :account , nil , { 
-				:class =>"span3", 
-				:placeholder => " Rechercher un acteur...", 
-				:autocomplete=> "off", 
-				:type => 'search',
-				:id => 'main-search-bar' } %>
+				  :class =>"span3", 
+				  :placeholder => " Rechercher un acteur...", 
+				  :autocomplete=> "off", 
+				  :type => 'search',
+				  :id => 'main-search-bar' } %>
 				<button type="submit" class="btn">
 				<span class="icon-search"></span>
 				</button>
@@ -54,10 +54,14 @@
 			<ul id="search-list" class="typeahead dropdown-menu"></ul>
 		<% end %>
 		</div>
-			<% if user_signed_in? %>
+		
+		<% if user_signed_in? %>
 		<div id="profile_settings_buttons">
+		
 			<div class="btn-group">
-				<a class="btn dropdown-toggle add-button" data-toggle="dropdown" href="#">+</a>
+				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+				 <%= image_tag('/assets/glyphicons/glyphicons_190_circle_plus.png', :size => '16x16') %>
+				</a>
 				<ul class="dropdown-menu">
 					<li><%= link_to t('app.model.Quotation'), new_quotation_path %></li>
 					<li><%= link_to t('app.model.Opportunity'), new_opportunity_path %></li>
@@ -69,9 +73,13 @@
 				</ul>
 			</div>
 			<div class="btn-group">
-			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			<a id="link-button-profile" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 				<i class="icon-user"></i>
-				<%= current_user.forename %>
+				<% if current_user.forename.length < 10 %>
+          <%= content_tag('span', current_user.forename) %>
+        <% else %>
+          <%= content_tag('span', current_user.forename[0..10] + '...') %>
+				<% end %>
 			<span class="caret"></span>
 			</a>
 			<ul class="dropdown-menu">
@@ -82,7 +90,7 @@
 			</div>
 			<div class="btn-group">
 			<a class="btn dropdown-toggle " data-toggle="dropdown" href="#">
-				<%= image_tag("glyphicons/glyphicons_280_settings.png", :size => "16x16")%>
+				<%= image_tag("glyphicons/glyphicons_280_settings.png", :size => "16x16") %>
 			</a>
 			<ul class="dropdown-menu dropdown-settings">
 				<li class="dropdown-submenu pull-left">
@@ -112,4 +120,16 @@
 
   </div>
 </div>
+<script type="application/x-javascript">
+  var dom_browse_offset = function(dom_object) {
+	  return dom_object.offsetParent ? dom_object.offsetLeft + dom_browse_offset(dom_object.offsetParent) : dom_object.offsetLeft;
+	};
+
+  var dom_profile = document.getElementById('profile_settings_buttons');
+	var dom_search_form = document.getElementById('form-search-container');
+	var left = dom_browse_offset(dom_profile);
+	var right = window.innerWidth - left - 15;
+	$(dom_search_form).attr('style', 'right: ' + right + 'px;');
+
+</script>
 

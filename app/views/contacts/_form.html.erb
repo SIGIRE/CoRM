@@ -20,7 +20,7 @@
   </div>
   
   <div class="field">
-    <div class="span2"> Civilité : </div> <%= f.select :title, Contact::TITLES %>
+    <div class="span2"> Civilité : </div> <%= f.select :title, Contact::TITLES, {:include_blank => true} %>
   </div>
   
   <div class="field">

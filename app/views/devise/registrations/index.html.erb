@@ -55,7 +55,7 @@
           <% end %>
         <% end %>
         <% if current_user.has_role?(:super_user) or current_user.has_role?(:admin) %>
-        <td><center><%= link_to "Éditer", edit_user_path(u) ,{:title => "Éditer #{u.full_name}", :class=>"btn"} %></center></td>
+        <td><center><%= link_to image_tag('/assets/glyphicons/glyphicons_151_edit.png', :alt => 'Editer'), edit_user_path(u) ,{:title => "Éditer #{u.full_name}", :class=>"btn"} %></center></td>
         <% end %>
       </tr>
     <% end %>
