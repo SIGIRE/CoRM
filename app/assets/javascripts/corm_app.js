@@ -3,10 +3,10 @@ $(document).ready(function() {
   /* AlertBox fadeout */
   var alerts = $('.alert');
   setTimeout(function() {
-    alerts.fadeOut(2000);
-  }, 3000, function() {
-    alerts.remove();
-  });
+    alerts.css({
+      top: '-=200px'  
+    })
+  }, 5000);
   
   $(document).on('click', '#listing-event .event', function() {
     var div = $(this).find('div.more');

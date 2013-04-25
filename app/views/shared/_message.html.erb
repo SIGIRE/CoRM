@@ -1,14 +1,19 @@
-<div class="container-fluid">
-<% if !flash[:notice].blank? %>
-  <div class="alert notice">
-    <button class="close" data-dismiss="alert">×</button>
+<div>
+<% if !flash[:error].blank? %>
+  <div class="alert error" style="display: none;">
+    <%= content_tag :p, flash[:error] %>
+  </div>
+<% elsif !flash[:notice].blank? %>
+  <div class="alert notice" style="display: none;">
     <%= content_tag :p, flash[:notice] %>
   </div>
 <% end %>
-<% if !flash[:error].blank? %>
-  <div class="alert error">
-    <button class="close" data-dismiss="alert">×</button>
-    <%= content_tag :p, flash[:error] %>
-  </div>
-<% end %>
 </div>
+<script type="application/x-javascript">
+  var navmenu = document.getElementById('nav-menu');
+  console.log(navmenu);
+  var alert_top = 0;
+  if (navmenu) { alert_top = 50; }
+  var topString = alert_top.toString().concat('px');
+  $('.alert').css('top', topString).show();
+</script>

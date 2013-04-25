@@ -2,8 +2,10 @@ $profile-buttons-right: 0;
 
 
 .navbar {
+	position: relative;
   margin-bottom: 0px;
 	height: 50px;
+	z-index: 45;
   > .navbar-inner {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -33,6 +35,9 @@ $profile-buttons-right: 0;
     @include transit(color, .4s);
     color: #999;
 		display: inline-block;
+		.caret {
+			@include transit(border-top-color, .4s);
+		}
     &:hover {
       color: #FFF;
       > a, .caret {
@@ -78,13 +83,13 @@ $profile-buttons-right: 0;
     .caret {
       margin-top: 16px !important;
       margin-left: 3px;
-      color: inherit;
+      border-top-color: inherit;
     }
   }
 }
 
 #title-bar {
-  z-index: 0;
+  z-index: -1;
   border-radius-top-left: 0;
   border-radius-top-right: 0;
   margin-top: 15px;
@@ -168,9 +173,9 @@ $profile-buttons-right: 0;
 			}
 		}
 	}
-  .dropdown-settings {
-    min-width: ($settings-dropdown-min-width);
-    left: $settings-dropdown-left;
+  .right {
+		left: auto !important;
+    right: 0;
   }
   .btn-group:first-child {
     margin-left: 0;
@@ -187,6 +192,22 @@ $profile-buttons-right: 0;
     padding: 0;
     margin: 0;
   }
+	&:hover {
+		> span {
+			color: black;
+			&.caret {
+			  border-top-color: black;
+			}
+		}
+	}
+	> span {
+		color: #555;
+		@include transit(color, .4s);
+		&.caret {
+			border-top-color: #555;
+			@include transit(border-top-color, .4s);
+		}
+	}
 }
 
 #nav-menu {

@@ -1,16 +1,17 @@
 .alert {
   position: absolute;
   display: block;
-  z-index: 1000;
-  top: 0;
-  left: 0;
-  width: 100%;
-  margin:0;
+  z-index: 25;
+  top: 50px;
+  left: 25%;
+  width: 50%;
+  margin: 0;
   padding: 0;
   border: 0;
   box-shadow: none;
-  border-radius: 0;
+  border-radius: 0 0 4px 4px;
   opacity: 1;
+	@include transit(top, 2s);
   text-align: center;
   p {
 		padding: 18px 0;
@@ -21,7 +22,7 @@
     color: #FFFFFF;
   }
   &.notice {
-    background-color: rgba(0, 173, 238, 0.7);
+    background-color: rgba(0,173,238,0.8);
   }
   &.error {
     background-color: rgba(255,0,0,0.8);
@@ -31,7 +32,7 @@
 		  * Override cause of Devise. Change later
 		  * TODO: Rewrite a part of Devise alert generator
 		 **/
-		background-color: rgba(0, 173, 238, 0.7);
+		background-color: rgba(0, 173, 238, 0.8);
 	}
   > button.close {
     position: fixed;

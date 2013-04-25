@@ -9,6 +9,17 @@ CoRM does not contain inessentials functionnalities and does not have so much re
 
 For now, CoRM is not modular and does not support the multilingual translation with *I18n*. These evolutions are planned, so don't worry about.
 
+## System requirement
+
+ * Ruby 1.9.3p194
+ * Rails 3.2.12
+
+### Database adapters minimum versions supported
+
+ * PostgreSQL with gem *pg v0.14*
+ * MySQL with gem *mysql2 v0.3.11*
+ * SQLite with gem *sqlite3 v1.3.7*
+
 ## Getting started
 
  * Install Ruby and Rails (if you don't have)

@@ -116,16 +116,16 @@
 			</div>
 		</div>
 	</div>
+	<% if !@task.id.nil? %>
 	<div class="row row-fluid">
 		<div class="field full">
-		<% if !@task.id.nil? %>
 			<p class="block">Créée par : <strong><%= @task.author.full_name %></strong>, le <strong><%= @task.created_at.strftime("%d/%m/%y à %H:%M") %></strong>.</p>
 			<% if !@task.modified_by.nil? %>
 			<p class="block">Dernièrement modifiée par : <strong><%= @task.editor.full_name %></strong>, le <strong><%= @task.updated_at.strftime("%d/%m/%y à %H:%M") %></strong>.</p>
 			<% end %>
-		<% end %>
 		</div>
 	</div>
+  <% end %>
 	<hr />
   <div class="row row-fluid">
 	  <%= if !@task.id.nil? then f.submit 'Modifier cette Tâche', :class =>"btn btn-primary" else f.submit 'Créer une Tâche', :class =>"btn btn-primary" end %>
