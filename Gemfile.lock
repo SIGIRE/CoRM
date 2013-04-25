@@ -117,7 +117,7 @@ GEM
       hashery (~> 2.0)
       ruby-rc4
       ttfunk
-    pg (0.14.1)
+    pg (0.15.0)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.3)
@@ -155,7 +155,7 @@ GEM
     ref (1.0.4)
     rolify (3.2.0)
     ruby-rc4 (0.1.5)
-    sass (3.2.7)
+    sass (3.2.8)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -201,7 +201,7 @@ DEPENDENCIES
   money-rails (~> 0.8.0)
   nested_form
   paperclip (~> 3.4.1)
-  pg (~> 0.14.1)
+  pg
   prawn_rails (~> 0.0.11)
   rails
   rolify
