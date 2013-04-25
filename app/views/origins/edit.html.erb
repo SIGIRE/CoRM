@@ -1,13 +1,11 @@
 <div class="container-fluid">
-   
    <div class="well" style="margin-top: 1em;">
       <div class="row-fluid">
          <div class="span9">
-         <h3>Origine n°<%= @origin.id %> (Édition)</h3>
+           <h1>Origine n°<%= @origin.id %> (Édition)</h1>
          </div>
           <%= link_to image_tag("glyphicons/glyphicons_210_left_arrow.png"), :back ,{:title => "Retour", :class=>"pull-right btn"} %>
       </div>
    </div>
-
    <%= render 'form' %>
 </div>

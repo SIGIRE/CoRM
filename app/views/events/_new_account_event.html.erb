@@ -27,7 +27,7 @@
   </div>  
   <div class="row row-fluid">
     <div class="field full">
-      <%= f.label :notes, "Description : ", :class => 'top' %>
+      <%= f.label :notes, ("Description : ".concat(content_tag('span', nil, :class => 'req'))).html_safe, :class => 'top' %>
       <%= f.text_area :notes, { :rows => "5", :class => 'required' } %>
     </div>
   </div>
@@ -50,7 +50,7 @@
     <div class="row">
       <div class="field full">
         <p class="full">
-          <%= label_tag('task_title', "Sujet :", :class=> 'top') %>
+          <%= label_tag('task_title', ("Sujet :".concat(content_tag('span', nil, :class => 'req'))).html_safe, :class=> 'top') %>
           <%= text_field_tag 'task[title]', nil, :class => 'required' %>
         </p>
       </div>
@@ -82,8 +82,8 @@
     </div>
     <div class="row">
       <div class="field">
-        <%= label_tag :user_id, "Colaborateur :", :class => 'top' %>
-        <%= f.collection_select :user_id, User.all_reals, :id, :full_name, { :prompt => true, :selected => current_user.id } %>
+        <%= label_tag :user_id, "Collaborateur :", :class => 'top' %>
+        <%= f.collection_select :user_id, User.all_reals, :id, :full_name, { :selected => current_user.id } %>
       </div>
       <div class="field align-mid">
         <label class="checkbox">

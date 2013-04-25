@@ -110,8 +110,6 @@ class OpportunitiesController < ApplicationController
       redirect_to opportunities_url
 	  return false
     end
-    params[:opportunity][:profit] = params[:opportunity][:profit].gsub(' ', '')
-    params[:opportunity][:amount] = params[:opportunity][:amount].gsub(' ', '')
     @opportunity = Opportunity.find(params[:id])
     @users = User.all_reals
   end
@@ -125,6 +123,8 @@ class OpportunitiesController < ApplicationController
       redirect_to opportunities_url
 	  return false
     end
+    params[:opportunity][:profit] = params[:opportunity][:profit].gsub(' ', '')
+    params[:opportunity][:amount] = params[:opportunity][:amount].gsub(' ', '')
     @opportunity = Opportunity.find(params[:id])
     @opportunity.updated_by = current_user.id
     

@@ -1,7 +1,5 @@
 <%= render 'title', :locals => { :title => @title }%>
-
 <div class="container-fluid">
-  
   <table class="table table-bordered table-striped">
    <thead> 
     <tr>
@@ -10,13 +8,12 @@
         <th><center>Éditer</center></th>
     </tr>
    </thead>
-   
   <tbody> 
   <% @templates.each do |template| %>
     <tr>
-      <td><center><%= template.id %></center></td>
-      <td><center><%= template.company %></center></td>
-      <td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_template_path(template),{:title => "Éditer le modèle", :class=>"btn"} %></center></td>      
+      <td class="text-center"><%= template.id %></td>
+      <td class="text-center"><%= template.company %></td>
+      <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_template_path(template),{:title => "Éditer le modèle", :class=>"btn"} %></center></td>      
     </tr>
   <% end %>
   </tbody>
