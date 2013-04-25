@@ -178,7 +178,7 @@ class AddUserRelation < ActiveRecord::Migration
         # if user exists, update created_by by currentUser.id
         if !currentUser.nil?
           logger.info("Change #{class_name}.#{field} from #{currentUser.full_name} to #{currentUser.id.to_s}")
-          value.update_attributes({ field => currentUser.id.to_s })
+          value.update_attribute(field, currentUser.id.to_s)
         else
           logger.info('The current User does not exist or table field is not filled')
           value.update_attributes({ field => nil })
