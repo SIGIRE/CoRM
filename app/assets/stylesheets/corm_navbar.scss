@@ -1,4 +1,4 @@
-$profile-buttons-right: 12px;
+$profile-buttons-right: 0;
 
 
 .navbar {
@@ -117,7 +117,7 @@ $profile-buttons-right: 12px;
 
 #profile_settings_buttons {
   position: absolute;
-	width: $settings-width;
+  width: $settings-width;
   right: $profile-buttons-right;
   top: ($form-search-position-top / 2);
   .dropdown-settings {

@@ -12,9 +12,9 @@ class HomeController < ApplicationController
   # GET /types.json
   def index
 	if current_user.has_role? :admin 
-	@user_count = User.all_reals.count
-	size = ActiveRecord::Base.connection.query("SELECT count(*) FROM accounts ;")
-	@bdd_size = size.length > 0 ? size[0][0] : -1
+	@count = Hash.new
+    @count[:user] = User.all_reals.count
+	@count[:account] = Account.count
 	
 	render "stats"
 	else

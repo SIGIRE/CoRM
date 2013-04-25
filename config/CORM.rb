@@ -1,6 +1,6 @@
 # App Object
 CORM = {
-  :version => '0.8.0 (nightly)',
+  :version => '0.8.1 (nightly)',
   :host => 'localhost',
   :mail => {
     :type => :smtp,

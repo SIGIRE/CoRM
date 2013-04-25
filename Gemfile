@@ -9,8 +9,8 @@ gem 'rails'
 # for multi-byte char
 gem 'unicode_utils'
 # Database Adapter
-gem 'pg', '~> 0.14.1'
-
+#gem 'pg', '~> 0.14.1'
+gem 'sqlite3'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
