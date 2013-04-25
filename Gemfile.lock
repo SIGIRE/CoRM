@@ -201,7 +201,7 @@ DEPENDENCIES
   money-rails (~> 0.8.0)
   nested_form
   paperclip (~> 3.4.1)
-  pg (~> 0.14.1)
+  pg
   prawn_rails (~> 0.0.11)
   rails
   rolify
