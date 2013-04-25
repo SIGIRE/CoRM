@@ -100,7 +100,7 @@ class AccountsController < ApplicationController
   
       respond_to do |format|
         if @account.save
-          format.html { redirect_to accounts_path, :notice => 'Le compte a été créé.' }
+          format.html { redirect_to account_events_url(@account.id), :notice => 'Le compte a été créé.' }
           format.json { render :json => @account, :status => :created, :location => @account }
         else
           flash[:error] = t('app.save_undefined_error')

@@ -26,7 +26,7 @@ if !@document.account.nil?
 	company = @document.account.company
 end %>
 		<p>
-			<%= text_field_tag(nil, company, { :id => 'account-search', :type => 'search', :autocomplete => 'off' }) %>
+			<%= text_field_tag(nil, company, { :id => 'account-search', :type => 'search', :autocomplete => 'off', :class => 'required' }) %><span class='req' />
 			<%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
 			<span class="label label-info" id="task_notice"  style="display: none; margin-left: 2em;">
 				<i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant
@@ -50,7 +50,7 @@ end %>
 			<div class="span2">
 				<%= f.label(:attach, (@document.attach.exists?() ? t('app.fields.update_document') : t('app.fields.document')) + colon) %>
 			</div>
-			<%= f.file_field :attach %>
+			<%= f.file_field :attach %><%= content_tag('span', '', {:class => 'req'}) unless @document.attach.exists? %>
 		</div>
 	</div>
 	<div class="row row-fluid">
