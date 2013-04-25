@@ -74,6 +74,8 @@ class OpportunitiesController < ApplicationController
       redirect_to opportunities_url
 	  return false
     end
+    params[:opportunity][:profit] = params[:opportunity][:profit].gsub(' ', '')
+    params[:opportunity][:amount] = params[:opportunity][:amount].gsub(' ', '')
     @opportunity = Opportunity.new(params[:opportunity])
     @opportunity.created_by = current_user.id
     if @opportunity.amount.nil?
@@ -108,6 +110,8 @@ class OpportunitiesController < ApplicationController
       redirect_to opportunities_url
 	  return false
     end
+    params[:opportunity][:profit] = params[:opportunity][:profit].gsub(' ', '')
+    params[:opportunity][:amount] = params[:opportunity][:amount].gsub(' ', '')
     @opportunity = Opportunity.find(params[:id])
     @users = User.all_reals
   end

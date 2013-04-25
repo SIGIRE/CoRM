@@ -124,7 +124,7 @@ class AccountsController < ApplicationController
     if @ability.can? :update, Account
       @account = Account.find(params[:id])
       @account.modified_by = current_user.id
-      @account.company = @account.uppercase_company
+      params[:account][:company] = UnicodeUtils.upcase(params[:account][:company], I18n.locale)
       params[:account][:web] = self.to_url(params[:account][:web])
       if params[:display_account_tag].nil?
         @account.tags.clear
