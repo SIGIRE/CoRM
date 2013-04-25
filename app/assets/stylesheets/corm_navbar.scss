@@ -84,35 +84,35 @@ $profile-buttons-right: 0;
 }
 
 #title-bar {
-	z-index: 0;
-	border-radius-top-left: 0;
-	border-radius-top-right: 0;
-	margin-top: 15px;
+  z-index: 0;
+  border-radius-top-left: 0;
+  border-radius-top-right: 0;
+  margin-top: 15px;
 }
 
 #left-bar-container {
   position: absolute;
-	left: 30px;
-	top: 0;
-	width: 100%;
-	> div {
-		display: inline-block;
-	}
+  left: 30px;
+  top: 0;
+  width: 400px;
+  > div {
+    display: inline-block;
+  }
 }
 
 #right-bar-container {
-	position: absolute;
-	right: 15px;
-	> div {
-		display: inline-block;
-	}
+  position: absolute;
+  right: 15px;
+  > div {
+    display: inline-block;
+  }
 }
 
 #form-search-container {
-	position: absolute;
-	right: $settings-width + $profile-buttons-right;
-	top: 0;
-	z-index: 50;
+  position: absolute;
+  right: $settings-width + $profile-buttons-right;
+  top: 0;
+  z-index: 50;
 }
 
 #profile_settings_buttons {
