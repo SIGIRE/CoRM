@@ -202,7 +202,7 @@ class QuotationsController < ApplicationController
     end
     @quotation = Quotation.find(params[:id])
     @quotation.destroy
-    url = @quotation.account_id.nil? ? quotations_path : account_events_url(Account.find(@quotation.account_id))
+    url = @quotation.account.nil? ? quotations_path : account_events_url(@quotation.account)
     redirect_to url, :notice => "Le devis a été supprimé."
   end
   

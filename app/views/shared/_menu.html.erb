@@ -62,7 +62,7 @@
 				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 				 <%= image_tag('/assets/glyphicons/glyphicons_190_circle_plus.png', :size => '16x16') %>
 				</a>
-				<ul class="dropdown-menu">
+				<ul class="dropdown-menu left">
 					<li><%= link_to t('app.model.Quotation'), new_quotation_path %></li>
 					<li><%= link_to t('app.model.Opportunity'), new_opportunity_path %></li>
 					<li><%= link_to t('app.model.Task'), new_task_path %></li>
@@ -82,7 +82,7 @@
 				<% end %>
 			<span class="caret"></span>
 			</a>
-			<ul class="dropdown-menu">
+			<ul class="dropdown-menu left">
 				<li><%= link_to "Profil", edit_user_path(current_user) %></li>
 				<li class="divider"></li>
 				<li><%= link_to "Déconnexion", destroy_user_session_path, :data => {:confirm => 'Confirmer la déconnexion ?'}, :method => :delete %></li>
@@ -92,7 +92,7 @@
 			<a class="btn dropdown-toggle " data-toggle="dropdown" href="#">
 				<%= image_tag("glyphicons/glyphicons_280_settings.png", :size => "16x16") %>
 			</a>
-			<ul class="dropdown-menu dropdown-settings">
+			<ul class="dropdown-menu dropdown-settings right">
 				<li class="dropdown-submenu pull-left">
 				<a tabindex="-1" href="#">Configuration</a>
 				<ul class="dropdown-menu ">
