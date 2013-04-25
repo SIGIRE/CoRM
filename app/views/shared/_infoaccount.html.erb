@@ -20,7 +20,7 @@
     <%= "Fax : " + @account.fax %><br />
   <% end %>
   <% if !@account.email.blank? %>
-    <%= mail_to(@account.email) %><br />
+    <%= mail_to(@account.email, nil, :class => 'ellipse') %>
   <% end %>
   <% if !@account.web.blank? %>
     <% url = @account.web %>
@@ -29,7 +29,7 @@
     <% elsif !url[/https:\/\//].nil? %>
       <% url = url[8..url.length] %>
     <% end %>
-    <%= link_to(url, @account.web, :target => "_blank") %>
+    <%= link_to(url, @account.web, :target => "_blank", :class => 'ellipse') %>
   <% end %>
   </p>
 </div>
@@ -54,7 +54,7 @@
       Mobile : <%= contact.mobile %><br />
     <% end %>
     <% if contact.email != "" %>
-      <%= mail_to(contact.email) %><br />
+      <%= mail_to(contact.email, nil, :class => 'ellipse') %>
     <% end %>
     </p>
   </div>
