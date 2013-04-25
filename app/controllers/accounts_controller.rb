@@ -270,16 +270,18 @@ class AccountsController < ApplicationController
   end
   
   def to_url(url)
-		correction = nil
-    # dont start with protocol://
-    if url[/^*:\/\//] == nil
-      correction = 'http://'
-      # if it is somthing like lang.website.tld
-      if url[/^www[.]/] == nil and url[/^.*.[.].*.[.].*.$/] == nil
-        correction.concat('www.')
+    if !url.nil? and url.length > 0
+      correction = nil
+      # dont start with protocol://
+      if url[/^*:\/\//] == nil
+        correction = 'http://'
+        # if it is somthing like lang.website.tld
+        if url[/^www[.]/] == nil and url[/^.*.[.].*.[.].*.$/] == nil
+          correction.concat('www.')
+        end
       end
     end
     return (!correction.nil?() ? correction.concat(url) : url)
-	end
+  end
   
 end

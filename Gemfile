@@ -9,7 +9,7 @@ gem 'rails'
 # for multi-byte char
 gem 'unicode_utils'
 # Database Adapter
-gem 'pg', '~> 0.14.1'
+gem 'pg'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -23,7 +23,7 @@ end
 gem 'json'
 gem 'therubyracer'
 
-gem 'sass-rails',   '~> 3.2'
+gem 'sass-rails', '~> 3.2'
 
 gem 'bootstrap-sass', '~> 2.3.1.0'
 
