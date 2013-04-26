@@ -122,7 +122,7 @@
 		<div class="row row-fluid">
 			<div class="field full"> 
 				<div class="span2"><%= f.label(:quotation_template_id, t('app.model.QuotationTemplate') + colon) %></div>
-				<p><%= f.collection_select :quotation_template_id, QuotationTemplate.order('company ASC').all, :id, :company, { :class => 'required' } %><span class="req" /></p>
+				<p><%= f.collection_select :quotation_template_id, QuotationTemplate.order('company ASC').all, :id, :company, {}, :class => 'required' %><span class="req" /></p>
 			</div>	
 		</div>
 		<!-- Author and Editor -->
