@@ -11,7 +11,7 @@
 												 <thead>
 															<tr>
 																	<th colspan="4">
-																				<h2 class="pull-left">Mes dernières <%= t('app.model.Task').pluralize.downcase %></h2>
+																				<h2 class="pull-left">Mes dernières <%= t('app.model.Task').pluralize %></h2>
 																				<%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_task_path ,{:title => "Créer une tâche", :class=>"pull-right btn", :style => 'display: inline-block'} %>
 																	 </th>
 															</tr>
@@ -52,7 +52,10 @@
 																	 <td class="text-center"><span class="ellipse"><% if !t.account.nil? %><%= link_to t.account.company, account_events_path(t.account), :title => 'Compte: ' + t.account.company %><% else %>Pas de compte<% end %></span></td>
 																	 <td><span class="ellipse"><%= link_to (!t.title.blank?() ? t.title : "Pas de sujet"), edit_task_path(t), :title => 'Editer la tâche' %></span></td>
 															</tr>
-												      <% end %>
+												 <% end %>
+												 <tr>
+															<td colspan="4"><%= link_to('Afficher toutes les tâches', tasks_path, :title => 'Afficher les tâches') %></td>
+												 </tr>
 												 </tbody>
 										</table>
 							 </div>
@@ -60,7 +63,7 @@
 					<div>
 							 <div id="home_events" class="home-block">
 										<div class="home-title">
-												 <h2>Derniers <%= t('app.model.Event').pluralize.downcase %></h2>
+												 <h2>Derniers <%= t('app.model.Event').pluralize %></h2>
 										</div>
 										<% @events.each do |e| %>
 										<div class="row row-stripped padded">

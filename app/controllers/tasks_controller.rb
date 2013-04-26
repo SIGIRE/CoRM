@@ -261,7 +261,7 @@ class TasksController < ApplicationController
   #
   def create_event(updated)
 	type = updated ? :update : :create
-    if @ability.can? type, Event
+    if @ability.can? type, Event and !params[:task][:contact_id].blank?
 			hash = Hash.new
 			hash["event_type_id"] = params[:event_type][:id]
 			hash["account_id"] = params[:task][:account_id]

@@ -452,6 +452,33 @@ p {
 	}
 }
 
+span.caret-up {
+	&:before {
+		content: '';
+		display: inline-block;
+		border-left: 10px solid transparent;
+		border-right: 10px solid transparent;
+		border-bottom: 10px solid #ccc;
+		border-bottom-color: rgba(0, 0, 0, 0.2);
+		position: absolute;
+		top: 45%;
+		left: 93%;
+	}
+	&:after {
+		content: '';
+		display: inline-block;
+		border-left: 9px solid transparent;
+		border-right: 9px solid transparent;
+		border-bottom: 9px solid white;
+		position: absolute;
+		top: 45%;
+		left: 93%;
+	}
+	&:hover {
+		border-bottom-color: #eee;
+	}
+}
+
 #home_events {
 	.row {
 		padding: 2px 16px;

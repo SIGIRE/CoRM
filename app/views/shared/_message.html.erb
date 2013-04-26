@@ -2,10 +2,12 @@
 <% if !flash[:error].blank? %>
   <div class="alert error" style="display: none;">
     <%= content_tag :p, flash[:error] %>
+    <a id="link_to_close_alert" title="Fermer"><span class="caret-up"></span></a>
   </div>
 <% elsif !flash[:notice].blank? %>
   <div class="alert notice" style="display: none;">
     <%= content_tag :p, flash[:notice] %>
+    <a id="link_to_close_alert" href="#" title="Fermer"><span class="caret-up"></span></a>
   </div>
 <% end %>
 </div>

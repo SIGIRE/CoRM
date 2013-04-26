@@ -34,8 +34,9 @@
   </p>
 </div>
 <hr>
-<% if !@account.contacts.nil? and @account.contacts.length > 0 %>
 <div id="contacts_list">
+<% if !@account.contacts.nil? and @account.contacts.length > 0 %>
+
 <% @account.contacts.order_by_surname.each do |contact| %>
   <div class="contact-container">
     <% if contact.title == "Mme"%>
@@ -61,10 +62,11 @@
   </div>
 <% end # end each
 %>
-</div>
+
 <hr />
 <% end #end if
 %>
+</div>
 <%= form_for( [@account, @account.contacts.new], :html => {:class => 'well'}) do |f| %>
 <p><%=image_tag("glyphicons/glyphicons_006_user_add.png")%>Ajouter un contact</p>
   <div class="row small-fields">

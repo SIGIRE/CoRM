@@ -12,10 +12,12 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <div class="span2">Nom : </div>
-    <%= f.text_field :name, { :class => 'required'}%>
-  </div>
+  <div class="row row-fluid">
+		<div class="field full">
+      <div class="span2"><%= f.label(:name, t('app.fields.name') + colon) %></div>
+      <p><%= f.text_field :name, { :class => 'required' }%></p>
+    </div>
+	</div>
   <div class="row row-fluid">
 		<div class="field full">
 			<div class="span2"><%= label_tag('account-search', t('app.model.Account') + ' Source' + colon) %></div>
@@ -40,25 +42,15 @@
 			</div>
 		</div>
 	</div>
-
-  <br />
-  	
-	<div class="field">
-    <% if !@relation.id.nil? %>
-		<div class="span9"> Créée par : <%= @relation.author.full_name %>, le </strong><%= @relation.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
+	<% if !@relation.id.nil? %>
+  <div class="row row-fluid">
+		<div class="field full"> Créée par : <%= @relation.author.full_name %>, le </strong><%= @relation.created_at.strftime("%d/%m/%y à %H:%M") %>. </div>
 		<% if !@relation.updated_by.nil? %>
-			<div class="span9"> Dernièrement modifiée par : <%= @relation.editor.full_name %>, le <%= @relation.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
-		<% else %>
+			<div class="field full"> Dernièrement modifiée par : <%= @relation.editor.full_name %>, le <%= @relation.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div>
 		<% end %>
-	
-	<% end %>
 	</div>
-	  
+	<% end %>
 	<hr />
-
-  
   <div class="field">
     <%= f.submit 'Créer une Relation', :class =>"btn btn-primary"%>
 	<%= if !@relation.id.nil? then  link_to image_tag("glyphicons/glyphicons_016_bin.png"), @relation,:title => "Supprimer le compte", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %>

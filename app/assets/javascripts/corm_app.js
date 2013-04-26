@@ -3,10 +3,15 @@ $(document).ready(function() {
   /* AlertBox fadeout */
   var alerts = $('.alert');
   setTimeout(function() {
-    alerts.css({
-      top: '-=200px'  
-    })
+    alerts.each(function() {
+      this.setAttribute('style', 'top: -200px;');
+    });
   }, 5000);
+  $(document.getElementById('link_to_close_alert')).click(function() {
+    alerts.each(function() {
+      this.setAttribute('style', 'top: -200px;');
+    });
+  });
   
   /* Form contact on Account_Event view  */
   var form_contact__account_event__view = $('#new_contact');
@@ -138,11 +143,16 @@ $(document).ready(function() {
   
   // gestion de la check box lors de la creation d'un event
   $(document.getElementById('generate')).change(function() {
+    if ($('#account_id').val() == '') {
+      $(this).attr('checked', false);
+      return false;
+    }
     if($(this).is(':checked')){
       $(document.getElementById('task_values')).show();
     } else {
       $(document.getElementById('task_values')).hide();
     }
+    return false;
   });
   
   // Profil edition cancellation
