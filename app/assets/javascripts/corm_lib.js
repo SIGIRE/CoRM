@@ -25,10 +25,10 @@
             }
             return HTML;
         },
-        getContactsByAccount: function(account) {
-          $.get('/tasks/update_contact_select/' + account, 
+        getContactsByAccount: function(toId, account) {
+          $.get('/taches/update_contact_select/' + account, 
             function(data){
-                var option; var that = document.getElementById('task_contact_id');
+                var option; var that = document.getElementById(toId);
                 that.innerHTML = '';
                 
                 option = corm.createHTML('option');
@@ -48,6 +48,22 @@
           } else{
             $(document.getElementById('task_notice')).hide();
           }
+        },
+        /**
+         * Add or use the alert box
+         * @param {String} type     error|notice
+         * @param {String} message  The message you want to display
+         *
+        **/
+        addAlert: function(type, message) {
+            var box = document.getElementById('alert_box');
+            box.innerHTML = ''
+            var div = corm.createHTML('div', { 'class': 'alert ' + type, style: 'top: 50px' });
+            div.appendChild(corm.createHTML('p', { content: message }));
+            box.appendChild(div);
+            setTimeout(function() {
+                div.setAttribute('style', 'top: -200px');
+            }, 5000);
         }
     
     };

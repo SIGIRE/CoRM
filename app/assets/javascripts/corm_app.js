@@ -8,6 +8,62 @@ $(document).ready(function() {
     })
   }, 5000);
   
+  /* Form contact on Account_Event view  */
+  var form_contact__account_event__view = $('#new_contact');
+  form_contact__account_event__view.submit(function() {
+    
+    $.ajax({
+      url: form_contact__account_event__view.attr('action'),
+      type: 'post',
+      data: form_contact__account_event__view.serialize(),
+      dataType: 'json',
+      success: function(o) {
+        var contact_div = corm.createHTML('div', { 'class': 'contact-container' });
+        
+        var a = corm.createHTML('a', { href: form_contact__account_event__view.attr('action') + '/edit', title: 'Editer le contact' });
+        
+        contact_div.appendChild(a);
+        
+        if (o.title == 'Mme') {
+          a.appendChild(corm.createHTML('img', { src: '/assets/glyphicons/glyphicons_035_woman.png' }));
+        } else {
+          a.appendChild(corm.createHTML('img', { src: '/assets/glyphicons/glyphicons_034_old_man.png' }));
+        }
+        var p = document.createElement('p');
+        contact_div.appendChild(p);
+        p.appendChild(corm.createHTML('b', { content: o.title + ' ' + o.forename + ' ' + o.surname }));
+        p.appendChild(document.createElement('br'));
+        if (o.tel != null && o.tel.length > 0) {
+          p.appendChild(corm.createHTML('span', { 'class': 'info_contact_tel', content: o.tel }));
+          p.appendChild(document.createElement('br'));
+        }
+        if (o.fax != null && o.fax.length > 0) {
+          p.appendChild(corm.createHTML('span', { 'class': 'info_contact_fax', content: o.fax }));
+          p.appendChild(document.createElement('br'));
+        }
+        if (o.mobile != null && o.mobile.length > 0) {
+          p.appendChild(corm.createHTML('span', { 'class': 'info_contact_tel', content: o.mobile }));
+          p.appendChild(document.createElement('br'));
+        }
+        if (o.email != null && o.email.length > 0) {
+          p.appendChild(corm.createHTML('span', { 'class': 'info_contact_tel', content: o.email }));
+          p.appendChild(document.createElement('br'));
+        }
+        document.getElementById('contacts_list').appendChild(contact_div);
+        
+        corm.getContactsByAccount('event_contact_id', o.account_id);
+        corm.addAlert('notice', 'Le contact a été correctement créé.');
+        
+        window.scrollTo(0, 0);
+        
+      },
+      error: function(o) {
+        console.log('this is an error', o);
+      }
+    });
+    return false;
+  });
+  
   $(document).on('click', '#listing-event .event', function() {
     var div = $(this).find('div.more');
     div.toggle();

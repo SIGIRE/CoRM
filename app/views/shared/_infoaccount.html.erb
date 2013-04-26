@@ -35,6 +35,7 @@
 </div>
 <hr>
 <% if !@account.contacts.nil? and @account.contacts.length > 0 %>
+<div id="contacts_list">
 <% @account.contacts.order_by_surname.each do |contact| %>
   <div class="contact-container">
     <% if contact.title == "Mme"%>
@@ -60,6 +61,7 @@
   </div>
 <% end # end each
 %>
+</div>
 <hr />
 <% end #end if
 %>
