@@ -4,9 +4,59 @@
               <h1>Statistiques de l'application</h1>
           </div>
      </div>
-  <div class="field">
-		 <p><span class="span2">Utilisateurs actifs : </span><%= @count[:user] %></p>
-		 <p><span class="span2">Nombre de Comptes : </span><%= @count[:account] %></p>
-		
-  </div>
+	<table class="table table-bordered table-striped table-hover">
+		<thead>
+			<tr>
+				 <th class="text-center">Éléments</th>
+				<th class="text-center">Quantité</th>
+				<th class="text-center">Pièces-jointes</th>
+			</tr>
+		 </thead>
+		<tbody>
+			<tr>
+				<td class="text-center">Utilisateurs actifs</td>
+				<td class="text-center"><%= @count[:user] %></td>
+				<td class="text-center">-</td>
+			</tr>
+			<tr>
+				<td class="text-center">Comptes</td>
+				<td class="text-center"><%= @count[:account] %></td>
+				<td class="text-center">-</td>
+			</tr>
+			<tr>
+				<td class="text-center">Contacts</td>
+				<td class="text-center"><%= @count[:contact] %></td>
+				<td class="text-center">-</td>
+			</tr>
+			<tr>
+				<td class="text-center">Évènements</td>
+				<td class="text-center"><%= @count[:event] %></td>
+				<td class="text-center"><%= number_to_human_size(@bdd_size[:event], :locale => I18n.locale, :separator => ',') %> </td>
+			</tr>
+			<tr>
+				<td class="text-center">Tâches</td>
+				<td class="text-center"><%= @count[:task] %></td>
+				<td class="text-center"><%= number_to_human_size(@bdd_size[:task], :locale => I18n.locale, :separator => ',') %> </td>
+			</tr>
+			<tr>
+				<td class="text-center">Opportunités</td>
+				<td class="text-center"><%= @count[:opportunity] %></td>
+				<td class="text-center"><%= number_to_human_size(@bdd_size[:opportunity], :locale => I18n.locale, :separator => ',') %> </td>
+			</tr>
+			<tr>
+				<td class="text-center">Devis</td>
+				<td class="text-center"><%= @count[:quotation] %></td>
+				<td class="text-center"><%= number_to_human_size(@bdd_size[:quotation], :locale => I18n.locale, :separator => ',') %> </td>
+			</tr>
+			<tr>
+				<td class="text-center">Documents</td>
+				<td class="text-center"><%= @count[:document] %></td>
+				<td class="text-center"><%= number_to_human_size(@bdd_size[:document], :locale => I18n.locale, :separator => ',') %> </td>
+			</tr>
+			<tr>
+			    <td colspan='2' class="text-center"><strong>Total</strong></td>
+				<td class="text-center"><%= number_to_human_size(@bdd_size[:total], :locale => I18n.locale, :separator => ',') %> </td>
+			</tr>
+		</tbody>
+	</table>
 </div>

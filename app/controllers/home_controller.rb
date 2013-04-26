@@ -11,10 +11,32 @@ class HomeController < ApplicationController
   # GET /types
   # GET /types.json
   def index
+
 	if current_user.has_role? :admin 
 	@count = Hash.new
     @count[:user] = User.all_reals.count
 	@count[:account] = Account.count
+	@count[:contact] = Contact.count
+	@count[:event] = Event.count
+	@count[:event_type] = EventType.count
+	@count[:task] = Task.count
+	@count[:opportunity] = Opportunity.count
+	@count[:quotation] = Quotation.count
+	@count[:quotation_template] = QuotationTemplate.count
+	@count[:document] = Document.count
+	
+	@bdd_size = Hash.new
+	@bdd_size[:event] = get_attach_size_of(Event)
+	@bdd_size[:task] = get_attach_size_of(Task)
+	@bdd_size[:document] = get_attach_size_of(Document)
+	@bdd_size[:quotation] = get_attach_size_of(Quotation)
+	@bdd_size[:opportunity] = get_attach_size_of(Opportunity)
+	
+	total = 0
+	@bdd_size.each do | e, i |
+		total += i
+	end
+	@bdd_size[:total]=total
 	
 	render "stats"
 	else
@@ -38,6 +60,12 @@ class HomeController < ApplicationController
 		@events
   end
   
-  
+  def get_attach_size_of(object)
+	size = 0
+	object.all.each do |d|
+		size += d.attach_file_size unless d.attach_file_size.nil?
+	end
+	return size
+  end
   
 end
