@@ -1,3 +1,21 @@
+<% if resource.errors.messages.count > 0 %>
+  <div id="alert_box">
+    <div class="alert notice" style="display: none;">
+      <%= image_tag('information.png') %>
+      <%= content_tag :p, "Un email vous a été envoyé." %>
+      <a id="link_to_close_alert" href="#" title="Fermer"><span class="caret-up"></span></a>
+    </div>
+  </div>
+  <script type="application/x-javascript">
+    var navmenu = document.getElementById('nav-menu');
+    console.log(navmenu);
+    var alert_top = 0;
+    if (navmenu) { alert_top = 50; }
+    var topString = alert_top.toString().concat('px');
+    $('.alert').css('top', topString).show();
+  </script>
+<% end %>
+
 <div id="bloc-login">
   <div id="logo">
   <%= image_tag("logo-login.png") %>
@@ -6,13 +24,11 @@
   <div id="login">
 
     <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-    <%= devise_error_messages! %>
     
       <div class="field" >
-          <div align="center"><h3>Mot de passe oublié ?</h3>
-          </div>
+          <div align="center"><h3>Mot de passe oublié ?</h3></div>
           <br /><br />
-          <div align="right">Votre e-mail : <%= f.email_field :email, { :required => 'required'} %> </div>
+          <div align="right">Votre e-mail : <%= email_field_tag 'user[email]', resource.email, { :required => 'required'} %> </div>
           <br /><br />
           <div class="pull-right">
             <%= f.submit "M'envoyer les instructions", :class =>"btn btn-primary" %>
