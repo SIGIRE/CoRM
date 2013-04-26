@@ -368,9 +368,19 @@ img.loading {
 
 .ellipse {
 	display: block;
-	text-overflow: ellipsis;
 	overflow: hidden;
-	white-space: nowrap
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+table.ellipse {
+	display: initial;
+	overflow: hidden;
+	tr > td {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 }
 
 p {

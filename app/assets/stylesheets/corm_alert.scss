@@ -13,6 +13,11 @@
   opacity: 1;
 	@include transit(top, 2s);
   text-align: center;
+	img {
+		position: absolute;
+		top: 18%;
+		left: 3%;
+	}
   p {
 		padding: 18px 0;
 		margin: 0;
