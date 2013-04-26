@@ -116,59 +116,72 @@ $(document).ready(function() {
   
   var corm_var = {};
   /*
-   * Task Account Search Accounts bar & Contacts Field updates
-   * GET tasks/_form
+   * Abstract Task Account Search Accounts bar & Contacts Field updates
+   * GET taches/_form
    */
-  $('#account-search').typeahead({
-    source: function(typeahead, query) {
-      if (typeahead.trim().length < tolerance) {
-        return false;
-      }
-      $.ajax({
-          url: '/compte/search.json?account=' + typeahead,
-          type: 'GET',
-          dataType: 'json',
-          beforeSend: function() {
-            $(document.getElementById('contact_id')).html(corm.createHTML('option'));
-            $(document.getElementById('account-search')).parent().children('.loading').removeClass('hidden');
-          },
-          success: function(o) {
-            corm_var['account-search-typeahead'] = o.slice(0);
-            query(o);
-            var parent = $(document.getElementById('account-search')).parent();
-            parent.children('.loading').addClass('hidden');
-            parent.children('.label').show();
-          }
-      });
-    },
-    updater: function(item) {
-      var i = corm_var['account-search-typeahead'], item;
-      for (var index = 0; index < i.length; index++){
-        if (i[index].id == item) {
-          item = i[index];
-          break;
+  $('.typeahead-account-search').each(function() {
+    var that = this;
+    $(that).typeahead({
+      source: function(typeahead, query) {
+        if (typeahead.trim().length < tolerance) {
+          return false;
         }
-      }
-      $(document.getElementById('account_id')).val(item.id);
-      var select = $(document.getElementById('contact_id'));
-      var contact_full_name = function(c) {
-        return c.title + ' ' + c.forename + ' ' + c.surname;
-      }
-      /* getContacts */
-      $.ajax({
-        url: "/taches/update_contact_select/" + item.id,
-        dataType: 'json',
-        beforeSend: function() {
-          select.parent().children('.loading').removeClass('hidden');
-        },
-        success: function(o) {
-          for (var index in o) {
-            select.append(corm.createHTML('option', { content: contact_full_name(o[index]) + '', value: o[index].id }));
+        
+        $.ajax({
+            url: '/compte/search.json?account=' + typeahead,
+            type: 'GET',
+            dataType: 'json',
+            beforeSend: function() {
+              var contact_list = document.getElementById('contact_id');
+              if (contact_list) {
+                $(contact_list).html(corm.createHTML('option'));
+              }
+              $(that).parent().children('.loading').removeClass('hidden');
+            },
+            success: function(o) {
+              corm_var['account-search-typeahead'] = o.slice(0);
+              query(o);
+              var parent = $(that).parent();
+              parent.children('.loading').addClass('hidden');
+              var label = parent.children('.label');
+              if (label.show) {
+                label.show();
+              }
+            }
+        });
+      },
+      updater: function(item) {
+        var i = corm_var['account-search-typeahead'], item;
+        for (var index = 0; index < i.length; index++) {
+          if (i[index].id == item) {
+            item = i[index];
+            break;
           }
-          select.parent().children('.loading').addClass('hidden');
         }
-      });
-      return item.name;
-    }
+        $(document.getElementById(that.getAttribute('data-field'))).val(item.id);
+        var select_dom = document.getElementById('contact_id');
+        if (select_dom) {
+          var select = $(select_dom);
+          var contact_full_name = function(c) {
+            return c.title + ' ' + c.forename + ' ' + c.surname;
+          }
+          /* getContacts */
+          $.ajax({
+            url: "/taches/update_contact_select/" + item.id,
+            dataType: 'json',
+            beforeSend: function() {
+              select.parent().children('.loading').removeClass('hidden');
+            },
+            success: function(o) {
+              for (var index in o) {
+                select.append(corm.createHTML('option', { content: contact_full_name(o[index]) + '', value: o[index].id }));
+              }
+              select.parent().children('.loading').addClass('hidden');
+            }
+          }); 
+        }
+        return item.name;
+      }
+    });
   });
 });
