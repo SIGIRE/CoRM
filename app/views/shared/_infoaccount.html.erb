@@ -43,6 +43,8 @@
       <%= link_to image_tag("glyphicons/glyphicons_035_woman.png"), edit_contact_path(contact),{:title => "Éditer le contact"} %> <% if !contact.job.blank? then %> <i class="contact-job">(<%= contact.job %>)</i><% end %>
     <% elsif contact.title == "M." %>
       <%= link_to image_tag("glyphicons/glyphicons_034_old_man.png"), edit_contact_path(contact),{:title => "Éditer le contact"} %><% if !contact.job.blank? then %><i class="contact-job"> (<%= contact.job %>)</i><% end %>
+    <% else %>
+      <%= link_to image_tag(nil, :size => '18x18'), edit_contact_path(contact),{:title => "Éditer le contact"} %><% if !contact.job.blank? then %><i class="contact-job"> (<%= contact.job %>)</i><% end %>
     <% end %>
     <p>
       <b><%= contact.full_name %></b><br />
@@ -62,11 +64,12 @@
   </div>
 <% end # end each
 %>
-
-<hr />
 <% end #end if
 %>
 </div>
+<% if !@account.contacts.nil? and @account.contacts.length > 0 %>
+<hr />
+<% end %>
 <%= form_for( [@account, @account.contacts.new], :html => {:class => 'well'}) do |f| %>
 <p><%=image_tag("glyphicons/glyphicons_006_user_add.png")%>Ajouter un contact</p>
   <div class="row small-fields">
@@ -106,5 +109,5 @@
     </div>
   </div>
   <%= f.hidden_field :account_id %>
-  <div class = "actions"><%= f.submit %></div>
+  <div class = "actions"><%= f.submit "Ajouter un Contact" %></div>
 <% end %>

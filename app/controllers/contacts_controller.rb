@@ -98,7 +98,13 @@ class ContactsController < ApplicationController
             else redirect_to account_events_url(@contact.account_id), :notice => 'Le contact a été créé.'
             end
           }
-          format.json { render :json => @contact, :status => :created, :location => @contact }
+          o = {
+            :contact => @contact,
+            :paths => {
+              :edit => edit_contact_url(@contact.id)
+            }
+          }
+          format.json { render :json => o, :status => :created, :location => @contact }
         else
           flash[:error] = t('app.save_undefined_error')
           format.html { render :action => "new" }

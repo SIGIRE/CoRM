@@ -23,11 +23,15 @@ $(document).ready(function() {
       data: form_contact__account_event__view.serialize(),
       dataType: 'json',
       success: function(o) {
+        var contact = o.contact;
+        
         var contact_div = corm.createHTML('div', { 'class': 'contact-container' });
         
-        var a = corm.createHTML('a', { href: form_contact__account_event__view.attr('action') + '/edit', title: 'Editer le contact' });
-        
+        var a = corm.createHTML('a', { href: o.paths.edit, title: 'Editer le contact' });
         contact_div.appendChild(a);
+        
+        var  i = corm.createHTML('i', { 'class': 'contact-job', content: '('.concat(contact.job, ')') });
+        contact_div.appendChild(i);
         
         if (o.title == 'Mme') {
           a.appendChild(corm.createHTML('img', { src: '/assets/glyphicons/glyphicons_035_woman.png' }));
@@ -36,27 +40,34 @@ $(document).ready(function() {
         }
         var p = document.createElement('p');
         contact_div.appendChild(p);
-        p.appendChild(corm.createHTML('b', { content: o.title + ' ' + o.forename + ' ' + o.surname }));
+        p.appendChild(corm.createHTML('b', { content: contact.title.concat(' ', contact.forename, ' ', contact.surname) }));
         p.appendChild(document.createElement('br'));
         if (o.tel != null && o.tel.length > 0) {
-          p.appendChild(corm.createHTML('span', { 'class': 'info_contact_tel', content: o.tel }));
+          p.appendChild(corm.createHTML('span', { 'class': 'info_contact_tel', content: 'Tel : '.concat(contact.tel) }));
           p.appendChild(document.createElement('br'));
         }
         if (o.fax != null && o.fax.length > 0) {
-          p.appendChild(corm.createHTML('span', { 'class': 'info_contact_fax', content: o.fax }));
+          p.appendChild(corm.createHTML('span', { 'class': 'info_contact_fax', content: 'Fax : '.concat(contact.fax) }));
           p.appendChild(document.createElement('br'));
         }
         if (o.mobile != null && o.mobile.length > 0) {
-          p.appendChild(corm.createHTML('span', { 'class': 'info_contact_tel', content: o.mobile }));
+          p.appendChild(corm.createHTML('span', { 'class': 'info_contact_mob', content: 'Mobile : '.concat(contact.mobile) }));
           p.appendChild(document.createElement('br'));
         }
         if (o.email != null && o.email.length > 0) {
-          p.appendChild(corm.createHTML('span', { 'class': 'info_contact_tel', content: o.email }));
+          var a_email = corm.createHTML('a', { 'class': 'ellipse', content: o.email, href: 'mailto:'.concat(contact.email) })
+          
+          p.appendChild(corm.createHTML('span', { 'class': 'info_contact_email', content: a_email }));
           p.appendChild(document.createElement('br'));
+        }
+        
+        if (contact_div.lastChild.lastChild.localName == 'br') {
+          var br = contact_div.lastChild.lastChild;
+          contact_div.lastChild.removeChild(br);
         }
         document.getElementById('contacts_list').appendChild(contact_div);
         
-        corm.getContactsByAccount('event_contact_id', o.account_id);
+        corm.getContactsByAccount('event_contact_id', contact.account_id);
         corm.addAlert('notice', 'Le contact a été correctement créé.');
         
         window.scrollTo(0, 0);
