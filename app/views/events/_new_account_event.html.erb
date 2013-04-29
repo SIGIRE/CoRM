@@ -83,7 +83,7 @@
     <div class="row">
       <div class="field">
         <%= label_tag :user_id, "Collaborateur :", :class => 'top' %>
-        <%= f.collection_select :user_id, User.all_reals, :id, :full_name, { :selected => current_user.id } %>
+        <%= f.collection_select :user_id, User.all_reals, :id, :full_name, { :selected => current_user.id }, :class => 'assigned_to' %>
       </div>
       <div class="field align-mid">
         <label class="checkbox">

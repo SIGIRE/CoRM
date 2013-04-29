@@ -227,7 +227,7 @@ fr:
   devise:
     failure:
       already_authenticated: "Vous êtes déjà connecté !"
-      unauthenticated: "Vous devez vous connecter ou vous inscrire pour continuer."
+      unauthenticated: "Vous devez vous connecter pour continuer."
       incorrect: "Votre email ou mot de passe est incorrect."
       unconfirmed: "Vous devez valider votre compte pour continuer."
       locked: "Votre compte est verrouillé. Veuillez contacter un adminstrateur."

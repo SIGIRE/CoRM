@@ -15,7 +15,7 @@
 		<div class="field full">
 			<div class="span2"><label for="account-search"><%= t('app.model.Account') + colon %></label></div>
 				<p>
-					<%= text_field_tag(nil, (@task.account.nil? ? '' : @task.account.company),{:class => 'typeahead-account-search', :type => 'search', :autocomplete => :off, 'data-field' => 'account_id', :placeholder => 'Rechercher'}) %>
+					<%= text_field_tag(nil, (@task.account.nil? ? '' : @task.account.company),{:class => 'typeahead-account-search', :type => 'search', :autocomplete => :off, 'data-field' => 'account_id', :placeholder => 'Rechercher', :id => 'account_search_field'}) %>
 					<%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
 					<span class="label label-info" id="task_notice"  style="display: none; margin-left: 2em;">
 							<i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant
@@ -25,14 +25,14 @@
 		</div>
 	</div>
 	<!-- Contact field -->
-  <div id="nameContacts">
+  <div class="field" id="nameContacts">
     <%= render :partial => 'contacts' %>
   </div>
 	<div class="row row-fluid">
 		<div class="field full">
 			<div class="span2"><%= f.label(:user_id, t('app.fields.assigned') + colon) %></div>
 			<p>
-			<%= f.collection_select :user_id, @users, :id, :full_name, { :selected => (@task.user.nil?() ? current_user.id : @task.user.id) } %>
+			<%= f.collection_select :user_id, @users, :id, :full_name, { :selected => (@task.user.nil?() ? current_user.id : @task.user.id) }, :class => 'assigned_to' %>
 			<label for="task_mail" class="checkbox right-field">
 				<%= check_box_tag(:mail, :yes, false, { :id => 'task_mail' }) %>
 				Envoyer un Mail à ce collaborateur
@@ -95,28 +95,23 @@
 			<%= f.file_field :attach %>
 		</div>
 	</div>
-  <div class="row row-fluid">
+  <div id="row_for_generate" class="row row-fluid" style="display: none;">
 		<div class="field full">
 			<label class="checkbox">
 				<%= check_box_tag :generate, "yes" %> Créer un évènement attaché au Compte
 			</label>
 		</div>
-  </div>
-  <div id="task_values" style="display: none;">
-		<div class="row row-fluid">
+		<div class="field full" id="task_value" style="display: none;">
 			<div class="field full">
 				<div class="span2"><label for="event_type_id"><%= t('app.model.EventType') + colon %></label></div> 
 				<%= collection_select :event_type, :id ,EventType.order('label'),:id, :full_type, {:include_blank => true }%>
 			</div>	
-		</div>
-		<div class="row row-fluid">
 			<div class="field full">
 				<div class="span2"><%= f.label(:notes, t('app.fields.description') + colon) %></div>
 				<%= text_area_tag :notes, nil, :rows => '5', :style => 'width: 50%;' %>
-				<p>ujyfuyfuyfuyvuf</p>
-			</div>
+			</div>	
 		</div>
-	</div>
+  </div>
 	<% if !@task.id.nil? %>
 	<div class="row row-fluid">
 		<div class="field full">

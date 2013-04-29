@@ -62,7 +62,7 @@
 		<div class="row row-fluid">
 			<div class="field full">
 				<div class="span2"><%= f.label(:user_id, t('app.fields.collegue') + colon) %></div>
-				<%= f.collection_select :user_id, @users, :id, :full_name, { :selected => (@quotation.user.nil?() ? current_user.id : @quotation.user.id) } %>
+				<%= f.collection_select :user_id, @users, :id, :full_name, { :selected => (@quotation.user.nil?() ? current_user.id : @quotation.user.id) }, :class => 'assigned_to' %>
 			</div>
 		</div>
     <hr />

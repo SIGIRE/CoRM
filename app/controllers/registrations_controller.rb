@@ -208,7 +208,7 @@ class RegistrationsController < Devise::RegistrationsController
           if Rails.env.production?
             cookies.signed["remember_user_token"] = {
               :value => @user.class.serialize_into_cookie(@user.reload),
-              :expires => 3.months.from_now,
+              :expires => 5.days.from_now,
               :domain => CORM[:host],
             }
           end

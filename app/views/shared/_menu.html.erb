@@ -76,7 +76,7 @@
 			<a id="link-button-profile" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 				<i class="icon-user"></i>
 				<% if current_user.forename.length < 10 %>
-          <%= content_tag('span', current_user.forename) %>
+          <%= content_tag('span', current_user.forename, :id => 'current_user', 'data-id' => current_user.id) %>
         <% else %>
           <%= content_tag('span', current_user.forename[0..10] + '...') %>
 				<% end %>
