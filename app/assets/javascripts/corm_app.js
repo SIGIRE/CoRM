@@ -174,17 +174,29 @@ $(document).ready(function() {
   });
   
   // gestion de la check box lors de la creation d'un event
-  $(document.getElementById('generate')).change(function() {
-    if ($('#account_id').val() == '') {
-      $(this).attr('checked', false);
+  $(document.getElementById('account_search_field')).on('keyup', function(e) {
+    if($(this).val() == ''){
+      $(document.getElementById('generate')).attr('checked', false);
+      if ($(document.getElementById('row_for_generate')).is(':visible')) { // visible
+        $(document.getElementById('task_value')).hide();
+        $(document.getElementById('row_for_generate')).slideUp();
+      }
       return false;
-    }
-    if($(this).is(':checked')){
-      $(document.getElementById('task_values')).show();
     } else {
-      $(document.getElementById('task_values')).hide();
+      if (!$(document.getElementById('row_for_generate')).is(':visible')) {
+        $(document.getElementById('row_for_generate')).slideDown();
+      }
     }
     return false;
+  });
+  
+  $(document.getElementById('generate')).on('change', function() {
+    if ($(this).is(':checked') && !$(document.getElementById('task_value')).is(':visible')) {
+      $(document.getElementById('task_value')).slideDown();
+    } else if (!$(this).is(':checked') && $(document.getElementById('task_value')).is(':visible')) {
+      $(document.getElementById('task_value')).slideUp();
+    }
+    
   });
   
   // Profil edition cancellation

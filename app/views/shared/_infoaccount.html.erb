@@ -44,7 +44,7 @@
     <% elsif contact.title == "M." %>
       <%= link_to image_tag("glyphicons/glyphicons_034_old_man.png"), edit_contact_path(contact),{:title => "Éditer le contact"} %><% if !contact.job.blank? then %><i class="contact-job"> (<%= contact.job %>)</i><% end %>
     <% else %>
-      <%= link_to image_tag(nil, :size => '18x18'), edit_contact_path(contact),{:title => "Éditer le contact"} %><% if !contact.job.blank? then %><i class="contact-job"> (<%= contact.job %>)</i><% end %>
+      <%= link_to image_tag("glyphicons/no_title.png", :size => '18x18'), edit_contact_path(contact),{:title => "Éditer le contact"} %><% if !contact.job.blank? then %><i class="contact-job"> (<%= contact.job %>)</i><% end %>
     <% end %>
     <p>
       <b><%= contact.full_name %></b><br />

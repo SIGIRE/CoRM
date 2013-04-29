@@ -1,18 +1,15 @@
 $(document).ready(function() {
   
   var navMenuBar = $('#nav-menu'), formSearchBar = $('#form-search'), accountField = $('#main-search-bar');
-  /* AccountSearchBar Animation */
-  accountField.on('focus', function() {
-    corm.AccountFieldIsFocused = true;
-    formSearchBar.addClass('focus');
-  });
-  accountField.on('blur', function() {
-    corm.AccountFieldIsFocused = false;
-    formSearchBar.removeClass('focus');
-  });
-  formSearchBar.on('submit', function() {
-    corm.AccountFieldIsFocused = false;
-    formSearchBar.removeClass('focus');
+  $(document).on('click', function(e) {
+    console.log(e);
+    if (e.target == accountField[0] | e.target == navMenuBar[0]) {
+      if (!accountField.hasClass('focus')) {
+        accountField.addClass('focus');
+      } 
+    } else {
+      accountField.removeClass('focus');
+    }
   });
   var typeAheadInfo = {};
     
@@ -107,11 +104,18 @@ $(document).ready(function() {
       });
     },
     updater: function(item) {
+      
       window.location.href = item;
-
       return 'Veuillez patientez...';
     }
   });
+  /*var inputSearch = $('#main-search-bar');
+  $(document).on('click', function(e) {
+    console.log(e);
+    if (inputSearch.hasClass('focus') && e.target != inputSearch[0] && e.target != $('ul.typeahead')[0]) {
+      inputSearch.removeClass('focus');
+    }
+  });*/
   
   var corm_var = {};
   /*

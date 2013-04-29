@@ -229,14 +229,17 @@ form#form-search {
   cursor: default;
   @include gradient-vertical($navbarBackgroundHighlight, $navbarBackground);
   @include transit(padding, 0.8s);
-  &.focus {
-    input[type=search] {
-      width: $form-search-size-width-onfocused;
-    }
-  }
+	&.focus {
+		input[type=search] {
+			   
+		}
+	}
   input[type=search] {
     @include transit(width, .5s);
     @include border-radius(15px 0 0 15px);
     width: $form-search-size-width;
+		&.focus {
+			width: $form-search-size-width-onfocused;
+		}
   }
 }
