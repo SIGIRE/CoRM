@@ -9,10 +9,10 @@ set :keep_releases, 10
 set :scm, :git
 
 # HTTP Server
-role :web, 'demo-crm.sigire.net' #, 'crm.ligepack.com', 'crm.sigire.net'
-role :app, 'demo-crm.sigire.net'
+role :web, 'demo-crm.sigire.net', 'crm.sigire.net' #, 'crm.ligepack.com', 'crm.sigire.net'
+role :app, 'demo-crm.sigire.net', 'crm.sigire.net'
 # Database server
-role :db,  'demo-crm.sigire.net', :primary => true
+role :db,  'demo-crm.sigire.net', 'crm.sigire.net', :primary => true
 
 # Clean up last releases
 # after "deploy:restart", "deploy:cleanup"
