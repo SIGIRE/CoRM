@@ -13,43 +13,43 @@
 
 
   <div class="field">
-	  <div class="span2"> Société : </div> <%= f.text_field :company ,{ :class => 'required', :style=>'width: 30em;'}  %><span class="req" />
+	  <div class="span2"> Société : </div> <%= f.text_field :company ,{ :class => 'required'}  %><span class="req" />
   </div>
   
   <div class="field">
-    <div class="span2"> Adresse : </div> <%= f.text_field :adress1, :style=>'width: 30em;' %>
+    <div class="span2"> Adresse : </div> <%= f.text_field :adress1 %>
   </div>
   
   <div class="field">
-    <div class="span2"> Adresse (suite) : </div> <%= f.text_field :adress2, :style=>'width: 30em;' %>
+    <div class="span2"> Adresse (suite) : </div> <%= f.text_field :adress2 %>
   </div>
   
   <div class="field">
-    <div class="span2"> CP : </div> <%= f.text_field :zip, :style=>'width: 30em;' %>
+    <div class="span2"> CP : </div> <%= f.text_field :zip %>
   </div>
   
   <div class="field">
-   <div class="span2"> Ville : </div> <%= f.text_field :city, :style=>'width: 30em;' %>
+   <div class="span2"> Ville : </div> <%= f.text_field :city %>
   </div>
   
   <div class="field">
-   <div class="span2"> Pays : </div> <%= f.text_field :country, :style=>'width: 30em;' %>
+   <div class="span2"> Pays : </div> <%= f.text_field :country %>
   </div>
   
   <div class="field">
-   <div class="span2"> Tel : </div> <%= f.text_field :tel, :style=>'width: 30em;' %>
+   <div class="span2"> Tel : </div> <%= f.text_field :tel %>
   </div>
   
   <div class="field">
-   <div class="span2"> Fax : </div> <%= f.text_field :fax, :style=>'width: 30em;' %>
+   <div class="span2"> Fax : </div> <%= f.text_field :fax %>
   </div>
   
   <div class="field">
-   <div class="span2"> E-mail : </div> <%= f.text_field :email, :style=>'width: 30em;' %>
+   <div class="span2"> E-mail : </div> <%= f.text_field :email %>
   </div>
   
   <div class="field">
-   <div class="span2"> Site web : </div> <%= f.text_field :web, :style=>'width: 30em;' %>
+   <div class="span2"> Site web : </div> <%= f.text_field :web %>
   </div>  
   
   <div class="field">
@@ -71,7 +71,7 @@
   </div>
   
   <div class="field">
-    <div class="span2"> Code comptable : </div> <%= f.text_field :accounting_code, :style=>'width: 30em;' %>
+    <div class="span2"> Code comptable : </div> <%= f.text_field :accounting_code %>
   </div>
   
   <div class="field">
@@ -79,8 +79,7 @@
   </div>
   
   <div class="field">
-    <div class="span2">Notes : </div> <%=f.text_area :notes , :display_with => :simple_format, :rows => "5", :style=>'width: 30em;' %>
-	<!--<%= f.text_area :notes , :display_with => :simple_format, :rows => "5", :style=>'width: 30em;'%>-->
+    <div class="span2">Notes : </div> <%=f.text_area :notes , :display_with => :simple_format, :rows => "5", :style => 'width: 50%;' %>
   </div>
 
   <br />

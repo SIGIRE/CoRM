@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class TagsController < ApplicationController
   
   before_filter :authenticate_user!
@@ -44,7 +46,7 @@ class TagsController < ApplicationController
       
       respond_to do |format|
         if @tag.save
-          format.html  { redirect_to tags_path, :notice => 'Le Tag a ete cree' }
+          format.html  { redirect_to tags_path, :notice => 'Le tag a été créé.' }
           format.json  { render :json => @tag,
                         :status => :created}
         else
@@ -102,7 +104,7 @@ class TagsController < ApplicationController
      
       respond_to do |format|
         if @tag.update_attributes(params[:tag])
-          format.html  { redirect_to(tags_url, :notice => 'Le Tag a ete mis a jour.') }
+          format.html  { redirect_to(tags_url, :notice => 'Le tag a été mis à jour.') }
           format.json  { head :no_content }
         else
           flash[:error] = t('app.save_undefined_error')
@@ -126,7 +128,7 @@ class TagsController < ApplicationController
       @tag.destroy
      
       respond_to do |format|
-        format.html { redirect_to tags_url }
+        format.html { redirect_to tags_url, :notice => 'Le tag a bien été supprimé.' }
         format.json { head :no_content }
       end
     else

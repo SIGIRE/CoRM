@@ -1,9 +1,10 @@
 form {
   .row {
     margin-top: 0;
-		min-height: 40px;
-    div, p, a, ul, li, select, input, textarea {
+	margin-bottom: 0;
+    div, p, a, ul, li, select, input, textarea, label {
       display: inline-block;
+	  margin-bottom: 0;
     }
     &.row-center {
       margin-left: auto;
@@ -20,6 +21,15 @@ form {
 		}
   }
   .field {
+	> div, > p, > a, > ul, > li, > select, > input, > textarea, > label {
+
+		margin-bottom: 9px;
+	}
+	> .span2 {
+		text-align: right;
+		padding-right: 8px;
+		margin-top: 0.45%;
+	}
 		label {
 			&.error {
 				/* This field is required */

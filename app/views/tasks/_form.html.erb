@@ -25,7 +25,7 @@
 		</div>
 	</div>
 	<!-- Contact field -->
-  <div class="field" id="nameContacts">
+  <div id="nameContacts">
     <%= render :partial => 'contacts' %>
   </div>
 	<div class="row row-fluid">
@@ -51,7 +51,7 @@
   <div class="row row-fluid">
 		<div class="field full">
 			<div class="span2"><%= f.label(:notes, t('app.fields.description') + colon) %></div>
-			<%= f.text_area :notes, :rows => "5", :style => 'width: 80%;' %>
+			<%= f.text_area :notes, :rows => "5", :style => 'width: 50%;' %>
 		</div>
 	</div>
 	<!-- STATUT -->
@@ -112,7 +112,8 @@
 		<div class="row row-fluid">
 			<div class="field full">
 				<div class="span2"><%= f.label(:notes, t('app.fields.description') + colon) %></div>
-				<%= text_area_tag :notes, nil, :rows => '5', :style => 'width: 80%;' %>
+				<%= text_area_tag :notes, nil, :rows => '5', :style => 'width: 50%;' %>
+				<p>ujyfuyfuyfuyvuf</p>
 			</div>
 		</div>
 	</div>

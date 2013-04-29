@@ -47,7 +47,7 @@ class OriginsController < ApplicationController
       
       respond_to do |format|
         if @origin.save
-          format.html  { redirect_to origins_path, :notice => "L'origine a ete creee" }
+          format.html  { redirect_to origins_path, :notice => "L'origine a été créée." }
           format.json  { render :json => @origin, :status => :created}
         else
           format.html  { render :action => "new" }
@@ -99,7 +99,7 @@ class OriginsController < ApplicationController
      
       respond_to do |format|
         if @origin.update_attributes(params[:origin])
-          format.html  { redirect_to(origins_url, :notice => "L' origine a ete mis a jour.") }
+          format.html  { redirect_to(origins_url, :notice => "L'origine a été mis à jour.") }
           format.json  { head :no_content }
         else
           flash[:error] = t('app.save_undefined_error')

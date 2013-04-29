@@ -19,43 +19,43 @@
   <table class="table table-bordered table-striped table-hover">
     <thead>
       <tr>
-        <th><center>#</center></th>
-        <th><center>Adresse e-mail</center></th>
-        <th><center>Nom</center></th>
-        <th><center>Rôles</center></th>
+        <th class="text-center">#</th>
+        <th class="text-center">Nom</th>
+        <th class="text-center">Login / e-mail</th>
+        <th class="text-center">Rôles</th>
         <% if current_user.has_role?(:super_user) or current_user.has_role?(:admin) %>
-			    <% if current_user.has_role?(:admin) %><th><center>État</center></th><% end %>
-			    <th><center>Éditer</center></th>
+			    <% if current_user.has_role?(:admin) %><th class="text-center">État</th><% end %>
+			    <th class="text-center">Éditer</th>
         <% end %>
       </tr>
     </thead>
     <tbody>
     <% @users.each do |u| %>
       <tr>
-        <td><center><%= u.id %></center></td>
-        <td><%= link_to u.email, edit_user_path(u) %></td>
+        <td class="text-center"><%= u.id %></td>
         <td><%= u.full_name %></td>
-        <td>
+        <td class="text-center"><%= mail_to u.email %></td>
+        <td class="text-center">
 	<% if u.roles.length > 0 %>
 	  <% if u.roles[0].name == 'admin' %>
-	  <center><span class="badge badge-important"> <%= t('app.roles.admin') %> </span></center>
+	  <span class="badge badge-important"> <%= t('app.roles.admin') %> </span>
 	  <% end %>
 	  <% if u.roles[0].name == 'super_user' %>
-	  <center><span class="badge badge-warning"> <%= t('app.roles.super_user') %> </span></center>
+	  <span class="badge badge-warning"> <%= t('app.roles.super_user') %> </span>
 	  <% end %>
 	<% else %>
-	<center> - </center>
+	 - 
 	<% end %>
 	</td>
         <% if current_user.has_role?(:admin) %>
           <% if u.enabled? %>
-            <td><center><span class="label label-success">Activé</span></center></td>
+            <td class="text-center"><span class="label label-success">Activé</span></td>
           <% else %>
-            <td><center><span class="label label-inverse">Désactivé</span></center></td>
+            <td class="text-center"><span class="label label-inverse">Désactivé</span></td>
           <% end %>
         <% end %>
         <% if current_user.has_role?(:super_user) or current_user.has_role?(:admin) %>
-        <td><center><%= link_to image_tag('/assets/glyphicons/glyphicons_151_edit.png', :alt => 'Editer'), edit_user_path(u) ,{:title => "Éditer #{u.full_name}", :class=>"btn"} %></center></td>
+        <td class="text-center"><%= link_to image_tag('/assets/glyphicons/glyphicons_151_edit.png', :alt => 'Editer'), edit_user_path(u) ,{:title => "Éditer #{u.full_name}", :class=>"btn"} %></td>
         <% end %>
       </tr>
     <% end %>

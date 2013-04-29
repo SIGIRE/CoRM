@@ -30,7 +30,7 @@
 		</div>
           
 	<% if @account.tags.blank? %>
-		<h4> Aucun Tag n'est rattaché à ce compte </h4>
+		<h4> Aucun Tag n'est rattaché à ce compte...</h4>
 	<% else %>
         
 
@@ -38,9 +38,9 @@
 <table class="table table-bordered table-striped">
   <thead>
   <tr>
-    <th><center>Nom</center></th>
-    <th><center>Description</center></th>
-    <th><center>Supprimer</center></th>
+    <th class="text-center">Nom</th>
+    <th class="text-center">Description</th>
+    <th class="text-center">Supprimer</th>
   </tr>
   </thead>
   <tbody>
@@ -48,9 +48,9 @@
 
 <% @tags.each do |tag| %>
   <tr>
-    <td style="width: 15em;"><center><%= tag.name %></center></td>
+    <td style="width: 15em;" class="text-center"><%= tag.name %></td>
     <td><%= truncate(tag.description, :length => 500, :separator => ' ') %></td>
-    <td><center><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), :controller => "accounts", :action => "delete_tag", :account_id => @account.id, :tag_id => tag.id %></center></td>
+    <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), {:controller => "accounts", :action => "delete_tag", :account_id => @account.id, :tag_id => tag.id } , :class =>"btn" %></td>
 	<% end %>
   </tbody>
 </table>

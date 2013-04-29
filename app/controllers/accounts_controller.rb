@@ -241,7 +241,7 @@ class AccountsController < ApplicationController
       @tag = Tag.find(params[:tag_id])
       @account = Account.find(params[:account_id])
       @account.tags << @tag
-      redirect_to account_events_url(@account.id), :notice => "Affectation du Tag effectuée!"
+      redirect_to account_events_url(@account.id), :notice => "Affectation du tag effectuée."
     else
       flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
       redirect_to accounts_url
@@ -259,7 +259,7 @@ class AccountsController < ApplicationController
       @account.tags.delete(@tag)
   
       respond_to do |format|
-          format.html  { redirect_to account_events_url(@account.id), :notice => "Suppression de l'affectation du Tag effectuée!" }
+          format.html  { redirect_to account_events_url(@account.id), :notice => "Suppression de l'affectation du tag effectuée." }
           format.json  { render :json => @tag }
       end
     else
