@@ -13,6 +13,24 @@ $(document).ready(function() {
     });
   });
   
+  var current_user_id = document.getElementById('current_user').getAttribute('data-id');
+  $('.assigned_to').change(function() {
+    var checkbox = $(this).parent().find('input[type=checkbox]');
+    if ($(this).val() != current_user_id && !$(this).is(':checked')) {
+      checkbox.attr('checked', 'checked');
+    } else {
+      checkbox.attr('checked', null);
+    }
+  });
+  $(document.getElementById('event_user_id')).change(function() {
+    var checkbox = $(document.getElementById('mail'));
+    if ($(this).val() != current_user_id) {
+      checkbox.attr('checked', true);
+    } else {
+      checkbox.attr('checked', false);
+    }
+  });
+  
   /* Form contact on Account_Event view  */
   var form_contact__account_event__view = $('#new_contact');
   form_contact__account_event__view.submit(function() {
