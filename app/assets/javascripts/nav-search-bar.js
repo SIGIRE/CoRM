@@ -107,9 +107,8 @@ $(document).ready(function() {
       });
     },
     updater: function(item) {
-      setTimeout(function() {
-        window.location.href = item;
-      }, 300);
+      window.location.href = item;
+
       return 'Veuillez patientez...';
     }
   });
