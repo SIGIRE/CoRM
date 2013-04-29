@@ -45,6 +45,7 @@ before 'deploy:assets:precompile', 'deploy:symlink_shared'
 after 'deploy:update_code', 'deploy:migrate', 'deploy:change_owner_tmp'
 # after "deploy:restart", "deploy:cleanup"
 
+set :rails_env,      "production"
 set :deploy_via, :remote_cache
 set :ssh_options, {:forward_agent => true}
 
