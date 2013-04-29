@@ -12,8 +12,11 @@ $(document).ready(function() {
       this.setAttribute('style', 'top: -200px;');
     });
   });
+  var current_user = document.getElementById('current_user'), current_user_id = '';
+  if (current_user) {
+    current_user_id = current_user.getAttribute('data-id');
+  }
   
-  var current_user_id = document.getElementById('current_user').getAttribute('data-id');
   $('.assigned_to').change(function() {
     var checkbox = $(this).parent().find('input[type=checkbox]');
     if ($(this).val() != current_user_id && !$(this).is(':checked')) {

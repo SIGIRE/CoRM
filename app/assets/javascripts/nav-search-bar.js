@@ -144,9 +144,10 @@ $(document).ready(function() {
               var parent = $(that).parent();
               parent.children('.loading').addClass('hidden');
               var label = parent.children('.label');
-              if (label.show) {
-                label.show();
+              if (label.hide) {
+                label.hide();
               }
+              
             }
         });
       },
@@ -156,6 +157,12 @@ $(document).ready(function() {
           if (i[index].id == item) {
             item = i[index];
             break;
+          }
+        }
+        if (item.name != null && item.name != '') {
+            var label = $(that).parent().children('.label');
+          if (label.show) {
+            label.show();
           }
         }
         $(document.getElementById(that.getAttribute('data-field'))).val(item.id);
