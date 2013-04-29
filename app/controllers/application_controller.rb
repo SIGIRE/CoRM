@@ -14,4 +14,8 @@ class ApplicationController < ActionController::Base
     @ability = Ability.new(current_user)
   end
   
+  def after_sign_out_path_for(resource_or_scope)
+    new_user_session_url
+  end
+  
 end

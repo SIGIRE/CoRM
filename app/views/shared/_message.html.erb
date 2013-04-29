@@ -1,8 +1,8 @@
 <div id="alert_box">
-<% if !flash[:error].blank? %>
+<% if !flash[:error].blank? or !flash[:alert].blank? %>
   <div class="alert error" style="display: none;">
     <%= image_tag('exclamation.png') %>
-    <%= content_tag :p, flash[:error] %>
+    <%= content_tag :p, (flash[:error] or flash[:alert]) %>
     <a id="link_to_close_alert" title="Fermer"><span class="caret-up"></span></a>
   </div>
 <% elsif !flash[:notice].blank? %>
