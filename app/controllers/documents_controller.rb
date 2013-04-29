@@ -126,7 +126,7 @@ class DocumentsController < ApplicationController
     @document.destroy
    
     respond_to do |format|
-      format.html { redirect_to account_events_url(@document.account_id) }
+      format.html { redirect_to account_events_url(@document.account_id), :notice => "Le document a bien été supprimé." }
       format.json { head :no_content }
     end
   end

@@ -94,7 +94,7 @@ class RelationsController < ApplicationController
     @relation.destroy
    
     respond_to do |format|
-      format.html { redirect_to account_events_url(@relation.account1_id) }
+      format.html { redirect_to account_events_url(@relation.account1_id), :notice => "La relation a bien été supprimée."  }
       format.json { head :no_content }
     end
   end

@@ -162,7 +162,7 @@ class AccountsController < ApplicationController
       @account.destroy
   
       respond_to do |format|
-        format.html { redirect_to accounts_url }
+        format.html { redirect_to root_path, :notice => "Le compte a bien été supprimé."  }
         format.json { head :no_content }
       end
     else

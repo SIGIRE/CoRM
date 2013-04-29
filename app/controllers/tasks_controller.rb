@@ -169,7 +169,7 @@ class TasksController < ApplicationController
 	if @ability.can? :destroy, Task
 	  @task = Task.find(params[:id])
 	  @task.destroy
-	  redirect_to filter_tasks_path, :notice => 'La tâche a été correctement supprimée'
+	  redirect_to filter_tasks_path, :notice => 'La tâche a bien été supprimée.'
     else
 	  flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
 	  redirect_to tasks_url

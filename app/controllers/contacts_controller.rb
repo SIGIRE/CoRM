@@ -161,7 +161,7 @@ class ContactsController < ApplicationController
       @contact.destroy
   
       respond_to do |format|
-        format.html { redirect_to (@contact.account.nil?() ? contacts_url : account_events_path(@contact.account)) }
+        format.html { redirect_to (@contact.account.nil?() ? root_path : account_events_path(@contact.account)), :notice => "Le contact a bien été supprimé."  }
         format.json { head :no_content }
       end
     else

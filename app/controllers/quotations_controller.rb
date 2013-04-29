@@ -81,7 +81,7 @@ class QuotationsController < ApplicationController
     @quotation.total_incl_tax = @quotation.total_excl_tax + @quotation.total_VAT
 		if @quotation.save
 			self.create_event(false)
-			redirect_to (!@quotation.account.nil? ? account_events_url(@quotation.account_id) : quotations_path), :notice => "Le devis a été créé"
+			redirect_to (!@quotation.account.nil? ? account_events_url(@quotation.account_id) : quotations_path), :notice => "Le devis a été créé."
 		else
 			flash[:error] = t('app.save_undefined_error')
 			render :action => "new"
@@ -160,7 +160,7 @@ class QuotationsController < ApplicationController
     
     if @quotation.save
       self.create_event(true)
-			redirect_to (!@quotation.account.nil? ? account_events_url(@quotation.account_id) : quotations_path), :notice => "Le devis a été modifié"
+			redirect_to (!@quotation.account.nil? ? account_events_url(@quotation.account_id) : quotations_path), :notice => "Le devis a été modifié."
     else
       flash[:error] = t('app.save_undefined_error')
       render :action => 'edit'
@@ -203,7 +203,7 @@ class QuotationsController < ApplicationController
     @quotation = Quotation.find(params[:id])
     @quotation.destroy
     url = @quotation.account.nil? ? quotations_path : account_events_url(@quotation.account)
-    redirect_to url, :notice => "Le devis a été supprimé."
+    redirect_to url, :notice => "Le devis a bien été supprimé."
   end
   
   ##
