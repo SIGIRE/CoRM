@@ -74,37 +74,37 @@
 <p><%=image_tag("glyphicons/glyphicons_006_user_add.png")%>Ajouter un contact</p>
   <div class="row small-fields">
     <div class="field">
-      <label class="top">
+      <label class="top" style="width: 100%; margin-bottom: 0;">
         Prenom
       </label>
       <%= f.text_field :forename %>
     </div>
     <div class="field full">
-      <label class="top">Nom</label>
+      <label class="top" style="width: 100%; margin-bottom: 0;">Nom</label>
       <%= f.text_field :surname %>
     </div>
     <div class="field full">
-      <label class="top">Titre</label>
+      <label class="top" style="width: 100%; margin-bottom: 0;">Titre</label>
       <%= select :contact, :title, Contact::TITLES, { :include_blank => true } %>
     </div>
     <div class="field full">
-      <label class="top">Tel</label>
+      <label class="top" style="width: 100%; margin-bottom: 0;">Tel</label>
       <%= f.text_field :tel %>
     </div>
     <div class="field full">
-      <label class="top">Fax</label>
+      <label class="top" style="width: 100%; margin-bottom: 0;">Fax</label>
       <%= f.text_field :fax %>
     </div>
     <div class="field full">
-      <label class="top">Mobile</label>
+      <label class="top" style="width: 100%; margin-bottom: 0;">Mobile</label>
       <%= f.text_field :mobile %>
     </div>
     <div class="field full">
-      <label class="top">E-Mail</label>
+      <label class="top" style="width: 100%; margin-bottom: 0;">E-Mail</label>
       <%= f.text_field :email %>
     </div>
     <div class="field full">
-      <label class="top">Fonction</label>
+      <label class="top" style="width: 100%; margin-bottom: 0;">Fonction</label>
       <%= f.text_field :job %>
     </div>
   </div>
