@@ -44,7 +44,7 @@
 	<div class="row row-fluid">
 	  <div class="field full">
 			<div class="span2"><%= f.label(:title, t('app.fields.subject') + colon) %></div>
-			<p><%= f.text_field(:title, {:required => 'required' } ) %><span class="req" /></p>
+			<%= f.text_field(:title, {:style => 'width: 50%;', :required => 'required' } ) %><span class="req" />
 		</div>
 	</div>
 	<!-- DESCRIPTION -->
