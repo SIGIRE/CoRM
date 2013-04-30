@@ -5,7 +5,7 @@
         <p><%= f.label :date_begin, "Début :", :class => 'top' %><%= f.text_field :date_begin, :value => Date.today.strftime("%d/%m/%Y"), :class =>"event_date" %></p>
       </div>
       <div class="field time">
-        <%= f.label :date_begin, " à " %><%= f.time_select :date_begin , :class => "event_time" %>
+        <%= f.label :date_begin, " à ", { :class => 'no-margin-bottom' } %><%= f.time_select :date_begin , :class => "event_time" %>
       </div>      
     </div>
     <div class="field-group">
@@ -13,7 +13,7 @@
         <p><%= f.label :date_end, "Fin : ", :class => 'top' %><%= f.text_field :date_end, :value => Date.today.strftime("%d/%m/%Y"), :class =>"event_date" %></p>
       </div>
       <div class="field time text-center">
-        <%= f.label :date_end, " à " %><%= f.time_select :date_end , :class => "event_time" %>
+        <%= f.label :date_end, " à ", { :class => 'no-margin-bottom' } %><%= f.time_select :date_end , :class => "event_time" %>
       </div>
     </div>
   </div>

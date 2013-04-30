@@ -1,5 +1,14 @@
 $profile-buttons-right: 0;
 
+#navbar-inner {
+	background-color: #1B1B1B;
+	background-image: linear-gradient(to bottom, #222222, #111111);
+	background-repeat: repeat-x;
+	$shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+	-webkit-box-shadow: $shadow;
+	-moz-box-shadow: $shadow;
+	box-shadow: $shadow;
+}
 
 .navbar {
 	position: relative;
@@ -10,6 +19,7 @@ $profile-buttons-right: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 		height: 50px;
+		box-shadow: 2px 2px 16px rgba(0,0,0,0.075);
   }
   .brand {
     -moz-transition: all 0.2s linear 0s;
@@ -31,7 +41,8 @@ $profile-buttons-right: 0;
   ul.nav > li {
     line-height: $button-line-height;
     margin-left: 1px;
-    background: transparent !important;
+    background: transparent;
+		border-color: transparent;
     @include transit(color, .4s);
     color: #999;
 		display: inline-block;
@@ -48,7 +59,7 @@ $profile-buttons-right: 0;
     }
     &.active {
       color: #FFF !important;
-      background: transparent;
+      background-color: #000;
       a {
 				text-shadow: 0 0 0.2em $navbarTextColorShadow !important;
       }
@@ -68,7 +79,7 @@ $profile-buttons-right: 0;
       > a, .caret {
 				color: inherit;
 				box-shadow: none;
-				background: transparent !important;
+				background: transparent;
 				text-shadow: inherit;
       }
     }
@@ -99,7 +110,7 @@ $profile-buttons-right: 0;
   position: absolute;
   left: 30px;
   top: 0;
-  width: 460px;
+  width: 500px;
   > div {
     display: inline-block;
   }
@@ -225,16 +236,14 @@ $profile-buttons-right: 0;
 form#form-search {
   margin: 0;
   padding: 10px 10px 5px;
-  background-color: #303030;
   cursor: default;
-  @include gradient-vertical($navbarBackgroundHighlight, $navbarBackground);
+	background-color: transparent;
+	background-image: -moz-linear-gradient(to bottom, #222222, #111111);
+	background-image: -webkit-linear-gradient(to bottom, #222222, #111111);
+	background-image: linear-gradient(to bottom, #222222, #111111);
   @include transit(padding, 0.8s);
-	&.focus {
-		input[type=search] {
-			   
-		}
-	}
-  input[type=search] {
+  #main-search-bar {
+		padding-left: 12px;
     @include transit(width, .5s);
     @include border-radius(15px 0 0 15px);
     width: $form-search-size-width;

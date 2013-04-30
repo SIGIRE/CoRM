@@ -12,6 +12,13 @@ $(document).ready(function() {
       this.setAttribute('style', 'top: -200px;');
     });
   });
+  $(document).on('keyup', function(e) {
+    if (e.which == 27) { // on ESCAPE
+      alerts.each(function() {
+        this.setAttribute('style', 'top: -200px;');
+      });
+    }
+  });
   var current_user = document.getElementById('current_user'), current_user_id = '';
   if (current_user) {
     current_user_id = current_user.getAttribute('data-id');
@@ -50,8 +57,8 @@ $(document).ready(function() {
         
         var a = corm.createHTML('a', { href: o.paths.edit, title: 'Editer le contact' });
         contact_div.appendChild(a);
-        
-        var  i = corm.createHTML('i', { 'class': 'contact-job', content: '('.concat(contact.job, ')') });
+        contact.job = contact.job ? '('.concat(contact.job, ')') : '';
+        var  i = corm.createHTML('i', { 'class': 'contact-job', content: contact.job });
         contact_div.appendChild(i);
         
         if (contact.title == 'Mme') {
@@ -88,15 +95,25 @@ $(document).ready(function() {
           var br = contact_div.lastChild.lastChild;
           contact_div.lastChild.removeChild(br);
         }
-        document.getElementById('contacts_list').appendChild(contact_div);
+        var contact_list = document.getElementById('contacts_list');
+        contact_list.appendChild(contact_div);
+        var hr = $(document.getElementById('contact-hr'))
+        if (!hr.is(':visible')) {
+          hr.show();
+        }
         corm.getContactsByAccount('event_contact_id', contact.account_id);
         corm.addAlert('notice', 'Le contact a été correctement créé.');
         
         window.scrollTo(0, 0);
-        
+        form_contact__account_event__view[0].reset();
       },
       error: function(o) {
-        console.log('this is an error', o);
+        window.scrollTo(0, 0);
+        var errorMessage = JSON.parse(o.responseText);
+        if (errorMessage) {
+          corm.addAlert('error', errorMessage.contact);
+        }
+        
       }
     });
     return false;
@@ -176,7 +193,7 @@ $(document).ready(function() {
   
   // gestion de la check box lors de la creation d'un event
   $(document.getElementById('account_search_field')).on('keyup', function(e) {
-    if($(this).val() == ''){
+    if($(this).val() == '') {
       $(document.getElementById('generate')).attr('checked', false);
       if ($(document.getElementById('row_for_generate')).is(':visible')) { // visible
         $(document.getElementById('task_value')).hide();
