@@ -54,29 +54,31 @@ $(document).ready(function() {
         var  i = corm.createHTML('i', { 'class': 'contact-job', content: '('.concat(contact.job, ')') });
         contact_div.appendChild(i);
         
-        if (o.title == 'Mme') {
+        if (contact.title == 'Mme') {
           a.appendChild(corm.createHTML('img', { src: '/assets/glyphicons/glyphicons_035_woman.png' }));
-        } else {
+        } else if (contact.title == 'M.') {
           a.appendChild(corm.createHTML('img', { src: '/assets/glyphicons/glyphicons_034_old_man.png' }));
+        } else {
+          a.appendChild(corm.createHTML('img', { src: '/assets/glyphicons/no_title.png', width: 18, height: 18 }));
         }
         var p = document.createElement('p');
         contact_div.appendChild(p);
         p.appendChild(corm.createHTML('b', { content: contact.title.concat(' ', contact.forename, ' ', contact.surname) }));
         p.appendChild(document.createElement('br'));
-        if (o.tel != null && o.tel.length > 0) {
+        if (contact.tel != null && contact.tel.length > 0) {
           p.appendChild(corm.createHTML('span', { 'class': 'info_contact_tel', content: 'Tel : '.concat(contact.tel) }));
           p.appendChild(document.createElement('br'));
         }
-        if (o.fax != null && o.fax.length > 0) {
+        if (contact.fax != null && contact.fax.length > 0) {
           p.appendChild(corm.createHTML('span', { 'class': 'info_contact_fax', content: 'Fax : '.concat(contact.fax) }));
           p.appendChild(document.createElement('br'));
         }
-        if (o.mobile != null && o.mobile.length > 0) {
+        if (contact.mobile != null && contact.mobile.length > 0) {
           p.appendChild(corm.createHTML('span', { 'class': 'info_contact_mob', content: 'Mobile : '.concat(contact.mobile) }));
           p.appendChild(document.createElement('br'));
         }
-        if (o.email != null && o.email.length > 0) {
-          var a_email = corm.createHTML('a', { 'class': 'ellipse', content: o.email, href: 'mailto:'.concat(contact.email) })
+        if (contact.email != null && contact.email.length > 0) {
+          var a_email = corm.createHTML('a', { 'class': 'ellipse', content: contact.email, href: 'mailto:'.concat(contact.email) })
           
           p.appendChild(corm.createHTML('span', { 'class': 'info_contact_email', content: a_email }));
           p.appendChild(document.createElement('br'));
@@ -87,7 +89,6 @@ $(document).ready(function() {
           contact_div.lastChild.removeChild(br);
         }
         document.getElementById('contacts_list').appendChild(contact_div);
-        
         corm.getContactsByAccount('event_contact_id', contact.account_id);
         corm.addAlert('notice', 'Le contact a été correctement créé.');
         

@@ -2,7 +2,6 @@ $(document).ready(function() {
   
   var navMenuBar = $('#nav-menu'), formSearchBar = $('#form-search'), accountField = $('#main-search-bar');
   $(document).on('click', function(e) {
-    console.log(e);
     if (e.target == accountField[0] | e.target == navMenuBar[0]) {
       if (!accountField.hasClass('focus')) {
         accountField.addClass('focus');
