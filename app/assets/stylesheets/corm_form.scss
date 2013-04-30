@@ -1,7 +1,7 @@
 form {
   .row {
     margin-top: 0;
-	margin-bottom: 0;
+		margin-bottom: 0;
     div, p, a, ul, li, select, input, textarea, label {
       display: inline-block;
 			margin-bottom: 0;
@@ -22,7 +22,6 @@ form {
   }
   .field {
 	> div, > p, > a, > ul, > li, > select, > input, > textarea, > label {
-
 		margin-bottom: 9px;
 	}
 	> .span2 {
@@ -110,7 +109,7 @@ span.req:before {
   }
 }
 
-#new_event {
+form#new_event {
 	.row {
 		margin-bottom: 2px;
 		.field {
@@ -119,4 +118,14 @@ span.req:before {
 			}
 		}
 	}
+}
+
+
+#new_contact, #new_user {
+		.field {
+			margin-bottom: 2px;
+			> div, > p, > a, > ul, > li, > select, > input, > textarea, > label {
+				margin-bottom: 0 !important;
+			}
+		}
 }

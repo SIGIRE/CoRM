@@ -45,7 +45,7 @@ class HomeController < ApplicationController
 		@tasks = Task.where("user_id =? AND statut IN ('En cours','A faire')", current_user.id).order("priority DESC, created_at DESC , updated_at DESC").limit(8)
 		@tasks_count = Task.where("user_id =? AND statut IN ('En cours','A faire')", current_user.id).count() - 5
 		# events-block
-		@events = Event.order('id DESC').limit(6)
+		@events = Event.where('account_id IS NOT NULL').order('id DESC').limit(10)
 		@opportunities = Opportunity.last_modified(5)
 		@quotations = Quotation.last_modified(5)
 		respond_to do |format|

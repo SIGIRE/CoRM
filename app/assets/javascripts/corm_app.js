@@ -105,7 +105,7 @@ $(document).ready(function() {
         corm.addAlert('notice', 'Le contact a été correctement créé.');
         
         window.scrollTo(0, 0);
-        
+        form_contact__account_event__view[0].reset();
       },
       error: function(o) {
         window.scrollTo(0, 0);

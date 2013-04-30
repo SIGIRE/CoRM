@@ -1,5 +1,5 @@
 <div class="navbar">
-  <div class="navbar-inner">
+  <div id="navbar-inner" class="navbar-inner">
 	<div id="left-bar-container">	
 	  <%= link_to image_tag("logo_crm_small.png"), url_for(:controller => 'home', :action => 'index' ) ,:class =>"brand" , :title => "Tableau de bord" %>
 	  <div id="nav-menu">
@@ -7,13 +7,13 @@
 				<!-- TASKS -->
 				<% cssClass = (params[:controller] == 'tasks') ? 'active' : '' %>
 				<li class="<%= "#{cssClass} "%>">
-				<%= link_to " Tâches".html_safe, url_for(:controller => 'tasks', :action => 'filter') %>
+					<%= link_to (image_tag("icons/tache_blanc.png", :size => "16x16")+" Tâches").html_safe, url_for(:controller => 'tasks', :action => 'filter') %>
 				</li>
 				<!-- ACTORS -->
 				<% cssClass = (params[:controller] == 'accounts' or params[:controller] == 'events' or params[:controller] == 'contacts') ? cssClass = 'active' : '' %>
 				<li class="dropdown<%= if !cssClass.blank? then " #{cssClass}" end %>">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-					Acteurs
+					<%= image_tag("icons/3people_blanc2.png", :size => "20x16") %> Acteurs
 					<span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu">
@@ -45,7 +45,7 @@
 				  :class =>"span3", 
 				  :placeholder => " Rechercher un acteur...", 
 				  :autocomplete=> "off", 
-				  :type => 'search',
+				  :type => 'text',
 				  :id => 'main-search-bar' } %>
 				<button type="submit" class="btn">
 				<span class="icon-search"></span>
