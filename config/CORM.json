@@ -1,0 +1,11 @@
+{
+  "version": "0.8.2 (nightly)",
+  "protocol": "https",
+  "host": "localhost",
+  "mail": {
+    "type": "smtp",
+    "host": "localhost",
+    "port": 25,
+    "from": "no-reply@domain.tld"
+  }
+}

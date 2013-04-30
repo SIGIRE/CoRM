@@ -13,7 +13,7 @@
 				<% cssClass = (params[:controller] == 'accounts' or params[:controller] == 'events' or params[:controller] == 'contacts') ? cssClass = 'active' : '' %>
 				<li class="dropdown<%= if !cssClass.blank? then " #{cssClass}" end %>">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-					<%= image_tag("icons/3people_blanc2.png", :size => "20x16") %> Acteurs
+					<%= image_tag("icons/3people_blanc2.png", :size => "20x16", :style => 'height: 16px; margin-top: 1px;') %> Acteurs
 					<span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu">
@@ -25,7 +25,7 @@
 				<% cssClass = (params[:controller] == 'quotations' or params[:controller] == 'opportunities') ? 'active' : '' %>
 				<li class="dropdown<%= if !cssClass.blank? then " #{cssClass}" end %>">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-						Commerce
+						<%= image_tag("icons/glyphicons_040_stats_white.png", :size => "20x16") %> Commerce
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
