@@ -178,16 +178,17 @@ class AccountsController < ApplicationController
   #
   def search
     if !params.nil? and !params[:account].nil?
-      company = UnicodeUtils.upcase("%#{params[:account].strip}%")
+      company = UnicodeUtils.upcase(params[:account].strip.concat("%"))
       if params[:format] and params[:format] != 'html' then
         @elements = Array.new
-        @elements.push({ :type => 'info', 'account_url' => '/compte/[:id]/evenements', 'contact_url' => '/contact/[:id]/edit' })
-        Account.where('company LIKE ?', company).select('id, company AS name').limit(10).each {|e|
+        # You can put the contact url edit pattern here, to redirect when a conctact will be selected in typeahead
+        @elements.push({ :type => 'info', 'account_url' => '/compte/[:id]/evenements', 'contact_url' => '/compte/[:account_id]/evenements', 'contact_url_default' => '/contact/[:id]/edit' })
+        Account.where('company LIKE ? OR company LIKE ?', company, '%'.concat(company)).select('id, company AS name').each {|e|
           @elements.push({ :id => e.id, :name => e.name, :type => 'account' }) 
         }
         if (!params[:contacts].nil? and params[:contacts] == 'true')
-          Contact.where('surname LIKE ? OR forename LIKE ?', company, company).select('id, title, forename, surname').limit(10).each {|e|
-            @elements.push({ :id => e.id, :name => e.full_name, :type => 'contact' })
+          Contact.where('surname LIKE ? OR forename LIKE ?', company, company).select('id, title, forename, surname, account_id').limit(10).each {|e|
+            @elements.push({ :id => e.id, :name => e.full_name, :account_id => e.account_id, :type => 'contact' })
           } 
         end
         @response = @elements

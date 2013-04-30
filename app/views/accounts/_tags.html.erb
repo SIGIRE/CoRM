@@ -17,14 +17,18 @@
        <div class="row-fluid">
          <div class="span9">
 	  <%
-	       @tags = @account.tags.order('name').page(params[:page])
+	       @tags = @account.tags.order('name')
+	       @tags_paginated = @account.tags.order('name').page(params[:page])
 	       @tags_select_tmp = Tag.order('name ASC').all
 	       @tags_select = @tags_select_tmp.reject { |e| @tags.include? e }
 	  %>
           <%= form_tag({:controller => "accounts", :action => "add_tag", :account_id => @account.id}, :method => "post") do %>
-            
             <%= select_tag :tag_id, options_from_collection_for_select(@tags_select, "id", "name") %>
-            <%= submit_tag("Affecter") %>
+						<% if (@tags_select.count > 0) %>
+              <%= submit_tag("Affecter") %>
+						<% else %>
+						  <%= label_tag(:tag_id, "Aucun tag disponible à l'ajout", { :class => 'badge badge-warning', :style => 'vertical-align: top; margin-left: 5px; margin-top: 6px;' }) %>		 
+					  <% end %>
           <% end %>
           </div>
 		</div>
@@ -46,7 +50,7 @@
   <tbody>
 
 
-<% @tags.each do |tag| %>
+<% @tags_paginated.each do |tag| %>
   <tr>
     <td style="width: 15em;" class="text-center"><%= tag.name %></td>
     <td><%= truncate(tag.description, :length => 500, :separator => ' ') %></td>
@@ -57,7 +61,7 @@
 
   <br />
   
-  <%= paginate @tags %>
+  <%= paginate @tags_paginated %>
   
   
 <% end %>

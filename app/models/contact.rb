@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 ##
 # This class represents a person defined by a forename, surname, phone number, fax
 # number, email adress, a mobile phone number and a job. This person is linked 
@@ -21,8 +23,7 @@ class Contact < ActiveRecord::Base
   
   def valid
     if (self.surname.blank? && self.forename.blank?)
-      self.errors.add(:forename, 'can\'t be blank')
-      self.errors.add(:surname, 'can\'t be blank')
+      self.errors.add(:contact, 'Un de ces deux champs doit être remplis: Prénom ou Nom')
     end
   end
   

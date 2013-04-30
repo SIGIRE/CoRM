@@ -26,7 +26,16 @@ $(document).ready(function() {
         if (info.as) {
           switch (info.as) {
             case 'url':
-              i = $(that.options.item).attr('data-value', info[item.type + '_url'].replace('[:id]', item[info.by])); break;
+              console.log(/\[\:.*\]/.exec(info[item.type + '_url']))
+              var pattern = /\[\:.*\]/.exec(info[item.type + '_url'].trim())[0]; // contact_url | account_url
+              var field = pattern.substr(2, pattern.length-3);
+              console.log(field);
+              if (item[field]) {
+                i = $(that.options.item).attr('data-value', info[item.type + '_url'].replace(pattern, item[field]));
+              } else {
+                i = $(that.options.item).attr('data-value', info[item.type + '_url_default'].replace('[:id]', item.id)); 
+              }
+              break;
             default:
               i = $(that.options.item).attr('data-value', item[info.by]);
           }

@@ -68,7 +68,9 @@
 %>
 </div>
 <% if !@account.contacts.nil? and @account.contacts.length > 0 %>
-<hr />
+<hr id="contact-hr" />
+<% else %>
+<hr id="contact-hr" style="display: none;" />
 <% end %>
 <%= form_for( [@account, @account.contacts.new], :html => {:class => 'well'}) do |f| %>
 <p><%=image_tag("glyphicons/glyphicons_006_user_add.png")%>Ajouter un contact</p>

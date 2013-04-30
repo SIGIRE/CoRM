@@ -10,7 +10,7 @@
          * @return {HTMLElement} return <localName attr1="" attr2="">attr_content</localName>
          */
         createHTML: function(localName, attr) {
-            HTML = document.createElement(localName);
+            var HTML = document.createElement(localName);
             for (var key in attr) {
                 if (key === 'content') {
                     /* if content is a String */
@@ -57,8 +57,8 @@
         **/
         addAlert: function(type, message) {
             var box = document.getElementById('alert_box');
-            box.innerHTML = ''
-            var div = corm.createHTML('div', { 'class': 'alert ' + type, style: 'top: 50px' });
+            box.innerHTML = '';
+            var div = corm.createHTML('div', { 'class': 'alert '.concat(type), style: 'top: 50px' });
             div.appendChild(corm.createHTML('p', { content: message }));
             box.appendChild(div);
             setTimeout(function() {
