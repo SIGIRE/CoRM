@@ -105,7 +105,7 @@ class EventsController < ApplicationController
 			flash[:notice] = "L'évènement a été créé."
 			if params[:generate] == "yes" and params[:mail] == "yes"
 				UserMailer.mail_for(@event.user, @event.task, true).deliver
-				flash[:notice] += " Un email a été envoyé à #{@event.user.full_name}."
+				flash[:notice] += "<br>Un email a été envoyé à #{@event.user.full_name}."
 			end
 			redirect_to account_events_url(@event.account_id)
 		else
