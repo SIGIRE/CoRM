@@ -4,11 +4,13 @@
 require 'bundler/capistrano'
 require './config/CORM_Object.rb'
 
+logger.info('****************************************')
+logger.info('*           CORM Capistrano            *')
+logger.info('****************************************')
+
 deploy_json = JSON(File.read('./config/deploy.json'))
 servers = deploy_json['servers']
 hostnames = Array.new
-
-logger.log(1, deploy_json['deployement'].to_s);
 
 def createObject(o, depth)
     object = Hash.new
@@ -28,7 +30,6 @@ end
 deploy_json['deployement'].each do |index, value|
     if (value.is_a? Hash)
         set index.to_sym, createObject(value, 0)
-        logger.log(0, createObject(value, 0).to_s)
     elsif (value.is_a? String)
        set index.to_sym, (value[0] == ':' ? value[1..value.length].to_sym : value)
     else
@@ -54,13 +55,17 @@ servers.each do |hostname, content|
     end
 end
 
-logger.info(hostnames.join(', '))
-
 # Ask version number
 version = Capistrano::CLI.ui.ask("Enter version: ")
+bon = Capistrano::CLI.ui.ask("[B]uild or [N]ightly ? ")
 if(version.length == 0)
     corm = CORM_Object.get
     version = corm[:version].split(' ')[0]
+end
+if (bon.length > 0)
+    bon = bon.toLowerCase() == 'b' ? 'build' : 'nightly'
+else
+    bon = 'nightly'
 end
 logger.info('VERSION: ' + version.to_s)
 
@@ -74,10 +79,8 @@ namespace :deploy do
      json_object = JSON.parse(json_string)
      
      corm = CORM_Object.createObject(json_object, 0, false)
-     v = corm['version'].split(' ')
-     v[0] = version
-     corm['version'] = v.join(' ')
-     
+     corm['version'] = "#{version} (#{bon})"
+
      corm['host'] = hostname
      if (!corm['mail'].nil?)
          corm['mail'].each do |index, value|
