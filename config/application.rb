@@ -86,7 +86,9 @@ module Crm
 	end
 
     # default base url for links in mails
-	config.action_mailer.default_url_options = { :host => CORM[:host] }
+    protocol = !CORM[:protocol].blank? ? CORM[:protocol].concat('://') : ''
+    
+	config.action_mailer.default_url_options = { :host => protocol.concat(CORM[:host]) }
 	# timezone of the app
     config.time_zone = 'Europe/Paris'
     # default locale is FR_fr. At this point (0.8.0), en.yml is not ready to use.

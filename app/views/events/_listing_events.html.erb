@@ -32,7 +32,7 @@
           <li><%= e.event_type.full_type %></li>
         <% end %>
         <% if !e.attach_file_name.blank? %>
-          <li><%= link_to e.attach_file_name, e.attach.url, { :target => '_blank' } %></li>
+          <li>Fichier-joint: <%= link_to e.attach_file_name, e.attach.url, { :target => '_blank' } %></li>
         <% end %>
         </ul>
         <% if !e.notes.blank? %>
