@@ -32,7 +32,16 @@ class CORM_Object < Hash
 
     def self.get
         if (!File.exists?(@@path))
-            throw Exception.new('The file ./config/CORM.json does not exists')
+            c = CORM_Object.new
+            c[:version] = '1.0.0'
+            c[:protocol] = 'http'
+            c[:host] = 'localhost'
+            c[:mail] = Hash.new
+            c[:mail][:type] = ':smtp'
+            c[:mail][:host] = 'localhost'
+            c[:mail][:port] = 25
+            c[:mail][:from] = 'corm@domain.tld'
+            c.save(@@path)
         end
         corm_json_string = File.read(@@path)
         json_object = JSON.parse(corm_json_string);
@@ -69,7 +78,7 @@ class CORM_Object < Hash
         end
     end
     
-    def save(path)
+    def save(path = nil)
         if (path.nil?)
            path = @@path
         end
