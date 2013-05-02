@@ -70,11 +70,13 @@ class CORM_Object < Hash
     end
     
     def save(path)
-        path = path or @@path
+        if (path.nil?)
+           path = @@path
+        end
         json = self.to_json
         json_o = JSON.parse(json)
         json = JSON.pretty_generate(json_o)
-        File.open(@@path, 'w') do |f|
+        File.open(path, 'w') do |f|
             f.write(json)
         end
     end
