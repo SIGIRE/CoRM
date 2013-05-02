@@ -1,0 +1,57 @@
+{
+    "deployement": {
+        "user": "root",
+        "application": "CoRM",
+        "deploy_to": "/webapps/crm",
+        "scm": ":git",
+        "repository": "git@git.sigire.net:/home/git/crm.git",
+        "branch": "dev",
+        "keep_releases": 10,
+        "deploy_via": ":remote_cache",
+        "ssh_options": {
+            "forward_agent": true
+        }
+    },
+    "servers": {
+        "localhost": {
+            "enabled": false,
+            "protocol": "http",
+            "mail": {
+                "type": ":smtp",
+                "host": "localhost",
+                "port": 25,
+                "from": "no-reply@sigire.fr"
+            }
+        },
+        "demo-crm.sigire.net": {
+            "enabled": true,
+            "protocol": "http",
+            "mail": {
+                "type": ":smtp",
+                "host": "localhost",
+                "port": 25,
+                "from": "no-reply@domain.tld"
+            }
+        },
+        "crm.sigire.fr": {
+            "enabled": false,
+            "protocol": "https",
+            "mail": {
+                "type": ":smtp",
+                "host": "localhost",
+                "port": 25,
+                "from": "crm@sigire.fr"
+            }
+        },
+        "crm.ligepack.com": {
+            "enabled": false,
+            "protocol": "http",
+            "mail": {
+                "type": ":smtp",
+                "host": "localhost",
+                "port": 25,
+                "from": "crm@ligepack.com"
+            }
+        }
+    }
+}

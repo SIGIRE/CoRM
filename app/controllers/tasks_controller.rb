@@ -210,11 +210,11 @@ class TasksController < ApplicationController
     if params.has_key?(:filter)
       @email_filter = params[:filter][:user_email]
       @statut_filter = params[:filter][:statut]
-	    @priority_filter = params[:filter][:priority]
+	  @priority_filter = params[:filter][:priority]
     else
       @email_filter = current_user.email
       @statut_filter = "Non terminé"
-	    @priority_filter = nil
+	  @priority_filter = nil
     end
 
     if @priority_filter.blank?
@@ -245,7 +245,7 @@ class TasksController < ApplicationController
 	# Sort task by priority
 	#@tasks = Task.by_priority(@priority_filter).by_user(user)
 	
-    @tasks = @tasks.order("term ASC,statut DESC").page(params[:page])
+    @tasks = @tasks.order("priority DESC, term ASC,statut DESC").page(params[:page])
     
     respond_to do |format|
       format.html  { render :action => "index" }

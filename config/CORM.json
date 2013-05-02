@@ -1,11 +1,11 @@
 {
-  "version": "0.8.2 (nightly)",
-  "protocol": "https",
+  "version": "0.8.3 (nightly)",
+  "protocol": "http",
   "host": "localhost",
   "mail": {
-    "type": "smtp",
+    "type": ":smtp",
     "host": "localhost",
     "port": 25,
-    "from": "no-reply@domain.tld"
+    "from": "crm@sigire.fr"
   }
 }

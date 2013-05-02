@@ -523,7 +523,6 @@ span.caret-up {
 			padding: 10px 0 10px 15px;
 			border-left: 5px solid #eee;
 			&:hover {
-				cursor: pointer;
 				background-color: rgba(210,210,210,.2);
 			}
 			.message {
@@ -558,6 +557,7 @@ span.caret-up {
 				}
 			}
 			.more {
+			    width: 96%;
 				display: none;
 				padding-top: 5px;
 				-webkit-transition: all 0.3s ease;
@@ -566,9 +566,6 @@ span.caret-up {
         -o-transition: all 0.3s ease;
 				transition: all 0.3s ease;
 				float: left;
-				&:hover {
-					cursor: default;
-				}
 				ul {
 					padding-left: 20px;
 					list-style: square;
