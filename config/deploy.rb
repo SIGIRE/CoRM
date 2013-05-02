@@ -63,7 +63,7 @@ if(version.length == 0)
     version = corm[:version].split(' ')[0]
 end
 if (bon.length > 0)
-    bon = bon.toLowerCase() == 'b' ? 'build' : 'nightly'
+    bon = bon.downcase == 'b' ? 'build' : 'nightly'
 else
     bon = 'nightly'
 end
