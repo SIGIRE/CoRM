@@ -119,10 +119,6 @@ $(document).ready(function() {
     return false;
   });
   
-  $(document).on('click', '#listing-event .event', function() {
-    var div = $(this).find('div.more');
-    div.toggle();
-  });
   var check_event_more_fn = function() {
     var checked = $(this).children('input').is(':checked');
     if (checked) {

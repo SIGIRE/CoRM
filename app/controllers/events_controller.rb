@@ -16,7 +16,7 @@ class EventsController < ApplicationController
       @events = Event.page(params[:page])
     else
       @account = Account.find(params[:account_id])    
-      @events = @account.events.order("id DESC").page(params[:page])
+      @events = @account.events.order("date_begin DESC").page(params[:page])
       @event_new = @account.events.build 
     end
     respond_to do |format|
