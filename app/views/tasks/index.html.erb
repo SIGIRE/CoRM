@@ -19,8 +19,10 @@
     <tbody>
       <% @tasks.each do |task| %>
   <%
-	if task.priority == 2 or task.priority == 3
+	if task.priority == 3
 	  attr = ' class="bold error"'.html_safe
+	elsif task.priority == 2 
+	  attr = ' class="error"'.html_safe
 	elsif task.priority == 0
 	  attr = ' class="info"'.html_safe
 	else
