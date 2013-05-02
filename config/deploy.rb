@@ -72,7 +72,7 @@ logger.info('VERSION: ' + version.to_s)
 namespace :deploy do
    task :start do ; end
    task :stop do ; end
-   task :finalize_update do
+   task :finalize_update, :roles => :app do
      path = File.join(release_path, 'config', 'CORM.json')
      hostname = capture("echo $CAPISTRANO:HOST$").strip
      json_string = File.read('./config/CORM.json')
@@ -103,6 +103,7 @@ namespace :deploy do
    task :symlink_shared do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
     run "ln -nfs #{shared_path}/assets #{release_path}/public/assets"
+    run "ln -nfs #{shared_path}/system #{release_path}/public/system"
    end
    
    desc "Change owner of the tmp folder"
