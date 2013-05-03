@@ -22,9 +22,6 @@
         <% if !e.date_end.blank? %>
           <li>Fin : <%= e.date_end.strftime("%d/%m/%y à %H:%M") %></li>
         <% end %>
-        <% if !e.account.nil? %>
-          <li>Compte : <%= e.account.company %></li>
-        <% end %>
         <% if !e.contact.nil? %>
           <li>Contact : <%= e.contact.full_name %></li>
         <% end %>
