@@ -24,7 +24,7 @@
             }
         },
         "demo-crm.sigire.net": {
-            "enabled": true,
+            "enabled": false,
             "protocol": "http",
             "mail": {
                 "type": ":smtp",
