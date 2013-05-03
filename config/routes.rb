@@ -64,8 +64,9 @@ Crm::Application.routes.draw do
   
   devise_for :user, :path_names => { :sign_in => 'login', :sign_out => 'logout', :sign_up => 'register' }, :controllers => { :registrations => 'registrations' }, :skip => [ :registrations, :sessions ]
   devise_scope :user do
-    get '/user/login(.:format)',        :to => 'devise/sessions#new',        :as => :new_user_session
-    post '/user/login(.:format)',       :to => 'registrations#session_new', :as => :user_session
+    get '/login(.:format)',        :to => 'devise/sessions#new',        :as => :alt_new_user_session
+	get '/user/login(.:format)',        :to => 'devise/sessions#new',        :as => :new_user_session
+	post '/user/login(.:format)',       :to => 'registrations#session_new', :as => :user_session
     match '/user/logout(.:format)',          :to => 'devise/sessions#destroy', :via => Devise.mappings[:user].sign_out_via, :as => :destroy_user_session
   
     match '/users(.:format)', :controller => 'registrations', :action => 'index', :via => :get, :as => 'users'
