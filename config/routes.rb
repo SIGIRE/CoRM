@@ -20,7 +20,6 @@ Crm::Application.routes.draw do
     match "#{ps}/:id(.:format)",         :controller => c,  :action => 'destroy',   :via => :delete, :as => "#{c.singularize}"
   end
   
- # mount Ckeditor::Engine => '/ckeditor'
 
   match 'extractions/select_param_accounts', :controller=>'extractions', :action => 'select_param_accounts'
   match 'extractions/comptes', :controller=>'extractions', :action => 'accounts', :as => :csv
@@ -34,7 +33,7 @@ Crm::Application.routes.draw do
   match 'type-evenements(.:format)', to: 'eventTypes#create', via: :post, as: :event_types
   match 'type-evenement/new(.:format)', to:'eventTypes#new', via: :get, as: :new_event_type
   match 'type-evenement/:id/edit(.:format)', to: 'eventTypes#edit', via: :get, as: :edit_event_type
-  match 'type-evenement/:id(.:format)', to: 'eventTypes#show', via: :get, as: :event_type
+  #match 'type-evenement/:id(.:format)', to: 'eventTypes#show', via: :get, as: :event_type
   match 'type-evenement/:id(.:format)', to: 'eventTypes#update', via: :put, as: :event_type
   match 'type-evenement/:id(.:format)', to: 'eventTypes#destroy', via: :delete, as: :event_type
   
@@ -45,7 +44,7 @@ Crm::Application.routes.draw do
   match 'modele-devis(.:format)', to: 'quotationTemplates#create', via: :post, as: :quotation_templates
   match 'modele-devis/new(.:format)', to:'quotationTemplates#new', via: :get, as: :new_quotation_template
   match 'modele-devis/:id/edit(.:format)', to: 'quotationTemplates#edit', via: :get, as: :edit_quotation_template
-  match 'modele-devis/:id(.:format)', to: 'quotationTemplates#show', via: :get, as: :quotation_template
+  #match 'modele-devis/:id(.:format)', to: 'quotationTemplates#show', via: :get, as: :quotation_template
   match 'modele-devis/:id(.:format)', to: 'quotationTemplates#update', via: :put, as: :quotation_template
   match 'modele-devis/:id(.:format)', to: 'quotationTemplates#destroy', via: :delete, as: :quotation_template
   #resources :quotationTemplates, :path => 'modele-devis'
@@ -54,7 +53,7 @@ Crm::Application.routes.draw do
 
   # Quotations routes
   set_route('devis', 'devis', 'quotations')  
-  get '/devis/:id(.:format)', :controller => 'quotations', :action => 'show'
+  #get '/devis/:id(.:format)', :controller => 'quotations', :action => 'show'
   match '/devis/update_contact_select/:id', :controller=>'quotations', :action => 'update_contact_select'
   match '/devis/update_opportunity_select/:id', :controller=>'quotations', :action => 'update_opportunity_select'
 
@@ -72,7 +71,7 @@ Crm::Application.routes.draw do
     match '/users(.:format)', :controller => 'registrations', :action => 'index', :via => :get, :as => 'users'
     match '/user/:id/edit(.:format)', :controller => 'registrations', :action => 'edit', :via => :get, :as => 'edit_user'
     match '/user/new', :controller => 'registrations', :action => 'new', :via => :get, :as => 'new_user'
-    match '/user/:id(.:format)', :controller => 'registrations', :action => 'show', :via => :get, :as => 'user'
+    #match '/user/:id(.:format)', :controller => 'registrations', :action => 'show', :via => :get, :as => 'user'
     match '/user/:id', :controller => 'registrations', :action => 'update', :via => :put, :as => 'user'
     match '/user/:id', :controller => 'registrations', :action => 'destroy', :via => :delete, :as => 'user'
     match '/users', :controller => 'registrations', :action => 'create', :via => :post, :as => 'users'
