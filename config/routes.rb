@@ -53,7 +53,7 @@ Crm::Application.routes.draw do
 
   # Quotations routes
   set_route('devis', 'devis', 'quotations')  
-  #get '/devis/:id(.:format)', :controller => 'quotations', :action => 'show'
+  get '/devis/:id(.:format)', :controller => 'quotations', :action => 'show'
   match '/devis/update_contact_select/:id', :controller=>'quotations', :action => 'update_contact_select'
   match '/devis/update_opportunity_select/:id', :controller=>'quotations', :action => 'update_opportunity_select'
 
