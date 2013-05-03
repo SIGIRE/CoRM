@@ -9,14 +9,13 @@
 										<table class="table table-bordered table-striped table-hover home-block">
 												 <thead>
 															<tr>
-																	<th colspan="4">
+																	<th colspan="3">
 																				<h2 class="pull-left">Mes dernières <%= t('app.model.Task').pluralize %></h2>
 																				<%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_task_path ,{:title => "Créer une tâche", :class=>"pull-right btn", :style => 'display: inline-block'} %>
 																	 </th>
 															</tr>
 															<tr>
 																	 <th class="text-center"><%= t('app.fields.state') %></th>
-																	 <th class="text-center"><%= t('app.fields.priority') %></th>
 																	 <th class="text-center"><%= t('app.model.Account') %></th>
 																	 <th class="text-center"><%= t('app.fields.subject') %></th>
 															</tr>
@@ -48,28 +47,40 @@
 																					<span class="badge<%= badge_statut_class unless badge_statut_class.nil? %>"><%= t.statut %></span>
 																				</div>
 																	 </td>
-																	 <td class="text-center"><%= Task::PRIORITIES[t.priority] %></td>
 																	 <td class="text-center"><% if !t.account.nil? %><%= link_to t.account.company, account_events_path(t.account), { :title => 'Compte: ' + t.account.company, :class => 'ellipse' } %><% else %>Pas de compte<% end %></td>
-																	 <% if !t.title.nil? then ellipse = t.title.length > 35 ? '...' : '' end %>
-																	 <td class="ellipse"><span><%= link_to (!t.title.blank?() ? t.title[0..35] + ellipse : "Pas de sujet"), edit_task_path(t), :title => 'Editer la tâche' %></span></td>
+																	 <% if !t.title.nil? then ellipse = t.title.length > 45 ? '...' : '' end %>
+																	 <td class="ellipse"><span><%= link_to (!t.title.blank?() ? t.title[0..45] + ellipse : "Pas de sujet"), edit_task_path(t), :title => 'Editer la tâche' %></span></td>
 															</tr>
 												 <% end %>
 												 <tr>
-															<td colspan="4" class="text-center"><%= link_to('Afficher toutes les tâches', tasks_path, :title => 'Afficher les tâches') %></td>
+															<td colspan="3" class="text-center"><%= link_to('Afficher toutes les tâches', tasks_path, :title => 'Afficher les tâches') %></td>
 												 </tr>
 										     <% end %>
 												 </tbody>
 										</table>
 					</div>
 					<div>
-							 <div id="home_events" class="home-block">
-										<div class="home-title">
-												 <h2>Derniers <%= t('app.model.Event').pluralize %></h2>
-										</div>
-										<% @events.each do |e| %>
-										<div class="row row-stripped padded">
-												 <p><% if !e.account.nil? %><strong><%= link_to e.account.company, account_events_path(e.account.id) %></strong> : <% end %>
-												 <%
+						<table class="table table-bordered table-striped table-hover home-block">
+														<thead>
+															<tr>
+																	<th colspan="2">
+																				<h2 class="pull-left"><%= t('app.model.Event').pluralize %> récents</h2>
+																	 </th>
+															</tr>
+															<tr>
+																	 <th class="text-center"><%= t('app.model.Account') %></th>
+																	 <th class="text-center">Détails</th>
+															</tr>
+												 </thead>
+												 <tbody>
+													<% @events.each do |e| %>
+													<tr>
+														<td class="text-center">
+															<% if !e.account.nil? %><strong><%= link_to e.account.company, account_events_path(e.account.id) %></strong> <% end %>
+														</td>
+
+														<td>
+																											 <%
 												 action = nil
 												 if e.modified_by.blank?
 													 action = 'créé'
@@ -101,9 +112,12 @@
 												 <% else %>
 													 <%= e.editor.full_name %> a modifié <%= link_to "la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>
 												 <% end %>
-											 </p>
-										</div>
-										<% end %>
+														</td>
+													</tr>													
+													
+													<% end %>
+												 </tbody>
+						</table>
 							 </div>
 					</div>
      </div>
