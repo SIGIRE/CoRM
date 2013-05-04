@@ -4,7 +4,7 @@
               <h1>Tableau de bord</h1>
           </div>
      </div>
-     <div class="row row-center by_2 align-table">
+     <div >
 					<div>
 										<table class="table table-bordered table-striped table-hover home-block">
 												 <thead>
@@ -53,7 +53,7 @@
 															</tr>
 												 <% end %>
 												 <tr>
-															<td colspan="3" class="text-center"><%= link_to('Afficher toutes les tâches', tasks_path, :title => 'Afficher les tâches') %></td>
+															<td colspan="3" class="text-center"><%= link_to('Afficher toutes les tâches', filter_tasks_path, :title => 'Afficher les tâches') %></td>
 												 </tr>
 										     <% end %>
 												 </tbody>
@@ -118,7 +118,6 @@
 													<% end %>
 												 </tbody>
 						</table>
-							 </div>
 					</div>
      </div>
 </div>
