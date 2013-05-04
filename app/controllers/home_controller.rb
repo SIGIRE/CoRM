@@ -42,12 +42,14 @@ class HomeController < ApplicationController
 	else
 		@page = params[:page]
 		# task-block
-		@tasks = Task.where("user_id =? AND statut IN ('En cours','A faire')", current_user.id).order("priority DESC, created_at DESC , updated_at DESC").limit(8)
+		@tasks = Task.where("user_id =? AND statut IN ('En cours','A faire')", current_user.id).order("priority DESC, created_at DESC , updated_at DESC").limit(5)
 		@tasks_count = Task.where("user_id =? AND statut IN ('En cours','A faire')", current_user.id).count() - 5
 		# events-block
-		@events = Event.where('account_id IS NOT NULL').order('id DESC').limit(10)
-		@opportunities = Opportunity.last_modified(5)
-		@quotations = Quotation.last_modified(5)
+		@events = Event.where('account_id IS NOT NULL').order('id DESC').limit(5)
+		@opportunities = Opportunity.where("user_id =? AND statut IN ('Détectée','En cours')", current_user.id).order("created_at DESC , updated_at DESC").limit(5)
+		#@opportunities = Opportunity.last_modified(5)
+		#@quotations = Quotation.last_modified(5)
+		@quotations = Quotation.where("user_id =? AND statut IN ('Sauvegardé','En cours')", current_user.id).order("created_at DESC , updated_at DESC").limit(5)
 		respond_to do |format|
 		  format.html # index.html.erb
 		end

@@ -50,7 +50,7 @@
 		<td class="text-center">-</td>
 		<% end %>         
 		<% if !opportunity.contact.nil? %>
-		<td class="text-center"><%= link_to opportunity.contact.surname, opportunity.contact ,{:title => "Afficher le contact"} %></td>
+		<td class="text-center"><%= link_to opportunity.contact.full_name, edit_contact_path(opportunity.contact) ,{:title => "Éditer le contact"} %></td>
 		<% else %>
 		<td class="text-center">-</td>
 		<% end %>       

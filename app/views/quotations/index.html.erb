@@ -9,7 +9,7 @@
         <th><center>Statut</center></th>
         <th><center>Compte</center></th>
         <th><center>Libellé</center></th>
-        <th><center>Opportunité</center></th>
+        <th><center>Contact</center></th>
         <th><center>Total HT</center></th>
         <th><center>Date</center></th>
         <th><center>Collaborateur</center></th>
@@ -52,9 +52,9 @@
 				<td><center>-</center></td>
 		<% end %> 		
 
-		<% if !quotation.opportunity.nil? %>
+		<% if !quotation.contact.nil? %>
 			<% then %>
-				<td><center><%= link_to quotation.opportunity.name , edit_opportunity_path(quotation),{:title => "Éditer l'opportunité"} %></center></td>
+				<td><center><%= link_to quotation.contact.full_name , edit_contact_path(quotation),{:title => "Éditer le contact"} %></center></td>
 			<% else %>
 				<td><center>-</center></td>
 		<% end %>		
