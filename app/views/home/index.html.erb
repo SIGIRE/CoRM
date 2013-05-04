@@ -4,24 +4,28 @@
               <h1>Tableau de bord</h1>
           </div>
      </div>
-     <div >
-					<div>
-										<table class="table table-bordered table-striped table-hover home-block">
+	 <% if @tasks.length > 0 %>
+		<table class="table table-bordered table-striped table-hover">
 												 <thead>
 															<tr>
-																	<th colspan="3">
-																				<h2 class="pull-left">Mes dernières <%= t('app.model.Task').pluralize %></h2>
+																	<th colspan="8">
+																				<h2 class="pull-left">Mes <%= t('app.model.Task').pluralize %></h2>
 																				<%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_task_path ,{:title => "Créer une tâche", :class=>"pull-right btn", :style => 'display: inline-block'} %>
 																	 </th>
 															</tr>
 															<tr>
+																	 <th class="text-center">#</th>
 																	 <th class="text-center"><%= t('app.fields.state') %></th>
+																	 <th class="text-center"><%= t('app.fields.priority') %></th>
 																	 <th class="text-center"><%= t('app.model.Account') %></th>
 																	 <th class="text-center"><%= t('app.fields.subject') %></th>
+																     <th class="text-center">Contact</th>
+																	 <th class="text-center">Échéance</th>
+																	 <th class="text-center">Éditer</th> 
 															</tr>
 												 </thead>
 												 <tbody>
-												 <% if @tasks.length > 0 %>
+												 
 															<% @tasks.each do |t|
 															  priority_class_mod = ''
 																if t.priority == 2
@@ -32,6 +36,7 @@
 																	 priority_class_mod = ' info'
 																end %>	
 															<tr class="line <%= priority_class_mod %>">
+																	<td class="text-center"><%= t.id %></td>
 																	 <td class="text-center">
 																				<% badge_statut_class = nil
 																				if t.statut == "A faire"
@@ -47,20 +52,35 @@
 																					<span class="badge<%= badge_statut_class unless badge_statut_class.nil? %>"><%= t.statut %></span>
 																				</div>
 																	 </td>
+																	 <td class="text-center"><%= Task::PRIORITIES[t.priority] %></td>
 																	 <td class="text-center"><% if !t.account.nil? %><%= link_to t.account.company, account_events_path(t.account), { :title => 'Compte: ' + t.account.company, :class => 'ellipse' } %><% else %>Pas de compte<% end %></td>
 																	 <% if !t.title.nil? then ellipse = t.title.length > 45 ? '...' : '' end %>
-																	 <td class="ellipse"><span><%= link_to (!t.title.blank?() ? t.title[0..45] + ellipse : "Pas de sujet"), edit_task_path(t), :title => 'Editer la tâche' %></span></td>
+																	 <td ><span><%= link_to (!t.title.blank?() ? t.title[0..45] + ellipse : "Pas de sujet"), edit_task_path(t), :title => 'Editer la tâche' %></span></td>
+																			<% if !t.contact.nil? %>
+																			<td class="text-center"><%= link_to t.contact.full_name, edit_contact_path(t.contact),{:title => "Éditer le contact"}  %></td>
+																		<% else %>
+																			<td class="text-center">-</td>
+																		<% end %>
+																			<% if !t.term.blank? %>
+																			<td class="text-center"><%= t.term.split('/').reverse!.join('/') %></td>
+																		<% else %>
+																			<td class="text-center">-</td>
+																		<% end %>
+																	<td class="text-center">
+																	<%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_task_path(t) ,{:title => "Éditer la tâche", :class =>"btn"}  %>
+																	</td>
 															</tr>
 												 <% end %>
+												 <% if @tasks.length < 2 %>
 												 <tr>
-															<td colspan="3" class="text-center"><%= link_to('Afficher toutes les tâches', filter_tasks_path, :title => 'Afficher les tâches') %></td>
+															<td colspan="8" class="text-center"><%= link_to('Afficher toutes mes tâches', filter_tasks_path, :title => 'Mes tâches') %></td>
 												 </tr>
+												 <% end %>
 										     <% end %>
 												 </tbody>
 										</table>
-					</div>
-					<div>
-						<table class="table table-bordered table-striped table-hover home-block">
+
+						<table class="table table-bordered table-striped table-hover">
 														<thead>
 															<tr>
 																	<th colspan="2">
@@ -118,6 +138,4 @@
 													<% end %>
 												 </tbody>
 						</table>
-					</div>
-     </div>
 </div>
