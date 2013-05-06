@@ -28,7 +28,7 @@
   <div class="row row-fluid">
     <div class="field full">
       <%= f.label :notes, ("Description : ".concat(content_tag('span', nil, :class => 'req'))).html_safe, :class => 'top' %>
-      <%= f.text_area :notes, { :rows => "5", :class => 'required' } %>
+      <%= f.text_area :notes, { :rows => "5", :style => 'width: 80%;', :class => 'required' } %>
     </div>
   </div>
   <div class="row row-fluid">
@@ -51,7 +51,7 @@
       <div class="field full">
         <p class="full">
           <%= label_tag('task_title', ("Sujet :".concat(content_tag('span', nil, :class => 'req'))).html_safe, :class=> 'top') %>
-          <%= text_field_tag 'task[title]', nil, :class => 'required' %>
+          <%= text_field_tag 'task[title]', nil, :style => 'width: 80%;', :class => 'required' %>
         </p>
       </div>
     </div>
@@ -95,7 +95,7 @@
     <div class="row row-fluid">
       <div class="field full">
         <%= label_tag 'task_notes', "Description :", :class => 'top' %>
-        <%= text_area_tag  'task[notes]',nil, { :rows => "5" } %>
+        <%= text_area_tag  'task[notes]',nil, { :rows => "5", :style => 'width: 80%;' } %>
       </div>
     </div>
   </div>
