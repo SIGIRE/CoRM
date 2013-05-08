@@ -42,7 +42,7 @@ class HomeController < ApplicationController
 	else
 		@page = params[:page]
 		# task-block
-		@tasks = Task.where("user_id =? AND statut IN ('En cours','A faire')", current_user.id).order("priority DESC, created_at DESC , updated_at DESC").limit(5)
+		@tasks = Task.where("user_id =? AND statut IN ('En cours','A faire')", current_user.id).order("statut ASC, priority DESC, term DESC").limit(5)
 		@tasks_count = Task.where("user_id =? AND statut IN ('En cours','A faire')", current_user.id).count() - 5
 		# events-block
 		@events = Event.where('account_id IS NOT NULL').order('id DESC').limit(5)

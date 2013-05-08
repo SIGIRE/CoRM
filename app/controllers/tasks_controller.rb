@@ -12,7 +12,7 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     @page = params[:page]
-    @tasks = Task.where("user_id =? AND statut IN ('En cours','A faire')", current_user.id).order("statut ASC ,term ASC").page(@page)
+    @tasks = Task.where("user_id =? AND statut IN ('En cours','A faire')", current_user.id).order("priority DESC, created_at DESC , updated_at DESC").page(@page)
 	
     respond_to do |format|
       format.html # index.html.erb
@@ -245,7 +245,7 @@ class TasksController < ApplicationController
 	# Sort task by priority
 	#@tasks = Task.by_priority(@priority_filter).by_user(user)
 	
-    @tasks = @tasks.order("priority DESC, term ASC,statut DESC").page(params[:page])
+    @tasks = @tasks.order("statut ASC, priority DESC, term DESC").page(params[:page])
     
     respond_to do |format|
       format.html  { render :action => "index" }
