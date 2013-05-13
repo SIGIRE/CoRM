@@ -92,7 +92,7 @@ namespace :deploy do
      corm['host'] = hostname
      corm.save('./tmp/CORM.json')
      
-     transfer(:up, './tmp/CORM.json', "#{release_path}/config/CORM.json")
+     transfer(:up, './tmp/CORM.json', "#{release_path}/config/CORM.json", { :hosts => hostname })
    end
    
    task :restart, :roles => :app, :except => { :no_release => true } do
@@ -114,11 +114,6 @@ end
 
 before 'deploy:assets:precompile', 'deploy:symlink_shared'
 after 'deploy:update_code', 'deploy:migrate', 'deploy:change_owner_tmp'
-# after "deploy:restart", "deploy:cleanup"
-
-
-#set :deploy_via, :remote_cache
-#set :ssh_options, {:forward_agent => true}
 
 default_run_options[:pty] = true
 

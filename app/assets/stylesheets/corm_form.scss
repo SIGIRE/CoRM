@@ -1,24 +1,26 @@
 form {
-  .row {
-    margin-top: 0;
-		margin-bottom: 0;
-    div, p, a, ul, li, select, input, textarea, label {
-      display: inline-block;
-			margin-bottom: 0;
-    }
-    &.row-center {
-      margin-left: auto;
-      margin-right: auto;
-    }
-		.typeahead {
-			display: block;
-			li {
-				display: list-item;
-				a {
-					display: block;
-				}
-			}
-		}
+    .row {
+        margin: 0 0 0 -10px;
+        div, p, a, ul, li, select, input, textarea, label {
+          display: inline-block;
+		    margin-bottom: 0;
+        }
+        &.row-center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        &.row-fluid {
+            width: 97%;
+        }
+	    .typeahead {
+	        display: block;
+		    li {
+			    display: list-item;
+			    a {
+				    display: block;
+			    }
+		    }
+	  }
   }
   .field {
 	> div, > p, > a, > ul, > li, > select, > input, > textarea, > label {
@@ -122,10 +124,15 @@ form#new_event {
 
 
 #new_contact, #new_user {
-		.field {
-			margin-bottom: 2px;
-			> div, > p, > a, > ul, > li, > select, > input, > textarea, > label {
-				margin-bottom: 0 !important;
-			}
+    .row.small-fields {
+        margin: 0 auto;
+        padding: 0;
+        width: 97%;
+    }
+	.field {
+		margin-bottom: 2px;
+		> div, > p, > a, > ul, > li, > select, > input, > textarea, > label {
+			margin-bottom: 0 !important;
 		}
+	}
 }
