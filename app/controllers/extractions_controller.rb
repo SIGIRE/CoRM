@@ -16,7 +16,11 @@ class ExtractionsController < ApplicationController
 		@origins = Origin.all
 		
 		# users
-		@users = User.all		
+		@users = User.all
+
+		# categories
+		@categories = Account::CATEGORIES
+
 				
 		else
 			flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.do')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Extraction'))
@@ -28,6 +32,22 @@ class ExtractionsController < ApplicationController
   # GET /extractions/select_param_contacts
   def select_param_contacts
 		if current_user.has_role?(:super_user) || current_user.has_role?(:admin)
+
+		# accounts
+		@accounts = Account.all
+		
+		# tags
+		@tags = Tag.all
+		
+		# origins
+		@origins = Origin.all
+
+		# categories
+		@categories = Account::CATEGORIES		
+		
+		# users
+		@users = User.all
+		
 		else
 			flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.do')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Extraction'))
 			redirect_to root_url
@@ -43,6 +63,7 @@ class ExtractionsController < ApplicationController
 	
 	require 'csv'
     require 'iconv'
+
 	
 	# Select via checkbox tags 
 	tags=params[:tags] || Array.new
@@ -75,9 +96,20 @@ class ExtractionsController < ApplicationController
 			id = k[1]
 			users_ids.push(id)
 		end
+	end
+
+	# Select via checkbox categories 
+	categories=params[:categories] || Array.new
+	categories_ids=Array.new
+	categories.each do |key, category|
+		k= key.split('_')
+		if (k.length == 2)
+			id = k[1]
+			categories_ids.push(Account::CATEGORIES[id.to_i])
+		end
 	end	
     
-    @accounts = Account.by_zip(params[:zip]).by_country(params[:country]).by_tags(tags_ids).by_user(users_ids).by_category(params[:categories]).by_origin(origins_ids)
+    @accounts = Account.by_zip(params[:zip]).by_country(params[:country]).by_tags(tags_ids).by_user(users_ids).by_category(categories_ids).by_origin(origins_ids)
 
     accounts_csv = CSV.generate(:col_sep => ';') do |csv|
       # header row
@@ -104,7 +136,7 @@ class ExtractionsController < ApplicationController
       end
     end
 
-    send_data(accounts_csv, :type => 'text/csv; charset=utf-8; header=present', :filename => 'accounts.csv') 
+    send_data(accounts_csv, :type => 'text/csv; charset=utf-8; header=present', :filename => "#{Time.now.strftime("%d-%m-%Y_%Hh%M")}_accounts.csv") 
   end
 
   ##
@@ -113,8 +145,63 @@ class ExtractionsController < ApplicationController
   def contacts
     require 'csv'
     require 'iconv'
+
+	# Select via checkbox accounts 
+	accounts=params[:accounts] || Array.new
+	accounts_ids=Array.new
+	accounts.each do |key, account|
+		k= key.split('_')
+		if (k.length == 2)
+			id = k[1]
+			accounts_ids.push(id)
+		end
+	end
+	
+	# Select via checkbox tags 
+	tags=params[:tags] || Array.new
+	tags_ids=Array.new
+	tags.each do |key, tag|
+		k= key.split('_')
+		if (k.length == 2)
+			id = k[1]
+			tags_ids.push(id)
+		end
+	end	
+	
+	# Select via checkbox origins 
+	origins=params[:origins] || Array.new
+	origins_ids=Array.new
+	origins.each do |key, origin|
+		k= key.split('_')
+		if (k.length == 2)
+			id = k[1]
+			origins_ids.push(id)
+		end
+	end	
+
+	# Select via checkbox categories 
+	categories=params[:categories] || Array.new
+	categories_ids=Array.new
+	categories.each do |key, category|
+		k= key.split('_')
+		if (k.length == 2)
+			id = k[1]
+			categories_ids.push(Account::CATEGORIES[id.to_i])
+		end
+	end
+	
+	# Select via checkbox users 
+	users=params[:users] || Array.new
+	users_ids=Array.new
+	users.each do |key, user|
+		k= key.split('_')
+		if (k.length == 2)
+			id = k[1]
+			users_ids.push(id)
+		end
+	end
     
-    @contacts = Contact.by_accounts(params[:account]).by_zip_account(params[:code_postal]).by_country_account(params[:pays]).by_tags(params[:produits]).by_user_account(params[:user]).by_category_account(params[:genres]).by_origin_account(params[:origines])
+    @contacts = Contact.by_accounts(accounts_ids).by_zip_account(params[:zip]).by_country_account(params[:country]).by_tags(tags_ids).by_user_account(users_ids).by_category_account(categories_ids).by_origin_account(origins_ids)
 
     contacts_csv = CSV.generate(:col_sep => ';') do |csv|
       # header row
@@ -147,7 +234,7 @@ class ExtractionsController < ApplicationController
       end
     end
 
-    send_data(contacts_csv, :type => 'text/csv; charset=utf-8; header=present', :filename => 'contacts.csv')   
+    send_data(contacts_csv, :type => 'text/csv; charset=utf-8; header=present', :filename => "#{Time.now.strftime("%d-%m-%Y_%Hh%M")}_contacts.csv")   
   end
   
   

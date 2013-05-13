@@ -59,7 +59,8 @@ class Account < ActiveRecord::Base
   scope :by_tags, lambda { |tags| joins(:tags).where("tags.id IN (?)", tags) unless tags.blank? }
   scope :by_user, lambda { |user| where("user_id = ?", user) unless user.blank? }
   scope :by_category, lambda { |cat| where("category IN (?)", cat) unless cat.blank? }   
-  scope :by_origin, lambda { |origin| where("origin_id IN (?)", origin) unless origin.blank? }   
+  scope :by_origin, lambda { |origin| where("origin_id IN (?)", origin) unless origin.blank? }
+  scope :by_ids, lambda { |id| where("id IN (?)", id) unless id.blank?}
   
   ##
   # Set the business name to upper

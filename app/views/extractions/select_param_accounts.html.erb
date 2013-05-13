@@ -49,16 +49,23 @@
 			</div>
 		</div>
 	<% end %>
-	
+
 	<!-- CATEGORIES -->
-	<div class="row row-fluid">
-		<div class="field full">
-			<div class="span2">
-				Genres :
+	<% if @categories.length > 0 %>
+		<div class="row row-fluid">
+			<div class="field full">
+				<div class="span2">
+					Categories :
+				</div>
+				<% @categories.each_with_index do |c, index| %>
+					<label for="categories_category_<%= index %>" class="checkbox">
+						<input type="checkbox" checked="checked" name="categories[category_<%= index %>]" id="categories_category_<%= index %>" value="1" /><%= c %>
+					</label>
+				<% end %>
 			</div>
-			 <%= select_tag 'categories[]', options_for_select(Account::CATEGORIES), {:include_blank => true, :multiple => :true, :size => 5, :class =>"filter_statut"}%>
 		</div>
-	</div>
+	<% end %>	
+
 	
 	<!-- ORIGINES -->
 	<% if @origins.length > 0 %>
@@ -92,10 +99,11 @@
 		</div>
 	<% end %>
 	
-      
+    <hr /> 
+	
  	<!-- BUTTON -->           
       <div style="margin-top: 18px;">
-        <%= submit_tag "Extraire les comptes", :class =>"btn btn-primary"%>
+        <%= submit_tag "Extraire en CSV", :class =>"btn btn-primary"%>
       </div>
     
   <% end %>
