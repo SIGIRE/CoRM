@@ -67,7 +67,7 @@ if (bon.length > 0)
 else
     bon = 'nightly'
 end
-logger.info('VERSION: ' + version.to_s)
+logger.info("VERSION: #{version.to_s} (#{bon})")
 
 namespace :deploy do
    task :start do ; end
@@ -93,6 +93,7 @@ namespace :deploy do
      corm.save('./tmp/CORM.json')
      
      transfer(:up, './tmp/CORM.json', "#{release_path}/config/CORM.json", { :hosts => hostname })
+     logger.info("-- TRANSFER CORM.json to #{hostname}")
    end
    
    task :restart, :roles => :app, :except => { :no_release => true } do
