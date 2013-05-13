@@ -39,33 +39,45 @@ class SettingsController < ApplicationController
         end
     end
     
-    def delete_old_uploaded_file
-        
+    def delete_old_uploaded_file(pathname)
+        path = Rails.root.join('public'.concat(pathname))
+        if (File.exist?(path))
+            File.delete(path)
+        end
     end
     
     def save_uploaded_file(file_data, setting)
-        original_name = file_data.original_filename
         if (!file_data.nil?)
-        pathArray = [
-            'public',
-            'system',
-            'settings',
-            setting.key
-        ]
-        path = Rails.root
-        pathArray.each do |dir|
-            path = path.join(dir)
-            if (!path.exist?)
-                path.mkdir
+            original_name = file_data.original_filename
+            if (!file_data.nil?)
+            pathArray = [
+                'public',
+                'system',
+                'settings',
+                setting.key
+            ]
+            path = Rails.root
+            pathArray.each do |dir|
+                path = path.join(dir)
+                if (!path.exist?)
+                    path.mkdir
+                end
             end
-        end
-        logger.info("SAVE FILE: #{original_name} to #{path.to_s}")
-        path = path.join(original_name)
-        
-        File.open(path, "wb") { |f| 
-            f.write(file_data) 
-        }
-        setting.update_attribute(:value, path.to_s)
+            logger.info("SAVE FILE: #{original_name} to #{path.to_s}")
+            
+            path = path.join(original_name)
+            
+            pathArray[0] = ''
+            relative_path = pathArray.join('/').concat("/#{original_name}")
+            
+            File.open(path, "wb") { |f| 
+                f.write(file_data.read) 
+            }
+            delete_old_uploaded_file(setting.value)
+            setting.update_attribute(:value, relative_path.to_s)
+            end
+        else
+            setting.update_attribute(:value, '')
         end
         
     end
