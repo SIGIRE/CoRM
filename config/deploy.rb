@@ -4,9 +4,12 @@
 require 'bundler/capistrano'
 require './config/CORM_Object.rb'
 
-logger.info('****************************************')
-logger.info('*           CORM Capistrano            *')
-logger.info('****************************************')
+# 0: important, 1:info, 2: debug, 3: trace, 4: MAX-LEVEL
+logger.level = 1
+
+logger.log(0, '****************************************')
+logger.log(0, '*           CORM Capistrano            *')
+logger.log(0, '****************************************')
 
 deploy_json = JSON(File.read('./config/deploy.json'))
 servers = deploy_json['servers']
@@ -46,18 +49,20 @@ servers.each do |hostname, content|
           role :web, hostname
           role :app, hostname
           role :db, hostname, :primary => true
-          logger.log(1, 'LOAD SERVER: ' + hostname)
+          logger.log(1, "LOAD SERVER: #{hostname}")
         else
-            logger.log(0, 'FAIL LOAD SERVER: ' + hostname)
+            logger.log(0, "FAIL LOAD SERVER: #{hostname}")
         end
     else
-        logger.log(0, 'FAIL LOAD SERVER: ' + hostname)
+        logger.log(0, "FAIL LOAD SERVER: #{hostname}")
     end
 end
 
 # Ask version number
 version = Capistrano::CLI.ui.ask("Enter version: ")
 bon = Capistrano::CLI.ui.ask("[B]uild or [N]ightly ? ")
+corm = nil
+
 if(version.length == 0)
     corm = CORM_Object.get
     version = corm[:version].split(' ')[0]
@@ -67,41 +72,59 @@ if (bon.length > 0)
 else
     bon = 'nightly'
 end
-logger.info("VERSION: #{version.to_s} (#{bon})")
+logger.log(0, "VERSION: #{version.to_s} (#{bon})")
 
 namespace :deploy do
-   task :start do ; end
-   task :stop do ; end
-   task :finalize_update, :roles => :app do
-     path = File.join(release_path, 'config', 'CORM.json')
-     hostname = capture("echo $CAPISTRANO:HOST$").strip
-     json_string = File.read('./config/CORM.json')
-     json_object = JSON.parse(json_string)
-     
-     corm = CORM_Object.createObject(json_object, 0, false)
-     corm['version'] = "#{version} (#{bon})"
+    task :start do
+        hostname = capture("echo $CAPISTRANO:HOST$").strip
+        logger.log(0, "STARTING deployement to #{hostname}")
+    end
+    task :stop do
+        hostname = capture("echo $CAPISTRANO:HOST$").strip
+        logger.log(0, "STOPPING deployement to #{hostname}")
+    end
+   
+    task :update_code, :except=>{:no_release=>true} do 
+        hostname = capture("echo $CAPISTRANO:HOST$").strip
+        logger.log(0, "UPDATING code to #{hostname}")
+    end
+   
+    task :finalize_update, :roles => :app do
+        logger.log(0, "TRANSFER CORM.json to #{hostname}")
+        hostname = capture("echo $CAPISTRANO:HOST$").strip
+        if (corm.nil?) then
+            logger.log(2, "LOAD Corm.json")
+            path = File.join(release_path, 'config', 'CORM.json')
+            json_string = File.read('./config/CORM.json')
+            json_object = JSON.parse(json_string)
+            corm = CORM_Object.createObject(json_object, 0, false)
+            corm['version'] = "#{version} (#{bon})"
+        end
+        corm['host'] = hostname
+        if (!corm['mail'].nil?)
+            corm['mail'].each do |index, value|
+                if (defined? servers[hostname][index])
+                    corm['mail'][index] = servers[hostname]['mail'][index]
+                end
+            end
+        end
+        corm['host'] = hostname
+        corm.save('./tmp/CORM.json')
 
-     corm['host'] = hostname
-     if (!corm['mail'].nil?)
-         corm['mail'].each do |index, value|
-             if (defined? servers[hostname][index])
-                corm['mail'][index] = servers[hostname]['mail'][index]
-             end
-         end
-     end
-     corm['host'] = hostname
-     corm.save('./tmp/CORM.json')
-     
-     transfer(:up, './tmp/CORM.json', "#{release_path}/config/CORM.json", { :hosts => hostname })
-     logger.info("-- TRANSFER CORM.json to #{hostname}")
-   end
+        transfer(:up, './tmp/CORM.json', "#{release_path}/config/CORM.json", { :hosts => hostname })
+        logger.log(0, "TRANSFERED CORM.json to #{hostname}")
+    end
    
    task :restart, :roles => :app, :except => { :no_release => true } do
+     hostname = capture("echo $CAPISTRANO:HOST$").strip
+     logger.log(0, "RESTARTING apache to #{hostname}") 
      run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
    end
    
    desc "Symlink shared configs and folders on each release"
    task :symlink_shared do
+    hostname = capture("echo $CAPISTRANO:HOST$").strip
+    logger.log(0, "CREATE Symlinks to #{hostname}")
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
     run "ln -nfs #{shared_path}/assets #{release_path}/public/assets"
     run "ln -nfs #{shared_path}/system #{release_path}/public/system"
@@ -109,6 +132,8 @@ namespace :deploy do
    
    desc "Change owner of the tmp folder"
    task :change_owner_tmp do
+    hostname = capture("echo $CAPISTRANO:HOST$").strip
+    logger.log(0, "RUNNING CHOWN to #{hostname}") 
     run "chown -R apache:apache #{deploy_to}"
    end
 end
