@@ -17,27 +17,27 @@
             "enabled": false,
             "protocol": "http",
             "mail": {
-                "type": ":smtp",
+                "type": "smtp",
                 "host": "localhost",
                 "port": 25,
                 "from": "no-reply@sigire.fr"
             }
         },
         "demo-crm.sigire.net": {
-            "enabled": false,
+            "enabled": true,
             "protocol": "http",
             "mail": {
-                "type": ":smtp",
+                "type": "smtp",
                 "host": "localhost",
                 "port": 25,
                 "from": "no-reply@domain.tld"
             }
         },
         "crm.sigire.net": {
-            "enabled": true,
+            "enabled": false,
             "protocol": "https",
             "mail": {
-                "type": ":smtp",
+                "type": "smtp",
                 "host": "localhost",
                 "port": 25,
                 "from": "crm@sigire.fr"
@@ -47,7 +47,7 @@
             "enabled": false,
             "protocol": "http",
             "mail": {
-                "type": ":smtp",
+                "type": "smtp",
                 "host": "localhost",
                 "port": 25,
                 "from": "crm@ligepack.com"

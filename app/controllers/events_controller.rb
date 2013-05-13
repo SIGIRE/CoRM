@@ -164,7 +164,7 @@ class EventsController < ApplicationController
     hash = Hash.new
     hash['account_id'] = params[:event][:account_id]
     hash['contact_id'] = params[:event][:contact_id]
-    hash['user_id'] = params[:user_id]
+    hash['user_id'] = params[:event][:user_id]
     hash['notes'] = params[:task][:notes]
     hash['statut'] = params[:task][:statut]
     hash['term'] = params[:task][:term].split('/').reverse!.join('/')
