@@ -17,7 +17,7 @@
             "enabled": false,
             "protocol": "http",
             "mail": {
-                "type": ":smtp",
+                "type": "smtp",
                 "host": "localhost",
                 "port": 25,
                 "from": "no-reply@sigire.fr"
@@ -27,7 +27,7 @@
             "enabled": true,
             "protocol": "http",
             "mail": {
-                "type": ":smtp",
+                "type": "smtp",
                 "host": "localhost",
                 "port": 25,
                 "from": "no-reply@domain.tld"
@@ -37,7 +37,7 @@
             "enabled": false,
             "protocol": "https",
             "mail": {
-                "type": ":smtp",
+                "type": "smtp",
                 "host": "localhost",
                 "port": 25,
                 "from": "crm@sigire.fr"
@@ -47,7 +47,7 @@
             "enabled": false,
             "protocol": "http",
             "mail": {
-                "type": ":smtp",
+                "type": "smtp",
                 "host": "localhost",
                 "port": 25,
                 "from": "crm@ligepack.com"

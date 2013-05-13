@@ -74,23 +74,12 @@ end
 logger.log(0, "VERSION: #{version.to_s} (#{bon})")
 
 namespace :deploy do
-    task :start do
-        hostname = capture("echo $CAPISTRANO:HOST$").strip
-        logger.log(0, "STARTING deployement to #{hostname}")
-    end
-    task :stop do
-        hostname = capture("echo $CAPISTRANO:HOST$").strip
-        logger.log(0, "STOPPING deployement to #{hostname}")
-    end
-   
-    task :update_code, :except=>{:no_release=>true} do 
-        hostname = capture("echo $CAPISTRANO:HOST$").strip
-        logger.log(0, "UPDATING code to #{hostname}")
-    end
+    task :start do ; end
+    task :stop do ; end
    
     task :finalize_update, :roles => :app do
-        logger.log(0, "TRANSFER CORM.json to #{hostname}")
         hostname = capture("echo $CAPISTRANO:HOST$").strip
+        logger.log(0, "TRANSFER CORM.json to #{hostname}")
         logger.log(2, "LOAD Corm.json")
         corm[hostname] = Hash.new
         path = File.join(release_path, 'config', 'CORM.json')
@@ -106,7 +95,7 @@ namespace :deploy do
                 end
             end
         end
-        corm.save('./tmp/CORM_#{hostname}.json')
+        corm[hostname].save("./tmp/CORM_#{hostname}.json")
 
         transfer(:up, "./tmp/CORM_#{hostname}.json", "#{release_path}/config/CORM.json", { :hosts => hostname })
         
