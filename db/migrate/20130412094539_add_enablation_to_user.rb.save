@@ -1,5 +1,0 @@
-class AddEnablationToUser < ActiveRecord::Migration
-  def change
-    add_column(:user, :enabled, :boolean, { :default =>  })
-  end
-end
