@@ -102,7 +102,7 @@
 					<li><%= link_to 'Origines', origins_path %></li>
 					<li><%= link_to 'Modèles devis', quotation_templates_path %></li>
 					<% if current_user.has_role?(:admin) %>
-					<li><%= link_to 'Configuration', settings_path %></li>
+					<li><%= link_to 'Configuration', url_for({ :controller => 'settings', :action => 'index' }) %></li>
 					<% end %>
 				</ul>
 				</li>
