@@ -6,6 +6,8 @@ class CreateSettings < ActiveRecord::Migration
       t.string :input_type
     end
     execute "ALTER TABLE settings ADD PRIMARY KEY (key);"
+    
+    Setting.set('logo-login', './', { :type => 'file' })
   end
   
   def down
