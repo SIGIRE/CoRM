@@ -1,6 +1,6 @@
 # CORM
 ### Plus facile qu'un CRM
-Version: 0.8.3 (nightly)
+Version: 0.8.6 (nightly)
 
 ## A propos de CoRM
 Corm est un **Customer Relationship managers** (Gestionnaire de relation client) conçu pour les entreprises de 1 à 100 collaborateurs. Ce logiciel vous aide à gérer vos relations entre chaque acteur qui composent votre environnement.

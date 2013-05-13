@@ -5,7 +5,7 @@ require 'bundler/capistrano'
 require './config/CORM_Object.rb'
 
 # 0: important, 1:info, 2: debug, 3: trace, 4: MAX-LEVEL
-logger.level = 1
+#1logger.level = 4
 
 logger.log(0, '****************************************')
 logger.log(0, '*           CORM Capistrano            *')
