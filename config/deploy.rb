@@ -61,8 +61,7 @@ end
 # Ask version number
 version = Capistrano::CLI.ui.ask("Enter version: ")
 bon = Capistrano::CLI.ui.ask("[B]uild or [N]ightly ? ")
-corm = nil
-
+corm = Hash.new
 if(version.length == 0)
     corm = CORM_Object.get
     version = corm[:version].split(' ')[0]
@@ -92,33 +91,33 @@ namespace :deploy do
     task :finalize_update, :roles => :app do
         logger.log(0, "TRANSFER CORM.json to #{hostname}")
         hostname = capture("echo $CAPISTRANO:HOST$").strip
-        if (corm.nil?) then
-            logger.log(2, "LOAD Corm.json")
-            path = File.join(release_path, 'config', 'CORM.json')
-            json_string = File.read('./config/CORM.json')
-            json_object = JSON.parse(json_string)
-            corm = CORM_Object.createObject(json_object, 0, false)
-            corm['version'] = "#{version} (#{bon})"
-        end
-        corm['host'] = hostname
-        if (!corm['mail'].nil?)
-            corm['mail'].each do |index, value|
+        logger.log(2, "LOAD Corm.json")
+        corm[hostname] = Hash.new
+        path = File.join(release_path, 'config', 'CORM.json')
+        json_string = File.read('./config/CORM.json')
+        json_object = JSON.parse(json_string)
+        corm[hostname] = CORM_Object.createObject(json_object, 0, false)
+        corm[hostname]['version'] = "#{version} (#{bon})"
+        corm[hostname]['host'] = hostname
+        if (!corm[hostname]['mail'].nil?)
+            corm[hostname]['mail'].each do |index, value|
                 if (defined? servers[hostname][index])
-                    corm['mail'][index] = servers[hostname]['mail'][index]
+                    corm[hostname]['mail'][index] = servers[hostname]['mail'][index]
                 end
             end
         end
-        corm['host'] = hostname
-        corm.save('./tmp/CORM.json')
+        corm.save('./tmp/CORM_#{hostname}.json')
 
-        transfer(:up, './tmp/CORM.json', "#{release_path}/config/CORM.json", { :hosts => hostname })
+        transfer(:up, "./tmp/CORM_#{hostname}.json", "#{release_path}/config/CORM.json", { :hosts => hostname })
+        
         logger.log(0, "TRANSFERED CORM.json to #{hostname}")
     end
    
-   task :restart, :roles => :app, :except => { :no_release => true } do
+   task :restart, :roles => :app do
      hostname = capture("echo $CAPISTRANO:HOST$").strip
      logger.log(0, "RESTARTING apache to #{hostname}") 
      run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+     File.delete("./tmp/CORM_#{hostname}.json")
    end
    
    desc "Symlink shared configs and folders on each release"
