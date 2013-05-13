@@ -3,47 +3,101 @@
    <div class="well" style="margin-top: 1em;">
       <div class="row-fluid">
          <div class="span9">
-         <h3>Extraction des comptes</h3>
+         <h1>Extraction des Comptes</h1>
          </div>
           <%= link_to image_tag("glyphicons/glyphicons_210_left_arrow.png"), :back ,{:title => "Retour", :class=>"pull-right btn"} %>
       </div>
    </div>
 </div>
-<div class="container-fluid" style= "background-color: #D8D8D8; margin-top: 0em; ">
+
+<div class="container-fluid">
+<div class="well">
   <%= form_tag({:controller => "extractions", :action => "accounts", format: :csv}, :method => "get") do %>
 
-      
-      <div>
-        <h6>Code Postal commence par : </h6><%= text_field_tag :zip, nil,  {:class=>"span3"} %>
-      </div>
+	<!-- ZIP -->
+	<div class="row row-fluid">
+		<div class="field full">
+			<div class="span2">
+				Code Postal :
+			</div>
+			<%= text_field_tag :zip, nil, :placeholder => 'Tous les codes postaux...' %>
+		</div>
+	</div>
 
-      <div>
-        <h6>Pays : </h6><%= text_field_tag :country, nil,  {:class=>"span3"} %>
-      </div>
-      
-      <div>
-        <% @tags = Tag.order('name ASC').all %>
-        <h6>Tags : </h6><%= select_tag :tags, options_from_collection_for_select(@tags, "id", "name"), {:include_blank => true, :multiple => :true, :size => 5, :class =>"span3 filter_statut"}%>
-      </div>
-         
-      <div>
-         <h6>Genres : </h6><%= select_tag 'categories[]', options_for_select(Account::CATEGORIES), {:include_blank => true, :multiple => :true, :size => 5, :class =>"span3"}%>
-      </div>      
+	<!-- COUNTRY -->
+	<div class="row row-fluid">
+		<div class="field full">
+			<div class="span2">
+				Pays :
+			</div>
+			<%= text_field_tag :country, nil,  :placeholder => 'Tous les pays...' %>
+		</div>
+	</div>
 
-      <div>
-        <% @origins = Origin.order('name ASC').all %>
-        <h6>Origines : </h6><%= select_tag :origins, options_from_collection_for_select(@origins, "id", "name"), {:include_blank => true, :multiple => :true, :size => 5, :class =>"span3"}%>
-      </div>      
- 
-      <div>
-        <% @users = User.order('surname ASC').all %>
-        <h6>Suivis par : </h6><%= select_tag :user, options_from_collection_for_select(@users, "id", "full_name"), {:include_blank => true, :size => 5, :class =>"span3 filter_coll"}%>
-      </div>
+	<!-- TAGS -->
+	<% if @tags.length > 0 %>
+		<div class="row row-fluid">
+			<div class="field full">
+				<div class="span2">
+					Tags :
+				</div>
+				<% @tags.each do |t| %>
+					<label for="tags_tag_<%=t.id%>" class="checkbox">
+						<input type="checkbox" name="tags[tag_<%=t.id%>]" id="tags_tag_<%=t.id%>" value="1" /><%= t.name %>
+					</label>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
+	
+	<!-- CATEGORIES -->
+	<div class="row row-fluid">
+		<div class="field full">
+			<div class="span2">
+				Genres :
+			</div>
+			 <%= select_tag 'categories[]', options_for_select(Account::CATEGORIES), {:include_blank => true, :multiple => :true, :size => 5, :class =>"filter_statut"}%>
+		</div>
+	</div>
+	
+	<!-- ORIGINES -->
+	<% if @origins.length > 0 %>
+		<div class="row row-fluid">
+			<div class="field full">
+				<div class="span2">
+					Origines :
+				</div>
+				<% @origins.each do |o| %>
+					<label for="origins_origin_<%=o.id%>" class="checkbox">
+						<input type="checkbox" name="origins[origin_<%=o.id%>]" id="origins_origin_<%=o.id%>" value="1" /><%= o.name %>
+					</label>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
+  
+	<!-- USERS -->
+	<% if @users.length > 0 %>
+		<div class="row row-fluid">
+			<div class="field full">
+				<div class="span2">
+					Collaborateur :
+				</div>
+				<% @users.each do |u| %>
+					<label for="users_user_<%=u.id%>" class="checkbox">
+						<input type="checkbox" name="users[user_<%=u.id%>]" id="users_user_<%=u.id%>" value="1" /><%= u.full_name %>
+					</label>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
+	
       
-      
+ 	<!-- BUTTON -->           
       <div style="margin-top: 18px;">
-        <%= submit_tag "Extraire", :class =>"btn "%>
+        <%= submit_tag "Extraire les comptes", :class =>"btn btn-primary"%>
       </div>
     
   <% end %>
+</div>
 </div>

@@ -8,6 +8,16 @@ class ExtractionsController < ApplicationController
   # GET /extractions/select_param_accounts
   def select_param_accounts
 		if current_user.has_role?(:super_user) || current_user.has_role?(:admin)
+		
+		# tags
+		@tags = Tag.all
+		
+		# origins
+		@origins = Origin.all
+		
+		# users
+		@users = User.all		
+				
 		else
 			flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.do')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Extraction'))
 			redirect_to root_url
@@ -31,10 +41,43 @@ class ExtractionsController < ApplicationController
   #
   def accounts
 	
-    require 'csv'
+	require 'csv'
     require 'iconv'
+	
+	# Select via checkbox tags 
+	tags=params[:tags] || Array.new
+	tags_ids=Array.new
+	tags.each do |key, tag|
+		k= key.split('_')
+		if (k.length == 2)
+			id = k[1]
+			tags_ids.push(id)
+		end
+	end
+	
+	# Select via checkbox origins 
+	origins=params[:origins] || Array.new
+	origins_ids=Array.new
+	origins.each do |key, origin|
+		k= key.split('_')
+		if (k.length == 2)
+			id = k[1]
+			origins_ids.push(id)
+		end
+	end	
+
+	# Select via checkbox users 
+	users=params[:users] || Array.new
+	users_ids=Array.new
+	users.each do |key, user|
+		k= key.split('_')
+		if (k.length == 2)
+			id = k[1]
+			users_ids.push(id)
+		end
+	end	
     
-    @accounts = Account.by_zip(params[:zip]).by_country(params[:country]).by_tags(params[:tag]).by_user(params[:user]).by_category(params[:categories]).by_origin(params[:origins])
+    @accounts = Account.by_zip(params[:zip]).by_country(params[:country]).by_tags(tags_ids).by_user(users_ids).by_category(params[:categories]).by_origin(origins_ids)
 
     accounts_csv = CSV.generate(:col_sep => ';') do |csv|
       # header row
