@@ -63,17 +63,17 @@ class SettingsController < ApplicationController
                     path.mkdir
                 end
             end
-            logger.info("SAVE FILE: #{original_name} to #{path.to_s}")
+            logger.log(0, "SAVE FILE: #{original_name} to #{path.to_s}")
             
             path = path.join(original_name)
             
             pathArray[0] = ''
             relative_path = pathArray.join('/').concat("/#{original_name}")
             
+            delete_old_uploaded_file(setting.value)
             File.open(path, "wb") { |f| 
                 f.write(file_data.read) 
             }
-            delete_old_uploaded_file(setting.value)
             setting.update_attribute(:value, relative_path.to_s)
             end
         else
