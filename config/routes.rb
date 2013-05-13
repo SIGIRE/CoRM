@@ -20,6 +20,10 @@ Crm::Application.routes.draw do
     match "#{ps}/:id(.:format)",         :controller => c,  :action => 'destroy',   :via => :delete, :as => "#{c.singularize}"
   end
   
+  match 'configuration', :controller => 'settings', :action => 'index', :via => :get, :as => 'settings'
+  match 'configuration/update', :controller => 'settings', :action => 'update_attribute', :via => :put, :as => 'settings'
+  match 'configuration/create', :controller => 'settings', :action => 'create_key', :via => :post, :as => 'settings'
+
 
   match 'extractions/select_param_accounts', :controller=>'extractions', :action => 'select_param_accounts'
   match 'extractions/comptes', :controller=>'extractions', :action => 'accounts', :as => :csv
@@ -76,6 +80,7 @@ Crm::Application.routes.draw do
     match '/user/:id', :controller => 'registrations', :action => 'update', :via => :put, :as => 'user'
     match '/user/:id', :controller => 'registrations', :action => 'destroy', :via => :delete, :as => 'user'
     match '/users', :controller => 'registrations', :action => 'create', :via => :post, :as => 'users'
+#    root :to => 'devise/sessions#new'
   end
 
   # Opportunities routes

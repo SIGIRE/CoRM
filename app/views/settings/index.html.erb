@@ -1,0 +1,32 @@
+<div class="container-fluid">
+    <div class="well">
+        <div class="row-fluid">
+            <div class="span9">
+                <h1>Panneau de configuration</h1>
+            </div>
+            <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_task_path ,{:title => "Créer une tâche", :class=>"pull-right btn"}%>
+        </div>
+    </div>
+    
+        <% @settings.each do |s| %>
+            <%= form_for(@settings, :url => { :controller => 'settings', :action => 'update_attribute' }) do |f| %>
+                <div class="row row-fluid">
+                    <div class="field full">
+                        <label class="span2"><%= s.key %></label>
+                        <% if (s.input_type == 'text') %>
+                        <%= f.text_field :value, { :type => 'text' } %>
+                        <% elsif (s.input_type == 'boolean') %>
+                        <%= f.text_field :value, { :type => 'checkbox' } %>
+                        <% elsif (s.input_type == 'file') %>
+                        <%= f.file_field :value %>
+                        <% end %>
+                        <%= f.hidden_field :key %>
+                        <%= f.hidden_field :input_type %>
+                        <input type="submit" value="Sauvegarder" />
+                    </div>
+                </div>
+            <% end %>
+        <% end %>
+    
+</div>
+
