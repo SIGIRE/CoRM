@@ -93,27 +93,30 @@
 				<%= image_tag("glyphicons/glyphicons_280_settings.png", :size => "16x16") %>
 			</a>
 			<ul class="dropdown-menu right">
-				<li class="dropdown-submenu pull-left">
-				<a tabindex="-1" href="#">Configuration</a>
-				<ul class="dropdown-menu ">
-					<li><%= link_to 'Utilisateurs', users_path %></li>
-					<li><%= link_to 'Types', event_types_path %></li>
-					<li><%= link_to 'Tags', tags_path %></li>
-					<li><%= link_to 'Origines', origins_path %></li>
-					<li><%= link_to 'Modèles devis', quotation_templates_path %></li>
-					<% if current_user.has_role?(:admin) %>
-					<li><%= link_to 'Configuration', url_for({ :controller => 'settings', :action => 'index' }) %></li>
-					<% end %>
-				</ul>
-				</li>
-				<li class="dropdown-submenu pull-left">
-				<a tabindex="-1" href="#">Extraction</a>
-				<ul class="dropdown-menu ">
-					<li><%= link_to 'Comptes', url_for(:controller => 'extractions', :action => 'select_param_accounts') %></li>
-					<li><%= link_to 'Contacts', url_for(:controller => 'extractions', :action => 'select_param_contacts') %></li>
-				</ul>
-				</li>
-				<li class="divider"></li>
+				<% if current_user.has_role?(:admin) or current_user.has_role?(:super_user) %>
+					<li class="dropdown-submenu pull-left">
+					<a tabindex="-1" href="#">Configuration</a>
+					<ul class="dropdown-menu ">
+						<li><%= link_to 'Utilisateurs', users_path %></li>
+						<li><%= link_to 'Types', event_types_path %></li>
+						<li><%= link_to 'Tags', tags_path %></li>
+						<li><%= link_to 'Origines', origins_path %></li>
+						<li><%= link_to 'Modèles devis', quotation_templates_path %></li>
+						<% if current_user.has_role?(:admin) %>
+							<li class="divider"></li>
+							<li><%= link_to 'Configuration CoRM', url_for({ :controller => 'settings', :action => 'index' }) %></li>
+						<% end %>
+					</ul>
+					</li>
+					<li class="dropdown-submenu pull-left">
+						<a tabindex="-1" href="#">Extraction</a>
+						<ul class="dropdown-menu ">
+							<li><%= link_to 'Comptes', url_for(:controller => 'extractions', :action => 'select_param_accounts') %></li>
+							<li><%= link_to 'Contacts', url_for(:controller => 'extractions', :action => 'select_param_contacts') %></li>
+						</ul>
+					</li>
+					<li class="divider"></li>
+				<% end %>
 				<li><%= link_to 'À propos', '/about' %></li>
 			</ul>
 			</div>

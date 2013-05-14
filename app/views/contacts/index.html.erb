@@ -12,29 +12,28 @@
     </div>
   </div>
 
-<div id="task_value" class="container-fluid" style= "display: none;">  
+<div id="task_value" class="container-fluid" style= "display: none;">
   <%= form_for(:filter, :url => { :action => 'filter' } , :html => {:method => :get} ) do |f| %>
-      
-      <div class="span2">
-        Société : <%= f.text_field :company , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_accounts}, :autocomplete=>"off"%>
-      </div>
-      
-      <div class="span2">
-        Nom : <%= f.text_field :surname , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_contacts}, :autocomplete=>"off"%>
-      </div>
-      
-      <div class="span2">
-        Téléphone : <%= f.text_field :tel, :class =>"filter_tfield"%>
-      </div>
-      
-      <div class="span1" style="margin-top: 18px;">
+      <div class="row row-fluid">
+		<div class="">
+			<%= f.label :statut, "Société :", :class => "top" %>
+			<%= f.text_field :company , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_accounts}, :autocomplete=>"off"%>
+		</div>
+		<div class="">
+			<%= f.label :filter_priority, "Nom :", :class => "top" %>
+			<%= f.text_field :surname , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_contacts}, :autocomplete=>"off"%>
+        </select>
+		</div>
+		<div class="">
+			<%= f.label :user_email, "téléphone :", :class => "top" %>
+			<%= f.text_field :tel, :class =>"filter_tfield"%>
+		</div>
+		<div>
         <%= f.submit "Filtrer", :class =>"btn "%>
-      </div>
-  <% end %>
-  
-</div>
-
-
+		</div>
+	  </div>
+   <% end %>
+</div>  
 <!-- END FILTER -->
 
 <div class="container-fluid" style="margin-top: 1em;">

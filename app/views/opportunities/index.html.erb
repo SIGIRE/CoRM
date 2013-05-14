@@ -11,44 +11,41 @@
     </div>
   </div>
   
-  
-<div id="task_value" class="container-fluid" style= "display: none;">  
-  
+
+<div id="task_value" class="container-fluid" style= "display: none;">
   <%= form_for(:filter, :url => { :action => 'filter' } , :html => {:method => :get} ) do |f| %>
-      
-      <div class="span2">
-        Statut : <%= f.select :statut, Opportunity::STATUTS,{:include_blank => "Tous"} , :class =>"filter_statut"%>
-      </div>
-      
-      <div class="span3">
-        Compte : <%= f.text_field :account , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_accounts}, :autocomplete=>"off"%>
-      </div>
-      
-      <div class="span3">
-        Contact : <%= f.text_field :contact , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_contacts}, :autocomplete=>"off"%>
-      </div>
-    
-      <div class="span3">
-        Date Début : <%= f.text_field :date_begin, :class =>"filter_date"%>
-      </div>
-      
-      <div class="span3">
-        Date Fin : <%= f.text_field :date_end, :class =>"filter_date"%>
-      </div>
-      
-      <div class="span3">
-        Collaborateur : <%= f.collection_select :user, User.all_reals, :id, :full_name, {:include_blank => "Tous"} , :class =>"filter_coll"%>
-      </div>
-      
-      <div class="span1" style="margin-top: 18px;">
+      <div class="row row-fluid">
+		<div class="">
+			<%= f.label :statut, "Statut :", :class => "top" %>
+			<%= f.select :statut, Opportunity::STATUTS,{:include_blank => "Tous"} , :class =>"filter_statut"%>
+		</div>
+		<div class="">
+			<%= f.label :filter_priority, "Compte :", :class => "top" %>
+			<%= f.text_field :account , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_accounts}, :autocomplete=>"off"%>
+        </select>
+		</div>
+		<div class="">
+			<%= f.label :user_email, "Contact :", :class => "top" %>
+			<%= f.text_field :contact , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_contacts}, :autocomplete=>"off"%>
+		</div>
+		<div class="">
+			<%= f.label :user_email, "Date Début :", :class => "top" %>
+			<%= f.text_field :date_begin, :class =>"filter_date"%>
+		</div>
+		<div class="">
+			<%= f.label :user_email, "Date Fin :", :class => "top" %>
+			<%= f.text_field :date_end, :class =>"filter_date"%>
+		</div>
+		<div class="">
+			<%= f.label :user_email, "Collaborateur :", :class => "top" %>
+			<%= f.collection_select :user, User.all_reals, :id, :full_name, {:include_blank => "Tous"} , :class =>"filter_statut"%>
+		</div>
+		<div>
         <%= f.submit "Filtrer", :class =>"btn "%>
-      </div>
-    
-  <% end %>
-  
-</div>
-
-
+		</div>
+	  </div>
+   <% end %>
+</div>  
 <!-- END FILTER -->
 
 <div class="container-fluid">

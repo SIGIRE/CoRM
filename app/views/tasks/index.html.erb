@@ -13,27 +13,29 @@
 
 <div id="task_value" class="container-fluid" style= "display: none;">
   <%= form_for(:filter, :url => { :action => 'filter' } , :html => {:method => :get} ) do |f| %>
-      <div class="span3">
-        Statut : 
-        <%= f.select :statut, Task::STATUTS_A_FILTRER, {:include_blank => "Tous", :selected => @statut_filter}, :class => "filter_statut" %>
-      </div>
-      <div class="span3">
-        Priorité : 
-        <select name="filter[priority]" id="filter_priority" class="filter_priority">
-          <option value="">Tous</option>
-          <% Task::PRIORITIES.each_with_index do |value, index| %>
-            <option value="<%= index %>"<%= if @priority_filter == index then ' selected=selected' end %>><%= value %></option>
-          <% end %>
+      <div class="row row-fluid">
+		<div class="">
+			<%= f.label :statut, "Statut :", :class => "top" %>
+			<%= f.select :statut, Task::STATUTS_A_FILTRER, {:include_blank => "Tous", :selected => @statut_filter}, :class => "filter_statut" %>
+		</div>
+		<div class="">
+			<%= f.label :filter_priority, "Priorité :", :class => "top" %>
+			<select name="filter[priority]" id="filter_priority" class="filter_priority">
+			<option value="">Tous</option>
+			<% Task::PRIORITIES.each_with_index do |value, index| %>
+            <option value="<%= index %>"
+			<%= if @priority_filter == index then ' selected=selected' end %>><%= value %></option>
+			<% end %>
         </select>
-      </div>
-      
-      <div class="span3">
-        Collaborateur : <%= f.collection_select :user_email, User.all_reals, :email, :full_name, {:include_blank => "Tous", :selected => @email_filter} , :class =>"filter_coll"%>
-      </div>
-      
-      <div class="span1" style="margin-top: 18px;">
+		</div>
+		<div class="">
+			<%= f.label :user_email, "Collaborateur :", :class => "top" %>
+			<%= f.collection_select :user_email, User.all_reals, :email, :full_name, {:include_blank => "Tous", :selected => @email_filter} , :class =>"filter_statut"%>
+		</div>
+		<div>
         <%= f.submit "Filtrer", :class =>"btn "%>
-      </div>
+		</div>
+	  </div>
    <% end %>
 </div>
 <!-- END FILTER -->
