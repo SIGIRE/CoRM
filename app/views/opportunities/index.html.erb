@@ -1,5 +1,56 @@
-<%= render 'filter', :locals => { :filter => @filter }%>
+
 <%= render 'title', :locals => { :title => @title }%>
+
+<!-- FILTER -->
+  <div class="container-fluid">
+    <div class="field">
+      <label class="checkbox">
+        <%= check_box_tag :generate, "yes" %>
+        Filtrer les Opportunités
+      </label>
+    </div>
+  </div>
+  
+  
+<div id="task_value" class="container-fluid" style= "display: none;">  
+  
+  <%= form_for(:filter, :url => { :action => 'filter' } , :html => {:method => :get} ) do |f| %>
+      
+      <div class="span2">
+        Statut : <%= f.select :statut, Opportunity::STATUTS,{:include_blank => "Tous"} , :class =>"filter_statut"%>
+      </div>
+      
+      <div class="span3">
+        Compte : <%= f.text_field :account , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_accounts}, :autocomplete=>"off"%>
+      </div>
+      
+      <div class="span3">
+        Contact : <%= f.text_field :contact , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_contacts}, :autocomplete=>"off"%>
+      </div>
+    
+      <div class="span3">
+        Date Début : <%= f.text_field :date_begin, :class =>"filter_date"%>
+      </div>
+      
+      <div class="span3">
+        Date Fin : <%= f.text_field :date_end, :class =>"filter_date"%>
+      </div>
+      
+      <div class="span3">
+        Collaborateur : <%= f.collection_select :user, User.all_reals, :id, :full_name, {:include_blank => "Tous"} , :class =>"filter_coll"%>
+      </div>
+      
+      <div class="span1" style="margin-top: 18px;">
+        <%= f.submit "Filtrer", :class =>"btn "%>
+      </div>
+    
+  <% end %>
+  
+</div>
+
+
+<!-- END FILTER -->
+
 <div class="container-fluid">
   <table class="table table-bordered table-striped table-hover">
     <thead>
