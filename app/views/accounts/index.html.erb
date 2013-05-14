@@ -1,5 +1,41 @@
-<%= render 'filter', :locals => { :filter => @filter }%>
+
 <%= render 'title', :locals => { :title => @title }%>
+
+<!-- FILTER -->
+
+  <div class="container-fluid">
+    <div class="field">
+      <label class="checkbox">
+        <%= check_box_tag :generate, "yes" %>
+        Filtrer les Comptes
+      </label>
+    </div>
+  </div>
+
+<div id="task_value" class="container-fluid" style= "display: none;">  
+  <%= form_for(:filter, :url => { :action => 'filter' } , :html => {:method => :get} ) do |f| %>
+      
+      <div class="span3">
+        Société : <%= f.text_field :company , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_accounts}, :autocomplete=>"off"%>
+      </div>
+      
+      <div class="span3">
+        Contact : <%= f.text_field :contact , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_contacts}, :autocomplete=>"off"%>
+      </div>
+      
+      <div class="span3">
+        Téléphone : <%= f.text_field :tel, :class =>"filter_tfield"%>
+      </div>
+      
+      <div class="span1" style="margin-top: 18px;">
+        <%= f.submit "Filtrer", :class =>"btn "%>
+      </div>
+  <% end %>
+  
+</div>
+<!-- END FILTER -->
+
+
 <div class="container-fluid" style="margin-top: 1em;">
   <table class="table table-bordered table-striped table-hover">
     <thead>
