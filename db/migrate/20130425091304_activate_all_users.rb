@@ -10,7 +10,7 @@ class ActivateAllUsers < ActiveRecord::Migration
        u.password="Fikergn43653"
        u.email="admin@sigire.fr"
        u.enabled=true
-       u.id=User.last.id+1
+       #u.id=User.last.id+1
        u.save
        u.add_role(:admin)
   end
