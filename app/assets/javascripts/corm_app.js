@@ -203,6 +203,22 @@ $(document).ready(function() {
     }
     return false;
   });
+  // Manage checkbox to toggle 
+  $('.toggle-checkbox').change(function() {
+      var that = $(this),
+          state = that.is(':checked'),
+          container = $(document.getElementById(that.attr('data-toggle'))).clone(true),
+          inputs = $(container).find('label.checkbox input[type=checkbox]');
+      inputs.each(function(i, v) {
+          if (state) {
+              v.setAttribute('checked', 'checked');
+          } else {
+              v.removeAttribute('checked');
+          }
+      });
+      var HTMLContainer = $(document.getElementById(that.attr('data-toggle')));
+      HTMLContainer.html(container.children());
+  });
   
   $(document.getElementById('generate')).on('change', function() {
     if ($(this).is(':checked') && !$(document.getElementById('task_value')).is(':visible')) {
@@ -236,5 +252,61 @@ $(document).ready(function() {
     var prix = $(this).val();
     $(document.getElementById('quotation_lines_attributes_0_total_excl_tax')).val(qt*prix);
   });
-
+  
+  
+  /* Upload file Settings */
+  var input, formdata=false, reader = new FileReader();
+  
+  if ($('.edit_setting').length > 0) {
+      
+      if (window.FormData) {
+          formdata = new FormData();
+      }
+      var forms = $('.edit_setting'),
+            form=null,
+            inputFiles=null;
+            
+      for(var n=0;n<forms.length;n += 1) {
+        form = $(forms[n]);
+        inputFiles = form.find('input[type=file]');
+        inputFiles.change(function(event) {
+            reader = new FileReader();  
+            var i = 0, len = this.files.length, img, reader, file;
+            for( ; i < len; i++) {
+                file = this.files[i];
+                console.log(file);
+                reader.readAsDataURL(file);
+                formdata.append('setting[file]', file);
+            }
+        });
+      }
+      
+      
+      $('.edit_setting').submit(function() {
+            var form = $(this);
+            formdata.append('setting[value]', form.find('.setting_value').val())
+            formdata.append('setting[key]', form.find('.setting_key').val());
+            formdata.append('setting[type]', form.find('.setting_type').val());
+            formdata.append('_method', form.find('input[name=_method]').val());
+            $.ajax({
+                url: form.attr('action'),
+                type: 'POST',
+                data: formdata,
+                processData: false,  
+                contentType: false, 
+                beforeSend: function() {
+                    form.find('.small-message').hide();
+                },
+                success: function(o) {
+                    if (o.saved) {
+                        var message = form.find('.small-message').show();
+                        setTimeout(function() {
+                            message.fadeOut(2000);
+                        }, 2000);
+                    }
+                }
+            });
+            return false;
+      });
+  }
 });

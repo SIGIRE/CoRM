@@ -14,15 +14,23 @@
                     <div class="field full">
                         <label class="span2"><%= s.key %></label>
                         <% if (s.input_type == 'text') %>
-                        <%= f.text_field :value, { :type => 'text' } %>
+                        <%= f.text_field :value, { :type => 'text', :class => 'text_field setting_value' } %>
                         <% elsif (s.input_type == 'boolean') %>
-                        <%= f.text_field :value, { :type => 'checkbox' } %>
+                        <%= f.text_field :value, { :type => 'checkbox', :class => 'boolean_field setting_value' } %>
                         <% elsif (s.input_type == 'file') %>
-                        <%= f.file_field :value %>
+                        <%= f.file_field :value, { :class => 'file_field setting_value' } %>
                         <% end %>
-                        <%= f.hidden_field :key %>
-                        <%= f.hidden_field :input_type %>
+                        <%= f.hidden_field :key, { :class => 'setting_key' } %>
+                        <%= f.hidden_field :input_type, { :class => 'setting_type' } %>
+                        <input type='hidden' name='_method' value='put'>
                         <input type="submit" value="Sauvegarder" />
+                        <% if (s.input_type == 'text') %>
+                        <p class="small-message" style="display: none;">Valeur correctement sauvegardé</p>
+                        <% elsif (s.input_type == 'boolean') %>
+                        <p class="small-message" style="display: none;">Valeur correctement sauvegardé</p>
+                        <% elsif (s.input_type == 'file') %>
+                        <p class="small-message" style="display: none;">Fichier correctement sauvegardé</p>
+                        <% end %>
                     </div>
                 </div>
             <% end %>
