@@ -2,6 +2,8 @@ class Setting < ActiveRecord::Base
     
     attr_accessible :key, :value, :input_type
     
+    self.primary_key = :id
+    
     def self.get(id)
       return self.find_by_key(id)
     end
@@ -18,6 +20,10 @@ class Setting < ActiveRecord::Base
           }
           return self.create(builder)
       end
+    end
+    
+    def set(value)
+        self.update_attribute(:value, value)
     end
     
 end

@@ -83,10 +83,10 @@ class SettingsController < ApplicationController
             File.open(path, "wb") { |f| 
                 f.write(file_data.read) 
             }
-            setting.update_attribute(:value, relative_path.to_s)
+            setting.set(relative_path.to_s)
             end
         else
-            setting.update_attribute(:value, '')
+            setting.set('')
             return false
         end
         
