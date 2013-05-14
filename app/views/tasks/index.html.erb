@@ -1,5 +1,42 @@
-<%= render 'filter', :locals => { :filter => @filter }%>
 <%= render 'title', :locals => { :title => @title }%>
+
+<!-- FILTER -->
+
+  <div class="container-fluid">
+    <div class="field">
+      <label class="checkbox">
+        <%= check_box_tag :generate, "yes" %>
+        Filtrer les Tâches
+      </label>
+    </div>
+  </div>
+
+<div id="task_value" class="container-fluid" style= "display: none;">
+  <%= form_for(:filter, :url => { :action => 'filter' } , :html => {:method => :get} ) do |f| %>
+      <div class="span3">
+        Statut : 
+        <%= f.select :statut, Task::STATUTS_A_FILTRER, {:include_blank => "Tous", :selected => @statut_filter}, :class => "filter_statut" %>
+      </div>
+      <div class="span3">
+        Priorité : 
+        <select name="filter[priority]" id="filter_priority" class="filter_priority">
+          <option value="">Tous</option>
+          <% Task::PRIORITIES.each_with_index do |value, index| %>
+            <option value="<%= index %>"<%= if @priority_filter == index then ' selected=selected' end %>><%= value %></option>
+          <% end %>
+        </select>
+      </div>
+      
+      <div class="span3">
+        Collaborateur : <%= f.collection_select :user_email, User.all_reals, :email, :full_name, {:include_blank => "Tous", :selected => @email_filter} , :class =>"filter_coll"%>
+      </div>
+      
+      <div class="span1" style="margin-top: 18px;">
+        <%= f.submit "Filtrer", :class =>"btn "%>
+      </div>
+   <% end %>
+</div>
+<!-- END FILTER -->
 
 <div class="container-fluid">
   <table class="table table-bordered table-striped table-hover">
