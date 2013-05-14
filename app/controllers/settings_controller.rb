@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class SettingsController < ApplicationController
 
     def index
@@ -13,15 +15,20 @@ class SettingsController < ApplicationController
     def update_attribute
         if current_user.has_role?(:admin)
             setting = Setting.find(params[:setting][:key])
-            if (params[:setting][:input_type] == 'file') 
-                file_data = params[:setting][:value]
-                save_uploaded_file(file_data, setting)
-            elsif (params[:setting][:input_type] == 'text')
+            @response = { :error => false, :errcode => nil, :errMessage => nil, :saved => true }
+            if (params[:setting][:type] == 'file') 
+                file_data = params[:setting][:file]
+                if (!save_uploaded_file(file_data, setting)) 
+                    @response[:saved] = false
+                    @response[:error] = true
+                    @response[:errMessage] = "Le fichier uploadé ne contient rien."
+                end
+            elsif (params[:setting][:type] == 'text')
                 setting.update_attribute(:value, params[:setting][:value])
-            elsif (params[:setting][:input_type] == 'boolean')
+            elsif (params[:setting][:type] == 'boolean')
                 setting.update_attribute(:value, (!params[:setting][:value].nil?))
             end
-            @response = { :error => false, :errcode => nil, :errMessage => nil, :saved => true }
+            
             render :json => @response
         else
             @response = { :error => true, :errcode => 403, :errMessage => 'Forbidden', :saved => false }
@@ -40,9 +47,11 @@ class SettingsController < ApplicationController
     end
     
     def delete_old_uploaded_file(pathname)
-        path = Rails.root.join('public'.concat(pathname))
-        if (File.exist?(path))
-            File.delete(path)
+        if (!pathname.blank?)
+            path = Rails.root.join('public', pathname)
+            if (File.exist?(path))
+                File.delete(path)
+            end
         end
     end
     
@@ -78,6 +87,7 @@ class SettingsController < ApplicationController
             end
         else
             setting.update_attribute(:value, '')
+            return false
         end
         
     end

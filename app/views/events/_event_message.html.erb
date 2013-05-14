@@ -11,21 +11,18 @@ if !e.task.nil?
   if e.task.modified_by.nil? and e.created_by == e.task.created_by
     task_action = 'Création de '
   elsif !e.task.modified_by.nil? and e.modified_by == e.task.modified_by
-    
     task_action = 'Modification de '
   end
 end
 %>
 <% if e.task.nil? or e.modified_by.nil? %>
   <%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %>
+  
   <% if !e.contact.nil? and !e.event_type.nil? %>
-    a <%= action %> <strong><i><%= e.event_type.full_type %></i></strong>.
-    <% if !e.contact.nil? %>
-      avec <strong><%= e.contact.full_name %></strong>
-    <% end %>.
+    a <%= action %> <strong><i><%= e.event_type.full_type %></i></strong><% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>.
     <% if !e.task.nil? %>
       <br /><%= link_to "#{task_action} la tâche n° #{e.task.id}", edit_task_path(e.task.id) %>
-    <% end %>.
+    <% end %>
   <% elsif !e.task.nil? %>
     a <%= action %> <%= link_to "la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>.
   <% elsif !e.event_type.nil? %>
@@ -34,6 +31,6 @@ end
     a éffectué une action<% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>.
   <% end %>
 <% else %>
-  <%= e.editor.full_name %> a modifié <%= link_to "la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>
+  <%= e.editor.full_name %> a modifié <%= link_to "la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>.
 <% end %>
 </p>
