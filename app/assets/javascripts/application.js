@@ -18,5 +18,3 @@
 */
 //= require ./modal_accounts.js
 //= require ./modal_contacts.js
-
-//= require ./settings_form.js

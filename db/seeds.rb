@@ -6,4 +6,6 @@ Setting.set('logo-login', '', { :type => 'file' })
 
 EventType.create({ :label => 'Appel téléphonique', :direction => 'Entrant' })
 EventType.create({ :label => 'Appel téléphonique', :direction => 'Sortant' })
-EventType.create({ :label => 'Appel téléphonique', :direction => 'Interne' })
+
+EventType.create({ :label => 'Mail', :direction => 'Entrant' })
+EventType.create({ :label => 'Mail', :direction => 'Sortant' })

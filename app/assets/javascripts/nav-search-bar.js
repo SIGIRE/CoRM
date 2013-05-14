@@ -124,6 +124,21 @@ $(document).ready(function() {
       inputSearch.removeClass('focus');
     }
   });*/
+  var update_selection_opportunity = function() {
+      var that = $(this),
+          account_id = that.val(),
+          oppfield = $(document.getElementById(that.attr('data-oppfield')));
+       if (account_id != null && account_id != '') {
+           $.get('/devis/update_opportunity_select/' + account_id,
+               function(html) {
+                   oppfield.html(html);
+               });
+       } else {
+           oppfield.html('');
+       }
+  };
+  
+  
   
   var corm_var = {};
   /*
@@ -144,6 +159,7 @@ $(document).ready(function() {
             dataType: 'json',
             beforeSend: function() {
               var contact_list = document.getElementById('contact_id');
+              $(document.getElementById(that.getAttribute('data-field'))).removeAttr('value');
               if (contact_list) {
                 $(contact_list).html(corm.createHTML('option'));
               }
@@ -176,7 +192,7 @@ $(document).ready(function() {
             label.show();
           }
         }
-        $(document.getElementById(that.getAttribute('data-field'))).val(item.id);
+        $(document.getElementById(that.getAttribute('data-field'))).attr('value', item.id);
         var select_dom = document.getElementById('contact_id');
         if (select_dom) {
           var select = $(select_dom);
@@ -195,6 +211,10 @@ $(document).ready(function() {
                 select.append(corm.createHTML('option', { content: contact_full_name(o[index]) + '', value: o[index].id }));
               }
               select.parent().children('.loading').addClass('hidden');
+              var opp = $('.account_id__opportunity');
+              if (opp.length > 0) {
+                update_selection_opportunity.apply(opp[0])
+              }
             }
           }); 
         }

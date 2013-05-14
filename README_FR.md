@@ -1,9 +1,9 @@
 # CORM
 ### Plus facile qu'un CRM
-Version: 0.8.6 (nightly)
+Version: 0.9 (nightly)
 
 ## A propos de CoRM
-Corm est un **Customer Relationship managers** (Gestionnaire de relation client) conçu pour les entreprises de 1 à 100 collaborateurs. Ce logiciel vous aide à gérer vos relations entre chaque acteur qui composent votre environnement.
+Corm est un **Customer Relationship manager** (Gestionnaire de relation client) conçu pour les entreprises de 1 à 100 collaborateurs. Ce logiciel vous aide à gérer vos relations entre chaque acteur qui composent votre environnement.
 
 Corm ne contient pas de fonctionnalités superflues. Ce logiciel est construit pour vous aider, pas pour vous stopper avec des champs obligatoires lors d'un entretien ou quelque chose d'autre.
 
@@ -35,8 +35,7 @@ Pour l'instant, CoRM n'est pas modulaire et ne supporte pas la traduction multil
 Installation de la base de données:
 
 ```
-rake db:create
-rake db:schema:load
+rake db:setup
 ```
 
 Migrer depuis une ancienne version:

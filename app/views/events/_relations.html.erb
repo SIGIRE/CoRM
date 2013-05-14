@@ -35,9 +35,9 @@
         <td style="width: 15em;"><center><%= relation.name %></center></td>
         <td><center>
           <% if relation.account2.id == @account.id %>
-            <%= link_to relation.account1.company, relation.account1 %>
+            <%= link_to relation.account1.company, account_events_path(relation.account1) %>
           <% else %>
-            <%= link_to relation.account2.company, relation.account2 %>
+            <%= link_to relation.account2.company, account_events_path(relation.account2) %>
           <% end %>
         </center></td>
         <td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_relation_path(relation) ,{:title => "Modifier la relation", :class =>"btn"} %></center></td>

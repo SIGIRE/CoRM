@@ -151,8 +151,8 @@ $(document).ready(function() {
       $(this).validate();
     }); 
   }
-  
-  
+
+  /*
   // Generate contact list in opportunity edtion
   $(document.getElementById('opportunity_account_id')).change(function() {
     var account = $('select#opportunity_account_id :selected').val();
@@ -185,7 +185,7 @@ $(document).ready(function() {
         }
       );
     }
-  });
+  });*/
   
   // gestion de la check box lors de la creation d'un event
   $(document.getElementById('account_search_field')).on('keyup', function(e) {

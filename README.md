@@ -1,6 +1,6 @@
 # CORM
 ### Easier than a CRM
-Version: 0.8.6 (nightly)
+Version: 0.9 (nightly)
 
 ## About CORM
 CoRM is a **Customer Relationship Manager** (CRM) designed for businesses about 1 to 100 collaborators. This software helps you to manage your relations between each actor that composing your environment.
@@ -29,15 +29,13 @@ For now, CoRM is not modular and does not support the multilingual translation w
 
  * run 'bundle install' to add or update all gems
  * modify config/database.yml - to define your databases connections
- * modify config/routes.rb - to define your own routes
 
 #### Preparation
 
 Fresh install:
 
 ```
-rake db:create
-rake db:schema:load
+rake db:setup
 ```
 
 Migration from older version:
