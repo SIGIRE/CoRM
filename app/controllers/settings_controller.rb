@@ -14,7 +14,7 @@ class SettingsController < ApplicationController
     
     def update_attribute
         if current_user.has_role?(:admin)
-            setting = Setting.find(params[:setting][:key])
+            setting = Setting.get(params[:setting][:key])
             @response = { :error => false, :errcode => nil, :errMessage => nil, :saved => true }
             if (params[:setting][:type] == 'file') 
                 file_data = params[:setting][:file]
