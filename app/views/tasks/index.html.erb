@@ -109,7 +109,15 @@
 		<% end %>		
 
 		<% if !task.term.blank? %>
-			<td class="text-center"><%= task.term.split('/').reverse!.join('/') %></td>
+			<% if task.term.to_date == Date.today %>
+				<td class="text-center"><span class="label label-info"><%= task.term.split('/').reverse!.join('/') %></span></td>
+			<% else %>
+				<% if task.term.to_date < Date.today %>
+					<td class="text-center"><span class="label label-important"><%= task.term.split('/').reverse!.join('/') %></span></td>
+				<% else %>
+					<td class="text-center"><%= task.term.split('/').reverse!.join('/') %></td>
+				<% end %>
+			<% end %>
 		<% else %>
 			<td class="text-center">-</td>
 		<% end %>

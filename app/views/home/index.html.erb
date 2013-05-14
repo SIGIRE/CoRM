@@ -62,11 +62,19 @@
 																		<% else %>
 																			<td class="text-center">-</td>
 																		<% end %>
-																			<% if !t.term.blank? %>
-																			<td class="text-center"><%= t.term.split('/').reverse!.join('/') %></td>
-																		<% else %>
-																			<td class="text-center">-</td>
-																		<% end %>
+																				<% if !t.term.blank? %>
+																					<% if t.term.to_date == Date.today %>
+																						<td class="text-center"><span class="label label-info"><%= t.term.split('/').reverse!.join('/') %></span></td>
+																					<% else %>
+																						<% if t.term.to_date < Date.today %>
+																							<td class="text-center"><span class="label label-important"><%= t.term.split('/').reverse!.join('/') %></span></td>
+																						<% else %>
+																							<td class="text-center"><%= t.term.split('/').reverse!.join('/') %></td>
+																						<% end %>
+																					<% end %>
+																				<% else %>
+																					<td class="text-center">-</td>
+																				<% end %>
 																	<td class="text-center">
 																	<%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_task_path(t) ,{:title => "Éditer la tâche", :class =>"btn"}  %>
 																	</td>
@@ -185,7 +193,19 @@
 				<td class="text-center"><% if !o.contact.nil? %><%= link_to o.contact.full_name, edit_contact_path(o.contact) ,{:title => "Éditer le contact"} %><% else %>-<% end %></td>
 				<td style="text-align :right;"><% if !o.amount.nil? %><%= number_to_currency(o.amount, :locale => :fr)  %> <strong> HT </strong></td><% else %>-<% end %></td>
 				<td style="text-align :right;"><% if !o.profit.nil? %><%= number_to_currency(o.profit, :locale => :fr)  %> <strong> HT </strong><% else %>-<% end %></td>
-				<td class="text-center"><% if !o.term.nil? %><%=  o.term.strftime("%d/%m/%y") %><% else %>-<% end %></td>
+		<% if !o.term.blank? %>
+			<% if o.term.to_date == Date.today %>
+				<td class="text-center"><span class="label label-info"><%= o.term.strftime("%d/%m/%y") %></span></td>
+			<% else %>
+				<% if o.term.to_date < Date.today %>
+					<td class="text-center"><span class="label label-important"><%= o.term.strftime("%d/%m/%y") %></span></td>
+				<% else %>
+					<td class="text-center"><%= o.term.strftime("%d/%m/%y") %></td>
+				<% end %>
+			<% end %>
+		<% else %>
+			<td class="text-center">-</td>
+		<% end %>
 				<td class="text-center">
 					<%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_opportunity_path(o) ,{:title => "Éditer l'opportunité", :class =>"btn"}  %>
 				</td>				

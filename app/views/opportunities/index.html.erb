@@ -112,10 +112,18 @@
 		<% else %>
 		<td class="text-center">-</td>
 		<% end %>
-		<% if !opportunity.term.nil? %>
-		<td class="text-center"><%=  opportunity.term.strftime("%d/%m/%y") %></td>
+		<% if !opportunity.term.blank? %>
+			<% if opportunity.term.to_date == Date.today %>
+				<td class="text-center"><span class="label label-info"><%= opportunity.term.strftime("%d/%m/%y") %></span></td>
+			<% else %>
+				<% if opportunity.term.to_date < Date.today %>
+					<td class="text-center"><span class="label label-important"><%= opportunity.term.strftime("%d/%m/%y") %></span></td>
+				<% else %>
+					<td class="text-center"><%= opportunity.term.strftime("%d/%m/%y") %></td>
+				<% end %>
+			<% end %>
 		<% else %>
-		<td class="text-center">-</td>
+			<td class="text-center">-</td>
 		<% end %>
 		<% if !opportunity.user.nil? %>
 		<td class="text-center"><%= opportunity.user.full_name %></td>
