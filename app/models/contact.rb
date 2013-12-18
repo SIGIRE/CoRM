@@ -39,7 +39,8 @@ class Contact < ActiveRecord::Base
   # Get the complete name of this person.
   #
   def full_name
-    "#{title} #{forename} #{UnicodeUtils.upcase(surname, I18n.locale)}"
+    #"#{title} #{forename} #{UnicodeUtils.upcase(surname, I18n.locale)}"
+    "#{forename} #{UnicodeUtils.upcase(surname, I18n.locale)}"
   end
   
   ##

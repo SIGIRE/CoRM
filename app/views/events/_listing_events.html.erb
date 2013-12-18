@@ -13,11 +13,23 @@
         </p>
        <p>
         N° <%= e.id %>
-        <% if !e.date_begin.blank? %>
+        
+        <% if e.date_begin == e.date_end %>
+        - Date : <%= e.date_begin.strftime("%d/%m/%y à %H:%M") %>
+        <% else %>
+                <% if !e.date_begin.blank? %>
         - Début : <%= e.date_begin.strftime("%d/%m/%y à %H:%M") %>
         <% end %>
         <% if !e.date_end.blank? %>
         - Fin : <%= e.date_end.strftime("%d/%m/%y à %H:%M") %>
+        <% end %>
+        
+        <% end %>
+        
+
+        
+        <% if e.date_begin != e.date_end %>
+        - Durée : <%= distance_of_time_in_words(e.date_begin, e.date_end, include_seconds: true) %>
         <% end %>
         <!--
         <% if !e.contact.nil? %>
@@ -27,20 +39,27 @@
         - Type : <%= e.event_type.full_type %>
         <% end %>
         -->
-        <% if !e.attach_file_name.blank? %>
-        - Fichier-joint : <%= link_to e.attach_file_name, e.attach.url, { :target => '_blank' } %>
-      <% end %>
+
        </p>
       <div class="more">   
         <% if !e.notes.blank? %>
             <div class="notes"><pre class="no-style"><%= e.notes %></pre></div>
         <% end %>
       </div>
+
         <p class="time">
           <% if e.created_by == current_user.id or e.modified_by == current_user.id or current_user.has_role? :super_user %>
             <%= link_to "Supprimer", event_path(e), :data => { :confirm => 'Confirmer la Suppression?'},:class => "" , :title => "Supprimer l'évènement", :method => :delete %>
           <% end %>
         </p>
+        
+      <p class="content">
+        <% if !e.attach_file_name.blank? %>
+      Fichier-joint : <%= link_to e.attach_file_name, e.attach.url, { :target => '_blank' } %>
+      <% end %>
+        
+      </p>
+        
       </div>
     </div>
   </div>
