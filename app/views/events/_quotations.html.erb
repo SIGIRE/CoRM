@@ -27,6 +27,7 @@
       <tr>
         <th><center>Id</center></th>
         <th><center>Statut</center></th>
+        <th><center>Libellé</center></th>
         <th><center>Référence</center></th>
         <th><center>Opportunité</center></th>
         <th><center>Total HT</center></th>
@@ -53,6 +54,7 @@
             <% end %>
             <%= quotation.statut %></span>
           </center></td>
+        <td><center><%= quotation.label %></center></td>
         <td><center><%= quotation.ref %></center></td>
         <td><center>
           <% if !quotation.opportunity.nil? %>
