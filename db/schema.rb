@@ -13,6 +13,11 @@
 
 ActiveRecord::Schema.define(:version => 20130513100221) do
 
+  create_table "abilities", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "accounts", :force => true do |t|
     t.string   "company"
     t.string   "adress1"
@@ -239,7 +244,8 @@ ActiveRecord::Schema.define(:version => 20130513100221) do
     t.string "value"
     t.string "input_type"
   end
-  add_index "settings", ['key'], :name => 'settings_index'
+
+  add_index "settings", ["key"], :name => "settings_index"
 
   create_table "tags", :force => true do |t|
     t.string   "name"
