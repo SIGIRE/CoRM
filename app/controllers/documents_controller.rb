@@ -50,7 +50,7 @@ class DocumentsController < ApplicationController
 			e = Event.new({
 				:account_id => @document.account_id,
 				:created_by => current_user.id,
-				:notes => "Document n°#{@document.id} créé\r\nNom: #{@document.name}\r\nDescription: #{@document.notes}",
+				:notes => "Document n°#{@document.id} créé\r\nNom : #{@document.name}\r\nDescription : #{@document.notes}",
 				:user_id => current_user.id,
 				:date_begin => Time.now,
 				:date_end => Time.now })
