@@ -147,7 +147,7 @@ class QuotationPdf < Prawn::Document
   def total
     
     move_down 30
-    #text_box "Total HT \t\t #{@quotation.total_ht} € \n TVA 19,60 % \t\t #{@quotation.total_tva} € \n Total TTC \t\t #{@quotation.total_ttc} €\n",
+    #text_box "Total HT \t\t #{@quotation.total_ht} € \n TVA #{@quotation.quotation_template.vat_rate}% \t\t #{@quotation.total_tva} € \n Total TTC \t\t #{@quotation.total_ttc} €\n"
     text_box "Total HT \n TVA #{@quotation.quotation_template.vat_rate}% \n Total TTC",
       :style => :bold,
       :size => 12,
