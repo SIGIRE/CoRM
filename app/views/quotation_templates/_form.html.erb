@@ -62,8 +62,13 @@
     </div>
     
     <div class="field"> 
-      <div class="span2">TVA : </div><%= f.text_field :vat %>
+      <div class="span2">N°TVA : </div><%= f.text_field :vat %>
     </div>
+
+    <div class="field"> 
+      <div class="span2">Taux TVA (%) : </div><%= f.text_field :vat_rate ,{ :class => 'required'}%><span class="req" />
+    </div>
+
 
   	<% if @template.attach.exists? %> 
 		<div class="field"><div class="span2">Nouveau logo : </div><%= f.file_field :attach, :style=>'width: 20em;' %></div>

@@ -11,7 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130513100221) do
+ActiveRecord::Schema.define(:version => 20140113170437) do
+
+  create_table "abilities", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "accounts", :force => true do |t|
     t.string   "company"
@@ -170,6 +175,7 @@ ActiveRecord::Schema.define(:version => 20130513100221) do
     t.datetime "updated_at",                  :null => false
     t.integer  "created_by"
     t.integer  "updated_by"
+    t.float    "vat_rate"
   end
 
   create_table "quotations", :force => true do |t|
@@ -239,7 +245,8 @@ ActiveRecord::Schema.define(:version => 20130513100221) do
     t.string "value"
     t.string "input_type"
   end
-  add_index "settings", ['key'], :name => 'settings_index'
+
+  add_index "settings", ["key"], :name => "settings_index"
 
   create_table "tags", :force => true do |t|
     t.string   "name"
