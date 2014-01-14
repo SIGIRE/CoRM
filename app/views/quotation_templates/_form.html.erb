@@ -65,6 +65,10 @@
       <div class="span2">TVA : </div><%= f.text_field :vat %>
     </div>
 
+    <div class="field"> 
+      <div class="span2">Taux de TVA : </div><%= f.text_field :vat_rate ,{ :class => 'required'}%><span class="req" />
+    </div>
+
   	<% if @template.attach.exists? %> 
 		<div class="field"><div class="span2">Nouveau logo : </div><%= f.file_field :attach, :style=>'width: 20em;' %></div>
 		<div class="field"><div class="span2">Logo actuel : </div><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + @template.attach_file_name, @template.attach.url, :target => '_blank' %></div>
