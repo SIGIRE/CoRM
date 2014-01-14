@@ -32,6 +32,17 @@ class Opportunity < ActiveRecord::Base
   def self.last_modified(how_many = 10)
     self.order('updated_at DESC, created_at DESC').limit(how_many)
   end
+
+  # Convert commas in opportunity amount to dots
+  def amount=(amount)
+    write_attribute(:amount, amount.gsub(',', '.'))
+  end
+
+  # Convert commas in opportunity amount to dots
+  def profit=(profit)
+    write_attribute(:profit, profit.gsub(',', '.'))
+  end
+  
   
   scope :by_statut, lambda { |statut| where("statut LIKE ?", statut+'%') }
   scope :by_account, lambda { |account| where("account_id = ?", account.id) unless account.nil? }
