@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  to: MyString
+  account_id: 1
+  object: MyString
+  content: MyText
+  attach_file_name: MyString
+  attach_content_type: MyString
+  attach_file_size: 1
+  send_at: 2014-01-20
+
+two:
+  user_id: 1
+  to: MyString
+  account_id: 1
+  object: MyString
+  content: MyText
+  attach_file_name: MyString
+  attach_content_type: MyString
+  attach_file_size: 1
+  send_at: 2014-01-20

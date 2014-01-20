@@ -9,6 +9,7 @@
 				<li class="<%= "#{cssClass} "%>">
 					<%= link_to (image_tag("icons/tache_blanc.png", :size => "16x16")+" Tâches").html_safe, url_for(:controller => 'tasks', :action => 'filter') %>
 				</li>
+
 				<!-- ACTORS -->
 				<% cssClass = (params[:controller] == 'accounts' or params[:controller] == 'events' or params[:controller] == 'contacts') ? cssClass = 'active' : '' %>
 				<li class="dropdown<%= if !cssClass.blank? then " #{cssClass}" end %>">
@@ -72,6 +73,21 @@
 				</li>
 				</ul>
 			</div>
+
+				<!-- NOTIFICATIONS  -->
+				
+				<a class="btn" 
+	<%= link_to (image_tag("/assets/glyphicons/glyphicons_010_envelope.png", :size => "16x16")).html_safe, url_for(:controller => 'emails', :action => 'index')%>
+				</a>
+
+				<!-- NB MAILS -->
+		<% if current_user.emails.length > 0 %>
+		<span style="z-index:2; position: absolute; top: 0px; left: 65px; background-color: red;" class="badge">
+			 <%= current_user.emails.length %></span>
+		<% end %>
+
+			<!-- FIN NOTIFICATIONS -->
+
 			<div class="btn-group">
 			<a id="link-button-profile" class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 				<i class="icon-user"></i>

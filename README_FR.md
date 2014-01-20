@@ -1,5 +1,5 @@
 # CORM
-### Plus facile qu'un CRM (et en mieux!)
+### Plus facile qu'un CRM
 Version: 0.9 (nightly)
 
 ## A propos de CoRM

@@ -1,7 +1,6 @@
 Crm::Application.routes.draw do  
   
-
-
+  get "emails/index"
 
   # we'll add some variables to change routes easily.
   
