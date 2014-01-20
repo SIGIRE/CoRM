@@ -5,6 +5,9 @@ class SettingsController < ApplicationController
     def index
        if current_user.has_role?(:admin)
             @settings = Setting.all
+		
+	    # On récupère les paramètres du serveur mail
+	    @webmail_connections = WebmailConnection.all
        else
             flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.do')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Settings'))
 			redirect_to root_url
@@ -21,7 +24,7 @@ class SettingsController < ApplicationController
                 if (!save_uploaded_file(file_data, setting)) 
                     @response[:saved] = false
                     @response[:error] = true
-                    @response[:errMessage] = "Le fichier uploadé ne contient rien."
+                    @response[:errMessage] = "Le fichier uploadÃ© ne contient rien."
                 end
             elsif (params[:setting][:type] == 'text')
                 setting.update_attribute(:value, params[:setting][:value])
@@ -93,3 +96,4 @@ class SettingsController < ApplicationController
     end
 
 end
+

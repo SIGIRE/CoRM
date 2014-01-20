@@ -39,7 +39,7 @@
    <% end %>
 </div>
 <!-- END FILTER -->
-
+<% if Task.all.length > 0 %>
 <div class="container-fluid">
   <table class="table table-bordered table-striped table-hover">
     <thead>
@@ -138,3 +138,7 @@
   </table>
   <%= paginate @tasks %>
 </div>
+<% else %>
+	<div> Rien à afficher </div>
+<% end %>
+

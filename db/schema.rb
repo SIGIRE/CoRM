@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140113170437) do
+ActiveRecord::Schema.define(:version => 20140117132739) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -200,9 +200,9 @@ ActiveRecord::Schema.define(:version => 20140113170437) do
     t.integer  "opportunity_id"
     t.integer  "quotation_template_id"
     t.integer  "total_excl_tax_cents",    :default => 0,     :null => false
-    t.string   "total_excl_tax_currency", :default => "USD", :null => false
+    t.string   "total_excl_tax_currency", :default => "EUR", :null => false
     t.integer  "total_incl_tax_cents",    :default => 0,     :null => false
-    t.string   "total_incl_tax_currency", :default => "USD", :null => false
+    t.string   "total_incl_tax_currency", :default => "EUR", :null => false
     t.string   "company"
     t.string   "adress1"
     t.string   "adress2"
@@ -215,7 +215,7 @@ ActiveRecord::Schema.define(:version => 20140113170437) do
     t.string   "job"
     t.decimal  "VAT_rate"
     t.integer  "total_VAT_cents",         :default => 0,     :null => false
-    t.string   "total_VAT_currency",      :default => "USD", :null => false
+    t.string   "total_VAT_currency",      :default => "EUR", :null => false
     t.string   "label"
   end
 
@@ -240,13 +240,11 @@ ActiveRecord::Schema.define(:version => 20140113170437) do
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
 
-  create_table "settings", :force => true do |t|
+  create_table "settings", :id => false, :force => true do |t|
     t.string "key",        :null => false
     t.string "value"
     t.string "input_type"
   end
-
-  add_index "settings", ["key"], :name => "settings_index"
 
   create_table "tags", :force => true do |t|
     t.string   "name"
@@ -306,5 +304,16 @@ ActiveRecord::Schema.define(:version => 20140113170437) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], :name => "index_users_roles_on_user_id_and_role_id"
+
+  create_table "webmail_connections", :force => true do |t|
+    t.string   "login"
+    t.string   "password"
+    t.string   "server"
+    t.integer  "port"
+    t.integer  "type_event_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.boolean  "active"
+  end
 
 end

@@ -7,34 +7,83 @@
             <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_task_path ,{:title => "Créer une tâche", :class=>"pull-right btn"}%>
         </div>
     </div>
-    
+    	<div name="general_settings">
+     		<div class="span9">
+                	<h2>Paramètres généraux</h2>
+		</div>
         <% @settings.each do |s| %>
+	    <!-- On crée un formulaire pour cette entrée -->
             <%= form_for(@settings, :url => { :controller => 'settings', :action => 'update_attribute' }) do |f| %>
                 <div class="row row-fluid">
                     <div class="field full">
                         <label class="span2"><%= s.key %></label>
+
+			<!-- On vérifie le type du paramètre -->
                         <% if (s.input_type == 'text') %>
-                        <%= f.text_field :value, { :type => 'text', :class => 'text_field setting_value' } %>
+                        	<%= f.text_field :value, { :type => 'text', :class => 'text_field setting_value' } %>
                         <% elsif (s.input_type == 'boolean') %>
-                        <%= f.text_field :value, { :type => 'checkbox', :class => 'boolean_field setting_value' } %>
+                        	<%= f.text_field :value, { :type => 'checkbox', :class => 'boolean_field setting_value' } %>
                         <% elsif (s.input_type == 'file') %>
-                        <%= f.file_field :value, { :class => 'file_field setting_value' } %>
+                        	<%= f.file_field :value, { :class => 'file_field setting_value' } %>
                         <% end %>
+
+			
                         <%= f.hidden_field :key, { :class => 'setting_key' } %>
                         <%= f.hidden_field :input_type, { :class => 'setting_type' } %>
                         <input type='hidden' name='_method' value='put'>
                         <input type="submit" value="Sauvegarder" />
+
                         <% if (s.input_type == 'text') %>
-                        <p class="small-message" style="display: none;">Valeur correctement sauvegardé</p>
+                        	<p class="small-message" style="display: none;">Valeur correctement sauvegardée</p>
                         <% elsif (s.input_type == 'boolean') %>
-                        <p class="small-message" style="display: none;">Valeur correctement sauvegardé</p>
+                        	<p class="small-message" style="display: none;">Valeur correctement sauvegardée</p>
                         <% elsif (s.input_type == 'file') %>
-                        <p class="small-message" style="display: none;">Fichier correctement sauvegardé</p>
+                        	<p class="small-message" style="display: none;">Fichier correctement sauvegardé</p>
                         <% end %>
                     </div>
                 </div>
             <% end %>
         <% end %>
-    
+	</div>
+	
+	<% puts YAML::dump(@webmail_connections) %>
+	<div name="mail_settings">
+		<div class="span9">
+                	<h2>Paramètres du serveur mail</h2>
+		</div>
+	<% @webmail_connections.each do |w| %>
+	    <!-- On crée un formulaire pour cette entrée -->
+            <%= form_for(@webmail_connections, :url => { :controller => 'webmail_connections', :action => 'update' }) do |f| %>
+                <div class="row row-fluid">
+  			<div class="field full">
+    				<div class="span2"> Identifiant : </div> <%= f.text_field :login %>
+  			</div>
+  			<div class="field full">
+    				<div class="span2"> Mot de passe : </div> <%= f.text_field :password %>
+  			</div>
+			<div class="field full">
+    				<div class="span2"> Serveur : </div> <%= f.text_field :server %>
+  			</div>
+  			<div class="field full">
+    				<div class="span2"> Port : </div> <%= f.text_field :port %>
+  			</div>
+  			<div class="field full">
+    				<div class="span2"> Type d'évènement : </div> <%= f.text_field :type_event_id %>
+  			</div>
+  			<div class="field full">
+    				<div class="span2"> Activé : </div> <%= f.check_box :active %>
+  			</div>
+			<div class="field full">
+				<input type="submit" value="Sauvegarder"/ class="btn btn-success">
+				<input type='hidden' name='_method' value='put'>
+				<%= f.hidden_field :id %>
+			</div>
+			
+                </div>
+            <% end %>
+        <% end %>
+	</div>
+   	
+	
 </div>
 

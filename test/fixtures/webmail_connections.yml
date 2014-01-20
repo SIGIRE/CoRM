@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  login: MyString
+  password: MyString
+  server: MyString
+  port: 1
+  type_event_id: 1
+
+two:
+  login: MyString
+  password: MyString
+  server: MyString
+  port: 1
+  type_event_id: 1

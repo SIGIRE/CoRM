@@ -2,7 +2,7 @@ class Setting < ActiveRecord::Base
     
     attr_accessible :key, :value, :input_type
     
-    self.primary_key = :id
+    self.primary_key = :key
     
     def self.get(id)
       return self.find_by_key(id)

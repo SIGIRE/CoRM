@@ -1,5 +1,8 @@
 Crm::Application.routes.draw do  
   
+
+
+
   # we'll add some variables to change routes easily.
   
   def set_route(pp, ps, c)
@@ -129,6 +132,10 @@ Crm::Application.routes.draw do
 
   resources :about
 
+  # Webmail Connections routes
+  put "webmail_connections/update"
+  get "webmail_connections/index"
+  
   # resources :home
   # The priority is based upon order of creation:
   # first created -> highest priority.
