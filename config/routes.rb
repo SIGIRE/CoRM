@@ -1,5 +1,7 @@
 Crm::Application.routes.draw do  
   
+  get "emails/index"
+
   # we'll add some variables to change routes easily.
   
   def set_route(pp, ps, c)
@@ -124,6 +126,7 @@ Crm::Application.routes.draw do
   match 'contacts/search(.:format)', :controller => 'contacts', :action => 'search', :via => :get, :as => "search_contact_index"
   match 'contacts/filter(.:format)', :controller => 'contacts', :action => 'filter', :via => :get, :as => "search_contact_index"
   
+
   #root :to => 'tasks#index'
   root :to => 'home#index'
 

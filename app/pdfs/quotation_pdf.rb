@@ -90,13 +90,10 @@ class QuotationPdf < Prawn::Document
       table = make_table( [ ["Numéro", "Date", "Réf. Client", "Collaborateur", "Contact"],
                           ["#{@quotation.ref}", "#{@quotation.date.strftime("%d/%m/%Y") unless @quotation.date.blank?}", "#{@quotation.ref_account}", "#{@quotation.user.full_name}" ,"#{@quotation.contact.full_name}"]
                         ])
-    end
-    
+    end 
     
     table.draw
   end
-
-
 
   def tags
     
@@ -141,8 +138,6 @@ class QuotationPdf < Prawn::Document
      
     
   end
-  
-  
   
   def total
     

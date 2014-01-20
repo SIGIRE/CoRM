@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130513100221) do
+ActiveRecord::Schema.define(:version => 20140120094340) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company"
@@ -74,6 +74,20 @@ ActiveRecord::Schema.define(:version => 20130513100221) do
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.integer  "account_id"
+  end
+
+  create_table "emails", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "to"
+    t.integer  "account_id"
+    t.string   "object"
+    t.text     "content"
+    t.string   "attach_file_name"
+    t.string   "attach_content_type"
+    t.integer  "attach_file_size"
+    t.date     "send_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "event_types", :force => true do |t|

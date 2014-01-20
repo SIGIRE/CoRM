@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby1.9.1
+# This command will automatically be run when you run "rails" with Rails 3 gems installed from the root of your application.
+
+require'mail'
+
+Mail.defaults do
+  retriever_method :pop3, :address    => "pop.sigire.net",
+                          :port       => 110,
+                          :user_name  => 'demo-crm@sigire.net',
+                          :password   => 'Lm4HDba%',
+                          :enable_ssl => true
+end
+
+

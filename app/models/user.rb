@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
   has_many :accounts
   has_many :events
   has_many :tasks
-  
+  has_many :emails
+
   # nécessaire pour pouvoir modifer la valeur de ces attributs par nos propres forms
   attr_accessible :email, :password, :password_confirmation, :remember_me, :forename, :surname, :tel, :mobile, :current_password, :enabled
   attr_accessor :current_password

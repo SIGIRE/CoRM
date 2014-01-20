@@ -12,9 +12,11 @@ class HomeController < ApplicationController
   # GET /types.json
   def index
 
+
+
 	if current_user.has_role? :admin 
 	@count = Hash.new
-    @count[:user] = User.all_reals.count
+    	@count[:user] = User.all_reals.count
 	@count[:account] = Account.count
 	@count[:contact] = Contact.count
 	@count[:event] = Event.count
@@ -50,6 +52,7 @@ class HomeController < ApplicationController
 		#@opportunities = Opportunity.last_modified(5)
 		#@quotations = Quotation.last_modified(5)
 		@quotations = Quotation.where("user_id =? AND statut IN ('Sauvegardé','En cours')", current_user.id).order("created_at DESC , updated_at DESC").limit(5)
+		#@emails = Email.where("user_id = ?", current_user.id)
 		respond_to do |format|
 		  format.html # index.html.erb
 		end
