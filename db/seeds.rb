@@ -9,3 +9,5 @@ EventType.create({ :label => 'Appel téléphonique', :direction => 'Sortant' })
 
 EventType.create({ :label => 'Mail', :direction => 'Entrant' })
 EventType.create({ :label => 'Mail', :direction => 'Sortant' })
+
+WebmailConnection.create()

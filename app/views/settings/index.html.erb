@@ -46,7 +46,6 @@
         <% end %>
 	</div>
 	
-	<% puts YAML::dump(@webmail_connections) %>
 	<div name="mail_settings">
 		<div class="span9">
                 	<h2>Paramètres du serveur mail</h2>
@@ -68,7 +67,9 @@
     				<div class="span2"> Port : </div> <%= f.text_field :port %>
   			</div>
   			<div class="field full">
-    				<div class="span2"> Type d'évènement : </div> <%= f.text_field :type_event_id %>
+    				<div class="span2"> Type d'évènement : </div>
+			<%= f.collection_select :type_event_id, EventType.all, :id, :full_type, :class =>"filter_coll", :include_blank => true %>
+      				</div>
   			</div>
   			<div class="field full">
     				<div class="span2"> Activé : </div> <%= f.check_box :active %>
