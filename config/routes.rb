@@ -1,6 +1,4 @@
 Crm::Application.routes.draw do  
-  
-  get "emails/index"
 
   # we'll add some variables to change routes easily.
   
@@ -134,6 +132,10 @@ Crm::Application.routes.draw do
   # Webmail Connections routes
   put "webmail_connections/update"
   get "webmail_connections/index"
+
+  # emails noutes
+  set_route('emails', 'email', 'emails') 
+  get "emails/index"
   
   # resources :home
   # The priority is based upon order of creation:
