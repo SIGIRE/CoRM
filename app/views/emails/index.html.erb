@@ -33,9 +33,9 @@
 			<% then %>
 				<% if !email.contact_id.nil? %>
 					<% then %>
-				<td><center><%= link_to email.to , edit_contact_path(email.contact_id), {:title => "Modifier le contact"} %></center></td>
+				<td><center><%= link_to email.to , edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"} %></center></td>
 					<% else %>
-						<td><center><%= link_to email.to , new_contact_path, {:title => "Créer le contact"} %><center></td>
+						<td><center><span style="background-color: red;" class="badge"><%= link_to email.to , new_contact_path, {:title => "Créer le contact", :color => "white"} %> </span><center></td>
 				<% end %>
 			<% else %>
 				<td><center>-</center></td>
@@ -45,7 +45,7 @@
 			<% then %>
 				<td><center><%= email.account_id %></center></td>
 			<% else %>
-				<td><center><span style="background-color: red;" class="badge">Inconnu</span></center></td>
+				<td><center><span style="background-color: red;" class="badge">Aucun</span></center></td>
 		<% end %>
       
 		<% if !email.object.nil?  and !email.object.blank? %>
@@ -67,7 +67,7 @@
 			<% then %>
 				<td><center><%= email.attach_file_name %></center></td>
 			<% else %>
-				<td><center><span style="background-color: grey;" class="badge">Non</span></center></td>
+				<td><center>-</span></center></td>
 		<% end %>
 
 		<% if !email.send_at.nil?  and !email.send_at.blank? %>
