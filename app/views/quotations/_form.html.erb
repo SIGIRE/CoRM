@@ -1,4 +1,5 @@
-<% colon = t('app.fields.colon') %><div class="well">
+<% colon = t('app.fields.colon') %>
+<div class="well">
   <%= nested_form_for @quotation do |f| %>
     <% if @quotation.errors.any? %>
       <div id="error_explanation">

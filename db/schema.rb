@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130513100221) do
+ActiveRecord::Schema.define(:version => 20140121145619) do
 
   create_table "accounts", :force => true do |t|
     t.string   "company"
@@ -74,6 +74,21 @@ ActiveRecord::Schema.define(:version => 20130513100221) do
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.integer  "account_id"
+  end
+
+  create_table "emails", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "to"
+    t.integer  "account_id"
+    t.string   "object"
+    t.text     "content"
+    t.string   "attach_file_name"
+    t.string   "attach_content_type"
+    t.integer  "attach_file_size"
+    t.date     "send_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.integer  "contact_id"
   end
 
   create_table "event_types", :force => true do |t|
@@ -170,6 +185,7 @@ ActiveRecord::Schema.define(:version => 20130513100221) do
     t.datetime "updated_at",                  :null => false
     t.integer  "created_by"
     t.integer  "updated_by"
+    t.float    "vat_rate"
   end
 
   create_table "quotations", :force => true do |t|
@@ -239,7 +255,8 @@ ActiveRecord::Schema.define(:version => 20130513100221) do
     t.string "value"
     t.string "input_type"
   end
-  add_index "settings", ['key'], :name => 'settings_index'
+
+  add_index "settings", ["key"], :name => "settings_index"
 
   create_table "tags", :force => true do |t|
     t.string   "name"
@@ -299,5 +316,16 @@ ActiveRecord::Schema.define(:version => 20130513100221) do
   end
 
   add_index "users_roles", ["user_id", "role_id"], :name => "index_users_roles_on_user_id_and_role_id"
+
+  create_table "webmail_connections", :force => true do |t|
+    t.string   "login"
+    t.string   "password"
+    t.string   "server"
+    t.integer  "port"
+    t.integer  "type_event_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.boolean  "active"
+  end
 
 end
