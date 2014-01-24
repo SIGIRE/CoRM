@@ -20,7 +20,6 @@
 <tbody>
 
   <% @emails.each do |email| %>
-
     <tr>
 		<% if !email.id.nil? and !email.id.blank? %>
 			<% then %>
@@ -35,7 +34,8 @@
 					<% then %>
 				<td><center><%= link_to email.to , edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"} %></center></td>
 					<% else %>
-						<td><center><span style="background-color: red;" class="badge"><%= link_to email.to , new_contact_path, {:title => "Créer le contact", :color => "white"} %> </span><center></td>
+						<td><center><span style="background-color: blue;" class="badge">New</span>
+<%= link_to email.to , new_contact_path, {:title => "Créer le contact", :color => "white"} %><center></td>
 				<% end %>
 			<% else %>
 				<td><center>-</center></td>
@@ -43,7 +43,7 @@
 
 		<% if !email.account_id.nil?  and !email.account_id.blank? %>
 			<% then %>
-				<td><center><%= email.account_id %></center></td>
+				<td><center><%= Account.find(email.account_id).company %></center></td>
 			<% else %>
 				<td><center><span style="background-color: red;" class="badge">Aucun</span></center></td>
 		<% end %>
@@ -72,17 +72,16 @@
 
 		<% if !email.send_at.nil?  and !email.send_at.blank? %>
 			<% then %>
-				<td><center><%= email.send_at.strftime("%d/%m/%Y à %H:%M") %></center></td>
+				<td><center><%= email.send_at.strftime("%d/%m à %H:%M") %></center></td>
 			<% else %>
 				<td><center>-</center></td>
 		<% end %>
-
 
 		<td><center>
 
 			<div class="btn-group">
 				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-				 <%= image_tag('/assets/glyphicons/glyphicons_190_circle_plus.png', :size => '16x16') %>
+				 <%= image_tag('/assets/glyphicons/glyphicons_241_flash.png', :size => '12x12') %>
 				</a>
 
 				<ul class="dropdown-menu right" style="margin: 2px -140px 0px;">

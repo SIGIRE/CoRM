@@ -8,6 +8,7 @@ class Ability
     else
       # General roles
       can :manage, Task
+      can :manage, Email
       can :manage, Account
       can :manage, Contact
       can :manage, Event

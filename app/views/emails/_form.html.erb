@@ -4,37 +4,34 @@
 		<div class="row row-fluid">
 			<div class="field full">
 				<div class="span2"><%= f.label("Contact", "Contact" + colon) %></div>
-				<p><%= f.text_field :to %></p>
+				<p><%= f.text_field :to , :required => 'required'%><span class="req" /></p>
 			</div>
 		</div>
   
 
-	<div class="row row-fluid">
-		<div class="field full">
-			<div class="span2"><label for="account-search"><%= t('app.model.Account') + colon %></label></div>
-				<p>
-					<%= text_field_tag(nil, (@task.account.nil? ? '' : @task.account.company),{:class => 'typeahead-account-search', :type => 'search', :autocomplete => :off, 'data-field' => 'account_id', :placeholder => 'Rechercher', :id => 'account_search_field'}) %>
-					<%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
-					<span class="label label-info" id="task_notice"  style="display: none; margin-left: 2em;">
-							<i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant
-					</span>
-				</p>
-				<%= f.text_field :account_id, { :style => 'display: none; visible: hidden;', :id => 'account_id' } %>
-		</div>
-	</div>
+<div class="row row-fluid">
+  <div class="field full">
+    <div class="span2"><%= f.label('account-search', t('app.model.Account') + t('app.fields.colon')) %></div>
+    <% company = ""%>
+		<p>
+			<%= text_field_tag(nil, company, { :class => 'typeahead-account-search', :type => 'search', :autocomplete => 'off', 'data-field' => 'account_id', :placeholder => 'Rechercher' }) %>
+			<%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
+		</p>
+		<%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id', :required => 'required' } %><span class="req" />
+  </div>
+</div>
 
-  
 		<div class="row row-fluid">
 			<div class="field full">
 				<div class="span2"><%= f.label("Objet", "Objet" + colon) %></div>
-				<p><%= f.text_field :object %></p>
+				<p><%= f.text_field(:object, {:style => 'width: 50%;' } ) %><span class="req" /></p>
 			</div>
 		</div>
 
 		<div class="row row-fluid">
 			<div class="field full">
 				<div class="span2"><%= f.label("Contenu", "Contenu" + colon) %></div>
-				<p><%= f.text_area :content %></p>
+				<%= f.text_area :content, :rows => "5", :style => 'width: 50%;', :required => 'required' %><span class="req" />
 			</div>
 		</div>
   
@@ -48,11 +45,11 @@
 		<div class="row row-fluid">
 			<div class="field full">
 				<div class="span2"><%= f.label("Date", "Date" + colon) %></div>
-				<p><%= f.text_field :send_at %></p>
+				<p><%= f.text_field :send_at,  :required => 'required' %><span class="req" /></p>
 			</div>
 		</div>
 
-  <center><%= f.submit "Modifier" %></center>
+  <%= if !@email.id.nil? then f.submit "Modifier l'email", :class =>"btn btn-primary" end %>
 
 <% end %>
 
