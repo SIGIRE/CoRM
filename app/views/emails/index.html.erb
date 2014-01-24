@@ -35,7 +35,7 @@
 	    <% if !email.contact_id.nil? %>
 	        <% link_to email.to, edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"}%>
 	    <% else %>
-		<%= link_to email.to , new_contact_path, {:title => "Créer le contact", :class => "badge btn-info btn-sm", :style => 'font-weight: bold'} %>
+		<%= link_to email.to, new_contact_path(:email => email.to), {:title => "Créer le contact", :class => "badge btn-info btn-sm", :style => 'font-weight: bold'} %>
 	    <% end %>
 	<% else %>
 	    -

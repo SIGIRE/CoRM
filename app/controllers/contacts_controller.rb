@@ -45,7 +45,9 @@ class ContactsController < ApplicationController
   def new
     if @ability.can? :create, Contact
       @contact = Contact.new
-
+      if (!params[:email].nil?)
+	@contact.email = params[:email]
+      end
       respond_to do |format|
         format.html # new.html.erb
         format.json { render :json => @contact }
