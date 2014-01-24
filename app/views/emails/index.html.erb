@@ -18,85 +18,93 @@
     </tr>
     </thead>
 <tbody>
-
-  <% @emails.each do |email| %>
-
+<% @emails.each do |email| %>
     <tr>
-		<% if !email.id.nil? and !email.id.blank? %>
-			<% then %>
-				<td><center><%= email.id %></center></td>
-			<% else %>
-				<td><center>-</center></td>
-		<% end %>
+	<%# Récupération de l'ID de l'email %>
+	<td><center>
+	<% if !email.id.nil? and !email.id.blank? %>
+	    <%= email.id %>
+	<% else %>
+	    -
+	<% end %>
+	</center></td>
 
-		<% if !email.to.nil?  and !email.to.blank? %>
-			<% then %>
-				<% if !email.contact_id.nil? %>
-					<% then %>
-				<td><center><%= link_to email.to , edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"} %></center></td>
-					<% else %>
-						<td><center><span style="background-color: red;" class="badge"><%= link_to email.to , new_contact_path, {:title => "Créer le contact", :color => "white"} %> </span><center></td>
-				<% end %>
-			<% else %>
-				<td><center>-</center></td>
-		<% end %>
+	<%# Récupération du destinataire de l'email %>
+	<td><center>
+	<% if !email.to.nil? and !email.to.blank? %>
+	    <% if !email.contact_id.nil? %>
+	        <% link_to email.to, edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"}%>
+	    <% else %>
+		<%= link_to email.to , new_contact_path, {:title => "Créer le contact", :class => "badge btn-info btn-sm", :style => 'font-weight: bold'} %>
+	    <% end %>
+	<% else %>
+	    -
+	<% end %>
+	</center></td>
+	
+	<%# Récupération du compte du contact %>
+	<td><center>
+	<% if !email.account_id.nil?  and !email.account_id.blank? %>
+	    <%= Account.find(email.account_id).company %>
+	<% else %>
+	    <span class="badge btn-danger" style="font-weight: bold">Aucun</span>
+	<% end %>
+	</center></td>
 
-		<% if !email.account_id.nil?  and !email.account_id.blank? %>
-			<% then %>
-				<td><center><%= email.account_id %></center></td>
-			<% else %>
-				<td><center><span style="background-color: red;" class="badge">Aucun</span></center></td>
-		<% end %>
+	<%# Récupération du sujet de l'email %>
+	<td><center>
+	<% if !email.object.nil?  and !email.object.blank? %>
+	    <%= email.object %>
+	<% else %>
+	    -
+	<% end %>
+	</center></td>
+
+	<%# Récupération du contenu de l'email %>
+	<td><center>
+	<% if !email.content.nil?  and !email.content.blank? %>
+	    <% ellipse = email.content.length > 60 ? '...' : '' %>
+	    <%= email.content[0..60] + ellipse %>
+	<% else %>
+	    -
+	<% end %>
+	</center></td>
       
-		<% if !email.object.nil?  and !email.object.blank? %>
-			<% then %>
-				<td><center><%= email.object %></center></td>
-			<% else %>
-				<td><center>-</center></td>
-		<% end %>
+	<%# Récupération de la pièce jointe %>
+	<td><center>
+	<% if !email.attach_file_name.nil?  and !email.attach_file_name.blank? %>
+	    <%= email.attach_file_name %>
+	<% else %>
+	    -
+	<% end %>
+	</center></td>
+		
+	<%# Récupération de la date d'envoi %>
+	<td><center>
+	<% if !email.send_at.nil?  and !email.send_at.blank? %>
+	    <%= email.send_at.strftime("%d/%m/%Y à %H:%M") %>
+	<% else %>
+	    -
+	<% end %>
+	</center></td>
 
-		<% if !email.content.nil? then ellipse = email.content.length > 60 ? '...' : '' end %>
-		<% if !email.content.nil?  and !email.content.blank? %>
-			<% then %>
-				<td><center><%= email.content[0..60] + ellipse %></center></td>
-			<% else %>
-				<td><center>-</center></td>
-		<% end %>
+	<%# Affichage des boutons d'action %>
+	<td><center>
+	    <div class="btn-group">
+		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		    <%= image_tag('/assets/glyphicons/glyphicons_190_circle_plus.png', :size => '16x16') %>
+		</a>
 
-		<% if !email.attach_file_name.nil?  and !email.attach_file_name.blank? %>
-			<% then %>
-				<td><center><%= email.attach_file_name %></center></td>
-			<% else %>
-				<td><center>-</span></center></td>
-		<% end %>
+		<ul class="dropdown-menu right" style="margin: 2px -140px 0px;">
+		    <li><%= link_to "Editer", edit_email_path(email.id) %></li>
+		    <li><%= link_to "Supprimer", email, :id => email.id, :confirm => 'Confirmer la suppression ?', :method => :delete %></li>
+		</ul>
+	    </div>
 
-		<% if !email.send_at.nil?  and !email.send_at.blank? %>
-			<% then %>
-				<td><center><%= email.send_at.strftime("%d/%m/%Y à %H:%M") %></center></td>
-			<% else %>
-				<td><center>-</center></td>
-		<% end %>
-
-
-		<td><center>
-
-			<div class="btn-group">
-				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-				 <%= image_tag('/assets/glyphicons/glyphicons_190_circle_plus.png', :size => '16x16') %>
-				</a>
-
-				<ul class="dropdown-menu right" style="margin: 2px -140px 0px;">
-					<li><%= link_to "Editer", edit_email_path(email.id) %></li>
-					<li><%= link_to "Supprimer" %></li>
-				</li>
-				</ul>
-			</div>
-
-		</center></td>
-  </tr>
-  <% end %>
-  </tbody>
-  </table>
-  
+	</center></td>
+    </tr>
+    <% end %>
+</tbody>
+</table>
 </div>
 <% end %>

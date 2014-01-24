@@ -93,6 +93,7 @@ namespace :mail do
 							email.object = mail.subject
 							email.content = mail.body.decoded
 							email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
+							email.contact_id = contact.id
 							email.save
 						end 
 						
@@ -103,7 +104,7 @@ namespace :mail do
 							email = Email.new
 							email.user_id = user.id
 							#email.to = mail.to.to_s.gsub('["',"").gsub('"]',"")
-							email.to = destinataire
+							email.to = mail[:to].decoded
 							email.object = mail.subject
 							email.content = mail.body.decoded
 							email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
@@ -178,6 +179,7 @@ namespace :mail do
 								email.object = mail.subject
 								email.content = mail.body.decoded
 								email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
+								email.contact_id = contact.id
 								email.save
 							end 
 						
