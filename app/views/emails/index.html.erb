@@ -40,13 +40,12 @@
 			<% else %>
 				-
 			<% end %>
-	<% elsif %>	
-		<% if Contact.where(:email == email.to).count > 0 %>
-			<%= email.to %>
-		<% end %>
 	<% else %>
-		<% if !email.to.nil? and !email.to.blank? %>
-			<%= link_to email.to, new_contact_path(:email => email.to), {:title => "Créer le contact", :class => "badge btn-info btn-sm", :style => 'font-weight: bold'} %>
+		<% if Contact.where(:email => email.to).count > 0 %>
+			<% puts("Nombre de contacts : #{Contact.where(:email => email.to).count}") %>
+			<%= email.to %>
+		<% elsif !email.to.nil? and !email.to.blank? %>
+			<%= link_to email.to, new_contact_path(:email => email.to), {:title => "Créer le contact", :class => "badge btn-danger btn-sm", :style => 'font-weight: bold'} %>
 		<% else %>
 	    	-
 		<% end %>
