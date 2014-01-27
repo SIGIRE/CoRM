@@ -31,14 +31,25 @@
 
 	<%# Récupération du destinataire de l'email %>
 	<td><center>
-	<% if !email.to.nil? and !email.to.blank? %>
-	    <% if !email.contact_id.nil? %>
-	        <% link_to email.to, edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"}%>
-	    <% else %>
-		<%= link_to email.to, new_contact_path(:email => email.to), {:title => "Créer le contact", :class => "badge btn-info btn-sm", :style => 'font-weight: bold'} %>
-	    <% end %>
+	<% if !email.contact_id.nil? %>
+			<% contact = Contact.find(email.contact_id) %>
+			<% if !contact.email.nil? and !contact.email.blank? %>
+	        	<%= link_to contact.email, edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"}%>
+			<% elsif !contact.full_name.nil? %>
+				<%= link_to contact.full_name, edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"}%>
+			<% else %>
+				-
+			<% end %>
+	<% elsif %>	
+		<% if Contact.where(:email == email.to).count > 0 %>
+			<%= email.to %>
+		<% end %>
 	<% else %>
-	    -
+		<% if !email.to.nil? and !email.to.blank? %>
+			<%= link_to email.to, new_contact_path(:email => email.to), {:title => "Créer le contact", :class => "badge btn-info btn-sm", :style => 'font-weight: bold'} %>
+		<% else %>
+	    	-
+		<% end %>
 	<% end %>
 	</center></td>
 	
@@ -92,12 +103,15 @@
 	<td><center>
 	    <div class="btn-group">
 		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-		    <%= image_tag('/assets/glyphicons/glyphicons_190_circle_plus.png', :size => '16x16') %>
+		    <%= image_tag('/assets/glyphicons/glyphicons_241_flash.png', :size => '12x12') %>
 		</a>
 
 		<ul class="dropdown-menu right" style="margin: 2px -140px 0px;">
 		    <li><%= link_to "Editer", edit_email_path(email.id) %></li>
 		    <li><%= link_to "Supprimer", email, :id => email.id, :confirm => 'Confirmer la suppression ?', :method => :delete %></li>
+			<% if email.check %>
+				<li><%= link_to "Envoyer", emails_url %></li>
+			<% end %>
 		</ul>
 	    </div>
 
