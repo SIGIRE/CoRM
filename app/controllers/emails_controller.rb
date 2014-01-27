@@ -20,4 +20,13 @@ class EmailsController < ApplicationController
 	@email.destroy
 	redirect_to emails_url, :notice => "L'email a été supprimé."
   end
+
+  def update
+	@email = Email.find(params[:email][:id])
+	if @email.update_attributes(params[:email])
+		redirect_to emails_url, :notice => "L'email a été modifié."
+	else
+		redirect_to emails_url
+	end
+  end
 end

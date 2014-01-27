@@ -136,6 +136,7 @@ Crm::Application.routes.draw do
   # emails noutes
   set_route('emails', 'email', 'emails') 
   get "emails/index"
+  put "email/update"
   
   # resources :home
   # The priority is based upon order of creation:
