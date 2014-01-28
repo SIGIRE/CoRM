@@ -136,6 +136,7 @@ Crm::Application.routes.draw do
   # emails noutes
   set_route('emails', 'email', 'emails') 
   get "emails/index"
+  get "emails/convert"
   put "email/update"
   
   # resources :home
