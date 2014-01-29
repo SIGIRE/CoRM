@@ -18,15 +18,15 @@ class EmailsController < ApplicationController
   def destroy
 		@email = Email.find_by_id(params[:id])
 		@email.destroy
-		redirect_to emails_url, :notice => "L'email a été supprimé."
+		redirect_to notifications_url, :notice => "L'email a été supprimé."
   end
 
   def update
 		@email = Email.find(params[:email][:id])
 		if @email.update_attributes(params[:email])
-			redirect_to emails_url, :notice => "L'email a été modifié."
+			redirect_to notifications_url, :notice => "L'email a été modifié."
 		else
-			redirect_to emails_url
+			redirect_to notifications_url
 		end
   end
 
@@ -43,7 +43,7 @@ class EmailsController < ApplicationController
 		@event.user_id = @email.user_id
 		@event.save
 		@email.destroy
-		redirect_to emails_url
+		redirect_to notifications_url, :notice => "L'email a été archivé."
 	end
 	
 end

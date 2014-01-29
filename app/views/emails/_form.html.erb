@@ -63,7 +63,7 @@
 		<div class="span2">
 			Pièce jointe : 
 		</div>
-		<%= f.text_field :attach_file_name %>
+		<%= f.text_field :attach_file_size %>
 	</div>
 </div>
 
@@ -73,7 +73,7 @@
 		<div class="span2">
 			Date :
 		</div>
-		<%= f.text_field :send_at,  :required => 'required' %><span class="req" />
+		<%= f.datetime_select :send_at,  :required => 'required' %><span class="req" />
 	</div>
 </div>
 <%= f.hidden_field :id %>
