@@ -56,7 +56,7 @@
 																	 <td class="text-center"><%= Task::PRIORITIES[t.priority] %></td>
 																	 <td class="text-center"><% if !t.account.nil? %><%= link_to t.account.company, account_events_path(t.account), { :title => 'Compte: ' + t.account.company, :class => 'ellipse' } %><% else %>-<% end %></td>
 																	 <% if !t.title.nil? then ellipse = t.title.length > 45 ? '...' : '' end %>
-																	 <td ><span><%= link_to (!t.title.blank?() ? t.title[0..45] + ellipse : "Pas de sujet"), edit_task_path(t), :title => 'Editer la tâche' %></span></td>
+																	 <td class="text-center"><span><%= link_to (!t.title.blank?() ? t.title[0..45] + ellipse : "Pas de sujet"), edit_task_path(t), :title => 'Editer la tâche' %></span></td>
 																			<% if !t.contact.nil? %>
 																			<td class="text-center"><%= link_to t.contact.full_name, edit_contact_path(t.contact),{:title => "Éditer le contact"}  %></td>
 																		<% else %>

@@ -41,9 +41,8 @@
 				-
 			<% end %>
 	<% else %>
-		<% if Contact.where(:email => email.to).count > 0 %>
-			<% puts("Nombre de contacts : #{Contact.where(:email => email.to).count}") %>
-			<%= email.to %>
+		<% if Contact.where(:email => email.to).count == 1 %>
+			<%= link_to email.to, edit_contact_path(Contact.find_by_email(email.to)), {:title => "Modifier le contact", :color =>"white"} %>
 		<% elsif !email.to.nil? and !email.to.blank? %>
 			<%= link_to email.to, new_contact_path(:email => email.to), {:title => "Créer le contact", :class => "badge btn-danger btn-sm", :style => 'font-weight: bold'} %>
 		<% else %>
@@ -92,7 +91,7 @@
 	<%# Récupération de la date d'envoi %>
 	<td><center>
 	<% if !email.send_at.nil?  and !email.send_at.blank? %>
-	    <%= email.send_at.strftime("%d/%m/%Y à %H:%M") %>
+	    <%= email.send_at.strftime("%d/%m à %H:%M") %>
 	<% else %>
 	    -
 	<% end %>
@@ -109,7 +108,8 @@
 		    <li><%= link_to "Editer", edit_email_path(email.id) %></li>
 		    <li><%= link_to "Supprimer", email, :id => email.id, :confirm => 'Confirmer la suppression ?', :method => :delete %></li>
 			<% if email.check %>
-				<li><%= link_to "Envoyer", emails_url %></li>
+				<li class="divider" style="margin: 2px" ></li>
+				<li><%= link_to "Envoyer", {:action => 'convert', :email => email} %></li>
 			<% end %>
 		</ul>
 	    </div>

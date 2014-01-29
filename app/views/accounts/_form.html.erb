@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-
+ <form class="well form-inline">
   <div class="field">
 	  <div class="span2"> Société : </div> <%= f.text_field :company ,{ :class => 'required'}  %><span class="req" />
   </div>
@@ -27,35 +27,35 @@
   <div class="field">
     <div class="span2"> CP : </div> <%= f.text_field :zip %>
   </div>
-  
+
   <div class="field">
    <div class="span2"> Ville : </div> <%= f.text_field :city %>
   </div>
-  
+
   <div class="field">
    <div class="span2"> Pays : </div> <%= f.text_field :country %>
   </div>
-  
+
   <div class="field">
    <div class="span2"> Tel : </div> <%= f.text_field :tel %>
   </div>
-  
+
   <div class="field">
    <div class="span2"> Fax : </div> <%= f.text_field :fax %>
   </div>
-  
+
   <div class="field">
    <div class="span2"> E-mail : </div> <%= f.text_field :email %>
   </div>
-  
+
   <div class="field">
    <div class="span2"> Site web : </div> <%= f.text_field :web %>
   </div>  
-  
+
   <div class="field">
     <div class="span2"> Origine : </div> <%= f.collection_select :origin_id, Origin.order('name ASC').all, :id, :name, :include_blank => true %>
   </div>
-  
+
   <div class="field">
     <div class="span2"> Genre : </div> <%= f.select :category, Account::CATEGORIES%>
   </div>
@@ -65,7 +65,7 @@
     <%= select_tag :display_account_tag, options_from_collection_for_select(@account.tags.order('name ASC').all, "id", "name"), {:size => 6, :multiple => true} %>
     <a id="account_add_button" class="btn btn-success btn-mini" data-toggle="modal" href="#account_tag_modal" style="margin-bottom: 1em; margin-left: 2em;">Modifier Tag</a>
   </div>
-  
+
   <div class="modal hide fade" id="account_tag_modal" style="width: 900px; margin-left: -450px;">
     <%= render "modal_tags" %>
   </div>
@@ -104,5 +104,5 @@
     <%= if !@account.id.nil? then  link_to image_tag("glyphicons/glyphicons_016_bin.png"), @account,:title => "Supprimer le compte", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %>
   </div>
  
-
+</form>
 <% end %>
