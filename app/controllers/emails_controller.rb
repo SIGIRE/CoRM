@@ -11,7 +11,7 @@ class EmailsController < ApplicationController
   end
 
   def index
-		@emails = Email.where("user_id = ?", current_user.id)
+		@emails = Email.where("user_id = ?", current_user.id).order("id")
 		@accounts = Account.all
   end
 

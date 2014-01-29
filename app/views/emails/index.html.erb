@@ -91,7 +91,7 @@
 	<%# Récupération de la date d'envoi %>
 	<td><center>
 	<% if !email.send_at.nil?  and !email.send_at.blank? %>
-	    <%= email.send_at.strftime("%d/%m/%Y à %H:%M") %>
+	    <%= email.send_at.strftime("%d/%m à %H:%M") %>
 	<% else %>
 	    -
 	<% end %>
@@ -108,6 +108,7 @@
 		    <li><%= link_to "Editer", edit_email_path(email.id) %></li>
 		    <li><%= link_to "Supprimer", email, :id => email.id, :confirm => 'Confirmer la suppression ?', :method => :delete %></li>
 			<% if email.check %>
+				<li class="divider" style="margin: 2px" ></li>
 				<li><%= link_to "Envoyer", {:action => 'convert', :email => email} %></li>
 			<% end %>
 		</ul>
