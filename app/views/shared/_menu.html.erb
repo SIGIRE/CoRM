@@ -77,14 +77,15 @@
 				<!-- NOTIFICATIONS  -->
 				
 				<a class="btn" 
-	<%= link_to (image_tag("/assets/glyphicons/glyphicons_010_envelope.png", :size => "16x16")).html_safe, url_for(:controller => 'emails', :action => 'index')%>
+	<%= link_to (image_tag("/assets/glyphicons/glyphicons_010_envelope.png", :size => "16x16")).html_safe, url_for(:controller => 'notifications', :action => 'index')%>
 				</a>
 
 				<!-- NB MAILS -->
 		<% if current_user.emails.length > 0 %>
-		<span style="z-index:2; position: absolute; top: 0px; left: 65px; background-color: red;" class="badge btn-danger">
+		<span style="z-index:2; position: absolute; top: 0px; left: 65px; background-color: red;" class="badge btn-danger -btn-sm">
 			 <%= current_user.emails.length %></span>
 		<% end %>
+
 			<!-- FIN NOTIFICATIONS -->
 
 			<div class="btn-group">

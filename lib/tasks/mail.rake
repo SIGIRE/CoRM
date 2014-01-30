@@ -190,7 +190,7 @@ namespace :mail do
 								email = Email.new
 								email.user_id = user.id
 								#email.to = mail.to.to_s.gsub('["',"").gsub('"]',"")
-								email.to = contact.email
+								email.to = destinataire
 								email.object = mail.subject
 								email.content = mail.body.decoded
 								email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
@@ -202,7 +202,7 @@ namespace :mail do
 								contacts.each do |contact|
 									email = Email.new
 									email.user_id = user.id
-									email.to = contact.email
+									email.to = destinataire
 									email.object = mail.subject
 									email.content = mail.body.decoded
 									email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
