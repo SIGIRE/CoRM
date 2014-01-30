@@ -101,7 +101,7 @@
 	<%# Récupération de la date d'envoi %>
 	<td><center>
 	<% if !email.send_at.nil?  and !email.send_at.blank? %>
-	    <%= email.send_at.strftime("%d/%m/%Y à %H:%M") %>
+	    <%= email.send_at.strftime("%d/%m à %H:%M") %>
 	<% else %>
 	    -
 	<% end %>
