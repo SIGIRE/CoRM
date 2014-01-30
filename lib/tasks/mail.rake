@@ -77,7 +77,7 @@ namespace :mail do
 							event = Event.new
 							event.date_begin = mail.date.strftime("%Y-%m-%e %H:%M:%S")
 							event.date_end = mail.date.strftime("%Y-%m-%e %H:%M:%S")
-							event.notes = "Sujet : #{mail.subject} \n #{mail.body.decoded.force_encoding("UTF-8")}"
+							event.notes = "Sujet : #{convert(mail.subject)} \n #{convert(mail.body.decoded)}"
 							event.created_by = user.id
 							event.contact_id = contact.id
 							event.account_id = contact.account_id	
@@ -90,8 +90,8 @@ namespace :mail do
 							email = Email.new
 							email.user_id = user.id
 							email.to = mail[:to].decoded
-							email.object = mail.subject
-							email.content = mail.body.decoded
+							email.object = convert(mail.subject)
+							email.content = convert(mail.body.decoded)
 							email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
 							email.contact_id = contact.id
 							email.save
@@ -105,8 +105,8 @@ namespace :mail do
 							email.user_id = user.id
 							#email.to = mail.to.to_s.gsub('["',"").gsub('"]',"")
 							email.to = mail[:to].decoded
-							email.object = mail.subject
-							email.content = mail.body.decoded
+							email.object = convert(mail.subject)
+							email.content = convert(mail.body.decoded)
 							email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
 							email.save
 						else
@@ -117,8 +117,8 @@ namespace :mail do
 								email = Email.new
 								email.user_id = user.id
 								email.to = contact.email
-								email.object = mail.subject
-								email.content = mail.body.decoded
+								email.object = convert(mail.subject)
+								email.content = convert(mail.body.decoded)
 								email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
 								
 								# Si le contact à un compte...
@@ -163,7 +163,7 @@ namespace :mail do
 								event = Event.new
 								event.date_begin = mail.date.strftime("%Y-%m-%e %H:%M:%S")
 								event.date_end = mail.date.strftime("%Y-%m-%e %H:%M:%S")
-								event.notes = "Sujet : #{mail.subject} \n #{mail.body.decoded.force_encoding("UTF-8")}"
+								event.notes = "Sujet : #{convert(mail.subject)} \n #{convert(mail.body.decoded)}"
 								event.created_by = user.id
 								event.contact_id = contact.id
 								event.account_id = contact.account_id	
@@ -176,8 +176,8 @@ namespace :mail do
 								email = Email.new
 								email.user_id = user.id
 								email.to = destinataire
-								email.object = mail.subject
-								email.content = mail.body.decoded
+								email.object = convert(mail.subject)
+								email.content = convert(mail.body.decoded)
 								email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
 								email.contact_id = contact.id
 								email.save
@@ -191,8 +191,8 @@ namespace :mail do
 								email.user_id = user.id
 								#email.to = mail.to.to_s.gsub('["',"").gsub('"]',"")
 								email.to = destinataire
-								email.object = mail.subject
-								email.content = mail.body.decoded
+								email.object = convert(mail.subject)
+								email.content = convert(mail.body.decoded)
 								email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
 								email.save
 							else
@@ -203,8 +203,8 @@ namespace :mail do
 									email = Email.new
 									email.user_id = user.id
 									email.to = destinataire
-									email.object = mail.subject
-									email.content = mail.body.decoded
+									email.object = convert(mail.subject)
+									email.content = convert(mail.body.decoded)
 									email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
 								
 									# Si le contact à un compte...
@@ -241,5 +241,9 @@ namespace :mail do
 
 	desc "TODO"
 	task :send_mail => :environment do
+	end
+
+	def convert(text)
+		return text.force_encoding('iso8859-1').encode('UTF-8')
 	end
 end
