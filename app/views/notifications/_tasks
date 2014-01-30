@@ -1,0 +1,128 @@
+<div class="container-fluid">
+  <table class="table table-bordered table-striped table-hover">
+		<thead>
+		<tr>
+			<th colspan="8">
+				<h3 class="pull-left">Mes tâches</h3>
+			</th>
+		<tr/>
+		<tr>
+			<th class="text-center">#</th>
+			<th class="text-center">Statut</th>
+			<th class="text-center">Priorité</th>
+			<th class="text-center">Compte</th>
+			<th class="text-center">Sujet</th>
+			<th class="text-center">Contact</th>
+			<th class="text-center">Échéance</th>
+			<th class="text-center">Éditer</th>
+		</tr>
+ 	</thead>
+<tbody>
+<% @tasks.each do |task| %>
+    <tr>
+	<%# Récupération de l'ID de la tâche %>
+	<td><center>
+	<% if !task.id.nil? and !task.id.blank? %>
+	    <%= task.id %>
+	<% else %>
+	    -
+	<% end %>
+	</center></td>
+
+	<%# Récupération du statut de la tâche %>
+	<td><center>
+	<% if !task.statut.nil? %>
+		<% # Récupération du badge correspondant au statut
+			badge_class = nil
+			if task.statut == "A faire"
+				badge_class = ' badge-important'
+			elsif task.statut == "En cours"
+				badge_class = ' badge-warning'
+			elsif task.statut == "Terminé"
+				badge_class = ' badge-success'
+			elsif task.statut == "Annulé"
+				badge_class = ' badge-inverse'
+			end %>
+		<div class="badge-container">
+				<span class="badge<%= badge_class unless badge_class.nil? %>">
+					<%= task.statut %>
+				</span>
+		</div>
+	<% else %>
+		Inconnu
+	<% end %>
+	</center></td>
+	
+	<%# RRécupération de la priorité de la tâche %>
+	<td><center>
+	<% if !task.priority.nil?  and !task.priority.blank? %>
+	    <%= Task::PRIORITIES[task.priority] %>
+	<% else %>
+	    Indéfinie
+	<% end %>
+	</center></td>
+
+	<%# Récupération du compte de la tâche %>
+	<td><center>
+	<% if !task.account.nil?  and !task.account.blank? %>
+	    <%= link_to task.account.company, account_events_path(task.account), { :title => 'Compte: ' + task.account.company, :class => 'ellipse' } %>
+	<% else %>
+	    -
+	<% end %>
+	</center></td>
+
+	<%# Récupération du sujet de la tâche %>
+	<td><center>
+	<% if !task.title.nil?  and !task.title.blank? %>
+	    <% ellipse = task.title.length > 45 ? '...' : '' %>
+	    <%= link_to (task.title[0..45] + ellipse), edit_task_path(task), :title => 'Editer la tâche' %>
+	<% else %>
+	    -
+	<% end %>
+	</center></td>
+      
+	<%# Récupération du contact de la tâche %>
+	<td><center>
+	<% if !task.contact.nil?  and !task.contact.blank? %>
+	    <%= link_to task.contact.full_name, edit_contact_path(task.contact),{:title => "Éditer le contact"} %>
+	<% else %>
+	    -
+	<% end %>
+	</center></td>
+		
+	<%# Récupération de l'échéance de la tâche %>
+	<td><center>
+	<% if !task.term.nil?  and !task.term.blank? %>
+		<% if task.term.to_date == Date.today %>
+			<span class="label label-info"><%= task.term.split('/').reverse!.join('/') %></span>
+		<% else %>
+			<% if task.term.to_date < Date.today %>
+				<span class="label label-important"><%= task.term.split('/').reverse!.join('/') %></span>
+			<% else %>
+				<%= task.term.split('/').reverse!.join('/') %>
+			<% end %>
+		<% end %>
+	<% else %>
+	    -
+	<% end %>
+	</center></td>
+
+	<%# Affichage du bouton d'édition %>
+	<td><center>
+		<%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_task_path(task) ,{:title => "Éditer la tâche", :class =>"btn"}  %>
+	</center></td>
+	</tr>
+  <% end %>
+
+<%# Affichage du lien vers les autres tâches %>
+<% if @tasks.length > 5 %>
+	<tr>
+		<td colspan="8" class="text-center">
+			<%= link_to('Afficher toutes mes tâches', filter_tasks_path, :title => 'Mes tâches') %>
+		</td>
+	</tr>
+<% end %>
+
+</tbody>
+</table>
+</div>

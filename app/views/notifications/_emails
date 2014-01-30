@@ -1,20 +1,20 @@
-<%= render 'title', :locals => { :title => @title }%>
-
-<% if @emails.length < 1 %>
-<h2><center>Aucun messages</center></h2>
-<% else %>
 <div class="container-fluid">
   <table class="table table-bordered table-striped table-hover">
     <thead>
+		<tr>
+			<th colspan="8">
+				<h3 class="pull-left">Messages à archiver</h3>
+			</th>
+		<tr/>
     <tr>
-	<th class="text-center">#</th>	  
-	<th class="text-center">Contact</th>
-	<th class="text-center">Compte</th>
-	<th class="text-center">Objet</th>
-	<th class="text-center">Aperçu du contenu</th>
-	<th class="text-center">Pièce jointe</th>
-	<th class="text-center">Date</th>
-	<th class="text-center">Action</th>
+			<th class="text-center">#</th>	  
+			<th class="text-center">Contact</th>
+			<th class="text-center">Compte</th>
+			<th class="text-center">Objet</th>
+			<th class="text-center">Aperçu du contenu</th>
+			<th class="text-center">Pièce jointe</th>
+			<th class="text-center">Date</th>
+			<th class="text-center">Action</th>
     </tr>
     </thead>
 <tbody>
@@ -32,14 +32,24 @@
 	<%# Récupération du destinataire de l'email %>
 	<td><center>
 	<% if !email.contact_id.nil? %>
-			<% contact = Contact.find(email.contact_id) %>
-			<% if !contact.email.nil? and !contact.email.blank? %>
-	        	<%= link_to contact.email, edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"}%>
-			<% elsif !contact.full_name.nil? %>
-				<%= link_to contact.full_name, edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"}%>
+		<% if !Contact.where(:id => email.contact_id).count == 0 %>
+				<% contact = Contact.find(email.contact_id) %>
+				<% if !contact.email.nil? and !contact.email.blank? %>
+			      	<%= link_to contact.email, edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"}%>
+				<% elsif !contact.full_name.nil? %>
+					<%= link_to contact.full_name, edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"}%>
+				<% else %>
+						-
+				<% end %>
+		<% else %>
+			<% if Contact.where(:email => email.to).count == 1 %>
+				<%= link_to email.to, edit_contact_path(Contact.find_by_email(email.to)), {:title => "Modifier le contact", :color =>"white"} %>
+			<% elsif !email.to.nil? and !email.to.blank? %>
+				<%= link_to email.to, new_contact_path(:email => email.to), {:title => "Créer le contact", :class => "badge btn-danger btn-sm", :style => 'font-weight: bold'} %>
 			<% else %>
-				-
+	    		-
 			<% end %>
+		<% end %>
 	<% else %>
 		<% if Contact.where(:email => email.to).count == 1 %>
 			<%= link_to email.to, edit_contact_path(Contact.find_by_email(email.to)), {:title => "Modifier le contact", :color =>"white"} %>
@@ -108,8 +118,7 @@
 		    <li><%= link_to "Editer", edit_email_path(email.id) %></li>
 		    <li><%= link_to "Supprimer", email, :id => email.id, :confirm => 'Confirmer la suppression ?', :method => :delete %></li>
 			<% if email.check %>
-				<li class="divider" style="margin: 2px" ></li>
-				<li><%= link_to "Envoyer", {:action => 'convert', :email => email} %></li>
+				<li><%= link_to "Envoyer", {:controller => 'emails', :action => 'convert', :email => email} %></li>
 			<% end %>
 		</ul>
 	    </div>
@@ -120,4 +129,3 @@
 </tbody>
 </table>
 </div>
-<% end %>
