@@ -10,7 +10,7 @@ class WebmailConnectionsController < ApplicationController
   end
   def index
 	if current_user.has_role?(:admin)
-            @webmail_connections = WebmailConnection.all	
+            @webmail_connections = WebmailConnection.first
 	else
 		flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.do')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Settings'))
 		redirect_to root_url
