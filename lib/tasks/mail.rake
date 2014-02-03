@@ -1,4 +1,4 @@
-namespace :mail do
+	namespace :mail do
 	desc "TODO"
 	task :get_mail => :environment do
 	require 'rubygems'
@@ -36,6 +36,7 @@ namespace :mail do
 
 		# Pour chaque mail reçu, on affiche son ID
 		emails.each do |mail|
+		begin
 			puts mail.to
 			# S'il n'y a qu'un expediteur
 			if (mail.from.length == 1)
@@ -105,7 +106,7 @@ namespace :mail do
 							email.user_id = user.id
 							#email.to = mail.to.to_s.gsub('["',"").gsub('"]',"")
 							email.to = mail[:to].decoded
-							email.object = convert(mail.subject)
+							email.object = convert(mail.subject.decoded)
 							email.content = convert(mail.body.decoded)
 							email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
 							email.save
@@ -229,9 +230,11 @@ namespace :mail do
 				# Action a effectuer si .from > 1
 				puts("Plus d'un expediteur trouve : #{mail.from}")
 			end
-		
-		end
 
+		rescue
+			puts "Il y a eu une erreur avec un email!"
+		end
+		end
 		# On affiche le nombre de mails restants (normalement 0)
 		puts("Nombre de mails : #{Mail.all.length} (apres recuperation)")
 		end
@@ -244,6 +247,11 @@ namespace :mail do
 	end
 
 	def convert(text)
-		return text.force_encoding('iso8859-1').encode('UTF-8')
+			return text.force_encoding('iso8859-1')
+			#return text.force_encoding('iso8859-1').encode('utf-8').encode('iso8859-1')
+			#return text.force_encoding('utf-8').encode('utf-8')
+			#return text.encode('iso8859-1')
+			#return text.force_encoding('iso8859-1').encode('utf-8')
+		end
 	end
-end
+

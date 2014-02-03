@@ -50,15 +50,20 @@
 		<div class="span9">
                 	<h2>Paramètres du serveur mail</h2>
 		</div>
-	<% @webmail_connections.each do |w| %>
+
 	    <!-- On crée un formulaire pour cette entrée -->
-            <%= form_for(@webmail_connections, :url => { :controller => 'webmail_connections', :action => 'update' }) do |f| %>
+            <%= form_for(@webmail_connection, :url => { :controller => 'webmail_connections', :action => 'update' }) do |f| %>
                 <div class="row row-fluid">
   			<div class="field full">
     				<div class="span2"> Identifiant : </div> <%= f.text_field :login %>
   			</div>
   			<div class="field full">
-    				<div class="span2"> Mot de passe : </div> <%= f.text_field :password %>
+    				<div class="span2"> Mot de passe : </div>
+						<% if @webmail_connection.password.blank? %>
+							<%= f.password_field :password %>
+						<% else %>
+							<%= link_to "Modifier le mot de passe", {:controller => 'webmail_connections', :action => 'edit'}, {:class => 'btn btn-success'} %>
+						<% end %>
   			</div>
 			<div class="field full">
     				<div class="span2"> Serveur : </div> <%= f.text_field :server %>
@@ -69,20 +74,17 @@
   			<div class="field full">
     				<div class="span2"> Type d'évènement : </div>
 			<%= f.collection_select :type_event_id, EventType.all, :id, :full_type, :class =>"filter_coll", :include_blank => true %>
-      				</div>
   			</div>
   			<div class="field full">
     				<div class="span2"> Activé : </div> <%= f.check_box :active %>
   			</div>
 			<div class="field full">
-				<input type="submit" value="Sauvegarder"/ class="btn btn-success">
+				<div class="span2"></div><input type="submit" value="Sauvegarder"/ class="btn btn-success">
 				<input type='hidden' name='_method' value='put'>
 				<%= f.hidden_field :id %>
 			</div>
-			
-                </div>
-            <% end %>
-        <% end %>
+		</div>
+	<% end %>
 	</div>
    	
 	
