@@ -1,2 +1,23 @@
-<h1>WebmailConnections#edit</h1>
-<p>Find me in app/views/webmail_connections/edit.html.erb</p>
+<div class="container-fluid">
+  <div class="well" style="margin-top: 1em;">
+    <div class="row-fluid">
+      <div class="span9">
+        <h1 class="show_title">Modification du mot de passe</h1>
+			</div>
+		</div>
+	</div>
+
+	<%= form_for(webmail_connection, :url => { :controller => 'webmail_connections', :action => 'update' }) do |f| %>
+		<div class="row row-fluid">
+			<div class="field full">
+				<div class="span2"> Mot de passe : </div> <%= f.password_field :password %>
+			</div>
+
+			<div class="field full">
+				<div class="span2"></div><input type="submit" value="Sauvegarder"/ class="btn btn-success">
+				<input type='hidden' name='_method' value='put'>
+				<%= f.hidden_field :id %>
+			</div>
+		</div>
+	<% end %>
+</div>
