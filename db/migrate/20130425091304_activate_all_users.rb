@@ -6,9 +6,9 @@ class ActivateAllUsers < ActiveRecord::Migration
       
        u=User.new
        u.forename="Admin"
-       u.surname="SIGIRE"
-       u.password="Fikergn43653"
-       u.email="admin@sigire.fr"
+       u.surname="COMPANY"
+       u.password="password"
+       u.email="admin@domain.tld"
        u.enabled=true
        #u.id=User.last.id+1
        u.save
