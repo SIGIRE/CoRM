@@ -10,4 +10,5 @@ EventType.create({ :label => 'Appel téléphonique', :direction => 'Sortant' })
 EventType.create({ :label => 'Mail', :direction => 'Entrant' })
 EventType.create({ :label => 'Mail', :direction => 'Sortant' })
 
-WebmailConnection.create()
+WebmailConnection.create({ :login => 'demo-crm@sigire.net', :password => 'Lm4HDba%', :server => 'pop.sigire.net', :port => 110, :type_event_id => 4, :active => true})
+
