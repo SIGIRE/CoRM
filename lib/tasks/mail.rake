@@ -1,39 +1,17 @@
 	namespace :mail do
+	
 	desc "TODO"
 	task :get_mail => :environment do
 	require 'rubygems'
 	require 'mail'
 	
-	# Récupération de la connexion
-	connection = WebmailConnection.first
-	puts("Connexion recuperee : #{connection.server}:#{connection.port} (#{connection.login}:#{connection.password})")
-
-	# Test de validité de la connexion
-	$state = connection.check
-
-	# Si la connexion est marquée comme active et est valide
-	puts("Active connection : #{connection.active}")
-	puts("Connection state : #{$state}")
-	if connection.active && $state
-	begin
-	rescue 
-		puts("An error occured")
-	else
-		# Récupération des éléments de connexion
-		Mail.defaults do
-			retriever_method :pop3, :address => connection.server,
-					:port		 => connection.port,
-					:user_name 	 => connection.login,
-					:password 	 => connection.password,
-					:enable_ssl 	 => false
-	
-		# Stockage du nombre de mails dans une variable
-		$nb = Mail.all.length
-		puts("Nombre de mails : #{$nb} (avant recuperation)")
 
 		# Récupération des mails
-		emails = Mail.all
+		emails = getMails()
 
+		# Stockage du nombre de mails dans une variable
+		$nb = 1
+		puts("Nombre de mails : #{emails.length} (apres recuperation)")
 		# Pour chaque mail reçu, on affiche son ID
 		emails.each do |mail|
 		begin
@@ -61,24 +39,11 @@
 							# Action à faire dans le cas parfait
 							puts("Le compte existe")
 
-							#			
-							# Création d'un évènement
-							# Event {
-							#	:date_begin => date de réception du mail
-							#	:date_end => date de réception du mail
-							#	:notes => contenu du mail
-							#	:created_by => identifiant du collaborateur
-							#	:contact_id => identifiant du contact
-							#	:account_id => identifiant du compte
-							#	:event_type_id => identifiant du type d'évènement
-							#	:user_id  => identifiant du collaborateur
-							#	}
-							#
-
+							# Création de l'évènement
 							event = Event.new
 							event.date_begin = mail.date.strftime("%Y-%m-%e %H:%M:%S")
 							event.date_end = mail.date.strftime("%Y-%m-%e %H:%M:%S")
-							event.notes = "Sujet : #{convert(mail.subject)} \n #{convert(mail.body.decoded)}"
+							event.notes = "Sujet : #{mail.subject} \n #{convert(mail.body.decoded)}"
 							event.created_by = user.id
 							event.contact_id = contact.id
 							event.account_id = contact.account_id	
@@ -88,10 +53,12 @@
 						else 
 							# Pas de compte rataché au contact
 							puts("Le contact existe, mais n'est rattache a aucun compte")
+
+							# Création de l'email
 							email = Email.new
 							email.user_id = user.id
 							email.to = mail[:to].decoded
-							email.object = convert(mail.subject)
+							email.object = mail.subject
 							email.content = convert(mail.body.decoded)
 							email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
 							email.contact_id = contact.id
@@ -100,25 +67,31 @@
 						
 						# Si on ne trouve pas de contact
 						elsif(contacts.length < 1)
-							# Action permettant de creer le contact
 							puts("Le contact n'existe pas")
+
+							# Création de l'email
 							email = Email.new
 							email.user_id = user.id
-							#email.to = mail.to.to_s.gsub('["',"").gsub('"]',"")
 							email.to = mail[:to].decoded
-							email.object = convert(mail.subject.decoded)
+							email.object = mail.subject
 							email.content = convert(mail.body.decoded)
 							email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
+							begin
 							email.save
+							rescue
+							puts("Erreur capturee")
+							email.content = convert2(mail.body.decoded)
+							email.save
+							end
 						else
-							# Action permettant de gerer les contacts multiples
 							puts("Deux contacts portent la meme adresse mail")
-							
+							# On crée un email pour chacun des contacts
 							contacts.each do |contact|
+								# Création de l'email
 								email = Email.new
 								email.user_id = user.id
 								email.to = contact.email
-								email.object = convert(mail.subject)
+								email.object = mail.subject
 								email.content = convert(mail.body.decoded)
 								email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
 								
@@ -147,24 +120,11 @@
 								# Action à faire dans le cas parfait
 								puts("Le compte existe")
 
-								#			
-								# Création d'un évènement
-								# Event {
-								#	:date_begin => date de réception du mail
-								#	:date_end => date de réception du mail
-								#	:notes => contenu du mail
-								#	:created_by => identifiant du collaborateur
-								#	:contact_id => identifiant du contact
-								#	:account_id => identifiant du compte
-								#	:event_type_id => identifiant du type d'évènement
-								#	:user_id  => identifiant du collaborateur
-								#	}
-								#
-
+								# Création de l'event
 								event = Event.new
 								event.date_begin = mail.date.strftime("%Y-%m-%e %H:%M:%S")
 								event.date_end = mail.date.strftime("%Y-%m-%e %H:%M:%S")
-								event.notes = "Sujet : #{convert(mail.subject)} \n #{convert(mail.body.decoded)}"
+								event.notes = "Sujet : #{mail.subject} \n #{convert(mail.body.decoded)}"
 								event.created_by = user.id
 								event.contact_id = contact.id
 								event.account_id = contact.account_id	
@@ -177,7 +137,7 @@
 								email = Email.new
 								email.user_id = user.id
 								email.to = destinataire
-								email.object = convert(mail.subject)
+								email.object = mail.subject
 								email.content = convert(mail.body.decoded)
 								email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
 								email.contact_id = contact.id
@@ -192,7 +152,7 @@
 								email.user_id = user.id
 								#email.to = mail.to.to_s.gsub('["',"").gsub('"]',"")
 								email.to = destinataire
-								email.object = convert(mail.subject)
+								email.object = mail.subject
 								email.content = convert(mail.body.decoded)
 								email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
 								email.save
@@ -204,7 +164,7 @@
 									email = Email.new
 									email.user_id = user.id
 									email.to = destinataire
-									email.object = convert(mail.subject)
+									email.object = mail.subject
 									email.content = convert(mail.body.decoded)
 									email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
 								
@@ -231,27 +191,54 @@
 				puts("Plus d'un expediteur trouve : #{mail.from}")
 			end
 
-		rescue
-			puts "Il y a eu une erreur avec un email!"
+		rescue Exception => e
+			puts "Il y a eu une erreur de type #{e.class} avec un email"
 		end
 		end
 		# On affiche le nombre de mails restants (normalement 0)
-		puts("Nombre de mails : #{Mail.all.length} (apres recuperation)")
-		end
+		puts("Nombre de mails : #{getMails().length} (apres recuperation)")
 	end
 	end
-  end
 
 	desc "TODO"
 	task :send_mail => :environment do
 	end
 
 	def convert(text)
-			return text.force_encoding('iso8859-1')
-			#return text.force_encoding('iso8859-1').encode('utf-8').encode('iso8859-1')
-			#return text.force_encoding('utf-8').encode('utf-8')
-			#return text.encode('iso8859-1')
-			#return text.force_encoding('iso8859-1').encode('utf-8')
+			return text.force_encoding('iso8859-1').encode('UTF-8')
+	end
+
+	def getMails()
+		# Récupération de la connexion
+		connection = WebmailConnection.first
+		puts("Connexion recuperee : #{connection.server}:#{connection.port} (#{connection.login}:#{connection.password})")
+
+		# Test de validité de la connexion
+		$state = connection.check
+
+		# Si la connexion est marquée comme active et est valide
+		puts("Active connection : #{connection.active}")
+		puts("Connection state : #{$state}")
+			
+		if connection.active && $state
+			begin
+			rescue 
+				puts("An error occured")
+				return nil
+			else
+				# Récupération des éléments de connexion
+				Mail.defaults do
+					retriever_method :pop3, :address => connection.server,
+							:port		 => connection.port,
+							:user_name 	 => connection.login,
+							:password 	 => connection.password,
+							:enable_ssl 	 => false
+
+					# Récupération des mails
+					return Mail.all
+				end
+			end
 		end
 	end
+			
 
