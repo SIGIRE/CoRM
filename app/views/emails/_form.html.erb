@@ -60,21 +60,19 @@
 <%#Affichage du champ pièce jointe %>
 <div class="row row-fluid">
 	<div class="field full">
-		<div class="span2">
-			Pièce jointe : 
-		</div>
-		<%= f.text_field :attach_file_size %>
+      <%= f.label :attach, "Pièce-jointe : ", :class => 'top' %>
+      <%= f.file_field :attach %>
 	</div>
 </div>
 
 <%#Affichage du champ date %>
 <div class="row row-fluid">
-	<div class="field full">
-		<div class="span2">
-			Date :
+	
+		<div class="span2" style="text-align: right; padding-right: 10px;">
+			Date :  
 		</div>
-		<%= f.datetime_select :send_at,  :required => 'required' %><span class="req" />
-	</div>
+			<%= @email.send_at %>
+	
 </div>
 <%= f.hidden_field :id %>
 

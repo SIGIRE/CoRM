@@ -68,7 +68,7 @@
 		
 			<div class="btn-group">
 				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-				 <%= image_tag('/assets/glyphicons/glyphicons_190_circle_plus.png', :size => '16x16') %>
+				 <%= image_tag('/assets/glyphicons/glyphicons_190_circle_plus.png') %>
 				</a>
 				<ul class="dropdown-menu right">
 					<li><%= link_to t('app.model.Quotation'), new_quotation_path %></li>
@@ -84,7 +84,7 @@
 				<!-- NOTIFICATIONS -->
 				
 				<a class="btn" 
-	<%= link_to (image_tag("/assets/glyphicons/glyphicons_196_circle_exclamation_mark.png", :size => "18x18")).html_safe, url_for(:controller => 'notifications', :action => 'index')%>
+	<%= link_to (image_tag("/assets/glyphicons/glyphicons_196_circle_exclamation_mark.png")).html_safe, url_for(:controller => 'notifications', :action => 'index')%>
 				</a>
 
 				<!-- NB MAILS -->
@@ -97,8 +97,7 @@
 
 			<div class="btn-group">
 			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-				<!-- <i class="icon-user" style="size: 16x16"></i> -->
-				<center><%= image_tag("glyphicons/glyphicons_003_user.png", :size => "16x16") %></center>
+				<%= image_tag("glyphicons/glyphicons_003_user.png") %>
 			  
 			</a>
 			<ul class="dropdown-menu right">
