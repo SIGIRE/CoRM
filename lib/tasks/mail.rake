@@ -8,7 +8,7 @@
 
 		# Récupération des mails
 		emails = getMails()
-
+		if (!emails.nil?)
 		# Stockage du nombre de mails dans une variable
 		$nb = 1
 		puts("Nombre de mails : #{emails.length} (apres recuperation)")
@@ -69,7 +69,7 @@
 						elsif(contacts.length < 1)
 							puts("Le contact n'existe pas")
 
-							# Création de l'email
+							# Création de l'email
 							email = Email.new
 							email.user_id = user.id
 							email.to = mail[:to].decoded
@@ -120,7 +120,7 @@
 								# Action à faire dans le cas parfait
 								puts("Le compte existe")
 
-								# Création de l'event
+								# Création de l'event
 								event = Event.new
 								event.date_begin = mail.date.strftime("%Y-%m-%e %H:%M:%S")
 								event.date_end = mail.date.strftime("%Y-%m-%e %H:%M:%S")
@@ -190,13 +190,14 @@
 				# Action a effectuer si .from > 1
 				puts("Plus d'un expediteur trouve : #{mail.from}")
 			end
-
+		
 		rescue Exception => e
 			puts "Il y a eu une erreur de type #{e.class} avec un email"
 		end
 		end
 		# On affiche le nombre de mails restants (normalement 0)
 		puts("Nombre de mails : #{getMails().length} (apres recuperation)")
+	end
 	end
 	end
 
@@ -238,7 +239,7 @@
 					return Mail.all
 				end
 			end
+		else
+			return nil
 		end
 	end
-			
-

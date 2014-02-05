@@ -79,14 +79,24 @@
     				<div class="span2"> Activé : </div> <%= f.check_box :active %>
   			</div>
 			<div class="field full">
-				<div class="span2"></div><input type="submit" value="Sauvegarder"/ class="btn btn-success">
+				<div class="span2"></div><input type="submit" value="Sauvegarder" class="btn btn-success">
+				<a class="btn"
+				<%= link_to (
+						image_tag(
+							"/assets/glyphicons/glyphicons_081_refresh.png", 
+							:size => "17x17")
+						).html_safe, 
+						url_for(
+							:controller => 'webmail_connections', 
+							:action => 'check')
+				%></a>
 				<input type='hidden' name='_method' value='put'>
 				<%= f.hidden_field :id %>
 			</div>
 		</div>
 	<% end %>
+	<input type="submit" value="Tester la connexion" class="btn btn-info">
 	</div>
    	
 	
 </div>
-
