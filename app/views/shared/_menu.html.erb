@@ -67,7 +67,7 @@
 		<div id="profile_settings_buttons">
 		
 			<div class="btn-group">
-				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+				<a class="btn dropdown-toggle" data-toggle="dropdown" href="#" title ="Créer...">
 				 <%= image_tag('/assets/glyphicons/glyphicons_190_circle_plus.png') %>
 				</a>
 				<ul class="dropdown-menu right">
@@ -83,7 +83,7 @@
 
 				<!-- NOTIFICATIONS -->
 				
-				<a class="btn" 
+				<a class="btn " title ="Notifications"
 	<%= link_to (image_tag("/assets/glyphicons/glyphicons_196_circle_exclamation_mark.png")).html_safe, url_for(:controller => 'notifications', :action => 'index')%>
 				</a>
 
@@ -96,7 +96,7 @@
 				<!-- PROFIL -->
 
 			<div class="btn-group">
-			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#" title ="Profil et paramètres">
 				<%= image_tag("glyphicons/glyphicons_003_user.png") %>
 			  
 			</a>
