@@ -53,6 +53,6 @@
 	<hr />
   <div class="field">
     <%= f.submit 'Créer une Relation', :class =>"btn btn-primary"%>
-	<%= if !@relation.id.nil? then  link_to image_tag("glyphicons/glyphicons_016_bin.png"), @relation,:title => "Supprimer le compte", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %>
+	<%= if !@relation.id.nil? then  link_to image_tag("glyphicons/glyphicons_016_bin.png"), @relation,:title => "Supprimer le compte", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn trash", :method => :delete end %>
   </div>
 <% end %>

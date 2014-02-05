@@ -145,7 +145,7 @@
 		<!-- Submit or not submit -->
  		<div class="row row-fluid">
 			<%= if !@quotation.id.nil? then f.submit 'Modifier ce Devis', :class =>"btn btn-primary",:id =>"quotation_submit_form" else f.submit 'Créer un Devis', :class =>"btn btn-primary",:id =>"quotation_submit_form" end %>
-			<%= if !@quotation.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), quotation_path(@quotation), :title => "Supprimer ce Devis", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
+			<%= if !@quotation.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), quotation_path(@quotation), :title => "Supprimer ce Devis", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn trash", :method => :delete end %> 
 		</div>
   <% end %>
 </div>
