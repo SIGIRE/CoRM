@@ -199,6 +199,7 @@ DEPENDENCIES
   jquery-validation-rails
   json
   kaminari (~> 0.14.1)
+  mail (~> 2.5.4)
   meta_search (~> 1.1.3)
   money-rails (~> 0.8.1)
   nested_form
