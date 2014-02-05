@@ -131,8 +131,8 @@ Crm::Application.routes.draw do
 
   # Webmail Connections routes
   put "webmail_connections/update"
-  get "webmail_connections/index"
 	get "webmail_connections/edit"
+	get "webmail_connections/check"
 
   # emails noutes
   set_route('emails', 'email', 'emails') 
