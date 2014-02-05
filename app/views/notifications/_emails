@@ -45,7 +45,7 @@
 			<% if Contact.where(:email => email.to).count == 1 %>
 				<%= link_to email.to, edit_contact_path(Contact.find_by_email(email.to)), {:title => "Modifier le contact", :color =>"white"} %>
 			<% elsif !email.to.nil? and !email.to.blank? %>
-				<%= link_to email.to, new_contact_path(:email => email.to), {:title => "Créer le contact", :class => "badge btn-danger", :style => 'font-weight: bold'} %>
+				<%= link_to email.to, new_contact_path(:email => email.to), {:title => "Créer le contact", :class => "badge btn-important", :style => 'font-weight: bold'} %>
 			<% else %>
 	    		-
 			<% end %>

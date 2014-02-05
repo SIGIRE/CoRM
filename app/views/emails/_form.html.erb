@@ -57,10 +57,20 @@
 	</div>
 </div>
 
+<%# Affichage d'une pièce jointe si il y en a une %>
+<% if @email.attach.exists? %>
+  <div class="row row-fluid">
+		<div class="field full">
+			 <div class="span2">Pièce jointe actuelle : </div>
+			<%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + @email.attach_file_name , @email.attach.url, :target => '_blank' %>
+		</div>
+  </div>
+<% end %>
+
 <%#Affichage du champ pièce jointe %>
 <div class="row row-fluid">
 	<div class="field full">
-      <%= f.label :attach, "Pièce-jointe : ", :class => 'top' %>
+      <div class="span2"><%= f.label :attach, "Pièce-jointe : ", :class => 'top' %> </div>
       <%= f.file_field :attach %>
 	</div>
 </div>
@@ -68,7 +78,7 @@
 <%#Affichage du champ date %>
 <div class="row row-fluid">
 	
-		<div class="span2" style="text-align: right; padding-right: 10px;">
+		<div class="span2" style="text-align: right; padding-right: 10px;"
 			Date :  
 		</div>
 			<%= @email.send_at %>
