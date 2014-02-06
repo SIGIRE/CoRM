@@ -75,9 +75,7 @@
 									if (contacts.length >= 1)
 										puts(contacts.class)
 										# On parcours tous les contacts récupérés
-										puts("before")
 										contacts.each do |contact|
-											puts("after")
 											# Si le contact est associé à un compte, on crée un évènement
 											if (!contact.account_id.nil?)
 
@@ -180,7 +178,11 @@
 		if (!encoding.blank?)
 				text = text.force_encoding(encoding).encode('UTF-8')
 		else
-				text = text.force_encoding("UTF-8").encode('UTF-8')
+				if (text.force_encoding("UTF-8").encode('UTF-8').valid_encoding?)
+					text = text.force_encoding("UTF-8").encode('UTF-8')
+				elsif (text.force_encoding("iso-8859-1").encode('UTF-8').valid_encoding?)
+					text = text.force_encoding("iso-8859-1").encode('UTF-8')
+				end
 		end
 	rescue Exception => e
 		puts e
