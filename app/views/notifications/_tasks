@@ -53,7 +53,7 @@
 	<% end %>
 	</center></td>
 	
-	<%# RRécupération de la priorité de la tâche %>
+	<%# Récupération de la priorité de la tâche %>
 	<td><center>
 	<% if !task.priority.nil?  and !task.priority.blank? %>
 	    <%= Task::PRIORITIES[task.priority] %>
@@ -114,15 +114,14 @@
 	</tr>
   <% end %>
 
-<%# Affichage du lien vers les autres tâches %>
-<% if @tasks.length > 5 %>
-	<tr>
+	<%# Affichage du lien vers les autres tâches %>
+	<% if current_user.tasks.length > 5 %>
+		<tr>
 		<td colspan="8" class="text-center">
 			<%= link_to('Afficher toutes mes tâches', filter_tasks_path, :title => 'Mes tâches') %>
 		</td>
 	</tr>
-<% end %>
-
+	<% end %>
 </tbody>
 </table>
 </div>

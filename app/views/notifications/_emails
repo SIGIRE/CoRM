@@ -3,7 +3,7 @@
     <thead>
 		<tr>
 			<th colspan="8">
-				<h3 class="pull-left">Messages à archiver</h3>
+				<h3 class="pull-left">Messages à traiter</h3>
 			</th>
 		<tr/>
     <tr>
@@ -18,7 +18,7 @@
     </tr>
     </thead>
 <tbody>
-<% @emails.each do |email| %>
+<% @emails.limit(5).order("id").each do |email| %>
     <tr>
 	<%# Récupération de l'ID de l'email %>
 	<td><center>
@@ -31,26 +31,50 @@
 
 	<%# Récupération du destinataire de l'email %>
 	<td><center>
+
 	<% if !email.contact_id.nil? %>
+	<%# Si on a un contact_id %>
+
 		<% if !Contact.where(:id => email.contact_id).count == 0 %>
+		<%# Si le contact_id n'existe pas dans la base des contacts %>
 				<% contact = Contact.find(email.contact_id) %>
 				<% if !contact.email.nil? and !contact.email.blank? %>
+				<%# Si le contact trouvé a un email %>
 			      	<%= link_to contact.email, edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"}%>
+
 				<% elsif !contact.full_name.nil? %>
+				<%# Sinon s'il a un nom %>
 					<%= link_to contact.full_name, edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"}%>
+
 				<% else %>
-						-
+				<%# Das le cas ou il n'a rien %>
+				-
 				<% end %>
+
 		<% else %>
+		<%# S'il il existe %>
+
 			<% if Contact.where(:email => email.to).count == 1 %>
+			<%# Si le contact existe avec une @email %>
 				<%= link_to email.to, edit_contact_path(Contact.find_by_email(email.to)), {:title => "Modifier le contact", :color =>"white"} %>
+
+			<% elsif !Contact.find(email.contact_id).nil? and !Contact.find(email.contact_id).blank? %>
+			<%# Cas spécial ou on modifie un mail en lui associant un contact qui n'a pas l'@mail de départ %>
+				<% contact = Contact.find(email.contact_id) %>
+				<%= link_to contact.email, edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"} %>
+
 			<% elsif !email.to.nil? and !email.to.blank? %>
-				<%= link_to email.to, new_contact_path(:email => email.to), {:title => "Créer le contact", :class => "badge btn-important", :style => 'font-weight: bold'} %>
+			<%# Sinon si il y a un email récupéré de l'email traité %>
+				<%= link_to email.to, new_contact_path(:email => email.to), {:title => "Créer le contact", :class => "badge badge-important", :style => 'font-weight: bold'} %>
+
 			<% else %>
+			<%# Dans le cas ou il n'y a aucune infos %>
 	    		-
 			<% end %>
 		<% end %>
+
 	<% else %>
+	<%# Si on a pas de contact_id %>
 		<% if Contact.where(:email => email.to).count == 1 %>
 			<%= link_to email.to, edit_contact_path(Contact.find_by_email(email.to)), {:title => "Modifier le contact", :color =>"white"} %>
 		<% elsif !email.to.nil? and !email.to.blank? %>
@@ -63,11 +87,36 @@
 	
 	<%# Récupération du compte du contact %>
 	<td><center>
-	<% if !email.account_id.nil?  and !email.account_id.blank? %>
-	    <%= Account.find(email.account_id).company %>
+
+	<% if !email.contact_id.nil? %>
+	<%# Si il y a un contact_id %>
+		<% contact = Contact.find(email.contact_id) %>
+		<% account = Account.find(contact.account_id) %>
+		<%= account.company %>
+	
+	<% elsif !email.account_id.nil?  and !email.account_id.blank? %>
+	<%# Sinon si on a un account_id %>
+		    <%= Account.find(email.account_id).company %>
+
+	<% elsif Contact.where(:email => email.to).count == 1 and !Contact.find_by_email(email.to).nil? and !Contact.find_by_email(email.to).blank? %>
+	<%# Sinon si on a quand même un contact qui correspond au mail "to" %>
+			<% contact = Contact.find_by_email(email.to) %>
+
+			<% if !contact.account_id.nil? and !contact.account_id.blank? %>
+			<%# Si le contact trouvé a un compte, on l'affiche dans un badge orange %>
+				<% account = Account.find(contact.account_id) %>
+				<span class="badge badge-warning" style="font-weight: bold"><%= account.company %></span>
+
+			<% else %>
+			<%# S'il n'en a pas, on affiche "aucun" %>
+				<span class="badge badge-important" style="font-weight: bold">Aucun</span>
+			<% end %>
+
 	<% else %>
-	    <span class="badge badge-important" style="font-weight: bold">Aucun</span>
+	<%# Si on a rien, on affiche juste "aucun" %>
+		   <span class="badge badge-important" style="font-weight: bold">Aucun</span>
 	<% end %>
+
 	</center></td>
 
 	<%# Récupération du sujet de l'email %>
@@ -92,7 +141,7 @@
 	<%# Récupération de la pièce jointe %>
 	<td><center>
 	<% if !email.attach_file_name.nil?  and !email.attach_file_name.blank? %>
-	    <%= email.attach_file_name %>
+	    <%= link_to email.attach_file_name ,  email.attach.url, :target => '_blank'%>
 	<% else %>
 	    -
 	<% end %>
@@ -126,6 +175,15 @@
 	</center></td>
     </tr>
     <% end %>
+
+<%# Affichage du lien vers les autres tâches %>
+	<% if current_user.emails.length > 5 %>
+		<tr>
+			<td colspan="9" class="text-center">
+				<%= link_to('Afficher tout mes emails', emails_path, :title => 'Mes emails') %>
+			</td>
+		</tr>
+	<% end %>
 </tbody>
 </table>
 </div>
