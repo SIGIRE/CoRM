@@ -6,11 +6,43 @@
 	require 'mail'
 	
 
-		# Récupération des mails
-		emails = load_mails()
+		# Récupération de la connexion
+		connection = WebmailConnection.first
+
+		# Test de validité de la connexion
+		state = WebmailConnection.check(connection)
+
+		# Si la connexion est marquée comme active et est valide
+		puts("Active connection : #{connection.active}")
+		puts("Connection state : #{state}")
 		
-		# Si on a récupéré des emails
-		if (!emails.nil?)
+		emails = nil
+		event_id = nil	
+		if connection.active && state
+			begin
+			rescue 
+				puts("An error occured")
+				return nil
+			else
+				# Récupération des éléments de connexion
+				Mail.defaults do
+					retriever_method :pop3, :address => connection.server,
+							:port		 => connection.port,
+							:user_name 	 => connection.login,
+							:password 	 => connection.password,
+							:enable_ssl 	 => false
+
+					# Récupération des mails
+					emails = Mail.find_and_delete
+					event_id = connection.type_event_id
+				end
+			end
+		else
+		end
+
+		puts(emails.length)
+		# Si on a récupéré des emails et un type d'évènement
+		if (!emails.nil? and !event_id.nil?)
 
 			# Stockage du nombre de mails dans une variable
 			$nb = 1
@@ -39,22 +71,24 @@
 
 									# Si on trouve un ou plusieurs contacts, on continue
 									if (contacts.length >= 1)
-
+										puts(contacts.class)
 										# On parcours tous les contacts récupérés
+										puts("before")
 										contacts.each do |contact|
-
+											puts("after")
 											# Si le contact est associé à un compte, on crée un évènement
 											if (!contact.account_id.nil?)
 
 												# Création de l'évènement
 												event = Event.new
-												event.date_begin = mail.date.strftime("%Y-%m-%e %H:%M:%S")
-												event.date_end = mail.date.strftime("%Y-%m-%e %H:%M:%S")
+												event.date_begin = mail.date.strftime("%Y-%m-%d %H:%M:%S")
+												puts(mail.date.strftime("%Y-%m-%d %H:%M:%S"))
+												event.date_end = mail.date.strftime("%Y-%m-%d %H:%M:%S")
 												event.notes = "Sujet : #{mail.subject} \n #{convert(mail.body.decoded)}"
 												event.created_by = user.id
 												event.contact_id = contact.id
 												event.account_id = contact.account_id	
-												event.event_type_id = connection.type_event_id
+												event.event_type_id = event_id
 												event.user_id = user.id
 												event.save
 !emails.nil?
@@ -116,7 +150,7 @@
 			# <--- FIN DE LA BOUCLE 'emails.each'
 			
 			# On affiche le nombre de mails restants (normalement 0)
-			puts("Nombre de mails : #{load_mails.length} (apres recuperation)")
+			puts("Nombre de mails : #{Mail.all.length} (apres recuperation)")
 		end
 		# <--- FIN SI '!emails.nil?'
 	end
@@ -124,40 +158,5 @@
 
 	def convert(text)
 			return text.force_encoding('iso8859-1').encode('UTF-8')
-	end
-
-	def load_mails()
-		# Récupération de la connexion
-		connection = WebmailConnection.first
-		puts("Connexion recuperee : #{connection.server}:#{connection.port} (#{connection.login}:#{connection.password})")
-
-		# Test de validité de la connexion
-		state = WebmailConnection.check(connection)
-
-		# Si la connexion est marquée comme active et est valide
-		puts("Active connection : #{connection.active}")
-		puts("Connection state : #{state}")
-			
-		if connection.active && state
-			begin
-			rescue 
-				puts("An error occured")
-				return nil
-			else
-				# Récupération des éléments de connexion
-				Mail.defaults do
-					retriever_method :pop3, :address => connection.server,
-							:port		 => connection.port,
-							:user_name 	 => connection.login,
-							:password 	 => connection.password,
-							:enable_ssl 	 => false
-
-					# Récupération des mails
-					return Mail.find_and_delete
-				end
-			end
-		else
-			return nil
-		end
 	end
 	end
