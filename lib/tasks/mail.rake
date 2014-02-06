@@ -1,3 +1,4 @@
+# encoding: utf-8	
 	namespace :mail do
 	
 	desc "TODO"
@@ -33,7 +34,8 @@
 							:enable_ssl 	 => false
 
 					# Récupération des mails
-					emails = Mail.find_and_delete
+					#emails = Mail.find_and_delete
+					emails = Mail.all
 					event_id = connection.type_event_id
 				end
 			end
@@ -84,14 +86,14 @@
 												event.date_begin = mail.date.strftime("%Y-%m-%d %H:%M:%S")
 												puts(mail.date.strftime("%Y-%m-%d %H:%M:%S"))
 												event.date_end = mail.date.strftime("%Y-%m-%d %H:%M:%S")
-												event.notes = "Sujet : #{mail.subject} \n #{convert(mail.body.decoded)}"
+												event.notes = "Sujet : #{mail.subject} \n #{retrieve_body(mail)}"
 												event.created_by = user.id
 												event.contact_id = contact.id
 												event.account_id = contact.account_id	
 												event.event_type_id = event_id
 												event.user_id = user.id
 												event.save
-!emails.nil?
+												!emails.nil?
 											# Si le contact n'est pas associé à un compte
 											else
 												# Création de l'email
@@ -99,7 +101,7 @@
 												email.user_id = user.id
 												email.to = destinataire
 												email.object = mail.subject
-												email.content = convert(mail.body.decoded)
+												email.content = retrieve_body(mail)
 												email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
 												email.contact_id = contact.id
 												email.save
@@ -115,7 +117,7 @@
 										email.user_id = user.id
 										email.to = destinataire
 										email.object = mail.subject
-										email.content = convert(mail.body.decoded)
+										email.content = retrieve_body(mail)
 										email.send_at = mail.date.strftime("%Y-%m-%e %H:%M:%S")
 										email.save
 									end
@@ -140,7 +142,6 @@
 						# Aucune action n'est effectuée
 					end
 					# <--- FIN SI 'mail.from.length == 1'
-				
 				rescue Exception => e
 					puts "Il y a eu une erreur de type #{e.class} avec un email"
 					puts "#{e.backtrace.join("\n")}"
@@ -158,5 +159,35 @@
 
 	def convert(text)
 			return text.force_encoding('iso8859-1').encode('UTF-8')
+	end
+
+	def retrieve_body(mail)
+		begin
+		text = ""
+		encoding = ""
+		# Si le mail est de type multipart
+		if (mail.multipart?)
+			mail.parts.each do |p|
+				if (p.content_type.include? "text/plain")
+						text << "#{p.body}\n"
+						encoding = p.content_type_parameters["charset"]
+				end
+			end
+		# Si le mail n'est pas de type multipart
+		else
+			text = mail.body.decoded
+		end
+		if (!encoding.blank?)
+				text = text.force_encoding(encoding).encode('UTF-8')
+		else
+				text = text.force_encoding("UTF-8").encode('UTF-8')
+		end
+	rescue Exception => e
+		puts e
+		puts e.backtrace.join("\n")
+		return nil
+	else
+		return text
+	end
 	end
 	end
