@@ -78,14 +78,16 @@
 <%#Affichage du champ date %>
 <div class="row row-fluid">
 	
-		<div class="span2" style="text-align: right; padding-right: 10px;"
-			Date :  
-		</div>
-			<%= @email.send_at %>
-	
+	<div class="span2" style="text-align: right; padding-right: 10px;">
+		Date :  
+	</div>
+		<strong>
+		<%# Affichage de la date complète en gras, non modifiable %>
+			<%= @email.send_at.strftime("%d/%m/%Y à %H:%M") %>
+		</strong>
 </div>
 <%= f.hidden_field :id %>
-
+<div class="row row-fluid">
 <%= if !@email.id.nil? then f.submit "Modifier l'email", :class =>"btn btn-primary" end %>
-
+</div>
 <% end %>
