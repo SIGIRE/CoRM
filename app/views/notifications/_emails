@@ -112,8 +112,10 @@
 	<% if !email.contact_id.nil? %>
 	<%# Si il y a un contact_id %>
 		<% contact = Contact.find(email.contact_id) %>
-		<% account = Account.find(contact.account_id) %>
-		<%= account.company %>
+		<% if !contact.account_id.nil? %>
+			<% account = Account.find(contact.account_id) %>
+			<%= account.company %>
+		<% end %>
 	
 	<% elsif !email.account_id.nil?  and !email.account_id.blank? %>
 	<%# Sinon si on a un account_id %>
