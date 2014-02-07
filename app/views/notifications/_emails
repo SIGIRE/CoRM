@@ -19,18 +19,39 @@
     </thead>
 <tbody>
 <% @emails.limit(5).order("id").each do |email| %>
-    <tr>
+
+	<% if email.check %>
+	<%# Si l'email est valide, la ligne sera verte %>
+	<%  attr = ' class="success"'.html_safe %>
+
+	<% elsif Contact.where(:email => email.to).count == 1 and !Contact.find_by_email(email.to).nil? and !Contact.find_by_email(email.to).blank? %>
+	<%# Sinon si le mail est valide uniquement par liens entre les tables, la ligne est orange (n'apparait normalement pas) %>
+			<% contact = Contact.find_by_email(email.to) %>
+			<% if !contact.account_id.nil? and !contact.account_id.blank? %>
+				<% account = Account.find(contact.account_id) %>
+				<% attr = ' class="warning"'.html_safe %>
+			<% else %>
+			<%# Dans le cas ou la ligne n'a pas besoin d'être colorée, la classe est vide %>
+				<% attr = ''.html_safe %>
+			<% end %>
+	<% else %>
+	<%# Classe vide pour aucune coloration %>
+		<% attr = ''.html_safe %>
+	<% end %>
+
+	  <tr<%= attr %>>
+
 	<%# Récupération de l'ID de l'email %>
-	<td><center>
+	<td class="text-center">
 	<% if !email.id.nil? and !email.id.blank? %>
 	    <%= email.id %>
 	<% else %>
 	    -
 	<% end %>
-	</center></td>
+	</td>
 
 	<%# Récupération du destinataire de l'email %>
-	<td><center>
+	<td class="text-center">
 
 	<% if !email.contact_id.nil? %>
 	<%# Si on a un contact_id %>
@@ -83,10 +104,10 @@
 	    	-
 		<% end %>
 	<% end %>
-	</center></td>
+	</td>
 	
 	<%# Récupération du compte du contact %>
-	<td><center>
+	<td class="text-center">
 
 	<% if !email.contact_id.nil? %>
 	<%# Si il y a un contact_id %>
@@ -105,59 +126,59 @@
 			<% if !contact.account_id.nil? and !contact.account_id.blank? %>
 			<%# Si le contact trouvé a un compte, on l'affiche dans un badge orange %>
 				<% account = Account.find(contact.account_id) %>
-				<span class="badge badge-warning" style="font-weight: bold"><%= account.company %></span>
+				<%= account.company %>
 
 			<% else %>
-			<%# S'il n'en a pas, on affiche "aucun" %>
-				<span class="badge badge-important" style="font-weight: bold">Aucun</span>
+			<%# S'il n'en a pas, on affiche "-" %>
+				-
 			<% end %>
 
 	<% else %>
-	<%# Si on a rien, on affiche juste "aucun" %>
-		   <span class="badge badge-important" style="font-weight: bold">Aucun</span>
+	<%# Si on a rien, on affiche "-" %>
+		   -
 	<% end %>
 
-	</center></td>
+	</td>
 
 	<%# Récupération du sujet de l'email %>
-	<td><center>
+	<td class="text-center">
 	<% if !email.object.nil?  and !email.object.blank? %>
 	    <%= email.object %>
 	<% else %>
 	    -
 	<% end %>
-	</center></td>
+	</td>
 
 	<%# Récupération du contenu de l'email %>
-	<td><center>
+	<td class="text-center">
 	<% if !email.content.nil?  and !email.content.blank? %>
 	    <% ellipse = email.content.length > 60 ? '...' : '' %>
 	    <%= email.content[0..60] + ellipse %>
 	<% else %>
 	    -
 	<% end %>
-	</center></td>
+	</td>
       
 	<%# Récupération de la pièce jointe %>
-	<td><center>
+	<td class="text-center">
 	<% if !email.attach_file_name.nil?  and !email.attach_file_name.blank? %>
 	    <%= link_to email.attach_file_name ,  email.attach.url, :target => '_blank'%>
 	<% else %>
 	    -
 	<% end %>
-	</center></td>
+	</td>
 		
 	<%# Récupération de la date d'envoi %>
-	<td><center>
+	<td class="text-center">
 	<% if !email.send_at.nil?  and !email.send_at.blank? %>
 	    <%= email.send_at.strftime("%d/%m à %H:%M") %>
 	<% else %>
 	    -
 	<% end %>
-	</center></td>
+	</td>
 
 	<%# Affichage des boutons d'action %>
-	<td><center>
+	<td class="text-center">
 	    <div class="btn-group">
 		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 		    <%= image_tag('/assets/glyphicons/glyphicons_241_flash.png', :size => '12x12') %>
@@ -166,17 +187,20 @@
 		<ul class="dropdown-menu right" style="margin: 2px -140px 0px;">
 		    <li><%= link_to "Editer", edit_email_path(email.id) %></li>
 		    <li><%= link_to "Supprimer", email, :id => email.id, :confirm => 'Confirmer la suppression ?', :method => :delete %></li>
+
+			<%# Si l'email est "valide" (complet) alors on propose un bouton "traiter" qui lance la conversion %>
 			<% if email.check %>
-				<li><%= link_to "Envoyer", {:controller => 'emails', :action => 'convert', :email => email} %></li>
+				<li class="divider" style="margin: 2px;"></li>
+				<li><%= link_to "Traiter", {:controller => 'emails', :action => 'convert', :email => email} %></li>
 			<% end %>
+
 		</ul>
 	    </div>
-
-	</center></td>
+	</td>
     </tr>
     <% end %>
 
-<%# Affichage du lien vers les autres tâches %>
+	<%# Affichage du lien vers les autres emails %>
 	<% if current_user.emails.length > 5 %>
 		<tr>
 			<td colspan="9" class="text-center">
@@ -184,6 +208,7 @@
 			</td>
 		</tr>
 	<% end %>
+
 </tbody>
 </table>
 </div>
