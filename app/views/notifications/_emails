@@ -113,8 +113,12 @@
 	<%# Si il y a un contact_id %>
 		<% contact = Contact.find(email.contact_id) %>
 		<% if !contact.account_id.nil? %>
+		<%# Si le contact a un account_id %>
 			<% account = Account.find(contact.account_id) %>
 			<%= account.company %>
+		<% else %>
+		<%# Sinon on affiche un "-" %>
+			-
 		<% end %>
 	
 	<% elsif !email.account_id.nil?  and !email.account_id.blank? %>
