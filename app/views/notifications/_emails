@@ -18,7 +18,7 @@
     </tr>
     </thead>
 <tbody>
-        <% @emails.limit(5).order("send_at").each do |email| %> 
+        <% @emails.each do |email| %> 
 
 	            <%# Si l'email est valide, la ligne sera verte %>
 				<% if email.check %>
@@ -28,7 +28,6 @@
 				<% elsif Contact.where(:email => email.to).count == 1 %>
 					<% contact = Contact.find_by_email(email.to) %>
 					<% if !contact.account_id.blank? %>
-						<% account = Account.find(contact.account_id) %>
 						<% attr = ' class="warning"'.html_safe %>
 
 					<%# Dans le cas ou la ligne n'a pas besoin d'être colorée, la classe est vide %>
@@ -63,7 +62,7 @@
 
 						<%# Si le contact trouvé a un email %>
 						<% if !contact.email.blank? %>
-							<%= link_to contact.email, edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"}%>
+							<%= link_to contact.email, edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"}%><% contact = Contact.find_by_email(email.to) %>
 					
 						<%# Sinon s'il a un nom %>
 						<% elsif !contact.full_name.blank? %>
