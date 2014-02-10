@@ -46,7 +46,7 @@ class ContactsController < ApplicationController
     if @ability.can? :create, Contact
       @contact = Contact.new
       if (!params[:email].nil?)
-	@contact.email = params[:email]
+				@contact.email = params[:email]
       end
       respond_to do |format|
         format.html # new.html.erb
@@ -82,7 +82,7 @@ class ContactsController < ApplicationController
     if @ability.can? :create, Contact
       @contact = Contact.new(params[:contact])
       @contact.created_by = current_user.id
-  
+  		
       # Manage the has_and_belongs relation between Accounts and Tags
       # if there is no one associate tag, we delete links
       if params[:display_contact_produit].nil?
@@ -95,6 +95,12 @@ class ContactsController < ApplicationController
           
       respond_to do |format|
         if @contact.save
+					if (!params[:update_emails].blank?)
+						if (params[:update_emails] == "true")
+							update_emails(@contact)
+						end
+					end
+
           format.html {
             if  (@contact.account).nil?  then redirect_to contacts_path, :notice => 'Le contact a été créé.'
             else redirect_to account_events_url(@contact.account_id), :notice => 'Le contact a été créé.'
@@ -103,7 +109,7 @@ class ContactsController < ApplicationController
           o = {
             :contact => @contact,
             :paths => {
-              :edit => edit_contact_url(@contact.id)
+            :edit => edit_contact_url(@contact.id)
             }
           }
           format.json { render :json => o, :status => :created, :location => @contact }
@@ -166,6 +172,11 @@ class ContactsController < ApplicationController
   def destroy
     if @ability.can? :destroy, Contact
       @contact = Contact.find(params[:id])
+			
+			Email.where(:contact_id => @contact.id).each do |email|
+				email.contact_id = nil
+				email.save
+			end 
       @contact.destroy
   
       respond_to do |format|
@@ -202,6 +213,17 @@ class ContactsController < ApplicationController
     end
   end
   
-  
+  def update_emails(contact)
+		if (!contact.email.blank?)
+			adresse = contact.email
+			account = contact.account_id
+			emails = Email.where(:to => adresse, :contact_id => nil)
+			
+			emails.each do |email|
+				email.contact_id = contact.id
+				email.save
+			end
+		end
+	end
   
 end

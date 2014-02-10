@@ -1,7 +1,7 @@
-<%= form_for(@contact, :html => { :class => "well ", :id => 'new_contact_form'}) do |f| %>
+<%= form_for(@contact, :html => { :class => "well ", :id => 'new_contact_form', :key => "blabla"}) do |f| %>
   <% if @contact.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
+      <h2><%= pluralize(@contact.errors.count, "erreur") %> a empeché de sauvegarder ce contact:</h2>
 
       <ul>
       <% @contact.errors.full_messages.each do |msg| %>
@@ -120,15 +120,27 @@
 		<% if !@contact.modified_by.nil? %>
 			<div class="span9"> Dernièrement modifié par : <%= @contact.editor.full_name %>, le <%= @contact.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
 		<% end %>
-		
 	<% end %>
 	</div>
 	  
 	<hr />
-  
-   <div class="row">
-	  <%= if !@contact.id.nil? then f.submit 'Modifier ce Contact', :class =>"btn btn-primary",:id =>"contact_submit_form" else f.submit 'Créer un Contact', :class =>"btn btn-primary",:id =>"contact_submit_form" end %>
-      <%= if !@contact.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @contact, :title => "Supprimer le contact", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn trash", :method => :delete end %> 
+
+	<%# Ajout d'un paramètre permettant de savoir s'il faut ou non, mettre à jour la table des emails %>
+		<% if (!request.GET[:email].blank?) %>
+			<%= hidden_field_tag 'update_emails', true %>
+		<% end %>
+
+	<div class="row">
+	  <% if (!@contact.id.nil?) %> 
+			<%= f.submit 'Modifier ce Contact', :class =>"btn btn-primary",:id =>"contact_submit_form" %>
+		<% else %>
+			<%= f.submit 'Créer un Contact', :class =>"btn btn-primary",:id =>"contact_submit_form" %>
+		<% end %>
+
+    <%# Ajout du bouton de suppression %>
+		<% if !@contact.id.nil? %>
+		 	<%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), @contact, :title => "Supprimer le contact", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn trash", :method => :delete %>
+		<% end %> 
   </div>
  
 <% end %>
