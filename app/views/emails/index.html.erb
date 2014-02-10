@@ -112,9 +112,14 @@
 	<% if !email.contact_id.nil? %>
 	<%# Si il y a un contact_id %>
 		<% contact = Contact.find(email.contact_id) %>
-		<% account = Account.find(contact.account_id) %>
-		<%= account.company %>
-	
+		<% if !contact.account_id.nil? %>
+			<% account = Account.find(contact.account_id) %>
+			<%= account.company %>
+		<% else %>
+		<%# Sinon on affiche un "-" %>
+			-
+		<% end %>
+
 	<% elsif !email.account_id.nil?  and !email.account_id.blank? %>
 	<%# Sinon si on a un account_id %>
 		    <%= Account.find(email.account_id).company %>
@@ -149,7 +154,7 @@
 	</td>
 
 	<%# Récupération du contenu de l'email %>
-	<td class="text-enter">
+	<td class="text-center">
 	<% if !email.content.nil?  and !email.content.blank? %>
 	    <% ellipse = email.content.length > 60 ? '...' : '' %>
 	    <%= email.content[0..60] + ellipse %>
