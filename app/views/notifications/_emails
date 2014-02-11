@@ -158,14 +158,16 @@
 				    <% end %>
 				    </td>
 					
-				    <%# Récupération de la pièce jointe %>
-				    <td class="text-center">
-				    <% if !email.attach_file_name.blank? %>
-					    <%= link_to email.attach_file_name, email.attach.url, :target => '_blank'%>
-				    <% else %>
-					    -
-				    <% end %>
-				</td>
+                <%# Récupération des pièces-jointes %>
+                <td class="text-center">
+                    <% if !email.email_attachements.blank? %>
+                        <% email.email_attachements.each do |attachement| %>
+                        <%= link_to attachement.attach_file_name,  attachement.attach.url, :target => '_blank'%>
+                    <% end %>
+                    <% else %>
+                        -
+                    <% end %>
+                </td>
 		
 	            <%# Récupération de la date d'envoi %>
 				<td class="text-center">
