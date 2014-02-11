@@ -1,8 +1,7 @@
 class Email < ActiveRecord::Base
 
-attr_accessible :attach, :id, :attach_content_type, :attach_file_name, :attach_file_size, :content, :object, :send_at, :to, :user_id, :contact_id
-
-has_attached_file :attach
+attr_accessible :id, :content, :object, :send_at, :to, :user_id, :contact_id, :email_attachements
+has_many :email_attachements, :dependent => :destroy
 
 def check
 	if (!contact_id.nil?)
