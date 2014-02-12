@@ -13,6 +13,11 @@
 
 ActiveRecord::Schema.define(:version => 20140211093556) do
 
+  create_table "abilities", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "accounts", :force => true do |t|
     t.string   "company"
     t.string   "adress1"
@@ -81,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20140211093556) do
     t.string   "attach_file_name"
     t.string   "attach_content_type"
     t.integer  "attach_file_size"
+    t.datetime "attach_updated_at"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end
@@ -215,9 +221,9 @@ ActiveRecord::Schema.define(:version => 20140211093556) do
     t.integer  "opportunity_id"
     t.integer  "quotation_template_id"
     t.integer  "total_excl_tax_cents",    :default => 0,     :null => false
-    t.string   "total_excl_tax_currency", :default => "USD", :null => false
+    t.string   "total_excl_tax_currency", :default => "EUR", :null => false
     t.integer  "total_incl_tax_cents",    :default => 0,     :null => false
-    t.string   "total_incl_tax_currency", :default => "USD", :null => false
+    t.string   "total_incl_tax_currency", :default => "EUR", :null => false
     t.string   "company"
     t.string   "adress1"
     t.string   "adress2"
@@ -230,7 +236,7 @@ ActiveRecord::Schema.define(:version => 20140211093556) do
     t.string   "job"
     t.decimal  "VAT_rate"
     t.integer  "total_VAT_cents",         :default => 0,     :null => false
-    t.string   "total_VAT_currency",      :default => "USD", :null => false
+    t.string   "total_VAT_currency",      :default => "EUR", :null => false
     t.string   "label"
   end
 
@@ -255,13 +261,11 @@ ActiveRecord::Schema.define(:version => 20140211093556) do
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
 
-  create_table "settings", :force => true do |t|
+  create_table "settings", :id => false, :force => true do |t|
     t.string "key",        :null => false
     t.string "value"
     t.string "input_type"
   end
-
-  add_index "settings", ["key"], :name => "settings_index"
 
   create_table "tags", :force => true do |t|
     t.string   "name"

@@ -7,13 +7,13 @@
 	require 'mail'
 	
 
-		# Récupération de la connexion
+		# RÃ©cupÃ©ration de la connexion
 		connection = WebmailConnection.first
 
-		# Test de validité de la connexion
+		# Test de validitÃ© de la connexion
 		state = WebmailConnection.check(connection)
 
-		# Si la connexion est marquée comme active et est valide
+		# Si la connexion est marquÃ©e comme active et est valide
 		puts("Active connection : #{connection.active}")
 		puts("Connection state : #{state}")
 		
@@ -25,7 +25,7 @@
 				puts("An error occured")
 				return nil
 			else
-				# Récupération des éléments de connexion
+				# RÃ©cupÃ©ration des Ã©lÃ©ments de connexion
 				Mail.defaults do
 					retriever_method :pop3, :address => connection.server,
 							:port		 => connection.port,
@@ -33,7 +33,7 @@
 							:password 	 => connection.password,
 							:enable_ssl 	 => false
 
-					# Récupération des mails
+					# RÃ©cupÃ©ration des mails
 					#emails = Mail.find_and_delete
 					emails = Mail.all
 					event_id = connection.type_event_id
@@ -42,7 +42,7 @@
 		else
 		end
 
-		# Si on a récupéré des emails et un type d'évènement
+		# Si on a rÃ©cupÃ©rÃ© des emails et un type d'Ã©vÃ¨nement
 		if (!emails.nil? and !event_id.nil?)
 
 			# Stockage du nombre de mails dans une variable
@@ -54,7 +54,7 @@
 					# S'il l'email n'a qu'un expediteur
 					if (mail.from.length == 1)
 	
-						# Récupération des utilisateurs ayant l'adresse mail de l'expediteur
+						# RÃ©cupÃ©ration des utilisateurs ayant l'adresse mail de l'expediteur
 						users = User.where(:email => mail.from)
 			
 						# Si on trouve un seul utilisateur, on continuer
@@ -63,20 +63,20 @@
 							# S'il y a bien un ou plusieurs destinataires
 							if (mail.to.length >= 1)
 						
-								# On parcours toutes les adresses marquées comme destinataires
+								# On parcours toutes les adresses marquÃ©es comme destinataires
 								mail.to.each do |destinataire|
 						
-									# Récupération des clients ayant l'adresse mail destinataire
+									# RÃ©cupÃ©ration des clients ayant l'adresse mail destinataire
 									contacts = Contact.where(:email => destinataire)
 
 									# Si on trouve un ou plusieurs contacts, on continue
 									if (contacts.length >= 1)
-										# On parcours tous les contacts récupérés
+										# On parcours tous les contacts rÃ©cupÃ©rÃ©s
 										contacts.each do |contact|
-											# Si le contact est associé à un compte, on crée un évènement
+											# Si le contact est associÃ© Ã  un compte, on crÃ©e un Ã©vÃ¨nement
 											if (!contact.account_id.nil?)
 
-												# Création de l'évènement
+												# CrÃ©ation de l'Ã©vÃ¨nement
 												event = Event.new
 												event.date_begin = mail.date.strftime("%Y-%m-%d %H:%M:%S")
 												event.date_end = mail.date.strftime("%Y-%m-%d %H:%M:%S")
@@ -87,7 +87,7 @@
 												event.event_type_id = event_id
 												event.user_id = user.id
 												
-												# Récupération des pièces-jointes
+												# RÃ©cupÃ©ration des piÃ¨ces-jointes
 												attachements = retrieve_attachements(mail)
 												if (!attachements.nil?)
 										            attachements.each do |attachement|
@@ -95,9 +95,9 @@
 										            end
 										        end
 												event.save
-											# Si le contact n'est pas associé à un compte
+											# Si le contact n'est pas associÃ© Ã  un compte
 											else
-												# Création de l'email
+												# CrÃ©ation de l'email
 												email = Email.new
 												email.user_id = user.id
 												email.to = destinataire
@@ -108,7 +108,7 @@
 												email.save
 												
 												puts ("Email n. => #{email.id}")
-												# Récupération des pièces-jointes
+												# RÃ©cupÃ©ration des piÃ¨ces-jointes
 												attachements = retrieve_attachements(mail)
 										        if (!attachements.nil?)
 										            attachements.each do |attachement|
@@ -124,7 +124,7 @@
 
 									# Si on ne trouve pas de contact...
 									else
-										# Création de l'email
+										# CrÃ©ation de l'email
 										email = Email.new
 										email.user_id = user.id
 										email.to = destinataire
@@ -134,7 +134,7 @@
 										email.save
 										
 										puts ("Email n. => #{email.id}")
-										# Récupération des pièces-jointes
+										# RÃ©cupÃ©ration des piÃ¨ces-jointes
 										attachements = retrieve_attachements(mail)
 										if (!attachements.nil?)
 										    attachements.each do |attachement|
@@ -151,23 +151,23 @@
 								end
 								# <-- FIN DE LA BOUCLE 'mail.to.each'
 
-							# Si on n'a pas de destinataire renseigné
+							# Si on n'a pas de destinataire renseignÃ©
 							else
-								 # Aucune action n'est effectuée
+								 # Aucune action n'est effectuÃ©e
 							end
-							# <-- FIN DE LA BOUCLE 'mail.to.length >= 1'
+							#Â <-- FIN DE LA BOUCLE 'mail.to.length >= 1'
 
-						# Si on n'a pas d'utilisateur pouvant être le destinataire
+						#Â Si on n'a pas d'utilisateur pouvant Ãªtre le destinataire
 						else
-							# Aucune action n'est effectuée
+							# Aucune action n'est effectuÃ©e
 						end
 						# <--- FIN SI 'users.length == 1'
 
-					# Si on n'a pas d'adresse expéditrice
+					# Si on n'a pas d'adresse expÃ©ditrice
 					else
-						# Aucune action n'est effectuée
+						# Aucune action n'est effectuÃ©e
 					end
-					# <--- FIN SI 'mail.from.length == 1'
+					#Â <--- FIN SI 'mail.from.length == 1'
 				rescue Exception => e
 					puts "Il y a eu une erreur de type #{e.class} avec un email"
 					puts "#{e.backtrace.join("\n")}"
@@ -186,7 +186,7 @@
 		end
 		# <--- FIN SI '!emails.nil?'
 	end
-	# <--- FIN TÂCHE 'get_mail'
+	# <--- FIN TÃ‚CHE 'get_mail'
 
 	def convert(text)
 			return text.force_encoding('iso8859-1').encode('UTF-8')
@@ -237,7 +237,7 @@
 
 	def retrieve_attachements(mail)
 	    puts("Entree dans retrieve_attachements")
-		# On vérifie la présence de pièces-jointes
+		# On vÃ©rifie la prÃ©sence de piÃ¨ces-jointes
 		if (mail.attachments.length >= 1)
 			puts("Cet email a #{mail.attachments.length} pieces jointes")
 			array = []

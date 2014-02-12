@@ -7,7 +7,7 @@
 	<%= f.label('account-search', t('app.model.Account') + t('app.fields.colon')) %></div>
     <% company = nil
 	if (!@email.contact_id.nil?)
-	    contact = contact.find(@email.contact_id)
+	    contact = Contact.find(@email.contact_id)
 	    if (!contact.account_id.nil?)
 		    company = Account.find(contact.account_id)
 		end
