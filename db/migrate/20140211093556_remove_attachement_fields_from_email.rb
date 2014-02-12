@@ -9,7 +9,7 @@ class RemoveAttachementFieldsFromEmail < ActiveRecord::Migration
     end
     
     # Creation de la table regroupant les pieces-jointes des emails
-    create_table :emails_attachements do |t|
+    create_table :email_attachements do |t|
         t.integer :email_id
         t.string :attach_file_name, :attach_content_type
         t.integer :attach_file_size 
@@ -22,7 +22,7 @@ class RemoveAttachementFieldsFromEmail < ActiveRecord::Migration
     # Recuperation des emails avec pieces-jointes
     emails = Email.all
     
-    drop_table :emails_attachements
+    drop_table :email_attachements
     
     change_table :emails do |t|
         t.string :attach_file_name, :attach_content_type
@@ -31,7 +31,7 @@ class RemoveAttachementFieldsFromEmail < ActiveRecord::Migration
     
     emails.each do |email|
         if (!email.email_attachements.blank?)
-            attachements = EmailsAttachements.where(:email_id => email.id)
+            attachements = EmailAttachements.where(:email_id => email.id)
             attachements.each do |attachement|
             end
         end
