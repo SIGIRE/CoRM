@@ -42,13 +42,11 @@
 		else
 		end
 
-		puts(emails.length)
 		# Si on a récupéré des emails et un type d'évènement
 		if (!emails.nil? and !event_id.nil?)
 
 			# Stockage du nombre de mails dans une variable
-			$nb = 1
-			puts("Nombre de mails : #{emails.length} (apres recuperation)")
+			puts("Nombre de mails : #{emails.length} (avant recuperation)")
 
 			# On parcours tous les emails
 			emails.each do |mail|
@@ -73,7 +71,6 @@
 
 									# Si on trouve un ou plusieurs contacts, on continue
 									if (contacts.length >= 1)
-										puts(contacts.class)
 										# On parcours tous les contacts récupérés
 										contacts.each do |contact|
 											# Si le contact est associé à un compte, on crée un évènement
@@ -89,13 +86,15 @@
 												event.account_id = contact.account_id	
 												event.event_type_id = event_id
 												event.user_id = user.id
-												# Récupération de la pièce jointe
-												attachement = retrieve_attachements(mail)
-												if (!attachement.nil?)
-													event.attach = attachement
-												end
+												
+												# Récupération des pièces-jointes
+												attachements = retrieve_attachements(mail)
+												if (!attachements.nil?)
+										            attachements.each do |attachement|
+										                event.attach = attachement
+										            end
+										        end
 												event.save
-												!emails.nil?
 											# Si le contact n'est pas associé à un compte
 											else
 												# Création de l'email
@@ -106,12 +105,18 @@
 												email.content = retrieve_body(mail)
 												email.send_at = mail.date.strftime("%Y-%m-%d %H:%M:%S")
 												email.contact_id = contact.id
-												# Récupération de la pièce jointe
-												attachement = retrieve_attachements(mail)
-												if (!attachement.nil?)
-													email.attach = attachement
-												end
 												email.save
+												
+												puts ("Email n. => #{email.id}")
+												# Récupération des pièces-jointes
+												attachements = retrieve_attachements(mail)
+										        if (!attachements.nil?)
+										            attachements.each do |attachement|
+										                attach = EmailAttachement.new
+				                                        attach.attach = attachement
+										                email.email_attachements << attach
+										            end
+										        end
 											end
 											# <--- FIN SI '!contact.account_id.nil?' 
 										end
@@ -126,12 +131,21 @@
 										email.object = mail.subject
 										email.content = retrieve_body(mail)
 										email.send_at = mail.date.strftime("%Y-%m-%d %H:%M:%S")
-										# Récupération de la pièce jointe
-										attachement = retrieve_attachements(mail)
-										if (!attachement.nil?)
-											email.attach = attachement
-										end
 										email.save
+										
+										puts ("Email n. => #{email.id}")
+										# Récupération des pièces-jointes
+										attachements = retrieve_attachements(mail)
+										if (!attachements.nil?)
+										    attachements.each do |attachement|
+										        attach = EmailAttachement.new
+				                                attach.attach = attachement
+										        email.email_attachements << attach
+										    end
+										end
+										puts "END EMAIL"
+										
+										
 									end
 									# <--- FIN SI 'contacts.length >= 1'
 								end
@@ -154,7 +168,6 @@
 						# Aucune action n'est effectuée
 					end
 					# <--- FIN SI 'mail.from.length == 1'
-					retrieve_attachements(mail)
 				rescue Exception => e
 					puts "Il y a eu une erreur de type #{e.class} avec un email"
 					puts "#{e.backtrace.join("\n")}"
@@ -185,7 +198,7 @@
 		encoding = ""
 		# Si le mail est de type multipart
 		if (mail.multipart?)
-			puts "multipart"
+			puts "Multipart? => TRUE"
 			mail.parts.each do |p|
 				puts p.content_type
 				if (p.content_type.include? "text/plain")
@@ -223,17 +236,23 @@
 	end
 
 	def retrieve_attachements(mail)
+	    puts("Entree dans retrieve_attachements")
 		# On vérifie la présence de pièces-jointes
 		if (mail.attachments.length >= 1)
 			puts("Cet email a #{mail.attachments.length} pieces jointes")
-			file = nil
+			array = []
+			i = 1
 			mail.attachments.each do |attachement|
+			    puts("Attachment n. #{i} - #{attachement.filename} (#{attachement.mime_type})")
 				file = StringIO.new(attachement.decoded)
 				file.class.class_eval { attr_accessor :original_filename, :content_type }
 				file.original_filename = attachement.filename
 				file.content_type = attachement.mime_type
+				array.push file
+				i = i+1
 			end
-			return file
+
+			return array
 		else
 			puts("Cet email n'a pas de piece jointe!")
 			return nil
