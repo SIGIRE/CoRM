@@ -1,7 +1,7 @@
 class Email < ActiveRecord::Base
 
-attr_accessible :id, :content, :object, :send_at, :to, :user_id, :contact_id, :email_attachements
-has_many :email_attachements, :dependent => :destroy
+attr_accessible :id, :content, :object, :send_at, :to, :user_id, :contact_id, :email_attachments
+has_many :email_attachments, :dependent => :destroy
 
 def check
 	if (!contact_id.nil?)

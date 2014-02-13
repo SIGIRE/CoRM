@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140211093556) do
+ActiveRecord::Schema.define(:version => 20140213100127) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(:version => 20140211093556) do
     t.integer  "account_id"
   end
 
-  create_table "email_attachements", :force => true do |t|
+  create_table "email_attachments", :force => true do |t|
     t.integer  "email_id"
     t.string   "attach_file_name"
     t.string   "attach_content_type"
@@ -102,6 +102,16 @@ ActiveRecord::Schema.define(:version => 20140211093556) do
     t.integer  "contact_id"
   end
 
+  create_table "event_attachments", :force => true do |t|
+    t.integer  "event_id"
+    t.string   "attach_file_name"
+    t.string   "attach_content_type"
+    t.integer  "attach_file_size"
+    t.datetime "attach_updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
   create_table "event_types", :force => true do |t|
     t.string   "label"
     t.string   "direction"
@@ -117,16 +127,12 @@ ActiveRecord::Schema.define(:version => 20140211093556) do
     t.text     "notes"
     t.integer  "created_by"
     t.integer  "modified_by"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.integer  "contact_id"
     t.integer  "account_id"
     t.integer  "event_type_id"
     t.integer  "user_id"
-    t.string   "attach_file_name"
-    t.string   "attach_content_type"
-    t.integer  "attach_file_size"
-    t.datetime "attach_updated_at"
     t.integer  "task_id"
     t.text     "notes2"
   end
