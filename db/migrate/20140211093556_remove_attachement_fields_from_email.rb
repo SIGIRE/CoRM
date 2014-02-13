@@ -6,7 +6,7 @@ class RemoveAttachementFieldsFromEmail < ActiveRecord::Migration
     end
     
     # Creation de la table regroupant les pieces-jointes des emails
-    create_table :email_attachements do |t|
+    create_table :email_attachments do |t|
         t.integer :email_id
         t.attachment :attach
         t.timestamps
@@ -23,8 +23,8 @@ class RemoveAttachementFieldsFromEmail < ActiveRecord::Migration
     # Recuperation des emails
     emails = Email.all
     
-    # Suppression de la table "email_attachements"
-    drop_table :email_attachements
+    # Suppression de la table "email_attachments"
+    drop_table :email_attachments
     
   end
 end

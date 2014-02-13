@@ -17,7 +17,11 @@ class Event < ActiveRecord::Base
   
   paginates_per 10
   
+  # Conservé pour le bon fonctionnement des migrations --> non utilisé
   has_attached_file :attach
+  
+  # Nouvelle gestion des pièces-jointes
+  has_many :event_attachments, :dependent => :destroy
   
   def author
     return author_user || User::default

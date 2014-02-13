@@ -47,6 +47,11 @@ class EmailsController < ApplicationController
 		@event.account_id = @contact.account_id
 		@event.event_type_id = WebmailConnection.first.type_event_id
 		@event.user_id = @email.user_id
+		@email.email_attachments.each do |attachment|
+		    attach = EventAttachment.new
+		    attach.attach = attachment.attach
+		    @event.event_attachments.push attach
+		end
 		@event.save
 		@email.destroy
 		redirect_to notifications_url, :notice => "L'email a été archivé."
