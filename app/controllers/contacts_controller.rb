@@ -95,11 +95,7 @@ class ContactsController < ApplicationController
           
       respond_to do |format|
         if @contact.save
-					if (!params[:update_emails].blank?)
-						if (params[:update_emails] == "true")
-							update_emails(@contact)
-						end
-					end
+		    update_emails(@contact)
 
           format.html {
             if  (@contact.account).nil?  then redirect_to contacts_path, :notice => 'Le contact a été créé.'
@@ -146,10 +142,11 @@ class ContactsController < ApplicationController
       end
       respond_to do |format|
         if @contact.update_attributes(params[:contact])
-          format.html {
-            if  (@contact.account).nil?  then redirect_to contacts_path, :notice => 'Le contact a été mis à jour.'
-            else redirect_to account_events_url(@contact.account_id), :notice => 'Le contact a été mis à jour.'
-            end }
+		    update_emails(@contact)
+            format.html {
+                if  (@contact.account).nil?  then redirect_to contacts_path, :notice => 'Le contact a été mis à jour.'
+                else redirect_to account_events_url(@contact.account_id), :notice => 'Le contact a été mis à jour.'
+                end }
           format.json { head :no_content }
         else
           flash[:error] = t('app.save_undefined_error')
@@ -214,6 +211,8 @@ class ContactsController < ApplicationController
   end
   
   def update_emails(contact)
+    puts "UPDATE EMAILS!"
+    if (Contact.where(:email => @contact.email).length == 1)
 		if (!contact.email.blank?)
 			adresse = contact.email
 			account = contact.account_id
@@ -224,6 +223,8 @@ class ContactsController < ApplicationController
 				email.save
 			end
 		end
-	end
+    end
+  end
+	
   
 end

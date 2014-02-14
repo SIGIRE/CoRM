@@ -23,9 +23,6 @@ class EmailsController < ApplicationController
 
   def update
 		@email = Email.find(params[:email][:id])
-		puts 'before'
-		logger.info params[:email][:email_attachments_attributes]
-		puts 'after'
 		if @email.update_attributes(params[:email])
 			redirect_to notifications_url, :notice => "L'email a été modifié."
 		else
