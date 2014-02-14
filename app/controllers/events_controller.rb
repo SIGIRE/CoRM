@@ -84,6 +84,8 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
+    puts('before dump')
+    puts('after dump')
     if @ability.cannot? :create, Event
       flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Event'))
       redirect_to events_url
