@@ -1,0 +1,21 @@
+<h1>Listing items</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @quotationLines.each do |line| %>
+  <tr>
+    <td><%= link_to 'Show', line %></td>
+    <td><%= link_to 'Edit', edit_quotationLine_path(line) %></td>
+    <td><%= link_to 'Destroy', line, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Item', new_quotationLine_path %>
