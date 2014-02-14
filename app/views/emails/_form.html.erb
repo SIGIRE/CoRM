@@ -59,24 +59,27 @@
 	</div>
 </div>
 
-<%# Affichage d'une pièce jointe si il y en a une %>
+<%# Affichage des pièces jointes si il y en a %>
 <% if !@email.email_attachments.blank? %>
-  <div class="row row-fluid">
-		<div class="field full">
-			<div class="span2">Pièce(s) jointe(s) actuelle : </div>
-			<% @email.email_attachments.each do |attachment| %>
-		        <%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attachment.attach_file_name , attachment.attach.url, :target => '_blank' %> <br/>
-		    <% end %>
-		</div>
-  </div>
+    <div class="row row-fluid">
+        <div class="field full">
+            <div class="span2"></div><%= pluralize(@email.email_attachments.length,'pièce-jointe', 'pièces-jointes') %> actuellement :
+        </div>
+    </div>
+    <% @email.email_attachments.each do |attachment| %>
+        <div class="row row-fluid">
+            <div class="field full">
+                <div class="span2"></div><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attachment.attach_file_name , attachment.attach.url, :target => '_blank' %>
+            </div>
+        </div>
+    <% end %>
 <% end %>
 
-
-<%#Affichage du champ pièce jointe %>
+<%#Affichage du champ d'ajout de pièce jointe %>
 <div class="row row-fluid">
 	<div class="field full">
-      <div class="span2"><%= f.label :attach, "Pièce-jointe : ", :class => 'top' %> </div>
-      <%= f.file_field :attach %>
+      <div class="span2"><%= f.label :email_attachments_attach, "Pièce-jointe : ", :class => 'top' %> </div>
+      <%= f.file_field('email_attachments_attach', multiple: true, name: "email[email_attachments_attributes][][attach]") %>
 	</div>
 </div>
 
