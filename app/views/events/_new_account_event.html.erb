@@ -34,7 +34,7 @@
   <div class="row row-fluid">
     <div class="field full">
       <%= f.label :attach, "Pièce-jointe : ", :class => 'top' %>
-      <%= f.file_field :attach %>
+      <%= file_field_tag('event_attachments_attach', multiple: true, name: "event[event_attachments_attributes][][attach]") %>
     </div>
   </div>
   <div class="row row-fluid">

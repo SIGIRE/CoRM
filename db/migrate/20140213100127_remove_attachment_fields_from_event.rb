@@ -26,7 +26,7 @@ class RemoveAttachmentFieldsFromEvent < ActiveRecord::Migration
         if (!event.event_attachments.blank?)
             event.event_attachments.each do |attachment|
                 new_event = event.clone
-                new_event.attach = attachment
+                new_event.attach = attachment.attach
                 new_event.save
             end
             event.destroy

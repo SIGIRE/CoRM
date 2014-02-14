@@ -74,8 +74,8 @@
 <%#Affichage du champ pièce jointe %>
 <div class="row row-fluid">
 	<div class="field full">
-      <div class="span2"><%= f.label :attach, "Pièce-jointe : ", :class => 'top' %> </div>
-      <%= f.file_field :attach %>
+      <div class="span2"><%= f.label :email_attachments_attach, "Pièce-jointe : ", :class => 'top' %> </div>
+      <%= file_field_tag('email_attachments_attach', multiple: true, name: "email[email_attachments_attributes][][attach]") %>
 	</div>
 </div>
 
