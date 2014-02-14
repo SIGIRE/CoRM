@@ -23,6 +23,10 @@ class EmailsController < ApplicationController
 
   def update
 		@email = Email.find(params[:email][:id])
+		@email.email_attachments.each do |attachment|
+		    attach = EmailAttachment.new
+		    attach.attach = attachment.attach
+		end
 		if @email.update_attributes(params[:email])
 			redirect_to notifications_url, :notice => "L'email a été modifié."
 		else

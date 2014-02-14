@@ -63,13 +63,14 @@
 <% if !@email.email_attachments.blank? %>
   <div class="row row-fluid">
 		<div class="field full">
-			<div class="span2">Pièce jointe actuelle : </div>
+			<div class="span2">Pièce(s) jointe(s) actuelle : </div>
 			<% @email.email_attachments.each do |attachment| %>
-		        <%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attachment.attach_file_name , attachment.attach.url, :target => '_blank' %>
+		        <%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attachment.attach_file_name , attachment.attach.url, :target => '_blank' %> <br/>
 		    <% end %>
 		</div>
   </div>
 <% end %>
+
 
 <%#Affichage du champ pièce jointe %>
 <div class="row row-fluid">
@@ -92,6 +93,6 @@
 </div>
 <%= f.hidden_field :id %>
 <div class="row row-fluid">
-<%= if !@email.id.nil? then f.submit "Modifier l'email", :class =>"btn btn-primary" end %>
+<%= if !@email.id.nil? then f.submit "Modifier l'email", :class =>"btn btn-primary" end %>  <%= link_to "Annuler modifications", :back ,{:title => "Retour aux notifications", :class=>"btn btn-danger", :style=>"line-height: 18px"} %>
 </div>
 <% end %>

@@ -159,17 +159,32 @@
 				    <% end %>
 				    </td>
 					
-                <%# Récupération des pièces-jointes %>
-                <td class="text-center">
-                    <% if !email.email_attachments.blank? %>
+	<%# Récupération des pièces-jointes %>
+	<td class="text-center">
+
+		<%# Si il y a une/des pièces jointes, on les comptes %>		
+		<% if !email.email_attachments.blank? %>
+			<% count = 0 %>
                         <% email.email_attachments.each do |attachment| %>
-                        <%= link_to attachment.attach_file_name,  attachment.attach.url, :target => '_blank'%>
-                        <br/>
-                    <% end %>
-                    <% else %>
-                        -
-                    <% end %>
-                </td>
+                        	<% count += 1 %>
+                    	<% end %>
+
+			<%# S'il y en a plus d'une, on affiche le nombre (qui est un lien)%>
+			<% if count > 1 %>
+				<%= link_to [+count], edit_email_path(email.id), {:title => "Voir les pièces jointes"} %>
+
+			<%# Sinon on affiche l'attachment %>			
+			<% else %>
+				<% email.email_attachments.each do |attachment| %>
+					<%= link_to attachment.attach_file_name,  attachment.attach.url, :target => '_blank'%>
+				<% end %>
+			<% end %>
+
+		<%# Si il n'y a pas d'attachment, on affiche un simple " - " %>		
+		<% else %>
+			-
+		<% end %>
+	</td>
 		
 	            <%# Récupération de la date d'envoi %>
 				<td class="text-center">
@@ -213,4 +228,6 @@
 			<% end %>
 		</tbody>
 	</table>
+
+
 </div>
