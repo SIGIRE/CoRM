@@ -23,6 +23,7 @@ class Event < ActiveRecord::Base
   # Nouvelle gestion des pièces-jointes
   has_many :event_attachments, :dependent => :destroy
   accepts_nested_attributes_for :event_attachments
+  alias_attribute :attachments, :event_attachments
   
   def author
     return author_user || User::default

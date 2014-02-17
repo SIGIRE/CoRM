@@ -16,7 +16,7 @@ class HomeController < ApplicationController
 
 	if current_user.has_role? :admin 
 	@count = Hash.new
-    	@count[:user] = User.all_reals.count
+    @count[:user] = User.all_reals.count
 	@count[:account] = Account.count
 	@count[:contact] = Contact.count
 	@count[:event] = Event.count
@@ -28,7 +28,7 @@ class HomeController < ApplicationController
 	@count[:document] = Document.count
 	
 	@bdd_size = Hash.new
-	@bdd_size[:event] = get_attach_size_of_events
+	@bdd_size[:event] = get_attach_size_of_nested(Event)
 	@bdd_size[:task] = get_attach_size_of(Task)
 	@bdd_size[:document] = get_attach_size_of(Document)
 	@bdd_size[:quotation] = get_attach_size_of(Quotation)
@@ -67,30 +67,19 @@ class HomeController < ApplicationController
   
   def get_attach_size_of(object)
 	size = 0
-	object.all.each do |d|
-		size += d.attach_file_size unless d.attach_file_size.nil?
+	object.all.each do |o|
+		size += o.attach_file_size unless o.attach_file_size.nil?
 	end
 	return size
   end
   
-    def get_attach_size_of_emails
+    def get_attach_size_of_nested(object)
     size = 0
-	    Email.all.each do |email|
-	        email.email_attachments.each do |attachment|
+	    object.all.each do |o|
+	        o.attachments.each do |attachment|
 		        size += attachment.attach_file_size unless attachment.attach_file_size.nil?
 		    end
 	    end
 	    return size
     end
-    
-    def get_attach_size_of_events
-    size = 0
-	    Event.all.each do |event|
-	        event.event_attachments.each do |attachment|
-		        size += attachment.attach_file_size unless attachment.attach_file_size.nil?
-		    end
-	    end
-	    return size
-    end
-  
 end
