@@ -5,16 +5,16 @@
   <table class="table table-bordered table-striped table-hover">
     <thead>
       <tr>
-        <th><center>#</center></th>
-        <th><center>Statut</center></th>
-        <th><center>Compte</center></th>
-        <th><center>Libellé</center></th>
-        <th><center>Contact</center></th>
-        <th><center>Total HT</center></th>
-        <th><center>Date</center></th>
-        <th><center>Collaborateur</center></th>
-        <th><center>Éditer</center></th>
-        <th><center>PDF</center></th>        
+        <th class="text-center">#</th>
+        <th class="text-center">Statut</th>
+        <th class="text-center">Compte</th>
+        <th class="text-center">Libellé</th>
+        <th class="text-center">Contact</th>
+        <th class="text-center">Total HT</th>
+        <th class="text-center">Date</th>
+        <th class="text-center">Collaborateur</th>
+        <th class="text-center">Éditer</th>
+        <th class="text-center">PDF</th>        
       </tr>
     </thead>
     
@@ -23,7 +23,7 @@
     <tr>
         <td><center><%= quotation.id %></center></td>
         
-		<td><center>
+		<td class="text-center">
             <% if quotation.statut == "Sauvegardé"%>
               <span class="badge badge-important">
             <% elsif quotation.statut == "En cours"%>
@@ -36,53 +36,53 @@
               -
             <% end %>
             <%= quotation.statut %></span>
-          </center></td>
+          </td>
         
 		<% if !quotation.account.nil? %>
 			<% then %>
-				<td><center><%= link_to quotation.account.company , account_events_url(quotation.account),{:title => "Afficher les évenements"}  %></center></td>
+				<td class="text-center"><%= link_to quotation.account.company , account_events_url(quotation.account),{:title => "Afficher les évenements"}  %></td>
 			<% else %>
-				<td><center>-</center></td>
+				<td class="text-center">-</td>
 		<% end %>     
 		
 		<% if !quotation.label.blank? %>
 			<% then %>
-				<td><center><%= link_to quotation.label, edit_quotation_path(quotation) ,{:title => "Éditer le devis"} %></center></td>
+				<td class="text-center"><%= link_to quotation.label, edit_quotation_path(quotation) ,{:title => "Éditer le devis"} %></td>
 			<% else %>
-				<td><center>-</center></td>
+				<td class="text-center">-</td>
 		<% end %> 		
 
 		<% if !quotation.contact.nil? %>
 			<% then %>
-				<td><center><%= link_to quotation.contact.full_name , edit_contact_path(quotation),{:title => "Éditer le contact"} %></center></td>
+				<td class="text-center"><%= link_to quotation.contact.full_name , edit_contact_path(quotation),{:title => "Éditer le contact"} %></td>
 			<% else %>
-				<td><center>-</center></td>
+				<td class="text-center">-</td>
 		<% end %>		
 
 		<% if !quotation.total_excl_tax.nil? %>
 			<% then %>
 				<td style="text-align :right;"><%= quotation.total_excl_tax.to_s + " "%> <%= currency_symbol %></td>
 			<% else %>
-				<td><center>-</center></td>
+				<td class="text-center">-</td>
 		<% end %>        
 		
 		<% if !quotation.date.nil?  %>
 			<% then %>
-				<td><center><%= quotation.date.strftime("%d/%m/%Y") %></center></td>
+				<td class="text-center"><%= quotation.date.strftime("%d/%m/%Y") %></td>
 			<% else %>
-				<td><center>-</center></td>
+				<td class="text-center">-</td>
 		<% end %> 
         
 		<% if !quotation.user.nil? %>
 			<% then %>
-				<td><center><%= quotation.user.full_name %></center></td>
+				<td class="text-center"><%= quotation.user.full_name %></td>
 			<% else %>
-				<td><center>-</center></td>
+				<td class="text-center">-</td>
 		<% end %>	
         
-		<td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_path(quotation),{:title => "Éditer le devis", :class =>"btn"} %></center></td>
+		<td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_path(quotation),{:title => "Éditer le devis", :class =>"btn"} %></td>
         
-		<td><center><%= link_to image_tag("glyphicons/glyphicons_015_print.png"), quotation_path(quotation, :format => "pdf"),{:title => "Afficher le PDF", :class =>"btn", :target => '_blank'} %></center></td>
+		<td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_015_print.png"), quotation_path(quotation, :format => "pdf"),{:title => "Afficher le PDF", :class =>"btn", :target => '_blank'} %></td>
     </tr>
     <% end %>
     </tbody>

@@ -109,7 +109,7 @@ class ExtractionsController < ApplicationController
 		end
 	end	
     
-    @accounts = Account.by_zip(params[:zip]).by_country(params[:country]).by_tags(tags_ids).by_user(users_ids).by_category(categories_ids).by_origin(origins_ids)
+    @accounts = Account.by_zip(params[:zip]).by_country(params[:country]).by_tags(tags_ids).where("user_id IN (?)", users_ids).by_category(categories_ids).by_origin(origins_ids)
 
     accounts_csv = CSV.generate(:col_sep => ';') do |csv|
       # header row

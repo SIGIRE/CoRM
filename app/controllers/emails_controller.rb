@@ -23,9 +23,6 @@ class EmailsController < ApplicationController
 
   def update
 		@email = Email.find(params[:email][:id])
-		puts 'before'
-		logger.info params[:email][:email_attachments_attributes]
-		puts 'after'
 		if @email.update_attributes(params[:email])
 			redirect_to notifications_url, :notice => "L'email a été modifié."
 		else
@@ -36,27 +33,7 @@ class EmailsController < ApplicationController
   def convert
         # Récupération de l'email
 		@email = Email.find(params[:email])
-		 
-		# Récupération du contact
-		@contact = Contact.find(@email.contact_id)
-		
-		# Création d'un évènement
-		@event = Event.new
-		@event.date_begin = @email.send_at
-		@event.date_end = @email.send_at
-		@event.notes = "Sujet : #{@email.object} \n #{@email.content}"
-		@event.created_by = @email.user_id
-		@event.contact_id = @email.contact_id
-		@event.account_id = @contact.account_id
-		@event.event_type_id = WebmailConnection.first.type_event_id
-		@event.user_id = @email.user_id
-		@email.email_attachments.each do |attachment|
-		    attach = EventAttachment.new
-		    attach.attach = attachment.attach
-		    @event.event_attachments.push attach
-		end
-		@event.save
-		@email.destroy
+		@email.convert
 		redirect_to notifications_url, :notice => "L'email a été archivé."
 	end
 	

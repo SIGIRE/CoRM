@@ -41,15 +41,15 @@
   <table class="table table-bordered table-striped table-hover">
       <thead>
     <tr>
-      <th><center>#</center></th>
-      <th><center>Civ.</center></th>
-      <th><center>Nom</center></th>
-      <th><center>Pr&eacute;nom</center></th>
-      <th><center>Soci&eacute;t&eacute;</center></th>
-      <th><center>T&eacute;l</center></th>
-      <th><center>Mobile</center></th>
-      <th><center>E-mail</center></th>
-      <th><center>Éditer</center></th>         
+      <th class="text-center">#</th>
+      <th class="text-center">Civ.</th>
+      <th class="text-center">Nom</th>
+      <th class="text-center">Pr&eacute;nom</th>
+      <th class="text-center">Soci&eacute;t&eacute;</th>
+      <th class="text-center">T&eacute;l</th>
+      <th class="text-center">Mobile</th>
+      <th class="text-center">E-mail</th>
+      <th class="text-center">Éditer</th>         
     </tr>
       </thead>
 	  <tbody>
@@ -57,66 +57,66 @@
     <tr>
 		<% if !contact.id.nil? %>
 			<% then %>
-				<td><center><%= contact.id %></center></td>
+				<td class="text-center"><%= contact.id %></td>
 			<% else %>
-				<td><center>-</center></td>
+				<td class="text-center">-</td>
 		<% end %>      
 	  
 		<% if !contact.title.blank? %>
 			<% then %>
-				<td><center>
+				<td class="text-center">
 					<%= if contact.title == "M." then image_tag("glyphicons/glyphicons_034_old_man.png") end%>
 					<%= if contact.title == "Mme" then image_tag("glyphicons/glyphicons_035_woman.png") end%>
-				</center></td>
+				</td>
 			<% else %>
-				<td><center>-</center></td>
+				<td class="text-center">-</td>
 		<% end %>
 
 		<% if !contact.surname.blank? %>
 			<% then %>
-				<td><center><%= contact.surname %></center></td>
+				<td class="text-center"><%= contact.surname %></td>
 			<% else %>
-				<td><center>-</center></td>
+				<td class="text-center">-</td>
 		<% end %> 		
 		
 		<% if !contact.forename.blank? %>
 			<% then %>
-				<td><center><%= contact.forename %></center></td>
+				<td class="text-center"><%= contact.forename %></td>
 			<% else %>
-				<td><center>-</center></td>
+				<td class="text-center">-</td>
 		<% end %> 		
 		
 		<% if !contact.account.nil? %>
 			<% then %>
-				<td ><center><%= link_to contact.account.company , account_events_url(contact.account),{:title => "Afficher les évenements"} %></center></td>
+				<td class="text-center"><%= link_to contact.account.company , account_events_url(contact.account),{:title => "Afficher les évenements"} %></td>
 			<% else %>
-				<td><center>-</center></td>
+				<td class="text-center">-</td>
 		<% end %> 
 
 		
 		<% if !contact.tel.blank? %>
 			<% then %>
-				<td><center><%= contact.tel %></center></td>
+				<td class="text-center"><%= contact.tel %></td>
 			<% else %>
-				<td><center>-</center></td>
+				<td class="text-center">-</td>
 		<% end %> 
 
 		<% if !contact.mobile.blank? %>
 			<% then %>
-				<td><center><%= contact.mobile %></center></td>
+				<td class="text-center"><%= contact.mobile %></td>
 			<% else %>
-				<td><center>-</center></td>
+				<td class="text-center">-</td>
 		<% end %>		
 
 		<% if !contact.email.blank? %>
 			<% then %>
-				<td><center><%= mail_to(contact.email)%></center></td>
+				<td class="text-center"><%= mail_to(contact.email)%></td>
 			<% else %>
-				<td><center>-</center></td>
+				<td class="text-center">-</td>
 		<% end %>
 
 
-      <td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_contact_path(contact),{:title => "Éditer le contact", :class =>"btn"} %></center></td>
+      <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_contact_path(contact),{:title => "Éditer le contact", :class =>"btn"} %></td>
  </tr>
   <% end %>
   </tbody>
