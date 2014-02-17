@@ -26,6 +26,7 @@ class HomeController < ApplicationController
 	@count[:quotation] = Quotation.count
 	@count[:quotation_template] = QuotationTemplate.count
 	@count[:document] = Document.count
+	@count[:email] = Email.count
 	
 	@bdd_size = Hash.new
 	@bdd_size[:event] = get_attach_size_of_nested(Event)
@@ -33,6 +34,7 @@ class HomeController < ApplicationController
 	@bdd_size[:document] = get_attach_size_of(Document)
 	@bdd_size[:quotation] = get_attach_size_of(Quotation)
 	@bdd_size[:opportunity] = get_attach_size_of(Opportunity)
+	@bdd_size[:email] = get_attach_size_of_nested(Email)
 	
 	total = 0
 	@bdd_size.each do | e, i |

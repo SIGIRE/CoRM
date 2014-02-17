@@ -34,6 +34,11 @@
 				<td class="text-center"><%= number_to_human_size(@bdd_size[:event], :locale => I18n.locale, :separator => ',') %> </td>
 			</tr>
 			<tr>
+			    <td class="text-center">Messages à traiter</td>
+				<td class="text-center"><%= @count[:email] %></td>
+				<td class="text-center"><%= number_to_human_size(@bdd_size[:email], :locale => I18n.locale, :separator => ',') %> </td>
+			</tr>
+			<tr>
 				<td class="text-center">Tâches</td>
 				<td class="text-center"><%= @count[:task] %></td>
 				<td class="text-center"><%= number_to_human_size(@bdd_size[:task], :locale => I18n.locale, :separator => ',') %> </td>
