@@ -4,20 +4,20 @@
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th><center>#</center></th>
-        <th><center>Libell&eacute;</center></th>
-        <th><center>Sens</center></th>  
-        <th><center>Éditer</center></th>
+        <th class="text-center">#</th>
+        <th class="text-center">Libell&eacute;</th>
+        <th class="text-center">Sens</th>  
+        <th class="text-center">Éditer</th>
       </tr>
     </thead>
     
   <tbody>
   <% @eventtypes.each do |type| %>
     <tr>
-      <td><center><%= type.id %></center></td>
-      <td><center><%= type.label %></center></td>
-      <td><center><%= type.direction %></center></td>
-      <td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_event_type_path(type),{:title => "Éditer le type", :class =>"btn"}%></center></td>
+      <td class="text-center"><%= type.id %></td>
+      <td class="text-center"><%= type.label %></td>
+      <td class="text-center"><%= type.direction %></td>
+      <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_event_type_path(type),{:title => "Éditer le type", :class =>"btn"}%></td>
      </tr>
   <% end %>
   </tbody>

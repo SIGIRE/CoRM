@@ -3,9 +3,9 @@
   <table class="table table-bordered table-striped">
    <thead> 
     <tr>
-        <th><center>#</center></th>
-        <th><center>Societe</center></th>
-        <th><center>Éditer</center></th>
+        <th class="text-center">#</th>
+        <th class="text-center">Societe</th>
+        <th class="text-center">Éditer</th>
     </tr>
    </thead>
   <tbody> 
@@ -13,7 +13,7 @@
     <tr>
       <td class="text-center"><%= template.id %></td>
       <td class="text-center"><%= template.company %></td>
-      <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_template_path(template),{:title => "Éditer le modèle", :class=>"btn"} %></center></td>      
+      <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_template_path(template),{:title => "Éditer le modèle", :class=>"btn"} %></td>      
     </tr>
   <% end %>
   </tbody>

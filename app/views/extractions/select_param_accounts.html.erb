@@ -12,7 +12,7 @@
 
 <div class="container-fluid">
 <div class="well">
-  <%= form_tag({:controller => "extractions", :action => "accounts", format: :csv}, :method => "get") do %>
+  <%= form_tag({:controller => "extractions", :action => "accounts", format: :csv}, :method => "post") do %>
     <label for="toggle-checkbox-collaborators" class="checkbox">
         <input type="checkbox" id="toggle-checkbox-collaborators" class="toggle-checkbox" data-toggle="checkboxes_collaborator" />
         Cocher tous les collaborateurs

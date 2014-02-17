@@ -26,7 +26,7 @@ Crm::Application.routes.draw do
 
 
   match 'extractions/select_param_accounts', :controller=>'extractions', :action => 'select_param_accounts'
-  match 'extractions/comptes', :controller=>'extractions', :action => 'accounts', :as => :csv
+  match 'extractions/comptes', :controller=>'extractions', :action => 'accounts', :as => :csv, :via => :post
   match 'extractions/select_param_contacts', :controller=>'extractions', :action => 'select_param_contacts'
   match 'extractions/contacts', :controller=>'extractions', :action => 'contacts', :as => :csv
   

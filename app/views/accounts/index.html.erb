@@ -55,37 +55,37 @@
     <tr>
 		<% if !account.id.blank? %>
 			<% then %>
-					<td><center><%= account.id %></center></td>
+				<td class="text-center"><%= account.id %></td>
 			<% else %>
-				<td><center>-</center></td>
+				<td class="text-center">-</td>
 		<% end %>
 
 		<% if !account.company.nil? %>
 			<% then %>
-				<td><center><%= link_to account.company, account_events_url(account),{:title => "Afficher les évenements"} %></center></td>
+				<td class="text-center"><%= link_to account.company, account_events_url(account),{:title => "Afficher les évenements"} %></td>
 			<% else %>
-				<td><center>-</center></td>
+				<td class="text-center">-</td>
 		<% end %>
 
 		<% if !account.full_adress.blank? %>
 			<% then %>
-				<td><center><%= account.full_adress %></center></td>
+				<td class="text-center"><%= account.full_adress %></td>
 			<% else %>
-				<td><center>-</center></td>
+				<td class="text-center">-</td>
 		<% end %>
       
 		<% if !account.category.nil? %>
 			<% then %>
-				<td><center><%= account.category %></center></td>
+				<td class="text-center"><%= account.category %></td>
 			<% else %>
-				<td><center>-</center></td>
+				<td class="text-center">-</td>
 		<% end %>
 
 		<% if !account.tel.blank? %>
 			<% then %>
-				<td><center><%= account.tel %></center></td>
+				<td class="text-center"><%= account.tel %></td>
 			<% else %>
-				<td><center>-</center></td>
+				<td class="text-center">-</td>
 		<% end %>
 
 		<% if !account.web.blank? then %>
@@ -97,11 +97,11 @@
 					url = url[8..url.length]
 				end
 			%>
-				<td><%= link_to url, account.web, :target => "_blank" %></td>
+				<td class="text-center"><%= link_to url, account.web, :target => "_blank" %></td>
 		<% else %>
 				<td class="text-center">-</td>
 		<% end %>
-		<td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_account_path(account) ,{:title => "Éditer le compte", :class =>"btn"}  %></center></td>
+		<td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_account_path(account) ,{:title => "Éditer le compte", :class =>"btn"} %></td>
   </tr>
   <% end %>
   </tbody>

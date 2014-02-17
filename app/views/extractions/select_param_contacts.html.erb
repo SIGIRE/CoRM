@@ -11,7 +11,7 @@
 </div>
 <div class="container-fluid">
 <div class="well">
-  <%= form_tag({:controller => "extractions", :action => "contacts", format: :csv}, :method => "get") do %>
+  <%= form_tag({:controller => "extractions", :action => "contacts", format: :csv}, :method => "post") do %>
 
 	<!-- ACCOUNT -->
 	<% if @accounts.length > 0 %>
