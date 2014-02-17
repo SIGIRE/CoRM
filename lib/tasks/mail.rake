@@ -238,7 +238,6 @@
 	end
 
 	def retrieve_attachments(mail)
-	    puts("Entree dans retrieve_attachments")
 		# On vérifie la présence de pièces-jointes
 		if (mail.attachments.length >= 1)
 			puts("Cet email a #{mail.attachments.length} pieces jointes")
@@ -260,4 +259,15 @@
 			return nil
 		end
 	end
-	end
+	
+	task :process_mails => :environment do
+	    puts("Traitement des emails")
+	    
+	    emails = Email.all
+	    emails.each do |email|
+	        if (email.check)
+	            email.convert
+	        end
+	    end
+    end    
+end
