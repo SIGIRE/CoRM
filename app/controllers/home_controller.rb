@@ -30,7 +30,7 @@ class HomeController < ApplicationController
 	
 	@bdd_size = Hash.new
 	@bdd_size[:event] = get_attach_size_of_nested(Event)
-	@bdd_size[:task] = get_attach_size_of(Task)
+	@bdd_size[:task] = get_attach_size_of_nested(Task)
 	@bdd_size[:document] = get_attach_size_of(Document)
 	@bdd_size[:quotation] = get_attach_size_of(Quotation)
 	@bdd_size[:opportunity] = get_attach_size_of(Opportunity)

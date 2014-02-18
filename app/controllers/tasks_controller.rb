@@ -113,10 +113,16 @@ class TasksController < ApplicationController
   # PUT /tasks/1
   # PUT /tasks/1.json
   def update
+        # Si l'utilisateur a le droit de modifier cette tâche, on continue
 		if @ability.can? :update, Task
+		
+		    # Récupération de la tâche
 			@task = Task.find(params[:id])
 			@task.modified_by = current_user.id
+			
+			# Récupération de l'échéance de la tâche
 			params[:task][:term] = params[:task][:term].split('/').reverse!.join('/')
+			
 			# check deep equality
 			t = Task.new(params[:task])
 			isEqual = (     @task.title == t.title and
@@ -127,9 +133,7 @@ class TasksController < ApplicationController
 						    @task.contact_id == t.contact_id and
 						    @task.user_id == t.user_id and
 						    @task.account_id == t.account_id and
-						    @task.attach_file_name == t.attach_file_name and
-						    @task.attach_file_size == t.attach_file_size and
-						    @task.attach_content_type == t.attach_content_type)
+						    @task.attachments == t.attachments)
 			
 			# if it is the same task but checkbox to generate event is checked
 			# or task is not the same
