@@ -89,16 +89,21 @@
 		  </div>
 	  </div>
 	  
-  <% if !@task.task_attachments.blank? %> 
-    <div class="row row-fluid">
-		  <div class="field full">
-			  <div class="span2"><%= label_tag(nil, t('app.fields.present_attach')) %></div>
-			  <% @task.task_attachments.each do |attachment| %>
-			      <%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attachment.attach.attach_file_name, attachment.attach.attach.url, :target => '_blank' %><br/>
-			  <% end %>
-		  </div>
-    </div>
-  <% end %>
+    <%# Affichage des pièces jointes si il y en a %>
+    <% if !@task.task_attachments.blank? %>
+        <div class="row row-fluid">
+            <div class="field full">
+                <div class="span2"></div><%= pluralize(@task.task_attachments.length,'pièce-jointe', 'pièces-jointes') %> actuellement :
+            </div>
+        </div>
+        <% @task.task_attachments.each do |attachment| %>
+            <div class="row row-fluid">
+                <div class="field full">
+                    <div class="span2"></div><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attachment.attach_file_name , attachment.attach.url, :target => '_blank' %>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
   
   <div class="row row-fluid">
 		<div class="field full">
