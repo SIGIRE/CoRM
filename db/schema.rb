@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140213100127) do
+ActiveRecord::Schema.define(:version => 20140217150412) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -282,22 +282,28 @@ ActiveRecord::Schema.define(:version => 20140213100127) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "tasks", :force => true do |t|
-    t.text     "notes"
-    t.string   "statut"
-    t.datetime "created_at",          :null => false
-    t.integer  "created_by"
-    t.datetime "modified_at"
-    t.integer  "modified_by"
-    t.datetime "updated_at",          :null => false
-    t.integer  "contact_id"
-    t.integer  "account_id"
-    t.integer  "user_id"
-    t.string   "term"
+  create_table "task_attachments", :force => true do |t|
+    t.integer  "task_id"
     t.string   "attach_file_name"
     t.string   "attach_content_type"
     t.integer  "attach_file_size"
     t.datetime "attach_updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  create_table "tasks", :force => true do |t|
+    t.text     "notes"
+    t.string   "statut"
+    t.datetime "created_at",  :null => false
+    t.integer  "created_by"
+    t.datetime "modified_at"
+    t.integer  "modified_by"
+    t.datetime "updated_at",  :null => false
+    t.integer  "contact_id"
+    t.integer  "account_id"
+    t.integer  "user_id"
+    t.string   "term"
     t.integer  "priority"
     t.string   "title"
   end

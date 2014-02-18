@@ -58,7 +58,7 @@ class TasksController < ApplicationController
 			flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
 			redirect_to root_path
 			return false
-		end
+	end
   end
 
   ##
@@ -67,7 +67,7 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit
 		if @ability.can? :update, Task
-			@task = Task.find(params[:id])
+		    @task = Task.find(params[:id])
 			@users = User.all_reals
 			#conversion de la string term pour qu'elle soit formatté correctement pour l'afficahge
 			@task.term = @task.term.split('/').reverse!.join('/')	
@@ -119,17 +119,17 @@ class TasksController < ApplicationController
 			params[:task][:term] = params[:task][:term].split('/').reverse!.join('/')
 			# check deep equality
 			t = Task.new(params[:task])
-			isEqual = (@task.title 								== t.title and
-								 @task.priority 						== t.priority and
-								 @task.term 								== t.term and
-						     @task.statut 							== t.statut and
-						     @task.notes 								== t.notes and
-						     @task.contact_id 					== t.contact_id and
-						     @task.user_id 							== t.user_id and
-						     @task.account_id 					== t.account_id and
-						     @task.attach_file_name 		== t.attach_file_name and
-						     @task.attach_file_size 		== t.attach_file_size and
-						     @task.attach_content_type 	== t.attach_content_type)
+			isEqual = (     @task.title == t.title and
+					        @task.priority == t.priority and
+						    @task.term == t.term and
+						    @task.statut == t.statut and
+						    @task.notes == t.notes and
+						    @task.contact_id == t.contact_id and
+						    @task.user_id == t.user_id and
+						    @task.account_id == t.account_id and
+						    @task.attach_file_name == t.attach_file_name and
+						    @task.attach_file_size == t.attach_file_size and
+						    @task.attach_content_type == t.attach_content_type)
 			
 			# if it is the same task but checkbox to generate event is checked
 			# or task is not the same
