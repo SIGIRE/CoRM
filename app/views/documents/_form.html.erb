@@ -35,24 +35,31 @@ end %>
 		<%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id' } %>
 	</div>
 </div>
-<% if @document.attach.exists? %>
-	<div class="row row-fluid">
-		<div class="field full">
-			<div class="span2">
-				<%= label_tag(nil, t('app.fields.present_document') + colon) %>
-			</div>
-			<%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + @document.attach_file_name, @document.attach.url, :target => '_blank' %>
-		</div>
-	</div>
-<% end %>
-	<div class="row row-fluid">
-		<div class="field full">
-			<div class="span2">
-				<%= f.label(:attach, (@document.attach.exists?() ? t('app.fields.update_document') : t('app.fields.document')) + colon) %>
-			</div>
-			<%= f.file_field :attach %><%= content_tag('span', '', {:class => 'req'}) unless @document.attach.exists? %>
-		</div>
-	</div>
+
+    <%# Affichage des pièces jointes si il y en a %>
+    <% if !@document.document_attachments.blank? %>
+        <div class="row row-fluid">
+            <div class="field full">
+                <div class="span2"></div><%= pluralize(@document.document_attachments.length,'pièce-jointe', 'pièces-jointes') %> actuellement :
+            </div>
+        </div>
+        <% @document.document_attachments.each do |attachment| %>
+            <div class="row row-fluid">
+                <div class="field full">
+                    <div class="span2"></div><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attachment.attach_file_name , attachment.attach.url, :target => '_blank' %>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
+
+    <%#Affichage du champ d'ajout de pièce jointe %>
+    <div class="row row-fluid">
+	    <div class="field full">
+          <div class="span2"><%= f.label :document_attachments_attach, "Pièce-jointe : ", :class => 'top' %> </div>
+          <%= f.file_field('document_attachments_attach', multiple: true, name: "document[document_attachments_attributes][][attach]") %>
+	    </div>
+    </div>
+
 	<div class="row row-fluid">
 		<div class="field full">
 			<div class="span2"><%= f.label(:notes, t('app.fields.description')) %></div>

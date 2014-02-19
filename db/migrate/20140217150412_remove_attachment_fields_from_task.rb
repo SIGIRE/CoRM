@@ -1,6 +1,6 @@
 class RemoveAttachmentFieldsFromTask < ActiveRecord::Migration
   def up
-    # Récupération des évènements
+    # Récupération des tâches
     tasks = Task.all
     tasks.each do |task|
         if (!task.attach.blank?)
@@ -20,12 +20,12 @@ class RemoveAttachmentFieldsFromTask < ActiveRecord::Migration
         t.attachment :attach
     end
     
-    # Recuperation des évènements
+    # Recuperation des tâches
     tasks = Task.all
     tasks.each do |task|
         if (!task.task_attachments.blank?)
             task.task_attachments.each do |attachment|
-                new_task = task.clone
+                new_task = task.dup
                 new_task.attach = attachment.attach
                 new_task.save
             end
