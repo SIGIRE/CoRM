@@ -13,9 +13,14 @@ class Document < ActiveRecord::Base
   
   paginates_per 10
   
-  has_attached_file :attach
+    # Conservé pour le bon fonctionnement des migrations --> non utilisé
+    has_attached_file :attach
+      
+    # Nouvelle gestion des pièces-jointes
+    has_many :document_attachments, :dependent => :destroy
+    accepts_nested_attributes_for :document_attachments
+    alias_attribute :attachments, :document_attachments
   
-  validates_attachment_presence :attach
   validates :name,  :presence => true
   
   def author

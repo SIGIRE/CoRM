@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140213100127) do
+ActiveRecord::Schema.define(:version => 20140219140727) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -67,17 +67,23 @@ ActiveRecord::Schema.define(:version => 20140213100127) do
     t.integer "tag_id"
   end
 
-  create_table "documents", :force => true do |t|
-    t.string   "name"
-    t.text     "notes"
+  create_table "document_attachments", :force => true do |t|
+    t.integer  "document_id"
     t.string   "attach_file_name"
     t.string   "attach_content_type"
     t.integer  "attach_file_size"
     t.datetime "attach_updated_at"
-    t.integer  "created_by"
-    t.integer  "updated_by"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+  end
+
+  create_table "documents", :force => true do |t|
+    t.string   "name"
+    t.text     "notes"
+    t.integer  "created_by"
+    t.integer  "updated_by"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "account_id"
   end
 
@@ -144,18 +150,24 @@ ActiveRecord::Schema.define(:version => 20140213100127) do
     t.string   "remark"
     t.float    "amount"
     t.datetime "term"
-    t.string   "attach_file_name"
-    t.string   "attach_content_type"
-    t.integer  "attach_file_size"
-    t.datetime "attach_updated_at"
     t.integer  "created_by"
     t.integer  "updated_by"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "account_id"
     t.integer  "contact_id"
     t.integer  "user_id"
     t.float    "profit"
+  end
+
+  create_table "opportunity_attachments", :force => true do |t|
+    t.integer  "opportunity_id"
+    t.string   "attach_file_name"
+    t.string   "attach_content_type"
+    t.integer  "attach_file_size"
+    t.datetime "attach_updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "origins", :force => true do |t|
@@ -165,6 +177,16 @@ ActiveRecord::Schema.define(:version => 20140213100127) do
     t.integer  "updated_by"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "quotation_attachments", :force => true do |t|
+    t.integer  "quotation_id"
+    t.string   "attach_file_name"
+    t.string   "attach_content_type"
+    t.integer  "attach_file_size"
+    t.datetime "attach_updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "quotation_lines", :force => true do |t|
@@ -213,10 +235,6 @@ ActiveRecord::Schema.define(:version => 20140213100127) do
     t.string   "mode_reg"
     t.integer  "validity"
     t.boolean  "done"
-    t.string   "attach_file_name"
-    t.string   "attach_content_type"
-    t.integer  "attach_file_size"
-    t.datetime "attach_updated_at"
     t.integer  "created_by"
     t.integer  "updated_by"
     t.datetime "created_at",                                 :null => false
@@ -282,22 +300,28 @@ ActiveRecord::Schema.define(:version => 20140213100127) do
     t.datetime "updated_at",  :null => false
   end
 
-  create_table "tasks", :force => true do |t|
-    t.text     "notes"
-    t.string   "statut"
-    t.datetime "created_at",          :null => false
-    t.integer  "created_by"
-    t.datetime "modified_at"
-    t.integer  "modified_by"
-    t.datetime "updated_at",          :null => false
-    t.integer  "contact_id"
-    t.integer  "account_id"
-    t.integer  "user_id"
-    t.string   "term"
+  create_table "task_attachments", :force => true do |t|
+    t.integer  "task_id"
     t.string   "attach_file_name"
     t.string   "attach_content_type"
     t.integer  "attach_file_size"
     t.datetime "attach_updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  create_table "tasks", :force => true do |t|
+    t.text     "notes"
+    t.string   "statut"
+    t.datetime "created_at",  :null => false
+    t.integer  "created_by"
+    t.datetime "modified_at"
+    t.integer  "modified_by"
+    t.datetime "updated_at",  :null => false
+    t.integer  "contact_id"
+    t.integer  "account_id"
+    t.integer  "user_id"
+    t.string   "term"
     t.integer  "priority"
     t.string   "title"
   end

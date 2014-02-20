@@ -2,7 +2,6 @@
 
 class EmailsController < ApplicationController
 
-
   ##
   # Render the page to edit one email
   #
@@ -35,6 +34,6 @@ class EmailsController < ApplicationController
 		@email = Email.find(params[:email])
 		@email.convert
 		redirect_to notifications_url, :notice => "L'email a été archivé."
-	end
+  end
 	
 end

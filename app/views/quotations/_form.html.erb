@@ -97,20 +97,30 @@
     <div class="page-header">
       <h3> Propriétés </h3>
     </div>
-		<% if @quotation.attach.exists? %>
-		<div class="row row-fluid">
-			<div class="field full">
-				<div class="span2"><%= content_tag('label', t('app.fields.present_attach') + colon) %></div>
-				<p><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + @quotation.attach_file_name, @quotation.attach.url, :target => '_blank' %></p>
-			</div>
-		</div>
-	  <% end %>
-		<div class="row row-fluid">
-			<div class="field full">
-				<div class="span2"><%= f.label(:attach, (@quotation.attach.exists?() ? t('app.fields.update_attach') : t('app.fields.attach')) + colon) %></div>
-				<p><%= f.file_field :attach %></p>
-			</div>	
-		</div>
+
+    <%# Affichage des pièces jointes si il y en a %>
+    <% if !@quotation.quotation_attachments.blank? %>
+        <div class="row row-fluid">
+            <div class="field full">
+                <div class="span2"></div><%= pluralize(@quotation.quotation_attachments.length,'pièce-jointe', 'pièces-jointes') %> actuellement :
+            </div>
+        </div>
+        <% @quotation.quotation_attachments.each do |attachment| %>
+            <div class="row row-fluid">
+                <div class="field full">
+                    <div class="span2"></div><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attachment.attach_file_name , attachment.attach.url, :target => '_blank' %>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
+
+    <%#Affichage du champ d'ajout de pièce jointe %>
+    <div class="row row-fluid">
+	    <div class="field full">
+          <div class="span2"><%= f.label :quotation_attachments_attach, "Pièce-jointe : ", :class => 'top' %> </div>
+          <%= f.file_field('quotation_attachments_attach', multiple: true, name: "quotation[quotation_attachments_attributes][][attach]") %>
+	    </div>
+    </div>
 		<div class="row row-fluid">
 			<div class="field full">
 				<div class="span2"><%= f.label(:statut, t('app.fields.state') + colon) %></div>

@@ -8,12 +8,12 @@
 #
 class Quotation < ActiveRecord::Base
   resourcify
-  attr_accessible :quotation_lines_attributes
+  #attr_accessible :quotation_lines_attributes, :quotation_attachments, :quotation_attachments_attributes
   
   # Necessary to update fields with a nested form
-  attr_accessible :ref, :date, :account_id, :ref_account, :user_id, :validity, 
-    :mode_reg, :statut, :opportunity_id, :attach, :contact_id, :quotation_template_id,
-    :created_by, :updated_by, :label
+  #attr_accessible :ref, :date, :account_id, :ref_account, :user_id, :validity, 
+  # :mode_reg, :statut, :opportunity_id, :attach, :contact_id, :quotation_template_id,
+  # :created_by, :updated_by, :label
   
   belongs_to :opportunity
   belongs_to :contact
@@ -28,7 +28,13 @@ class Quotation < ActiveRecord::Base
   accepts_nested_attributes_for :quotation_lines , :allow_destroy => true,
     :reject_if => lambda { |a| a[:ref].blank? || a[:quantity].blank? || a[:price_excl_tax].blank?}
   
-  has_attached_file :attach
+    # Conservé pour le bon fonctionnement des migrations --> non utilisé
+    has_attached_file :attach
+  
+    # Nouvelle gestion des pièces-jointes
+    has_many :quotation_attachments, :dependent => :destroy
+    accepts_nested_attributes_for :quotation_attachments
+    alias_attribute :attachments, :quotation_attachments
   
   ##
   # Define the status of a Quotation

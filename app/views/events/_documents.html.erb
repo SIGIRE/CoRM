@@ -37,9 +37,17 @@
         <tr>
          <td><center><%= document.id %></center></td>
          <td><center><%= document.name %></center></td>
-         <td><%= link_to (document.attach_file_name), document.attach.url, :target => "_blank",:title => "Télécharger le document"%></td>
+         <td>
+         <% document.document_attachments.each do |attachment| %>
+            <%= link_to (attachment.attach_file_name), attachment.attach.url, :target => '_blank' %><br/>
+         <% end %>
+         </td>
          <td><%= truncate(document.notes, :length => 600, :separator => ' ') %></td>
-		 <td><center><%= link_to (image_tag("glyphicons/glyphicons_219_circle_arrow_right.png")), document.attach.url, :target => "_blank",:title => "Télécharger le document", :class =>"btn"%></center></td>
+         <td>
+         <% document.document_attachments.each do |attachment| %>
+            <%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attachment.attach_file_name , attachment.attach.url, :target => '_blank' %><br/>
+         <% end %>
+         </td>
          <td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_document_path(document),{:title => "Éditer le document", :class =>"btn"} %></center></td>
         </tr>
         <% end %>

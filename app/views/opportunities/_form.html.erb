@@ -57,20 +57,30 @@
 			</p>
 	  </div>
   </div>
-  <% if @opportunity.attach.exists? %>
-	<div class="row row-fluid">
-		<div class="field full">
-			<div class="span2"><%= content_tag(:p, t('app.fields.present_attach')) %></div>
-		  <p><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + @opportunity.attach_file_name, @opportunity.attach.url, :target => '_blank' %></p>
-	  </div>
-  </div>
-  <% end %>
-	<div class="row row-fluid">
-		<div class="field full">
-			<div class="span2"><%= f.label(:attach, (@opportunity.attach.exists?() ? t('app.fields.update_attach') : t('app.fields.attach')) + colon) %></div>
-			<%= f.file_field :attach %>
-	  </div>
-  </div>
+    <%# Affichage des pièces jointes si il y en a %>
+    <% if !@opportunity.opportunity_attachments.blank? %>
+        <div class="row row-fluid">
+            <div class="field full">
+                <div class="span2"></div><%= pluralize(@opportunity.opportunity_attachments.length,'pièce-jointe', 'pièces-jointes') %> actuellement :
+            </div>
+        </div>
+        <% @opportunity.opportunity_attachments.each do |attachment| %>
+            <div class="row row-fluid">
+                <div class="field full">
+                    <div class="span2"></div><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attachment.attach_file_name , attachment.attach.url, :target => '_blank' %>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
+
+    <%#Affichage du champ d'ajout de pièce jointe %>
+    <div class="row row-fluid">
+	    <div class="field full">
+          <div class="span2"><%= f.label :opportunity_attachments_attach, "Pièce-jointe : ", :class => 'top' %> </div>
+          <%= f.file_field('opportunity_attachments_attach', multiple: true, name: "opportunity[opportunity_attachments_attributes][][attach]") %>
+	    </div>
+    </div>
+    
 	<div class="row row-fluid">
 		<div class="field full">
 			<div class="span2"><%= f.label(:statut ,t('app.fields.state') + colon) %></div>
@@ -113,5 +123,6 @@
   <div class="row row-fluid">
 	<%= if !@opportunity.id.nil? then f.submit 'Modifier cette Opportunité', :class =>"btn btn-primary",:id =>"opportunity_submit_form" else f.submit 'Créer une Opportunité', :class =>"btn btn-primary",:id =>"opportunity_submit_form" end %>
 	<%= if !@opportunity.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), opportunity_path(@opportunity), :title => "Supprimer cette Opportunité", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn trash", :method => :delete end %> 
+	<%= if !@opportunity.id.nil? then link_to "Supprimer cette Opportunité", opportunity_path(@opportunity), :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn trash", :method => :delete end %> 
   </div>
 <% end %>

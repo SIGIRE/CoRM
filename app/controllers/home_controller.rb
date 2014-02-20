@@ -29,12 +29,12 @@ class HomeController < ApplicationController
 	@count[:email] = Email.count
 	
 	@bdd_size = Hash.new
-	@bdd_size[:event] = get_attach_size_of_nested(Event)
+	@bdd_size[:event] = get_attach_size_of(Event)
 	@bdd_size[:task] = get_attach_size_of(Task)
 	@bdd_size[:document] = get_attach_size_of(Document)
 	@bdd_size[:quotation] = get_attach_size_of(Quotation)
 	@bdd_size[:opportunity] = get_attach_size_of(Opportunity)
-	@bdd_size[:email] = get_attach_size_of_nested(Email)
+	@bdd_size[:email] = get_attach_size_of(Email)
 	
 	total = 0
 	@bdd_size.each do | e, i |
@@ -67,15 +67,7 @@ class HomeController < ApplicationController
 		@events
   end
   
-  def get_attach_size_of(object)
-	size = 0
-	object.all.each do |o|
-		size += o.attach_file_size unless o.attach_file_size.nil?
-	end
-	return size
-  end
-  
-    def get_attach_size_of_nested(object)
+    def get_attach_size_of(object)
     size = 0
 	    object.all.each do |o|
 	        o.attachments.each do |attachment|
