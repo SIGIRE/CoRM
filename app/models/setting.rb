@@ -1,7 +1,5 @@
 class Setting < ActiveRecord::Base
     
-    attr_accessible :key, :value, :input_type
-    
     self.primary_key = :key
     
     def self.get(id)
