@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140219140505) do
+ActiveRecord::Schema.define(:version => 20140220111406) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -152,16 +152,12 @@ ActiveRecord::Schema.define(:version => 20140219140505) do
     t.datetime "term"
     t.integer  "created_by"
     t.integer  "updated_by"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
     t.integer  "account_id"
     t.integer  "contact_id"
     t.integer  "user_id"
     t.float    "profit"
-    t.string   "attach_file_name"
-    t.string   "attach_content_type"
-    t.integer  "attach_file_size"
-    t.datetime "attach_updated_at"
   end
 
   create_table "opportunity_attachments", :force => true do |t|
@@ -289,10 +285,11 @@ ActiveRecord::Schema.define(:version => 20140219140505) do
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
 
-  create_table "settings", :id => false, :force => true do |t|
-    t.string "key",        :null => false
-    t.string "value"
-    t.string "input_type"
+  create_table "settings", :force => true do |t|
+    t.string   "attach_file_name"
+    t.string   "attach_content_type"
+    t.integer  "attach_file_size"
+    t.datetime "attach_updated_at"
   end
 
   create_table "tags", :force => true do |t|
