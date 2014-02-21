@@ -20,9 +20,8 @@ Crm::Application.routes.draw do
     match "#{ps}/:id(.:format)",         :controller => c,  :action => 'destroy',   :via => :delete, :as => "#{c.singularize}"
   end
   
-  #set_route('email-attachments', 'email-attachment', 'email-attachments')
-  #match 'email-attachment/:id(.:format)', :controller => 'emails', :action => 'attachment_destroy', :via => :get, :as => 'email-attachment'
-  match 'email-attachment/:id(.:format)', to: 'emailAttachments#destroy', via: :delete, as: :email_attachment
+
+  match 'attachment/:id(.:format)', to: 'attachments#destroy', via: :delete, as: :attachment
 
   match 'configuration', :controller => 'settings', :action => 'index', :via => :get, :as => 'settings'
   match 'configuration/update', :controller => 'settings', :action => 'update_attribute', :via => :put, :as => 'settings'

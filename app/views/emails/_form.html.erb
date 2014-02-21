@@ -66,11 +66,11 @@
             <div class="span2"></div><%= pluralize(@email.email_attachments.length,'pièce-jointe', 'pièces-jointes') %> actuellement :
         </div>
     </div>
-    <% @email.email_attachments.each do |attachment| %>
+    <% @email.email_attachments.each do |attach| %>
         <div class="row row-fluid">
             <div class="field full">
-                <div class="span2"></div><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attachment.attach_file_name , attachment.attach.url, :target => '_blank' %> <strong>|</strong>
-<%= link_to " Supprimer ", attachment, :id => attachment.id, :confirm => 'Confirmer la suppression ?', :method => :delete %>
+                <div class="span2"></div><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attach.attach_file_name , attach.attach.url, :target => '_blank' %> <strong>|</strong>
+<%= link_to " Supprimer ", attachment_path(attach.id, :type => "email"), :confirm => 'Confirmer la suppression ?', :method => :delete %>
             </div>
         </div>
     <% end %>
@@ -98,6 +98,6 @@
 </div>
 <%= f.hidden_field :id %>
 <div class="row row-fluid">
-<%= if !@email.id.nil? then f.submit "Modifier l'email", :class =>"btn btn-primary" end %>  <%= link_to "Annuler modifications", :back ,{:title => "Retour aux notifications", :class=>"btn btn-danger", :style=>"line-height: 18px"} %>
+<%= if !@email.id.nil? then f.submit "Modifier l'email", :class =>"btn btn-primary" end %>  <%= link_to "Annuler modifications", notifications_url ,{:title => "Retour aux notifications", :class=>"btn btn-danger", :style=>"line-height: 18px"} %>
 </div>
 <% end %>
