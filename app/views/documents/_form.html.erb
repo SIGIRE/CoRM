@@ -43,10 +43,11 @@ end %>
                 <div class="span2"></div><%= pluralize(@document.document_attachments.length,'pièce-jointe', 'pièces-jointes') %> actuellement :
             </div>
         </div>
-        <% @document.document_attachments.each do |attachment| %>
+        <% @document.document_attachments.each do |attach| %>
             <div class="row row-fluid">
                 <div class="field full">
-                    <div class="span2"></div><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attachment.attach_file_name , attachment.attach.url, :target => '_blank' %>
+                    <div class="span2"></div><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attach.attach_file_name , attach.attach.url, :target => '_blank' %> <strong>|</strong>
+<%= link_to " Supprimer ", attachment_path(attach.id, :type => "document"), :confirm => 'Confirmer la suppression ?', :method => :delete %>
                 </div>
             </div>
         <% end %>
