@@ -7,6 +7,7 @@
   <meta name="generator" content="CoRM">
     <%= stylesheet_link_tag "application", :media => "all" %>
     <%= javascript_include_tag :application %>
+    <%= yield(:attachments_js) %>
     <%= csrf_meta_tags %>
     <%= favicon_link_tag 'icons/favicon2.png' %>
 </head>
