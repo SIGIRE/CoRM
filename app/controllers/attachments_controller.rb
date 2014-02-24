@@ -2,7 +2,7 @@
 
 class AttachmentsController < ApplicationController
 
-# On utilise ce controleur pour supprimer des pièces jointes dans une des tables, on utilise "type" pour savoir dans quelle table supprimer la PJ
+# On utilise ce controleur pour supprimer des pièces jointes dans une des tables définie par "type"
 
   def destroy
 		type = params[:type]
@@ -36,4 +36,5 @@ class AttachmentsController < ApplicationController
 				redirect_to home_path, :notice => "Une erreur s'est produite."
 		end
   end
+
 end
