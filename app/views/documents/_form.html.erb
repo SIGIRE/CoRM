@@ -57,7 +57,18 @@ end %>
     <div class="row row-fluid">
 	    <div class="field full">
           <div class="span2"><%= f.label :document_attachments_attach, "Pièce-jointe : ", :class => 'top' %> </div>
-          <%= f.file_field('document_attachments_attach', multiple: true, name: "document[document_attachments_attributes][][attach]") %>
+          <div id="new_attachments">
+            <%= f.file_field('document-attachments_attach', name: "document[document_attachments_attributes][][attach]") %>
+          </div>
+          <input type="hidden" id="attachment_id" value="1">
+	    </div>
+    </div>
+
+    <%#Affichage du bouton d'ajout de pièce-jointe %>
+    <div class="row row-fluid">
+	    <div class="field full">
+		    <div class="span2"></div>
+		    <input type="button" class="btn btn-success" value="Ajouter une pièce-jointe" onClick="addFileField('document'); return false;">
 	    </div>
     </div>
 
