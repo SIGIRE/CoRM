@@ -141,7 +141,11 @@ class OpportunitiesController < ApplicationController
         if params[:mail] == 'yes'
           UserMailer.mail_for(@opportunity.user, @opportunity, true).deliver
         end
-        format.html  { redirect_to account_events_url(@opportunity.account_id), :notice => "L'opportunité a été mise à jour." }
+        if !@opportunity.account_id.blank?
+            format.html  { redirect_to account_events_url(@opportunity.account_id), :notice => "L'opportunité a été mise à jour." }
+        else
+            format.html  { redirect_to opportunities_url, :notice => "L'opportunité a été mise à jour." }
+        end
       else
         flash[:error] = t('app.save_undefined_error')
         format.html  { render :action => "edit" }
