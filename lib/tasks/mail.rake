@@ -34,8 +34,7 @@
 							:enable_ssl 	 => false
 
 					# Récupération des mails
-					#emails = Mail.find_and_delete
-					emails = Mail.all
+					emails = Mail.find_and_delete
 					event_id = connection.type_event_id
 				end
 			end
@@ -60,9 +59,9 @@
 						# Si on trouve un seul utilisateur, on continuer
 						if (users.length == 1)
 								user = users.first
+					        puts connection.login
 							# S'il y a bien un ou plusieurs destinataires
 							if (mail.to.length >= 1)
-						
 								# On parcours toutes les adresses marquées comme destinataires
 								mail.to.each do |destinataire|
 						
