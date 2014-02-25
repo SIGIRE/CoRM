@@ -1,3 +1,8 @@
+<%# Récupération du des fonctions %>
+<% content_for(:attachments_js) do %>
+    <%= javascript_include_tag "attachments" %>
+<% end %>
+
 <!-- begin form task --><% colon = t('app.fields.colon') %>
 <%= form_for(@task, :html => { :class => "well "}) do |f| %>
         <% if @task.errors.any? %>
