@@ -4,7 +4,9 @@ class RemoveAttachmentFieldsFromTask < ActiveRecord::Migration
     tasks = Task.all
     tasks.each do |task|
         if (!task.attach.blank?)
-           task.task_attachments.push task.attach
+            attach = TaskAttachment.new
+            attach.attach = task.attach
+            task.task_attachments.push attach
         end
     end
     

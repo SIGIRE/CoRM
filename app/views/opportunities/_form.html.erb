@@ -140,6 +140,6 @@
   <div class="row row-fluid">
 	<%= if !@opportunity.id.nil? then f.submit 'Modifier cette Opportunité', :class =>"btn btn-primary",:id =>"opportunity_submit_form" else f.submit 'Créer une Opportunité', :class =>"btn btn-primary",:id =>"opportunity_submit_form" end %>
 	<%= if !@opportunity.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), opportunity_path(@opportunity), :title => "Supprimer cette Opportunité", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn trash", :method => :delete end %> 
-	<%= if !@opportunity.id.nil? then link_to "Supprimer cette Opportunité", opportunity_path(@opportunity), :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn trash", :method => :delete end %> 
+ 
   </div>
 <% end %>
