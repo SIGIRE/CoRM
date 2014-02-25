@@ -25,15 +25,15 @@
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th><center>#</center></th>
-        <th><center>Statut</center></th>
-        <th><center>Libellé</center></th>
-        <th><center>Contact</center></th>
-        <th><center>Estimation</center></th>
-		<th><center>Marge</center></th>
-        <th><center>Échéance</center></th>
-        <th><center>Collaborateur</center></th>
-        <th><center>Éditer</center></th>
+        <th class="text-center">#</th>
+        <th class="text-center">Statut</th>
+        <th class="text-center">Libellé</th>
+        <th class="text-center">Contact</th>
+        <th class="text-center">Estimation</th>
+	<th class="text-center">Marge</th>
+        <th class="text-center">Échéance</th>
+        <th class="text-center">Collaborateur</th>
+        <th class="text-center">Éditer</th>
       </tr>
     </thead>
     <tbody>
@@ -47,8 +47,8 @@
 					<% @total_profit += opportunity.profit %>
 				<% end %>
         <tr>
-          <td><center><%= opportunity.id %></center></td>
-          <td><center>
+          <td class="text-center"><%= opportunity.id %></td>
+          <td class="text-center">
             <% if opportunity.statut == "Détectée"%>
               <span class="badge badge-important">
             <% elsif opportunity.statut == "En cours"%>
@@ -61,9 +61,9 @@
               -
             <% end %>
             <%= opportunity.statut %></span>
-          </center></td>
-          <td><center><%= opportunity.name %></center></td>
-          <td><center><%= if !opportunity.contact.nil? then link_to opportunity.contact.full_name, edit_contact_path(opportunity.contact),{:title => "Éditer le contact"} end%></center></td>
+          </td>
+          <td class="text-center"><%= opportunity.name %></td>
+          <td class="text-center"><%= if !opportunity.contact.nil? then link_to opportunity.contact.full_name, edit_contact_path(opportunity.contact),{:title => "Éditer le contact"} end%></td>
           <td style="text-align :right;">
             <% if !opportunity.amount.nil? %>
               <%= number_to_currency(opportunity.amount, :locale => :fr)  %> <strong> HT </strong>
@@ -74,9 +74,9 @@
             	<%= number_to_currency(opportunity.profit, :locale => :fr)  %> <strong> HT </strong>
           	<% end %>
 					</td>
-          <td><center><%= if !opportunity.term.nil? then opportunity.term.strftime("%d/%m/%y") end%></center></td>
-          <td><center><%= if !opportunity.author.nil? then opportunity.user.full_name end%></center></td>
-          <td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_opportunity_path(opportunity),{:title => "Éditer l'opportunité", :class =>"btn"} %></center></td>
+          <td class="text-center"><%= if !opportunity.term.nil? then opportunity.term.strftime("%d/%m/%y") end%></td>
+          <td class="text-center"><%= if !opportunity.author.nil? then opportunity.user.full_name end%></td>
+          <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_opportunity_path(opportunity),{:title => "Éditer l'opportunité", :class =>"btn"} %></td>
         </tr>
         <% end %>
       </tbody>

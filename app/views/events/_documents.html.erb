@@ -23,32 +23,32 @@
  <table class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th><center>Id</center></th>
-        <th><center>Nom</center></th>
-        <th><center>Document</center></th>
-        <th><center>Description</center></th>
-		<th><center>Télécharger</center></th>
-        <th><center>Éditer</center></th>
+        <th class="text-center">Id</th>
+        <th class="text-center">Nom</th>
+        <th class="text-center">Document</th>
+        <th class="text-center">Description</center></th>
+	<th class="text-center">Télécharger</th>
+        <th class="text-center">Éditer</th>
       </tr>
     </thead>
     <tbody>
       <% @documents = Document.by_account(@account).order('name ASC').page(params[:page]) %>
       <% @documents.each do |document| %>
         <tr>
-         <td><center><%= document.id %></center></td>
-         <td><center><%= document.name %></center></td>
-         <td>
+         <td class="text-center"><%= document.id %></td>
+         <td class="text-center"><%= document.name %></td>
+         <td class="text-center">
          <% document.document_attachments.each do |attachment| %>
             <%= link_to (attachment.attach_file_name), attachment.attach.url, :target => '_blank' %><br/>
          <% end %>
          </td>
-         <td><%= truncate(document.notes, :length => 600, :separator => ' ') %></td>
-         <td>
+         <td class="text-center"><%= truncate(document.notes, :length => 600, :separator => ' ') %></td>
+         <td class="text-center">
          <% document.document_attachments.each do |attachment| %>
             <%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attachment.attach_file_name , attachment.attach.url, :target => '_blank' %><br/>
          <% end %>
          </td>
-         <td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_document_path(document),{:title => "Éditer le document", :class =>"btn"} %></center></td>
+         <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_document_path(document),{:title => "Éditer le document", :class =>"btn"} %></td>
         </tr>
         <% end %>
       </tbody>

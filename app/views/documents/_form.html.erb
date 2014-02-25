@@ -48,14 +48,17 @@ end %>
                 <div class="span2"></div><%= pluralize(@document.document_attachments.length,'pièce-jointe', 'pièces-jointes') %> actuellement :
             </div>
         </div>
+	<table>
         <% @document.document_attachments.each do |attach| %>
-            <div class="row row-fluid">
+		<tr>
                 <div class="field full">
-                    <div class="span2"></div><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attach.attach_file_name , attach.attach.url, :target => '_blank' %> <strong>|</strong>
-<%= link_to " Supprimer ", attachment_path(attach.id, :type => "document"), :confirm => 'Confirmer la suppression ?', :method => :delete %>
+                    <td><div class="span2"></div></td>
+			<td><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attach.attach_file_name , attach.attach.url, :target => '_blank' %></td>
+			<td><%= link_to '<i class="icon-trash"></i>'.html_safe, attachment_path(attach.id, :type => "document"), :confirm => 'Confirmer la suppression ?', :method => :delete, :title => "Supprimer" %></td>
                 </div>
-            </div>
+		</tr>
         <% end %>
+	</table><br/>
     <% end %>
 
     <%#Affichage du champ d'ajout de pièce jointe %>
@@ -85,7 +88,7 @@ end %>
 	</div>	
 	<div class="field">
     <% if !@document.id.nil? %>
-		<div class="span9"> Créé par : <%= @document.author.full_name %>, le </strong><%= @document.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+		<div class="span9"> Créé par : <%= @document.author.full_name %>, le <%= @document.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
 		
 		<% if !@document.updated_by.nil? %>
 			<div class="span9"> Dernièrement modifié par : <%= @document.editor.full_name %>, le <%= @document.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
