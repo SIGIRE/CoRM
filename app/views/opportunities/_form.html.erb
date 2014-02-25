@@ -69,14 +69,19 @@
                 <div class="span2"></div><%= pluralize(@opportunity.opportunity_attachments.length,'pièce-jointe', 'pièces-jointes') %> actuellement :
             </div>
         </div>
+
+	<table>
         <% @opportunity.opportunity_attachments.each do |attach| %>
-            <div class="row row-fluid">
                 <div class="field full">
-                    <div class="span2"></div><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attach.attach_file_name , attach.attach.url, :target => '_blank' %> <strong>|</strong>
-<%= link_to " Supprimer ", attachment_path(attach.id, :type => "opportunity"), :confirm => 'Confirmer la suppression ?', :method => :delete %>
+		<tr>
+                    <td><div class="span2"></div></td>
+			<td><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attach.attach_file_name , attach.attach.url, :target => '_blank' %></td>
+			
+			<td><%= link_to '<i class="icon-trash"></i>'.html_safe, attachment_path(attach.id, :type => "opportunity"), :confirm => 'Confirmer la suppression ?', :method => :delete, :title => "Supprimer" %></td>
+		</tr>
                 </div>
-            </div>
         <% end %>
+	</table><br/>
     <% end %>
 
     <%#Affichage du champ d'ajout de pièce jointe %>

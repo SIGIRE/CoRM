@@ -3,7 +3,6 @@ function addFileField(object) {
     jQuery.noConflict()
     jQuery("#new_attachments").append("<tr id='attachment_" + id + "' style='width:100%'>");
     jQuery("#attachment_" + id).append("<td><input type='file' name='"+ object +"["+ object +"_attachments_attributes][][attach]'/></td>");
-    jQuery("#attachment_" + id).append("<strong>|</strong>");
     jQuery("#attachment_" + id).append("<td>&nbsp;&nbsp<a href='#' onClick='removeFileField(\"#attachment_" + id + "\"); return false;'>Supprimer</a></td>");
     jQuery("#new_attachments").append("</tr>");
 
