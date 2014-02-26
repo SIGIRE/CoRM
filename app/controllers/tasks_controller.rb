@@ -264,8 +264,10 @@ class TasksController < ApplicationController
   #   - +updated+ -> if the object is updated(true) or created(false)
   #
   def create_event(updated)
+    # Si le paramètre envoyé est false, 'type' = :create, sinon :update
 	type = updated ? :update : :create
-    if @ability.can? type, Event and !params[:task][:contact_id].blank?
+    if @ability.can? type, Event
+            puts("Entrée dans les HASH")
 			hash = Hash.new
 			hash["event_type_id"] = params[:event_type][:id]
 			hash["account_id"] = params[:task][:account_id]
