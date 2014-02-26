@@ -17,12 +17,11 @@ class SettingsController < ApplicationController
     end
     
     def update
-    puts("ID : #{params[:setting][:id]}")
     @setting = Setting.find(params[:setting][:id])
     if @setting.update_attributes(params[:setting])
 			redirect_to url_for({ :controller => 'settings', :action => 'index' }), :notice => "Le logo a été modifié."
 		else
-			redirect_to url_for({ :controller => 'settings', :action => 'index' })
+			redirect_to url_for({ :controller => 'settings', :action => 'index' }), :alert => "Le fichier fourni doit être une image."
 		end
     end
 
