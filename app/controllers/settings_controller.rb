@@ -4,11 +4,18 @@ class SettingsController < ApplicationController
 
     def index
        if current_user.has_role?(:admin)
-            @setting = Setting.first
-		
-	    # On récupère les paramètres du serveur mail
-	    #@webmail_connections = WebmailConnection.all
-			@webmail_connection = WebmailConnection.first
+            # On récupère les paramètres du logo
+            if (Setting.all.length == 1)
+                @setting = Setting.first
+		    else
+		        @setting = Setting.new
+		    end
+	        # On récupère les paramètres du serveur mail
+	        if (WebmailConnection.all.length == 1)
+			    @webmail_connection = WebmailConnection.first
+			else 
+			    @webmail_connection = WebmailConnection.new
+			end
        else
             flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.do')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Settings'))
 			redirect_to root_url

@@ -1,3 +1,8 @@
+<%# Récupération du des fonctions %>
+<% content_for(:attachments_js) do %>
+    <%= javascript_include_tag "attachments" %>
+<% end %>
+
 <%= form_for([@account, @event_new], :html => { :class => "well ", :multipart => true}) do |f| %>
   <div class="row row-fluid by_2">
     <div class="field-group">
@@ -31,12 +36,23 @@
       <%= f.text_area :notes, { :rows => "5", :style => 'width: 80%;', :class => 'required' } %>
     </div>
   </div>
-  <div class="row row-fluid">
-    <div class="field full">
-      <%= f.label :attach, "Pièce-jointe : ", :class => 'top' %>
-      <%= file_field_tag('event_attachments_attach', multiple: true, name: "event[event_attachments_attributes][][attach]") %>
-    </div>
-  </div>
+  <%#Affichage du champ d'ajout de pièce jointe %>
+<div class="row row-fluid">
+	<div class="field full">
+      <div><%= f.label :event_attachments_attach, "Pièce-jointe : ", :class => 'top' %> </div>
+      <div id="new_attachments">
+        <%= f.file_field('event-attachments_attach', name: "event[event_attachments_attributes][][attach]") %>
+      </div>
+      <input type="hidden" id="attachment_id" value="1">
+	</div>
+</div>
+
+<%#Affichage du bouton d'ajout de pièce-jointe %>
+<div class="row row-fluid">
+	<div class="field full">
+		<input type="button" class="btn btn-success" value="Ajouter une pièce-jointe" onClick="addFileField('event'); return false;">
+	</div>
+</div>
   <div class="row row-fluid">
     <div class="field">
       <label class="checkbox">
