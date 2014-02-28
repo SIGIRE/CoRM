@@ -2,13 +2,21 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
-Setting.set('logo-login', '', { :type => 'file' })
-
 EventType.create({ :label => 'Appel téléphonique', :direction => 'Entrant' })
 EventType.create({ :label => 'Appel téléphonique', :direction => 'Sortant' })
+EventType.create({ :label => 'Appel téléphonique', :direction => 'Interne' })
 
-EventType.create({ :label => 'Mail', :direction => 'Entrant' })
-EventType.create({ :label => 'Mail', :direction => 'Sortant' })
+EventType.create({ :label => 'E-mail', :direction => 'Entrant' })
+EventType.create({ :label => 'E-mail', :direction => 'Sortant' })
+EventType.create({ :label => 'E-mail', :direction => 'Interne' })
 
-WebmailConnection.create({ :login => 'demo-crm@sigire.net', :password => 'Lm4HDba%', :server => 'pop.sigire.net', :port => 110, :type_event_id => 4, :active => true})
+EventType.create({ :label => 'Courrier', :direction => 'Entrant' })
+EventType.create({ :label => 'Courrier', :direction => 'Sortant' })
 
+EventType.create({ :label => 'Note', :direction => 'Interne' })
+
+EventType.create({ :label => 'Fax', :direction => 'Entrant' })
+EventType.create({ :label => 'Fax', :direction => 'Sortant' })
+
+EventType.create({ :label => 'Rendez-vous', :direction => 'Interne' })
+EventType.create({ :label => 'Rendez-vous', :direction => 'Externe' })
