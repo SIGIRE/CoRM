@@ -2,6 +2,7 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
+# Creating default event types
 EventType.create({ :label => 'Appel téléphonique', :direction => 'Entrant' })
 EventType.create({ :label => 'Appel téléphonique', :direction => 'Sortant' })
 EventType.create({ :label => 'Appel téléphonique', :direction => 'Interne' })
@@ -20,3 +21,9 @@ EventType.create({ :label => 'Fax', :direction => 'Sortant' })
 
 EventType.create({ :label => 'Rendez-vous', :direction => 'Interne' })
 EventType.create({ :label => 'Rendez-vous', :direction => 'Externe' })
+
+# Creating a default setting value
+Setting.create
+
+# Creating a default connection value
+WebmailConnection.create
