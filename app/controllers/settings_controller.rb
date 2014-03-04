@@ -8,13 +8,13 @@ class SettingsController < ApplicationController
             if (Setting.all.length == 1)
                 @setting = Setting.first
 		    else
-		        @setting = Setting.new
+		        @setting = Setting.create
 		    end
 	        # On récupère les paramètres du serveur mail
 	        if (WebmailConnection.all.length == 1)
 			    @webmail_connection = WebmailConnection.first
 			else 
-			    @webmail_connection = WebmailConnection.new
+			    @webmail_connection = WebmailConnection.create
 			end
        else
             flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.do')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Settings'))
