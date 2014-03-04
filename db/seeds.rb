@@ -21,9 +21,3 @@ EventType.create({ :label => 'Fax', :direction => 'Sortant' })
 
 EventType.create({ :label => 'Rendez-vous', :direction => 'Interne' })
 EventType.create({ :label => 'Rendez-vous', :direction => 'Externe' })
-
-# Creating a default setting value
-Setting.create
-
-# Creating a default connection value
-WebmailConnection.create
