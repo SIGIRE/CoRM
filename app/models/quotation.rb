@@ -23,6 +23,8 @@ class Quotation < ActiveRecord::Base
   belongs_to :editor_user, :foreign_key => 'updated_by', :class_name => 'User'
   belongs_to :quotation_template
   
+  paginates_per 10
+
   has_many :quotation_lines, :dependent => :destroy
   # We specify we access to each QuotationLines parameters from the Controller & the same for Quotation from Views
   accepts_nested_attributes_for :quotation_lines , :allow_destroy => true,

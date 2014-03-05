@@ -87,7 +87,7 @@ class OpportunitiesController < ApplicationController
     respond_to do |format|
       if @opportunity.save
         if params[:mail] == 'yes'
-          UserMailer.mail_for(current_user, @opportunity, true).deliver
+          UserMailer.mail_for(@opportunity.user, @opportunity, true).deliver
         end
         if !@opportunity.account_id.nil?
           format.html  { redirect_to account_events_url(@opportunity.account_id), :notice => "L'opportunité a été créée." }

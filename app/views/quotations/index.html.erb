@@ -21,7 +21,7 @@
     <tbody>
     <% @quotations.each do |quotation| %>
     <tr>
-        <td><center><%= quotation.id %></center></td>
+        <td class="text-center"><%= quotation.id %></td>
         
 		<td class="text-center">
             <% if quotation.statut == "Sauvegardé"%>
@@ -87,10 +87,8 @@
     <% end %>
     </tbody>
     </table>
-  
-  <br />
-  
+
   <%= paginate @quotations %>
   
-  
-  </div>
+</div>  
+
