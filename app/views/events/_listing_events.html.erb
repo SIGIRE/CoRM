@@ -55,9 +55,9 @@
         
       <p class="content">
         <% if !e.event_attachments.blank? %>
-            <%= pluralize(e.event_attachments.length,'pièce-jointe :', 'pièces-jointes :') %><br/>
+            <%= e.event_attachments.length == 1? 'Pièce-jointe :' : 'Pièces-jointes :' %>
             <% e.event_attachments.each do |attachment| %>
-                <%= link_to attachment.attach_file_name, attachment.attach.url, { :target => '_blank' } %><br/>
+                <%= link_to attachment.attach_file_name, attachment.attach.url, { :target => '_blank' } %>&nbsp;
             <% end %>
       <% end %>
         

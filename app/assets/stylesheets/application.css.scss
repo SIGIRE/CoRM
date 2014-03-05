@@ -43,3 +43,6 @@ $navbarBackground: #2C2C2C;
 @import "./corm_alert.scss";
 @import "./corm_navbar.scss";
 @import "bootstrap-responsive";
+
+@import "./alertify.core";
+@import "./alertify.bootstrap";
