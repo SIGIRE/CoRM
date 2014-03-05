@@ -97,9 +97,9 @@
     <%# Affichage des pièces jointes si il y en a %>
     <% if !@task.task_attachments.blank? %>
         <div class="row row-fluid">
-            <div class="field full">
+            
                 <div class="span2"></div><%= pluralize(@task.task_attachments.length,'pièce-jointe', 'pièces-jointes') %> actuellement :
-            </div>
+           
         </div>
 	<table>
         <% @task.task_attachments.each do |attach| %>
@@ -130,7 +130,8 @@
     <div class="row row-fluid">
 	    <div class="field full">
 		    <div class="span2"></div>
-		    <input type="button" class="btn btn-success" value="Ajouter une pièce-jointe" onClick="addFileField('task'); return false;">
+		    <input type="image" src="/assets/glyphicons/glyphicons_190_circle_plus.png" class="btn" title="Ajouter une pièce jointe"  onClick="addFileField('task'); return false;">
+			
 	    </div>
     </div>
 	

@@ -44,9 +44,9 @@ end %>
     <%# Affichage des pièces jointes si il y en a %>
     <% if !@document.document_attachments.blank? %>
         <div class="row row-fluid">
-            <div class="field full">
+            
                 <div class="span2"></div><%= pluralize(@document.document_attachments.length,'pièce-jointe', 'pièces-jointes') %> actuellement :
-            </div>
+            
         </div>
 	<table>
         <% @document.document_attachments.each do |attach| %>
@@ -76,7 +76,8 @@ end %>
     <div class="row row-fluid">
 	    <div class="field full">
 		    <div class="span2"></div>
-		    <input type="button" class="btn btn-success" value="Ajouter une pièce-jointe" onClick="addFileField('document'); return false;">
+		    <input type="image" src="/assets/glyphicons/glyphicons_190_circle_plus.png" class="btn" title="Ajouter une pièce jointe" onClick="addFileField('document'); return false;">
+			
 	    </div>
     </div>
 
