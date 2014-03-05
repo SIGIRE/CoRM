@@ -2,7 +2,12 @@
 
 <div id="bloc-login">
   <div id="logo">
-  <img src="<%= Setting.first.attach.url %>" alt="logo-login" />
+    <% if !Setting.first.blank?
+            setting = Setting.first
+    else 
+            setting = Setting.new
+    end %>
+    <img src="<%= setting.attach.url %>" alt="logo-login" />
   </div>
   
   <div id="login">

@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" style="margin-top: 1em;">
     <div class="well">
         <div class="row-fluid">
             <div class="span9">
@@ -75,17 +75,8 @@
 			<div class="field full">
 				<div class="span2"></div><input type="submit" value="Sauvegarder" class="btn btn-success">
 				<a class="btn btn-xs"
-				<%= link_to (
-						image_tag(
-							"/assets/glyphicons/glyphicons_081_refresh.png", 
-							:size => "17x17",
-							:alt => "Vérifier la connexion"
-							)
-						).html_safe, 
-						url_for(
-							:controller => 'webmail_connections', 
-							:action => 'check')
-				%></a>
+				    <%= link_to "Vérifier la connexion", url_for(:controller => 'webmail_connections', :action => 'check') %>
+				</a>
 				<input type='hidden' name='_method' value='put'>
 				<%= f.hidden_field :id %>
 			</div>

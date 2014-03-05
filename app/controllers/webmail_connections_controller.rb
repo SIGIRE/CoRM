@@ -25,9 +25,9 @@ class WebmailConnectionsController < ApplicationController
 		if current_user.has_role?(:admin)
 			connection = WebmailConnection.first
 			if (!WebmailConnection.check(connection))
-				flash[:notice] = "Les paramètres de connexion saisis sont invalides."
+				flash[:alert] = "Les paramètres de connexion saisis sont invalides."
 			else
-				flash[:notice] = "Les paramètres de connexion ont été sauvegardés."
+				flash[:notice] = "Les paramètres de connexion sont corrects et ont été sauvegardés."
 		end
 		redirect_to(:controller => "settings",  :action => 'index')	
 	else

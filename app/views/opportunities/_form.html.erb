@@ -65,9 +65,9 @@
     <%# Affichage des pièces jointes si il y en a %>
     <% if !@opportunity.opportunity_attachments.blank? %>
         <div class="row row-fluid">
-            <div class="field full">
+            
                 <div class="span2"></div><%= pluralize(@opportunity.opportunity_attachments.length,'pièce-jointe', 'pièces-jointes') %> actuellement :
-            </div>
+            
         </div>
 
 	<table>
@@ -99,7 +99,8 @@
     <div class="row row-fluid">
 	    <div class="field full">
 		    <div class="span2"></div>
-		    <input type="button" class="btn btn-success" value="Ajouter une pièce-jointe" onClick="addFileField('opportunity'); return false;">
+		    <input type="image" src="/assets/glyphicons/glyphicons_190_circle_plus.png" class="btn" title="Ajouter une pièce jointe" onClick="addFileField('opportunity'); return false;">
+			
 	    </div>
     </div>
     
