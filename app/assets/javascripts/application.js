@@ -18,3 +18,6 @@
 */
 //= require ./modal_accounts.js
 //= require ./modal_contacts.js
+
+/* This adds alertify libs. */
+//= require ./alertify.min.js

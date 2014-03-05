@@ -1,23 +1,14 @@
-<div id="alert_box">
-<% if !flash[:error].blank? or !flash[:alert].blank? %>
-  <div class="alert error" style="display: none;">
-    <%= image_tag('exclamation.png') %>
-    <%= content_tag :p, (flash[:error] or flash[:alert]).html_safe %>
-    <a id="link_to_close_alert" title="Fermer"><span class="caret-up"></span></a>
-  </div>
-<% elsif !flash[:notice].blank? %>
-  <div class="alert notice" style="display: none;">
-    <%= image_tag('information.png') %>
-    <%= content_tag :p, flash[:notice].html_safe %>
-    <a id="link_to_close_alert" href="#" title="Fermer"><span class="caret-up"></span></a>
-  </div>
+<% if notice %>
+    <!-- Alerte 'notice' -->
+    <script>
+        alertify.success("<%= notice %>");
+    </script>
 <% end %>
-</div>
-<script type="application/x-javascript">
-  var navmenu = document.getElementById('nav-menu');
-  console.log(navmenu);
-  var alert_top = 0;
-  if (navmenu) { alert_top = 50; }
-  var topString = alert_top.toString().concat('px');
-  $('.alert').css('top', topString).show();
-</script>
+   
+<% if alert %>
+    <!-- Alerte 'alert' -->
+    <script>
+        alertify.error("<%= alert %>");
+    </script>
+<% end %>
+
