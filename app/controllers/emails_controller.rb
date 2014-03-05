@@ -33,7 +33,7 @@ class EmailsController < ApplicationController
         # Récupération de l'email
 		@email = Email.find(params[:email])
 		@email.convert
-		redirect_to notifications_url, :notice => "L'email a été archivé."
+		redirect_to notifications_url, :notice => "L'email a été traité avec succès."
   end
 	
 end

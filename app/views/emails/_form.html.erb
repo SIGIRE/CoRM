@@ -3,7 +3,7 @@
     <%= javascript_include_tag "attachments" %>
 <% end %>
 
-<%= form_for(@email, :url => {:action => "update" }, :html => {:class => "nifty_form"}) do |f| %>
+<%= form_for(@email, :url => {:action => "update" }, :html => { :class => "well "}) do |f| %>
   
 <%#Affichage du champ compte %>
 <div class="row row-fluid">
@@ -11,17 +11,20 @@
     <div class="span2">
 	<%= f.label('account-search', t('app.model.Account') + t('app.fields.colon')) %></div>
     <% company = nil
-	if (!@email.contact_id.nil?)
+	if (!@email.contact_id.blank?)
 	    contact = Contact.find(@email.contact_id)
-	    if (!contact.account_id.nil?)
+	    if (!contact.account_id.blank?)
 		    company = Account.find(contact.account_id)
 		end
+	elsif (!@email.account_id.blank?) 
+	    company = Account.find(@email.account_id)
 	end %>
-	<% if company.nil? %>
-		<%= text_field_tag(nil, company, { :class => 'typeahead-account-search', :type => 'search', :autocomplete => 'off', 'data-field' => 'account_id', :placeholder => 'Rechercher' }) %>
+	<% if company.blank? %>
+			<%= text_field_tag(nil, company, { :class => 'typeahead-account-search', :type => 'search', :autocomplete => 'off', 'data-field' => 'account_id', :placeholder => 'Rechercher' }) %>
 	<% else %>
 		<%= text_field_tag(nil, company.company, { :class => 'typeahead-account-search', :type => 'search', :autocomplete => 'off', 'data-field' => 'account_id', :placeholder => 'Rechercher' }) %>
 	<% end %>
+	    <%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id' } %>
 		<%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
     </div>
 </div>
@@ -119,6 +122,6 @@
 </div>
 <%= f.hidden_field :id %>
 <div class="row row-fluid">
-<%= if !@email.id.nil? then f.submit "Modifier l'email", :class =>"btn btn-primary" end %>  <%= link_to "Annuler modifications", notifications_url ,{:title => "Retour aux notifications", :class=>"btn btn-danger", :style=>"line-height: 18px"} %>
+<%= if !@email.id.nil? then f.submit "Modifier l'email", :class =>"btn btn-primary" end %>
 </div>
 <% end %>

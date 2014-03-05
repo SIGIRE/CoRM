@@ -53,49 +53,34 @@
 
 	            <%# Récupération du destinataire de l'email %>
 				<td class="text-center">
-
+				
 				<%# Si on a un contact_id %>
 				<% if !email.contact_id.blank? %>
-					<%# Si le contact correspondant au 'contact_id' n'existe pas dans la base de données %>
-					<% if !Contact.where(:id => email.contact_id).count == 0 %>			
+					<%# Si le contact correspondant au 'contact_id' existe dans la base de données %>
+					<% if !(Contact.where(:id => email.contact_id).count == 0) %>			
 						<% contact = Contact.find(email.contact_id) %>
-
 						<%# Si le contact trouvé a un email %>
 						<% if !contact.email.blank? %>
+						    <% puts "email" %>
 							<%= link_to contact.email, edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"}%><% contact = Contact.find_by_email(email.to) %>
 					
 						<%# Sinon s'il a un nom %>
 						<% elsif !contact.full_name.blank? %>
+						    <%= puts contact.full_name %>
 							<%= link_to contact.full_name, edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"}%>
 						<%# Dans le cas ou il n'a rien %>
 						<% else %>
 							-
 						<% end %>
-
-					<%# Si le contact correspondant au 'contact_id' existe dans la base de données %>
-					<% else %>
-
-						<%# Si le contact existe avec une @email %>
-						<% if Contact.where(:email => email.to).count == 1 %>
-							<%= link_to email.to, edit_contact_path(Contact.find_by_email(email.to)), {:title => "Modifier le contact", :color =>"white"} %>
-
-						<%# Cas spécial ou on modifie un mail en lui associant un contact qui n'a pas l'@mail de départ %>
-						<% elsif !Contact.find(email.contact_id).blank? %>
-							<% contact = Contact.find(email.contact_id) %>
-							<%= link_to contact.email, edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"} %>
-						<%# Sinon si il y a un email récupéré de l'email traité %>
-						<% elsif !email.to.blank? %>
-							<%= link_to email.to, new_contact_path(:email => email.to), {:title => "Créer le contact", :class => "badge badge-important", :style => 'font-weight: bold'} %>
-
-						<%# Dans le cas ou il n'y a aucune infos %>
-						<% else %>
-							-
-						<% end %>
 					<% end %>
+
+					
 
 				<%# Si on a pas de contact_id %>
 				<% else %>
-					<% if Contact.where(:email => email.to).count == 1 %>
+				    <% if !email.account_id.blank? %>
+				        -
+					<% elsif Contact.where(:email => email.to).count == 1 %>
 						<%= link_to email.to, edit_contact_path(Contact.find_by_email(email.to)), {:title => "Modifier le contact", :color =>"white"} %>
 					<% elsif !email.to.blank? %>
 						<%= link_to email.to, new_contact_path(:email => email.to), {:title => "Créer le contact", :class => "badge badge-important", :style => 'font-weight: bold'} %>
@@ -117,7 +102,7 @@
 					<% else %>
 					    -
 					<% end %>
-	
+	            
 				<%# Si on a quand même un contact qui correspond au à l'adresse du champ "to" %>
 				<% elsif Contact.where(:email => email.to).count == 1 %>
 						<% contact = Contact.find_by_email(email.to) %>
@@ -131,7 +116,10 @@
 						<% else %>
 							-
 						<% end %>
-
+                <%# Si on a au moins le compte %>
+                <% elsif !email.account_id.blank? %>
+                    <% account = Account.find(email.account_id) %>
+                    <%= account.company %>
 				<%# Si on a rien, on affiche "-" %>
 
 				<% else %>
