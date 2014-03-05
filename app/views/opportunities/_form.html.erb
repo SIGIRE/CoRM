@@ -57,7 +57,8 @@
 			<p>
 				<%= f.collection_select :user_id, @users, :id, :full_name, { :selected => (@opportunity.user.nil?() ? current_user.id : @opportunity.user.id) }, :class => 'assigned_to' %>
 				<label for="opportunity_mail" class="checkbox right-field">
-          <input type="checkbox" name="mail" id="opportunity_mail" value="yes" /><%= t('app.fields.emailToCollegue') %>
+          <%= check_box_tag(:mail, :yes, false, { :id => 'opportunity_mail' }) %>
+		Envoyer un Mail à ce collaborateur
 				</label>
 			</p>
 	  </div>
