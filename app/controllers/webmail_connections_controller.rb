@@ -26,6 +26,8 @@ class WebmailConnectionsController < ApplicationController
 			connection = WebmailConnection.first
 			if (!WebmailConnection.check(connection))
 				flash[:alert] = "Les paramètres de connexion saisis sont invalides."
+				connection.active = false
+				connection.save
 			else
 				flash[:notice] = "Les paramètres de connexion sont corrects et ont été sauvegardés."
 		end
