@@ -1,5 +1,6 @@
 <%= render 'title', :locals => { :title => @title }%>
 
+<%= render 'state' %>
 <% if @emails.length >= 1 %>
 	<%= render 'emails' %>
 <% else %>
