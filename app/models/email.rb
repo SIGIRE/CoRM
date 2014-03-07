@@ -45,7 +45,7 @@ def convert
     event = Event.new
     event.date_begin = send_at
     event.date_end = send_at
-    event.notes = "Sujet : #{object} \n #{content}"
+    event.notes = "Sujet : #{object}\n\n#{content}"
     event.created_by = user_id
     if (!contact.blank?)
         event.contact_id = contact_id
