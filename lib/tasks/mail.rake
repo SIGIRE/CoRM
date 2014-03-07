@@ -72,14 +72,14 @@
 									if (contacts.length >= 1)
 										# On parcours tous les contacts récupérés
 										contacts.each do |contact|
-											# Si le contact est associé Ã  un compte, on crée un évènement
+											# Si le contact est associé à un compte, on crée un évènement
 											if (!contact.account_id.nil?)
 
 												# Création de l'évènement
 												event = Event.new
 												event.date_begin = mail.date.strftime("%Y-%m-%d %H:%M:%S")
 												event.date_end = mail.date.strftime("%Y-%m-%d %H:%M:%S")
-												event.notes = "Sujet : #{mail.subject} \n #{retrieve_body(mail)}"
+												event.notes = "Sujet : #{mail.subject}\n\n#{retrieve_body(mail)}"
 												event.created_by = user.id
 												event.contact_id = contact.id
 												event.account_id = contact.account_id	
