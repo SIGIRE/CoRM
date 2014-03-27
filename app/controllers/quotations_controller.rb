@@ -12,6 +12,16 @@ class QuotationsController < ApplicationController
     
   end
   
+  def filter
+    # Filter params
+    user_id = params[:filter][:user]
+
+    @quotations = Quotation.by_user_id(user_id).order('ref').page(params[:page])
+    respond_to do |format|
+      format.html { render :action => :index }
+      format.json { render :json => @quotation }
+    end
+  end
   
   def new
     if @ability.cannot? :create, Quotation

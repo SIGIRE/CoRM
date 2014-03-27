@@ -1,5 +1,31 @@
 <%= render 'title', :locals => { :title => @title }%>
 
+<!-- FILTER -->
+  <div class="container-fluid">
+    <div class="field">
+      <label class="checkbox">
+        <%= check_box_tag :generate, "yes" %>
+        Filtrer les Opportunités
+      </label>
+    </div>
+  </div>
+  
+
+<div id="task_value" class="container-fluid" style= "display: none;">
+  <%= form_for(:filter, :url => { :action => 'filter' } , :html => {:method => :get} ) do |f| %>
+      <div class="row row-fluid">
+		<div class="">
+			<%= f.label :user_email, "Collaborateur :", :class => "top" %>
+			<%= f.collection_select :user, User.all_reals, :id, :full_name, {:include_blank => "Tous"} , :class =>"filter_statut"%>
+		</div>
+		<div>
+        <%= f.submit "Filtrer", :class =>"btn "%>
+		</div>
+	  </div>
+   <% end %>
+</div>  
+<!-- END FILTER -->
+
 <div class="container-fluid">
     
   <table class="table table-bordered table-striped table-hover">
