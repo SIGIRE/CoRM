@@ -4,6 +4,9 @@ class QuotationsController < ApplicationController
   before_filter :authenticate_user!
   
   def index
+    @autocomplete_accounts = Account.find(:all)
+    @autocomplete_contacts = Contact.find(:all)
+
     @quotations = Quotation.order('ref').page(params[:page])
     respond_to do |format|
       format.html # index.html.erb
@@ -13,10 +16,24 @@ class QuotationsController < ApplicationController
   end
   
   def filter
+    debugger
+    @autocomplete_accounts = Account.find(:all)
+    @autocomplete_contacts = Contact.find(:all)
+
     # Filter params
+    statut = params[:filter][:statut]
+    account_company = params[:filter][:account]
+    contact_id = params[:filter][:contact_id]
     user_id = params[:filter][:user]
 
-    @quotations = Quotation.by_user_id(user_id).order('ref').page(params[:page])
+    # Finding results
+    @quotations = Quotation.by_statut(statut)
+                           .by_account_company_like(account_company)
+                           .by_contact_id(contact_id)
+                           .by_user_id(user_id)
+                           .order('ref')
+                           .page(params[:page])
+
     respond_to do |format|
       format.html { render :action => :index }
       format.json { render :json => @quotation }
