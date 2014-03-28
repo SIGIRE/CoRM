@@ -18,15 +18,17 @@
 			<%= f.label :statut, "Statut :", :class => "top" %>
 			<%= f.select :statut, Opportunity::STATUTS,{:include_blank => "Tous"} , :class =>"filter_statut"%>
 		</div>
-		<div class="">
-			<%= f.label :filter_priority, "Compte :", :class => "top" %>
-			<%= f.text_field :account , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_accounts}, :autocomplete=>"off"%>
-        </select>
-		</div>
-		<div class="">
-			<%= f.label :user_email, "Contact :", :class => "top" %>
-			<%= f.text_field :contact , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_contacts}, :autocomplete=>"off"%>
-		</div>
+    <%# Le typeahead et la recherche automatique des contacts associés sont gérés par nav-search-bar.js %>
+    <div class="">
+      <%= f.label :filter_priority, "Compte :", :class => "top" %>
+      <%= f.text_field :account, :class =>"filter_tfield typeahead-account-search", :data => { :provide => 'typeahead', :source => @autocomplete_accounts}, :autocomplete=>"off"%>
+    </div>
+    <div class="">
+      <%= f.label :user_email, "Contact :", :class => "top" %>
+      <select id="contact_id" name="filter[contact_id]">
+        <option></option>
+      </select>
+    </div>
 		<div class="">
 			<%= f.label :user_email, "Date Début :", :class => "top" %>
 			<%= f.text_field :date_begin, :class =>"filter_date"%>

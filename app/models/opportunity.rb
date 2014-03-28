@@ -52,7 +52,15 @@ class Opportunity < ActiveRecord::Base
   
   scope :by_statut, lambda { |statut| where("statut LIKE ?", statut+'%') }
   scope :by_account, lambda { |account| where("account_id = ?", account.id) unless account.nil? }
+  scope :by_account_id, lambda { |account_id| where("account_id = ?", account_id) unless account_id.blank? }
+  scope :by_account_company_like, (lambda do |account_company|
+    unless account_company.blank?
+      joins(:account).
+      where("UPPER(accounts.company) LIKE UPPER(?)", account_company + '%')
+    end
+  end)
   scope :by_contact, lambda { |contact| where("contact_id = ?", contact.id) unless contact.nil? }
+  scope :by_contact_id, lambda { |contact_id| where("contact_id = ?", contact_id) unless contact_id.blank? }
   scope :by_user, lambda { |user| where( "user_id = ?", user) unless user.blank? }
   scope :by_term, lambda { |date_begin,date_end|  where( "term BETWEEN ? AND ? OR term IS NULL", '%'+date_begin, date_end+'%')}
   

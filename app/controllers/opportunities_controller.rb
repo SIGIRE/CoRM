@@ -189,7 +189,7 @@ class OpportunitiesController < ApplicationController
     company = params[:filter][:account]
     user = params[:filter][:user]
     statut = params[:filter][:statut]
-    surname_contact = params[:filter][:contact]
+    contact_id= params[:filter][:contact_id]
     date_begin = params[:filter][:date_begin]
     date_end = params[:filter][:date_end]
     
@@ -209,17 +209,14 @@ class OpportunitiesController < ApplicationController
       date_end = date_end.split('/').reverse!.join('-') + ' 00:00:00'
     end
     
-    # Search Account with company equals to params[:filter][:account]
-    account = Account.find(:first , :conditions => ['company LIKE UPPER(?)', company])
-    
-    if surname_contact != ""
-        # Search Contact with surname == params[:filter][:contact]
-        contact = Contact.find(:first, :conditions => ['surname LIKE ?', surname_contact])
-    end
-
     # sort by filter values
-    @opportunities = Opportunity.by_statut(statut).by_term(date_begin, date_end).by_account(account).by_contact(contact).by_user(user)
-    @opportunities = @opportunities.order("term DESC,statut DESC").page(params[:page])
+    @opportunities = Opportunity.by_statut(statut)
+                                .by_term(date_begin, date_end)
+                                .by_account_company_like(company)
+                                .by_contact_id(contact_id)
+                                .by_user(user)
+                                .order("term DESC,statut DESC")
+                                .page(params[:page])
     
     # Get totals after an user search calcul des totaux après une recherche sur l'utilisateur
     @total_amount = 0
