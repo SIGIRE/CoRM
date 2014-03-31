@@ -14,7 +14,35 @@ class QuotationsController < ApplicationController
     end
     
   end
-  
+ 
+  def get_companies
+    partial_company_name = params[:company]
+
+    if partial_company_name.blank?
+      companies = Quotation.select("DISTINCT quotations.company")
+                           .map { |quotation| quotation.company }
+    else
+      companies = Quotation.select("DISTINCT quotations.company")
+                           .where("UPPER(quotations.company LIKE UPPER(?)", partial_company_name)
+                           .map { |quotation| quotation.company }
+    end
+
+    respond_to do |format|
+      format.json { render :json => companies }
+    end
+  end
+
+  def get_contacts
+    company = params[:company]
+    contacts = Quotation.select("DISTINCT quotations.title, quotations.forename, quotations.surname")
+                        .where("UPPER(company) = UPPER(?)", company)
+                        .map { |quotation| "#{quotation.title} #{quotation.forename} #{quotation.surname}" }
+
+    respond_to do |format|
+      format.json { render :json => contacts }
+    end
+  end
+
   def filter
     debugger
     @autocomplete_accounts = Account.find(:all)
