@@ -21,6 +21,10 @@ module Crm
 		Devise::SessionsController.layout "layout_for_sessions_controller"
 		Devise::PasswordsController.layout "layout_for_sessions_controller" 
 	end
+
+  # Default https
+  config.force_ssl = false 
+
     if (!(CORM[:mail][:type].is_a? Symbol))
         CORM[:mail][:type] = CORM[:mail][:type].to_sym
     end
