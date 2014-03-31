@@ -59,10 +59,11 @@ Crm::Application.routes.draw do
   # Quotations routes
   set_route('devis', 'devis', 'quotations')  
   match '/devis/filter(.:format)', :controller => 'quotations', :action => 'filter', :via => :get, :as => "filter_quotations_index"
-  get '/devis/:id(.:format)', :controller => 'quotations', :action => 'show'
   match '/devis/update_contact_select/:id', :controller=>'quotations', :action => 'update_contact_select'
   match '/devis/update_opportunity_select/:id', :controller=>'quotations', :action => 'update_opportunity_select'
-
+  match '/devis/companies(.:format)', to: 'quotations#get_companies', via: :get
+  match '/devis/contacts(.:format)', to: 'quotations#get_contacts', via: :get
+  get '/devis/:id(.:format)', :controller => 'quotations', :action => 'show'
   # Relations routes
   set_route('relations', 'relation', 'relations')
   # Documents routes
