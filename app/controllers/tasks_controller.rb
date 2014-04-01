@@ -207,11 +207,16 @@ class TasksController < ApplicationController
   
   def filter
     # Filter params
-    @statut_filter = params[:filter][:statut]
-	  @priority_filter = params[:filter][:priority]
-    @company_filter = params[:filter][:company]
-    @contact_id_filter = params[:filter][:contact_id]
-    @user_id_filter = params[:filter][:user]
+    unless params[:filter].nil?
+      @statut_filter = params[:filter][:statut]
+      @priority_filter = params[:filter][:priority]
+      @company_filter = params[:filter][:company]
+      @contact_id_filter = params[:filter][:contact_id]
+      @user_id_filter = params[:filter][:user]
+    else
+      # Default filter
+      @user_id_filter = current_user.id
+    end
 
     # Request
     @tasks = Task.by_statut(@statut_filter)
