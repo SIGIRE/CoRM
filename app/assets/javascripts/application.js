@@ -6,6 +6,7 @@
 //= require jquery.validate
 //= require bootstrap
 
+
 /* for the shared functions */
 //= require ./corm_lib.js
 
