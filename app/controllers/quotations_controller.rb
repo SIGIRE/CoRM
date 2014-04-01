@@ -63,7 +63,11 @@ class QuotationsController < ApplicationController
   
   def new
     if @ability.cannot? :create, Quotation
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]',
+                                                                 t('app.actions.new')).gsub('[undefined_article]',
+                                                                 t('app.default.undefine_article_male')).gsub('[model]',
+                                                                 t('app.controllers.Quotation')
+                                                                )
       redirect_to quotations_url
 	  return false
     end
