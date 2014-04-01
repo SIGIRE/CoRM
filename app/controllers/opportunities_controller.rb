@@ -180,42 +180,42 @@ class OpportunitiesController < ApplicationController
   #
   def filter
     # filter variables
-    company = params[:filter][:account]
-    user = params[:filter][:user]
-    statut = params[:filter][:statut]
-    contact_id= params[:filter][:contact_id]
-    date_begin = params[:filter][:date_begin]
-    date_end = params[:filter][:date_end]
+    @company_filter = params[:filter][:account]
+    @user_id_filter = params[:filter][:user_id]
+    @statut_filter = params[:filter][:statut]
+    @contact_id_filter = params[:filter][:contact_id]
+    @date_begin_filter = params[:filter][:date_begin]
+    @date_end_filter = params[:filter][:date_end]
     
     # convert date => yyyy/mm/dd
-    if date_begin == ""
-      date_begin = "1990-05-21 00:00:00"
+    if @date_begin_filter == ""
+      @date_begin_filter = "1990-05-21 00:00:00"
     else
       # trouble on inclusion
       temp = date_begin.split('/')
       temp[0] = temp[0].to_i - 1
-      date_begin = temp.reverse!.join('-') + ' 00:00:00'
+      @date_begin_filter = temp.reverse!.join('-') + ' 00:00:00'
     end
     
-    if date_end == ""
-      date_end = "2036-12-12 00:00:00"
+    if @date_end_filter == ""
+      @date_end_filter = "2036-12-12 00:00:00"
     else
-      date_end = date_end.split('/').reverse!.join('-') + ' 00:00:00'
+      @date_end_filter = @date_end_filter.split('/').reverse!.join('-') + ' 00:00:00'
     end
     
     # sort by filter values
-    @opportunities = Opportunity.by_statut(statut)
-                                .by_term(date_begin, date_end)
-                                .by_account_company_like(company)
-                                .by_contact_id(contact_id)
-                                .by_user(user)
+    @opportunities = Opportunity.by_statut(@statut_filter)
+                                .by_term(@date_begin_filter, @date_end_filter)
+                                .by_account_company_like(@company_filter)
+                                .by_contact_id(@contact_id_filter)
+                                .by_user(@user_id_filter)
                                 .order("term DESC,statut DESC")
                                 .page(params[:page])
     
     # Get totals after an user search calcul des totaux après une recherche sur l'utilisateur
     @total_amount = 0
     @total_profit = 0
-    Opportunity.by_user(user).where("statut IN ('Détectée', 'En cours')").each do |op|
+    Opportunity.by_user(@user_id_filter).where("statut IN ('Détectée', 'En cours')").each do |op|
       @total_amount += op.amount
       @total_profit += op.profit
     end

@@ -16,7 +16,7 @@
       <div class="row row-fluid">
         <div class="">
           <%= f.label :statut, "Statut :", :class => "top" %>
-          <%= f.select :statut, Quotation::STATUTS,{:include_blank => "Tous"} , :class =>"filter_statut"%>
+          <%= f.select :statut, Quotation::STATUTS,{:include_blank => "Tous", :selected => @statut_filter} , :class =>"filter_statut"%>
         </div>
         <%# Le typeahead et la recherche automatique des contacts associés sont gérés par nav-search-bar.js %>
         <div class="">
@@ -31,7 +31,7 @@
         </div>
         <div class="">
           <%= f.label :user_email, "Collaborateur :", :class => "top" %>
-          <%= f.collection_select :user, User.all_reals, :id, :full_name, {:include_blank => "Tous"} , :class =>"filter_statut"%>
+          <%= f.collection_select :user_id, User.all_reals, :id, :full_name, {:include_blank => "Tous", :selected => @user_id_filter} , :class =>"filter_statut"%>
         </div>
         <div>
           <%= f.submit "Filtrer", :class =>"btn "%>

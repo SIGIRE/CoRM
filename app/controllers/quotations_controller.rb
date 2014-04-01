@@ -42,16 +42,16 @@ class QuotationsController < ApplicationController
 
   def filter
     # Filter params
-    statut = params[:filter][:statut]
-    account_company = params[:filter][:account]
-    contact_id = params[:filter][:contact_id]
-    user_id = params[:filter][:user]
+    @statut_filter = params[:filter][:statut]
+    @account_company_filter = params[:filter][:account]
+    @contact_id_filter = params[:filter][:contact_id]
+    @user_id_filter = params[:filter][:user_id]
 
     # Finding results
-    @quotations = Quotation.by_statut(statut)
-                           .by_account_company_like(account_company)
-                           .by_contact_id(contact_id)
-                           .by_user_id(user_id)
+    @quotations = Quotation.by_statut(@statut_filter)
+                           .by_account_company_like(@account_company_filter)
+                           .by_contact_id(@contact_id_filter)
+                           .by_user_id(@user_id_filter)
                            .order('ref')
                            .page(params[:page])
 
