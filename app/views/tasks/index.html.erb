@@ -20,7 +20,7 @@
 		    </div>
 		    <div class="">
 			    <%= f.label :filter_priority, "Priorité :", :class => "top" %>
-          <%= select :filter, :priority, Task::PRIORITIES.each_with_index.map {|name, index| [name,index]}, {:include_blank => "Tous", :selected => @priority_filter}, :class => "filter_priority" %>
+          <%= f.select :priority, Task::PRIORITIES.each_with_index.map {|name, index| [name,index]}, {:include_blank => "Tous", :selected => @priority_filter}, :class => "filter_priority" %>
 			  </div>
         <%# Le typeahead et la recherche automatique des contacts associés sont gérés par nav-search-bar.js %>
         <div class="">
