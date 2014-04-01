@@ -44,7 +44,6 @@ class QuotationsController < ApplicationController
   end
 
   def filter
-    debugger
     @autocomplete_accounts = Account.find(:all)
     @autocomplete_contacts = Contact.find(:all)
 
