@@ -8,12 +8,9 @@ class OpportunitiesController < ApplicationController
   # Display the full list of Opportunities by paginate_by
   #
   def index
-    
-    #pour l'autocomplétion du typeahead
-    @autocomplete_accounts = Account.find(:all,:select=>'company').map(&:company)
-    @autocomplete_contacts = Contact.find(:all,:select=>'surname').map(&:surname)
-    
-    @opportunities = Opportunity.by_user(current_user).where("statut IN ('Détectée', 'En cours')").order('term desc').page(params[:page])
+    @opportunities = Opportunity.by_user(current_user)
+                                .where("statut IN ('Détectée', 'En cours')")
+                                .order('term desc').page(params[:page])
     
     #initialisation puis calcul des totaux
     @total_amount = 0
@@ -182,9 +179,6 @@ class OpportunitiesController < ApplicationController
   # AutoCompletion handler
   #
   def filter
-    @autocomplete_accounts = Account.find(:all,:select=>'company').map(&:company)
-    @autocomplete_contacts = Contact.find(:all,:select=>'surname').map(&:surname)
-    
     # filter variables
     company = params[:filter][:account]
     user = params[:filter][:user]

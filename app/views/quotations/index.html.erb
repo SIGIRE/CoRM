@@ -21,7 +21,7 @@
         <%# Le typeahead et la recherche automatique des contacts associés sont gérés par nav-search-bar.js %>
         <div class="">
           <%= f.label :filter_priority, "Compte :", :class => "top" %>
-          <%= f.text_field :account, :class =>"filter_tfield typeahead-account-search", :data => { :provide => 'typeahead', :source => @autocomplete_accounts}, :autocomplete=>"off"%>
+          <%= f.text_field :account, :class =>"filter_tfield typeahead-account-search", :data => { :provide => 'typeahead'}, :autocomplete=>"off"%>
         </div>
         <div class="">
           <%= f.label :user_email, "Contact :", :class => "top" %>

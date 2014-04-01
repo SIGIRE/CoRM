@@ -4,9 +4,6 @@ class QuotationsController < ApplicationController
   before_filter :authenticate_user!
   
   def index
-    @autocomplete_accounts = Account.find(:all)
-    @autocomplete_contacts = Contact.find(:all)
-
     @quotations = Quotation.order('ref').page(params[:page])
     respond_to do |format|
       format.html # index.html.erb
@@ -44,9 +41,6 @@ class QuotationsController < ApplicationController
   end
 
   def filter
-    @autocomplete_accounts = Account.find(:all)
-    @autocomplete_contacts = Contact.find(:all)
-
     # Filter params
     statut = params[:filter][:statut]
     account_company = params[:filter][:account]
