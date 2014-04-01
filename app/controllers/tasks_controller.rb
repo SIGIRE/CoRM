@@ -207,7 +207,6 @@ class TasksController < ApplicationController
   
   def filter
     # Filter params
-    @email_filter = params[:filter][:user_email]
     @statut_filter = params[:filter][:statut]
 	  @priority_filter = params[:filter][:priority]
     @company_filter = params[:filter][:company]
