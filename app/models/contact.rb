@@ -59,11 +59,11 @@ class Contact < ActiveRecord::Base
   # * *Args*
   #   +company+ An instance of Account
   #
-  scope :by_company, lambda { |company| joins(:account).where("accounts.company LIKE UPPER(?)", company)unless company.blank? }
+  scope :by_company, lambda { |company| joins(:account).where("accounts.company LIKE UPPER(?)", company) unless company.blank? }
   scope :by_surname, lambda { |surname| where('surname LIKE ?', surname) unless surname.blank?}
   scope :by_forename, lambda { |forename| where('forename LIKE ?', forname) unless forename.blank? }
   scope :by_tel, lambda { |tel| where("tel LIKE ?", '%'+tel+'%') unless tel.blank? }
-
+  scope :by_email, lambda { |email| where('UPPER(contacts.email) LIKE UPPER(?)', email) unless email.blank? }
   scope :by_accounts, lambda { |account| where("account_id IN (?)", account)unless account.blank? }
   scope :by_tags, lambda { |tags| joins(:tags).where("tags.id IN (?)", tags) unless tags.blank? }  
   scope :by_zip_account, lambda { |zip_account| joins(:account).where("account.zip LIKE ?", zip_account + '%') unless zip_account.blank? } 
