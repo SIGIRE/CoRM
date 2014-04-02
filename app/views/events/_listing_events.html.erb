@@ -1,3 +1,17 @@
+<script>
+function display(id) {
+    var link = document.getElementById("display-" + id);
+    var div = document.getElementById("event-" + id);
+
+    if (div.className == "event hidden") {
+        link.innerHTML = "Moins d'informations";
+        div.className = "event";
+    } else {
+        link.innerHTML = "Plus d'informations";
+        div.className = "event hidden";
+    }
+}
+</script>
 <% if !@events.nil? and @events.length > 0 %>
 <div id="listing-event">
   <label class="checkbox" id="toggle-events-more">
@@ -43,7 +57,11 @@
        </p>
       <div class="more">   
         <% if !e.notes.blank? %>
-            <div class="notes"><pre class="no-style"><%= e.notes %></pre></div>
+            <div class="notes">
+                <% array = e.notes.lines.to_a %>
+                <% lines = array.shift(25) %>
+                <pre class="no-style"><% lines.each do |line| %><%= line %><% end %><% if array.count >= 1 %><a href='javascript:void(0)' onClick="display(<%= e.id %>)" id="display-<%= e.id %>">Plus d'informations...</a><div id="event-<%= e.id %>" class="event hidden"><% array.each do |line| %><%= line %><% end %></div><%end%></pre>
+            </div>
         <% end %>
       </div>
 
