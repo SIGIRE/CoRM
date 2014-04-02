@@ -71,6 +71,7 @@ class Contact < ActiveRecord::Base
   scope :by_category_account, lambda { |category_account| joins(:account).where("accounts.category IN (?)", category_account) unless category_account.blank? } 
   scope :by_origin_account, lambda { |origin_account| joins(:account).where("accounts.origin_id IN (?)", origin_account) unless origin_account.blank? } 
   scope :by_user_account, lambda { |user_account| joins(:account).where("accounts.user_id" => user_account) unless user_account.blank? } 
+  scope :none, lambda { where('1 = 0') }
 
   
 end

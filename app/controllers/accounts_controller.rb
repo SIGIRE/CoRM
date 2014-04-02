@@ -206,28 +206,26 @@ class AccountsController < ApplicationController
   # Filter Account on the index page
   #
   def filter
+    if params[:filter].values.all? { |element| element.blank? }
+      @accounts = Account.order('accounts.company ASC')
+                         .page(params[:page])
+    else
+      # Filter params
+      @company_filter = params[:filter][:company]
+      @contact_full_name_filter = params[:filter][:contact]
+      @tel_filter = params[:filter][:tel]
 
-    #necessaire pour que le typeahead soit utilisable après un filtrage
-    @autocomplete_accounts = Account.find(:all,:select=>'company').map(&:company)
-    @autocomplete_contacts = Contact.find(:all,:select=>'surname').map(&:surname)
+      # Query
+      accounts_by_company = @company_filter.blank? ? Account.none : Account.by_company_like(@company_filter)
+      accounts_by_contact_full_name = @contact_full_name_filter.blank? ? Account.none : Account.by_contact_full_name_like(@contact_full_name_filter)
+      accounts_by_tel = @tel_filter.blank? ? Account.none : Account.by_tel(@tel_filter)
 
-    #données du filtre
-    company = params[:filter][:company]
-    if company.blank?
-      company = nil
+      # Combining results with | returns an array, not an ActiveRecord result !
+      accounts = accounts_by_company | accounts_by_contact_full_name | accounts_by_tel
+      # Kaminari wrapper for arrays
+      @accounts = Kaminari::paginate_array(accounts).page(params[:page])
     end
-    contact_surname = params[:filter][:contact]
-    tel = params[:filter][:tel]
-    
-    # Contact without surname
-    if contact_surname != ""
-      # Get the contact with surname == params[:filter][:surname]
-      contact = Contact.find(:first, :conditions => ['surname LIKE ?', contact_surname])
-    end
-    
-    @accounts = Account.by_company(company).by_contact(contact).by_tel(tel)
-    @accounts = @accounts.order("company ASC").page(params[:page])
-    
+
     respond_to do |format|
       format.html  { render :action => "index" }
       format.json { render :json => @accounts }

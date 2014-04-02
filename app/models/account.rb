@@ -51,8 +51,18 @@ class Account < ActiveRecord::Base
   accepts_nested_attributes_for :contacts
   
   # Help to sort by criteria
-  scope :by_company, lambda { |company| where("company LIKE UPPER(?)", company)unless company.nil? }
-  scope :by_contact, lambda {|contact| joins(:contacts).where('contacts.id = ?', contact.id) unless contact.nil?}
+  scope :by_company_like, lambda { |company| where("UPPER(company) LIKE UPPER(?)",  "%#{company}%") unless company.blank? }
+  scope :by_contact_full_name_like, (lambda do |contact_complete_name|
+    unless contact_complete_name.blank?
+      joins(:contacts).
+      where("(UPPER(CONCAT(contacts.surname, ' ', contacts.forename)) LIKE UPPER(?)) OR
+             (UPPER(CONCAT(contacts.forename, ' ', contacts.surname)) LIKE UPPER(?))",
+            "%#{contact_complete_name}%",
+            "%#{contact_complete_name}%"
+           )
+    end
+  end)
+  scope :by_contact_id, lambda {|contact| joins(:contacts).where('contacts.id = ?', contact.id) unless contact.nil?}
   scope :by_tel, lambda { |tel| where("tel LIKE ?", '%'+tel+'%') unless tel.blank? }
   scope :by_zip, lambda { |zip| where("zip LIKE ?", zip + '%') unless zip.blank? }
   scope :by_country, lambda { |country| where("country = ?", country) unless country.blank? }  
@@ -61,8 +71,9 @@ class Account < ActiveRecord::Base
   scope :by_category, lambda { |cat| where("category IN (?)", cat) unless cat.blank? }   
   scope :by_origin, lambda { |origin| where("origin_id IN (?)", origin) unless origin.blank? }
   scope :by_ids, lambda { |id| where("id IN (?)", id) unless id.blank?}
+  scope :none, lambda { where('1 = 0') }
   
-  ##
+  ###
   # Set the business name to upper
   #
   def uppercase_company
