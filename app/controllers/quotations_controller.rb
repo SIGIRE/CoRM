@@ -4,7 +4,7 @@ class QuotationsController < ApplicationController
   before_filter :authenticate_user!
   
   def index
-    @quotations = Quotation.order('ref').page(params[:page])
+    @quotations = Quotation.order('date DESC').page(params[:page])
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @quotation }
