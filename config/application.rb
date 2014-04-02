@@ -23,7 +23,6 @@ module Crm
 	end
 
   # Default https
-  config.force_ssl = false 
 
     if (!(CORM[:mail][:type].is_a? Symbol))
         CORM[:mail][:type] = CORM[:mail][:type].to_sym
