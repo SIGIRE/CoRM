@@ -52,7 +52,7 @@ class QuotationsController < ApplicationController
                            .by_account_company_like(@account_company_filter)
                            .by_contact_id(@contact_id_filter)
                            .by_user_id(@user_id_filter)
-                           .order('ref')
+                           .order('date DESC')
                            .page(params[:page])
 
     respond_to do |format|
