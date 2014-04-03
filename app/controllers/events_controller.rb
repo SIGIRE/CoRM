@@ -15,9 +15,10 @@ class EventsController < ApplicationController
     if params[:account_id] == nil  then
       @events = Event.page(params[:page])
     else
-      @account = Account.find(params[:account_id])    
+      @account = Account.find(params[:account_id])
       @events = @account.events.order("date_begin DESC").page(params[:page])
-      @event_new = @account.events.build 
+      @event_new = @account.events.build
+	  @quotations = Quotation.by_account(@account).order('date DESC').page(params[:page])
     end
     respond_to do |format|
       format.html # index.html.erb
