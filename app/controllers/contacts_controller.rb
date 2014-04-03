@@ -191,25 +191,32 @@ class ContactsController < ApplicationController
   # Filter Contact on the index page
   #
   def filter
+    if params[:filter].values.all? { |element| element.blank? }
+      @contacts = Contact.order('contacts.forename ASC')
+                         .page(params[:page])
+    else
+      # Filter params
+      @company_filter = params[:filter][:company]
+      @full_name_filter = params[:filter][:full_name]
+      @tel_filter = params[:filter][:tel]
 
-    #infos typeahead
-    @autocomplete_accounts = Account.find(:all,:select=>'company').map(&:company)
-    @autocomplete_contacts = Contact.find(:all,:select=>'surname').map(&:surname)
+      # Query
+      contacts_by_company = @company_filter.blank? ? Contact.none : Contact.by_company_like(@company_filter)
+      contacts_by_full_name = @full_name_filter.blank? ? Contact.none : Contact.by_full_name_like(@full_name_filter)
+      contacts_by_tel = @tel_filter.blank? ? Contact.none : Contact.by_tel(@tel_filter)
 
-    # filter data
-    company = params[:filter][:company]
-    surname = params[:filter][:surname]
-    tel = params[:filter][:tel]
-    # sort contacts with filter values
-    @contacts = Contact.by_company(company).by_surname(surname).by_tel(tel)
-    @contacts = @contacts.order("surname ASC").page(params[:page])
-    
+      # Combining results with | returns an array, not an ActiveRecord result !
+      contacts = contacts_by_company | contacts_by_full_name | contacts_by_tel
+      # Kaminari wrapper for arrays
+      @contacts = Kaminari::paginate_array(contacts).page(params[:page])
+    end
+
     respond_to do |format|
       format.html  { render :action => "index" }
       format.json { render :json => @contacts }
     end
   end
-  
+
   def update_emails(contact)
     puts "UPDATE EMAILS!"
     if (Contact.where(:email => @contact.email).length == 1)

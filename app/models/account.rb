@@ -55,8 +55,8 @@ class Account < ActiveRecord::Base
   scope :by_contact_full_name_like, (lambda do |contact_complete_name|
     unless contact_complete_name.blank?
       joins(:contacts).
-      where("(UPPER(CONCAT(contacts.surname, ' ', contacts.forename)) LIKE UPPER(?)) OR
-             (UPPER(CONCAT(contacts.forename, ' ', contacts.surname)) LIKE UPPER(?))",
+      where("(UPPER(contacts.surname || ' ' || contacts.forename)) LIKE UPPER(?) OR
+             (UPPER(contacts.forename || ' ' || contacts.surname)) LIKE UPPER(?)",
             "%#{contact_complete_name}%",
             "%#{contact_complete_name}%"
            )

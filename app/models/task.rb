@@ -75,4 +75,5 @@ class Task < ActiveRecord::Base
   scope :by_user, lambda { |user| where("tasks.user_id = ?", user.id) unless user.nil? }
   scope :by_user_id, lambda { |user_id| where("tasks.user_id = ?", user_id) unless user_id.blank? }
   scope :by_term, lambda { |date_begin,date_end| where("term BETWEEN ? AND ? OR term = ?", date_begin, date_end +'%', '')}
+  scope :none, lambda { where('1 = 0') }
 end

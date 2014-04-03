@@ -6,7 +6,7 @@
     <div class="field">
       <label class="checkbox">
         <%= check_box_tag :generate, "yes" %>
-        Filtrer les Comptes
+        Rechercher dans les comptes
       </label>
     </div>
   </div>
@@ -24,7 +24,7 @@
         </select>
 		</div>
 		<div class="">
-			<%= f.label :user_email, "téléphone :", :class => "top" %>
+			<%= f.label :user_email, "Téléphone :", :class => "top" %>
       <%= f.text_field :tel, :value => @tel_filter, :class =>"filter_tfield"%>
 		</div>
 		<div>
