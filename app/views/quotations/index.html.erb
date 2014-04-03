@@ -1,5 +1,46 @@
 <%= render 'title', :locals => { :title => @title }%>
 
+<!-- FILTER -->
+  <div class="container-fluid">
+    <div class="field">
+      <label class="checkbox">
+        <%= check_box_tag :generate, "yes" %>
+        Filtrer les devis
+      </label>
+    </div>
+  </div>
+  
+
+  <div id="task_value" class="container-fluid" style= "display: none;">
+    <%= form_for(:filter, :url => { :action => 'filter' } , :html => {:method => :get} ) do |f| %>
+      <div class="row row-fluid">
+        <div class="">
+          <%= f.label :statut, "Statut :", :class => "top" %>
+          <%= f.select :statut, Quotation::STATUTS,{:include_blank => "Tous", :selected => @statut_filter} , :class =>"filter_statut"%>
+        </div>
+        <%# Le typeahead et la recherche automatique des contacts associés sont gérés par nav-search-bar.js %>
+        <div class="">
+          <%= f.label :filter_priority, "Compte :", :class => "top" %>
+          <%= f.text_field :account, :class =>"filter_tfield typeahead-account-search", :data => { :provide => 'typeahead'}, :autocomplete=>"off"%>
+        </div>
+        <div class="">
+          <%= f.label :user_email, "Contact :", :class => "top" %>
+          <select id="contact_id" name="filter[contact_id]">
+            <option></option>
+          </select>
+        </div>
+        <div class="">
+          <%= f.label :user_email, "Collaborateur :", :class => "top" %>
+          <%= f.collection_select :user_id, User.all_reals, :id, :full_name, {:include_blank => "Tous", :selected => @user_id_filter} , :class =>"filter_statut"%>
+        </div>
+        <div>
+          <%= f.submit "Filtrer", :class =>"btn "%>
+        </div>
+      </div>
+    <% end %>
+  </div>  
+<!-- END FILTER -->
+
 <div class="container-fluid">
     
   <table class="table table-bordered table-striped table-hover">

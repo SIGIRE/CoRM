@@ -6,7 +6,7 @@
     <div class="field">
       <label class="checkbox">
         <%= check_box_tag :generate, "yes" %>
-        Filtrer les Comptes
+        Rechercher dans les comptes
       </label>
     </div>
   </div>
@@ -16,16 +16,16 @@
       <div class="row row-fluid">
 		<div class="">
 			<%= f.label :statut, "Société :", :class => "top" %>
-			<%= f.text_field :company , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_accounts}, :autocomplete=>"off"%>
+      <%= f.text_field :company, :value => @company_filter, :class =>"filter_tfield", :autocomplete=>"off"%>
 		</div>
 		<div class="">
 			<%= f.label :filter_priority, "Contact :", :class => "top" %>
-			<%= f.text_field :contact , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_contacts}, :autocomplete=>"off"%>
+      <%= f.text_field :contact, :value => @contact_full_name_filter, :class =>"filter_tfield", :autocomplete=>"off"%>
         </select>
 		</div>
 		<div class="">
-			<%= f.label :user_email, "téléphone :", :class => "top" %>
-			<%= f.text_field :tel, :class =>"filter_tfield"%>
+			<%= f.label :user_email, "Téléphone :", :class => "top" %>
+      <%= f.text_field :tel, :value => @tel_filter, :class =>"filter_tfield"%>
 		</div>
 		<div>
         <%= f.submit "Filtrer", :class =>"btn "%>

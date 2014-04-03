@@ -59,13 +59,21 @@ class Task < ActiveRecord::Base
     "#{attachment.instance.with_content_type}"
   end
   
-  #scope :by_priority, lambda { |priority| where("priority = ?", priority) }
-  scope :by_priority, lambda { |priority| where("priority = ?", priority) }
-  scope :by_statut, lambda { |statut| where("statut LIKE ?", statut+'%') }
+  scope :by_priority, lambda { |priority| where("priority = ?", priority) unless priority.blank? }
+  scope :by_statut, lambda { |statut| where("statut LIKE ?", statut+'%') unless statut.blank? }
   scope :by_statut_non_termine, lambda { |statut| where("statut IN ('A faire', 'En cours')") }
   scope :by_account, lambda { |account| where("account_id = ?", account.id) unless account.nil? }
+  scope :by_account_id, lambda { |account_id| where("account_id = ?", account_id) unless account_id.blank?}
+  scope :by_account_company_like, (lambda do |account_company|
+    unless account_company.blank?
+      joins(:account).
+      where("UPPER(accounts.company) LIKE UPPER(?)", account_company + '%')
+    end
+  end)
   scope :by_contact, lambda { |contact| where("contact_id = ?", contact.id) unless contact.nil? }
-  scope :by_user, lambda { |user| where( "user_id = ?", user.id) unless user.nil? }
-  scope :by_term, lambda { |date_begin,date_end|  where( "term BETWEEN ? AND ? OR term = ?", date_begin, date_end +'%', '')}
-  
+  scope :by_contact_id, lambda { |contact_id| where("contact_id = ?", contact_id) unless contact_id.blank? }
+  scope :by_user, lambda { |user| where("tasks.user_id = ?", user.id) unless user.nil? }
+  scope :by_user_id, lambda { |user_id| where("tasks.user_id = ?", user_id) unless user_id.blank? }
+  scope :by_term, lambda { |date_begin,date_end| where("term BETWEEN ? AND ? OR term = ?", date_begin, date_end +'%', '')}
+  scope :none, lambda { where('1 = 0') }
 end

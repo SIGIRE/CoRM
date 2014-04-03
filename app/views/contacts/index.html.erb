@@ -2,31 +2,31 @@
 <%= render 'title', :locals => { :title => @title }%>
 
 <!-- FILTER -->
-  
-  <div class="container-fluid">
-    <div class="field">
-      <label class="checkbox">
-        <%= check_box_tag :generate, "yes" %>
-        Filtrer les Contacts
-      </label>
-    </div>
+
+<div class="container-fluid">
+  <div class="field">
+    <label class="checkbox">
+      <%= check_box_tag :generate, "yes" %>
+      Rechercher dans les contacts
+    </label>
   </div>
+</div>
 
 <div id="task_value" class="container-fluid" style= "display: none;">
   <%= form_for(:filter, :url => { :action => 'filter' } , :html => {:method => :get} ) do |f| %>
       <div class="row row-fluid">
 		<div class="">
 			<%= f.label :statut, "Société :", :class => "top" %>
-			<%= f.text_field :company , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_accounts}, :autocomplete=>"off"%>
+      <%= f.text_field :company, :value => @company_filter, :class =>"filter_tfield", :autocomplete=>"off"%>
 		</div>
 		<div class="">
-			<%= f.label :filter_priority, "Nom :", :class => "top" %>
-			<%= f.text_field :surname , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_contacts}, :autocomplete=>"off"%>
+			<%= f.label :filter_priority, "Contact :", :class => "top" %>
+      <%= f.text_field :full_name, :value => @full_name_filter, :class =>"filter_tfield", :autocomplete=>"off"%>
         </select>
 		</div>
 		<div class="">
-			<%= f.label :user_email, "téléphone :", :class => "top" %>
-			<%= f.text_field :tel, :class =>"filter_tfield"%>
+			<%= f.label :user_email, "Téléphone :", :class => "top" %>
+      <%= f.text_field :tel, :value => @tel_filter, :class =>"filter_tfield"%>
 		</div>
 		<div>
         <%= f.submit "Filtrer", :class =>"btn "%>
@@ -34,94 +34,95 @@
 	  </div>
    <% end %>
 </div>  
+
 <!-- END FILTER -->
 
 <div class="container-fluid">
 
   <table class="table table-bordered table-striped table-hover">
-      <thead>
-    <tr>
-      <th class="text-center">#</th>
-      <th class="text-center">Civ.</th>
-      <th class="text-center">Nom</th>
-      <th class="text-center">Pr&eacute;nom</th>
-      <th class="text-center">Soci&eacute;t&eacute;</th>
-      <th class="text-center">T&eacute;l</th>
-      <th class="text-center">Mobile</th>
-      <th class="text-center">E-mail</th>
-      <th class="text-center">Éditer</th>         
-    </tr>
-      </thead>
-	  <tbody>
-  <% @contacts.each do |contact| %>
-    <tr>
-		<% if !contact.id.nil? %>
-			<% then %>
-				<td class="text-center"><%= contact.id %></td>
-			<% else %>
-				<td class="text-center">-</td>
-		<% end %>      
-	  
-		<% if !contact.title.blank? %>
-			<% then %>
-				<td class="text-center">
-					<%= if contact.title == "M." then image_tag("glyphicons/glyphicons_034_old_man.png") end%>
-					<%= if contact.title == "Mme" then image_tag("glyphicons/glyphicons_035_woman.png") end%>
-				</td>
-			<% else %>
-				<td class="text-center">-</td>
-		<% end %>
+    <thead>
+      <tr>
+        <th class="text-center">#</th>
+        <th class="text-center">Civ.</th>
+        <th class="text-center">Nom</th>
+        <th class="text-center">Pr&eacute;nom</th>
+        <th class="text-center">Soci&eacute;t&eacute;</th>
+        <th class="text-center">T&eacute;l</th>
+        <th class="text-center">Mobile</th>
+        <th class="text-center">E-mail</th>
+        <th class="text-center">Éditer</th>         
+      </tr>
+    </thead>
+    <tbody>
+      <% @contacts.each do |contact| %>
+        <tr>
+          <% if !contact.id.nil? %>
+            <% then %>
+            <td class="text-center"><%= contact.id %></td>
+          <% else %>
+            <td class="text-center">-</td>
+          <% end %>      
 
-		<% if !contact.surname.blank? %>
-			<% then %>
-				<td class="text-center"><%= contact.surname %></td>
-			<% else %>
-				<td class="text-center">-</td>
-		<% end %> 		
-		
-		<% if !contact.forename.blank? %>
-			<% then %>
-				<td class="text-center"><%= contact.forename %></td>
-			<% else %>
-				<td class="text-center">-</td>
-		<% end %> 		
-		
-		<% if !contact.account.nil? %>
-			<% then %>
-				<td class="text-center"><%= link_to contact.account.company , account_events_url(contact.account),{:title => "Afficher les évenements"} %></td>
-			<% else %>
-				<td class="text-center">-</td>
-		<% end %> 
+          <% if !contact.title.blank? %>
+            <% then %>
+            <td class="text-center">
+              <%= if contact.title == "M." then image_tag("glyphicons/glyphicons_034_old_man.png") end%>
+              <%= if contact.title == "Mme" then image_tag("glyphicons/glyphicons_035_woman.png") end%>
+            </td>
+          <% else %>
+            <td class="text-center">-</td>
+          <% end %>
 
-		
-		<% if !contact.tel.blank? %>
-			<% then %>
-				<td class="text-center"><%= contact.tel %></td>
-			<% else %>
-				<td class="text-center">-</td>
-		<% end %> 
+          <% if !contact.surname.blank? %>
+            <% then %>
+            <td class="text-center"><%= contact.surname %></td>
+          <% else %>
+            <td class="text-center">-</td>
+          <% end %> 		
 
-		<% if !contact.mobile.blank? %>
-			<% then %>
-				<td class="text-center"><%= contact.mobile %></td>
-			<% else %>
-				<td class="text-center">-</td>
-		<% end %>		
+          <% if !contact.forename.blank? %>
+            <% then %>
+            <td class="text-center"><%= contact.forename %></td>
+          <% else %>
+            <td class="text-center">-</td>
+          <% end %> 		
 
-		<% if !contact.email.blank? %>
-			<% then %>
-				<td class="text-center"><%= mail_to(contact.email)%></td>
-			<% else %>
-				<td class="text-center">-</td>
-		<% end %>
+          <% if !contact.account.nil? %>
+            <% then %>
+            <td class="text-center"><%= link_to contact.account.company , account_events_url(contact.account),{:title => "Afficher les évenements"} %></td>
+          <% else %>
+            <td class="text-center">-</td>
+          <% end %> 
 
 
-      <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_contact_path(contact),{:title => "Éditer le contact", :class =>"btn"} %></td>
- </tr>
-  <% end %>
-  </tbody>
+          <% if !contact.tel.blank? %>
+            <% then %>
+            <td class="text-center"><%= contact.tel %></td>
+          <% else %>
+            <td class="text-center">-</td>
+          <% end %> 
+
+          <% if !contact.mobile.blank? %>
+            <% then %>
+            <td class="text-center"><%= contact.mobile %></td>
+          <% else %>
+            <td class="text-center">-</td>
+          <% end %>		
+
+          <% if !contact.email.blank? %>
+            <% then %>
+            <td class="text-center"><%= mail_to(contact.email)%></td>
+          <% else %>
+            <td class="text-center">-</td>
+          <% end %>
+
+
+          <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_contact_path(contact),{:title => "Éditer le contact", :class =>"btn"} %></td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
-  
+
   <%= paginate @contacts %> 
 
 </div>

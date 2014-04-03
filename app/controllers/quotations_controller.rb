@@ -4,18 +4,70 @@ class QuotationsController < ApplicationController
   before_filter :authenticate_user!
   
   def index
-    @quotations = Quotation.order('ref').page(params[:page])
+    @quotations = Quotation.order('date DESC').page(params[:page])
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @quotation }
     end
     
   end
-  
+ 
+  def get_companies
+    partial_company_name = params[:company]
+
+    if partial_company_name.blank?
+      companies = Quotation.select("DISTINCT quotations.company")
+                           .map { |quotation| quotation.company }
+    else
+      companies = Quotation.select("DISTINCT quotations.company")
+                           .where("UPPER(quotations.company LIKE UPPER(?)", partial_company_name)
+                           .map { |quotation| quotation.company }
+    end
+
+    respond_to do |format|
+      format.json { render :json => companies }
+    end
+  end
+
+  def get_contacts
+    company = params[:company]
+    contacts = Quotation.select("DISTINCT quotations.title, quotations.forename, quotations.surname")
+                        .where("UPPER(company) = UPPER(?)", company)
+                        .map { |quotation| "#{quotation.title} #{quotation.forename} #{quotation.surname}" }
+
+    respond_to do |format|
+      format.json { render :json => contacts }
+    end
+  end
+
+  def filter
+    # Filter params
+    @statut_filter = params[:filter][:statut]
+    @account_company_filter = params[:filter][:account]
+    @contact_id_filter = params[:filter][:contact_id]
+    @user_id_filter = params[:filter][:user_id]
+
+    # Finding results
+    @quotations = Quotation.by_statut(@statut_filter)
+                           .by_account_company_like(@account_company_filter)
+                           .by_contact_id(@contact_id_filter)
+                           .by_user_id(@user_id_filter)
+                           .order('date DESC')
+                           .page(params[:page])
+
+    respond_to do |format|
+      format.html { render :action => :index }
+      format.json { render :json => @quotation }
+    end
+  end
   
   def new
     if @ability.cannot? :create, Quotation
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]',
+                                                                 t('app.actions.new')).gsub('[undefined_article]',
+                                                                 t('app.default.undefine_article_male')).gsub('[model]',
+                                                                 t('app.controllers.Quotation')
+                                                                )
       redirect_to quotations_url
 	  return false
     end

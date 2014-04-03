@@ -205,57 +205,32 @@ class TasksController < ApplicationController
     render :json => [c]
   end
   
-  ##
-  # Search bar filter handler
-  #
   def filter
-    
-    #filter data
-    if params.has_key?(:filter)
-      @email_filter = params[:filter][:user_email]
+    # Filter params
+    unless params[:filter].nil?
       @statut_filter = params[:filter][:statut]
-	  @priority_filter = params[:filter][:priority]
+      @priority_filter = params[:filter][:priority]
+      @company_filter = params[:filter][:company]
+      @contact_id_filter = params[:filter][:contact_id]
+      @user_id_filter = params[:filter][:user]
     else
-      @email_filter = current_user.email
-      @statut_filter = "Non terminé"
-	  @priority_filter = nil
+      # Default filter
+      @user_id_filter = current_user.id
     end
 
-    if @priority_filter.blank?
-	    @priority_filter = nil
-	  elsif @priority_filter.is_a? String
-	    Task::PRIORITIES.each_with_index do |value, index|
-				if value == @priority_filter
-					@priority_filter = index
-				end
-			end
-		end
-    # Search User by @email_filer
-    user = User.find(:first, :conditions => ['email LIKE ?', @email_filter])
+    # Request
+    @tasks = Task.by_statut(@statut_filter)
+                 .by_priority(@priority_filter)
+                 .by_account_company_like(@company_filter)
+                 .by_contact_id(@contact_id_filter)
+                 .by_user_id(@user_id_filter)
+                 .order("statut ASC, priority DESC, term DESC")
+                 .page(params[:page])
 
-    # Sort tasks by statut_filter
-    if @statut_filter == "Non terminé" then
-	    @tasks = Task.by_statut_non_termine(@statut_filter).by_user(user)
-	    if !@priority_filter.nil?
-		    @tasks = @tasks.by_priority(@priority_filter)
-			end
-    else
-      @tasks = Task.by_statut(@statut_filter).by_user(user)
-      if !@priority_filter.nil?
-				@tasks = @tasks.by_priority(@priority_filter)
-			end
-    end
-    
-	# Sort task by priority
-	#@tasks = Task.by_priority(@priority_filter).by_user(user)
-	
-    @tasks = @tasks.order("statut ASC, priority DESC, term DESC").page(params[:page])
-    
     respond_to do |format|
       format.html  { render :action => "index" }
       format.json { render :json => @tasks, :filter => @filter }
     end
-
   end
 
   ##

@@ -5,7 +5,7 @@
     <div class="field">
       <label class="checkbox">
         <%= check_box_tag :generate, "yes" %>
-        Filtrer les Opportunités
+        Filtrer les opportunités
       </label>
     </div>
   </div>
@@ -16,28 +16,30 @@
       <div class="row row-fluid">
 		<div class="">
 			<%= f.label :statut, "Statut :", :class => "top" %>
-			<%= f.select :statut, Opportunity::STATUTS,{:include_blank => "Tous"} , :class =>"filter_statut"%>
+      <%= f.select :statut, Opportunity::STATUTS,{ :include_blank => "Tous", :selected => @statut_filter } , :class =>"filter_statut"%>
 		</div>
-		<div class="">
-			<%= f.label :filter_priority, "Compte :", :class => "top" %>
-			<%= f.text_field :account , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_accounts}, :autocomplete=>"off"%>
-        </select>
-		</div>
-		<div class="">
-			<%= f.label :user_email, "Contact :", :class => "top" %>
-			<%= f.text_field :contact , :class =>"filter_tfield", :data => { :provide => 'typeahead', :source => @autocomplete_contacts}, :autocomplete=>"off"%>
-		</div>
+    <%# Le typeahead et la recherche automatique des contacts associés sont gérés par nav-search-bar.js %>
+    <div class="">
+      <%= f.label :filter_priority, "Compte :", :class => "top" %>
+      <%= f.text_field :account, :class =>"filter_tfield typeahead-account-search", :data => { :provide => 'typeahead'}, :autocomplete=>"off"%>
+    </div>
+    <div class="">
+      <%= f.label :user_email, "Contact :", :class => "top" %>
+      <select id="contact_id" name="filter[contact_id]">
+        <option></option>
+      </select>
+    </div>
 		<div class="">
 			<%= f.label :user_email, "Date Début :", :class => "top" %>
-			<%= f.text_field :date_begin, :class =>"filter_date"%>
+      <%= f.text_field :date_begin, :value => @date_begin_filter, :class =>"filter_date"%>
 		</div>
 		<div class="">
 			<%= f.label :user_email, "Date Fin :", :class => "top" %>
-			<%= f.text_field :date_end, :class =>"filter_date"%>
+      <%= f.text_field :date_end, :value => @date_end_filter, :class =>"filter_date"%>
 		</div>
 		<div class="">
 			<%= f.label :user_email, "Collaborateur :", :class => "top" %>
-			<%= f.collection_select :user, User.all_reals, :id, :full_name, {:include_blank => "Tous"} , :class =>"filter_statut"%>
+      <%= f.collection_select :user_id, User.all_reals, :id, :full_name, {:include_blank => "Tous", :selected => @user_id_filter } , :class =>"filter_statut"%>
 		</div>
 		<div>
         <%= f.submit "Filtrer", :class =>"btn "%>
