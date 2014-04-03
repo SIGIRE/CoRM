@@ -16,7 +16,7 @@ namespace :mail do
     puts("Active connection : #{connection.active}")
     puts("Connection state : #{state}")
 
-    emails = nil
+    mails = nil
     event_id = nil	
     if connection.active && state
       begin
@@ -29,7 +29,7 @@ namespace :mail do
             :enable_ssl 	 => false
 
           # Récupération des mails
-          emails = Mail.find_and_delete
+          mails = Mail.find_and_delete
           event_id = connection.type_event_id
         end
       rescue 
@@ -39,126 +39,44 @@ namespace :mail do
     end
 
     # Si on a récupéré des emails et un type d'évènement
-    if (!emails.nil? and !event_id.nil?)
+    if (!mails.nil? and !event_id.nil?)
 
-      emails.each do |mail|
+      mails.each do |mail|
         begin
-          # The return statement avoids spam.
-          user_from = User.by_email(mail.from).first
-          return if user.nil?
+          # The raise statement avoids spam.
+          user_from = User.by_mail(mail.from).first
+          raise "User not found" if user_from.nil?
 
-          # Finding contacts with to: mails.
-          contacts = mail.to.dup
-          contacts.map! do |m|
-            Contact.by_email(m).first
+          if (mail.to.length != 0)
+            accounts_with_contacts = get_accounts_with_contacts_by_mails(mail.to)
+            to_archive = false
+          else
+            accounts_with_contacts = {}
+            to_archive = true
           end
 
-          # S'il y a bien un ou plusieurs destinataires
-          if (mail.to.length >= 1)
-            # On parcours toutes les adresses marquées comme destinataires
-            mail.to.each do |destinataire|
+          accounts_with_contacts.each { |account, contacts| create_event(account, contacts) }
 
-              # Récupération des clients ayant l'adresse mail destinataire
-              contacts = Contact.where(:email => destinataire)
-
-              # Si on trouve un ou plusieurs contacts, on continue
-              if (contacts.length >= 1)
-                # On parcours tous les contacts récupérés
-                contacts.each do |contact|
-                  # Si le contact est associé à un compte, on crée un évènement
-                  if (!contact.account_id.nil?)
-
-                    # Création de l'évènement
-                    event = Event.new
-                    event.date_begin = mail.date.strftime("%Y-%m-%d %H:%M:%S")
-                    event.date_end = mail.date.strftime("%Y-%m-%d %H:%M:%S")
-                    event.notes = "Sujet : #{mail.subject}\n\n#{retrieve_body(mail)}"
-                    event.created_by = user.id
-                    event.contact_id = contact.id
-                    event.account_id = contact.account_id	
-                    event.event_type_id = event_id
-                    event.user_id = user.id
-
-                    # Récupération des pièces-jointes
-                    attachments = retrieve_attachments(mail)
-                    if (!attachments.nil?)
-                      attachments.each do |attachment|
-                        attach = EventAttachment.new
-                        attach.attach = attachment
-                        event.event_attachments << attach
-                      end
-                    end
-                    event.save
-                    # Si le contact n'est pas associé Ã  un compte
-                  else
-                    # Création de l'email
-                    email = Email.new
-                    email.user_id = user.id
-                    email.to = destinataire
-                    email.object = mail.subject
-                    email.content = retrieve_body(mail)
-                    email.send_at = mail.date.strftime("%Y-%m-%d %H:%M:%S")
-                    email.contact_id = contact.id
-                    email.save
-
-                    puts ("Email n. => #{email.id}")
-                    # Récupération des pièces-jointes
-                    attachments = retrieve_attachments(mail)
-                    if (!attachments.nil?)
-                      attachments.each do |attachment|
-                        attach = EmailAttachment.new
-                        attach.attach = attachment
-                        email.email_attachments << attach
-                      end
-                    end
-                  end
-                  # <--- FIN SI '!contact.account_id.nil?' 
-                end
-                # <--- FIN DE LA BOUCLE 'contacts.each'
-
-                # Si on ne trouve pas de contact...
-              else
-                # Création de l'email
-                email = Email.new
-                email.user_id = user.id
-                email.to = destinataire
-                email.object = mail.subject
-                email.content = retrieve_body(mail)
-                email.send_at = mail.date.strftime("%Y-%m-%d %H:%M:%S")
-                email.save
-
-                puts ("Email n. => #{email.id}")
-                # Récupération des pièces-jointes
-                attachments = retrieve_attachments(mail)
-                if (!attachments.nil?)
-                  attachments.each do |attachment|
-                    attach = EmailAttachment.new
-                    attach.attach = attachment
-                    email.email_attachments << attach
-                  end
-                end
-              end
-            end
-          end
         rescue Exception => e
-          puts "Il y a eu une erreur de type #{e.class} avec un email"
-          puts "#{e.backtrace.join("\n")}"
+          #  puts "Il y a eu une erreur de type #{e.class} avec un email"
+          #  puts "#{e.backtrace.join("\n")}"
         end
-        # <--- FIN DE LA RECUPERATION DES EXCEPTIONS
       end
-      # <--- FIN DE LA BOUCLE 'emails.each'
 
-      # On affiche le nombre de mails restants (normalement 0)
-      begin 
-        puts("Nombre de mails : #{Mail.all.length} (apres recuperation)")
-      rescue Timeout::Error => e
-        puts("Impossible de joindre le serveur... reconnexion en cours")	
-        puts("Nombre de mails : #{Mail.all.length} (apres recuperation)")
+    end
+  end
+
+  desc "TODO"
+  task :process_mails => :environment do
+    puts("Traitement des emails")
+
+    emails = Email.all
+    emails.each do |email|
+      if (email.check)
+        email.convert
       end
     end
-    # <--- FIN SI '!emails.nil?'
-  end
-  # <--- FIN TACHE 'get_mail'
+  end    
 
   def convert(text)
     return text.force_encoding('iso8859-1').encode('UTF-8')
@@ -207,6 +125,66 @@ namespace :mail do
     end
   end
 
+  def create_event (account, contacts, mail)
+    debugger
+    contacts_full_names = contacts.map { |contact| "#{contact.name} #{contact.surname}" }
+                                  .join(', ')
+
+    event = Event.new
+    event.date_begin = mail.date.strftime("%Y-%m-%d %H:%M:%S")
+    event.date_end = mail.date.strftime("%Y-%m-%d %H:%M:%S")
+    event.notes = "Sujet : #{mail.subject}\nAvec : #{contacts_full_names}\n\n#{retrieve_body(mail)}"
+    event.created_by = user_from.id
+    event.contact_id = contacts.first.id
+    event.account_id = account.id
+    event.event_type_id = event_id
+    event.user_id = user_from.id
+
+    attachments = retrieve_attachments(mail)
+    unless attachments.nil?
+      attachments.each do |attachment|
+        attach = EventAttachment.new
+        attach.attach = attachment
+        event.event_attachments << attach
+      end
+    end
+
+    event.save
+  end
+
+  def save_mail (mail)
+    email = Email.new
+    email.user_id = user.id
+    email.to = destinataire
+    email.object = mail.subject
+    email.content = retrieve_body(mail)
+    email.send_at = mail.date.strftime("%Y-%m-%d %H:%M:%S")
+    email.contact_id = contact.id
+    email.save
+
+    attachments = retrieve_attachments(mail)
+    if (!attachments.nil?)
+      attachments.each do |attachment|
+        attach = EmailAttachment.new
+        attach.attach = attachment
+        email.email_attachments << attach
+      end
+    end
+  end
+
+  # Get mail adresses list as parameter :
+  # ['foo@bar.com', 'titi@tata.fr']
+  def get_accounts_with_contacts_by_mails(mails)
+    resultset = Hash.new { |h, k| h[k] = Set.new }
+    mails.each do |mail|
+      contact = Contact.by_email(mail).first
+      account = contact.account
+      resultset[account].add(contact) unless account.nil?
+    end
+
+    return resultset
+  end
+
   def retrieve_attachments(mail)
     # On vérifie la présence de pièces-jointes
     if (mail.attachments.length >= 1)
@@ -230,14 +208,4 @@ namespace :mail do
     end
   end
 
-  task :process_mails => :environment do
-    puts("Traitement des emails")
-
-    emails = Email.all
-    emails.each do |email|
-      if (email.check)
-        email.convert
-      end
-    end
-  end    
 end
