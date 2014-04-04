@@ -42,8 +42,7 @@ namespace :mail do
             user_name: connection.login,
             password: connection.password,
             enable_ssl: false }
-        mails = Mail.all
-        #mails = Mail.find_and_delete
+        mails = Mail.find_and_delete
         event_id = connection.type_event_id
       end
     rescue 

@@ -165,7 +165,6 @@ class MailProcessor
     resultset = Hash.new { |h, k| h[k] = Set.new }
     mail_adresses.each do |mail_adress|
       contact = get_contact_by_mail(mail_adress)
-      debugger
       unless contact.nil?
         account = contact.account
         resultset[account].add(contact) unless account.nil?
