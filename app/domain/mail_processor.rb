@@ -11,9 +11,11 @@ class MailProcessor
   # Transforms a mail into an event, or an Email instance if it can find any account
   # related to mail recipients.
   #
-  # It will raise an exception if the instance of MailProcessor has no event_type_id set.
+  # An exception will be raised if the instance of MailProcessor has no event_type_id set.
 
   def process(mail)
+    raise "No event_type_id set" if event_type_id.blank?
+
     @mail = decompose(mail)
 
     begin
@@ -117,25 +119,23 @@ class MailProcessor
 
   def save_mail
     email = Email.new
-    email.user_id = user.id
-    email.to = destinataire
-    email.object = mail.subject
-    email.content = retrieve_body(@mail)
-    email.send_at = @mail.date.strftime("%Y-%m-%d %H:%M:%S")
-    email.contact_id = contact.id
+    email.user_id = @mail[:from].id
+    email.to = @mail[:_mail].to.first
+    email.object = @mail[:subject]
+    email.content = @mail[:body]
+    email.send_at = @mail[:date]
     email.save
 
-    attachments = retrieve_attachments
-    if (!attachments.nil?)
-      attachments.each do |attachment|
-        attach = EmailAttachment.new
-        attach.attach = attachment
-        email.email_attachments << attach
-      end
+    @mail[:attachments].each do |attachment|
+      attach = MailAttachment.new
+      attach.attach = attachment
+      email.mail_attachments << attach
     end
   end
 
+  ##
   # Caches Contact.by_email results, avoids too many db queries
+
   def get_contact_by_mail(mail_adress)
     @contacts_cache ||= {}
     @contacts_cache[mail_adress] ||= Contact.by_email(mail_adress).first || 0
