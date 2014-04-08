@@ -17,16 +17,16 @@
     <% end %>
 
     <ul class="nav nav-tabs">
-      <li<%=' class="active"' if action_name.eql?('show')%>><a href="#events" data-toggle="tab">Évènements</a></li>
-      <li<%=' class="active"' if action_name.eql?('show_opportunities')%>><a href="#opportunities" data-toggle="tab">Opportunités</a></li>
-      <li<%=' class="active"' if action_name.eql?('show_tags')%>><a href="#tags" data-toggle="tab">Tags</a></li>
-      <li<%=' class="active"' if action_name.eql?('show_documents')%>><a href="#documents" data-toggle="tab">Documents</a></li>
-      <li<%=' class="active"' if action_name.eql?('show_relations')%>><a href="#relations" data-toggle="tab">Relations</a></li>
-      <li<%=' class="active"' if action_name.eql?('show_quotations')%>><a href="#quotations" data-toggle="tab">Devis</a></li>
+      <li<%=' class=active' if controller_name.eql? 'events' %>><%= link_to 'Évènements', [@account, :events]%></li>
+      <li<%=' class=active' if controller_name.eql? 'opportunities'%>><%= link_to 'Opportunités', [@account, :opportunities] %></li>
+      <li<%=' class=active' if controller_name.eql? 'tags'%>><%= link_to 'Tags', [@account, :tags] %></li>
+      <li<%=' class=active' if controller_name.eql? 'documents' %>><%= link_to 'Documents', [@account, :documents]%></li>
+      <li<%=' class=active' if controller_name.eql? 'relations' %>><%= link_to 'Relations', [@account, :relations]%></li>
+      <li<%=' class=active' if controller_name.eql? 'quotations' %>><%= link_to 'Devis', [@account, :quotations]%></li>
     </ul>
     
     <div class="tab-content">
-      <div class="tab-pane active" id=<%= "\"#{action_name}\"" %>><%= yield %></div>
+      <div class="tab-pane active" id=<%= controller_name %>><%= yield %></div>
     </div>
 
       </div>

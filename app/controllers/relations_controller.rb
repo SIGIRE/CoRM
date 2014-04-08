@@ -4,7 +4,16 @@
 # Controller that manages Relation
 #
 class RelationsController < ApplicationController
+  before_filter :load_account, only: [:index, :filter]
+  layout :current_layout
 
+  def index
+    @relations = relations.page(params[:page])
+    respond_to do |format|
+      format.html
+      format.json { render :json => @relations }
+    end
+  end
   ##
   # Render the page to show the form to create a new Relation
   #
@@ -98,4 +107,21 @@ class RelationsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+    def load_account
+      @account = Account.find_by_id(params[:account_id])
+    end
+    
+    def relations
+      @account ? @account.relations : Relation
+    end
+
+    def current_layout
+      if @account && @account.persisted? && request.path_parameters[:action] == "index" # i prefer helper 'current_action'
+        "accounts_show"
+      else
+        "application"
+      end
+    end
 end

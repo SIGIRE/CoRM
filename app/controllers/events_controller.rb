@@ -4,24 +4,19 @@
 # This class manage Event
 #
 class EventsController < ApplicationController
-  
+  before_filter :load_account, only: [:index, :filter]
+  layout :current_layout
+
   ##
   # Show the full list of Events  
   #
   # GET /events     Account.order("company").page(params[:page]).per(3)
   # GET /events.json
   def index
-    
-    if params[:account_id] == nil  then
-      @events = Event.page(params[:page])
-    else
-      @account = Account.find(params[:account_id])
-      @events = @account.events.order("date_begin DESC").page(params[:page])
-      @event_new = @account.events.build
-	  @quotations = Quotation.by_account(@account).order('date DESC').page(params[:page])
-    end
+    @events = events.order("date_begin DESC").page(params[:page])
+    @event_new = @account.events.build if @account
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { render :layout => 'accounts_show' }
       format.json { render :json => @events }
     end
   end
@@ -184,4 +179,21 @@ class EventsController < ApplicationController
       return false
     end
   end
+
+  private
+    def load_account
+      @account = Account.find_by_id(params[:account_id])
+    end
+    
+    def events 
+      @account ? @account.events : Event
+    end
+
+    def current_layout
+      if @account && @account.persisted? && request.path_parameters[:action] == "index" # i prefer helper 'current_action'
+        "accounts_show"
+      else
+        "application"
+      end
+    end
 end

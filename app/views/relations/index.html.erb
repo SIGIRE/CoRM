@@ -1,21 +1,54 @@
-<h1>Listing relations</h1>
+<div class="container-fluid" style="margin-top: 1em;">
+   
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+     <div class="well">
+       <div class="row-fluid">
+         <div class="span9">
+           <h3>Relation(s) de <%= @account.company %></h3>
+         </div>
+           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_relation_path(:account_id_1 => @account.id) ,{:title => "Créer une relation", :class =>"pull-right btn"}%>
+       </div>
+     </div>
 
-<% @relations.each do |relation| %>
-  <tr>
-    <td><%= link_to 'Show', relation %></td>
-    <td><%= link_to 'Edit', edit_relation_path(relation) %></td>
-    <td><%= link_to 'Destroy', relation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+         
+</div>
 
-<br />
 
-<%= link_to 'New Relation', new_relation_path %>
+<div class="container-fluid">
+  
+ <% if Relation.by_account(@account).blank? %>
+  <h4> Aucune Relation n'affectée à ce Compte </h4>
+ <% else %>
+
+    <table class="table table-bordered table-striped">
+      <tr>
+        <th><center>Id</center></th>
+        <th><center>Nom</center></th>
+        <th><center>Compte lié</center></th>
+        <th><center>Éditer</center></th> 
+      </tr>
+    
+    <% @relations = Relation.by_account(@account).order('name').page(params[:page]) %>
+    <% @relations.each do |relation| %>
+      <tr>
+        <td><center><%= relation.id %></center></td>
+        <td style="width: 15em;"><center><%= relation.name %></center></td>
+        <td><center>
+          <% if relation.account2.id == @account.id %>
+            <%= link_to relation.account1.company, account_events_path(relation.account1) %>
+          <% else %>
+            <%= link_to relation.account2.company, account_events_path(relation.account2) %>
+          <% end %>
+        </center></td>
+        <td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_relation_path(relation) ,{:title => "Modifier la relation", :class =>"btn"} %></center></td>
+    <% end %>
+    </table>
+    
+    <br />
+    
+    <%= paginate @relations %>
+  <% end %>
+  
+
+  
+</div>

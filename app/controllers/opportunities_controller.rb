@@ -3,14 +3,17 @@
 class OpportunitiesController < ApplicationController
   
   before_filter :authenticate_user!
+  before_filter :load_account, only: [:index, :filter]
+
+  layout :current_layout
   
   ##
   # Display the full list of Opportunities by paginate_by
   #
   def index
-    @opportunities = Opportunity.by_user(current_user)
-                                .where("statut IN ('Détectée', 'En cours')")
-                                .order('term desc').page(params[:page])
+    @opportunities = opportunities.by_user(current_user)
+                                  .where("statut IN ('Détectée', 'En cours')")
+                                  .order('term desc').page(params[:page])
     
     #initialisation puis calcul des totaux
     @total_amount = 0
@@ -205,7 +208,22 @@ class OpportunitiesController < ApplicationController
       format.html  { render :action => "index" }
       format.json { render :json => @opportunities , :locals =>{:total_amount => @total_amount , :total_profit => @total_profit } }
     end
-
   end
   
+  private
+    def load_account
+      @account = Account.find_by_id(params[:account_id])
+    end
+    
+    def opportunities 
+      @account ? @account.opportunities : Opportunity
+    end
+
+    def current_layout
+      if @account && @account.persisted? && request.path_parameters[:action] == "index" # i prefer helper 'current_action'
+        "accounts_show"
+      else
+        "application"
+      end
+    end
 end

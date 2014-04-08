@@ -2,9 +2,11 @@
 
 class QuotationsController < ApplicationController
   before_filter :authenticate_user!
-  
+  before_filter :load_account, only: [:index, :filter]
+  layout :current_layout
+
   def index
-    @quotations = Quotation.order('date DESC').page(params[:page])
+    @quotations = quotations.order('date DESC').page(params[:page])
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @quotation }
@@ -304,4 +306,20 @@ class QuotationsController < ApplicationController
     @event = Event.create(hash)
   end
   
+  private
+    def load_account
+      @account = Account.find_by_id(params[:account_id])
+    end
+    
+    def quotations 
+      @account ? @account.quotations : Quotation
+    end
+
+    def current_layout
+      if @account && @account.persisted? && request.path_parameters[:action] == "index" # i prefer helper 'current_action'
+        "accounts_show"
+      else
+        "application"
+      end
+    end
 end

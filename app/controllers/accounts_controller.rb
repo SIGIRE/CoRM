@@ -5,7 +5,7 @@
 #
 class AccountsController < ApplicationController
   
-  before_filter :check_can_read!, only: [:show, :show_documents, :show_relations, :show_tags, :show_quotations, :show_opportunities]
+  before_filter :check_can_read!, only: [:show]
 
   ##
   # Show the full list of Accounts by paginate_by
@@ -26,63 +26,7 @@ class AccountsController < ApplicationController
   ##
   # Show events of an account
 
-  def show_events
-    @account = Account.find(params[:id])
-    respond_to do |format|
-      format.html { render :layout => 'account_show' }
-      format.json { render :json => @account }
-    end
-  end
-
-  ##
-  # Show opportunities of an account
-
-  def show_opportunities
-    @account = Account.find(params[:id])
-    @opportunities = Opportunity.by_account(@account).order('name ASC').page(params[:page]
-    respond_to do |format|
-      format.html { render :layout => 'account_show' }
-      format.json { render :json => @account }
-    end
-  end
-
-  ##
-  # Show quotations of an account
-
-  def show_quotations
-    @account = Account.find(params[:id])
-    respond_to do |format|
-      format.html { render :layout => 'account_show' }
-      format.json { render :json => @account }
-    end
-  end
-
-  ##
-  # Show tags of an account
-
-  def show_tags
-    @account = Account.find(params[:id])
-    respond_to do |format|
-      format.html { render :layout => 'account_show' }
-      format.json { render :json => @account }
-    end
-  end
-
-  ##
-  # Show documents of an account
-
-  def show_documents
-    @account = Account.find(params[:id])
-    respond_to do |format|
-      format.html { render :layout => 'account_show' }
-      format.json { render :json => @account }
-    end
-  end
-
-  ##
-  # Show relations of an account
-
-  def show_relations
+  def show
     @account = Account.find(params[:id])
     respond_to do |format|
       format.html { render :layout => 'account_show' }
