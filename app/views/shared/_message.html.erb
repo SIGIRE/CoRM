@@ -1,14 +1,14 @@
 <% if notice %>
     <!-- Alerte 'notice' -->
-    <script>
-        alertify.success("<%= notice %>");
+	<script>
+        alertify.success('<strong><%= notice %></strong>');
     </script>
 <% end %>
    
 <% if alert %>
     <!-- Alerte 'alert' -->
     <script>
-        alertify.error("<%= alert %>");
+        alertify.error("<strong><%= alert %><strong>");
     </script>
 <% end %>
 

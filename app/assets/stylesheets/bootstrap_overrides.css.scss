@@ -122,12 +122,16 @@ h6 {
 
 #logo {
   float: left;
-  width: 180px;
   height: 180px;
   padding: 9px 13px 9px 12px;
-  display: block;
-  background: url(back_grey.png)
+  position: relative;
+  width: 180px;
+  background: url(back_grey.png);
+  line-height: 180px;
+  text-align: center;
 }
+
+
 
 #login {
   float: right;
