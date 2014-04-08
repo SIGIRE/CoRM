@@ -36,7 +36,6 @@
         <th class="text-center">PDF</th>         
       </tr>
     
-    <% @quotations = Quotation.by_account(@account).order('date').page(params[:page]) %>
     <% @quotations.each do |quotation| %>
     <tr>
         <td class="text-center"><%= quotation.id %></td>
