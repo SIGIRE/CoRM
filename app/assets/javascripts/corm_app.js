@@ -140,6 +140,7 @@ $(document).ready(function() {
     $(document.getElementById('filter_end')).datepicker(lang);
     $(document.getElementById('tache_term')).datepicker(lang);
     $(document.getElementsByClassName('event_date')).datepicker(lang);
+    $(document.getElementsByClassName('filter_date')).datepicker(lang);
     $(document.getElementById('opportunity_term')).datepicker(lang);
     $(document.getElementById('quotation_date')).datepicker(lang);
     $(document.getElementById('task_term')).datepicker(lang); 

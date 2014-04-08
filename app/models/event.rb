@@ -32,5 +32,7 @@ class Event < ActiveRecord::Base
   def editor
     return editor_user || User::default
   end
+
+  scope :by_account_id, lambda { |account_id| where("events.account_id = ?", account_id) }
   
 end
