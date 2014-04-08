@@ -57,11 +57,7 @@ function display(id) {
        </p>
       <div class="more">   
         <% if !e.notes.blank? %>
-            <div class="notes">
-                <% array = e.notes.lines.to_a %>
-                <% lines = array.shift(25) %>
-                <pre class="no-style"><% lines.each do |line| %><%= line %><% end %><% if array.count >= 1 %><a href='javascript:void(0)' onClick="display(<%= e.id %>)" id="display-<%= e.id %>">Plus d'informations...</a><div id="event-<%= e.id %>" class="event hidden"><% array.each do |line| %><%= line %><% end %></div><%end%></pre>
-            </div>
+            <div class="notes"><pre class="no-style"><%= e.notes %></pre></div>
         <% end %>
       </div>
 
