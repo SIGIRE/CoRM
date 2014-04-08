@@ -32,10 +32,14 @@
                      <%= f.file_field "attach" %>
                 </div>
                 <div class="field full">
-                    <div class="span2"></div><input type="submit" value="Sauvegarder" class="btn btn-success">
+                    <div class="span2"></div><input type="submit" value="Sauvegarder" class="btn btn-success"> 
+					<div class="alert alert-info">
+					  <strong>Information :</strong> l'image doit faire 180 par 180 pixel au maximum...
+					</div>
                     <%= hidden_field_tag "setting[id]", @setting.id%>
                 </div>
             </div>
+			
         <% end %>
 	</div>
 	
