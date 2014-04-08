@@ -184,28 +184,9 @@ class OpportunitiesController < ApplicationController
     @user_id_filter = params[:filter][:user_id]
     @statut_filter = params[:filter][:statut]
     @contact_id_filter = params[:filter][:contact_id]
-    @date_begin_filter = params[:filter][:date_begin]
-    @date_end_filter = params[:filter][:date_end]
-    
-    # convert date => yyyy/mm/dd
-    if @date_begin_filter.blank?
-      date_begin = "1990-05-21 00:00:00"
-    else
-      # trouble on inclusion
-      temp = @date_begin_filter.split('/')
-      temp[0] = temp[0].to_i - 1
-      date_begin = temp.reverse!.join('-') + ' 00:00:00'
-    end
-    
-    if @date_end_filter.blank?
-      date_end = "2036-12-12 00:00:00"
-    else
-      date_end = @date_end_filter.split('/').reverse!.join('-') + ' 00:00:00'
-    end
     
     # sort by filter values
     @opportunities = Opportunity.by_statut(@statut_filter)
-                                .by_term(date_begin, date_end)
                                 .by_account_company_like(@company_filter)
                                 .by_contact_id(@contact_id_filter)
                                 .by_user(@user_id_filter)
