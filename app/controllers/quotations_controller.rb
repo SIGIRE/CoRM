@@ -2,16 +2,23 @@
 
 class QuotationsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :load_account, only: [:index, :filter]
+  before_filter :load_account, only: [:index]
   layout :current_layout
 
+  has_scope :by_statut
+  has_scope :by_account_company_like
+  has_scope :by_contact_id
+  has_scope :by_user_id
+
   def index
-    @quotations = quotations.order('date DESC').page(params[:page])
+    @quotations = apply_scopes(quotations).
+                  order('date DESC').
+                  page(params[:page])
+
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @quotation }
+      format.json { render :json => @quotations }
     end
-    
   end
  
   def get_companies
@@ -43,19 +50,6 @@ class QuotationsController < ApplicationController
   end
 
   def filter
-    # Filter params
-    @statut_filter = params[:filter][:statut]
-    @account_company_filter = params[:filter][:account]
-    @contact_id_filter = params[:filter][:contact_id]
-    @user_id_filter = params[:filter][:user_id]
-
-    # Finding results
-    @quotations = Quotation.by_statut(@statut_filter)
-                           .by_account_company_like(@account_company_filter)
-                           .by_contact_id(@contact_id_filter)
-                           .by_user_id(@user_id_filter)
-                           .order('date DESC')
-                           .page(params[:page])
 
     respond_to do |format|
       format.html { render :action => :index }
@@ -316,7 +310,7 @@ class QuotationsController < ApplicationController
     end
 
     def current_layout
-      if @account && @account.persisted? && request.path_parameters[:action] == "index" # i prefer helper 'current_action'
+      if @account && @account.persisted?
         "accounts_show"
       else
         "application"

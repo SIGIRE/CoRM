@@ -1,19 +1,22 @@
 # encoding: utf-8
 
 class OpportunitiesController < ApplicationController
-  
   before_filter :authenticate_user!
-  before_filter :load_account, only: [:index, :filter]
-
+  before_filter :load_account, only: [:index]
   layout :current_layout
+
+  has_scope :by_user_id
+  has_scope :by_statut
+  has_scope :by_account_company_like
+  has_scope :by_contact_id
   
   ##
   # Display the full list of Opportunities by paginate_by
   #
   def index
-    @opportunities = opportunities.by_user(current_user)
-                                  .where("statut IN ('Détectée', 'En cours')")
-                                  .order('term desc').page(params[:page])
+    @opportunities = apply_scopes(opportunities).
+                     order('term desc').
+                     page(params[:page])
     
     #initialisation puis calcul des totaux
     @total_amount = 0
@@ -176,38 +179,6 @@ class OpportunitiesController < ApplicationController
   def update_contact_select
     contacts = Contact.where(:account_id => params[:id]).order(:surname)
     render :partial => "contacts" , :locals =>{:contacts => contacts }  
-  end
-  
-  ##
-  # AutoCompletion handler
-  #
-  def filter
-    # These variables will be used in view
-    @company_filter = params[:filter][:account]
-    @user_id_filter = params[:filter][:user_id]
-    @statut_filter = params[:filter][:statut]
-    @contact_id_filter = params[:filter][:contact_id]
-    
-    # sort by filter values
-    @opportunities = Opportunity.by_statut(@statut_filter)
-                                .by_account_company_like(@company_filter)
-                                .by_contact_id(@contact_id_filter)
-                                .by_user(@user_id_filter)
-                                .order("term DESC,statut DESC")
-                                .page(params[:page])
-    
-    # Get totals after an user search calcul des totaux après une recherche sur l'utilisateur
-    @total_amount = 0
-    @total_profit = 0
-    Opportunity.by_user(@user_id_filter).where("statut IN ('Détectée', 'En cours')").each do |op|
-      @total_amount += op.amount
-      @total_profit += op.profit
-    end
-    
-    respond_to do |format|
-      format.html  { render :action => "index" }
-      format.json { render :json => @opportunities , :locals =>{:total_amount => @total_amount , :total_profit => @total_profit } }
-    end
   end
   
   private

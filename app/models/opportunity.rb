@@ -61,7 +61,8 @@ class Opportunity < ActiveRecord::Base
   end)
   scope :by_contact, lambda { |contact| where("contact_id = ?", contact.id) unless contact.nil? }
   scope :by_contact_id, lambda { |contact_id| where("contact_id = ?", contact_id) unless contact_id.blank? }
-  scope :by_user, lambda { |user| where( "opportunities.user_id = ?", user) unless user.blank? }
+  scope :by_user, lambda { |user| where( "opportunities.user_id = ?", user.id) unless user.nil? }
+  scope :by_user_id, lambda { |user_id| where( "opportunities.user_id = ?", user_id) unless user_id.blank? }
   scope :by_term, lambda { |date_begin,date_end|  where( "term BETWEEN ? AND ? OR term IS NULL", '%'+date_begin, date_end+'%')}
   
 end
