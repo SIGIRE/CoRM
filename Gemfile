@@ -47,3 +47,5 @@ gem 'paperclip', '~> 3.4.1'
 gem 'prawn_rails', '~> 0.0.11'
 gem 'money-rails', '~> 0.8.1'
 gem 'mail', '~> 2.5.4'
+
+gem 'has_scope'
