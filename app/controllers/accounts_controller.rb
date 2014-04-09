@@ -5,13 +5,12 @@
 #
 class AccountsController < ApplicationController
   
+  before_filter :check_can_read!, only: [:show]
+
   ##
   # Show the full list of Accounts by paginate_by
-  #
-  # GET /accounts
-  # GET /accounts.json
+
   def index
-    
     @accounts = Account.order("company").page(params[:page])
     
     #creation des ensembles contenant les comptes et contacts pour l'utilisation du typeahead
@@ -25,21 +24,13 @@ class AccountsController < ApplicationController
   end
 
   ##
-  # Show one occurence of Account
-  #
-  # GET /accounts/1
-  # GET /accounts/1.json
+  # Show events of an account
+
   def show
-    if @ability.can? :read, Account
-      @account = Account.find(params[:id])
-      respond_to do |format|
-        format.html # show.html.erb
-        format.json { render :json => @account }
-      end
-    else
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
-      redirect_to accounts_url
-      return false
+    @account = Account.find(params[:id])
+    respond_to do |format|
+      format.html { render :layout => 'account_show' }
+      format.json { render :json => @account }
     end
   end
 
@@ -281,6 +272,18 @@ class AccountsController < ApplicationController
       end
     end
     return (!correction.nil?() ? correction.concat(url) : url)
+  end
+
+  private
+  def check_can_read!
+    unless @ability.can? :read, Account
+      flash[:error] = t('app.cancan.messages.unauthorized').
+        gsub('[action]', t('app.actions.show')).
+        gsub('[undefined_article]', t('app.default.undefine_article_male')).
+        gsub('[model]', t('app.controllers.Account'))
+      redirect_to accounts_url
+      return false
+    end
   end
   
 end

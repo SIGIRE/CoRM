@@ -45,6 +45,7 @@ $navbarBackground: #2C2C2C;
 
 @import "./alertify.core";
 @import "./alertify.bootstrap";
+@import "./sticky-footer-navbar";
 
 // Ajout des deux etats des évènements
 div.event {

@@ -114,7 +114,12 @@ Crm::Application.routes.draw do
       get 'filter'
       post 'add_tag'
     end
-    resources :events, :path => 'evenements'
+    resources :events, path: 'evenements'
+    resources :opportunities, path: 'opportunites'
+    resources :quotations, path: 'devis'
+    resources :tags, path: 'tags'
+    resources :documents, path: 'documents'
+    resources :relations, path: 'relations'
     resources :contacts
   end
   match 'comptes', :controller => 'accounts', :action => 'index'
