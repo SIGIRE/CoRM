@@ -12,12 +12,16 @@
     <%= favicon_link_tag 'icons/favicon2.png' %>
 </head>
 <body role="application">
-  
+
+<div id="wrap">  
+
 <%= render "shared/menu" %>
 
 <%= render "shared/message" %>
 
 <%= yield %>
+
+</div><!--! end of #wrap -->
 
 <%= render "shared/footer" %>
 
