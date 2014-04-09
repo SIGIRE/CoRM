@@ -1,26 +1,54 @@
+<div class="container-fluid" style="margin-top: 1em;">
+   
+
+     <div class="well">
+       <div class="row-fluid">
+         <div class="span8">
+           <h3>Document(s) de <%= @account.company %></h3>
+         </div>
+           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_document_path(:account_id => @account.id) ,{:title => "Créer un document", :class =>"pull-right btn"}%>
+       </div>
+     </div>
+
+         
+</div>
+
+
 <div class="container-fluid">
-  <table class="table table-bordered table-striped"  style="margin-top: 1em;">
+  
+ <% if Document.by_account(@account).blank? %>
+ <h4> Aucun Document n'est rattaché à ce Compte </h4>
+ <% else %>
+  
+ <table class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th>Id</th>
-        <th>Nom</th>
-        <th>Compte</th>
-        <th>Fichier joint</th>
-        <th>Notes</th>
-        <th>Voir</th>
-        <th>Editer</th>
+        <th class="text-center">Id</th>
+        <th class="text-center">Nom</th>
+        <th class="text-center">Document</th>
+        <th class="text-center">Description</center></th>
+	<th class="text-center">Télécharger</th>
+        <th class="text-center">Éditer</th>
       </tr>
     </thead>
     <tbody>
+      <% @documents = Document.by_account(@account).order('name ASC').page(params[:page]) %>
       <% @documents.each do |document| %>
         <tr>
-         <td><%= link_to document.id, document %></td>
-         <td><%= document.name %></td>
-         <td><%= link_to document.account.company , document.account %></td>
-         <td><%= link_to (image_tag("glyphicons/glyphicons_036_file.png") + ' ' + document.attach_file_name), document.attach.url, :target => "_blank"%></td>
-         <td><%= truncate(document.notes, :length => 600, :separator => ' ') %></td>
-         <td><%= link_to image_tag("glyphicons/glyphicons_029_notes_2.png"), document %></td>
-         <td><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_document_path(document) %></td>
+         <td class="text-center"><%= document.id %></td>
+         <td class="text-center"><%= document.name %></td>
+         <td class="text-center">
+         <% document.document_attachments.each do |attachment| %>
+            <%= link_to (attachment.attach_file_name), attachment.attach.url, :target => '_blank' %><br/>
+         <% end %>
+         </td>
+         <td class="text-center"><%= truncate(document.notes, :length => 600, :separator => ' ') %></td>
+         <td class="text-center">
+         <% document.document_attachments.each do |attachment| %>
+            <%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attachment.attach_file_name , attachment.attach.url, :target => '_blank' %><br/>
+         <% end %>
+         </td>
+         <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_document_path(document),{:title => "Éditer le document", :class =>"btn"} %></td>
         </tr>
         <% end %>
       </tbody>
@@ -29,4 +57,7 @@
   <br />
   
   <%= paginate @documents %>
+  
+  <% end %> 
+  
 </div>
