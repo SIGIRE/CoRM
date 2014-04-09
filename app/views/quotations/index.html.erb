@@ -1,5 +1,12 @@
-<%= render 'title', :locals => { :title => @title }%>
+<%
+  filter = 'filter'
+  index = 'index'
+  if @account
+    filter += '_nested'
+    index += '_nested'
+  end
+%>
 
-<%= render partial: 'filter' %>
-    
-<%= render partial: 'index' %>
+<%= render 'title', :locals => { :title => @title }%>
+<%= render partial: filter %>
+<%= render partial: index %>
