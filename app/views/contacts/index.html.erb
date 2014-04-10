@@ -42,7 +42,6 @@
   <table class="table table-bordered table-striped table-hover">
     <thead>
       <tr>
-        <th class="text-center">#</th>
         <th class="text-center">Civ.</th>
         <th class="text-center">Nom</th>
         <th class="text-center">Pr&eacute;nom</th>
@@ -56,13 +55,6 @@
     <tbody>
       <% @contacts.each do |contact| %>
         <tr>
-          <% if !contact.id.nil? %>
-            <% then %>
-            <td class="text-center"><%= contact.id %></td>
-          <% else %>
-            <td class="text-center">-</td>
-          <% end %>      
-
           <% if !contact.title.blank? %>
             <% then %>
             <td class="text-center">

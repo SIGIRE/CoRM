@@ -5,7 +5,6 @@
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th><center>#</center></th>
         <th><center>Nom</center></th>
         <th><center>Description</center></th>
         <th><center>Éditer</center></th>
@@ -15,7 +14,6 @@
   <tbody>
   <% @tags.each do |tag| %>
     <tr>
-      <td><center><%= tag.id %></center></td>
       <td><center><%= tag.name %></center></td>
       <td><center><%= truncate(tag.description, :length => 75, :separator => ' ')%></center></td>
       <td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_tag_path(tag),{:title => "Éditer le tag", :class =>"btn"} %></center></td>
