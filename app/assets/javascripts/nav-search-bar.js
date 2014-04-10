@@ -197,7 +197,7 @@ $(document).ready(function() {
         if (select_dom) {
           var select = $(select_dom);
           var contact_full_name = function(c) {
-            return c.title + ' ' + c.forename + ' ' + c.surname;
+            return c.forename + ' ' + c.surname;
           }
           /* getContacts */
           $.ajax({

@@ -1,0 +1,677 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+$	app/assets/javascripts/alertify.js	/^		};$/;"	f
+$.$.$.$.interval	app/assets/javascripts/bootstrap/bootstrap-carousel.js	/^  $.fn.carousel.defaults = {$/;"	p
+$.$.$.$.interval	vendor/assets/javascripts/bootstrap/bootstrap-carousel.js	/^  $.fn.carousel.defaults = {$/;"	p
+$.$.$.$.loadingText	app/assets/javascripts/bootstrap/bootstrap-button.js	/^  $.fn.button.defaults = {$/;"	p
+$.$.$.$.loadingText	vendor/assets/javascripts/bootstrap/bootstrap-button.js	/^  $.fn.button.defaults = {$/;"	p
+$.$.$.$.pause	app/assets/javascripts/bootstrap/bootstrap-carousel.js	/^  , pause: 'hover'$/;"	p
+$.$.$.$.pause	vendor/assets/javascripts/bootstrap/bootstrap-carousel.js	/^  , pause: 'hover'$/;"	p
+$.$.$.$.toggle	app/assets/javascripts/bootstrap/bootstrap-collapse.js	/^  $.fn.collapse.defaults = {$/;"	p
+$.$.$.$.toggle	vendor/assets/javascripts/bootstrap/bootstrap-collapse.js	/^  $.fn.collapse.defaults = {$/;"	p
+$.fn.dropdown	app/assets/javascripts/bootstrap/bootstrap-dropdown.js	/^  }$/;"	f
+$.fn.dropdown	vendor/assets/javascripts/bootstrap/bootstrap-dropdown.js	/^  }$/;"	f
+$.fn.scrollspy	app/assets/javascripts/bootstrap/bootstrap-scrollspy.js	/^  }$/;"	f
+$.fn.scrollspy	vendor/assets/javascripts/bootstrap/bootstrap-scrollspy.js	/^  }$/;"	f
+$.fn.tab	app/assets/javascripts/bootstrap/bootstrap-tab.js	/^  }$/;"	f
+$.fn.tab	vendor/assets/javascripts/bootstrap/bootstrap-tab.js	/^  }$/;"	f
+$.fn.tooltip	app/assets/javascripts/bootstrap/bootstrap-tooltip.js	/^  }$/;"	f
+$.fn.tooltip	vendor/assets/javascripts/bootstrap/bootstrap-tooltip.js	/^  }$/;"	f
+$.fn.typeahead	app/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  }$/;"	f
+$.fn.typeahead	vendor/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  }$/;"	f
+$.fn.typeahead.defaults.source	app/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  $.fn.typeahead.defaults = {$/;"	p
+$.fn.typeahead.defaults.source	vendor/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  $.fn.typeahead.defaults = {$/;"	p
+Ability	app/models/ability.rb	/^class Ability$/;"	c
+AbilityTest	test/unit/ability_test.rb	/^class AbilityTest < ActiveSupport::TestCase$/;"	c
+AboutController	app/controllers/about_controller.rb	/^class AboutController < ApplicationController$/;"	c
+Account	app/models/account.rb	/^class Account < ActiveRecord::Base$/;"	c
+AccountsController	app/controllers/accounts_controller.rb	/^class AccountsController < ApplicationController$/;"	c
+AccountsHelper	app/helpers/accounts_helper.rb	/^module AccountsHelper$/;"	m
+ActivateAllUsers	db/migrate/20130425091304_activate_all_users.rb	/^class ActivateAllUsers < ActiveRecord::Migration$/;"	c
+ActiveSupport	test/test_helper.rb	/^class ActiveSupport::TestCase$/;"	c
+AddAccountIdToEmail	db/migrate/20140305105320_add_account_id_to_email.rb	/^class AddAccountIdToEmail < ActiveRecord::Migration$/;"	c
+AddActiveToWebmailConnections	db/migrate/20140117132739_add_active_to_webmail_connections.rb	/^class AddActiveToWebmailConnections < ActiveRecord::Migration$/;"	c
+AddAttachmentFichierJointToEvenements	db/migrate/20120428160402_add_attachment_fichier_joint_to_evenements.rb	/^class AddAttachmentFichierJointToEvenements < ActiveRecord::Migration$/;"	c
+AddAttachmentFichierJointToTaches	db/migrate/20120627122129_add_attachment_fichier_joint_to_taches.rb	/^class AddAttachmentFichierJointToTaches < ActiveRecord::Migration$/;"	c
+AddContactIdToEmails	db/migrate/20140131092943_add_contact_id_to_emails.rb	/^class AddContactIdToEmails < ActiveRecord::Migration$/;"	c
+AddEnablationToUser	db/migrate/20130412094539_add_enablation_to_user.rb	/^class AddEnablationToUser < ActiveRecord::Migration$/;"	c
+AddMargeToOpportunitees	db/migrate/20120720134635_add_marge_to_opportunitees.rb	/^class AddMargeToOpportunitees < ActiveRecord::Migration$/;"	c
+AddModeleToDevis	db/migrate/20120809075643_add_modele_to_devis.rb	/^class AddModeleToDevis < ActiveRecord::Migration$/;"	c
+AddMoneyToDevis	db/migrate/20121223132747_add_money_to_devis.rb	/^class AddMoneyToDevis < ActiveRecord::Migration$/;"	c
+AddMoneyToItems	db/migrate/20121223141746_add_money_to_items.rb	/^class AddMoneyToItems < ActiveRecord::Migration$/;"	c
+AddNotes2ToEvenements	db/migrate/20121010172409_add_notes2_to_evenements.rb	/^class AddNotes2ToEvenements < ActiveRecord::Migration$/;"	c
+AddPhoneNumbersToCompte	db/migrate/20120322213445_add_phone_numbers_to_compte.rb	/^class AddPhoneNumbersToCompte < ActiveRecord::Migration$/;"	c
+AddPrioriryTask	db/migrate/20130405122238_add_prioriry_task.rb	/^class AddPrioriryTask < ActiveRecord::Migration$/;"	c
+AddRateToQuotationTemplates	db/migrate/20140113170437_add_rate_to_quotation_templates.rb	/^class AddRateToQuotationTemplates < ActiveRecord::Migration$/;"	c
+AddRelationCreatedMidfied	db/migrate/20130404134942_add_relation_created_midfied.rb	/^class AddRelationCreatedMidfied < ActiveRecord::Migration$/;"	c
+AddSuperUser	db/migrate/20130403141718_add_super_user.rb	/^class AddSuperUser < ActiveRecord::Migration$/;"	c
+AddTacheIdToEvenements	db/migrate/20120627151302_add_tache_id_to_evenements.rb	/^class AddTacheIdToEvenements < ActiveRecord::Migration$/;"	c
+AddTauxTvaToDevis	db/migrate/20121223150317_add_taux_tva_to_devis.rb	/^class AddTauxTvaToDevis < ActiveRecord::Migration$/;"	c
+AddTitleQuotation	db/migrate/20130411090544_add_title_quotation.rb	/^class AddTitleQuotation < ActiveRecord::Migration$/;"	c
+AddTitleTask	db/migrate/20130408094433_add_title_task.rb	/^class AddTitleTask < ActiveRecord::Migration$/;"	c
+AddTotalTvaToDevis	db/migrate/20121224081226_add_total_tva_to_devis.rb	/^class AddTotalTvaToDevis < ActiveRecord::Migration$/;"	c
+AddUserRelation	db/migrate/20130325104624_add_user_relation.rb	/^class AddUserRelation < ActiveRecord::Migration$/;"	c
+AdminUserTest	test/unit/admin_user_test.rb	/^class AdminUserTest < ActiveSupport::TestCase$/;"	c
+Alert	app/assets/javascripts/bootstrap/bootstrap-alert.js	/^      }$/;"	c
+Alert	vendor/assets/javascripts/bootstrap/bootstrap-alert.js	/^      }$/;"	c
+Alert.close	app/assets/javascripts/bootstrap/bootstrap-alert.js	/^  , close: function ( e ) {$/;"	m
+Alert.close	vendor/assets/javascripts/bootstrap/bootstrap-alert.js	/^  , close: function ( e ) {$/;"	m
+Alert.constructor	app/assets/javascripts/bootstrap/bootstrap-alert.js	/^  Alert.prototype = {$/;"	p
+Alert.constructor	vendor/assets/javascripts/bootstrap/bootstrap-alert.js	/^  Alert.prototype = {$/;"	p
+Alertify	app/assets/javascripts/alertify.js	/^	    Alertify;$/;"	f
+Application	config/application.rb	/^  class Application < Rails::Application$/;"	c	class:Crm
+ApplicationController	app/controllers/application_controller.rb	/^class ApplicationController < ActionController::Base$/;"	c
+ApplicationHelper	app/helpers/application_helper.rb	/^module ApplicationHelper$/;"	m
+AttachmentsController	app/controllers/attachments_controller.rb	/^class AttachmentsController < ApplicationController$/;"	c
+BrowsingTest	test/performance/browsing_test.rb	/^class BrowsingTest < ActionDispatch::PerformanceTest$/;"	c
+Button	app/assets/javascripts/bootstrap/bootstrap-button.js	/^  }$/;"	c
+Button	vendor/assets/javascripts/bootstrap/bootstrap-button.js	/^  }$/;"	c
+Button.constructor	app/assets/javascripts/bootstrap/bootstrap-button.js	/^  Button.prototype = {$/;"	p
+Button.constructor	vendor/assets/javascripts/bootstrap/bootstrap-button.js	/^  Button.prototype = {$/;"	p
+Button.setState	app/assets/javascripts/bootstrap/bootstrap-button.js	/^    , setState: function ( state ) {$/;"	m
+Button.setState	vendor/assets/javascripts/bootstrap/bootstrap-button.js	/^    , setState: function ( state ) {$/;"	m
+CORM_Object	config/CORM_Object.rb	/^class CORM_Object < Hash$/;"	c
+Carousel	app/assets/javascripts/bootstrap/bootstrap-carousel.js	/^  }$/;"	c
+Carousel	vendor/assets/javascripts/bootstrap/bootstrap-carousel.js	/^  }$/;"	c
+Carousel.cycle	app/assets/javascripts/bootstrap/bootstrap-carousel.js	/^  Carousel.prototype = {$/;"	m
+Carousel.cycle	vendor/assets/javascripts/bootstrap/bootstrap-carousel.js	/^  Carousel.prototype = {$/;"	m
+Carousel.pause	app/assets/javascripts/bootstrap/bootstrap-carousel.js	/^  , pause: function () {$/;"	m
+Carousel.pause	vendor/assets/javascripts/bootstrap/bootstrap-carousel.js	/^  , pause: function () {$/;"	m
+Carousel.prev	app/assets/javascripts/bootstrap/bootstrap-carousel.js	/^  , prev: function () {$/;"	m
+Carousel.prev	vendor/assets/javascripts/bootstrap/bootstrap-carousel.js	/^  , prev: function () {$/;"	m
+Carousel.slide	app/assets/javascripts/bootstrap/bootstrap-carousel.js	/^  , slide: function (type, next) {$/;"	m
+Carousel.slide	vendor/assets/javascripts/bootstrap/bootstrap-carousel.js	/^  , slide: function (type, next) {$/;"	m
+ChangeDateFormatInEmails	db/migrate/20140122150848_change_date_format_in_emails.rb	/^class ChangeDateFormatInEmails < ActiveRecord::Migration$/;"	c
+ChangeEcheanceTypeToTaches	db/migrate/20120621143121_change_echeance_type_to_taches.rb	/^class ChangeEcheanceTypeToTaches < ActiveRecord::Migration$/;"	c
+ChangeTableNameFromFrenchToEnglish	db/migrate/20130319085638_change_table_name_from_french_to_english.rb	/^class ChangeTableNameFromFrenchToEnglish < ActiveRecord::Migration$/;"	c
+ChangeUrLs	db/migrate/20130424143840_change_ur_ls.rb	/^class ChangeUrLs < ActiveRecord::Migration$/;"	c
+Collapse	app/assets/javascripts/bootstrap/bootstrap-collapse.js	/^  }$/;"	c
+Collapse	vendor/assets/javascripts/bootstrap/bootstrap-collapse.js	/^  }$/;"	c
+Collapse.constructor	app/assets/javascripts/bootstrap/bootstrap-collapse.js	/^  Collapse.prototype = {$/;"	p
+Collapse.constructor	vendor/assets/javascripts/bootstrap/bootstrap-collapse.js	/^  Collapse.prototype = {$/;"	p
+Collapse.dimension	app/assets/javascripts/bootstrap/bootstrap-collapse.js	/^  , dimension: function () {$/;"	m
+Collapse.dimension	vendor/assets/javascripts/bootstrap/bootstrap-collapse.js	/^  , dimension: function () {$/;"	m
+CompteTest	test/unit/compte_test.rb	/^class CompteTest < ActiveSupport::TestCase$/;"	c
+ComptesControllerTest	test/functional/comptes_controller_test.rb	/^class ComptesControllerTest < ActionController::TestCase$/;"	c
+ComptesHelperTest	test/unit/helpers/comptes_helper_test.rb	/^class ComptesHelperTest < ActionView::TestCase$/;"	c
+Contact	app/models/contact.rb	/^class Contact < ActiveRecord::Base$/;"	c
+ContactTest	test/unit/contact_test.rb	/^class ContactTest < ActiveSupport::TestCase$/;"	c
+ContactsController	app/controllers/contacts_controller.rb	/^class ContactsController < ApplicationController$/;"	c
+ContactsControllerTest	test/functional/contacts_controller_test.rb	/^class ContactsControllerTest < ActionController::TestCase$/;"	c
+ContactsHelper	app/helpers/contacts_helper.rb	/^module ContactsHelper$/;"	m
+ContactsHelperTest	test/unit/helpers/contacts_helper_test.rb	/^class ContactsHelperTest < ActionView::TestCase$/;"	c
+CreateAbilities	db/migrate/20130411133121_create_abilities.rb	/^class CreateAbilities < ActiveRecord::Migration$/;"	c
+CreateCompteProduitJoinTable	db/migrate/20120702153424_create_compte_produit_join_table.rb	/^class CreateCompteProduitJoinTable < ActiveRecord::Migration$/;"	c
+CreateComptes	db/migrate/20120218072017_create_comptes.rb	/^class CreateComptes < ActiveRecord::Migration$/;"	c
+CreateContactProduitJoinTable	db/migrate/20120705093257_create_contact_produit_join_table.rb	/^class CreateContactProduitJoinTable < ActiveRecord::Migration$/;"	c
+CreateContacts	db/migrate/20120218071940_create_contacts.rb	/^class CreateContacts < ActiveRecord::Migration$/;"	c
+CreateDevis	db/migrate/20120801083307_create_devis.rb	/^class CreateDevis < ActiveRecord::Migration$/;"	c
+CreateDocumentAttachments	db/migrate/20140219095830_create_document_attachments.rb	/^class CreateDocumentAttachments < ActiveRecord::Migration$/;"	c
+CreateDocuments	db/migrate/20120726134228_create_documents.rb	/^class CreateDocuments < ActiveRecord::Migration$/;"	c
+CreateEmails	db/migrate/20140120094340_create_emails.rb	/^class CreateEmails < ActiveRecord::Migration$/;"	c
+CreateEvenements	db/migrate/20120218072103_create_evenements.rb	/^class CreateEvenements < ActiveRecord::Migration$/;"	c
+CreateEventAttachments	db/migrate/20140213094157_create_event_attachments.rb	/^class CreateEventAttachments < ActiveRecord::Migration$/;"	c
+CreateItems	db/migrate/20120801092635_create_items.rb	/^class CreateItems < ActiveRecord::Migration$/;"	c
+CreateModeles	db/migrate/20120809095948_create_modeles.rb	/^class CreateModeles < ActiveRecord::Migration$/;"	c
+CreateOpportunitees	db/migrate/20120716090053_create_opportunitees.rb	/^class CreateOpportunitees < ActiveRecord::Migration$/;"	c
+CreateOpportunityAttachments	db/migrate/20140219140505_create_opportunity_attachments.rb	/^class CreateOpportunityAttachments < ActiveRecord::Migration$/;"	c
+CreateOrigines	db/migrate/20120723151416_create_origines.rb	/^class CreateOrigines < ActiveRecord::Migration$/;"	c
+CreateProduits	db/migrate/20120628092714_create_produits.rb	/^class CreateProduits < ActiveRecord::Migration$/;"	c
+CreateQuotationAttachments	db/migrate/20140218104937_create_quotation_attachments.rb	/^class CreateQuotationAttachments < ActiveRecord::Migration$/;"	c
+CreateRelations	db/migrate/20120730121235_create_relations.rb	/^class CreateRelations < ActiveRecord::Migration$/;"	c
+CreateSettings	db/migrate/20130513100221_create_settings.rb	/^class CreateSettings < ActiveRecord::Migration$/;"	c
+CreateTaches	db/migrate/20120513053831_create_taches.rb	/^class CreateTaches < ActiveRecord::Migration$/;"	c
+CreateTaskAttachments	db/migrate/20140217150057_create_task_attachments.rb	/^class CreateTaskAttachments < ActiveRecord::Migration$/;"	c
+CreateTypes	db/migrate/20120218072036_create_types.rb	/^class CreateTypes < ActiveRecord::Migration$/;"	c
+CreateWebmailConnections	db/migrate/20140116150437_create_webmail_connections.rb	/^class CreateWebmailConnections < ActiveRecord::Migration$/;"	c
+Crm	config/application.rb	/^module Crm$/;"	m
+DeleteAllUnecessary	db/migrate/20130423093256_delete_all_unecessary.rb	/^class DeleteAllUnecessary < ActiveRecord::Migration$/;"	c
+DeviTest	test/unit/devi_test.rb	/^class DeviTest < ActiveSupport::TestCase$/;"	c
+DevisControllerTest	test/functional/devis_controller_test.rb	/^class DevisControllerTest < ActionController::TestCase$/;"	c
+DevisHelperTest	test/unit/helpers/devis_helper_test.rb	/^class DevisHelperTest < ActionView::TestCase$/;"	c
+DeviseCreateUsers	db/migrate/20120218071616_devise_create_users.rb	/^class DeviseCreateUsers < ActiveRecord::Migration$/;"	c
+Document	app/models/document.rb	/^class Document < ActiveRecord::Base$/;"	c
+DocumentAttachment	app/models/document_attachment.rb	/^class DocumentAttachment < ActiveRecord::Base$/;"	c
+DocumentAttachmentTest	test/unit/document_attachment_test.rb	/^class DocumentAttachmentTest < ActiveSupport::TestCase$/;"	c
+DocumentTest	test/unit/document_test.rb	/^class DocumentTest < ActiveSupport::TestCase$/;"	c
+DocumentsController	app/controllers/documents_controller.rb	/^class DocumentsController < ApplicationController$/;"	c
+DocumentsControllerTest	test/functional/documents_controller_test.rb	/^class DocumentsControllerTest < ActionController::TestCase$/;"	c
+DocumentsHelper	app/helpers/documents_helper.rb	/^module DocumentsHelper$/;"	m
+DocumentsHelperTest	test/unit/helpers/documents_helper_test.rb	/^class DocumentsHelperTest < ActionView::TestCase$/;"	c
+Dropdown	app/assets/javascripts/bootstrap/bootstrap-dropdown.js	/^      }$/;"	c
+Dropdown	vendor/assets/javascripts/bootstrap/bootstrap-dropdown.js	/^      }$/;"	c
+Dropdown.constructor	app/assets/javascripts/bootstrap/bootstrap-dropdown.js	/^  Dropdown.prototype = {$/;"	p
+Dropdown.constructor	vendor/assets/javascripts/bootstrap/bootstrap-dropdown.js	/^  Dropdown.prototype = {$/;"	p
+Dropdown.toggle	app/assets/javascripts/bootstrap/bootstrap-dropdown.js	/^  , toggle: function ( e ) {$/;"	m
+Dropdown.toggle	vendor/assets/javascripts/bootstrap/bootstrap-dropdown.js	/^  , toggle: function ( e ) {$/;"	m
+Dropdown.toggle.clearMenus	app/assets/javascripts/bootstrap/bootstrap-dropdown.js	/^  function clearMenus() {$/;"	f
+Dropdown.toggle.clearMenus	vendor/assets/javascripts/bootstrap/bootstrap-dropdown.js	/^  function clearMenus() {$/;"	f
+Email	app/models/email.rb	/^class Email < ActiveRecord::Base$/;"	c
+EmailAttachementTest	test/unit/email_attachement_test.rb	/^class EmailAttachementTest < ActiveSupport::TestCase$/;"	c
+EmailAttachment	app/models/email_attachment.rb	/^class EmailAttachment < ActiveRecord::Base$/;"	c
+EmailTest	test/unit/email_test.rb	/^class EmailTest < ActiveSupport::TestCase$/;"	c
+EmailsController	app/controllers/emails_controller.rb	/^class EmailsController < ApplicationController$/;"	c
+EmailsTest	test/unit/emails_test.rb	/^class EmailsTest < ActiveSupport::TestCase$/;"	c
+EvenementTest	test/unit/evenement_test.rb	/^class EvenementTest < ActiveSupport::TestCase$/;"	c
+EvenementsControllerTest	test/functional/evenements_controller_test.rb	/^class EvenementsControllerTest < ActionController::TestCase$/;"	c
+EvenementsHelperTest	test/unit/helpers/evenements_helper_test.rb	/^class EvenementsHelperTest < ActionView::TestCase$/;"	c
+Event	app/models/event.rb	/^class Event < ActiveRecord::Base$/;"	c
+EventAttachment	app/models/event_attachment.rb	/^class EventAttachment < ActiveRecord::Base$/;"	c
+EventAttachmentTest	test/unit/event_attachment_test.rb	/^class EventAttachmentTest < ActiveSupport::TestCase$/;"	c
+EventType	app/models/event_type.rb	/^class EventType < ActiveRecord::Base$/;"	c
+EventTypesController	app/controllers/event_types_controller.rb	/^class EventTypesController < ApplicationController$/;"	c
+EventTypesHelper	app/helpers/event_types_helper.rb	/^module EventTypesHelper$/;"	m
+EventsController	app/controllers/events_controller.rb	/^class EventsController < ApplicationController$/;"	c
+EventsHelper	app/helpers/events_helper.rb	/^module EventsHelper$/;"	m
+ExtractionsController	app/controllers/extractions_controller.rb	/^class ExtractionsController < ApplicationController$/;"	c
+ExtractionsControllerTest	test/functional/extractions_controller_test.rb	/^class ExtractionsControllerTest < ActionController::TestCase$/;"	c
+ExtractionsHelper	app/helpers/extractions_helper.rb	/^module ExtractionsHelper$/;"	m
+ExtractionsHelperTest	test/unit/helpers/extractions_helper_test.rb	/^class ExtractionsHelperTest < ActionView::TestCase$/;"	c
+HomeController	app/controllers/home_controller.rb	/^class HomeController < ApplicationController$/;"	c
+ItemTest	test/unit/item_test.rb	/^class ItemTest < ActiveSupport::TestCase$/;"	c
+ItemsControllerTest	test/functional/items_controller_test.rb	/^class ItemsControllerTest < ActionController::TestCase$/;"	c
+ItemsHelperTest	test/unit/helpers/items_helper_test.rb	/^class ItemsHelperTest < ActionView::TestCase$/;"	c
+LayoutsHelper	app/helpers/layouts_helper.rb	/^module LayoutsHelper$/;"	m
+MailsControllerTest	test/functional/mails_controller_test.rb	/^class MailsControllerTest < ActionController::TestCase$/;"	c
+MailsHelper	app/helpers/mails_helper.rb	/^module MailsHelper$/;"	m
+MailsHelperTest	test/unit/helpers/mails_helper_test.rb	/^class MailsHelperTest < ActionView::TestCase$/;"	c
+Modal	app/assets/javascripts/bootstrap/bootstrap-modal.js	/^  }$/;"	c
+Modal	vendor/assets/javascripts/bootstrap/bootstrap-modal.js	/^  }$/;"	c
+Modal.constructor	app/assets/javascripts/bootstrap/bootstrap-modal.js	/^  Modal.prototype = {$/;"	p
+Modal.constructor	vendor/assets/javascripts/bootstrap/bootstrap-modal.js	/^  Modal.prototype = {$/;"	p
+Modal.show	app/assets/javascripts/bootstrap/bootstrap-modal.js	/^    , show: function () {$/;"	m
+Modal.show	vendor/assets/javascripts/bootstrap/bootstrap-modal.js	/^    , show: function () {$/;"	m
+Modal.toggle	app/assets/javascripts/bootstrap/bootstrap-modal.js	/^    , toggle: function () {$/;"	m
+Modal.toggle	vendor/assets/javascripts/bootstrap/bootstrap-modal.js	/^    , toggle: function () {$/;"	m
+ModeleTest	test/unit/modele_test.rb	/^class ModeleTest < ActiveSupport::TestCase$/;"	c
+ModelesControllerTest	test/functional/modeles_controller_test.rb	/^class ModelesControllerTest < ActionController::TestCase$/;"	c
+ModelesHelperTest	test/unit/helpers/modeles_helper_test.rb	/^class ModelesHelperTest < ActionView::TestCase$/;"	c
+ModificationItemQuantiteDecimalToMoney	db/migrate/20121224093738_modification_item_quantite_decimal_to_money.rb	/^class ModificationItemQuantiteDecimalToMoney < ActiveRecord::Migration$/;"	c
+ModificationItemQuantiteMoneyToDecimal	db/migrate/20121224100356_modification_item_quantite_money_to_decimal.rb	/^class ModificationItemQuantiteMoneyToDecimal < ActiveRecord::Migration$/;"	c
+ModifySettingsTable	db/migrate/20140220111406_modify_settings_table.rb	/^class ModifySettingsTable < ActiveRecord::Migration$/;"	c
+NotificationsController	app/controllers/notifications_controller.rb	/^class NotificationsController < ApplicationController$/;"	c
+NotificationsControllerTest	test/functional/notifications_controller_test.rb	/^class NotificationsControllerTest < ActionController::TestCase$/;"	c
+NotificationsHelper	app/helpers/notifications_helper.rb	/^module NotificationsHelper$/;"	m
+NotificationsHelperTest	test/unit/helpers/notifications_helper_test.rb	/^class NotificationsHelperTest < ActionView::TestCase$/;"	c
+OpportuniteeTest	test/unit/opportunitee_test.rb	/^class OpportuniteeTest < ActiveSupport::TestCase$/;"	c
+OpportuniteesControllerTest	test/functional/opportunitees_controller_test.rb	/^class OpportuniteesControllerTest < ActionController::TestCase$/;"	c
+OpportuniteesHelperTest	test/unit/helpers/opportunitees_helper_test.rb	/^class OpportuniteesHelperTest < ActionView::TestCase$/;"	c
+OpportunitiesController	app/controllers/opportunities_controller.rb	/^class OpportunitiesController < ApplicationController$/;"	c
+OpportunitiesHelper	app/helpers/opportunities_helper.rb	/^module OpportunitiesHelper$/;"	m
+Opportunity	app/models/opportunity.rb	/^class Opportunity < ActiveRecord::Base$/;"	c
+OpportunityAttachment	app/models/opportunity_attachment.rb	/^class OpportunityAttachment < ActiveRecord::Base$/;"	c
+OpportunityAttachmentTest	test/unit/opportunity_attachment_test.rb	/^class OpportunityAttachmentTest < ActiveSupport::TestCase$/;"	c
+Origin	app/models/origin.rb	/^class Origin < ActiveRecord::Base$/;"	c
+OrigineTest	test/unit/origine_test.rb	/^class OrigineTest < ActiveSupport::TestCase$/;"	c
+OriginesControllerTest	test/functional/origines_controller_test.rb	/^class OriginesControllerTest < ActionController::TestCase$/;"	c
+OriginesHelperTest	test/unit/helpers/origines_helper_test.rb	/^class OriginesHelperTest < ActionView::TestCase$/;"	c
+OriginsController	app/controllers/origins_controller.rb	/^class OriginsController < ApplicationController$/;"	c
+OriginsHelper	app/helpers/origins_helper.rb	/^module OriginsHelper$/;"	m
+Popover	app/assets/javascripts/bootstrap/bootstrap-popover.js	/^  }$/;"	c
+Popover	app/assets/javascripts/bootstrap/bootstrap-popover.js	/^  }$/;"	m
+Popover	vendor/assets/javascripts/bootstrap/bootstrap-popover.js	/^  }$/;"	c
+Popover	vendor/assets/javascripts/bootstrap/bootstrap-popover.js	/^  }$/;"	m
+PriorityPp	db/migrate/20130415155306_priority_pp.rb	/^class PriorityPp < ActiveRecord::Migration$/;"	c
+Quotation	app/models/quotation.rb	/^class Quotation < ActiveRecord::Base$/;"	c
+QuotationAttachment	app/models/quotation_attachment.rb	/^class QuotationAttachment < ActiveRecord::Base$/;"	c
+QuotationAttachmentTest	test/unit/quotation_attachment_test.rb	/^class QuotationAttachmentTest < ActiveSupport::TestCase$/;"	c
+QuotationLine	app/models/quotation_line.rb	/^class QuotationLine < ActiveRecord::Base$/;"	c
+QuotationLinesController	app/controllers/quotation_lines_controller.rb	/^class QuotationLinesController < ApplicationController$/;"	c
+QuotationLinesHelper	app/helpers/quotation_lines_helper.rb	/^module QuotationLinesHelper$/;"	m
+QuotationPdf	app/pdfs/quotation_pdf.rb	/^class QuotationPdf < Prawn::Document$/;"	c
+QuotationTemplate	app/models/quotation_template.rb	/^class QuotationTemplate < ActiveRecord::Base$/;"	c
+QuotationTemplatesController	app/controllers/quotation_templates_controller.rb	/^class QuotationTemplatesController < ApplicationController$/;"	c
+QuotationsController	app/controllers/quotations_controller.rb	/^class QuotationsController < ApplicationController$/;"	c
+QuotationsHelper	app/helpers/quotations_helper.rb	/^module QuotationsHelper$/;"	m
+RegistrationsController	app/controllers/registrations_controller.rb	/^class RegistrationsController < Devise::RegistrationsController$/;"	c
+Relation	app/models/relation.rb	/^class Relation < ActiveRecord::Base$/;"	c
+RelationTest	test/unit/relation_test.rb	/^class RelationTest < ActiveSupport::TestCase$/;"	c
+RelationsController	app/controllers/relations_controller.rb	/^class RelationsController < ApplicationController$/;"	c
+RelationsControllerTest	test/functional/relations_controller_test.rb	/^class RelationsControllerTest < ActionController::TestCase$/;"	c
+RelationsHelper	app/helpers/relations_helper.rb	/^module RelationsHelper$/;"	m
+RelationsHelperTest	test/unit/helpers/relations_helper_test.rb	/^class RelationsHelperTest < ActionView::TestCase$/;"	c
+RemoveAccountIdFromEmails	db/migrate/20140210083132_remove_account_id_from_emails.rb	/^class RemoveAccountIdFromEmails < ActiveRecord::Migration$/;"	c
+RemoveAttachementFieldsFromEmail	db/migrate/20140211093556_remove_attachement_fields_from_email.rb	/^class RemoveAttachementFieldsFromEmail < ActiveRecord::Migration$/;"	c
+RemoveAttachmentFieldsFromDocument	db/migrate/20140219100048_remove_attachment_fields_from_document.rb	/^class RemoveAttachmentFieldsFromDocument < ActiveRecord::Migration$/;"	c
+RemoveAttachmentFieldsFromEvent	db/migrate/20140213100127_remove_attachment_fields_from_event.rb	/^class RemoveAttachmentFieldsFromEvent < ActiveRecord::Migration$/;"	c
+RemoveAttachmentFieldsFromOpportunity	db/migrate/20140219140727_remove_attachment_fields_from_opportunity.rb	/^class RemoveAttachmentFieldsFromOpportunity < ActiveRecord::Migration$/;"	c
+RemoveAttachmentFieldsFromQuotation	db/migrate/20140218110819_remove_attachment_fields_from_quotation.rb	/^class RemoveAttachmentFieldsFromQuotation < ActiveRecord::Migration$/;"	c
+RemoveAttachmentFieldsFromTask	db/migrate/20140217150412_remove_attachment_fields_from_task.rb	/^class RemoveAttachmentFieldsFromTask < ActiveRecord::Migration$/;"	c
+RenameOpportuniteeToOpportunite	db/migrate/20120723124706_rename_opportunitee_to_opportunite.rb	/^class RenameOpportuniteeToOpportunite < ActiveRecord::Migration$/;"	c
+ReplaceOrigineInCompte	db/migrate/20120723152354_replace_origine_in_compte.rb	/^class ReplaceOrigineInCompte < ActiveRecord::Migration$/;"	c
+ReplaceTypeByGenreInCompte	db/migrate/20120218075659_replace_type_by_genre_in_compte.rb	/^class ReplaceTypeByGenreInCompte < ActiveRecord::Migration$/;"	c
+Role	app/models/role.rb	/^class Role < ActiveRecord::Base$/;"	c
+RolifyCreateRoles	db/migrate/20130411141321_rolify_create_roles.rb	/^class RolifyCreateRoles < ActiveRecord::Migration$/;"	c
+ScrollSpy	app/assets/javascripts/bootstrap/bootstrap-scrollspy.js	/^  }$/;"	c
+ScrollSpy	vendor/assets/javascripts/bootstrap/bootstrap-scrollspy.js	/^  }$/;"	c
+ScrollSpy.constructor	app/assets/javascripts/bootstrap/bootstrap-scrollspy.js	/^  ScrollSpy.prototype = {$/;"	p
+ScrollSpy.constructor	vendor/assets/javascripts/bootstrap/bootstrap-scrollspy.js	/^  ScrollSpy.prototype = {$/;"	p
+ScrollSpy.refresh	app/assets/javascripts/bootstrap/bootstrap-scrollspy.js	/^    , refresh: function () {$/;"	m
+ScrollSpy.refresh	vendor/assets/javascripts/bootstrap/bootstrap-scrollspy.js	/^    , refresh: function () {$/;"	m
+SetTasksWithNoPriorityToNormal	db/migrate/20130426125246_set_tasks_with_no_priority_to_normal.rb	/^class SetTasksWithNoPriorityToNormal < ActiveRecord::Migration$/;"	c
+Setting	app/models/setting.rb	/^class Setting < ActiveRecord::Base$/;"	c
+SettingsController	app/controllers/settings_controller.rb	/^class SettingsController < ApplicationController$/;"	c
+SettingsHelper	app/helpers/settings_helper.rb	/^module SettingsHelper$/;"	m
+Tab	app/assets/javascripts/bootstrap/bootstrap-tab.js	/^  }$/;"	c
+Tab	vendor/assets/javascripts/bootstrap/bootstrap-tab.js	/^  }$/;"	c
+Tab.constructor	app/assets/javascripts/bootstrap/bootstrap-tab.js	/^  Tab.prototype = {$/;"	p
+Tab.constructor	vendor/assets/javascripts/bootstrap/bootstrap-tab.js	/^  Tab.prototype = {$/;"	p
+Tab.show	app/assets/javascripts/bootstrap/bootstrap-tab.js	/^  , show: function () {$/;"	m
+Tab.show	vendor/assets/javascripts/bootstrap/bootstrap-tab.js	/^  , show: function () {$/;"	m
+Tag	app/models/tag.rb	/^class Tag < ActiveRecord::Base$/;"	c
+TagsController	app/controllers/tags_controller.rb	/^class TagsController < ApplicationController$/;"	c
+TagsHelper	app/helpers/tags_helper.rb	/^module TagsHelper$/;"	m
+Task	app/models/task.rb	/^class Task < ActiveRecord::Base$/;"	c
+TaskAttachment	app/models/task_attachment.rb	/^class TaskAttachment < ActiveRecord::Base$/;"	c
+TaskAttachmentsTest	test/unit/task_attachments_test.rb	/^class TaskAttachmentsTest < ActiveSupport::TestCase$/;"	c
+TasksController	app/controllers/tasks_controller.rb	/^class TasksController < ApplicationController$/;"	c
+TasksHelper	app/helpers/tasks_helper.rb	/^module TasksHelper$/;"	m
+TemplatesHelper	app/helpers/templates_helper.rb	/^module TemplatesHelper$/;"	m
+Tooltip	app/assets/javascripts/bootstrap/bootstrap-tooltip.js	/^  }$/;"	c
+Tooltip	vendor/assets/javascripts/bootstrap/bootstrap-tooltip.js	/^  }$/;"	c
+Tooltip.constructor	app/assets/javascripts/bootstrap/bootstrap-tooltip.js	/^  Tooltip.prototype = {$/;"	p
+Tooltip.constructor	vendor/assets/javascripts/bootstrap/bootstrap-tooltip.js	/^  Tooltip.prototype = {$/;"	p
+Tooltip.init	app/assets/javascripts/bootstrap/bootstrap-tooltip.js	/^  , init: function ( type, element, options ) {$/;"	m
+Tooltip.init	vendor/assets/javascripts/bootstrap/bootstrap-tooltip.js	/^  , init: function ( type, element, options ) {$/;"	m
+TypeTest	test/unit/type_test.rb	/^class TypeTest < ActiveSupport::TestCase$/;"	c
+Typeahead	app/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  }$/;"	c
+Typeahead	vendor/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  }$/;"	c
+Typeahead.constructor	app/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  Typeahead.prototype = {$/;"	p
+Typeahead.constructor	vendor/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  Typeahead.prototype = {$/;"	p
+Typeahead.highlighter	app/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  , highlighter: function (item) {$/;"	m
+Typeahead.highlighter	vendor/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  , highlighter: function (item) {$/;"	m
+Typeahead.matcher	app/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  , matcher: function (item) {$/;"	m
+Typeahead.matcher	vendor/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  , matcher: function (item) {$/;"	m
+Typeahead.render	app/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  , render: function (items) {$/;"	m
+Typeahead.render	vendor/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  , render: function (items) {$/;"	m
+Typeahead.select	app/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  , select: function () {$/;"	m
+Typeahead.select	vendor/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  , select: function () {$/;"	m
+Typeahead.show	app/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  , show: function () {$/;"	m
+Typeahead.show	vendor/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  , show: function () {$/;"	m
+Typeahead.sorter	app/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  , sorter: function (items) {$/;"	m
+Typeahead.sorter	vendor/assets/javascripts/bootstrap/bootstrap-typeahead.js	/^  , sorter: function (items) {$/;"	m
+TypesControllerTest	test/functional/types_controller_test.rb	/^class TypesControllerTest < ActionController::TestCase$/;"	c
+TypesHelperTest	test/unit/helpers/types_helper_test.rb	/^class TypesHelperTest < ActionView::TestCase$/;"	c
+User	app/models/user.rb	/^class User < ActiveRecord::Base$/;"	c
+UserMailer	app/mailers/user_mailer.rb	/^class UserMailer < ActionMailer::Base$/;"	c
+UserTest	test/unit/user_test.rb	/^class UserTest < ActiveSupport::TestCase$/;"	c
+WebmailConnection	app/models/webmail_connection.rb	/^class WebmailConnection < ActiveRecord::Base$/;"	c
+WebmailConnectionTest	test/unit/webmail_connection_test.rb	/^class WebmailConnectionTest < ActiveSupport::TestCase$/;"	c
+WebmailConnectionsController	app/controllers/webmail_connections_controller.rb	/^class WebmailConnectionsController < ApplicationController$/;"	c
+WebmailConnectionsControllerTest	test/functional/webmail_connections_controller_test.rb	/^class WebmailConnectionsControllerTest < ActionController::TestCase$/;"	c
+WebmailConnectionsHelper	app/helpers/webmail_connections_helper.rb	/^module WebmailConnectionsHelper$/;"	m
+WebmailConnectionsHelperTest	test/unit/helpers/webmail_connections_helper_test.rb	/^class WebmailConnectionsHelperTest < ActionView::TestCase$/;"	c
+_alertify.labels	app/assets/javascripts/alertify.js	/^		_alertify = {$/;"	p
+accounts	app/controllers/extractions_controller.rb	/^  def accounts$/;"	f	class:ExtractionsController
+addAlert	app/assets/javascripts/corm_lib.js	/^        },$/;"	m
+addFK	db/migrate/20130325104624_add_user_relation.rb	/^  def addFK(table, column)$/;"	f	class:AddUserRelation
+addFileField	app/assets/javascripts/attachments.js	/^function addFileField(object) {$/;"	f
+add_tag	app/controllers/accounts_controller.rb	/^  def add_tag$/;"	f	class:AccountsController
+after_sign_out_path_for	app/controllers/application_controller.rb	/^  def after_sign_out_path_for(resource_or_scope)$/;"	f	class:ApplicationController
+all_reals	app/models/user.rb	/^  def self.all_reals$/;"	F	class:User
+amount=	app/models/opportunity.rb	/^  def amount=(amount)$/;"	f	class:Opportunity
+authenticate	app/controllers/registrations_controller.rb	/^  def authenticate$/;"	f	class:RegistrationsController
+author	app/models/account.rb	/^  def author$/;"	f	class:Account
+author	app/models/contact.rb	/^  def author$/;"	f	class:Contact
+author	app/models/document.rb	/^  def author$/;"	f	class:Document
+author	app/models/event.rb	/^  def author$/;"	f	class:Event
+author	app/models/event_type.rb	/^  def author$/;"	f	class:EventType
+author	app/models/opportunity.rb	/^  def author$/;"	f	class:Opportunity
+author	app/models/origin.rb	/^  def author$/;"	f	class:Origin
+author	app/models/quotation.rb	/^  def author$/;"	f	class:Quotation
+author	app/models/quotation_template.rb	/^  def author$/;"	f	class:QuotationTemplate
+author	app/models/relation.rb	/^  def author$/;"	f	class:Relation
+author	app/models/tag.rb	/^  def author$/;"	f	class:Tag
+author	app/models/task.rb	/^  def author$/;"	f	class:Task
+b	app/assets/javascripts/alertify.min.js	/^!function(a,b){"use strict";var c,d=a.document;c=function(){var c,e,f,g,h,i,j,k,l,m,n,o,p,q={},r={},s=!1,t={ENTER:13,ESC:27,SPACE:32},u=[];return r={buttons:{holder:'<nav class="alertify-buttons">{{buttons}}<\/nav>',submit:'<button type="submit" class="alertify-button alertify-button-ok" id="alertify-ok">{{ok}}<\/button>',ok:'<button class="alertify-button alertify-button-ok" id="alertify-ok">{{ok}}<\/button>',cancel:'<button class="alertify-button alertify-button-cancel" id="alertify-cancel">{{cancel}}<\/button>'},input:'<div class="alertify-text-wrapper"><input type="text" class="alertify-text" id="alertify-text"><\/div>',message:'<p class="alertify-message">{{message}}<\/p>',log:'<article class="alertify-log{{class}}">{{message}}<\/article>'},p=function(){var a,c,e=!1,f=d.createElement("fakeelement"),g={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"otransitionend",transition:"transitionend"};for(a in g)if(f.style[a]!==b){c=g[a],e=!0;break}return{type:c,supported:e}},c=function(a){return d.getElementById(a)},q={labels:{ok:"OK",cancel:"Cancel"},delay:5e3,buttonReverse:!1,buttonFocus:"ok",transition:b,addListeners:function(a){var b,c,i,j,k,l="undefined"!=typeof f,m="undefined"!=typeof e,n="undefined"!=typeof o,p="",q=this;b=function(b){return"undefined"!=typeof b.preventDefault&&b.preventDefault(),i(b),"undefined"!=typeof o&&(p=o.value),"function"==typeof a&&("undefined"!=typeof o?a(!0,p):a(!0)),!1},c=function(b){return"undefined"!=typeof b.preventDefault&&b.preventDefault(),i(b),"function"==typeof a&&a(!1),!1},i=function(){q.hide(),q.unbind(d.body,"keyup",j),q.unbind(g,"focus",k),l&&q.unbind(f,"click",b),m&&q.unbind(e,"click",c)},j=function(a){var d=a.keyCode;(d===t.SPACE&&!n||n&&d===t.ENTER)&&b(a),d===t.ESC&&m&&c(a)},k=function(){n?o.focus():!m||q.buttonReverse?f.focus():e.focus()},this.bind(g,"focus",k),this.bind(h,"focus",k),l&&this.bind(f,"click",b),m&&this.bind(e,"click",c),this.bind(d.body,"keyup",j),this.transition.supported||this.setFocus()},bind:function(a,b,c){"function"==typeof a.addEventListener?a.addEventListener(b,c,!1):a.attachEvent&&a.attachEvent("on"+b,c)},handleErrors:function(){if("undefined"!=typeof a.onerror){var b=this;return a.onerror=function(a,c,d){b.error("["+a+" on line "+d+" of "+c+"]",0)},!0}return!1},appendButtons:function(a,b){return this.buttonReverse?b+a:a+b},build:function(a){var b="",c=a.type,d=a.message,e=a.cssClass||"";switch(b+='<div class="alertify-dialog">',b+='<a id="alertify-resetFocusBack" class="alertify-resetFocus" href="#">Reset Focus<\/a>',"none"===q.buttonFocus&&(b+='<a href="#" id="alertify-noneFocus" class="alertify-hidden"><\/a>'),"prompt"===c&&(b+='<div id="alertify-form">'),b+='<article class="alertify-inner">',b+=r.message.replace("{{message}}",d),"prompt"===c&&(b+=r.input),b+=r.buttons.holder,b+="<\/article>","prompt"===c&&(b+="<\/div>"),b+='<a id="alertify-resetFocus" class="alertify-resetFocus" href="#">Reset Focus<\/a>',b+="<\/div>",c){case"confirm":b=b.replace("{{buttons}}",this.appendButtons(r.buttons.cancel,r.buttons.ok)),b=b.replace("{{ok}}",this.labels.ok).replace("{{cancel}}",this.labels.cancel);break;case"prompt":b=b.replace("{{buttons}}",this.appendButtons(r.buttons.cancel,r.buttons.submit)),b=b.replace("{{ok}}",this.labels.ok).replace("{{cancel}}",this.labels.cancel);break;case"alert":b=b.replace("{{buttons}}",r.buttons.ok),b=b.replace("{{ok}}",this.labels.ok)}return l.className="alertify alertify-"+c+" "+e,k.className="alertify-cover",b},close:function(a,b){var c,d,e=b&&!isNaN(b)?+b:this.delay,f=this;this.bind(a,"click",function(){c(a)}),d=function(a){a.stopPropagation(),f.unbind(this,f.transition.type,d),m.removeChild(this),m.hasChildNodes()||(m.className+=" alertify-logs-hidden")},c=function(a){"undefined"!=typeof a&&a.parentNode===m&&(f.transition.supported?(f.bind(a,f.transition.type,d),a.className+=" alertify-log-hide"):(m.removeChild(a),m.hasChildNodes()||(m.className+=" alertify-logs-hidden")))},0!==b&&setTimeout(function(){c(a)},e)},dialog:function(a,b,c,e,f){j=d.activeElement;var g=function(){m&&null!==m.scrollTop&&k&&null!==k.scrollTop||g()};if("string"!=typeof a)throw new Error("message must be a string");if("string"!=typeof b)throw new Error("type must be a string");if("undefined"!=typeof c&&"function"!=typeof c)throw new Error("fn must be a function");return this.init(),g(),u.push({type:b,message:a,callback:c,placeholder:e,cssClass:f}),s||this.setup(),this},extend:function(a){if("string"!=typeof a)throw new Error("extend method must have exactly one paramter");return function(b,c){return this.log(b,a,c),this}},hide:function(){var a,b=this;u.splice(0,1),u.length>0?this.setup(!0):(s=!1,a=function(c){c.stopPropagation(),b.unbind(l,b.transition.type,a)},this.transition.supported?(this.bind(l,this.transition.type,a),l.className="alertify alertify-hide alertify-hidden"):l.className="alertify alertify-hide alertify-hidden alertify-isHidden",k.className="alertify-cover alertify-cover-hidden",j.focus())},init:function(){d.createElement("nav"),d.createElement("article"),d.createElement("section"),null==c("alertify-cover")&&(k=d.createElement("div"),k.setAttribute("id","alertify-cover"),k.className="alertify-cover alertify-cover-hidden",d.body.appendChild(k)),null==c("alertify")&&(s=!1,u=[],l=d.createElement("section"),l.setAttribute("id","alertify"),l.className="alertify alertify-hidden",d.body.appendChild(l)),null==c("alertify-logs")&&(m=d.createElement("section"),m.setAttribute("id","alertify-logs"),m.className="alertify-logs alertify-logs-hidden",d.body.appendChild(m)),d.body.setAttribute("tabindex","0"),this.transition=p()},log:function(a,b,c){var d=function(){m&&null!==m.scrollTop||d()};return this.init(),d(),m.className="alertify-logs",this.notify(a,b,c),this},notify:function(a,b,c){var e=d.createElement("article");e.className="alertify-log"+("string"==typeof b&&""!==b?" alertify-log-"+b:""),e.innerHTML=a,m.appendChild(e),setTimeout(function(){e.className=e.className+" alertify-log-show"},50),this.close(e,c)},set:function(a){var b;if("object"!=typeof a&&a instanceof Array)throw new Error("args must be an object");for(b in a)a.hasOwnProperty(b)&&(this[b]=a[b])},setFocus:function(){o?(o.focus(),o.select()):i.focus()},setup:function(a){var d,j=u[0],k=this;s=!0,d=function(a){a.stopPropagation(),k.setFocus(),k.unbind(l,k.transition.type,d)},this.transition.supported&&!a&&this.bind(l,this.transition.type,d),l.innerHTML=this.build(j),g=c("alertify-resetFocus"),h=c("alertify-resetFocusBack"),f=c("alertify-ok")||b,e=c("alertify-cancel")||b,i="cancel"===q.buttonFocus?e:"none"===q.buttonFocus?c("alertify-noneFocus"):f,o=c("alertify-text")||b,n=c("alertify-form")||b,"string"==typeof j.placeholder&&""!==j.placeholder&&(o.value=j.placeholder),a&&this.setFocus(),this.addListeners(j.callback)},unbind:function(a,b,c){"function"==typeof a.removeEventListener?a.removeEventListener(b,c,!1):a.detachEvent&&a.detachEvent("on"+b,c)}},{alert:function(a,b,c){return q.dialog(a,"alert",b,"",c),this},confirm:function(a,b,c){return q.dialog(a,"confirm",b,"",c),this},extend:q.extend,init:q.init,log:function(a,b,c){return q.log(a,b,c),this},prompt:function(a,b,c,d){return q.dialog(a,"prompt",b,c,d),this},success:function(a,b){return q.log(a,"success",b),this},error:function(a,b){return q.log(a,"error",b),this},set:function(a){q.set(a)},labels:q.labels,debug:q.handleErrors}},"function"==typeof define?define([],function(){return new c}):"undefined"==typeof a.alertify&&(a.alertify=new c)}(this);/;"	f
+break.top	app/assets/javascripts/bootstrap/bootstrap-tooltip.js	/^            tp = {top: pos.top + pos.height \/ 2 - actualHeight \/ 2, left: pos.left + pos.width}$/;"	p
+break.top	app/assets/javascripts/bootstrap/bootstrap-tooltip.js	/^            tp = {top: pos.top + pos.height \/ 2 - actualHeight \/ 2, left: pos.left - actualWidth}$/;"	p
+break.top	app/assets/javascripts/bootstrap/bootstrap-tooltip.js	/^            tp = {top: pos.top - actualHeight, left: pos.left + pos.width \/ 2 - actualWidth \/ 2}$/;"	p
+break.top	vendor/assets/javascripts/bootstrap/bootstrap-tooltip.js	/^            tp = {top: pos.top + pos.height \/ 2 - actualHeight \/ 2, left: pos.left + pos.width}$/;"	p
+break.top	vendor/assets/javascripts/bootstrap/bootstrap-tooltip.js	/^            tp = {top: pos.top + pos.height \/ 2 - actualHeight \/ 2, left: pos.left - actualWidth}$/;"	p
+break.top	vendor/assets/javascripts/bootstrap/bootstrap-tooltip.js	/^            tp = {top: pos.top - actualHeight, left: pos.left + pos.width \/ 2 - actualWidth \/ 2}$/;"	p
+c	app/assets/javascripts/alertify.min.js	/^!function(a,b){"use strict";var c,d=a.document;c=function(){var c,e,f,g,h,i,j,k,l,m,n,o,p,q={},r={},s=!1,t={ENTER:13,ESC:27,SPACE:32},u=[];return r={buttons:{holder:'<nav class="alertify-buttons">{{buttons}}<\/nav>',submit:'<button type="submit" class="alertify-button alertify-button-ok" id="alertify-ok">{{ok}}<\/button>',ok:'<button class="alertify-button alertify-button-ok" id="alertify-ok">{{ok}}<\/button>',cancel:'<button class="alertify-button alertify-button-cancel" id="alertify-cancel">{{cancel}}<\/button>'},input:'<div class="alertify-text-wrapper"><input type="text" class="alertify-text" id="alertify-text"><\/div>',message:'<p class="alertify-message">{{message}}<\/p>',log:'<article class="alertify-log{{class}}">{{message}}<\/article>'},p=function(){var a,c,e=!1,f=d.createElement("fakeelement"),g={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"otransitionend",transition:"transitionend"};for(a in g)if(f.style[a]!==b){c=g[a],e=!0;break}return{type:c,supported:e}},c=function(a){return d.getElementById(a)},q={labels:{ok:"OK",cancel:"Cancel"},delay:5e3,buttonReverse:!1,buttonFocus:"ok",transition:b,addListeners:function(a){var b,c,i,j,k,l="undefined"!=typeof f,m="undefined"!=typeof e,n="undefined"!=typeof o,p="",q=this;b=function(b){return"undefined"!=typeof b.preventDefault&&b.preventDefault(),i(b),"undefined"!=typeof o&&(p=o.value),"function"==typeof a&&("undefined"!=typeof o?a(!0,p):a(!0)),!1},c=function(b){return"undefined"!=typeof b.preventDefault&&b.preventDefault(),i(b),"function"==typeof a&&a(!1),!1},i=function(){q.hide(),q.unbind(d.body,"keyup",j),q.unbind(g,"focus",k),l&&q.unbind(f,"click",b),m&&q.unbind(e,"click",c)},j=function(a){var d=a.keyCode;(d===t.SPACE&&!n||n&&d===t.ENTER)&&b(a),d===t.ESC&&m&&c(a)},k=function(){n?o.focus():!m||q.buttonReverse?f.focus():e.focus()},this.bind(g,"focus",k),this.bind(h,"focus",k),l&&this.bind(f,"click",b),m&&this.bind(e,"click",c),this.bind(d.body,"keyup",j),this.transition.supported||this.setFocus()},bind:function(a,b,c){"function"==typeof a.addEventListener?a.addEventListener(b,c,!1):a.attachEvent&&a.attachEvent("on"+b,c)},handleErrors:function(){if("undefined"!=typeof a.onerror){var b=this;return a.onerror=function(a,c,d){b.error("["+a+" on line "+d+" of "+c+"]",0)},!0}return!1},appendButtons:function(a,b){return this.buttonReverse?b+a:a+b},build:function(a){var b="",c=a.type,d=a.message,e=a.cssClass||"";switch(b+='<div class="alertify-dialog">',b+='<a id="alertify-resetFocusBack" class="alertify-resetFocus" href="#">Reset Focus<\/a>',"none"===q.buttonFocus&&(b+='<a href="#" id="alertify-noneFocus" class="alertify-hidden"><\/a>'),"prompt"===c&&(b+='<div id="alertify-form">'),b+='<article class="alertify-inner">',b+=r.message.replace("{{message}}",d),"prompt"===c&&(b+=r.input),b+=r.buttons.holder,b+="<\/article>","prompt"===c&&(b+="<\/div>"),b+='<a id="alertify-resetFocus" class="alertify-resetFocus" href="#">Reset Focus<\/a>',b+="<\/div>",c){case"confirm":b=b.replace("{{buttons}}",this.appendButtons(r.buttons.cancel,r.buttons.ok)),b=b.replace("{{ok}}",this.labels.ok).replace("{{cancel}}",this.labels.cancel);break;case"prompt":b=b.replace("{{buttons}}",this.appendButtons(r.buttons.cancel,r.buttons.submit)),b=b.replace("{{ok}}",this.labels.ok).replace("{{cancel}}",this.labels.cancel);break;case"alert":b=b.replace("{{buttons}}",r.buttons.ok),b=b.replace("{{ok}}",this.labels.ok)}return l.className="alertify alertify-"+c+" "+e,k.className="alertify-cover",b},close:function(a,b){var c,d,e=b&&!isNaN(b)?+b:this.delay,f=this;this.bind(a,"click",function(){c(a)}),d=function(a){a.stopPropagation(),f.unbind(this,f.transition.type,d),m.removeChild(this),m.hasChildNodes()||(m.className+=" alertify-logs-hidden")},c=function(a){"undefined"!=typeof a&&a.parentNode===m&&(f.transition.supported?(f.bind(a,f.transition.type,d),a.className+=" alertify-log-hide"):(m.removeChild(a),m.hasChildNodes()||(m.className+=" alertify-logs-hidden")))},0!==b&&setTimeout(function(){c(a)},e)},dialog:function(a,b,c,e,f){j=d.activeElement;var g=function(){m&&null!==m.scrollTop&&k&&null!==k.scrollTop||g()};if("string"!=typeof a)throw new Error("message must be a string");if("string"!=typeof b)throw new Error("type must be a string");if("undefined"!=typeof c&&"function"!=typeof c)throw new Error("fn must be a function");return this.init(),g(),u.push({type:b,message:a,callback:c,placeholder:e,cssClass:f}),s||this.setup(),this},extend:function(a){if("string"!=typeof a)throw new Error("extend method must have exactly one paramter");return function(b,c){return this.log(b,a,c),this}},hide:function(){var a,b=this;u.splice(0,1),u.length>0?this.setup(!0):(s=!1,a=function(c){c.stopPropagation(),b.unbind(l,b.transition.type,a)},this.transition.supported?(this.bind(l,this.transition.type,a),l.className="alertify alertify-hide alertify-hidden"):l.className="alertify alertify-hide alertify-hidden alertify-isHidden",k.className="alertify-cover alertify-cover-hidden",j.focus())},init:function(){d.createElement("nav"),d.createElement("article"),d.createElement("section"),null==c("alertify-cover")&&(k=d.createElement("div"),k.setAttribute("id","alertify-cover"),k.className="alertify-cover alertify-cover-hidden",d.body.appendChild(k)),null==c("alertify")&&(s=!1,u=[],l=d.createElement("section"),l.setAttribute("id","alertify"),l.className="alertify alertify-hidden",d.body.appendChild(l)),null==c("alertify-logs")&&(m=d.createElement("section"),m.setAttribute("id","alertify-logs"),m.className="alertify-logs alertify-logs-hidden",d.body.appendChild(m)),d.body.setAttribute("tabindex","0"),this.transition=p()},log:function(a,b,c){var d=function(){m&&null!==m.scrollTop||d()};return this.init(),d(),m.className="alertify-logs",this.notify(a,b,c),this},notify:function(a,b,c){var e=d.createElement("article");e.className="alertify-log"+("string"==typeof b&&""!==b?" alertify-log-"+b:""),e.innerHTML=a,m.appendChild(e),setTimeout(function(){e.className=e.className+" alertify-log-show"},50),this.close(e,c)},set:function(a){var b;if("object"!=typeof a&&a instanceof Array)throw new Error("args must be an object");for(b in a)a.hasOwnProperty(b)&&(this[b]=a[b])},setFocus:function(){o?(o.focus(),o.select()):i.focus()},setup:function(a){var d,j=u[0],k=this;s=!0,d=function(a){a.stopPropagation(),k.setFocus(),k.unbind(l,k.transition.type,d)},this.transition.supported&&!a&&this.bind(l,this.transition.type,d),l.innerHTML=this.build(j),g=c("alertify-resetFocus"),h=c("alertify-resetFocusBack"),f=c("alertify-ok")||b,e=c("alertify-cancel")||b,i="cancel"===q.buttonFocus?e:"none"===q.buttonFocus?c("alertify-noneFocus"):f,o=c("alertify-text")||b,n=c("alertify-form")||b,"string"==typeof j.placeholder&&""!==j.placeholder&&(o.value=j.placeholder),a&&this.setFocus(),this.addListeners(j.callback)},unbind:function(a,b,c){"function"==typeof a.removeEventListener?a.removeEventListener(b,c,!1):a.detachEvent&&a.detachEvent("on"+b,c)}},{alert:function(a,b,c){return q.dialog(a,"alert",b,"",c),this},confirm:function(a,b,c){return q.dialog(a,"confirm",b,"",c),this},extend:q.extend,init:q.init,log:function(a,b,c){return q.log(a,b,c),this},prompt:function(a,b,c,d){return q.dialog(a,"prompt",b,c,d),this},success:function(a,b){return q.log(a,"success",b),this},error:function(a,b){return q.log(a,"error",b),this},set:function(a){q.set(a)},labels:q.labels,debug:q.handleErrors}},"function"==typeof define?define([],function(){return new c}):"undefined"==typeof a.alertify&&(a.alertify=new c)}(this);/;"	f
+c	app/assets/javascripts/alertify.min.js	/^!function(a,b){"use strict";var c,d=a.document;c=function(){var c,e,f,g,h,i,j,k,l,m,n,o,p,q={},r={},s=!1,t={ENTER:13,ESC:27,SPACE:32},u=[];return r={buttons:{holder:'<nav class="alertify-buttons">{{buttons}}<\/nav>',submit:'<button type="submit" class="alertify-button alertify-button-ok" id="alertify-ok">{{ok}}<\/button>',ok:'<button class="alertify-button alertify-button-ok" id="alertify-ok">{{ok}}<\/button>',cancel:'<button class="alertify-button alertify-button-cancel" id="alertify-cancel">{{cancel}}<\/button>'},input:'<div class="alertify-text-wrapper"><input type="text" class="alertify-text" id="alertify-text"><\/div>',message:'<p class="alertify-message">{{message}}<\/p>',log:'<article class="alertify-log{{class}}">{{message}}<\/article>'},p=function(){var a,c,e=!1,f=d.createElement("fakeelement"),g={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"otransitionend",transition:"transitionend"};for(a in g)if(f.style[a]!==b){c=g[a],e=!0;break}return{type:c,supported:e}},c=function(a){return d.getElementById(a)},q={labels:{ok:"OK",cancel:"Cancel"},delay:5e3,buttonReverse:!1,buttonFocus:"ok",transition:b,addListeners:function(a){var b,c,i,j,k,l="undefined"!=typeof f,m="undefined"!=typeof e,n="undefined"!=typeof o,p="",q=this;b=function(b){return"undefined"!=typeof b.preventDefault&&b.preventDefault(),i(b),"undefined"!=typeof o&&(p=o.value),"function"==typeof a&&("undefined"!=typeof o?a(!0,p):a(!0)),!1},c=function(b){return"undefined"!=typeof b.preventDefault&&b.preventDefault(),i(b),"function"==typeof a&&a(!1),!1},i=function(){q.hide(),q.unbind(d.body,"keyup",j),q.unbind(g,"focus",k),l&&q.unbind(f,"click",b),m&&q.unbind(e,"click",c)},j=function(a){var d=a.keyCode;(d===t.SPACE&&!n||n&&d===t.ENTER)&&b(a),d===t.ESC&&m&&c(a)},k=function(){n?o.focus():!m||q.buttonReverse?f.focus():e.focus()},this.bind(g,"focus",k),this.bind(h,"focus",k),l&&this.bind(f,"click",b),m&&this.bind(e,"click",c),this.bind(d.body,"keyup",j),this.transition.supported||this.setFocus()},bind:function(a,b,c){"function"==typeof a.addEventListener?a.addEventListener(b,c,!1):a.attachEvent&&a.attachEvent("on"+b,c)},handleErrors:function(){if("undefined"!=typeof a.onerror){var b=this;return a.onerror=function(a,c,d){b.error("["+a+" on line "+d+" of "+c+"]",0)},!0}return!1},appendButtons:function(a,b){return this.buttonReverse?b+a:a+b},build:function(a){var b="",c=a.type,d=a.message,e=a.cssClass||"";switch(b+='<div class="alertify-dialog">',b+='<a id="alertify-resetFocusBack" class="alertify-resetFocus" href="#">Reset Focus<\/a>',"none"===q.buttonFocus&&(b+='<a href="#" id="alertify-noneFocus" class="alertify-hidden"><\/a>'),"prompt"===c&&(b+='<div id="alertify-form">'),b+='<article class="alertify-inner">',b+=r.message.replace("{{message}}",d),"prompt"===c&&(b+=r.input),b+=r.buttons.holder,b+="<\/article>","prompt"===c&&(b+="<\/div>"),b+='<a id="alertify-resetFocus" class="alertify-resetFocus" href="#">Reset Focus<\/a>',b+="<\/div>",c){case"confirm":b=b.replace("{{buttons}}",this.appendButtons(r.buttons.cancel,r.buttons.ok)),b=b.replace("{{ok}}",this.labels.ok).replace("{{cancel}}",this.labels.cancel);break;case"prompt":b=b.replace("{{buttons}}",this.appendButtons(r.buttons.cancel,r.buttons.submit)),b=b.replace("{{ok}}",this.labels.ok).replace("{{cancel}}",this.labels.cancel);break;case"alert":b=b.replace("{{buttons}}",r.buttons.ok),b=b.replace("{{ok}}",this.labels.ok)}return l.className="alertify alertify-"+c+" "+e,k.className="alertify-cover",b},close:function(a,b){var c,d,e=b&&!isNaN(b)?+b:this.delay,f=this;this.bind(a,"click",function(){c(a)}),d=function(a){a.stopPropagation(),f.unbind(this,f.transition.type,d),m.removeChild(this),m.hasChildNodes()||(m.className+=" alertify-logs-hidden")},c=function(a){"undefined"!=typeof a&&a.parentNode===m&&(f.transition.supported?(f.bind(a,f.transition.type,d),a.className+=" alertify-log-hide"):(m.removeChild(a),m.hasChildNodes()||(m.className+=" alertify-logs-hidden")))},0!==b&&setTimeout(function(){c(a)},e)},dialog:function(a,b,c,e,f){j=d.activeElement;var g=function(){m&&null!==m.scrollTop&&k&&null!==k.scrollTop||g()};if("string"!=typeof a)throw new Error("message must be a string");if("string"!=typeof b)throw new Error("type must be a string");if("undefined"!=typeof c&&"function"!=typeof c)throw new Error("fn must be a function");return this.init(),g(),u.push({type:b,message:a,callback:c,placeholder:e,cssClass:f}),s||this.setup(),this},extend:function(a){if("string"!=typeof a)throw new Error("extend method must have exactly one paramter");return function(b,c){return this.log(b,a,c),this}},hide:function(){var a,b=this;u.splice(0,1),u.length>0?this.setup(!0):(s=!1,a=function(c){c.stopPropagation(),b.unbind(l,b.transition.type,a)},this.transition.supported?(this.bind(l,this.transition.type,a),l.className="alertify alertify-hide alertify-hidden"):l.className="alertify alertify-hide alertify-hidden alertify-isHidden",k.className="alertify-cover alertify-cover-hidden",j.focus())},init:function(){d.createElement("nav"),d.createElement("article"),d.createElement("section"),null==c("alertify-cover")&&(k=d.createElement("div"),k.setAttribute("id","alertify-cover"),k.className="alertify-cover alertify-cover-hidden",d.body.appendChild(k)),null==c("alertify")&&(s=!1,u=[],l=d.createElement("section"),l.setAttribute("id","alertify"),l.className="alertify alertify-hidden",d.body.appendChild(l)),null==c("alertify-logs")&&(m=d.createElement("section"),m.setAttribute("id","alertify-logs"),m.className="alertify-logs alertify-logs-hidden",d.body.appendChild(m)),d.body.setAttribute("tabindex","0"),this.transition=p()},log:function(a,b,c){var d=function(){m&&null!==m.scrollTop||d()};return this.init(),d(),m.className="alertify-logs",this.notify(a,b,c),this},notify:function(a,b,c){var e=d.createElement("article");e.className="alertify-log"+("string"==typeof b&&""!==b?" alertify-log-"+b:""),e.innerHTML=a,m.appendChild(e),setTimeout(function(){e.className=e.className+" alertify-log-show"},50),this.close(e,c)},set:function(a){var b;if("object"!=typeof a&&a instanceof Array)throw new Error("args must be an object");for(b in a)a.hasOwnProperty(b)&&(this[b]=a[b])},setFocus:function(){o?(o.focus(),o.select()):i.focus()},setup:function(a){var d,j=u[0],k=this;s=!0,d=function(a){a.stopPropagation(),k.setFocus(),k.unbind(l,k.transition.type,d)},this.transition.supported&&!a&&this.bind(l,this.transition.type,d),l.innerHTML=this.build(j),g=c("alertify-resetFocus"),h=c("alertify-resetFocusBack"),f=c("alertify-ok")||b,e=c("alertify-cancel")||b,i="cancel"===q.buttonFocus?e:"none"===q.buttonFocus?c("alertify-noneFocus"):f,o=c("alertify-text")||b,n=c("alertify-form")||b,"string"==typeof j.placeholder&&""!==j.placeholder&&(o.value=j.placeholder),a&&this.setFocus(),this.addListeners(j.callback)},unbind:function(a,b,c){"function"==typeof a.removeEventListener?a.removeEventListener(b,c,!1):a.detachEvent&&a.detachEvent("on"+b,c)}},{alert:function(a,b,c){return q.dialog(a,"alert",b,"",c),this},confirm:function(a,b,c){return q.dialog(a,"confirm",b,"",c),this},extend:q.extend,init:q.init,log:function(a,b,c){return q.log(a,b,c),this},prompt:function(a,b,c,d){return q.dialog(a,"prompt",b,c,d),this},success:function(a,b){return q.log(a,"success",b),this},error:function(a,b){return q.log(a,"error",b),this},set:function(a){q.set(a)},labels:q.labels,debug:q.handleErrors}},"function"==typeof define?define([],function(){return new c}):"undefined"==typeof a.alertify&&(a.alertify=new c)}(this);/;"	v
+cancel	app/assets/javascripts/alertify.js	/^				};$/;"	f
+case.top	app/assets/javascripts/bootstrap/bootstrap-tooltip.js	/^            tp = {top: pos.top + pos.height, left: pos.left + pos.width \/ 2 - actualWidth \/ 2}$/;"	p
+case.top	vendor/assets/javascripts/bootstrap/bootstrap-tooltip.js	/^            tp = {top: pos.top + pos.height, left: pos.left + pos.width \/ 2 - actualWidth \/ 2}$/;"	p
+change	db/migrate/20120218071616_devise_create_users.rb	/^  def change$/;"	f	class:DeviseCreateUsers
+change	db/migrate/20120218071940_create_contacts.rb	/^  def change$/;"	f	class:CreateContacts
+change	db/migrate/20120218072017_create_comptes.rb	/^  def change$/;"	f	class:CreateComptes
+change	db/migrate/20120218072036_create_types.rb	/^  def change$/;"	f	class:CreateTypes
+change	db/migrate/20120218072103_create_evenements.rb	/^  def change$/;"	f	class:CreateEvenements
+change	db/migrate/20120322213445_add_phone_numbers_to_compte.rb	/^  def change$/;"	f	class:AddPhoneNumbersToCompte
+change	db/migrate/20120513053831_create_taches.rb	/^  def change$/;"	f	class:CreateTaches
+change	db/migrate/20120627151302_add_tache_id_to_evenements.rb	/^  def change$/;"	f	class:AddTacheIdToEvenements
+change	db/migrate/20120628092714_create_produits.rb	/^  def change$/;"	f	class:CreateProduits
+change	db/migrate/20120716090053_create_opportunitees.rb	/^  def change$/;"	f	class:CreateOpportunitees
+change	db/migrate/20120723124706_rename_opportunitee_to_opportunite.rb	/^  def change$/;"	f	class:RenameOpportuniteeToOpportunite
+change	db/migrate/20120723151416_create_origines.rb	/^  def change$/;"	f	class:CreateOrigines
+change	db/migrate/20120726134228_create_documents.rb	/^  def change$/;"	f	class:CreateDocuments
+change	db/migrate/20120730121235_create_relations.rb	/^  def change$/;"	f	class:CreateRelations
+change	db/migrate/20120801083307_create_devis.rb	/^  def change$/;"	f	class:CreateDevis
+change	db/migrate/20120801092635_create_items.rb	/^  def change$/;"	f	class:CreateItems
+change	db/migrate/20120809075643_add_modele_to_devis.rb	/^  def change$/;"	f	class:AddModeleToDevis
+change	db/migrate/20120809095948_create_modeles.rb	/^  def change$/;"	f	class:CreateModeles
+change	db/migrate/20121010172409_add_notes2_to_evenements.rb	/^  def change$/;"	f	class:AddNotes2ToEvenements
+change	db/migrate/20121223132747_add_money_to_devis.rb	/^  def change$/;"	f	class:AddMoneyToDevis
+change	db/migrate/20121223141746_add_money_to_items.rb	/^  def change$/;"	f	class:AddMoneyToItems
+change	db/migrate/20121223150317_add_taux_tva_to_devis.rb	/^  def change$/;"	f	class:AddTauxTvaToDevis
+change	db/migrate/20121224081226_add_total_tva_to_devis.rb	/^  def change$/;"	f	class:AddTotalTvaToDevis
+change	db/migrate/20121224093738_modification_item_quantite_decimal_to_money.rb	/^  def change$/;"	f	class:ModificationItemQuantiteDecimalToMoney
+change	db/migrate/20121224100356_modification_item_quantite_money_to_decimal.rb	/^  def change$/;"	f	class:ModificationItemQuantiteMoneyToDecimal
+change	db/migrate/20130403141718_add_super_user.rb	/^  def change$/;"	f	class:AddSuperUser
+change	db/migrate/20130404134942_add_relation_created_midfied.rb	/^  def change$/;"	f	class:AddRelationCreatedMidfied
+change	db/migrate/20130405122238_add_prioriry_task.rb	/^  def change$/;"	f	class:AddPrioriryTask
+change	db/migrate/20130408094433_add_title_task.rb	/^  def change$/;"	f	class:AddTitleTask
+change	db/migrate/20130411090544_add_title_quotation.rb	/^   def change$/;"	f	class:AddTitleQuotation
+change	db/migrate/20130411133121_create_abilities.rb	/^  def change$/;"	f	class:CreateAbilities
+change	db/migrate/20130411141321_rolify_create_roles.rb	/^  def change$/;"	f	class:RolifyCreateRoles
+change	db/migrate/20130412094539_add_enablation_to_user.rb	/^  def change$/;"	f	class:AddEnablationToUser
+change	db/migrate/20130425091304_activate_all_users.rb	/^  def change$/;"	f	class:ActivateAllUsers
+change	db/migrate/20140113170437_add_rate_to_quotation_templates.rb	/^  def change$/;"	f	class:AddRateToQuotationTemplates
+change	db/migrate/20140116150437_create_webmail_connections.rb	/^  def change$/;"	f	class:CreateWebmailConnections
+change	db/migrate/20140117132739_add_active_to_webmail_connections.rb	/^  def change$/;"	f	class:AddActiveToWebmailConnections
+change	db/migrate/20140120094340_create_emails.rb	/^  def change$/;"	f	class:CreateEmails
+change	db/migrate/20140131092943_add_contact_id_to_emails.rb	/^  def change$/;"	f	class:AddContactIdToEmails
+change	db/migrate/20140305105320_add_account_id_to_email.rb	/^  def change$/;"	f	class:AddAccountIdToEmail
+changeTableType	db/migrate/20130325104624_add_user_relation.rb	/^  def changeTableType(table, column, old_type, type)$/;"	f	class:AddUserRelation
+changeTableType	db/migrate/20130415155306_priority_pp.rb	/^  def changeTableType(table, column, old_type, type)$/;"	f	class:PriorityPp
+changeTablesDown	db/migrate/20130325104624_add_user_relation.rb	/^  def changeTablesDown(o, field)$/;"	f	class:AddUserRelation
+changeTablesUp	db/migrate/20130325104624_add_user_relation.rb	/^  def changeTablesUp(o, field)$/;"	f	class:AddUserRelation
+check	app/assets/javascripts/alertify.js	/^				var check = function () {$/;"	f
+check	app/controllers/webmail_connections_controller.rb	/^	def check$/;"	f	class:WebmailConnectionsController
+check	app/models/email.rb	/^def check$/;"	f	class:Email
+check	app/models/webmail_connection.rb	/^	def self.check(connection)$/;"	F	class:WebmailConnection
+check_can_read!	app/controllers/accounts_controller.rb	/^  def check_can_read!$/;"	f	class:AccountsController
+common	app/assets/javascripts/alertify.js	/^				};$/;"	f
+condition	app/pdfs/quotation_pdf.rb	/^  def condition$/;"	f	class:QuotationPdf
+contacts	app/controllers/extractions_controller.rb	/^  def contacts$/;"	f	class:ExtractionsController
+convert	app/controllers/emails_controller.rb	/^  def convert$/;"	f	class:EmailsController
+convert	app/models/email.rb	/^def convert$/;"	f	class:Email
+create	app/controllers/accounts_controller.rb	/^  def create$/;"	f	class:AccountsController
+create	app/controllers/contacts_controller.rb	/^  def create$/;"	f	class:ContactsController
+create	app/controllers/documents_controller.rb	/^  def create$/;"	f	class:DocumentsController
+create	app/controllers/event_types_controller.rb	/^  def create$/;"	f	class:EventTypesController
+create	app/controllers/events_controller.rb	/^  def create$/;"	f	class:EventsController
+create	app/controllers/opportunities_controller.rb	/^  def create$/;"	f	class:OpportunitiesController
+create	app/controllers/origins_controller.rb	/^  def create$/;"	f	class:OriginsController
+create	app/controllers/quotation_templates_controller.rb	/^  def create$/;"	f	class:QuotationTemplatesController
+create	app/controllers/quotations_controller.rb	/^  def create$/;"	f	class:QuotationsController
+create	app/controllers/registrations_controller.rb	/^  def create$/;"	f	class:RegistrationsController
+create	app/controllers/relations_controller.rb	/^  def create$/;"	f	class:RelationsController
+create	app/controllers/tags_controller.rb	/^  def create$/;"	f	class:TagsController
+create	app/controllers/tasks_controller.rb	/^  def create$/;"	f	class:TasksController
+createHTML	app/assets/javascripts/corm_lib.js	/^    corm = {$/;"	m
+createObject	config/CORM_Object.rb	/^    def self.createObject(json_object, depth, key_as_sym = true)$/;"	F	class:CORM_Object
+createObject	config/deploy.rb	/^def createObject(o, depth)$/;"	f
+create_event	app/controllers/quotations_controller.rb	/^  def create_event(updated)$/;"	f	class:QuotationsController
+create_event	app/controllers/tasks_controller.rb	/^  def create_event(updated)$/;"	f	class:TasksController
+create_task	app/controllers/events_controller.rb	/^  def create_task()$/;"	f	class:EventsController
+create_task_email	app/mailers/user_mailer.rb	/^  def create_task_email(user,task)$/;"	f	class:UserMailer
+current_layout	app/controllers/documents_controller.rb	/^    def current_layout$/;"	f	class:DocumentsController
+current_layout	app/controllers/events_controller.rb	/^    def current_layout$/;"	f	class:EventsController
+current_layout	app/controllers/opportunities_controller.rb	/^    def current_layout$/;"	f
+current_layout	app/controllers/quotations_controller.rb	/^    def current_layout$/;"	f	class:QuotationsController
+current_layout	app/controllers/relations_controller.rb	/^    def current_layout$/;"	f	class:RelationsController
+current_layout	app/controllers/tags_controller.rb	/^    def current_layout$/;"	f	class:TagsController
+customer	app/pdfs/quotation_pdf.rb	/^  def customer$/;"	f	class:QuotationPdf
+default	app/models/user.rb	/^  def self.default$/;"	F	class:User
+delete_tag	app/controllers/accounts_controller.rb	/^  def delete_tag$/;"	f	class:AccountsController
+destroy	app/controllers/accounts_controller.rb	/^  def destroy$/;"	f	class:AccountsController
+destroy	app/controllers/attachments_controller.rb	/^  def destroy$/;"	f	class:AttachmentsController
+destroy	app/controllers/contacts_controller.rb	/^  def destroy$/;"	f	class:ContactsController
+destroy	app/controllers/documents_controller.rb	/^  def destroy$/;"	f	class:DocumentsController
+destroy	app/controllers/emails_controller.rb	/^  def destroy$/;"	f	class:EmailsController
+destroy	app/controllers/event_types_controller.rb	/^  def destroy$/;"	f	class:EventTypesController
+destroy	app/controllers/events_controller.rb	/^  def destroy$/;"	f	class:EventsController
+destroy	app/controllers/opportunities_controller.rb	/^  def destroy$/;"	f	class:OpportunitiesController
+destroy	app/controllers/origins_controller.rb	/^  def destroy$/;"	f	class:OriginsController
+destroy	app/controllers/quotation_templates_controller.rb	/^  def destroy$/;"	f	class:QuotationTemplatesController
+destroy	app/controllers/quotations_controller.rb	/^  def destroy$/;"	f	class:QuotationsController
+destroy	app/controllers/registrations_controller.rb	/^  def destroy$/;"	f	class:RegistrationsController
+destroy	app/controllers/relations_controller.rb	/^  def destroy$/;"	f	class:RelationsController
+destroy	app/controllers/tags_controller.rb	/^  def destroy$/;"	f	class:TagsController
+destroy	app/controllers/tasks_controller.rb	/^  def destroy$/;"	f	class:TasksController
+dialogs.buttons	app/assets/javascripts/alertify.js	/^		dialogs = {$/;"	p
+document	app/assets/javascripts/alertify.js	/^	var document = global.document,$/;"	v
+documents	app/controllers/documents_controller.rb	/^    def documents$/;"	f	class:DocumentsController
+down	db/migrate/20120218075659_replace_type_by_genre_in_compte.rb	/^  def down$/;"	f	class:ReplaceTypeByGenreInCompte
+down	db/migrate/20120428160402_add_attachment_fichier_joint_to_evenements.rb	/^  def self.down$/;"	F	class:AddAttachmentFichierJointToEvenements
+down	db/migrate/20120621143121_change_echeance_type_to_taches.rb	/^  def down$/;"	f	class:ChangeEcheanceTypeToTaches
+down	db/migrate/20120627122129_add_attachment_fichier_joint_to_taches.rb	/^  def self.down$/;"	F	class:AddAttachmentFichierJointToTaches
+down	db/migrate/20120702153424_create_compte_produit_join_table.rb	/^  def self.down$/;"	F	class:CreateCompteProduitJoinTable
+down	db/migrate/20120705093257_create_contact_produit_join_table.rb	/^  def self.down$/;"	F	class:CreateContactProduitJoinTable
+down	db/migrate/20120720134635_add_marge_to_opportunitees.rb	/^  	def down$/;"	f	class:AddMargeToOpportunitees
+down	db/migrate/20120723152354_replace_origine_in_compte.rb	/^  def down$/;"	f	class:ReplaceOrigineInCompte
+down	db/migrate/20130319085638_change_table_name_from_french_to_english.rb	/^  def down$/;"	f	class:ChangeTableNameFromFrenchToEnglish
+down	db/migrate/20130325104624_add_user_relation.rb	/^  def down$/;"	f	class:AddUserRelation
+down	db/migrate/20130415155306_priority_pp.rb	/^  def down$/;"	f	class:PriorityPp
+down	db/migrate/20130426125246_set_tasks_with_no_priority_to_normal.rb	/^  def down$/;"	f	class:SetTasksWithNoPriorityToNormal
+down	db/migrate/20130513100221_create_settings.rb	/^  def down$/;"	f	class:CreateSettings
+down	db/migrate/20140122150848_change_date_format_in_emails.rb	/^  def down$/;"	f	class:ChangeDateFormatInEmails
+down	db/migrate/20140210083132_remove_account_id_from_emails.rb	/^  def down$/;"	f	class:RemoveAccountIdFromEmails
+down	db/migrate/20140211093556_remove_attachement_fields_from_email.rb	/^  def down$/;"	f	class:RemoveAttachementFieldsFromEmail
+down	db/migrate/20140213094157_create_event_attachments.rb	/^  def down$/;"	f	class:CreateEventAttachments
+down	db/migrate/20140213100127_remove_attachment_fields_from_event.rb	/^  def down$/;"	f	class:RemoveAttachmentFieldsFromEvent
+down	db/migrate/20140217150057_create_task_attachments.rb	/^  def down$/;"	f	class:CreateTaskAttachments
+down	db/migrate/20140217150412_remove_attachment_fields_from_task.rb	/^  def down$/;"	f	class:RemoveAttachmentFieldsFromTask
+down	db/migrate/20140218104937_create_quotation_attachments.rb	/^  def down$/;"	f	class:CreateQuotationAttachments
+down	db/migrate/20140218110819_remove_attachment_fields_from_quotation.rb	/^  def down$/;"	f	class:RemoveAttachmentFieldsFromQuotation
+down	db/migrate/20140219095830_create_document_attachments.rb	/^  def down$/;"	f	class:CreateDocumentAttachments
+down	db/migrate/20140219100048_remove_attachment_fields_from_document.rb	/^  def down$/;"	f	class:RemoveAttachmentFieldsFromDocument
+down	db/migrate/20140219140505_create_opportunity_attachments.rb	/^  def down$/;"	f	class:CreateOpportunityAttachments
+down	db/migrate/20140219140727_remove_attachment_fields_from_opportunity.rb	/^  def down$/;"	f	class:RemoveAttachmentFieldsFromOpportunity
+down	db/migrate/20140220111406_modify_settings_table.rb	/^  def down$/;"	f	class:ModifySettingsTable
+edit	app/controllers/accounts_controller.rb	/^  def edit$/;"	f	class:AccountsController
+edit	app/controllers/contacts_controller.rb	/^  def edit$/;"	f	class:ContactsController
+edit	app/controllers/documents_controller.rb	/^  def edit$/;"	f	class:DocumentsController
+edit	app/controllers/emails_controller.rb	/^  def edit$/;"	f	class:EmailsController
+edit	app/controllers/event_types_controller.rb	/^  def edit$/;"	f	class:EventTypesController
+edit	app/controllers/events_controller.rb	/^  def edit$/;"	f	class:EventsController
+edit	app/controllers/opportunities_controller.rb	/^  def edit$/;"	f	class:OpportunitiesController
+edit	app/controllers/origins_controller.rb	/^  def edit$/;"	f	class:OriginsController
+edit	app/controllers/quotation_templates_controller.rb	/^  def edit$/;"	f	class:QuotationTemplatesController
+edit	app/controllers/quotations_controller.rb	/^  def edit$/;"	f	class:QuotationsController
+edit	app/controllers/registrations_controller.rb	/^  def edit$/;"	f	class:RegistrationsController
+edit	app/controllers/relations_controller.rb	/^  def edit$/;"	f	class:RelationsController
+edit	app/controllers/tags_controller.rb	/^  def edit$/;"	f	class:TagsController
+edit	app/controllers/tasks_controller.rb	/^  def edit$/;"	f	class:TasksController
+edit	app/controllers/webmail_connections_controller.rb	/^	def edit$/;"	f	class:WebmailConnectionsController
+editor	app/models/account.rb	/^  def editor$/;"	f	class:Account
+editor	app/models/contact.rb	/^  def editor$/;"	f	class:Contact
+editor	app/models/document.rb	/^  def editor$/;"	f	class:Document
+editor	app/models/event.rb	/^  def editor$/;"	f	class:Event
+editor	app/models/event_type.rb	/^  def editor$/;"	f	class:EventType
+editor	app/models/opportunity.rb	/^  def editor$/;"	f	class:Opportunity
+editor	app/models/origin.rb	/^  def editor$/;"	f	class:Origin
+editor	app/models/quotation.rb	/^  def editor$/;"	f	class:Quotation
+editor	app/models/quotation_template.rb	/^  def editor$/;"	f	class:QuotationTemplate
+editor	app/models/relation.rb	/^  def editor$/;"	f	class:Relation
+editor	app/models/tag.rb	/^  def editor$/;"	f	class:Tag
+editor	app/models/task.rb	/^  def editor$/;"	f	class:Task
+events	app/controllers/events_controller.rb	/^    def events $/;"	f	class:EventsController
+filter	app/controllers/accounts_controller.rb	/^  def filter$/;"	f	class:AccountsController
+filter	app/controllers/contacts_controller.rb	/^  def filter$/;"	f	class:ContactsController
+filter	app/controllers/opportunities_controller.rb	/^  def filter$/;"	f	class:OpportunitiesController
+filter	app/controllers/quotations_controller.rb	/^  def filter$/;"	f	class:QuotationsController
+filter	app/controllers/tasks_controller.rb	/^  def filter$/;"	f	class:TasksController
+full_adress	app/models/account.rb	/^  def full_adress$/;"	f	class:Account
+full_name	app/models/contact.rb	/^  def full_name$/;"	f	class:Contact
+full_name	app/models/user.rb	/^  def full_name$/;"	f	class:User
+full_type	app/models/event_type.rb	/^  def full_type$/;"	f	class:EventType
+function.$	app/assets/javascripts/bootstrap/bootstrap-modal.js	/^  }$/;"	m
+function.$	vendor/assets/javascripts/bootstrap/bootstrap-modal.js	/^  }$/;"	m
+function.$.$.$.$.$.backdrop	app/assets/javascripts/bootstrap/bootstrap-modal.js	/^  $.fn.modal.defaults = {$/;"	p
+function.$.$.$.$.$.backdrop	vendor/assets/javascripts/bootstrap/bootstrap-modal.js	/^  $.fn.modal.defaults = {$/;"	p
+function.$.$.$.$.$.keyboard	app/assets/javascripts/bootstrap/bootstrap-modal.js	/^    , keyboard: true$/;"	p
+function.$.$.$.$.$.keyboard	vendor/assets/javascripts/bootstrap/bootstrap-modal.js	/^    , keyboard: true$/;"	p
+function.$.$.$.$.$.show	app/assets/javascripts/bootstrap/bootstrap-modal.js	/^    , show: true$/;"	p
+function.$.$.$.$.$.show	vendor/assets/javascripts/bootstrap/bootstrap-modal.js	/^    , show: true$/;"	p
+function.removeBackdrop.escape	app/assets/javascripts/bootstrap/bootstrap-modal.js	/^  function escape() {$/;"	f
+function.removeBackdrop.escape	vendor/assets/javascripts/bootstrap/bootstrap-modal.js	/^  function escape() {$/;"	f
+g	app/assets/javascripts/alertify.min.js	/^!function(a,b){"use strict";var c,d=a.document;c=function(){var c,e,f,g,h,i,j,k,l,m,n,o,p,q={},r={},s=!1,t={ENTER:13,ESC:27,SPACE:32},u=[];return r={buttons:{holder:'<nav class="alertify-buttons">{{buttons}}<\/nav>',submit:'<button type="submit" class="alertify-button alertify-button-ok" id="alertify-ok">{{ok}}<\/button>',ok:'<button class="alertify-button alertify-button-ok" id="alertify-ok">{{ok}}<\/button>',cancel:'<button class="alertify-button alertify-button-cancel" id="alertify-cancel">{{cancel}}<\/button>'},input:'<div class="alertify-text-wrapper"><input type="text" class="alertify-text" id="alertify-text"><\/div>',message:'<p class="alertify-message">{{message}}<\/p>',log:'<article class="alertify-log{{class}}">{{message}}<\/article>'},p=function(){var a,c,e=!1,f=d.createElement("fakeelement"),g={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"otransitionend",transition:"transitionend"};for(a in g)if(f.style[a]!==b){c=g[a],e=!0;break}return{type:c,supported:e}},c=function(a){return d.getElementById(a)},q={labels:{ok:"OK",cancel:"Cancel"},delay:5e3,buttonReverse:!1,buttonFocus:"ok",transition:b,addListeners:function(a){var b,c,i,j,k,l="undefined"!=typeof f,m="undefined"!=typeof e,n="undefined"!=typeof o,p="",q=this;b=function(b){return"undefined"!=typeof b.preventDefault&&b.preventDefault(),i(b),"undefined"!=typeof o&&(p=o.value),"function"==typeof a&&("undefined"!=typeof o?a(!0,p):a(!0)),!1},c=function(b){return"undefined"!=typeof b.preventDefault&&b.preventDefault(),i(b),"function"==typeof a&&a(!1),!1},i=function(){q.hide(),q.unbind(d.body,"keyup",j),q.unbind(g,"focus",k),l&&q.unbind(f,"click",b),m&&q.unbind(e,"click",c)},j=function(a){var d=a.keyCode;(d===t.SPACE&&!n||n&&d===t.ENTER)&&b(a),d===t.ESC&&m&&c(a)},k=function(){n?o.focus():!m||q.buttonReverse?f.focus():e.focus()},this.bind(g,"focus",k),this.bind(h,"focus",k),l&&this.bind(f,"click",b),m&&this.bind(e,"click",c),this.bind(d.body,"keyup",j),this.transition.supported||this.setFocus()},bind:function(a,b,c){"function"==typeof a.addEventListener?a.addEventListener(b,c,!1):a.attachEvent&&a.attachEvent("on"+b,c)},handleErrors:function(){if("undefined"!=typeof a.onerror){var b=this;return a.onerror=function(a,c,d){b.error("["+a+" on line "+d+" of "+c+"]",0)},!0}return!1},appendButtons:function(a,b){return this.buttonReverse?b+a:a+b},build:function(a){var b="",c=a.type,d=a.message,e=a.cssClass||"";switch(b+='<div class="alertify-dialog">',b+='<a id="alertify-resetFocusBack" class="alertify-resetFocus" href="#">Reset Focus<\/a>',"none"===q.buttonFocus&&(b+='<a href="#" id="alertify-noneFocus" class="alertify-hidden"><\/a>'),"prompt"===c&&(b+='<div id="alertify-form">'),b+='<article class="alertify-inner">',b+=r.message.replace("{{message}}",d),"prompt"===c&&(b+=r.input),b+=r.buttons.holder,b+="<\/article>","prompt"===c&&(b+="<\/div>"),b+='<a id="alertify-resetFocus" class="alertify-resetFocus" href="#">Reset Focus<\/a>',b+="<\/div>",c){case"confirm":b=b.replace("{{buttons}}",this.appendButtons(r.buttons.cancel,r.buttons.ok)),b=b.replace("{{ok}}",this.labels.ok).replace("{{cancel}}",this.labels.cancel);break;case"prompt":b=b.replace("{{buttons}}",this.appendButtons(r.buttons.cancel,r.buttons.submit)),b=b.replace("{{ok}}",this.labels.ok).replace("{{cancel}}",this.labels.cancel);break;case"alert":b=b.replace("{{buttons}}",r.buttons.ok),b=b.replace("{{ok}}",this.labels.ok)}return l.className="alertify alertify-"+c+" "+e,k.className="alertify-cover",b},close:function(a,b){var c,d,e=b&&!isNaN(b)?+b:this.delay,f=this;this.bind(a,"click",function(){c(a)}),d=function(a){a.stopPropagation(),f.unbind(this,f.transition.type,d),m.removeChild(this),m.hasChildNodes()||(m.className+=" alertify-logs-hidden")},c=function(a){"undefined"!=typeof a&&a.parentNode===m&&(f.transition.supported?(f.bind(a,f.transition.type,d),a.className+=" alertify-log-hide"):(m.removeChild(a),m.hasChildNodes()||(m.className+=" alertify-logs-hidden")))},0!==b&&setTimeout(function(){c(a)},e)},dialog:function(a,b,c,e,f){j=d.activeElement;var g=function(){m&&null!==m.scrollTop&&k&&null!==k.scrollTop||g()};if("string"!=typeof a)throw new Error("message must be a string");if("string"!=typeof b)throw new Error("type must be a string");if("undefined"!=typeof c&&"function"!=typeof c)throw new Error("fn must be a function");return this.init(),g(),u.push({type:b,message:a,callback:c,placeholder:e,cssClass:f}),s||this.setup(),this},extend:function(a){if("string"!=typeof a)throw new Error("extend method must have exactly one paramter");return function(b,c){return this.log(b,a,c),this}},hide:function(){var a,b=this;u.splice(0,1),u.length>0?this.setup(!0):(s=!1,a=function(c){c.stopPropagation(),b.unbind(l,b.transition.type,a)},this.transition.supported?(this.bind(l,this.transition.type,a),l.className="alertify alertify-hide alertify-hidden"):l.className="alertify alertify-hide alertify-hidden alertify-isHidden",k.className="alertify-cover alertify-cover-hidden",j.focus())},init:function(){d.createElement("nav"),d.createElement("article"),d.createElement("section"),null==c("alertify-cover")&&(k=d.createElement("div"),k.setAttribute("id","alertify-cover"),k.className="alertify-cover alertify-cover-hidden",d.body.appendChild(k)),null==c("alertify")&&(s=!1,u=[],l=d.createElement("section"),l.setAttribute("id","alertify"),l.className="alertify alertify-hidden",d.body.appendChild(l)),null==c("alertify-logs")&&(m=d.createElement("section"),m.setAttribute("id","alertify-logs"),m.className="alertify-logs alertify-logs-hidden",d.body.appendChild(m)),d.body.setAttribute("tabindex","0"),this.transition=p()},log:function(a,b,c){var d=function(){m&&null!==m.scrollTop||d()};return this.init(),d(),m.className="alertify-logs",this.notify(a,b,c),this},notify:function(a,b,c){var e=d.createElement("article");e.className="alertify-log"+("string"==typeof b&&""!==b?" alertify-log-"+b:""),e.innerHTML=a,m.appendChild(e),setTimeout(function(){e.className=e.className+" alertify-log-show"},50),this.close(e,c)},set:function(a){var b;if("object"!=typeof a&&a instanceof Array)throw new Error("args must be an object");for(b in a)a.hasOwnProperty(b)&&(this[b]=a[b])},setFocus:function(){o?(o.focus(),o.select()):i.focus()},setup:function(a){var d,j=u[0],k=this;s=!0,d=function(a){a.stopPropagation(),k.setFocus(),k.unbind(l,k.transition.type,d)},this.transition.supported&&!a&&this.bind(l,this.transition.type,d),l.innerHTML=this.build(j),g=c("alertify-resetFocus"),h=c("alertify-resetFocusBack"),f=c("alertify-ok")||b,e=c("alertify-cancel")||b,i="cancel"===q.buttonFocus?e:"none"===q.buttonFocus?c("alertify-noneFocus"):f,o=c("alertify-text")||b,n=c("alertify-form")||b,"string"==typeof j.placeholder&&""!==j.placeholder&&(o.value=j.placeholder),a&&this.setFocus(),this.addListeners(j.callback)},unbind:function(a,b,c){"function"==typeof a.removeEventListener?a.removeEventListener(b,c,!1):a.detachEvent&&a.detachEvent("on"+b,c)}},{alert:function(a,b,c){return q.dialog(a,"alert",b,"",c),this},confirm:function(a,b,c){return q.dialog(a,"confirm",b,"",c),this},extend:q.extend,init:q.init,log:function(a,b,c){return q.log(a,b,c),this},prompt:function(a,b,c,d){return q.dialog(a,"prompt",b,c,d),this},success:function(a,b){return q.log(a,"success",b),this},error:function(a,b){return q.log(a,"error",b),this},set:function(a){q.set(a)},labels:q.labels,debug:q.handleErrors}},"function"==typeof define?define([],function(){return new c}):"undefined"==typeof a.alertify&&(a.alertify=new c)}(this);/;"	c
+get	config/CORM_Object.rb	/^    def self.get$/;"	F	class:CORM_Object
+getAbility	app/controllers/application_controller.rb	/^  def getAbility$/;"	f	class:ApplicationController
+getContactsByAccount	app/assets/javascripts/corm_lib.js	/^        },$/;"	m
+getTransitionEvent	app/assets/javascripts/alertify.js	/^		};$/;"	f
+get_attach_size_of	app/controllers/home_controller.rb	/^    def get_attach_size_of(object)$/;"	f	class:HomeController
+get_companies	app/controllers/quotations_controller.rb	/^  def get_companies$/;"	f	class:QuotationsController
+get_contacts	app/controllers/quotations_controller.rb	/^  def get_contacts$/;"	f	class:QuotationsController
+get_version	config/CORM_Object.rb	/^    def get_version$/;"	f	class:CORM_Object
+global.onerror	app/assets/javascripts/alertify.js	/^					var self = this;$/;"	f
+header	app/pdfs/quotation_pdf.rb	/^  def header$/;"	f	class:QuotationPdf
+hideElement	app/assets/javascripts/alertify.js	/^				};$/;"	f
+index	app/controllers/about_controller.rb	/^  def index$/;"	f	class:AboutController
+index	app/controllers/accounts_controller.rb	/^  def index$/;"	f	class:AccountsController
+index	app/controllers/contacts_controller.rb	/^  def index$/;"	f	class:ContactsController
+index	app/controllers/documents_controller.rb	/^  def index$/;"	f	class:DocumentsController
+index	app/controllers/emails_controller.rb	/^  def index$/;"	f	class:EmailsController
+index	app/controllers/event_types_controller.rb	/^  def index$/;"	f	class:EventTypesController
+index	app/controllers/events_controller.rb	/^  def index$/;"	f	class:EventsController
+index	app/controllers/home_controller.rb	/^  def index$/;"	f	class:HomeController
+index	app/controllers/notifications_controller.rb	/^  def index$/;"	f	class:NotificationsController
+index	app/controllers/opportunities_controller.rb	/^  def index$/;"	f	class:OpportunitiesController
+index	app/controllers/origins_controller.rb	/^  def index$/;"	f	class:OriginsController
+index	app/controllers/quotation_templates_controller.rb	/^  def index$/;"	f	class:QuotationTemplatesController
+index	app/controllers/quotations_controller.rb	/^  def index$/;"	f	class:QuotationsController
+index	app/controllers/registrations_controller.rb	/^  def index$/;"	f	class:RegistrationsController
+index	app/controllers/relations_controller.rb	/^  def index$/;"	f	class:RelationsController
+index	app/controllers/settings_controller.rb	/^    def index$/;"	f	class:SettingsController
+index	app/controllers/tags_controller.rb	/^  def index$/;"	f	class:TagsController
+index	app/controllers/tasks_controller.rb	/^  def index$/;"	f	class:TasksController
+init	db/migrate/20130325104624_add_user_relation.rb	/^  def init$/;"	f	class:AddUserRelation
+initialize	app/models/ability.rb	/^  def initialize(user)$/;"	f	class:Ability
+initialize	app/pdfs/quotation_pdf.rb	/^  def initialize(quotation, view)$/;"	f	class:QuotationPdf
+isInt?	app/controllers/tasks_controller.rb	/^  def isInt?(i)$/;"	f	class:TasksController
+isLogged	app/controllers/registrations_controller.rb	/^  def isLogged$/;"	f	class:RegistrationsController
+key	app/assets/javascripts/alertify.js	/^				};$/;"	f
+labels	app/assets/javascripts/alertify.min.js	/^!function(a,b){"use strict";var c,d=a.document;c=function(){var c,e,f,g,h,i,j,k,l,m,n,o,p,q={},r={},s=!1,t={ENTER:13,ESC:27,SPACE:32},u=[];return r={buttons:{holder:'<nav class="alertify-buttons">{{buttons}}<\/nav>',submit:'<button type="submit" class="alertify-button alertify-button-ok" id="alertify-ok">{{ok}}<\/button>',ok:'<button class="alertify-button alertify-button-ok" id="alertify-ok">{{ok}}<\/button>',cancel:'<button class="alertify-button alertify-button-cancel" id="alertify-cancel">{{cancel}}<\/button>'},input:'<div class="alertify-text-wrapper"><input type="text" class="alertify-text" id="alertify-text"><\/div>',message:'<p class="alertify-message">{{message}}<\/p>',log:'<article class="alertify-log{{class}}">{{message}}<\/article>'},p=function(){var a,c,e=!1,f=d.createElement("fakeelement"),g={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"otransitionend",transition:"transitionend"};for(a in g)if(f.style[a]!==b){c=g[a],e=!0;break}return{type:c,supported:e}},c=function(a){return d.getElementById(a)},q={labels:{ok:"OK",cancel:"Cancel"},delay:5e3,buttonReverse:!1,buttonFocus:"ok",transition:b,addListeners:function(a){var b,c,i,j,k,l="undefined"!=typeof f,m="undefined"!=typeof e,n="undefined"!=typeof o,p="",q=this;b=function(b){return"undefined"!=typeof b.preventDefault&&b.preventDefault(),i(b),"undefined"!=typeof o&&(p=o.value),"function"==typeof a&&("undefined"!=typeof o?a(!0,p):a(!0)),!1},c=function(b){return"undefined"!=typeof b.preventDefault&&b.preventDefault(),i(b),"function"==typeof a&&a(!1),!1},i=function(){q.hide(),q.unbind(d.body,"keyup",j),q.unbind(g,"focus",k),l&&q.unbind(f,"click",b),m&&q.unbind(e,"click",c)},j=function(a){var d=a.keyCode;(d===t.SPACE&&!n||n&&d===t.ENTER)&&b(a),d===t.ESC&&m&&c(a)},k=function(){n?o.focus():!m||q.buttonReverse?f.focus():e.focus()},this.bind(g,"focus",k),this.bind(h,"focus",k),l&&this.bind(f,"click",b),m&&this.bind(e,"click",c),this.bind(d.body,"keyup",j),this.transition.supported||this.setFocus()},bind:function(a,b,c){"function"==typeof a.addEventListener?a.addEventListener(b,c,!1):a.attachEvent&&a.attachEvent("on"+b,c)},handleErrors:function(){if("undefined"!=typeof a.onerror){var b=this;return a.onerror=function(a,c,d){b.error("["+a+" on line "+d+" of "+c+"]",0)},!0}return!1},appendButtons:function(a,b){return this.buttonReverse?b+a:a+b},build:function(a){var b="",c=a.type,d=a.message,e=a.cssClass||"";switch(b+='<div class="alertify-dialog">',b+='<a id="alertify-resetFocusBack" class="alertify-resetFocus" href="#">Reset Focus<\/a>',"none"===q.buttonFocus&&(b+='<a href="#" id="alertify-noneFocus" class="alertify-hidden"><\/a>'),"prompt"===c&&(b+='<div id="alertify-form">'),b+='<article class="alertify-inner">',b+=r.message.replace("{{message}}",d),"prompt"===c&&(b+=r.input),b+=r.buttons.holder,b+="<\/article>","prompt"===c&&(b+="<\/div>"),b+='<a id="alertify-resetFocus" class="alertify-resetFocus" href="#">Reset Focus<\/a>',b+="<\/div>",c){case"confirm":b=b.replace("{{buttons}}",this.appendButtons(r.buttons.cancel,r.buttons.ok)),b=b.replace("{{ok}}",this.labels.ok).replace("{{cancel}}",this.labels.cancel);break;case"prompt":b=b.replace("{{buttons}}",this.appendButtons(r.buttons.cancel,r.buttons.submit)),b=b.replace("{{ok}}",this.labels.ok).replace("{{cancel}}",this.labels.cancel);break;case"alert":b=b.replace("{{buttons}}",r.buttons.ok),b=b.replace("{{ok}}",this.labels.ok)}return l.className="alertify alertify-"+c+" "+e,k.className="alertify-cover",b},close:function(a,b){var c,d,e=b&&!isNaN(b)?+b:this.delay,f=this;this.bind(a,"click",function(){c(a)}),d=function(a){a.stopPropagation(),f.unbind(this,f.transition.type,d),m.removeChild(this),m.hasChildNodes()||(m.className+=" alertify-logs-hidden")},c=function(a){"undefined"!=typeof a&&a.parentNode===m&&(f.transition.supported?(f.bind(a,f.transition.type,d),a.className+=" alertify-log-hide"):(m.removeChild(a),m.hasChildNodes()||(m.className+=" alertify-logs-hidden")))},0!==b&&setTimeout(function(){c(a)},e)},dialog:function(a,b,c,e,f){j=d.activeElement;var g=function(){m&&null!==m.scrollTop&&k&&null!==k.scrollTop||g()};if("string"!=typeof a)throw new Error("message must be a string");if("string"!=typeof b)throw new Error("type must be a string");if("undefined"!=typeof c&&"function"!=typeof c)throw new Error("fn must be a function");return this.init(),g(),u.push({type:b,message:a,callback:c,placeholder:e,cssClass:f}),s||this.setup(),this},extend:function(a){if("string"!=typeof a)throw new Error("extend method must have exactly one paramter");return function(b,c){return this.log(b,a,c),this}},hide:function(){var a,b=this;u.splice(0,1),u.length>0?this.setup(!0):(s=!1,a=function(c){c.stopPropagation(),b.unbind(l,b.transition.type,a)},this.transition.supported?(this.bind(l,this.transition.type,a),l.className="alertify alertify-hide alertify-hidden"):l.className="alertify alertify-hide alertify-hidden alertify-isHidden",k.className="alertify-cover alertify-cover-hidden",j.focus())},init:function(){d.createElement("nav"),d.createElement("article"),d.createElement("section"),null==c("alertify-cover")&&(k=d.createElement("div"),k.setAttribute("id","alertify-cover"),k.className="alertify-cover alertify-cover-hidden",d.body.appendChild(k)),null==c("alertify")&&(s=!1,u=[],l=d.createElement("section"),l.setAttribute("id","alertify"),l.className="alertify alertify-hidden",d.body.appendChild(l)),null==c("alertify-logs")&&(m=d.createElement("section"),m.setAttribute("id","alertify-logs"),m.className="alertify-logs alertify-logs-hidden",d.body.appendChild(m)),d.body.setAttribute("tabindex","0"),this.transition=p()},log:function(a,b,c){var d=function(){m&&null!==m.scrollTop||d()};return this.init(),d(),m.className="alertify-logs",this.notify(a,b,c),this},notify:function(a,b,c){var e=d.createElement("article");e.className="alertify-log"+("string"==typeof b&&""!==b?" alertify-log-"+b:""),e.innerHTML=a,m.appendChild(e),setTimeout(function(){e.className=e.className+" alertify-log-show"},50),this.close(e,c)},set:function(a){var b;if("object"!=typeof a&&a instanceof Array)throw new Error("args must be an object");for(b in a)a.hasOwnProperty(b)&&(this[b]=a[b])},setFocus:function(){o?(o.focus(),o.select()):i.focus()},setup:function(a){var d,j=u[0],k=this;s=!0,d=function(a){a.stopPropagation(),k.setFocus(),k.unbind(l,k.transition.type,d)},this.transition.supported&&!a&&this.bind(l,this.transition.type,d),l.innerHTML=this.build(j),g=c("alertify-resetFocus"),h=c("alertify-resetFocusBack"),f=c("alertify-ok")||b,e=c("alertify-cancel")||b,i="cancel"===q.buttonFocus?e:"none"===q.buttonFocus?c("alertify-noneFocus"):f,o=c("alertify-text")||b,n=c("alertify-form")||b,"string"==typeof j.placeholder&&""!==j.placeholder&&(o.value=j.placeholder),a&&this.setFocus(),this.addListeners(j.callback)},unbind:function(a,b,c){"function"==typeof a.removeEventListener?a.removeEventListener(b,c,!1):a.detachEvent&&a.detachEvent("on"+b,c)}},{alert:function(a,b,c){return q.dialog(a,"alert",b,"",c),this},confirm:function(a,b,c){return q.dialog(a,"confirm",b,"",c),this},extend:q.extend,init:q.init,log:function(a,b,c){return q.log(a,b,c),this},prompt:function(a,b,c,d){return q.dialog(a,"prompt",b,c,d),this},success:function(a,b){return q.log(a,"success",b),this},error:function(a,b){return q.log(a,"error",b),this},set:function(a){q.set(a)},labels:q.labels,debug:q.handleErrors}},"function"==typeof define?define([],function(){return new c}):"undefined"==typeof a.alertify&&(a.alertify=new c)}(this);/;"	p
+last_modified	app/models/opportunity.rb	/^  def self.last_modified(how_many = 10)$/;"	F	class:Opportunity
+last_modified	app/models/quotation.rb	/^  def self.last_modified(how_many = 10)$/;"	F
+load_account	app/controllers/documents_controller.rb	/^    def load_account$/;"	f	class:DocumentsController
+load_account	app/controllers/events_controller.rb	/^    def load_account$/;"	f	class:EventsController
+load_account	app/controllers/opportunities_controller.rb	/^    def load_account$/;"	f
+load_account	app/controllers/quotations_controller.rb	/^    def load_account$/;"	f	class:QuotationsController
+load_account	app/controllers/relations_controller.rb	/^    def load_account$/;"	f	class:RelationsController
+load_account	app/controllers/tags_controller.rb	/^    def load_account$/;"	f	class:TagsController
+logo	app/pdfs/quotation_pdf.rb	/^  def logo$/;"	f	class:QuotationPdf
+mail_for	app/mailers/user_mailer.rb	/^  def mail_for(user, object, created)$/;"	f	class:UserMailer
+mycompany	app/pdfs/quotation_pdf.rb	/^  def mycompany$/;"	f	class:QuotationPdf
+new	app/controllers/accounts_controller.rb	/^  def new$/;"	f	class:AccountsController
+new	app/controllers/contacts_controller.rb	/^  def new$/;"	f	class:ContactsController
+new	app/controllers/documents_controller.rb	/^  def new$/;"	f	class:DocumentsController
+new	app/controllers/event_types_controller.rb	/^  def new$/;"	f	class:EventTypesController
+new	app/controllers/events_controller.rb	/^  def new$/;"	f	class:EventsController
+new	app/controllers/opportunities_controller.rb	/^  def new$/;"	f	class:OpportunitiesController
+new	app/controllers/origins_controller.rb	/^  def new$/;"	f	class:OriginsController
+new	app/controllers/quotation_templates_controller.rb	/^  def new$/;"	f	class:QuotationTemplatesController
+new	app/controllers/quotations_controller.rb	/^  def new$/;"	f	class:QuotationsController
+new	app/controllers/registrations_controller.rb	/^  def new$/;"	f	class:RegistrationsController
+new	app/controllers/relations_controller.rb	/^  def new$/;"	f	class:RelationsController
+new	app/controllers/tags_controller.rb	/^  def new$/;"	f	class:TagsController
+new	app/controllers/tasks_controller.rb	/^  def new$/;"	f	class:TasksController
+new	app/models/account.rb	/^  def new(attributes = nil, options = {})$/;"	f	class:Account
+ok	app/assets/javascripts/alertify.js	/^				    ok, cancel, common, key, reset;$/;"	f
+opportunities	app/controllers/opportunities_controller.rb	/^    def opportunities $/;"	f
+options.delay.show	app/assets/javascripts/bootstrap/bootstrap-tooltip.js	/^        options.delay = {$/;"	p
+options.delay.show	vendor/assets/javascripts/bootstrap/bootstrap-tooltip.js	/^        options.delay = {$/;"	p
+page	app/pdfs/quotation_pdf.rb	/^  def page$/;"	f	class:QuotationPdf
+parent_layout	app/helpers/layouts_helper.rb	/^  def parent_layout(layout)$/;"	f	class:LayoutsHelper
+profit=	app/models/opportunity.rb	/^  def profit=(profit)$/;"	f	class:Opportunity
+quantite=	app/models/quotation_line.rb	/^  def quantite=(quantity)$/;"	f	class:QuotationLine
+quotation_template	app/pdfs/quotation_pdf.rb	/^  def quotation_template$/;"	f	class:QuotationPdf
+quotations	app/controllers/quotations_controller.rb	/^    def quotations $/;"	f	class:QuotationsController
+relations	app/controllers/relations_controller.rb	/^    def relations$/;"	f	class:RelationsController
+remFK	db/migrate/20130325104624_add_user_relation.rb	/^  def remFK(table, column)$/;"	f	class:AddUserRelation
+removeFileField	app/assets/javascripts/attachments.js	/^function removeFileField(id) {$/;"	f
+reset	app/assets/javascripts/alertify.js	/^				};$/;"	f
+return.buttons	app/assets/javascripts/alertify.min.js	/^!function(a,b){"use strict";var c,d=a.document;c=function(){var c,e,f,g,h,i,j,k,l,m,n,o,p,q={},r={},s=!1,t={ENTER:13,ESC:27,SPACE:32},u=[];return r={buttons:{holder:'<nav class="alertify-buttons">{{buttons}}<\/nav>',submit:'<button type="submit" class="alertify-button alertify-button-ok" id="alertify-ok">{{ok}}<\/button>',ok:'<button class="alertify-button alertify-button-ok" id="alertify-ok">{{ok}}<\/button>',cancel:'<button class="alertify-button alertify-button-cancel" id="alertify-cancel">{{cancel}}<\/button>'},input:'<div class="alertify-text-wrapper"><input type="text" class="alertify-text" id="alertify-text"><\/div>',message:'<p class="alertify-message">{{message}}<\/p>',log:'<article class="alertify-log{{class}}">{{message}}<\/article>'},p=function(){var a,c,e=!1,f=d.createElement("fakeelement"),g={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"otransitionend",transition:"transitionend"};for(a in g)if(f.style[a]!==b){c=g[a],e=!0;break}return{type:c,supported:e}},c=function(a){return d.getElementById(a)},q={labels:{ok:"OK",cancel:"Cancel"},delay:5e3,buttonReverse:!1,buttonFocus:"ok",transition:b,addListeners:function(a){var b,c,i,j,k,l="undefined"!=typeof f,m="undefined"!=typeof e,n="undefined"!=typeof o,p="",q=this;b=function(b){return"undefined"!=typeof b.preventDefault&&b.preventDefault(),i(b),"undefined"!=typeof o&&(p=o.value),"function"==typeof a&&("undefined"!=typeof o?a(!0,p):a(!0)),!1},c=function(b){return"undefined"!=typeof b.preventDefault&&b.preventDefault(),i(b),"function"==typeof a&&a(!1),!1},i=function(){q.hide(),q.unbind(d.body,"keyup",j),q.unbind(g,"focus",k),l&&q.unbind(f,"click",b),m&&q.unbind(e,"click",c)},j=function(a){var d=a.keyCode;(d===t.SPACE&&!n||n&&d===t.ENTER)&&b(a),d===t.ESC&&m&&c(a)},k=function(){n?o.focus():!m||q.buttonReverse?f.focus():e.focus()},this.bind(g,"focus",k),this.bind(h,"focus",k),l&&this.bind(f,"click",b),m&&this.bind(e,"click",c),this.bind(d.body,"keyup",j),this.transition.supported||this.setFocus()},bind:function(a,b,c){"function"==typeof a.addEventListener?a.addEventListener(b,c,!1):a.attachEvent&&a.attachEvent("on"+b,c)},handleErrors:function(){if("undefined"!=typeof a.onerror){var b=this;return a.onerror=function(a,c,d){b.error("["+a+" on line "+d+" of "+c+"]",0)},!0}return!1},appendButtons:function(a,b){return this.buttonReverse?b+a:a+b},build:function(a){var b="",c=a.type,d=a.message,e=a.cssClass||"";switch(b+='<div class="alertify-dialog">',b+='<a id="alertify-resetFocusBack" class="alertify-resetFocus" href="#">Reset Focus<\/a>',"none"===q.buttonFocus&&(b+='<a href="#" id="alertify-noneFocus" class="alertify-hidden"><\/a>'),"prompt"===c&&(b+='<div id="alertify-form">'),b+='<article class="alertify-inner">',b+=r.message.replace("{{message}}",d),"prompt"===c&&(b+=r.input),b+=r.buttons.holder,b+="<\/article>","prompt"===c&&(b+="<\/div>"),b+='<a id="alertify-resetFocus" class="alertify-resetFocus" href="#">Reset Focus<\/a>',b+="<\/div>",c){case"confirm":b=b.replace("{{buttons}}",this.appendButtons(r.buttons.cancel,r.buttons.ok)),b=b.replace("{{ok}}",this.labels.ok).replace("{{cancel}}",this.labels.cancel);break;case"prompt":b=b.replace("{{buttons}}",this.appendButtons(r.buttons.cancel,r.buttons.submit)),b=b.replace("{{ok}}",this.labels.ok).replace("{{cancel}}",this.labels.cancel);break;case"alert":b=b.replace("{{buttons}}",r.buttons.ok),b=b.replace("{{ok}}",this.labels.ok)}return l.className="alertify alertify-"+c+" "+e,k.className="alertify-cover",b},close:function(a,b){var c,d,e=b&&!isNaN(b)?+b:this.delay,f=this;this.bind(a,"click",function(){c(a)}),d=function(a){a.stopPropagation(),f.unbind(this,f.transition.type,d),m.removeChild(this),m.hasChildNodes()||(m.className+=" alertify-logs-hidden")},c=function(a){"undefined"!=typeof a&&a.parentNode===m&&(f.transition.supported?(f.bind(a,f.transition.type,d),a.className+=" alertify-log-hide"):(m.removeChild(a),m.hasChildNodes()||(m.className+=" alertify-logs-hidden")))},0!==b&&setTimeout(function(){c(a)},e)},dialog:function(a,b,c,e,f){j=d.activeElement;var g=function(){m&&null!==m.scrollTop&&k&&null!==k.scrollTop||g()};if("string"!=typeof a)throw new Error("message must be a string");if("string"!=typeof b)throw new Error("type must be a string");if("undefined"!=typeof c&&"function"!=typeof c)throw new Error("fn must be a function");return this.init(),g(),u.push({type:b,message:a,callback:c,placeholder:e,cssClass:f}),s||this.setup(),this},extend:function(a){if("string"!=typeof a)throw new Error("extend method must have exactly one paramter");return function(b,c){return this.log(b,a,c),this}},hide:function(){var a,b=this;u.splice(0,1),u.length>0?this.setup(!0):(s=!1,a=function(c){c.stopPropagation(),b.unbind(l,b.transition.type,a)},this.transition.supported?(this.bind(l,this.transition.type,a),l.className="alertify alertify-hide alertify-hidden"):l.className="alertify alertify-hide alertify-hidden alertify-isHidden",k.className="alertify-cover alertify-cover-hidden",j.focus())},init:function(){d.createElement("nav"),d.createElement("article"),d.createElement("section"),null==c("alertify-cover")&&(k=d.createElement("div"),k.setAttribute("id","alertify-cover"),k.className="alertify-cover alertify-cover-hidden",d.body.appendChild(k)),null==c("alertify")&&(s=!1,u=[],l=d.createElement("section"),l.setAttribute("id","alertify"),l.className="alertify alertify-hidden",d.body.appendChild(l)),null==c("alertify-logs")&&(m=d.createElement("section"),m.setAttribute("id","alertify-logs"),m.className="alertify-logs alertify-logs-hidden",d.body.appendChild(m)),d.body.setAttribute("tabindex","0"),this.transition=p()},log:function(a,b,c){var d=function(){m&&null!==m.scrollTop||d()};return this.init(),d(),m.className="alertify-logs",this.notify(a,b,c),this},notify:function(a,b,c){var e=d.createElement("article");e.className="alertify-log"+("string"==typeof b&&""!==b?" alertify-log-"+b:""),e.innerHTML=a,m.appendChild(e),setTimeout(function(){e.className=e.className+" alertify-log-show"},50),this.close(e,c)},set:function(a){var b;if("object"!=typeof a&&a instanceof Array)throw new Error("args must be an object");for(b in a)a.hasOwnProperty(b)&&(this[b]=a[b])},setFocus:function(){o?(o.focus(),o.select()):i.focus()},setup:function(a){var d,j=u[0],k=this;s=!0,d=function(a){a.stopPropagation(),k.setFocus(),k.unbind(l,k.transition.type,d)},this.transition.supported&&!a&&this.bind(l,this.transition.type,d),l.innerHTML=this.build(j),g=c("alertify-resetFocus"),h=c("alertify-resetFocusBack"),f=c("alertify-ok")||b,e=c("alertify-cancel")||b,i="cancel"===q.buttonFocus?e:"none"===q.buttonFocus?c("alertify-noneFocus"):f,o=c("alertify-text")||b,n=c("alertify-form")||b,"string"==typeof j.placeholder&&""!==j.placeholder&&(o.value=j.placeholder),a&&this.setFocus(),this.addListeners(j.callback)},unbind:function(a,b,c){"function"==typeof a.removeEventListener?a.removeEventListener(b,c,!1):a.detachEvent&&a.detachEvent("on"+b,c)}},{alert:function(a,b,c){return q.dialog(a,"alert",b,"",c),this},confirm:function(a,b,c){return q.dialog(a,"confirm",b,"",c),this},extend:q.extend,init:q.init,log:function(a,b,c){return q.log(a,b,c),this},prompt:function(a,b,c,d){return q.dialog(a,"prompt",b,c,d),this},success:function(a,b){return q.log(a,"success",b),this},error:function(a,b){return q.log(a,"error",b),this},set:function(a){q.set(a)},labels:q.labels,debug:q.handleErrors}},"function"==typeof define?define([],function(){return new c}):"undefined"==typeof a.alertify&&(a.alertify=new c)}(this);/;"	p
+return.onerror	app/assets/javascripts/alertify.min.js	/^!function(a,b){"use strict";var c,d=a.document;c=function(){var c,e,f,g,h,i,j,k,l,m,n,o,p,q={},r={},s=!1,t={ENTER:13,ESC:27,SPACE:32},u=[];return r={buttons:{holder:'<nav class="alertify-buttons">{{buttons}}<\/nav>',submit:'<button type="submit" class="alertify-button alertify-button-ok" id="alertify-ok">{{ok}}<\/button>',ok:'<button class="alertify-button alertify-button-ok" id="alertify-ok">{{ok}}<\/button>',cancel:'<button class="alertify-button alertify-button-cancel" id="alertify-cancel">{{cancel}}<\/button>'},input:'<div class="alertify-text-wrapper"><input type="text" class="alertify-text" id="alertify-text"><\/div>',message:'<p class="alertify-message">{{message}}<\/p>',log:'<article class="alertify-log{{class}}">{{message}}<\/article>'},p=function(){var a,c,e=!1,f=d.createElement("fakeelement"),g={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"otransitionend",transition:"transitionend"};for(a in g)if(f.style[a]!==b){c=g[a],e=!0;break}return{type:c,supported:e}},c=function(a){return d.getElementById(a)},q={labels:{ok:"OK",cancel:"Cancel"},delay:5e3,buttonReverse:!1,buttonFocus:"ok",transition:b,addListeners:function(a){var b,c,i,j,k,l="undefined"!=typeof f,m="undefined"!=typeof e,n="undefined"!=typeof o,p="",q=this;b=function(b){return"undefined"!=typeof b.preventDefault&&b.preventDefault(),i(b),"undefined"!=typeof o&&(p=o.value),"function"==typeof a&&("undefined"!=typeof o?a(!0,p):a(!0)),!1},c=function(b){return"undefined"!=typeof b.preventDefault&&b.preventDefault(),i(b),"function"==typeof a&&a(!1),!1},i=function(){q.hide(),q.unbind(d.body,"keyup",j),q.unbind(g,"focus",k),l&&q.unbind(f,"click",b),m&&q.unbind(e,"click",c)},j=function(a){var d=a.keyCode;(d===t.SPACE&&!n||n&&d===t.ENTER)&&b(a),d===t.ESC&&m&&c(a)},k=function(){n?o.focus():!m||q.buttonReverse?f.focus():e.focus()},this.bind(g,"focus",k),this.bind(h,"focus",k),l&&this.bind(f,"click",b),m&&this.bind(e,"click",c),this.bind(d.body,"keyup",j),this.transition.supported||this.setFocus()},bind:function(a,b,c){"function"==typeof a.addEventListener?a.addEventListener(b,c,!1):a.attachEvent&&a.attachEvent("on"+b,c)},handleErrors:function(){if("undefined"!=typeof a.onerror){var b=this;return a.onerror=function(a,c,d){b.error("["+a+" on line "+d+" of "+c+"]",0)},!0}return!1},appendButtons:function(a,b){return this.buttonReverse?b+a:a+b},build:function(a){var b="",c=a.type,d=a.message,e=a.cssClass||"";switch(b+='<div class="alertify-dialog">',b+='<a id="alertify-resetFocusBack" class="alertify-resetFocus" href="#">Reset Focus<\/a>',"none"===q.buttonFocus&&(b+='<a href="#" id="alertify-noneFocus" class="alertify-hidden"><\/a>'),"prompt"===c&&(b+='<div id="alertify-form">'),b+='<article class="alertify-inner">',b+=r.message.replace("{{message}}",d),"prompt"===c&&(b+=r.input),b+=r.buttons.holder,b+="<\/article>","prompt"===c&&(b+="<\/div>"),b+='<a id="alertify-resetFocus" class="alertify-resetFocus" href="#">Reset Focus<\/a>',b+="<\/div>",c){case"confirm":b=b.replace("{{buttons}}",this.appendButtons(r.buttons.cancel,r.buttons.ok)),b=b.replace("{{ok}}",this.labels.ok).replace("{{cancel}}",this.labels.cancel);break;case"prompt":b=b.replace("{{buttons}}",this.appendButtons(r.buttons.cancel,r.buttons.submit)),b=b.replace("{{ok}}",this.labels.ok).replace("{{cancel}}",this.labels.cancel);break;case"alert":b=b.replace("{{buttons}}",r.buttons.ok),b=b.replace("{{ok}}",this.labels.ok)}return l.className="alertify alertify-"+c+" "+e,k.className="alertify-cover",b},close:function(a,b){var c,d,e=b&&!isNaN(b)?+b:this.delay,f=this;this.bind(a,"click",function(){c(a)}),d=function(a){a.stopPropagation(),f.unbind(this,f.transition.type,d),m.removeChild(this),m.hasChildNodes()||(m.className+=" alertify-logs-hidden")},c=function(a){"undefined"!=typeof a&&a.parentNode===m&&(f.transition.supported?(f.bind(a,f.transition.type,d),a.className+=" alertify-log-hide"):(m.removeChild(a),m.hasChildNodes()||(m.className+=" alertify-logs-hidden")))},0!==b&&setTimeout(function(){c(a)},e)},dialog:function(a,b,c,e,f){j=d.activeElement;var g=function(){m&&null!==m.scrollTop&&k&&null!==k.scrollTop||g()};if("string"!=typeof a)throw new Error("message must be a string");if("string"!=typeof b)throw new Error("type must be a string");if("undefined"!=typeof c&&"function"!=typeof c)throw new Error("fn must be a function");return this.init(),g(),u.push({type:b,message:a,callback:c,placeholder:e,cssClass:f}),s||this.setup(),this},extend:function(a){if("string"!=typeof a)throw new Error("extend method must have exactly one paramter");return function(b,c){return this.log(b,a,c),this}},hide:function(){var a,b=this;u.splice(0,1),u.length>0?this.setup(!0):(s=!1,a=function(c){c.stopPropagation(),b.unbind(l,b.transition.type,a)},this.transition.supported?(this.bind(l,this.transition.type,a),l.className="alertify alertify-hide alertify-hidden"):l.className="alertify alertify-hide alertify-hidden alertify-isHidden",k.className="alertify-cover alertify-cover-hidden",j.focus())},init:function(){d.createElement("nav"),d.createElement("article"),d.createElement("section"),null==c("alertify-cover")&&(k=d.createElement("div"),k.setAttribute("id","alertify-cover"),k.className="alertify-cover alertify-cover-hidden",d.body.appendChild(k)),null==c("alertify")&&(s=!1,u=[],l=d.createElement("section"),l.setAttribute("id","alertify"),l.className="alertify alertify-hidden",d.body.appendChild(l)),null==c("alertify-logs")&&(m=d.createElement("section"),m.setAttribute("id","alertify-logs"),m.className="alertify-logs alertify-logs-hidden",d.body.appendChild(m)),d.body.setAttribute("tabindex","0"),this.transition=p()},log:function(a,b,c){var d=function(){m&&null!==m.scrollTop||d()};return this.init(),d(),m.className="alertify-logs",this.notify(a,b,c),this},notify:function(a,b,c){var e=d.createElement("article");e.className="alertify-log"+("string"==typeof b&&""!==b?" alertify-log-"+b:""),e.innerHTML=a,m.appendChild(e),setTimeout(function(){e.className=e.className+" alertify-log-show"},50),this.close(e,c)},set:function(a){var b;if("object"!=typeof a&&a instanceof Array)throw new Error("args must be an object");for(b in a)a.hasOwnProperty(b)&&(this[b]=a[b])},setFocus:function(){o?(o.focus(),o.select()):i.focus()},setup:function(a){var d,j=u[0],k=this;s=!0,d=function(a){a.stopPropagation(),k.setFocus(),k.unbind(l,k.transition.type,d)},this.transition.supported&&!a&&this.bind(l,this.transition.type,d),l.innerHTML=this.build(j),g=c("alertify-resetFocus"),h=c("alertify-resetFocusBack"),f=c("alertify-ok")||b,e=c("alertify-cancel")||b,i="cancel"===q.buttonFocus?e:"none"===q.buttonFocus?c("alertify-noneFocus"):f,o=c("alertify-text")||b,n=c("alertify-form")||b,"string"==typeof j.placeholder&&""!==j.placeholder&&(o.value=j.placeholder),a&&this.setFocus(),this.addListeners(j.callback)},unbind:function(a,b,c){"function"==typeof a.removeEventListener?a.removeEventListener(b,c,!1):a.detachEvent&&a.detachEvent("on"+b,c)}},{alert:function(a,b,c){return q.dialog(a,"alert",b,"",c),this},confirm:function(a,b,c){return q.dialog(a,"confirm",b,"",c),this},extend:q.extend,init:q.init,log:function(a,b,c){return q.log(a,b,c),this},prompt:function(a,b,c,d){return q.dialog(a,"prompt",b,c,d),this},success:function(a,b){return q.log(a,"success",b),this},error:function(a,b){return q.log(a,"error",b),this},set:function(a){q.set(a)},labels:q.labels,debug:q.handleErrors}},"function"==typeof define?define([],function(){return new c}):"undefined"==typeof a.alertify&&(a.alertify=new c)}(this);/;"	f
+save	config/CORM_Object.rb	/^    def save(path = nil)$/;"	f	class:CORM_Object
+search	app/controllers/accounts_controller.rb	/^  def search$/;"	f	class:AccountsController
+select_param_accounts	app/controllers/extractions_controller.rb	/^  def select_param_accounts$/;"	f	class:ExtractionsController
+select_param_contacts	app/controllers/extractions_controller.rb	/^  def select_param_contacts$/;"	f	class:ExtractionsController
+session_new	app/controllers/registrations_controller.rb	/^  def session_new$/;"	f	class:RegistrationsController
+set_route	config/routes.rb	/^  def set_route(pp, ps, c)$/;"	f
+set_version	config/CORM_Object.rb	/^    def set_version(o)$/;"	f	class:CORM_Object
+show	app/controllers/accounts_controller.rb	/^  def show$/;"	f	class:AccountsController
+show	app/controllers/contacts_controller.rb	/^  def show$/;"	f	class:ContactsController
+show	app/controllers/documents_controller.rb	/^  def show$/;"	f	class:DocumentsController
+show	app/controllers/event_types_controller.rb	/^  def show$/;"	f	class:EventTypesController
+show	app/controllers/events_controller.rb	/^  def show$/;"	f	class:EventsController
+show	app/controllers/opportunities_controller.rb	/^  def show$/;"	f	class:OpportunitiesController
+show	app/controllers/origins_controller.rb	/^  def show$/;"	f	class:OriginsController
+show	app/controllers/quotations_controller.rb	/^  def show$/;"	f	class:QuotationsController
+show	app/controllers/registrations_controller.rb	/^  def show$/;"	f	class:RegistrationsController
+show	app/controllers/tags_controller.rb	/^  def show$/;"	f	class:TagsController
+show	app/controllers/tasks_controller.rb	/^  def show $/;"	f	class:TasksController
+signature	app/pdfs/quotation_pdf.rb	/^  def signature$/;"	f	class:QuotationPdf
+tags	app/controllers/tags_controller.rb	/^    def tags$/;"	f	class:TagsController
+tags	app/pdfs/quotation_pdf.rb	/^  def tags$/;"	f	class:QuotationPdf
+test_homepage	test/performance/browsing_test.rb	/^  def test_homepage$/;"	f	class:BrowsingTest
+this.bind	app/assets/javascripts/alertify.min.js	/^!function(a,b){"use strict";var c,d=a.document;c=function(){var c,e,f,g,h,i,j,k,l,m,n,o,p,q={},r={},s=!1,t={ENTER:13,ESC:27,SPACE:32},u=[];return r={buttons:{holder:'<nav class="alertify-buttons">{{buttons}}<\/nav>',submit:'<button type="submit" class="alertify-button alertify-button-ok" id="alertify-ok">{{ok}}<\/button>',ok:'<button class="alertify-button alertify-button-ok" id="alertify-ok">{{ok}}<\/button>',cancel:'<button class="alertify-button alertify-button-cancel" id="alertify-cancel">{{cancel}}<\/button>'},input:'<div class="alertify-text-wrapper"><input type="text" class="alertify-text" id="alertify-text"><\/div>',message:'<p class="alertify-message">{{message}}<\/p>',log:'<article class="alertify-log{{class}}">{{message}}<\/article>'},p=function(){var a,c,e=!1,f=d.createElement("fakeelement"),g={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"otransitionend",transition:"transitionend"};for(a in g)if(f.style[a]!==b){c=g[a],e=!0;break}return{type:c,supported:e}},c=function(a){return d.getElementById(a)},q={labels:{ok:"OK",cancel:"Cancel"},delay:5e3,buttonReverse:!1,buttonFocus:"ok",transition:b,addListeners:function(a){var b,c,i,j,k,l="undefined"!=typeof f,m="undefined"!=typeof e,n="undefined"!=typeof o,p="",q=this;b=function(b){return"undefined"!=typeof b.preventDefault&&b.preventDefault(),i(b),"undefined"!=typeof o&&(p=o.value),"function"==typeof a&&("undefined"!=typeof o?a(!0,p):a(!0)),!1},c=function(b){return"undefined"!=typeof b.preventDefault&&b.preventDefault(),i(b),"function"==typeof a&&a(!1),!1},i=function(){q.hide(),q.unbind(d.body,"keyup",j),q.unbind(g,"focus",k),l&&q.unbind(f,"click",b),m&&q.unbind(e,"click",c)},j=function(a){var d=a.keyCode;(d===t.SPACE&&!n||n&&d===t.ENTER)&&b(a),d===t.ESC&&m&&c(a)},k=function(){n?o.focus():!m||q.buttonReverse?f.focus():e.focus()},this.bind(g,"focus",k),this.bind(h,"focus",k),l&&this.bind(f,"click",b),m&&this.bind(e,"click",c),this.bind(d.body,"keyup",j),this.transition.supported||this.setFocus()},bind:function(a,b,c){"function"==typeof a.addEventListener?a.addEventListener(b,c,!1):a.attachEvent&&a.attachEvent("on"+b,c)},handleErrors:function(){if("undefined"!=typeof a.onerror){var b=this;return a.onerror=function(a,c,d){b.error("["+a+" on line "+d+" of "+c+"]",0)},!0}return!1},appendButtons:function(a,b){return this.buttonReverse?b+a:a+b},build:function(a){var b="",c=a.type,d=a.message,e=a.cssClass||"";switch(b+='<div class="alertify-dialog">',b+='<a id="alertify-resetFocusBack" class="alertify-resetFocus" href="#">Reset Focus<\/a>',"none"===q.buttonFocus&&(b+='<a href="#" id="alertify-noneFocus" class="alertify-hidden"><\/a>'),"prompt"===c&&(b+='<div id="alertify-form">'),b+='<article class="alertify-inner">',b+=r.message.replace("{{message}}",d),"prompt"===c&&(b+=r.input),b+=r.buttons.holder,b+="<\/article>","prompt"===c&&(b+="<\/div>"),b+='<a id="alertify-resetFocus" class="alertify-resetFocus" href="#">Reset Focus<\/a>',b+="<\/div>",c){case"confirm":b=b.replace("{{buttons}}",this.appendButtons(r.buttons.cancel,r.buttons.ok)),b=b.replace("{{ok}}",this.labels.ok).replace("{{cancel}}",this.labels.cancel);break;case"prompt":b=b.replace("{{buttons}}",this.appendButtons(r.buttons.cancel,r.buttons.submit)),b=b.replace("{{ok}}",this.labels.ok).replace("{{cancel}}",this.labels.cancel);break;case"alert":b=b.replace("{{buttons}}",r.buttons.ok),b=b.replace("{{ok}}",this.labels.ok)}return l.className="alertify alertify-"+c+" "+e,k.className="alertify-cover",b},close:function(a,b){var c,d,e=b&&!isNaN(b)?+b:this.delay,f=this;this.bind(a,"click",function(){c(a)}),d=function(a){a.stopPropagation(),f.unbind(this,f.transition.type,d),m.removeChild(this),m.hasChildNodes()||(m.className+=" alertify-logs-hidden")},c=function(a){"undefined"!=typeof a&&a.parentNode===m&&(f.transition.supported?(f.bind(a,f.transition.type,d),a.className+=" alertify-log-hide"):(m.removeChild(a),m.hasChildNodes()||(m.className+=" alertify-logs-hidden")))},0!==b&&setTimeout(function(){c(a)},e)},dialog:function(a,b,c,e,f){j=d.activeElement;var g=function(){m&&null!==m.scrollTop&&k&&null!==k.scrollTop||g()};if("string"!=typeof a)throw new Error("message must be a string");if("string"!=typeof b)throw new Error("type must be a string");if("undefined"!=typeof c&&"function"!=typeof c)throw new Error("fn must be a function");return this.init(),g(),u.push({type:b,message:a,callback:c,placeholder:e,cssClass:f}),s||this.setup(),this},extend:function(a){if("string"!=typeof a)throw new Error("extend method must have exactly one paramter");return function(b,c){return this.log(b,a,c),this}},hide:function(){var a,b=this;u.splice(0,1),u.length>0?this.setup(!0):(s=!1,a=function(c){c.stopPropagation(),b.unbind(l,b.transition.type,a)},this.transition.supported?(this.bind(l,this.transition.type,a),l.className="alertify alertify-hide alertify-hidden"):l.className="alertify alertify-hide alertify-hidden alertify-isHidden",k.className="alertify-cover alertify-cover-hidden",j.focus())},init:function(){d.createElement("nav"),d.createElement("article"),d.createElement("section"),null==c("alertify-cover")&&(k=d.createElement("div"),k.setAttribute("id","alertify-cover"),k.className="alertify-cover alertify-cover-hidden",d.body.appendChild(k)),null==c("alertify")&&(s=!1,u=[],l=d.createElement("section"),l.setAttribute("id","alertify"),l.className="alertify alertify-hidden",d.body.appendChild(l)),null==c("alertify-logs")&&(m=d.createElement("section"),m.setAttribute("id","alertify-logs"),m.className="alertify-logs alertify-logs-hidden",d.body.appendChild(m)),d.body.setAttribute("tabindex","0"),this.transition=p()},log:function(a,b,c){var d=function(){m&&null!==m.scrollTop||d()};return this.init(),d(),m.className="alertify-logs",this.notify(a,b,c),this},notify:function(a,b,c){var e=d.createElement("article");e.className="alertify-log"+("string"==typeof b&&""!==b?" alertify-log-"+b:""),e.innerHTML=a,m.appendChild(e),setTimeout(function(){e.className=e.className+" alertify-log-show"},50),this.close(e,c)},set:function(a){var b;if("object"!=typeof a&&a instanceof Array)throw new Error("args must be an object");for(b in a)a.hasOwnProperty(b)&&(this[b]=a[b])},setFocus:function(){o?(o.focus(),o.select()):i.focus()},setup:function(a){var d,j=u[0],k=this;s=!0,d=function(a){a.stopPropagation(),k.setFocus(),k.unbind(l,k.transition.type,d)},this.transition.supported&&!a&&this.bind(l,this.transition.type,d),l.innerHTML=this.build(j),g=c("alertify-resetFocus"),h=c("alertify-resetFocusBack"),f=c("alertify-ok")||b,e=c("alertify-cancel")||b,i="cancel"===q.buttonFocus?e:"none"===q.buttonFocus?c("alertify-noneFocus"):f,o=c("alertify-text")||b,n=c("alertify-form")||b,"string"==typeof j.placeholder&&""!==j.placeholder&&(o.value=j.placeholder),a&&this.setFocus(),this.addListeners(j.callback)},unbind:function(a,b,c){"function"==typeof a.removeEventListener?a.removeEventListener(b,c,!1):a.detachEvent&&a.detachEvent("on"+b,c)}},{alert:function(a,b,c){return q.dialog(a,"alert",b,"",c),this},confirm:function(a,b,c){return q.dialog(a,"confirm",b,"",c),this},extend:q.extend,init:q.init,log:function(a,b,c){return q.log(a,b,c),this},prompt:function(a,b,c,d){return q.dialog(a,"prompt",b,c,d),this},success:function(a,b){return q.log(a,"success",b),this},error:function(a,b){return q.log(a,"error",b),this},set:function(a){q.set(a)},labels:q.labels,debug:q.handleErrors}},"function"==typeof define?define([],function(){return new c}):"undefined"==typeof a.alertify&&(a.alertify=new c)}(this);/;"	m
+to_url	app/controllers/accounts_controller.rb	/^  def to_url(url)$/;"	f	class:AccountsController
+total	app/pdfs/quotation_pdf.rb	/^  def total$/;"	f	class:QuotationPdf
+transitionDone	app/assets/javascripts/alertify.js	/^				});$/;"	f
+up	db/migrate/20120218075659_replace_type_by_genre_in_compte.rb	/^  def up$/;"	f	class:ReplaceTypeByGenreInCompte
+up	db/migrate/20120428160402_add_attachment_fichier_joint_to_evenements.rb	/^  def self.up$/;"	F	class:AddAttachmentFichierJointToEvenements
+up	db/migrate/20120621143121_change_echeance_type_to_taches.rb	/^  def up$/;"	f	class:ChangeEcheanceTypeToTaches
+up	db/migrate/20120627122129_add_attachment_fichier_joint_to_taches.rb	/^  def self.up$/;"	F	class:AddAttachmentFichierJointToTaches
+up	db/migrate/20120702153424_create_compte_produit_join_table.rb	/^  def self.up$/;"	F	class:CreateCompteProduitJoinTable
+up	db/migrate/20120705093257_create_contact_produit_join_table.rb	/^  def self.up$/;"	F	class:CreateContactProduitJoinTable
+up	db/migrate/20120720134635_add_marge_to_opportunitees.rb	/^  	def up$/;"	f	class:AddMargeToOpportunitees
+up	db/migrate/20120723152354_replace_origine_in_compte.rb	/^  def up$/;"	f	class:ReplaceOrigineInCompte
+up	db/migrate/20130319085638_change_table_name_from_french_to_english.rb	/^  def up$/;"	f	class:ChangeTableNameFromFrenchToEnglish
+up	db/migrate/20130325104624_add_user_relation.rb	/^  def up$/;"	f	class:AddUserRelation
+up	db/migrate/20130415155306_priority_pp.rb	/^  def up$/;"	f	class:PriorityPp
+up	db/migrate/20130423093256_delete_all_unecessary.rb	/^  def up$/;"	f	class:DeleteAllUnecessary
+up	db/migrate/20130424143840_change_ur_ls.rb	/^  def up$/;"	f	class:ChangeUrLs
+up	db/migrate/20130426125246_set_tasks_with_no_priority_to_normal.rb	/^  def up$/;"	f	class:SetTasksWithNoPriorityToNormal
+up	db/migrate/20130513100221_create_settings.rb	/^  def up$/;"	f	class:CreateSettings
+up	db/migrate/20140122150848_change_date_format_in_emails.rb	/^  def up$/;"	f	class:ChangeDateFormatInEmails
+up	db/migrate/20140210083132_remove_account_id_from_emails.rb	/^  def up$/;"	f	class:RemoveAccountIdFromEmails
+up	db/migrate/20140211093556_remove_attachement_fields_from_email.rb	/^  def up$/;"	f	class:RemoveAttachementFieldsFromEmail
+up	db/migrate/20140213094157_create_event_attachments.rb	/^  def up$/;"	f	class:CreateEventAttachments
+up	db/migrate/20140213100127_remove_attachment_fields_from_event.rb	/^  def up$/;"	f	class:RemoveAttachmentFieldsFromEvent
+up	db/migrate/20140217150057_create_task_attachments.rb	/^  def up$/;"	f	class:CreateTaskAttachments
+up	db/migrate/20140217150412_remove_attachment_fields_from_task.rb	/^  def up$/;"	f	class:RemoveAttachmentFieldsFromTask
+up	db/migrate/20140218104937_create_quotation_attachments.rb	/^  def up$/;"	f	class:CreateQuotationAttachments
+up	db/migrate/20140218110819_remove_attachment_fields_from_quotation.rb	/^  def up$/;"	f	class:RemoveAttachmentFieldsFromQuotation
+up	db/migrate/20140219095830_create_document_attachments.rb	/^  def up$/;"	f	class:CreateDocumentAttachments
+up	db/migrate/20140219100048_remove_attachment_fields_from_document.rb	/^  def up$/;"	f	class:RemoveAttachmentFieldsFromDocument
+up	db/migrate/20140219140505_create_opportunity_attachments.rb	/^  def up$/;"	f	class:CreateOpportunityAttachments
+up	db/migrate/20140219140727_remove_attachment_fields_from_opportunity.rb	/^  def up$/;"	f	class:RemoveAttachmentFieldsFromOpportunity
+up	db/migrate/20140220111406_modify_settings_table.rb	/^  def up$/;"	f	class:ModifySettingsTable
+update	app/controllers/accounts_controller.rb	/^  def update$/;"	f	class:AccountsController
+update	app/controllers/contacts_controller.rb	/^  def update$/;"	f	class:ContactsController
+update	app/controllers/documents_controller.rb	/^  def update$/;"	f	class:DocumentsController
+update	app/controllers/emails_controller.rb	/^  def update$/;"	f	class:EmailsController
+update	app/controllers/event_types_controller.rb	/^  def update$/;"	f	class:EventTypesController
+update	app/controllers/events_controller.rb	/^  def update$/;"	f	class:EventsController
+update	app/controllers/home_controller.rb	/^  def update$/;"	f	class:HomeController
+update	app/controllers/opportunities_controller.rb	/^  def update$/;"	f	class:OpportunitiesController
+update	app/controllers/origins_controller.rb	/^  def update$/;"	f	class:OriginsController
+update	app/controllers/quotation_templates_controller.rb	/^  def update$/;"	f	class:QuotationTemplatesController
+update	app/controllers/quotations_controller.rb	/^  def update$/;"	f	class:QuotationsController
+update	app/controllers/registrations_controller.rb	/^  def update$/;"	f	class:RegistrationsController
+update	app/controllers/relations_controller.rb	/^  def update$/;"	f	class:RelationsController
+update	app/controllers/settings_controller.rb	/^    def update$/;"	f	class:SettingsController
+update	app/controllers/tags_controller.rb	/^  def update$/;"	f	class:TagsController
+update	app/controllers/tasks_controller.rb	/^  def update$/;"	f	class:TasksController
+update	app/controllers/webmail_connections_controller.rb	/^  def update$/;"	f	class:WebmailConnectionsController
+update_contact_select	app/controllers/opportunities_controller.rb	/^  def update_contact_select$/;"	f	class:OpportunitiesController
+update_contact_select	app/controllers/quotations_controller.rb	/^  def update_contact_select$/;"	f	class:QuotationsController
+update_contact_select	app/controllers/tasks_controller.rb	/^  def update_contact_select$/;"	f	class:TasksController
+update_emails	app/controllers/contacts_controller.rb	/^  def update_emails(contact)$/;"	f	class:ContactsController
+update_opportunity_select	app/controllers/quotations_controller.rb	/^  def update_opportunity_select$/;"	f	class:QuotationsController
+update_task_email	app/mailers/user_mailer.rb	/^  def update_task_email(user,task)$/;"	f
+uppercase_company	app/models/account.rb	/^  def uppercase_company$/;"	f	class:Account
+valid	app/models/contact.rb	/^  def valid$/;"	f	class:Contact
+valid	app/models/quotation.rb	/^  def valid$/;"	f	class:Quotation
+valid	app/models/quotation_line.rb	/^  def valid$/;"	f	class:QuotationLine
+vat_rate=	app/models/quotation_template.rb	/^  def vat_rate=(vat_rate)$/;"	f	class:QuotationTemplate

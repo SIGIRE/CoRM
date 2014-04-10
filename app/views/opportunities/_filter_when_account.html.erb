@@ -9,7 +9,7 @@
   
 
 <div id="task_value" class="container-fluid" style= "display: none;">
-  <%= form_tag(opportunities_path, method: :GET) do %>
+  <%= form_tag(account_opportunities_path, method: :GET) do %>
     <div class="row row-fluid">
       <div class="">
         <%= label_tag :statut, "Statut :", :class => "top" %>
@@ -17,16 +17,10 @@
       </div>
       <%# Le typeahead et la mise à jour des contacts associés sont gérés par nav-search-bar.js %>
       <div class="">
-        <%= label_tag :filter_priority, "Compte :", :class => "top" %>
-        <%= text_field_tag "by_account_company_like",
-                           nil,
-                           { :class => "filter_tfield typeahead-account-search",
-                             :data => { :provide => 'typeahead'},
-                             :autocomplete=>"off" } %>
-      </div>
-      <div class="">
         <%= label_tag :user_email, "Contact :", :class => "top" %>
-        <%= select_tag "by_contact_id", options_for_select([]), { include_blank: '', id: 'contact_id' } %>
+        <%= select_tag "by_contact_id",
+                       options_from_collection_for_select(@account.contacts, :id, :full_name),
+                       { include_blank: '', id: 'contact_id' } %>
       </div>
       <div class="">
         <%= label_tag :user_email, "Collaborateur :", :class => "top" %>

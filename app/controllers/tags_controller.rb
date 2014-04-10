@@ -1,16 +1,17 @@
 # encoding: utf-8
 
 class TagsController < ApplicationController
-  
   before_filter :authenticate_user!
-  
+  before_filter :load_account, only: [:index, :filter]
+  layout :current_layout
+
   ##
   # Show the full list of Tags by pagination_by
   #
   # GET /tags
   # GET /tags.json
   def index
-    @tags = Tag.order('name').page(params[:page])
+    @tags = tags.order('name').page(params[:page])
    
     respond_to do |format|
       format.html  # index.html.erb
@@ -138,4 +139,20 @@ class TagsController < ApplicationController
     end
   end
   
+  private
+    def load_account
+      @account = Account.find_by_id(params[:account_id])
+    end
+    
+    def tags
+      @account ? @account.tags : Tag
+    end
+
+    def current_layout
+      if @account && @account.persisted? && request.path_parameters[:action] == "index" # i prefer helper 'current_action'
+        "accounts_show"
+      else
+        "application"
+      end
+    end
 end

@@ -4,14 +4,16 @@
 # This class manage Document
 #
 class DocumentsController < ApplicationController
-  
+  before_filter :load_account, only: [:index, :filter]
+  layout :current_layout
+
   ##
   # Show the full list of Document by paginate_by
   #
   # GET /documents
   # GET /documents.json
   def index
-    @documents = Document.order('name').page(params[:page])
+    @documents = documents.order('name').page(params[:page])
    
     respond_to do |format|
       format.html  # index.html.erb
@@ -131,4 +133,20 @@ class DocumentsController < ApplicationController
     end
   end
   
+  private
+    def load_account
+      @account = Account.find_by_id(params[:account_id])
+    end
+    
+    def documents
+      @account ? @account.documents : Document
+    end
+
+    def current_layout
+      if @account && @account.persisted? && request.path_parameters[:action] == "index" # i prefer helper 'current_action'
+        "accounts_show"
+      else
+        "application"
+      end
+    end
 end

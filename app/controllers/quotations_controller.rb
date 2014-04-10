@@ -2,14 +2,23 @@
 
 class QuotationsController < ApplicationController
   before_filter :authenticate_user!
-  
+  before_filter :load_account, only: [:index]
+  layout :current_layout
+
+  has_scope :by_statut
+  has_scope :by_account_company_like
+  has_scope :by_contact_id
+  has_scope :by_user_id
+
   def index
-    @quotations = Quotation.order('date DESC').page(params[:page])
+    @quotations = apply_scopes(quotations).
+                  order('date DESC').
+                  page(params[:page])
+
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @quotation }
+      format.json { render :json => @quotations }
     end
-    
   end
  
   def get_companies
@@ -41,19 +50,6 @@ class QuotationsController < ApplicationController
   end
 
   def filter
-    # Filter params
-    @statut_filter = params[:filter][:statut]
-    @account_company_filter = params[:filter][:account]
-    @contact_id_filter = params[:filter][:contact_id]
-    @user_id_filter = params[:filter][:user_id]
-
-    # Finding results
-    @quotations = Quotation.by_statut(@statut_filter)
-                           .by_account_company_like(@account_company_filter)
-                           .by_contact_id(@contact_id_filter)
-                           .by_user_id(@user_id_filter)
-                           .order('date DESC')
-                           .page(params[:page])
 
     respond_to do |format|
       format.html { render :action => :index }
@@ -71,13 +67,9 @@ class QuotationsController < ApplicationController
       redirect_to quotations_url
 	  return false
     end
-    @users = User.all_reals
     @quotation = Quotation.new(params[:quotation])
     @quotation.user = current_user
     @quotation.account_id = params[:account_id]
-    if (!params[:account_id].blank?)
-      @quotation.account = Account.find(params[:account_id]);
-    end
     
     # Instanciate a default line
     1.times { @quotation.quotation_lines.build }
@@ -135,9 +127,9 @@ class QuotationsController < ApplicationController
 			self.create_event(false)
 			redirect_to (!@quotation.account.nil? ? account_events_url(@quotation.account_id) : quotations_path), :notice => "Le devis a été créé."
 		else
-			flash[:error] = t('app.save_undefined_error')
-			render :action => "new"
-		end
+			flash[:alert] = @quotation.errors.full_messages.join("\n")
+      render :action => "new"
+    end
   end
   
   ##
@@ -293,7 +285,7 @@ class QuotationsController < ApplicationController
 
     quotationNum = (params[:id])
 
-    if(updated == true)
+    if updated
       hash["modified_by"] = current_user.id
       hash["notes"] = "Devis n°" + quotationNum.to_s + " modifié."
     else
@@ -304,4 +296,20 @@ class QuotationsController < ApplicationController
     @event = Event.create(hash)
   end
   
+  private
+    def load_account
+      @account = Account.find_by_id(params[:account_id])
+    end
+    
+    def quotations 
+      @account ? @account.quotations : Quotation
+    end
+
+    def current_layout
+      if @account && @account.persisted?
+        "accounts_show"
+      else
+        "application"
+      end
+    end
 end

@@ -33,6 +33,9 @@ class Event < ActiveRecord::Base
     return editor_user || User::default
   end
 
-  scope :by_account_id, lambda { |account_id| where("events.account_id = ?", account_id) }
-  
+  scope :by_account_id, lambda { |account_id| where("events.account_id = ?", account_id) unless account_id.blank? }
+  scope :by_event_type_id, lambda { |event_type_id| where("events.event_type_id = ?", event_type_id) unless event_type_id.blank? }
+  scope :by_contact_id, lambda { |contact_id| where("events.contact_id = ?", contact_id) unless contact_id.blank? }
+  scope :by_user_id, lambda { |user_id| where("events.user_id = ?", user_id) unless user_id.blank? }
+  scope :by_content_like, lambda { |content| where("UPPER(events.notes) LIKE UPPER(?) or UPPER(events.notes2) LIKE UPPER(?)", "%#{content}%", "%#{content}%") unless content.blank? }
 end
