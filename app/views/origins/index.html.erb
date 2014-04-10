@@ -5,7 +5,6 @@
   <table class="table table-bordered table-striped">
    <thead> 
     <tr>
-      <th class="text-center">#</th>
       <th class="text-center">Nom</th>
       <th class="text-center">Description</th>
       <th class="text-center">Éditer</th>
@@ -15,7 +14,6 @@
   <tbody> 
   <% @origins.each do |origin| %>
     <tr>
-      <td class="text-center"><%= origin.id %></td>
       <td class="text-center"><%= origin.name %></td>
       <td class="text-center"><%= truncate(origin.description, :length => 300, :separator => ' ')%></td>
       <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_origin_path(origin),{:title => "Éditer l'origine", :class =>"btn"} %></td>   

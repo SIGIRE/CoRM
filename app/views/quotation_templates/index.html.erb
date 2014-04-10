@@ -3,7 +3,6 @@
   <table class="table table-bordered table-striped">
    <thead> 
     <tr>
-        <th class="text-center">#</th>
         <th class="text-center">Societe</th>
         <th class="text-center">Éditer</th>
     </tr>
@@ -11,7 +10,6 @@
   <tbody> 
   <% @templates.each do |template| %>
     <tr>
-      <td class="text-center"><%= template.id %></td>
       <td class="text-center"><%= template.company %></td>
       <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_template_path(template),{:title => "Éditer le modèle", :class=>"btn"} %></td>      
     </tr>

@@ -9,13 +9,12 @@
     <table class="table table-bordered table-striped table-hover">
       <thead>
         <tr>
-          <th colspan="8">
+          <th colspan="9">
             <h2 class="pull-left">Mes <%= t('app.model.Task').pluralize %></h2>
             <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_task_path ,{:title => "Créer une tâche", :class=>"pull-right btn", :style => 'display: inline-block'} %>
           </th>
         </tr>
         <tr>
-          <th class="text-center">#</th>
           <th class="text-center"><%= t('app.fields.state') %></th>
           <th class="text-center"><%= t('app.fields.priority') %></th>
           <th class="text-center"><%= t('app.model.Account') %></th>
@@ -37,7 +36,6 @@
             priority_class_mod = ' info'
           end %>	
           <tr class="line <%= priority_class_mod %>">
-            <td class="text-center"><%= t.id %></td>
             <td class="text-center">
               <% badge_statut_class = nil
               if t.statut == "A faire"
@@ -81,7 +79,7 @@
             </tr>
           <% end %>
           <tr>
-            <td colspan="8" class="text-center"><%= link_to('Afficher toutes mes tâches', tasks_path, :title => 'Mes tâches') %></td>
+            <td colspan="9" class="text-center"><%= link_to('Afficher toutes mes tâches', tasks_path, :title => 'Mes tâches') %></td>
           </tr>
 
         </tbody>
@@ -90,65 +88,53 @@
     <% end %>
     <!-- END TASK -->
 
-    <!-- EVENTS-->
+	  
+    <!-- NEW EVENTS-->
     <table class="table table-bordered table-striped table-hover">
       <thead>
         <tr>
-          <th colspan="2">
-            <h2 class="pull-left"><%= t('app.model.Event').pluralize %> récents</h2>
+          <th colspan="9">
+            <h2 class="pull-left"><%= t('app.model.Event').pluralize %> récents </h2>
           </th>
         </tr>
         <tr>
-          <th class="text-center"><%= t('app.model.Account') %></th>
-          <th class="text-center">Détails</th>
+          <th class="text-center"><%= t('app.model.Account') %></th>	
+		  <th class="text-center">Collaborateur</th>
+		  <th class="text-center">Contact</th>
+		  <th class="text-center">Détails</th>
+		  <th class="text-center">Date</th>
         </tr>
       </thead>
       <tbody>
         <% @events.each do |e| %>
           <tr>
-            <td class="text-center">
-              <% if !e.account.nil? %><strong><%= link_to e.account.company, account_events_path(e.account.id) %></strong> <% end %>
-            </td>
-
-            <td>
-              <%
-                action = nil
-                if e.modified_by.blank?
-                  action = 'créé'
-                else
-                  action = 'modifié'
-                end
-                task_action = "Création de "
-                if !e.task.nil?
-                  if e.task.modified_by.nil? and e.created_by == e.task.created_by
-                    task_action = 'Création de '
-                  elsif !e.task.modified_by.nil? and e.modified_by == e.task.modified_by
-
-                    task_action = 'Modification de '
-                  end
-                end
-              %>
-              <% if e.task.nil? or e.modified_by.nil? %>
-                <strong><%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %></strong>
-                <% if !e.contact.nil? and !e.event_type.nil? %>
-                  a <%= action %> <strong><%= e.event_type.full_type %></strong> <% if !e.contact.nil? %>avec<strong><%= " #{e.contact.full_name}" %></strong><% end %> : <%= truncate(e.notes, :length => 80) %>
-                  <% if !e.task.nil? %> <br /><%= link_to "#{task_action} la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% end %>
-                <% elsif !e.task.nil? %>
-                  a <%= action %> <%= link_to "la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %> : <%= truncate(e.notes, :length => 80) %>
-                <% elsif !e.event_type.nil? %>
-                  a <%= action %> <strong><%= e.event_type.full_type %></strong> : <%= truncate(e.notes, :length => 80) %>
-                <% else %>
-                  a effectué une action : <%= truncate(e.notes, :length => 80) %>
-                <% end %>
-              <% else %>
-                <strong><%= e.editor.full_name %></strong> a modifié <%= link_to "la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %><% if !e.task.notes.blank? %> : <%= truncate(e.task.notes, :length => 80) %><% end %>										 <% end %>
-              </td>
+            <td class="text-center"><% if !e.account.nil? %><strong><%= link_to e.account.company, account_events_path(e.account.id) %></strong> <% end %></td>				
+			<td class="text-center"><%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %></td>
+			<td class="text-center"><% if !e.contact.nil? %> <strong><%= " #{e.contact.full_name}" %></strong> <% else %> - <% end %></td>
+			<td>
+				<% if !e.task.nil? %> 
+					 <strong>Tâche :</strong>
+				<% elsif !e.event_type.nil? %>
+					 <strong><%= e.event_type.label %> :</strong>
+				<% else %>
+					 <strong>Action :</strong>
+				<% end %>
+				
+			<% if !e.task.nil? %> 
+			<%= link_to e.task.title, edit_task_path(e.task.id) %> <% if !e.task.notes.blank? %> : <%= truncate(e.task.notes, :length => 80) %><% end %>
+			
+			<% else %>
+			<%= link_to truncate(e.notes, :length => 80), account_events_path(e.account.id) %>
+			<% end %>
+			</td>
+            <td class="text-center"><%= e.date_begin.strftime("%d/%m/%y à %H:%M") %></td>
             </tr>													
 
           <% end %>
         </tbody>
       </table>
-      <!-- END EVENTS-->
+      <!-- END NEW EVENTS-->	  
+	  
 
       <!-- OPPORTUNITY-->
       <% if @opportunities.length > 0 %>
@@ -158,10 +144,10 @@
             <tr>
               <th colspan="9">
                 <h2 class="pull-left">Mes <%= t('app.model.Opportunity').pluralize %></h2>
+				<%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_task_path ,{:title => "Créer une opportunité", :class=>"pull-right btn", :style => 'display: inline-block'} %>
               </th>
             </tr>
             <tr>
-              <th class="text-center">#</th>
               <th class="text-center">Statut</th>
               <th class="text-center">Compte</th>
               <th class="text-center">Libellé</th>
@@ -175,7 +161,6 @@
           <tbody>
             <% @opportunities.each do |o| %>
               <tr>
-                <td class="text-center"><%= o.id %></td>
                 <td class="text-center">
                   <% badge_statut_class = nil
                   if o.statut == "Détectée"
@@ -226,10 +211,11 @@
           <tr>
             <th colspan="9">
               <h2 class="pull-left">Mes <%= t('app.model.Quotation').pluralize %></h2>
+				<%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_quotation_path ,{:title => "Créer un devis", :class=>"pull-right btn", :style => 'display: inline-block'} %>
+
             </th>
           </tr>
           <tr>
-            <th class="text-center">#</th>
             <th class="text-center">Statut</th>
             <th class="text-center">Compte</th>
             <th class="text-center">Libellé</th>
@@ -243,7 +229,6 @@
         <tbody>
           <% @quotations.each do |q| %>
             <tr>
-              <td class="text-center"><%= q.id %></td>
               <td class="text-center">
                 <% badge_statut_class = nil
                 if q.statut == "Sauvegardé"

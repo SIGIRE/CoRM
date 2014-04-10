@@ -46,7 +46,6 @@
   <table class="table table-bordered table-striped table-hover">
     <thead>
       <tr>
-        <th class="text-center">#</th>
         <th class="text-center">Statut</th>
         <th class="text-center">Compte</th>
         <th class="text-center">Libellé</th>
@@ -62,8 +61,7 @@
     <tbody>
     <% @quotations.each do |quotation| %>
     <tr>
-        <td class="text-center"><%= quotation.id %></td>
-        
+                
 		<td class="text-center">
             <% if quotation.statut == "Sauvegardé"%>
               <span class="badge badge-important">

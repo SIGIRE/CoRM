@@ -2,7 +2,6 @@
   <table class="table table-bordered table-striped table-hover">
     <thead>
       <tr>
-        <th class="text-center">#</th>
         <th class="text-center">Statut</th>
         <th class="text-center">Compte</th>
         <th class="text-center">Libellé</th>
@@ -16,12 +15,7 @@
     </thead>
     <tbody>
       <% @opportunities.each do |opportunity| %>
-      <tr>
-		<% if !opportunity.id.nil? %>
-		<td class="text-center"><%= opportunity.id %></td>
-		<% else %>
-		<td class="text-center">-</td>
-		<% end %>       
+      <tr>  
 		<td class="text-center">
           <% if opportunity.statut == "Détectée"%>
           <span class="badge badge-important">

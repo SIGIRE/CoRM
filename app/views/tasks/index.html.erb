@@ -50,7 +50,6 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th class="text-center">#</th>
                     <th class="text-center">Statut</th>
                     <th class="text-center">Priorité</th>
                     <th class="text-center">Compte</th>
@@ -76,7 +75,6 @@
                     %>
 	                <tr<%= attr %>>
 
-		                <td class="text-center"><%= task.id %></td>
                         <td class="text-center">
                             <% if task.statut == "A faire"%>
                                 <span class="badge badge-important">
@@ -149,7 +147,8 @@
 	            <% end %>
             </tbody>
         </table>
+	<%= paginate @tasks %>
     </div>
     <% end %>
-  <%= paginate @tasks %>
+
 </div>
