@@ -70,9 +70,6 @@ class QuotationsController < ApplicationController
     @quotation = Quotation.new(params[:quotation])
     @quotation.user = current_user
     @quotation.account_id = params[:account_id]
-    if (!params[:account_id].blank?)
-      @quotation.account = Account.find(params[:account_id]);
-    end
     
     # Instanciate a default line
     1.times { @quotation.quotation_lines.build }

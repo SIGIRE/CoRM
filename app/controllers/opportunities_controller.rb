@@ -28,7 +28,7 @@ class OpportunitiesController < ApplicationController
           
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @opportunities, :locals =>{:total_amount => @total_amount , :total_profit => @total_profit }  }
+      format.json { render :json => @opportunities, :locals => { :total_amount => @total_amount , :total_profit => @total_profit }  }
     end
   end
   
