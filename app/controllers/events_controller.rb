@@ -7,14 +7,22 @@ class EventsController < ApplicationController
   before_filter :load_account, only: [:index, :filter]
   layout :current_layout
 
+  has_scope :by_user_id
+  has_scope :by_contact_id
+  has_scope :by_content_like
+  has_scope :by_event_type_id
+
   ##
   # Show the full list of Events  
   #
   # GET /events     Account.order("company").page(params[:page]).per(3)
   # GET /events.json
   def index
-    @events = events.order("date_begin DESC").page(params[:page])
     @event_new = @account.events.build if @account
+    @events = apply_scopes(events).
+              order("date_begin DESC").
+              page(params[:page])
+
     respond_to do |format|
       format.html { render :layout => 'accounts_show' }
       format.json { render :json => @events }
