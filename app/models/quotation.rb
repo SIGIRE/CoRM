@@ -15,6 +15,8 @@ class Quotation < ActiveRecord::Base
   # :mode_reg, :statut, :opportunity_id, :attach, :contact_id, :quotation_template_id,
   # :created_by, :updated_by, :label
   
+  validates_presence_of :label
+
   belongs_to :opportunity
   belongs_to :contact
   belongs_to :account

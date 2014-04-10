@@ -6,24 +6,13 @@
 <% colon = t('app.fields.colon') %>
 <div class="well">
   <%= nested_form_for @quotation do |f| %>
-    <% if @quotation.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@quotation.errors.count, "error") %> prohibited this Quotation from being saved:</h2>
-        <ul>
-        <% @quotation.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
-  
     <div class="page-header">
       <h3> En-tête </h3>
     </div>
 		<div class="row row-fluid">
 			<div class="field full">
-				<div class="span2"><%= f.label(:label, t('app.fields.label') + colon) %></div>
-				<p><%= f.text_field :label %></p>
+        <div class="span2"><%= f.label(:label, t('app.fields.label') + colon) %></div>
+        <p><%= f.text_field :label, { :class => 'required' } %><span class="req"/></p>
 			</div>
 		</div>
 	  <div class="row row-fluid">
@@ -68,7 +57,7 @@
 		<div class="row row-fluid">
 			<div class="field full">
 				<div class="span2"><%= f.label(:user_id, t('app.fields.collegue') + colon) %></div>
-				<%= f.collection_select :user_id, @users, :id, :full_name, { :selected => (@quotation.user.nil?() ? current_user.id : @quotation.user.id) }, :class => 'assigned_to' %>
+				<%= f.collection_select :user_id, User.all_reals, :id, :full_name, { :selected => (@quotation.user.nil?() ? current_user.id : @quotation.user.id) }, :class => 'assigned_to' %>
 			</div>
 		</div>
     <hr />

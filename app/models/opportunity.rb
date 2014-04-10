@@ -8,6 +8,8 @@ class Opportunity < ActiveRecord::Base
   
   resourcify
   
+  validates_presence_of :name
+
   belongs_to :contact
   belongs_to :account
   belongs_to :user

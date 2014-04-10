@@ -67,7 +67,6 @@ class QuotationsController < ApplicationController
       redirect_to quotations_url
 	  return false
     end
-    @users = User.all_reals
     @quotation = Quotation.new(params[:quotation])
     @quotation.user = current_user
     @quotation.account_id = params[:account_id]
@@ -131,9 +130,9 @@ class QuotationsController < ApplicationController
 			self.create_event(false)
 			redirect_to (!@quotation.account.nil? ? account_events_url(@quotation.account_id) : quotations_path), :notice => "Le devis a été créé."
 		else
-			flash[:error] = t('app.save_undefined_error')
-			render :action => "new"
-		end
+			flash[:alert] = @quotation.errors.full_messages.join("\n")
+      render :action => "new"
+    end
   end
   
   ##

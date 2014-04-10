@@ -61,7 +61,6 @@ class OpportunitiesController < ApplicationController
     @opportunity = Opportunity.new
     @opportunity.user = current_user
     @opportunity.account_id = params[:account_id]
-    @users = User.all_reals
     respond_to do |format|
       format.html  # new.html.erb
       format.json  { render :json => @opportunity }
@@ -98,7 +97,7 @@ class OpportunitiesController < ApplicationController
           format.html  { redirect_to root_url(@opportunity.account_id), :notice => "L'opportunité a été créée." }
         end
       else
-        flash[:error] = t('app.save_undefined_error')
+        flash[:alert] = @opportunity.errors.full_messages.join("\n")
         format.html  { render :action => "new" }
       end
     end

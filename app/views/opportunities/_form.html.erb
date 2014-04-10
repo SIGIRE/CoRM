@@ -5,20 +5,10 @@
 
 <% colon = t('app.fields.colon') %>
 <%= form_for(@opportunity , :html => { :class => "well "}) do |f| %>
-  <% if @opportunity.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@opportunity.errors.count, "error") %> prohibited this opportunity from being saved:</h2>
-      <ul>
-      <% @opportunity.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
   <div class="row row-fluid">
 		<div class="field full"> 
 			<div class="span2"><%= f.label(:name, t('app.fields.label') + colon) %></div>
-			<div><p><%= f.text_field :name %></p></div>
+      <div><p><%= f.text_field :name, { :class => 'required' } %></p><span class="req"/></div>
 		</div>	
 	</div>
   <div class="row row-fluid">
@@ -55,7 +45,7 @@
 		<div class="field full">
 			<div class="span2"><%= f.label(:user_id, t('app.fields.assigned') + colon) %></div>
 			<p>
-				<%= f.collection_select :user_id, @users, :id, :full_name, { :selected => (@opportunity.user.nil?() ? current_user.id : @opportunity.user.id) }, :class => 'assigned_to' %>
+				<%= f.collection_select :user_id, User.all_reals, :id, :full_name, { :selected => (@opportunity.user.nil?() ? current_user.id : @opportunity.user.id) }, :class => 'assigned_to' %>
 				<label for="opportunity_mail" class="checkbox right-field">
           <%= check_box_tag(:mail, :yes, false, { :id => 'opportunity_mail' }) %>
 		Envoyer un Mail à ce collaborateur
