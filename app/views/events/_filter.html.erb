@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <div class="field">
+    <label class="checkbox">
+      <%= check_box_tag :generate, "yes" %>
+      Filtrer les évènements
+    </label>
+  </div>
+</div>
+
+
+<div id="task_value" class="container-fluid" style= "display: none;">
+  <%= form_tag(account_events_path, method: :GET) do %>
+    <div class="row row-fluid">
+    <div class="">
+        <%= label_tag :by_event_type_id, "Type :", :class => "top" %>
+        <%= select_tag "by_event_type_id", 
+                       options_from_collection_for_select(EventType.find(:all), :id, :full_type),
+                       { :include_blank => "Tous", :class =>"filter_statut" } %>
+      </div>
+
+      <%# Le typeahead et la mise à jour des contacts associés sont gérés par nav-search-bar.js %>
+      <div class="">
+        <%= label_tag :by_content_like, "Contenu :", :class => "top" %>
+        <%= text_field_tag "by_content_like" %>
+      </div>
+      <div class="">
+        <%= label_tag :by_contact_id, "Contact :", :class => "top" %>
+        <%= select_tag "by_contact_id",
+                       options_from_collection_for_select(@account.contacts, :id, :full_name),
+                       { include_blank: 'Tous', id: 'contact_id' } %>
+      </div>
+      <div class="">
+        <%= label_tag :by_user_id, "Collaborateur :", :class => "top" %>
+        <%= select_tag "by_user_id",
+                       options_from_collection_for_select(User.find(:all), :id, :full_name),
+                       { :include_blank => "Tous", :class =>"filter_statut" } %>
+      </div>
+      <div>
+        <%= submit_tag "Filtrer", :class =>"btn "%>
+      </div>
+    </div>
+  <% end %>
+</div>
