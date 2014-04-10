@@ -191,9 +191,9 @@ $(document).ready(function() {
   // gestion de la check box lors de la creation d'un event
   $(document.getElementById('account_search_field')).on('keyup', function(e) {
     if($(this).val() == '') {
-      $(document.getElementById('generate')).attr('checked', false);
+      $(document.getElementById('generate_task')).attr('checked', false);
       if ($(document.getElementById('row_for_generate')).is(':visible')) { // visible
-        $(document.getElementById('task_value')).hide();
+        $(document.getElementById('task_task_value')).hide();
         $(document.getElementById('row_for_generate')).slideUp();
       }
       return false;
@@ -221,11 +221,23 @@ $(document).ready(function() {
       HTMLContainer.html(container.children());
   });
   
+  // Cette fonction gère le fait d'afficher/cacher un bloc task_value au click sur la checkbox generate
   $(document.getElementById('generate')).on('change', function() {
     if ($(this).is(':checked') && !$(document.getElementById('task_value')).is(':visible')) {
       $(document.getElementById('task_value')).slideDown();
     } else if (!$(this).is(':checked') && $(document.getElementById('task_value')).is(':visible')) {
       $(document.getElementById('task_value')).slideUp();
+    }
+    
+  });
+
+  // Idem, fonction doublée pour le cas des évènements : on a deux checkboxes et deux blocs à cacher/afficher.
+  // À refactoriser, en passant par des classes et des attributs data plutôt que des ids.
+  $(document.getElementById('generate_task')).on('change', function() {
+    if ($(this).is(':checked') && !$(document.getElementById('task_task_value')).is(':visible')) {
+      $(document.getElementById('task_task_value')).slideDown();
+    } else if (!$(this).is(':checked') && $(document.getElementById('task_task_value')).is(':visible')) {
+      $(document.getElementById('task_task_value')).slideUp();
     }
     
   });
