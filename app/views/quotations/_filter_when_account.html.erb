@@ -24,7 +24,7 @@
       <div class="">
         <%= label_tag :user_email, "Collaborateur :", :class => "top" %>
         <%= select_tag "by_user_id",
-                       options_from_collection_for_select(User.find(:all), :id, :full_name),
+                       options_from_collection_for_select(User.all_reals, :id, :full_name),
                        { :include_blank => "Tous", :class =>"filter_statut" } %>
       </div>
       <div>
