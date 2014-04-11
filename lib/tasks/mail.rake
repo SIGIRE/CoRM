@@ -22,12 +22,11 @@ namespace :mail do
 
   desc "TODO"
   task :process_mails => :environment do
-    puts("Traitement des emails")
-
     emails = Email.all
     emails.each do |email|
-      if (email.check)
-        email.convert
+      if email.is_convertible_to_events?
+        email.to_events.each { |event| event.save }
+        email.destroy
       end
     end
   end    
