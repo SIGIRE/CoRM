@@ -105,6 +105,20 @@
   
     <li class="file"><a href="./public/robots_txt.html">robots</a>
   
+    <li class="file"><a href="./public/system/documents/attaches/000/000/008/original/robots_txt.html">robots</a>
+  
+    <li class="file"><a href="./public/system/event_attachments/attaches/000/000/001/original/dev_txt.html">dev</a>
+  
+    <li class="file"><a href="./public/system/event_attachments/attaches/000/000/006/original/dev_txt.html">dev</a>
+  
+    <li class="file"><a href="./public/system/event_attachments/attaches/000/000/007/original/production_txt.html">production</a>
+  
+    <li class="file"><a href="./public/system/event_attachments/attaches/000/000/008/original/production_txt.html">production</a>
+  
+    <li class="file"><a href="./public/system/event_attachments/attaches/000/000/009/original/production_txt.html">production</a>
+  
+    <li class="file"><a href="./public/system/event_attachments/attaches/000/000/011/original/production_txt.html">production</a>
+  
   </ul>
 </nav>
 
@@ -146,6 +160,8 @@
     <li><a href="./AddContactIdToEmails.html">AddContactIdToEmails</a>
   
     <li><a href="./AddEnablationToUser.html">AddEnablationToUser</a>
+  
+    <li><a href="./AddEventTypeIdToEmails.html">AddEventTypeIdToEmails</a>
   
     <li><a href="./AddMargeToOpportunitees.html">AddMargeToOpportunitees</a>
   
@@ -423,6 +439,8 @@
   
     <li><a href="./QuotationsHelper.html">QuotationsHelper</a>
   
+    <li><a href="./RationaliseEmails.html">RationaliseEmails</a>
+  
     <li><a href="./RegistrationsController.html">RegistrationsController</a>
   
     <li><a href="./Relation.html">Relation</a>
@@ -559,11 +577,17 @@
           
           <div class="method-source-code" id="convert-source">
             <pre><span class="ruby-comment"># File app/controllers/emails_controller.rb, line 31</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">convert</span>
-      <span class="ruby-comment"># Récupération de l'email</span>
-              <span class="ruby-ivar">@email</span> = <span class="ruby-constant">Email</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:email</span>])
-              <span class="ruby-ivar">@email</span>.<span class="ruby-identifier">convert</span>
-              <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">notifications_url</span>, <span class="ruby-value">:notice</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;L'email a été traité avec succès.&quot;</span>
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">convert</span>
+                <span class="ruby-ivar">@email</span> = <span class="ruby-constant">Email</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:email</span>])
+                <span class="ruby-identifier">event</span> = <span class="ruby-ivar">@email</span>.<span class="ruby-identifier">to_event</span>
+    
+    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">event</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">event</span>.<span class="ruby-identifier">save</span>
+      <span class="ruby-ivar">@email</span>.<span class="ruby-identifier">destroy</span>
+                <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">notifications_url</span>, <span class="ruby-value">:notice</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;L'email a été traité avec succès.&quot;</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">notifications_url</span>, <span class="ruby-value">:alert</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Erreur de traitement de l'email.&quot;</span>
+  <span class="ruby-keyword">end</span>
+        
 <span class="ruby-keyword">end</span></pre>
           </div><!-- convert-source -->
           

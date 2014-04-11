@@ -70,9 +70,11 @@
 
   <ul class="link-list">
     
-    <li><a href="#method-i-check">#check</a>
+    <li><a href="#method-i-get_accounts_with_contacts_by_mails">#get_accounts_with_contacts_by_mails</a>
     
-    <li><a href="#method-i-convert">#convert</a>
+    <li><a href="#method-i-is_convertible_to_event-3F">#is_convertible_to_event?</a>
+    
+    <li><a href="#method-i-to_event">#to_event</a>
     
   </ul>
 </nav>
@@ -98,6 +100,20 @@
     <li class="file"><a href="./app/views/notifications/_tasks.html">_tasks</a>
   
     <li class="file"><a href="./public/robots_txt.html">robots</a>
+  
+    <li class="file"><a href="./public/system/documents/attaches/000/000/008/original/robots_txt.html">robots</a>
+  
+    <li class="file"><a href="./public/system/event_attachments/attaches/000/000/001/original/dev_txt.html">dev</a>
+  
+    <li class="file"><a href="./public/system/event_attachments/attaches/000/000/006/original/dev_txt.html">dev</a>
+  
+    <li class="file"><a href="./public/system/event_attachments/attaches/000/000/007/original/production_txt.html">production</a>
+  
+    <li class="file"><a href="./public/system/event_attachments/attaches/000/000/008/original/production_txt.html">production</a>
+  
+    <li class="file"><a href="./public/system/event_attachments/attaches/000/000/009/original/production_txt.html">production</a>
+  
+    <li class="file"><a href="./public/system/event_attachments/attaches/000/000/011/original/production_txt.html">production</a>
   
   </ul>
 </nav>
@@ -140,6 +156,8 @@
     <li><a href="./AddContactIdToEmails.html">AddContactIdToEmails</a>
   
     <li><a href="./AddEnablationToUser.html">AddEnablationToUser</a>
+  
+    <li><a href="./AddEventTypeIdToEmails.html">AddEventTypeIdToEmails</a>
   
     <li><a href="./AddMargeToOpportunitees.html">AddMargeToOpportunitees</a>
   
@@ -417,6 +435,8 @@
   
     <li><a href="./QuotationsHelper.html">QuotationsHelper</a>
   
+    <li><a href="./RationaliseEmails.html">RationaliseEmails</a>
+  
     <li><a href="./RegistrationsController.html">RegistrationsController</a>
   
     <li><a href="./Relation.html">Relation</a>
@@ -536,61 +556,49 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-i-check" class="method-detail ">
+      <div id="method-i-get_accounts_with_contacts_by_mails" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">check</span><span
-            class="method-args">()</span>
+          <span class="method-name">get_accounts_with_contacts_by_mails</span><span
+            class="method-args">(mail_adresses)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
 
         <div class="method-description">
           
-          
+          <p>Generates a Hash whose keys are accounts and values sets of contacts. Get
+mail adresses list as parameter : [‘foo@bar.com’, ‘titi@tata.fr’]</p>
           
 
           
-          <div class="method-source-code" id="check-source">
-            <pre><span class="ruby-comment"># File app/models/email.rb, line 9</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">check</span>
-  <span class="ruby-keyword">if</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">contact_id</span>.<span class="ruby-identifier">blank?</span>)
-    <span class="ruby-identifier">contact</span> = <span class="ruby-constant">Contact</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">contact_id</span>)
-    <span class="ruby-keyword">if</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">contact</span>.<span class="ruby-identifier">account_id</span>.<span class="ruby-identifier">blank?</span>)
-      <span class="ruby-keyword">if</span>(<span class="ruby-operator">!</span><span class="ruby-constant">WebmailConnection</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">type_event_id</span>.<span class="ruby-identifier">blank?</span>)
-        <span class="ruby-keyword">if</span> (<span class="ruby-operator">!</span>(<span class="ruby-identifier">object</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">content</span>).<span class="ruby-identifier">blank?</span>)
-          <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
-        <span class="ruby-keyword">end</span>
-        <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
-      <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+          <div class="method-source-code" id="get_accounts_with_contacts_by_mails-source">
+            <pre><span class="ruby-comment"># File app/models/email.rb, line 28</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_accounts_with_contacts_by_mails</span>(<span class="ruby-identifier">mail_adresses</span>)
+  <span class="ruby-identifier">resultset</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">h</span>, <span class="ruby-identifier">k</span><span class="ruby-operator">|</span> <span class="ruby-identifier">h</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-constant">Set</span>.<span class="ruby-identifier">new</span> }
+  <span class="ruby-identifier">mail_adresses</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">mail_adress</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">contact</span> = <span class="ruby-constant">Contact</span>.<span class="ruby-identifier">by_email</span>(<span class="ruby-identifier">mail_adress</span>)
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">contact</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">account</span> = <span class="ruby-identifier">contact</span>.<span class="ruby-identifier">account</span>
+      <span class="ruby-identifier">resultset</span>[<span class="ruby-identifier">account</span>].<span class="ruby-identifier">add</span>(<span class="ruby-identifier">contact</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">account</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
-  <span class="ruby-keyword">elsif</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">account_id</span>.<span class="ruby-identifier">blank?</span>)
-    <span class="ruby-keyword">if</span>(<span class="ruby-operator">!</span><span class="ruby-constant">WebmailConnection</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">type_event_id</span>.<span class="ruby-identifier">blank?</span>)
-      <span class="ruby-keyword">if</span> (<span class="ruby-operator">!</span>(<span class="ruby-identifier">object</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">content</span>).<span class="ruby-identifier">blank?</span>)
-        <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
-      <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
-    <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
   <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">resultset</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- check-source -->
+          </div><!-- get_accounts_with_contacts_by_mails-source -->
           
         </div>
 
         
 
         
-      </div><!-- check-method -->
+      </div><!-- get_accounts_with_contacts_by_mails-method -->
 
     
-      <div id="method-i-convert" class="method-detail ">
+      <div id="method-i-is_convertible_to_event-3F" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">convert</span><span
+          <span class="method-name">is_convertible_to_event?</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
@@ -598,50 +606,55 @@
 
         <div class="method-description">
           
-          
+          <p>Checks if self can be converted to an <a href="Event.html">Event</a>
+instance.</p>
           
 
           
-          <div class="method-source-code" id="convert-source">
-            <pre><span class="ruby-comment"># File app/models/email.rb, line 34</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">convert</span>
-  <span class="ruby-comment"># Récupération du contact</span>
-  <span class="ruby-identifier">contact</span> = <span class="ruby-keyword">nil</span>
-  <span class="ruby-identifier">account_id</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">account_id</span>
-
-  <span class="ruby-keyword">if</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">contact_id</span>.<span class="ruby-identifier">blank?</span>)
-    <span class="ruby-identifier">contact</span> = <span class="ruby-constant">Contact</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">contact_id</span>)
-    <span class="ruby-identifier">account_id</span> = <span class="ruby-identifier">contact</span>.<span class="ruby-identifier">account_id</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-comment"># Création d'un évènement</span>
-  <span class="ruby-identifier">event</span> = <span class="ruby-constant">Event</span>.<span class="ruby-identifier">new</span>
-  <span class="ruby-identifier">event</span>.<span class="ruby-identifier">date_begin</span> = <span class="ruby-identifier">send_at</span>
-  <span class="ruby-identifier">event</span>.<span class="ruby-identifier">date_end</span> = <span class="ruby-identifier">send_at</span>
-  <span class="ruby-identifier">event</span>.<span class="ruby-identifier">notes</span> = <span class="ruby-node">&quot;Sujet : #{object}\n\n#{content}&quot;</span>
-  <span class="ruby-identifier">event</span>.<span class="ruby-identifier">created_by</span> = <span class="ruby-identifier">user_id</span>
-  <span class="ruby-keyword">if</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">contact</span>.<span class="ruby-identifier">blank?</span>)
-    <span class="ruby-identifier">event</span>.<span class="ruby-identifier">contact_id</span> = <span class="ruby-identifier">contact_id</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">event</span>.<span class="ruby-identifier">account_id</span> = <span class="ruby-identifier">account_id</span>
-  <span class="ruby-identifier">event</span>.<span class="ruby-identifier">event_type_id</span> = <span class="ruby-constant">WebmailConnection</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">type_event_id</span>
-  <span class="ruby-identifier">event</span>.<span class="ruby-identifier">user_id</span> = <span class="ruby-identifier">user_id</span>
-  <span class="ruby-identifier">email_attachments</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">attachment</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">attach</span> = <span class="ruby-constant">EventAttachment</span>.<span class="ruby-identifier">new</span>
-    <span class="ruby-identifier">attach</span>.<span class="ruby-identifier">attach</span> = <span class="ruby-identifier">attachment</span>.<span class="ruby-identifier">attach</span>
-    <span class="ruby-identifier">event</span>.<span class="ruby-identifier">event_attachments</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">attach</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">event</span>.<span class="ruby-identifier">save</span>
-  <span class="ruby-identifier">destroy</span>
+          <div class="method-source-code" id="is_convertible_to_event-3F-source">
+            <pre><span class="ruby-comment"># File app/models/email.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">is_convertible_to_event?</span>
+  <span class="ruby-operator">!</span><span class="ruby-identifier">get_accounts_with_contacts_by_mails</span>.<span class="ruby-identifier">empty?</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- convert-source -->
+          </div><!-- is_convertible_to_event-3F-source -->
           
         </div>
 
         
 
         
-      </div><!-- convert-method -->
+      </div><!-- is_convertible_to_event-3F-method -->
+
+    
+      <div id="method-i-to_event" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_event</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns an instance of <a href="Event.html">Event</a> if self is eligible
+to conversion. Otherwise, returns nil.</p>
+          
+
+          
+          <div class="method-source-code" id="to_event-source">
+            <pre><span class="ruby-comment"># File app/models/email.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_event</span>
+  <span class="ruby-identifier">convert</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">is_convertible_to_event?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- to_event-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- to_event-method -->
 
     
     </section><!-- public-instance-method-details -->
