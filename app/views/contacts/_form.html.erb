@@ -36,10 +36,23 @@
   </div>
   
   <div class="field">
-    <div class="span2"> E-mail : </div> <%= f.text_field :email%>
+    <div class="span2"> e-mail : </div> <%= f.text_field :email%> 
   </div>
-  
+
+  <div id="aliases">
+  <%= f.fields_for :aliases do |task_form| %>
   <div class="field">
+    <div class="span2"></div>
+      <%= task_form.text_field :email %>
+      <%= task_form.link_to_remove "Supprimer cet alias" %>
+  </div>
+  <% end %>
+  </div>
+
+<div class="field">
+  <div class="span2"></div><%= f.link_to_add "Ajouter un alias", :aliases, data: { target: '#aliases' } %>
+  </div>
+<div class="field">
     <div class="span2"> Fonction : </div> <%= f.text_field :job%>
   </div>
   

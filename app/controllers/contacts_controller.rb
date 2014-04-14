@@ -93,6 +93,10 @@ class ContactsController < ApplicationController
         @contact.tags << tag
       end
           
+      # Aliases treatment
+      aliases = params[:aliases].split
+      @contact.set_aliases_from_array(aliases)
+
       respond_to do |format|
         if @contact.save
 		    update_emails(@contact)
@@ -140,6 +144,7 @@ class ContactsController < ApplicationController
         @contact.tags.clear
         @contact.tags << tag
       end
+      
       respond_to do |format|
         if @contact.update_attributes(params[:contact])
 		    update_emails(@contact)
