@@ -1,3 +1,4 @@
+# encoding: utf-8
 
 ##
 # This class represents the final user, so he has many business, events or tasks as he wants.
@@ -42,5 +43,7 @@ class User < ActiveRecord::Base
       admin = User.joins(:roles).where("roles.name = 'admin'").first()
       return User.where(:enabled => true).reject{|e| e.id == admin.id}
   end
-  
+
+scope :by_mail, lambda { |mail| where('UPPER(users.email) = UPPER(?)', mail) unless mail.blank? }
+
 end

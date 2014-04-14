@@ -30,10 +30,15 @@ class EmailsController < ApplicationController
   end
 
   def convert
-        # Récupération de l'email
 		@email = Email.find(params[:email])
-		@email.convert
-		redirect_to notifications_url, :notice => "L'email a été traité avec succès."
+    begin
+		  events = @email.to_events
+      events.each { |event| event.save }
+      @email.destroy
+  		redirect_to notifications_url, :notice => "L'email a été traité avec succès."
+    rescue
+      redirect_to notifications_url, :alert => "Erreur de traitement de l'email."
+    end
   end
 	
 end
