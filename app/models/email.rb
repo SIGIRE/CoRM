@@ -2,7 +2,9 @@ class Email < ActiveRecord::Base
   serialize :to, Array
   serialize :cc, Array
   serialize :cci, Array
-  attr_accessible :id, :content, :object, :send_at, :from, :to, :cc, :cci, :user_id, :email_attachments, :email_attachments_attributes, :event_type_id
+  attr_accessible :id, :content, :object, :send_at, :from, :to, :cc, :cci, :user_id, :email_attachments, :email_attachments_attributes, :event_type_id, :arbitrary_contact, :arbitrary_account, :account_id, :contact_id
+  belongs_to :arbitrary_contact, :class_name => Contact, :foreign_key => 'contact_id'
+  belongs_to :arbitrary_account, :class_name => Account, :foreign_key => 'account_id'
   has_many :email_attachments, :dependent => :destroy
   alias_attribute :attachments, :email_attachments
   accepts_nested_attributes_for :email_attachments
@@ -25,7 +27,7 @@ class Email < ActiveRecord::Base
 
   ##
   # Generates a Hash whose keys are accounts and values sets of contacts.
-  # Get mail adresses list as parameter : ['foo@bar.com', 'titi@tata.fr']
+  # Uses arbitrary 
 
   def accounts_with_contacts
     resultset = Hash.new { |h, k| h[k] = Set.new }
@@ -36,7 +38,31 @@ class Email < ActiveRecord::Base
         resultset[account].add(contact) unless account.nil?
       end
     end
+
+    resultset[arbitrary_account].add(arbitrary_contact) if has_arbitrary_account_and_contact?
     return resultset
+  end
+
+  def has_arbitrary_account_and_contact?
+    self.arbitrary_account && self.arbitrary_contact
+  end
+
+  ##
+  # Returns an array populated with accounts related to TO field.
+
+  def accounts
+    accounts_with_contacts.keys
+  end
+
+  ##
+  # Returns an array of contacts wich are associated with an account.
+
+  def contacts
+    resultset = []
+    accounts_with_contacts.values.each do |contacts_set|
+      contacts_set.each { |contact| resultset << contact }
+    end
+    resultset
   end
 
   private ##########################################################################
@@ -58,7 +84,7 @@ class Email < ActiveRecord::Base
 
       event.date_begin = self.send_at
       event.date_end = self.send_at
-      event.notes =  "Sujet : #{self.subject}\n"
+      event.notes =  "Sujet : #{self.object}\n"
       event.notes += "To : #{generate_string_from_mails(self.to)}\n" unless self.to.nil? 
       event.notes += "CC : #{generate_string_from_mails(self.cc)}\n" unless self.cc.nil?
       event.notes += "\n#{self.content}"

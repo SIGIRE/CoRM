@@ -43,6 +43,7 @@ class MailProcessor
     email.to = mail.to.to_a
     email.cc = mail.cc.to_a
     email.send_at = mail.date
+    email.object = mail.subject
     email.content = retrieve_body(mail)
     email.attachments = retrieve_attachments(mail)
     email.event_type_id = event_type_id

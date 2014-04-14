@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140411142648) do
+ActiveRecord::Schema.define(:version => 20140414093045) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -142,7 +142,8 @@ ActiveRecord::Schema.define(:version => 20140411142648) do
     t.text     "from"
     t.text     "cc"
     t.text     "cci"
-    t.text     "subject"
+    t.integer  "contact_id"
+    t.integer  "account_id"
   end
 
   create_table "event_attachments", :force => true do |t|

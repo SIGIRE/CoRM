@@ -31,13 +31,14 @@ class EmailsController < ApplicationController
 
   def convert
 		@email = Email.find(params[:email])
-		event = @email.to_event
-    
-    if !event.nil? && event.save
+    begin
+		  events = @email.to_events
+      events.each { |event| event.save }
       @email.destroy
   		redirect_to notifications_url, :notice => "L'email a été traité avec succès."
-    else
+    rescue
       redirect_to notifications_url, :alert => "Erreur de traitement de l'email."
+    end
   end
 	
 end
