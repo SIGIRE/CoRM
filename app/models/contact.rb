@@ -10,13 +10,16 @@ class Contact < ActiveRecord::Base
   resourcify
   
   has_many :tasks
-  
+  has_many :aliases, dependent: :destroy
+
   has_and_belongs_to_many :tags
   
   belongs_to :account
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
   
+  accepts_nested_attributes_for :aliases, allow_destroy: true
+
   validate :valid
   
   paginates_per 10
@@ -44,6 +47,22 @@ class Contact < ActiveRecord::Base
   end
   
   ##
+  # Sets alias mails of current Contact, taking an array of strings as parameter.
+
+  def set_aliases_from_array emails_array
+    aliases.each { |m_alias| m_alias.destroy unless emails_array.include? m_alias.email }
+    emails_array.each { |email| aliases.push Alias.new(email: email) unless has_alias? email }
+  end
+  
+  ##
+  # Checks if the User has the mail adress as an alias.
+  # Takes string mail adress as a parameter.
+
+  def has_alias? mail_alias
+    aliases.any? { |mail| mail == mail_alias }
+  end
+
+  ##
   # Define the title fo the contact
   # Can be: M.|Mme
   #
@@ -61,9 +80,9 @@ class Contact < ActiveRecord::Base
   #
   scope :by_company, lambda { |company| joins(:account).where("accounts.company LIKE UPPER(?)", company) unless company.blank? }
   scope :by_surname, lambda { |surname| where('surname LIKE ?', surname) unless surname.blank?}
-  scope :by_forename, lambda { |forename| where('forename LIKE ?', forname) unless forename.blank? }
+  scope :by_forename, lambda { |forename| where('forename LIKE ?', forename) unless forename.blank? }
   scope :by_tel, lambda { |tel| where("tel LIKE ?", '%'+tel+'%') unless tel.blank? }
-  scope :by_email, lambda { |email| where('UPPER(contacts.email) LIKE UPPER(?)', email) unless email.blank? }
+  scope :by_email, lambda { |email| joins(:aliases).where('UPPER(contacts.email) LIKE UPPER(?) OR UPPER(aliases.email) LIKE UPPER(?)', email, email) unless email.blank? }
   scope :by_accounts, lambda { |account| where("account_id IN (?)", account)unless account.blank? }
   scope :by_tags, lambda { |tags| joins(:tags).where("tags.id IN (?)", tags) unless tags.blank? }  
   scope :by_zip_account, lambda { |zip_account| joins(:account).where("account.zip LIKE ?", zip_account + '%') unless zip_account.blank? } 
