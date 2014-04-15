@@ -90,7 +90,6 @@ class Email < ActiveRecord::Base
       event.notes += "\n#{self.content}"
 
       self.attachments.each do |attachment|
-        debugger
         attach = EventAttachment.new
         attach.attach = attachment.attach
         event.event_attachments.push attach
