@@ -14,6 +14,8 @@ class TasksController < ApplicationController
     @page = params[:page]
     @tasks = Task.where("user_id =? AND statut IN ('En cours','A faire')", current_user.id).order("priority DESC, created_at DESC , updated_at DESC").page(@page)
 	
+    flash.now[:alert] = "Pas de tâches !" if @tasks.empty?
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @tasks , :filter => @filter }

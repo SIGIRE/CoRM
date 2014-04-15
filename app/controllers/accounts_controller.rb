@@ -17,6 +17,8 @@ class AccountsController < ApplicationController
     @autocomplete_accounts = Account.find(:all,:select=>'company').map(&:company) #societe
     @autocomplete_contacts = Contact.find(:all,:select=>'surname').map(&:surname) #nom
 
+    flash.now[:alert] = "Pas de comptes !" if @accounts.empty?
+
     respond_to do |format|
       format.html
       format.json { render :json => @accounts }

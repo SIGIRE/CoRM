@@ -26,6 +26,8 @@ class OpportunitiesController < ApplicationController
       @total_profit += op.profit
     end
           
+    flash.now[:alert] = "Pas d'opportunités !" if @opportunities.empty?
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @opportunities, :locals => { :total_amount => @total_amount , :total_profit => @total_profit }  }

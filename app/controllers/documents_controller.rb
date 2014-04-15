@@ -15,6 +15,8 @@ class DocumentsController < ApplicationController
   def index
     @documents = documents.order('name').page(params[:page])
    
+    flash.now[:alert] = "Pas de documents !" if @documents.empty?
+
     respond_to do |format|
       format.html  # index.html.erb
       format.json  { render :json => @documents }

@@ -13,6 +13,8 @@ class TagsController < ApplicationController
   def index
     @tags = tags.order('name').page(params[:page])
    
+    flash.now[:alert] = "Pas de tags !" if @tags.empty?
+
     respond_to do |format|
       format.html  # index.html.erb
       format.json  { render :json => @produits }

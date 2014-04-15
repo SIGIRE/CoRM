@@ -25,6 +25,8 @@ class EventsController < ApplicationController
               page(params[:page]).
               per(@account ? 10 : 20)
 
+    flash.now[:alert] = "Pas d'évènements !" if @events.empty?
+
     respond_to do |format|
       format.html
       format.json { render :json => @events }

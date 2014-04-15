@@ -15,6 +15,8 @@ class QuotationsController < ApplicationController
                   order('date DESC').
                   page(params[:page])
 
+    flash.now[:alert] = "Pas de devis !" if @quotations.empty?
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @quotations }
