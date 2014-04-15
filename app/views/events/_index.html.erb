@@ -1,0 +1,57 @@
+<div class="container-fluid" style="margin-top: 1em;">
+     <div class="well">
+       <div class="row-fluid">
+         <div class="span9">
+           <h1><%= t('app.model.Event').pluralize %></h1>
+         </div>
+       </div>
+     </div>
+</div>
+
+<%= render partial: 'filter' %>
+
+<div class="container-fluid">
+<table class="table table-bordered table-striped table-hover">
+  <thead>
+    <tr>
+      <th class="text-center"><%= t('app.model.Account') %></th>	
+      <th class="text-center">Collaborateur</th>
+      <th class="text-center">Contact</th>
+      <th class="text-center">Détails</th>
+      <th class="text-center">Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @events.each do |e| %>
+      <tr>
+        <td class="text-center"><% if !e.account.nil? %><strong><%= link_to e.account.company, account_events_path(e.account.id) %></strong> <% end %></td>				
+        <td class="text-center"><%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %></td>
+        <td class="text-center"><% if !e.contact.nil? %> <strong><%= " #{e.contact.full_name}" %></strong> <% else %> - <% end %></td>
+        <td>
+          <% if !e.task.nil? %> 
+            <strong>Tâche :</strong>
+          <% elsif !e.event_type.nil? %>
+            <strong><%= e.event_type.label %> :</strong>
+          <% else %>
+            <strong>Action :</strong>
+          <% end %>
+
+          <% if !e.task.nil? %> 
+            <%= link_to e.task.title, edit_task_path(e.task.id) %> <% if !e.task.notes.blank? %> : <%= truncate(e.task.notes, :length => 80) %><% end %>
+
+          <% else %>
+            <% if e.account.nil? %>
+              <%= truncate(e.notes, :length => 80) %>
+            <% else %>
+              <%= link_to truncate(e.notes, :length => 80), account_events_path(e.account.id) %>
+            <% end %>
+          <% end %>
+        </td>
+        <td class="text-center"><%= e.date_begin.to_s(:humanized) %></td>
+      </tr>													
+
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @events %>
+</div>
