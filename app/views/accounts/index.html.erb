@@ -41,7 +41,6 @@
   <table class="table table-bordered table-striped table-hover">
     <thead>
     <tr>
-	<th class="text-center">#</th>
 	<th class="text-center">Soci&eacute;t&eacute;</th>
 	<th class="text-center">Adresse</th>	  
 	<th class="text-center">Genre</th>
@@ -53,12 +52,6 @@
 	<tbody>
   <% @accounts.each do |account| %>
     <tr>
-		<% if !account.id.blank? %>
-			<% then %>
-				<td class="text-center"><%= account.id %></td>
-			<% else %>
-				<td class="text-center">-</td>
-		<% end %>
 
 		<% if !account.company.nil? %>
 			<% then %>

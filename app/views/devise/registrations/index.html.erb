@@ -19,7 +19,6 @@
   <table class="table table-bordered table-striped table-hover">
     <thead>
       <tr>
-        <th class="text-center">#</th>
         <th class="text-center">Nom</th>
         <th class="text-center">Login / e-mail</th>
         <th class="text-center">Rôles</th>
@@ -32,8 +31,7 @@
     <tbody>
     <% @users.each do |u| %>
       <tr>
-        <td class="text-center"><%= u.id %></td>
-        <td><%= u.full_name %></td>
+        <td class="text-center"><strong><%= u.full_name %></strong></td>
         <td class="text-center"><%= mail_to u.email %></td>
         <td class="text-center">
 	<% if u.roles.length > 0 %>
