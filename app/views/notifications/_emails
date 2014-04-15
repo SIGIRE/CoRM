@@ -12,7 +12,7 @@
 			<th class="text-center">Compte</th>
 			<th class="text-center">Objet</th>
 			<th class="text-center">Aperçu du contenu</th>
-			<th class="text-center">Pièce jointe</th>
+			<th class="text-center">PJ</th>
 			<th class="text-center">Date</th>
 			<th class="text-center">Action</th>
     </tr>
