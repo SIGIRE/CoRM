@@ -44,13 +44,13 @@
   <div class="field">
     <div class="span2"></div>
       <%= task_form.text_field :email %>
-      <%= task_form.link_to_remove "Supprimer cet alias" %>
+      <%= task_form.link_to_remove "", class: 'icon-remove' %>
   </div>
   <% end %>
   </div>
 
 <div class="field">
-  <div class="span2"></div><%= f.link_to_add "Ajouter un alias", :aliases, data: { target: '#aliases' } %>
+  <div class="span2"></div><%= f.link_to_add "", :aliases, data: { target: '#aliases' }, class: 'icon-plus' %>
   </div>
 <div class="field">
     <div class="span2"> Fonction : </div> <%= f.text_field :job%>
