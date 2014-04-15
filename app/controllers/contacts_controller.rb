@@ -140,6 +140,7 @@ class ContactsController < ApplicationController
         @contact.tags.clear
         @contact.tags << tag
       end
+      
       respond_to do |format|
         if @contact.update_attributes(params[:contact])
 		    update_emails(@contact)

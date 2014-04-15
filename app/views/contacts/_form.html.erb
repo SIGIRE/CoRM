@@ -1,4 +1,4 @@
-<%= form_for(@contact, :html => { :class => "well ", :id => 'new_contact_form', :key => "blabla"}) do |f| %>
+<%= nested_form_for(@contact, :html => { :class => "well ", :id => 'new_contact_form', :key => "blabla"}) do |f| %>
   <% if @contact.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@contact.errors.count, "erreur") %> a empeché de sauvegarder ce contact:</h2>
@@ -36,10 +36,23 @@
   </div>
   
   <div class="field">
-    <div class="span2"> E-mail : </div> <%= f.text_field :email%>
+    <div class="span2"> e-mail : </div> <%= f.text_field :email%> 
   </div>
-  
+
+  <div id="aliases">
+  <%= f.fields_for :aliases do |task_form| %>
   <div class="field">
+    <div class="span2"></div>
+      <%= task_form.text_field :email %>
+      <%= task_form.link_to_remove "", class: 'icon-remove' %>
+  </div>
+  <% end %>
+  </div>
+
+<div class="field">
+  <div class="span2"></div><%= f.link_to_add "", :aliases, data: { target: '#aliases' }, class: 'icon-plus' %>
+  </div>
+<div class="field">
     <div class="span2"> Fonction : </div> <%= f.text_field :job%>
   </div>
   

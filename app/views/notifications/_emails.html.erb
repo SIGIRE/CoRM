@@ -1,0 +1,67 @@
+<div class="container-fluid">
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+		<tr>
+			<th colspan="8">
+				<h3 class="pull-left">Messages à traiter</h3>
+			</th>
+		<tr/>
+    <tr>
+			<th class="text-center">Contact</th>
+			<th class="text-center">Compte</th>
+			<th class="text-center">Objet</th>
+			<th class="text-center">Aperçu du contenu</th>
+			<th class="text-center">Pièce jointe</th>
+			<th class="text-center">Date</th>
+			<th class="text-center">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+        <% @emails.each do |email| %> 
+				<% if email.is_convertible_to_events? %>
+          <tr class="success">
+            <td class="text-center"><%=email.contacts.first.full_name%></td>
+            <td class="text-center"><%=email.accounts.first.company%></td>
+        <% else %>
+          <tr>
+            <td class="text-center"><%=email.to.join("\n")%></td>
+            <td class="text-center"></td>
+        <%end%>
+            <td class="text-center"><%=email.object%></td>
+            <td class="text-center"><%=email.content%></td>
+            <td class="text-center"><%=email.email_attachments.length%></td>
+            <td class="text-center"><%=email.send_at%></td>
+		  		<%# Affichage des boutons d'action %>
+			    	<td class="text-center">
+				    	<div class="btn-group">
+					      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+						    <%= image_tag('/assets/glyphicons/glyphicons_241_flash.png', :size => '12x12') %>
+					      </a>
+
+					      <ul class="dropdown-menu right" style="margin: 2px -140px 0px;">
+						    <li><%= link_to "Editer", edit_email_path(email.id) %></li>
+						    <li><%= link_to "Supprimer", email, :id => email.id, :confirm => 'Confirmer la suppression ?', :method => :delete %></li>
+
+						    <%# Si l'email est "valide" (complet) alors on propose un bouton "traiter" qui lance la conversion %>
+						    <% if email.is_convertible_to_events? %>
+							    <li class="divider" style="margin: 2px;"></li>
+							    <li><%= link_to "Traiter", {:controller => 'emails', :action => 'convert', :email => email} %></li>
+						    <% end %>
+
+					    </ul>
+				    	</div>
+			      </td>
+      		</tr>
+
+	        <%# Affichage du lien vers les autres emails %>
+			<% if current_user.emails.length > 5 %>
+				<tr>
+					<td colspan="9" class="text-center">
+						<%= link_to('Afficher tout mes emails', emails_path, :title => 'Mes emails') %>
+					</td>
+				</tr>
+        <%end%>
+			<% end %>
+		</tbody>
+	</table>
+</div>

@@ -5,19 +5,27 @@
 
 <%= form_for(@email, :url => {:action => "update" }, :html => { :class => "well "}) do |f| %>
   
+
+  <div class="row row-fluid">
+    <div class="field full">
+      <div class="span2">Envoyé à : </div>
+      <input type="text" class="field left" value=<%= @email.to.join(' ; ') %> readonly/>
+    </div>
+  </div>
+
 <%#Affichage du champ compte %>
 <div class="row row-fluid">
   <div class="field full">
     <div class="span2">
 	<%= f.label('account-search', t('app.model.Account') + t('app.fields.colon')) %></div>
     <% company = nil
-	if (!@email.contact_id.blank?)
-	    contact = Contact.find(@email.contact_id)
+	if (!@email.arbitrary_contact.blank?)
+	    contact = Contact.find(@email.arbitrary_contact.id)
 	    if (!contact.account_id.blank?)
 		    company = Account.find(contact.account_id)
 		end
-	elsif (!@email.account_id.blank?) 
-	    company = Account.find(@email.account_id)
+	elsif (!@email.arbitrary_account.blank?) 
+	    company = @email.arbitrary_account
 	end %>
 	<% if company.blank? %>
 			<%= text_field_tag(nil, company, { :class => 'typeahead-account-search', :type => 'search', :autocomplete => 'off', 'data-field' => 'account_id', :placeholder => 'Rechercher' }) %>
