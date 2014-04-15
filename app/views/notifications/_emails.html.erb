@@ -24,7 +24,7 @@
             <td class="text-center"><%=email.accounts.first.company%></td>
         <% else %>
           <tr>
-            <td class="text-center"></td>
+            <td class="text-center"><%=email.to.join("\n")%></td>
             <td class="text-center"></td>
         <%end%>
             <td class="text-center"><%=email.object%></td>

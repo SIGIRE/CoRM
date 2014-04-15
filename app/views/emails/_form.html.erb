@@ -5,6 +5,14 @@
 
 <%= form_for(@email, :url => {:action => "update" }, :html => { :class => "well "}) do |f| %>
   
+
+  <div class="row row-fluid">
+    <div class="field full">
+      <div class="span2">Envoyé à : </div>
+      <input type="text" class="field left" value=<%= @email.to.join(' ; ') %> readonly/>
+    </div>
+  </div>
+
 <%#Affichage du champ compte %>
 <div class="row row-fluid">
   <div class="field full">

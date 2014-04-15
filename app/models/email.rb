@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Email < ActiveRecord::Base
   serialize :to, Array
   serialize :cc, Array
@@ -84,10 +86,12 @@ class Email < ActiveRecord::Base
 
       event.date_begin = self.send_at
       event.date_end = self.send_at
-      event.notes =  "Sujet : #{self.object}\n"
-      event.notes += "To : #{generate_string_from_mails(self.to)}\n" unless self.to.nil? 
-      event.notes += "CC : #{generate_string_from_mails(self.cc)}\n" unless self.cc.nil?
-      event.notes += "\n#{self.content}"
+      event.notes = ""
+      event.notes += "Envoyé à : #{generate_string_from_mails(self.to)}" if self.to.length > 1 
+      event.notes += " - " if (self.to.length > 1) && !(self.cc.empty?)
+      event.notes += "Copie : #{generate_string_from_mails(self.cc)}\n" unless self.cc.empty?
+      event.notes +=  "Sujet : #{self.object}\n\n" unless self.object.blank?
+      event.notes += "#{self.content}"
 
       self.attachments.each do |attachment|
         attach = EventAttachment.new
