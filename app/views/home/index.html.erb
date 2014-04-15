@@ -127,7 +127,7 @@
 			<%= link_to truncate(e.notes, :length => 80), account_events_path(e.account.id) %>
 			<% end %>
 			</td>
-            <td class="text-center"><%= e.date_begin.strftime("%d/%m/%y à %H:%M") %></td>
+            <td class="text-center"><%= e.date_begin.to_s(:humanized) %></td>
             </tr>													
 
           <% end %>
