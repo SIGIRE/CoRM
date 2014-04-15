@@ -23,7 +23,6 @@
  <table class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th class="text-center">Id</th>
         <th class="text-center">Nom</th>
         <th class="text-center">Document</th>
         <th class="text-center">Description</center></th>
@@ -35,7 +34,6 @@
       <% @documents = Document.by_account(@account).order('name ASC').page(params[:page]) %>
       <% @documents.each do |document| %>
         <tr>
-         <td class="text-center"><%= document.id %></td>
          <td class="text-center"><%= document.name %></td>
          <td class="text-center">
          <% document.document_attachments.each do |attachment| %>

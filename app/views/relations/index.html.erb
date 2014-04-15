@@ -22,7 +22,6 @@
 
     <table class="table table-bordered table-striped">
       <tr>
-        <th><center>Id</center></th>
         <th><center>Nom</center></th>
         <th><center>Compte lié</center></th>
         <th><center>Éditer</center></th> 
@@ -31,7 +30,6 @@
     <% @relations = Relation.by_account(@account).order('name').page(params[:page]) %>
     <% @relations.each do |relation| %>
       <tr>
-        <td><center><%= relation.id %></center></td>
         <td style="width: 15em;"><center><%= relation.name %></center></td>
         <td><center>
           <% if relation.account2.id == @account.id %>
