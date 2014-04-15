@@ -1,3 +1,5 @@
-<%= render "new_account_event" %>
-<%= render 'filter' %>
-<%= render "listing_events" %>
+<% if @account %>
+  <%= render partial: 'index_when_account' %>
+<% else %>
+  <%= render partial: 'index' %>
+<% end %>

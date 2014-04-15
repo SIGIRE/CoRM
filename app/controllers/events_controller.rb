@@ -11,6 +11,7 @@ class EventsController < ApplicationController
   has_scope :by_contact_id
   has_scope :by_content_like
   has_scope :by_event_type_id
+  has_scope :by_account_company_like
 
   ##
   # Show the full list of Events  
@@ -21,10 +22,11 @@ class EventsController < ApplicationController
     @event_new = @account.events.build if @account
     @events = apply_scopes(events).
               order("date_begin DESC").
-              page(params[:page])
+              page(params[:page]).
+              per(@account ? 10 : 20)
 
     respond_to do |format|
-      format.html { render :layout => 'accounts_show' }
+      format.html
       format.json { render :json => @events }
     end
   end
