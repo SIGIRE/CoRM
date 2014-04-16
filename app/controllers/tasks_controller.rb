@@ -124,41 +124,34 @@ class TasksController < ApplicationController
 			
 			# Récupération de l'échéance de la tâche
 			params[:task][:term] = params[:task][:term].split('/').reverse!.join('/')
-			
+
 			# check deep equality
-			t = Task.new(params[:task])
-			isEqual = (     @task.title == t.title and
-					        @task.priority == t.priority and
-						    @task.term == t.term and
-						    @task.statut == t.statut and
-						    @task.notes == t.notes and
-						    @task.contact_id == t.contact_id and
-						    @task.user_id == t.user_id and
-						    @task.account_id == t.account_id and
-						    @task.attachments == t.attachments)
+			# t = Task.new(params[:task])
+			# isEqual = (     @task.title == t.title and
+			# 		        @task.priority == t.priority and
+			# 			    @task.term == t.term and
+			# 			    @task.statut == t.statut and
+			# 			    @task.notes == t.notes and
+			# 			    @task.contact_id == t.contact_id and
+			# 			    @task.user_id == t.user_id and
+			# 			    @task.account_id == t.account_id and
+			# 			    @task.attachments == t.attachments)
 			
 			# if it is the same task but checkbox to generate event is checked
 			# or task is not the same
 			# then Create Event
-			if !isEqual
-				if @task.update_attributes(params[:task])
-					flash[:notice] = "La tâche n°#{@task.id} a été mise à jour."
-					if params[:mail]=="yes"
-						UserMailer.mail_for(@task.user, @task, false).deliver
-						flash[:notice] += " Un email a été envoyé à #{@task.user.full_name}"
-					end
-					self.create_event(true)
-					redirect_to (@task.account.nil?() ? filter_tasks_path : account_events_path(@task.account))
-				else
-					render :action => "edit"
-				end
-			else
-				if params[:generate] == 'yes'
-					self.create_event(true)
-					flash[:notice] = "Un évenement lié à la tâche n°#{@task.id} a été créé"
-				end
-				redirect_to (@task.account.nil?() ? filter_tasks_path : account_events_path(@task.account))
-			end
+      debugger
+      if @task.update_attributes(params[:task])
+        flash[:notice] = "La tâche n°#{@task.id} a été mise à jour."
+        if params[:mail]=="yes"
+          UserMailer.mail_for(@task.user, @task, false).deliver
+          flash[:notice] += " Un email a été envoyé à #{@task.user.full_name}"
+        end
+        self.create_event(true)
+        redirect_to (@task.account.nil?() ? filter_tasks_path : account_events_path(@task.account))
+      else
+        render :action => "edit"
+      end
 		else
 			flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
 			redirect_to root_path

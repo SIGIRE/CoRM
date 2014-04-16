@@ -10,15 +10,17 @@
 class Task < ActiveRecord::Base
   resourcify
   #pour la verif des changements à l'update
-  include ActiveModel::Dirty
-
+  #include ActiveModel::Dirty
   
   belongs_to :contact
   belongs_to :account
   belongs_to :user
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
-  
+  has_many :task_attachments, dependent: :destroy
+  alias_attribute :attachments, :task_attachments
+  accepts_nested_attributes_for :task_attachments, allow_destroy: true
+
   paginates_per 10
   
   def author
@@ -51,10 +53,6 @@ class Task < ActiveRecord::Base
   # Conservé pour le bon fonctionnement des migrations --> non utilisé
   has_attached_file :attach
   
-  # Nouvelle gestion des pièces-jointes
-  has_many :task_attachments, :dependent => :destroy
-  accepts_nested_attributes_for :task_attachments
-  alias_attribute :attachments, :task_attachments
   
   Paperclip.interpolates :with_content_type do |attachment, style|
     "#{attachment.instance.with_content_type}"
