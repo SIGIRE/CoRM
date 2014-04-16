@@ -204,7 +204,7 @@ class ContactsController < ApplicationController
       @tel_filter = params[:filter][:tel]
 
       # Query
-      contacts_by_company = @company_filter.blank? ? Contact.none : Contact.by_company_like(@company_filter)
+      contacts_by_company = @company_filter.blank? ? Contact.none : Contact.by_company(@company_filter)
       contacts_by_full_name = @full_name_filter.blank? ? Contact.none : Contact.by_full_name_like(@full_name_filter)
       contacts_by_tel = @tel_filter.blank? ? Contact.none : Contact.by_tel(@tel_filter)
 
