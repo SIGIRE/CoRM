@@ -8,7 +8,9 @@ class RelationsController < ApplicationController
   layout :current_layout
 
   def index
-    @relations = relations.page(params[:page])
+    @relations = relations.order("name ASC").page(params[:page])
+
+    flash.now[:alert] = "Pas de relations !" if @relations.empty?
     respond_to do |format|
       format.html
       format.json { render :json => @relations }
