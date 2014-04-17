@@ -4,7 +4,7 @@
   "host": "localhost",
   "mail": {
     "type": "smtp",
-    "host": "smtp-out.sigire.net",
+    "host": "localhost",
     "port": 25,
     "from": "crm@sigire.fr"
   }
