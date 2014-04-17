@@ -18,7 +18,7 @@ class Document < ActiveRecord::Base
       
     # Nouvelle gestion des pièces-jointes
     has_many :document_attachments, :dependent => :destroy
-    accepts_nested_attributes_for :document_attachments
+    accepts_nested_attributes_for :document_attachments, allow_destroy: true
     alias_attribute :attachments, :document_attachments
   
   validates :name,  :presence => true

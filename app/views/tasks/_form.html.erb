@@ -1,10 +1,10 @@
 <%# Récupération du des fonctions %>
-<% content_for(:attachments_js) do %>
-    <%= javascript_include_tag "attachments" %>
-<% end %>
+<%# <% content_for(:attachments_js) do %1> %>
+<%#     <%= javascript_include_tag "attachments" %1> %>
+<%# <% end %1> %>
 
 <!-- begin form task --><% colon = t('app.fields.colon') %>
-<%= form_for(@task, :html => { :class => "well "}) do |f| %>
+<%= nested_form_for(@task, :html => { :class => "well "}) do |f| %>
         <% if @task.errors.any? %>
                 <div id="error_explanation">
                         <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
@@ -92,47 +92,28 @@
 			  <div class="span2"><%= f.label(:term, t('app.fields.term') + colon) %></div>
 			  <p><%= f.text_field :term %></p>
 		  </div>
-	  </div>
-	  
-    <%# Affichage des pièces jointes si il y en a %>
-    <% if !@task.task_attachments.blank? %>
-        <div class="row row-fluid">
-            
-                <div class="span2"></div><%= pluralize(@task.task_attachments.length,'pièce-jointe', 'pièces-jointes') %> actuellement :
-           
-        </div>
-	<table>
-        <% @task.task_attachments.each do |attach| %>
-		<tr>
-                <div class="field full">
-                    	<td><div class="span2"></div></td>
-			<td><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attach.attach_file_name , attach.attach.url, :target => '_blank' %></td>
-			<td><%= link_to '<i class="icon-trash"></i>'.html_safe, attachment_path(attach.id, :type => "task"), :confirm => 'Confirmer la suppression ?', :method => :delete, :title => "Supprimer"  %></td>
-		</tr>
-                </div>
-
-        <% end %>
-	</table><br/>
-    <% end %>
-  
-    <%#Affichage du champ d'ajout de pièce jointe %>
-    <div class="row row-fluid">
-	    <div class="field full">
-          <div class="span2"><%= f.label :task_attachments_attach, "Pièce-jointe : ", :class => 'top' %> </div>
-          <div id="new_attachments">
-            <%= f.file_field('task-attachments_attach', name: "task[task_attachments_attributes][][attach]") %>
-          </div>
-          <input type="hidden" id="attachment_id" value="1">
-	    </div>
     </div>
 
-    <%#Affichage du bouton d'ajout de pièce-jointe %>
+    <div id="attachments">
+      <%= f.fields_for :task_attachments do |ta| %>
+        <div class="row row-fluid">
+          <div class="field full">
+            <div class="span2"></div>
+            <% if ta.object.new_record? %>
+              <%= ta.file_field :attach, id: 'fileupload' %>        
+            <% else %>
+              <%= link_to ta.object.attach_file_name, ta.object.attach.url %>
+            <% end %>
+            <%= ta.link_to_remove "", class: 'icon-remove' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
     <div class="row row-fluid">
-	    <div class="field full">
-		    <div class="span2"></div>
-		    <input type="image" src="/assets/glyphicons/glyphicons_190_circle_plus.png" class="btn" title="Ajouter une pièce jointe"  onClick="addFileField('task'); return false;">
-			
-	    </div>
+      <div class="field full">
+        <div class="span2"></div><%= f.link_to_add raw('<i class="icon-plus"></i> Ajouter une pièce-jointe'), :task_attachments, data: { target: '#attachments' } %>
+      </div>
     </div>
 	
   <div id="row_for_generate" class="row row-fluid" style="display: none;">

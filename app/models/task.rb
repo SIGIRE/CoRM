@@ -18,7 +18,7 @@ class Task < ActiveRecord::Base
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
   has_many :task_attachments, :dependent => :destroy
-  accepts_nested_attributes_for :task_attachments
+  accepts_nested_attributes_for :task_attachments, allow_destroy: true
   alias_attribute :attachments, :task_attachments
   paginates_per 10
   
@@ -51,7 +51,6 @@ class Task < ActiveRecord::Base
   
   # Conservé pour le bon fonctionnement des migrations --> non utilisé
   has_attached_file :attach
-  
   
   Paperclip.interpolates :with_content_type do |attachment, style|
     "#{attachment.instance.with_content_type}"

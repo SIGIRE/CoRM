@@ -5,7 +5,7 @@
 //= require jquery_nested_form
 //= require jquery.validate
 //= require bootstrap
-
+//= require jquery-fileupload
 
 /* for the shared functions */
 //= require ./corm_lib.js

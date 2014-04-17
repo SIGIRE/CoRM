@@ -26,7 +26,7 @@ class Opportunity < ActiveRecord::Base
       
     # Nouvelle gestion des pièces-jointes
     has_many :opportunity_attachments, :dependent => :destroy
-    accepts_nested_attributes_for :opportunity_attachments
+    accepts_nested_attributes_for :opportunity_attachments, allow_destroy: true
     alias_attribute :attachments, :opportunity_attachments
   
   def author
