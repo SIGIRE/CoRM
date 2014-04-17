@@ -13,23 +13,23 @@
 </div>
 
 <div id="task_value" class="container-fluid" style= "display: none;">
-  <%= form_for(:filter, :url => { :action => 'filter' } , :html => {:method => :get} ) do |f| %>
+  <%= form_for(contacts_path, method: :GET ) do %>
       <div class="row row-fluid">
 		<div class="">
-			<%= f.label :statut, "Société :", :class => "top" %>
-      <%= f.text_field :company, :value => @company_filter, :class =>"filter_tfield", :autocomplete=>"off"%>
+			<%= label_tag :by_account_company_like, "Société :", :class => "top" %>
+      <%= text_field_tag :by_account_company_like %>
 		</div>
 		<div class="">
-			<%= f.label :filter_priority, "Contact :", :class => "top" %>
-      <%= f.text_field :full_name, :value => @full_name_filter, :class =>"filter_tfield", :autocomplete=>"off"%>
+			<%= label_tag :by_full_name_like, "Contact :", :class => "top" %>
+      <%= text_field_tag :by_full_name_like %>
         </select>
 		</div>
 		<div class="">
-			<%= f.label :user_email, "Téléphone :", :class => "top" %>
-      <%= f.text_field :tel, :value => @tel_filter, :class =>"filter_tfield"%>
+			<%= label_tag :by_tel_like, "Téléphone :", :class => "top" %>
+      <%= text_field_tag :by_tel_like %>
 		</div>
 		<div>
-        <%= f.submit "Filtrer", :class =>"btn "%>
+        <%= submit_tag "Filtrer", :class =>"btn "%>
 		</div>
 	  </div>
    <% end %>
