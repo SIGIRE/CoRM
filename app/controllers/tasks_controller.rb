@@ -95,6 +95,7 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
+    debugger
     if @ability.can? :create, Task
 			params[:task][:priority] = params[:task][:priority].to_i
 			@task = Task.new(params[:task])
@@ -106,14 +107,14 @@ class TasksController < ApplicationController
 					UserMailer.mail_for(@task.user, @task, true).deliver
 				end
 				self.create_event(false)
-				redirect_to (@task.account.nil?() ? filter_tasks_path : account_events_path(@task.account)), :notice => 'La tâche a été créée.'
+				redirect_to (@task.account.nil?() ? tasks_path : account_events_path(@task.account)), :notice => 'La tâche a été créée.'
 			else
 				@users = User.all_reals
 				render :action => 'new'
 			end
     else
 			flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Task'))
-			redirect_to (@task.account.nil?() ? filter_tasks_path : account_events_path(@task.account))
+			redirect_to (@task.account.nil?() ? tasks_path : account_events_path(@task.account))
 			return false
 		end
   end
