@@ -17,6 +17,7 @@
 		    <div class="">
 			    <%= label_tag :by_priority, "Priorité :", :class => "top" %>
           <select name="by_priority" id="by_priority">
+            <option value=""></option>
             <% Task::PRIORITIES.each_with_index do |value, index| %>
               <option value="<%= index %>"><%= value %></option>
             <% end %>

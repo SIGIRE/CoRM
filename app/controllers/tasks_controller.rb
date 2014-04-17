@@ -5,7 +5,9 @@
 #
 class TasksController < ApplicationController
  
-  has_scope :by_statut
+  has_scope :by_statut do |controller, scope, value|
+    value == 'Non terminé' ? scope.undone : scope.by_statut(value)
+  end
   has_scope :by_priority
   has_scope :by_account_company_like
   has_scope :by_contact_id
