@@ -149,7 +149,6 @@ class TasksController < ApplicationController
 			# if it is the same task but checkbox to generate event is checked
 			# or task is not the same
 			# then Create Event
-      debugger
       if @task.update_attributes(params[:task])
         flash[:notice] = "La tâche n°#{@task.id} a été mise à jour."
         if params[:mail]=="yes"
