@@ -37,7 +37,7 @@ class Quotation < ActiveRecord::Base
   
     # Nouvelle gestion des pièces-jointes
     has_many :quotation_attachments, :dependent => :destroy
-    accepts_nested_attributes_for :quotation_attachments
+    accepts_nested_attributes_for :quotation_attachments, allow_destroy: true
     alias_attribute :attachments, :quotation_attachments
   
   ##

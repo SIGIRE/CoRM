@@ -35,6 +35,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-validation-rails'
 gem 'nested_form'
+gem 'jquery-fileupload-rails'
 
 gem 'devise'
 gem 'cancan'

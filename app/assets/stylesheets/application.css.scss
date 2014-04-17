@@ -11,6 +11,8 @@ $navbarBackground: #2C2C2C;
 // I gather this file is a starting point for the project.
 @import "bootstrap";
 
+//= require jquery.fileupload-ui
+
 @mixin border-radius-top-left($radius) {
   -webkit-border-top-left-radius: $radius;
   -moz-border-top-left-radius: $radius;

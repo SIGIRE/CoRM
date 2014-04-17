@@ -4,7 +4,7 @@
 <% end %>
 
 <% colon = t('app.fields.colon') %>
-<%= form_for(@opportunity , :html => { :class => "well "}) do |f| %>
+<%= nested_form_for(@opportunity , :html => { :class => "well "}) do |f| %>
   <div class="row row-fluid">
 		<div class="field full"> 
 			<div class="span2"><%= f.label(:name, t('app.fields.label') + colon) %></div>
@@ -53,46 +53,27 @@
 			</p>
 	  </div>
   </div>
-    <%# Affichage des pièces jointes si il y en a %>
-    <% if !@opportunity.opportunity_attachments.blank? %>
+
+    <div id="attachments">
+      <%= f.fields_for :opportunity_attachments do |ta| %>
         <div class="row row-fluid">
-            
-                <div class="span2"></div><%= pluralize(@opportunity.opportunity_attachments.length,'pièce-jointe', 'pièces-jointes') %> actuellement :
-            
-        </div>
-
-	<table>
-        <% @opportunity.opportunity_attachments.each do |attach| %>
-                <div class="field full">
-		<tr>
-                    <td><div class="span2"></div></td>
-			<td><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attach.attach_file_name , attach.attach.url, :target => '_blank' %></td>
-			
-			<td><%= link_to '<i class="icon-trash"></i>'.html_safe, attachment_path(attach.id, :type => "opportunity"), :confirm => 'Confirmer la suppression ?', :method => :delete, :title => "Supprimer" %></td>
-		</tr>
-                </div>
-        <% end %>
-	</table><br/>
-    <% end %>
-
-    <%#Affichage du champ d'ajout de pièce jointe %>
-    <div class="row row-fluid">
-	    <div class="field full">
-          <div class="span2"><%= f.label :opportunity_attachments_attach, "Pièce-jointe : ", :class => 'top' %> </div>
-          <div id="new_attachments">
-            <%= f.file_field('opportunity-attachments_attach', name: "opportunity[opportunity_attachments_attributes][][attach]") %>
+          <div class="field full">
+            <div class="span2"></div>
+            <% if ta.object.new_record? %>
+              <%= ta.file_field :attach, id: 'fileupload' %>        
+            <% else %>
+              <%= link_to ta.object.attach_file_name, ta.object.attach.url %>
+            <% end %>
+            <%= ta.link_to_remove "", class: 'icon-remove' %>
           </div>
-          <input type="hidden" id="attachment_id" value="1">
-	    </div>
+        </div>
+      <% end %>
     </div>
 
-    <%#Affichage du bouton d'ajout de pièce-jointe %>
     <div class="row row-fluid">
-	    <div class="field full">
-		    <div class="span2"></div>
-		    <input type="image" src="/assets/glyphicons/glyphicons_190_circle_plus.png" class="btn" title="Ajouter une pièce jointe" onClick="addFileField('opportunity'); return false;">
-			
-	    </div>
+      <div class="field full">
+        <div class="span2"></div><%= f.link_to_add raw('<i class="icon-plus"></i> Ajouter une pièce-jointe'), :opportunity_attachments, data: { target: '#attachments' } %>
+      </div>
     </div>
     
 	<div class="row row-fluid">
