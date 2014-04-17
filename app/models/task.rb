@@ -10,17 +10,16 @@
 class Task < ActiveRecord::Base
   resourcify
   #pour la verif des changements à l'update
-  #include ActiveModel::Dirty
+  include ActiveModel::Dirty
   
   belongs_to :contact
   belongs_to :account
   belongs_to :user
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
-  has_many :task_attachments, dependent: :destroy
+  has_many :task_attachments, :dependent => :destroy
+  accepts_nested_attributes_for :task_attachments
   alias_attribute :attachments, :task_attachments
-  accepts_nested_attributes_for :task_attachments, allow_destroy: true
-
   paginates_per 10
   
   def author
@@ -53,6 +52,10 @@ class Task < ActiveRecord::Base
   # Conservé pour le bon fonctionnement des migrations --> non utilisé
   has_attached_file :attach
   
+  # Nouvelle gestion des pièces-jointes
+  has_many :task_attachments, :dependent => :destroy
+  accepts_nested_attributes_for :task_attachments
+  alias_attribute :attachments, :task_attachments
   
   Paperclip.interpolates :with_content_type do |attachment, style|
     "#{attachment.instance.with_content_type}"
@@ -60,7 +63,7 @@ class Task < ActiveRecord::Base
   
   scope :by_priority, lambda { |priority| where("priority = ?", priority) unless priority.blank? }
   scope :by_statut, lambda { |statut| where("statut LIKE ?", statut+'%') unless statut.blank? }
-  scope :by_statut_non_termine, lambda { |statut| where("statut IN ('A faire', 'En cours')") }
+  scope :undone, lambda { where("statut IN ('A faire', 'En cours')") }
   scope :by_account, lambda { |account| where("account_id = ?", account.id) unless account.nil? }
   scope :by_account_id, lambda { |account_id| where("account_id = ?", account_id) unless account_id.blank?}
   scope :by_account_company_like, (lambda do |account_company|
@@ -75,4 +78,5 @@ class Task < ActiveRecord::Base
   scope :by_user_id, lambda { |user_id| where("tasks.user_id = ?", user_id) unless user_id.blank? }
   scope :by_term, lambda { |date_begin,date_end| where("term BETWEEN ? AND ? OR term = ?", date_begin, date_end +'%', '')}
   scope :none, lambda { where('1 = 0') }
+  scope :by_notes_like, lambda { |notes| where("UPPER(tasks.notes) LIKE UPPER(?)", "%#{notes}%") unless notes.blank? }
 end

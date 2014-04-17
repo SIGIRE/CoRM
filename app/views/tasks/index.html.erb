@@ -1,49 +1,5 @@
 <%= render 'title', :locals => { :title => @title }%>
-
-<!-- FILTER -->
-
-<div class="container-fluid">
-    <div class="field">
-        <label class="checkbox">
-            <%= check_box_tag :generate, "yes" %>
-            Filtrer les Tâches
-        </label>
-    </div>
-</div>
-
-<div id="task_value" class="container-fluid" style= "display: none;">
-    <%= form_for(:filter, :url => { :action => 'filter' } , :html => {:method => :get} ) do |f| %>
-        <div class="row row-fluid">
-		    <div class="">
-			    <%= f.label :statut, "Statut :", :class => "top" %>
-			    <%= f.select :statut, Task::STATUTS_A_FILTRER, {:include_blank => "Tous", :selected => @statut_filter}, :class => "filter_statut" %>
-		    </div>
-		    <div class="">
-			    <%= f.label :filter_priority, "Priorité :", :class => "top" %>
-          <%= f.select :priority, Task::PRIORITIES.each_with_index.map {|name, index| [name,index]}, {:include_blank => "Tous", :selected => @priority_filter}, :class => "filter_priority" %>
-			  </div>
-        <%# Le typeahead et la recherche automatique des contacts associés sont gérés par nav-search-bar.js %>
-        <div class="">
-          <%= f.label :filter_priority, "Compte :", :class => "top" %>
-          <%= f.text_field :company, :class =>"filter_tfield typeahead-account-search", :data => { :provide => 'typeahead'}, :autocomplete=>"off"%>
-        </div>
-        <div class="">
-          <%= f.label :user_email, "Contact :", :class => "top" %>
-          <select id="contact_id" name="filter[contact_id]">
-            <option></option>
-          </select>
-        </div>
-		    <div class="">
-			    <%= f.label :user_email, "Collaborateur :", :class => "top" %>
-			    <%= f.collection_select :user, User.all_reals, :id, :full_name, {:include_blank => "Tous", :selected => @user_id_filter} , :class =>"filter_statut"%>
-		    </div>
-		    <div>
-                <%= f.submit "Filtrer", :class =>"btn "%>
-		    </div>
-	  </div>
-   <% end %>
-</div>
-<!-- END FILTER -->
+<%= render 'filter' %>
 
 <% if Task.all.length > 0 %>
     <div class="container-fluid">

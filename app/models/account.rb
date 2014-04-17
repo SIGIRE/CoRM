@@ -20,7 +20,6 @@ class Account < ActiveRecord::Base
   has_many :events
   has_many :tasks
   has_many :documents
-  has_many :relations
   has_many :tags
   
   has_and_belongs_to_many :tags
@@ -29,8 +28,18 @@ class Account < ActiveRecord::Base
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
   belongs_to :origin
 
-  def new(attributes = nil, options = {})
-	super(attributes, options)
+  accepts_nested_attributes_for :events
+  accepts_nested_attributes_for :contacts
+
+  ##
+  # Returns the relations of the accout.
+  #
+  # As each relation references two accounts in two different attributes, we can't use
+  # a has_many relationship here ; :by_acccount scope will search in both account1 and
+  # account2 columns of relations table.
+
+  def relations
+    Relation.by_account(self)
   end
 
   def author
@@ -50,8 +59,6 @@ class Account < ActiveRecord::Base
   CATEGORIES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire', 'Adhérent', 'Autre']
   validates_inclusion_of :category, :in => CATEGORIES
   
-  accepts_nested_attributes_for :events
-  accepts_nested_attributes_for :contacts
   
   # Help to sort by criteria
   scope :by_company_like, lambda { |company| where("UPPER(company) LIKE UPPER(?)",  "%#{company}%") unless company.blank? }

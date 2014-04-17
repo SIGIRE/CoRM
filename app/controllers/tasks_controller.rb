@@ -4,16 +4,25 @@
 # Controller that manage Tasks
 #
 class TasksController < ApplicationController
-  
+ 
+  has_scope :by_statut
+  has_scope :by_priority
+  has_scope :by_account_company_like
+  has_scope :by_contact_id
+  has_scope :by_user_id
+  has_scope :by_notes_like
+
   ##
   # Render a page to display a list of Tasks
   #
   # GET /tasks
   # GET /tasks.json
   def index
-    @page = params[:page]
-    @tasks = Task.where("user_id =? AND statut IN ('En cours','A faire')", current_user.id).order("priority DESC, created_at DESC , updated_at DESC").page(@page)
-	
+    @tasks = apply_scopes(Task)
+    @tasks = @tasks.by_user(current_user).undone if current_scopes.empty? # Default filtering
+    @tasks = @tasks.order("priority DESC, created_at DESC, updated_at DESC")
+                   .page(params[:page])
+
     flash.now[:alert] = "Pas de tâches !" if @tasks.empty?
 
     respond_to do |format|
@@ -200,34 +209,6 @@ class TasksController < ApplicationController
     render :json => [c]
   end
   
-  def filter
-    # Filter params
-    unless params[:filter].nil?
-      @statut_filter = params[:filter][:statut]
-      @priority_filter = params[:filter][:priority]
-      @company_filter = params[:filter][:company]
-      @contact_id_filter = params[:filter][:contact_id]
-      @user_id_filter = params[:filter][:user]
-    else
-      # Default filter
-      @user_id_filter = current_user.id
-    end
-
-    # Request
-    @tasks = Task.by_statut(@statut_filter)
-                 .by_priority(@priority_filter)
-                 .by_account_company_like(@company_filter)
-                 .by_contact_id(@contact_id_filter)
-                 .by_user_id(@user_id_filter)
-                 .order("statut ASC, priority DESC, term DESC")
-                 .page(params[:page])
-
-    respond_to do |format|
-      format.html  { render :action => "index" }
-      format.json { render :json => @tasks, :filter => @filter }
-    end
-  end
-
   ##
   # Create an Event from a Task.
   # * *Args*    :

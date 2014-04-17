@@ -5,17 +5,20 @@
 # 
 class ContactsController < ApplicationController
   
+
+  has_scope :by_account_company_like
+  has_scope :by_full_name_like
+  has_scope :by_tel_like
+
   ##
   # Show the full list of Contact by paginate_by
   #
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = Contact.order("surname").page(params[:page])
-    
-    #infos typeahead
-    @autocomplete_accounts = Account.find(:all,:select=>'company').map(&:company)
-    @autocomplete_contacts = Contact.find(:all,:select=>'surname').map(&:surname)
+    @contacts = apply_scopes(Contact).
+                order("surname").
+                page(params[:page])
 
     flash.now[:alert] = "Pas de contacts !" if @contacts.empty?
 
@@ -187,36 +190,6 @@ class ContactsController < ApplicationController
       flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
       redirect_to contacts_url
       return false
-    end
-  end
-  
-  ##
-  # Filter Contact on the index page
-  #
-  def filter
-    if params[:filter].values.all? { |element| element.blank? }
-      @contacts = Contact.order('contacts.forename ASC')
-                         .page(params[:page])
-    else
-      # Filter params
-      @company_filter = params[:filter][:company]
-      @full_name_filter = params[:filter][:full_name]
-      @tel_filter = params[:filter][:tel]
-
-      # Query
-      contacts_by_company = @company_filter.blank? ? Contact.none : Contact.by_company_like(@company_filter)
-      contacts_by_full_name = @full_name_filter.blank? ? Contact.none : Contact.by_full_name_like(@full_name_filter)
-      contacts_by_tel = @tel_filter.blank? ? Contact.none : Contact.by_tel(@tel_filter)
-
-      # Combining results with | returns an array, not an ActiveRecord result !
-      contacts = contacts_by_company | contacts_by_full_name | contacts_by_tel
-      # Kaminari wrapper for arrays
-      @contacts = Kaminari::paginate_array(contacts).page(params[:page])
-    end
-
-    respond_to do |format|
-      format.html  { render :action => "index" }
-      format.json { render :json => @contacts }
     end
   end
 
