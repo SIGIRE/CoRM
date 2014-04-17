@@ -35,8 +35,7 @@ class Task < ActiveRecord::Base
   # Available: To Do|In Progress|Finished|Cancelled
   #
   STATUTS = ["A faire", "En cours", "Terminé", "Annulé"]
-  #STATUTS_A_FILTRER = STATUTS + ["Non terminé"]
-  STATUTS_A_FILTRER = STATUTS
+  STATUTS_A_FILTRER = STATUTS + ["Non terminé"]
 
   validates_inclusion_of :statut, :in => STATUTS
   
