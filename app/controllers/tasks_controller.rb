@@ -95,7 +95,6 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    debugger
     if @ability.can? :create, Task
 			params[:task][:priority] = params[:task][:priority].to_i
 			@task = Task.new(params[:task])
