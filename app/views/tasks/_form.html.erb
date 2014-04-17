@@ -102,7 +102,7 @@
             <% if ta.object.new_record? %>
               <%= ta.file_field :attach, id: 'fileupload' %>        
             <% else %>
-              <%= ta.object.attach_file_name %>
+              <%= link_to ta.object.attach_file_name, ta.object.attach.url %>
             <% end %>
             <%= ta.link_to_remove "", class: 'icon-remove' %>
           </div>
