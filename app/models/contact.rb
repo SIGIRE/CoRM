@@ -78,7 +78,7 @@ class Contact < ActiveRecord::Base
   # * *Args*
   #   +company+ An instance of Account
   #
-  scope :by_company, lambda { |company| joins(:account).where("accounts.company LIKE UPPER(?)", company) unless company.blank? }
+  scope :by_company, lambda { |company| joins(:account).where("accounts.company LIKE UPPER(?)", "#{company}%") unless company.blank? }
   scope :by_surname, lambda { |surname| where('surname LIKE ?', surname) unless surname.blank?}
   scope :by_forename, lambda { |forename| where('forename LIKE ?', forname) unless forename.blank? }
   scope :by_tel, lambda { |tel| where("tel LIKE ?", '%'+tel+'%') unless tel.blank? }
@@ -90,6 +90,15 @@ class Contact < ActiveRecord::Base
   scope :by_category_account, lambda { |category_account| joins(:account).where("accounts.category IN (?)", category_account) unless category_account.blank? } 
   scope :by_origin_account, lambda { |origin_account| joins(:account).where("accounts.origin_id IN (?)", origin_account) unless origin_account.blank? } 
   scope :by_user_account, lambda { |user_account| joins(:account).where("accounts.user_id" => user_account) unless user_account.blank? } 
+  scope :by_full_name_like, (lambda do |full_name|
+    unless full_name.blank?
+      where("(UPPER(contacts.surname || ' ' || contacts.forename)) LIKE UPPER(?) OR
+             (UPPER(contacts.forename || ' ' || contacts.surname)) LIKE UPPER(?)",
+            "%#{full_name}%",
+            "%#{full_name}%"
+           )
+    end
+  end)
   scope :none, lambda { where('1 = 0') }
 
   
