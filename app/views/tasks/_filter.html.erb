@@ -16,7 +16,11 @@
 		    </div>
 		    <div class="">
 			    <%= label_tag :by_priority, "Priorité :", :class => "top" %>
-          <%= select_tag 'by_priority', options_for_select(Task::PRIORITIES), { :include_blank => "Tous", :class => "filter_priority" } %>
+          <select name="by_priority" id="by_priority">
+            <% Task::PRIORITIES.each_with_index do |value, index| %>
+              <option value="<%= index %>"><%= value %></option>
+            <% end %>
+          </select>
 			  </div>
         <%# Le typeahead et la recherche automatique des contacts associés sont gérés par nav-search-bar.js %>
         <div class="">

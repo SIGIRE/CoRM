@@ -18,10 +18,11 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = apply_scopes(Task).
-             order("priority DESC, created_at DESC, updated_at DESC").
-             page(params[:page])
-	
+    @tasks = apply_scopes(Task)
+    @tasks = @tasks.by_user(current_user).undone if current_scopes.empty? # Default filtering
+    @tasks = @tasks.order("priority DESC, created_at DESC, updated_at DESC")
+                   .page(params[:page])
+
     flash.now[:alert] = "Pas de tâches !" if @tasks.empty?
 
     respond_to do |format|
