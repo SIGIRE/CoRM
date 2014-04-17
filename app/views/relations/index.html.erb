@@ -27,7 +27,6 @@
         <th><center>Éditer</center></th> 
       </tr>
     
-    <% @relations = Relation.by_account(@account).order('name').page(params[:page]) %>
     <% @relations.each do |relation| %>
       <tr>
         <td style="width: 15em;"><center><%= relation.name %></center></td>

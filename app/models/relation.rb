@@ -16,5 +16,5 @@ class Relation < ActiveRecord::Base
     return editor_user || User::default
   end
 
-  scope :by_account, lambda { |account| where("account1_id = ? OR account1_id = ?", account.id, account.id) unless account.nil? }
+  scope :by_account, lambda { |account| where("account1_id = ? OR account2_id = ?", account.id, account.id) unless account.nil? }
 end
