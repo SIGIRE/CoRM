@@ -52,11 +52,6 @@ class Task < ActiveRecord::Base
   # Conservé pour le bon fonctionnement des migrations --> non utilisé
   has_attached_file :attach
   
-  # Nouvelle gestion des pièces-jointes
-  has_many :task_attachments, :dependent => :destroy
-  accepts_nested_attributes_for :task_attachments
-  alias_attribute :attachments, :task_attachments
-  
   Paperclip.interpolates :with_content_type do |attachment, style|
     "#{attachment.instance.with_content_type}"
   end
