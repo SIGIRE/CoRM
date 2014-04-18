@@ -4,6 +4,7 @@
 # This class manage Event
 #
 class EventsController < ApplicationController
+  load_and_authorize_resource
   before_filter :load_account, only: [:index, :filter]
   layout :current_layout
 
@@ -39,11 +40,6 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
-    if @ability.cannot? :read, Event
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Event'))
-      redirect_to events_url
-	  return false
-    end
     @event = Event.date_end(params[:id])
 
     respond_to do |format|
@@ -58,11 +54,6 @@ class EventsController < ApplicationController
   # GET /events/new
   # GET /events/new.json
   def new
-    if @ability.cannot? :create, Event
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Event'))
-      redirect_to events_url
-	  return false
-    end
     @event = Event.new
     @event.account_id = params[:account_id]
     @event.date_end = Date.today
@@ -78,11 +69,6 @@ class EventsController < ApplicationController
   #
   # GET /events/1/edit
   def edit
-    if @ability.cannot? :update, Event
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Event'))
-      redirect_to events_url
-	  return false
-    end
     @event = Event.find(params[:id])
   end
 
@@ -94,11 +80,6 @@ class EventsController < ApplicationController
   def create
     puts('before dump')
     puts('after dump')
-    if @ability.cannot? :create, Event
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Event'))
-      redirect_to events_url
-	  return false
-    end
     @event = Event.new(params[:event])
     @event.created_by = current_user.id
     
@@ -129,11 +110,6 @@ class EventsController < ApplicationController
   # PUT /events/1
   # PUT /events/1.json
   def update
-    if @ability.cannot? :update, Event
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Event'))
-      redirect_to events_url
-	  return false
-    end
     @event = Event.find(params[:id])
     @event.modified_by = current_user.id
     
@@ -154,11 +130,6 @@ class EventsController < ApplicationController
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
-    if @ability.cannot? :destroy, Event
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Event'))
-      redirect_to opportunities_url
-	  return false
-    end
     @event = Event.find(params[:id])
     @event.destroy
     flash[:notice] = "L'évenement a été correctement supprimé"

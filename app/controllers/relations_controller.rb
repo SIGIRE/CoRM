@@ -4,6 +4,7 @@
 # Controller that manages Relation
 #
 class RelationsController < ApplicationController
+  load_and_authorize_resource
   before_filter :load_account, only: [:index, :filter]
   layout :current_layout
 
@@ -20,11 +21,6 @@ class RelationsController < ApplicationController
   # Render the page to show the form to create a new Relation
   #
   def new
-    if @ability.cannot? :create, Relation
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Relation'))
-      redirect_to account_events_url(@relation.account1_id)
-	  return false
-    end
     @relation = Relation.new
     @relation.account1_id = params[:account_id_1]
     
@@ -38,11 +34,6 @@ class RelationsController < ApplicationController
   # Process to create a new Relation
   #
   def create
-    if @ability.cannot? :create, Relation
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Relation'))
-      redirect_to account_events_url(@relation.account1_id)
-	  return false
-    end
     @relation = Relation.new(params[:relation])   
     @relation.created_by = current_user.id
     respond_to do |format|
@@ -62,11 +53,6 @@ class RelationsController < ApplicationController
   # Render the page to edit an existing Relation
   #
   def edit
-    if @ability.cannot? :update, Relation
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Relation'))
-      redirect_to account_events_url(@relation.account1_id)
-	  return false
-    end
     @relation = Relation.find(params[:id])
   end
   
@@ -74,11 +60,6 @@ class RelationsController < ApplicationController
   # Process to update a Relation
   #
   def update
-    if @ability.cannot? :update, Relation
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Relation'))
-      redirect_to account_events_url(@relation.account1_id)
-	  return false
-    end
     @relation = Relation.find(params[:id])
     @relation.updated_by = current_user.id    
     respond_to do |format|
@@ -96,11 +77,6 @@ class RelationsController < ApplicationController
   # Process to delete an existing Relation from the Database
   #
   def destroy
-    if @ability.cannot? :destroy, Relation
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Relation'))
-      redirect_to account_events_url(@relation.account1_id)
-	  return false
-    end
     @relation = Relation.find(params[:id])
     @relation.destroy
    

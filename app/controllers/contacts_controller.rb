@@ -4,7 +4,7 @@
 # This class manage Contacts and render all pages necessary for CRUD and for add/remove tags
 # 
 class ContactsController < ApplicationController
-  
+  load_and_authorize_resource
 
   has_scope :by_account_company_like
   has_scope :by_full_name_like
@@ -48,19 +48,13 @@ class ContactsController < ApplicationController
   # GET /contacts/new
   # GET /contacts/new.json
   def new
-    if @ability.can? :create, Contact
-      @contact = Contact.new
-      if (!params[:email].nil?)
-				@contact.email = params[:email]
-      end
-      respond_to do |format|
-        format.html # new.html.erb
-        format.json { render :json => @contact }
-      end
-    else
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
-      redirect_to contacts_url
-      return false
+    @contact = Contact.new
+    if (!params[:email].nil?)
+      @contact.email = params[:email]
+    end
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render :json => @contact }
     end
   end
 
@@ -69,13 +63,7 @@ class ContactsController < ApplicationController
   #
   # GET /contacts/1/edit
   def edit
-    if @ability.can? :update, Contact
-      @contact = Contact.find(params[:id])
-    else
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
-      redirect_to contacts_url
-      return false
-    end
+    @contact = Contact.find(params[:id])
   end
 
   ##
@@ -84,46 +72,40 @@ class ContactsController < ApplicationController
   # POST /contacts
   # POST /contacts.json
   def create
-    if @ability.can? :create, Contact
-      @contact = Contact.new(params[:contact])
-      @contact.created_by = current_user.id
-  		
-      # Manage the has_and_belongs relation between Accounts and Tags
-      # if there is no one associate tag, we delete links
-      if params[:display_contact_produit].nil?
-        @contact.tags.clear
-      else
-        tag = Tag.find(params[:display_contact_tag])
-        @contact.tags.clear
-        @contact.tags << tag
-      end
-          
-      respond_to do |format|
-        if @contact.save
-		    update_emails(@contact)
-
-          format.html {
-            if  (@contact.account).nil?  then redirect_to contacts_path, :notice => 'Le contact a été créé.'
-            else redirect_to account_events_url(@contact.account_id), :notice => 'Le contact a été créé.'
-            end
-          }
-          o = {
-            :contact => @contact,
-            :paths => {
-            :edit => edit_contact_url(@contact.id)
-            }
-          }
-          format.json { render :json => o, :status => :created, :location => @contact }
-        else
-          flash[:error] = t('app.save_undefined_error')
-          format.html { render :action => "new" }
-          format.json { render :json => @contact.errors, :status => :unprocessable_entity }
-        end
-      end
+    @contact = Contact.new(params[:contact])
+    @contact.created_by = current_user.id
+    
+    # Manage the has_and_belongs relation between Accounts and Tags
+    # if there is no one associate tag, we delete links
+    if params[:display_contact_produit].nil?
+      @contact.tags.clear
     else
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
-      redirect_to contacts_url
-      return false
+      tag = Tag.find(params[:display_contact_tag])
+      @contact.tags.clear
+      @contact.tags << tag
+    end
+        
+    respond_to do |format|
+      if @contact.save
+      update_emails(@contact)
+
+        format.html {
+          if  (@contact.account).nil?  then redirect_to contacts_path, :notice => 'Le contact a été créé.'
+          else redirect_to account_events_url(@contact.account_id), :notice => 'Le contact a été créé.'
+          end
+        }
+        o = {
+          :contact => @contact,
+          :paths => {
+          :edit => edit_contact_url(@contact.id)
+          }
+        }
+        format.json { render :json => o, :status => :created, :location => @contact }
+      else
+        flash[:error] = t('app.save_undefined_error')
+        format.html { render :action => "new" }
+        format.json { render :json => @contact.errors, :status => :unprocessable_entity }
+      end
     end
   end
 
@@ -133,37 +115,31 @@ class ContactsController < ApplicationController
   # PUT /contacts/1
   # PUT /contacts/1.json
   def update
-    if @ability.can? :update, Contact
-      @contact = Contact.find(params[:id])
-      @contact.modified_by = current_user.id
-      
-      # same treatment as #create
-      if params[:display_contact_tag].nil?
-        @contact.tags.clear
-      else
-        tag = Tag.find(params[:display_contact_tag])
-        @contact.tags.clear
-        @contact.tags << tag
-      end
-      
-      respond_to do |format|
-        if @contact.update_attributes(params[:contact])
-		    update_emails(@contact)
-            format.html {
-                if  (@contact.account).nil?  then redirect_to contacts_path, :notice => 'Le contact a été mis à jour.'
-                else redirect_to account_events_url(@contact.account_id), :notice => 'Le contact a été mis à jour.'
-                end }
-          format.json { head :no_content }
-        else
-          flash[:error] = t('app.save_undefined_error')
-          format.html { render :action => "edit" }
-          format.json { render :json => @contact.errors, :status => :unprocessable_entity }
-        end
-      end
+    @contact = Contact.find(params[:id])
+    @contact.modified_by = current_user.id
+    
+    # same treatment as #create
+    if params[:display_contact_tag].nil?
+      @contact.tags.clear
     else
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
-      redirect_to contacts_url
-      return false
+      tag = Tag.find(params[:display_contact_tag])
+      @contact.tags.clear
+      @contact.tags << tag
+    end
+    
+    respond_to do |format|
+      if @contact.update_attributes(params[:contact])
+      update_emails(@contact)
+          format.html {
+              if  (@contact.account).nil?  then redirect_to contacts_path, :notice => 'Le contact a été mis à jour.'
+              else redirect_to account_events_url(@contact.account_id), :notice => 'Le contact a été mis à jour.'
+              end }
+        format.json { head :no_content }
+      else
+        flash[:error] = t('app.save_undefined_error')
+        format.html { render :action => "edit" }
+        format.json { render :json => @contact.errors, :status => :unprocessable_entity }
+      end
     end
   end
 
@@ -173,23 +149,17 @@ class ContactsController < ApplicationController
   # DELETE /contacts/1
   # DELETE /contacts/1.json
   def destroy
-    if @ability.can? :destroy, Contact
-      @contact = Contact.find(params[:id])
-			
-			Email.where(:contact_id => @contact.id).each do |email|
-				email.contact_id = nil
-				email.save
-			end 
-      @contact.destroy
-  
-      respond_to do |format|
-        format.html { redirect_to (@contact.account.nil?() ? root_path : account_events_path(@contact.account)), :notice => "Le contact a bien été supprimé."  }
-        format.json { head :no_content }
-      end
-    else
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Contact'))
-      redirect_to contacts_url
-      return false
+    @contact = Contact.find(params[:id])
+    
+    Email.where(:contact_id => @contact.id).each do |email|
+      email.contact_id = nil
+      email.save
+    end 
+    @contact.destroy
+
+    respond_to do |format|
+      format.html { redirect_to (@contact.account.nil?() ? root_path : account_events_path(@contact.account)), :notice => "Le contact a bien été supprimé."  }
+      format.json { head :no_content }
     end
   end
 
