@@ -10,7 +10,7 @@ class Ability
     else
       # General roles
       can :manage, Task
-      cannot :delete, Task do |task|
+      cannot :destroy, Task do |task|
         task.user_id != user.id
       end
       can :manage, Email

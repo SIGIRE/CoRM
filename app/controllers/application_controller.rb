@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
   
   before_filter :getAbility
   
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to main_app.root_url, :alert => exception.message
+  end
+
   private
   def getAbility
     @ability = Ability.new(current_user)
