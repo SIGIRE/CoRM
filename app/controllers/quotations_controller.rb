@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class QuotationsController < ApplicationController
+  load_and_authorize_resource
+
   before_filter :authenticate_user!
   before_filter :load_account, only: [:index]
   layout :current_layout
@@ -51,24 +53,7 @@ class QuotationsController < ApplicationController
     end
   end
 
-  def filter
-
-    respond_to do |format|
-      format.html { render :action => :index }
-      format.json { render :json => @quotation }
-    end
-  end
-  
   def new
-    if @ability.cannot? :create, Quotation
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]',
-                                                                 t('app.actions.new')).gsub('[undefined_article]',
-                                                                 t('app.default.undefine_article_male')).gsub('[model]',
-                                                                 t('app.controllers.Quotation')
-                                                                )
-      redirect_to quotations_url
-	  return false
-    end
     @quotation = Quotation.new(params[:quotation])
     @quotation.user = current_user
     @quotation.account_id = params[:account_id]
@@ -80,7 +65,6 @@ class QuotationsController < ApplicationController
       format.html  # new.html.erb
       format.json  { render :json => @quotation }
     end
-
   end
   
   ##
@@ -88,11 +72,6 @@ class QuotationsController < ApplicationController
   #   Calculate the total_excl_tax, total_incl_tax, price and VAT
   #
   def create
-    if @ability.cannot? :create, Quotation
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
-      redirect_to quotations_url
-	  return false
-    end
     @quotation = Quotation.new(params[:quotation])
     @quotation.created_by = current_user.id
     if !@quotation.account.nil?
@@ -125,6 +104,7 @@ class QuotationsController < ApplicationController
     # VAT and including taxes
     @quotation.total_VAT = @quotation.total_excl_tax * (@quotation.VAT_rate / 100)
     @quotation.total_incl_tax = @quotation.total_excl_tax + @quotation.total_VAT
+
 		if @quotation.save
 			self.create_event(false)
 			redirect_to (!@quotation.account.nil? ? account_events_url(@quotation.account_id) : quotations_path), :notice => "Le devis a été créé."
@@ -138,11 +118,6 @@ class QuotationsController < ApplicationController
   # Render the page to edit one Quotation
   #
   def edit
-    if @ability.cannot? :update, Quotation
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
-      redirect_to quotations_url
-	  return false
-    end
     @users = User.all_reals
     @quotation = Quotation.find(params[:id])
   end
@@ -151,11 +126,6 @@ class QuotationsController < ApplicationController
   # Process to save a Quotation already existant into the DB
   #
   def update
-    if @ability.cannot? :update, Quotation
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
-      redirect_to quotations_url
-	  return false
-    end
     @quotation = Quotation.find(params[:id])
     
     @quotation.update_attributes(params[:quotation])
@@ -219,11 +189,6 @@ class QuotationsController < ApplicationController
   # Render one occurence of Quotation with their QuotationLine
   #
   def show
-    if @ability.cannot? :read, Quotation
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
-      redirect_to quotations_url
-	  return false
-    end
     @quotation = Quotation.find(params[:id])
     
     respond_to do |format|
@@ -242,11 +207,6 @@ class QuotationsController < ApplicationController
   # Remove a Quotation from the base
   #
   def destroy
-    if @ability.cannot? :destroy, Quotation
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Quotation'))
-      redirect_to quotations_url
-	  return false
-    end
     @quotation = Quotation.find(params[:id])
     @quotation.destroy
     url = @quotation.account.nil? ? quotations_path : account_events_url(@quotation.account)

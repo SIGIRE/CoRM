@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Ability
   include CanCan::Ability
 
@@ -8,6 +10,9 @@ class Ability
     else
       # General roles
       can :manage, Task
+      cannot :destroy, Task do |task|
+        task.user_id != user.id
+      end
       can :manage, Email
       can :manage, Account
       can :manage, Contact

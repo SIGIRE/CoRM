@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class OpportunitiesController < ApplicationController
+  load_and_authorize_resource
+
   before_filter :authenticate_user!
   before_filter :load_account, only: [:index]
   layout :current_layout
@@ -38,11 +40,6 @@ class OpportunitiesController < ApplicationController
   # Display one occurence of Opportunity
   #
   def show
-    if @ability.cannot? :read, Opportunity
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.show')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Opportunity'))
-      redirect_to opportunities_url
-	  return false
-    end
     @opportunity = Opportunity.find(params[:id])
    
     respond_to do |format|
@@ -55,14 +52,10 @@ class OpportunitiesController < ApplicationController
   # Redner the page to create a new Opportunity
   #
   def new
-    if @ability.cannot? :create, Opportunity
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.new')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Opportunity'))
-      redirect_to opportunities_url
-	  return false
-    end
     @opportunity = Opportunity.new
     @opportunity.user = current_user
     @opportunity.account_id = params[:account_id]
+
     respond_to do |format|
       format.html  # new.html.erb
       format.json  { render :json => @opportunity }
@@ -73,21 +66,13 @@ class OpportunitiesController < ApplicationController
   # Process to save a new Opportunity
   #
   def create
-    if @ability.cannot? :create, Opportunity
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.create')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Opportunity'))
-      redirect_to opportunities_url
-	  return false
-    end
     params[:opportunity][:profit] = params[:opportunity][:profit].gsub(' ', '')
     params[:opportunity][:amount] = params[:opportunity][:amount].gsub(' ', '')
     @opportunity = Opportunity.new(params[:opportunity])
     @opportunity.created_by = current_user.id
-    if @opportunity.amount.nil?
-      @opportunity.amount = 0
-    end
-    if @opportunity.profit.nil?
-      @opportunity.profit = 0
-    end
+    @opportunity.amount ||= 0
+    @opportunity.profit ||= 0
+
     respond_to do |format|
       if @opportunity.save
         if params[:mail] == 'yes'
@@ -109,11 +94,6 @@ class OpportunitiesController < ApplicationController
   # Render the page to edit an Opportunity
   #
   def edit
-    if @ability.cannot? :update, Opportunity
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.edit')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Opportunity'))
-      redirect_to opportunities_url
-	  return false
-    end
     @opportunity = Opportunity.find(params[:id])
     @users = User.all_reals
   end
@@ -122,11 +102,6 @@ class OpportunitiesController < ApplicationController
   # Process to save an existing Opportunity
   #
   def update
-    if @ability.cannot? :update, Opportunity
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.update')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Opportunity'))
-      redirect_to opportunities_url
-	  return false
-    end
     params[:opportunity][:profit] = params[:opportunity][:profit].gsub(' ', '')
     params[:opportunity][:amount] = params[:opportunity][:amount].gsub(' ', '')
     @opportunity = Opportunity.find(params[:id])
@@ -161,11 +136,6 @@ class OpportunitiesController < ApplicationController
   # Process to remove an existing opportunity from the database
   #
   def destroy
-    if @ability.cannot? :destroy, Opportunity
-      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_female')).gsub('[model]', t('app.controllers.Opportunity'))
-      redirect_to opportunities_url
-	  return false
-    end
     @opportunity = Opportunity.find(params[:id])
     @opportunity.destroy
    
