@@ -25,6 +25,8 @@ class Ability
       can :read, User
       if user.has_role? :super_user
         # Only super_user can manage settings
+        can :activate, Account
+        can :deactivate, Account
         can :manage, QuotationTemplate
         can :manage, Tag
         can :manage, Origin

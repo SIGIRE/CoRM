@@ -16,6 +16,7 @@ class AccountsController < ApplicationController
 
   def index
     @accounts = apply_scopes(Account).
+                active.
                 order("company").
                 page(params[:page])
     

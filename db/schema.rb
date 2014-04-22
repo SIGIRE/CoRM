@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(:version => 20140422082528) do
     t.text     "notes"
     t.integer  "created_by"
     t.integer  "modified_by"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.integer  "user_id"
     t.string   "category"
     t.string   "tel"
@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20140422082528) do
     t.string   "email"
     t.string   "web"
     t.integer  "origin_id"
-    t.boolean  "active"
+    t.boolean  "active",          :default => true
   end
 
   create_table "accounts_tags", :id => false, :force => true do |t|
