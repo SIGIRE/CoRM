@@ -17,8 +17,7 @@ class AccountsController < ApplicationController
   def index
     @accounts = apply_scopes(Account).
                 active.
-                order("company").
-                page(params[:page])
+                order("company")
     
     #creation des ensembles contenant les comptes et contacts pour l'utilisation du typeahead
     @autocomplete_accounts = Account.find(:all,:select=>'company').map(&:company) #societe
@@ -27,8 +26,9 @@ class AccountsController < ApplicationController
     flash.now[:alert] = "Pas de comptes !" if @accounts.empty?
 
     respond_to do |format|
-      format.html
+      format.html { @accounts = @accounts.page(params[:page]) }
       format.json { render :json => @accounts }
+      format.csv { render :text => @accounts.to_csv }
     end
   end
 
