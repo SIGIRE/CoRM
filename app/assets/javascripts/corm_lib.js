@@ -49,22 +49,6 @@
             $(document.getElementById('task_notice')).hide();
           }
         },
-        /**
-         * Add or use the alert box
-         * @param {String} type     error|notice
-         * @param {String} message  The message you want to display
-         *
-        **/
-        addAlert: function(type, message) {
-            var box = document.getElementById('alert_box');
-            box.innerHTML = '';
-            var div = corm.createHTML('div', { 'class': 'alert '.concat(type), style: 'top: 50px' });
-            div.appendChild(corm.createHTML('p', { content: message }));
-            box.appendChild(div);
-            setTimeout(function() {
-                div.setAttribute('style', 'top: -200px');
-            }, 5000);
-        }
     
     };
     

@@ -17,14 +17,14 @@ class ContactsController < ApplicationController
   # GET /contacts.json
   def index
     @contacts = apply_scopes(Contact).
-                order("surname").
-                page(params[:page])
+                order("surname")
 
     flash.now[:alert] = "Pas de contacts !" if @contacts.empty?
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { @contacts = @contacts.page(params[:page]) }
       format.json { render :json => @contacts }
+      format.csv { render :text => @contacts.to_csv }
     end
   end
 

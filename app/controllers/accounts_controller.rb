@@ -7,11 +7,17 @@ class AccountsController < ApplicationController
   load_and_authorize_resource
   before_filter :check_can_read!, only: [:show]
 
+  has_scope :by_company_like, as: :company
+  has_scope :by_contact_full_name_like, as: :contact
+  has_scope :by_tel, as: :phone
+
   ##
   # Show the full list of Accounts by paginate_by
 
   def index
-    @accounts = Account.order("company").page(params[:page])
+    @accounts = apply_scopes(Account).
+                active.
+                order("company")
     
     #creation des ensembles contenant les comptes et contacts pour l'utilisation du typeahead
     @autocomplete_accounts = Account.find(:all,:select=>'company').map(&:company) #societe
@@ -20,8 +26,9 @@ class AccountsController < ApplicationController
     flash.now[:alert] = "Pas de comptes !" if @accounts.empty?
 
     respond_to do |format|
-      format.html
+      format.html { @accounts = @accounts.page(params[:page]) }
       format.json { render :json => @accounts }
+      format.csv { render :text => @accounts.to_csv }
     end
   end
 
@@ -162,36 +169,6 @@ class AccountsController < ApplicationController
         format.html { render :action => :index }
         format.json { render :json => @elements }
       end
-    end
-  end
-  
-  ##
-  # Filter Account on the index page
-  #
-  def filter
-    if params[:filter].values.all? { |element| element.blank? }
-      @accounts = Account.order('accounts.company ASC')
-                         .page(params[:page])
-    else
-      # Filter params
-      @company_filter = params[:filter][:company]
-      @contact_full_name_filter = params[:filter][:contact]
-      @tel_filter = params[:filter][:tel]
-
-      # Query
-      accounts_by_company = @company_filter.blank? ? Account.none : Account.by_company_like(@company_filter)
-      accounts_by_contact_full_name = @contact_full_name_filter.blank? ? Account.none : Account.by_contact_full_name_like(@contact_full_name_filter)
-      accounts_by_tel = @tel_filter.blank? ? Account.none : Account.by_tel(@tel_filter)
-
-      # Combining results with | returns an array, not an ActiveRecord result !
-      accounts = accounts_by_company | accounts_by_contact_full_name | accounts_by_tel
-      # Kaminari wrapper for arrays
-      @accounts = Kaminari::paginate_array(accounts).page(params[:page])
-    end
-
-    respond_to do |format|
-      format.html  { render :action => "index" }
-      format.json { render :json => @accounts }
     end
   end
   

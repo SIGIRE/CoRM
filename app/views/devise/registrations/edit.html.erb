@@ -58,11 +58,13 @@
       </div>
       
       <div class="modal-body">
+        <% unless current_user.has_role? :super_user %>
         <div class="span3">
           Mot de passe actuel : (obligatoire)<br />
           <%= f.password_field :current_password, :id => "c_pwd" %>
         </div>
-        
+        <% end %>
+
         <div class="span3">
           Nouveau mot de passe : <br />
           <%= f.password_field :password, {:id => "pwd", :autocomplete => "off"} %>

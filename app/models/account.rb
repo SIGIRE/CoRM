@@ -9,7 +9,7 @@
 # Also, it belongs to one User and one Origin
 #
 class Account < ActiveRecord::Base
-  
+
   resourcify
   
   before_save :uppercase_company
@@ -81,8 +81,18 @@ class Account < ActiveRecord::Base
   scope :by_category, lambda { |cat| where("category IN (?)", cat) unless cat.blank? }   
   scope :by_origin, lambda { |origin| where("origin_id IN (?)", origin) unless origin.blank? }
   scope :by_ids, lambda { |id| where("id IN (?)", id) unless id.blank?}
+  scope :active, lambda { where(active: true) }
   scope :none, lambda { where('1 = 0') }
   
+  def self.to_csv
+    CSV.generate do |csv|
+      csv << column_names
+      Account.all.each do |account|
+        csv << account.attributes.values_at(*column_names)
+      end
+    end
+  end
+
   ###
   # Set the business name to upper
   #

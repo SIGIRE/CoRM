@@ -12,23 +12,22 @@
   </div>
 
 <div id="task_value" class="container-fluid" style= "display: none;">
-  <%= form_for(:filter, :url => { :action => 'filter' } , :html => {:method => :get} ) do |f| %>
+  <%= form_tag(accounts_path, method: :GET) do %>
       <div class="row row-fluid">
 		<div class="">
-			<%= f.label :statut, "Société :", :class => "top" %>
-      <%= f.text_field :company, :value => @company_filter, :class =>"filter_tfield", :autocomplete=>"off"%>
+			<%= label_tag :company, "Société :", :class => "top" %>
+      <%= text_field_tag 'company' %>
 		</div>
 		<div class="">
-			<%= f.label :filter_priority, "Contact :", :class => "top" %>
-      <%= f.text_field :contact, :value => @contact_full_name_filter, :class =>"filter_tfield", :autocomplete=>"off"%>
-        </select>
+			<%= label_tag :contact, "Contact :", :class => "top" %>
+      <%= text_field_tag 'contact' %>
 		</div>
 		<div class="">
-			<%= f.label :user_email, "Téléphone :", :class => "top" %>
-      <%= f.text_field :tel, :value => @tel_filter, :class =>"filter_tfield"%>
+			<%= label_tag :phone, "Téléphone :", :class => "top" %>
+      <%= text_field_tag 'phone' %>
 		</div>
 		<div>
-        <%= f.submit "Filtrer", :class =>"btn "%>
+        <%= submit_tag "Filtrer", :class =>"btn "%>
 		</div>
 	  </div>
    <% end %>

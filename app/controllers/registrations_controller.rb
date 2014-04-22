@@ -165,7 +165,15 @@ class RegistrationsController < Devise::RegistrationsController
       superUserRole = @user.has_role?(:super_user) ? true : (params[:super] == '1')
     end
     password_changed = !params[:user][:password].empty?
-    successfully_updated = password_changed ? @user.update_with_password(params[:user]) : @user.update_without_password(params[:user])
+    
+    if password_changed && (current_user.has_role? :super_user)
+      successfully_updated = @user.update_attributes(params[:user])
+    elsif password_changed
+      successfully_updated = @user.update_with_password(params[:user])
+    else
+      successfully_updated = @user.update_without_password(params[:user])
+    end
+    
     if successfully_updated
       if (!@user.has_role?(:super_user) and superUserRole)
         @user.add_role(:super_user)
