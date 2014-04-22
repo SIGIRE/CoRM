@@ -146,7 +146,7 @@
 	<hr />
   <div class="row row-fluid">
 	  <%= if !@task.id.nil? then f.submit 'Modifier cette Tâche', :class =>"btn btn-primary" else f.submit 'Créer une Tâche', :class =>"btn btn-primary" end %>
-		<%= if !@task.new_record? && (can? :delete, @task) then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @task, :title => "Supprimer la tâche" , :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn trash", :method => :delete end %>    
+		<%= if !@task.new_record? && (can? :destroy, @task) then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @task, :title => "Supprimer la tâche" , :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn trash", :method => :delete end %>    
   </div>
 <% end %>
 <!-- end form task -->
