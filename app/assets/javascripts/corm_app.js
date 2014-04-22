@@ -102,8 +102,7 @@ $(document).ready(function() {
           hr.show();
         }
         corm.getContactsByAccount('event_contact_id', contact.account_id);
-        corm.addAlert('notice', 'Le contact a été correctement créé.');
-        
+        alertify.success("Contact créé.");
         window.scrollTo(0, 0);
         form_contact__account_event__view[0].reset();
       },
@@ -111,7 +110,7 @@ $(document).ready(function() {
         window.scrollTo(0, 0);
         var errorMessage = JSON.parse(o.responseText);
         if (errorMessage) {
-          corm.addAlert('error', errorMessage.contact);
+          alertify.error(errorMessage);
         }
         
       }
