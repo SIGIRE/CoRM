@@ -37,6 +37,8 @@ gem 'jquery-validation-rails'
 gem 'nested_form'
 gem 'jquery-fileupload-rails'
 
+gem 'font-awesome-sass'
+
 gem 'devise'
 gem 'cancan'
 gem 'rolify'
