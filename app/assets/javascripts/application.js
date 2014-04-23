@@ -6,6 +6,7 @@
 //= require jquery.validate
 //= require bootstrap
 //= require jquery-fileupload
+//= require bootstrap-filestyle.min
 
 /* for the shared functions */
 //= require ./corm_lib.js
