@@ -6,7 +6,8 @@
 # with an Account and has no one to infinite Tasks
 # 
 class Contact < ActiveRecord::Base
-  
+
+  extend ToCsv
   resourcify
   
   has_many :tasks

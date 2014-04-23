@@ -10,129 +10,27 @@
    </div>
 </div>
 <div class="container-fluid">
-<div class="well">
-  <%= form_tag({:controller => "extractions", :action => "accounts", format: :csv}, :method => "post") do %>
 
-    <label for="toggle-checkbox-collaborators" class="checkbox">
-        <input type="checkbox" id="toggle-checkbox-collaborators" class="toggle-checkbox" data-toggle="checkboxes_collaborator" />
-        Cocher tous les collaborateurs
-    </label>
-    <label for="toggle-checkbox-origins" class="checkbox">
-	    <input type="checkbox" id="toggle-checkbox-origins" class="toggle-checkbox" data-toggle="checkboxes_origins" />
-	    Cocher toutes les origines
-	</label>
-    <label for="toggle-checkbox-categories" class="checkbox">
-	    <input type="checkbox" id="toggle-checkbox-categories" class="toggle-checkbox" data-toggle="checkboxes_categories" checked="checked" />
-	    Cocher toutes les catégories
-	</label>
-    <label for="toggle-checkbox-tags" class="checkbox">
-	    <input type="checkbox" id="toggle-checkbox-tags" class="toggle-checkbox" data-toggle="checkboxes_tags" />
-	    Cocher tous les tags
-	</label>
+<div id="task_value" class="container-fluid">
+  <%= form_tag( { controller: :accounts, format: :csv }, { method: :get } ) do %>
 
-<hr />
-
-	<!-- ZIP -->
-	<div class="row row-fluid">
-		<div class="field full">
-			<div class="span2">
-				Code Postal :
-			</div>
-			<%= text_field_tag :zip, nil, :placeholder => 'Tous les codes postaux...' %>
+      <div class="row row-fluid">
+		<div class="">
+			<%= label_tag :company, "Société :", :class => "top" %>
+      <%= text_field_tag 'company' %>
 		</div>
-	</div>
-
-	<!-- COUNTRY -->
-	<div class="row row-fluid">
-		<div class="field full">
-			<div class="span2">
-				Pays :
-			</div>
-			<%= text_field_tag :country, nil,  :placeholder => 'Tous les pays...' %>
+		<div class="">
+			<%= label_tag :contact, "Contact :", :class => "top" %>
+      <%= text_field_tag 'contact' %>
 		</div>
-	</div>
-
-	<!-- TAGS -->
-	<% if @tags.length > 0 %>
-		<div class="row row-fluid">
-			<div class="field full">
-				<div class="span2">
-					Tags :
-				</div>
-				<div id="checkboxes_tags">
-				<% @tags.each do |t| %>
-					<label for="tags_tag_<%=t.id%>" class="checkbox">
-						<input type="checkbox" name="tags[tag_<%=t.id%>]" id="tags_tag_<%=t.id%>" value="1" /><%= t.name %>
-					</label>
-				<% end %>
-				</div>
-			</div>
+		<div class="">
+			<%= label_tag :phone, "Téléphone :", :class => "top" %>
+      <%= text_field_tag 'phone' %>
 		</div>
-	<% end %>
-
-	<!-- CATEGORIES -->
-	<% if @categories.length > 0 %>
-		<div class="row row-fluid">
-			<div class="field full">
-				<div class="span2">
-					Categories :
-				</div>
-            	<div id="checkboxes_categories">
-				<% @categories.each_with_index do |c, index| %>
-					<label for="categories_category_<%= index %>" class="checkbox">
-						<input type="checkbox" checked="checked" name="categories[category_<%= index %>]" id="categories_category_<%= index %>" value="1" /><%= c %>
-					</label>
-				<% end %>
-				</div>
-			</div>
+		<div>
+        <%= submit_tag "Extraire", :class =>"btn btn-primary"%>
 		</div>
-	<% end %>	
-
-	
-	<!-- ORIGINES -->
-	<% if @origins.length > 0 %>
-		<div class="row row-fluid">
-			<div class="field full">
-				<div class="span2">
-					Origines :
-				</div>
-				
-				<div id="checkboxes_origins">
-				<% @origins.each do |o| %>
-					<label for="origins_origin_<%=o.id%>" class="checkbox">
-						<input type="checkbox" name="origins[origin_<%=o.id%>]" id="origins_origin_<%=o.id%>" value="1" /><%= o.name %>
-					</label>
-				<% end %>
-				</div>
-			</div>
-		</div>
-	<% end %>
-  
-	<!-- USERS -->
-	<% if @users.length > 0 %>
-		<div class="row row-fluid">
-			<div class="field">
-				<div class="span2">
-					Collaborateur :
-				</div>
-				<div id="checkboxes_collaborator">
-				<% @users.each do |u| %>
-					<label for="users_user_<%=u.id%>" class="checkbox">
-						<input type="checkbox" name="users[user_<%=u.id%>]" id="users_user_<%=u.id%>" value="1" /><%= u.full_name %>
-					</label>
-				<% end %>
-				</div>
-			</div>
-		</div>
-	<% end %>
-	
-    <hr /> 
-	
- 	<!-- BUTTON -->           
-      <div style="margin-top: 18px;">
-        <%= submit_tag "Extraire en CSV", :class =>"btn btn-primary"%>
-      </div>
-    
-  <% end %>
-</div>
+	  </div>
+   <% end %>
+</div>  
 </div>
