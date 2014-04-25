@@ -1,9 +1,10 @@
 <%# encoding: utf-8 %>
 
+<div class="">
 <ul class="nav pull-right">	
   <li class="dropdown nav-item">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#" title ="Créer...">
-      <%= icon('plus') %>
+      <%= icon('plus-square') %>
     </a>
     <ul class="dropdown-menu pull-right">
       <li><%= link_to "<i class=\"fa fa-eur fa-fw\"></i> #{t('app.model.Quotation')}".html_safe, new_quotation_path %></li>
@@ -70,3 +71,4 @@
     </ul>
   </li>
 </ul>
+</div>

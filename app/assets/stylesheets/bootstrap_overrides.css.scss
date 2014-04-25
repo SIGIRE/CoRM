@@ -639,3 +639,9 @@ body { padding-top: 60px; }
 .dropdown-menu {
   font-size: $baseFontSize;
 }
+
+table a i {
+  // color: #135475;
+  color: #000;
+  &:hover { color: #4C818C }
+}

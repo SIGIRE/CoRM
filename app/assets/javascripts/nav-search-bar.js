@@ -223,3 +223,21 @@ $(document).ready(function() {
     });
   });
 });
+
+$(document).ready(function(){
+  var submitIcon = $('.searchbox-icon');
+  var inputBox = $('.searchbox-input');
+  var searchBox = $('.searchbox');
+  var isOpen = false;
+  submitIcon.click(function(){
+    if(isOpen == false){
+      searchBox.addClass('searchbox-open');
+      inputBox.focus();
+      isOpen = true;
+    } else {
+      searchBox.removeClass('searchbox-open');
+      inputBox.focusout();
+      isOpen = false;
+    }
+  }); 
+});

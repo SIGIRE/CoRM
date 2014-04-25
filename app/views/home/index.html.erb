@@ -11,7 +11,7 @@
         <tr>
           <th colspan="9">
             <h2 class="pull-left">Mes <%= t('app.model.Task').pluralize %></h2>
-            <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_task_path ,{:title => "Créer une tâche", :class=>"pull-right btn", :style => 'display: inline-block'} %>
+            <%= link_to icon("plus-circle", '', class: "fa-3x"), new_task_path ,{:title => "Créer une tâche", :class=>"pull-right", :style => 'display: inline-block'} %>
           </th>
         </tr>
         <tr>
@@ -74,7 +74,7 @@
                 <td class="text-center">-</td>
               <% end %>
               <td class="text-center">
-                <%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_task_path(t) ,{:title => "Éditer la tâche", :class =>"btn"}  %>
+                <%= link_to icon('edit', '', class: 'fa-2x'), edit_task_path(t) ,{:title => "Éditer la tâche" }  %>
               </td>
             </tr>
           <% end %>
@@ -147,7 +147,7 @@
             <tr>
               <th colspan="9">
                 <h2 class="pull-left">Mes <%= t('app.model.Opportunity').pluralize %></h2>
-				<%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_task_path ,{:title => "Créer une opportunité", :class=>"pull-right btn", :style => 'display: inline-block'} %>
+				<%= link_to icon("plus-circle", '', class: 'fa-3x'), new_task_path ,{:title => "Créer une opportunité", :class=>"pull-right", :style => 'display: inline-block'} %>
               </th>
             </tr>
             <tr>
@@ -194,7 +194,7 @@
                 <td class="text-center">-</td>
               <% end %>
               <td class="text-center">
-                <%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_opportunity_path(o) ,{:title => "Éditer l'opportunité", :class =>"btn"}  %>
+                <%= link_to icon("edit", '', class: 'fa-2x'), edit_opportunity_path(o) ,{:title => "Éditer l'opportunité"}  %>
               </td>				
             </tr>
           <% end %>
@@ -214,7 +214,7 @@
           <tr>
             <th colspan="9">
               <h2 class="pull-left">Mes <%= t('app.model.Quotation').pluralize %></h2>
-				<%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_quotation_path ,{:title => "Créer un devis", :class=>"pull-right btn", :style => 'display: inline-block'} %>
+				<%= link_to icon("plus-square", '', class: 'fa-3x'), new_quotation_path ,{:title => "Créer un devis", :class=>"pull-right", :style => 'display: inline-block'} %>
 
             </th>
           </tr>
@@ -249,10 +249,10 @@
               <td style="text-align :right;"><% if !q.total_excl_tax.nil? %><%= number_to_currency(q.total_excl_tax, :locale => :fr)  %> <strong> HT </strong></td><% else %>-<% end %></td>
             <td class="text-center"><% if !q.date.nil? %><%=  q.date.strftime("%d/%m/%y") %><% else %>-<% end %></td>
             <td class="text-center">
-              <%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_path(q) ,{:title => "Éditer le devis", :class =>"btn"}  %>
+              <%= link_to icon("edit", '', class: 'fa-2x'), edit_quotation_path(q) ,{:title => "Éditer le devis" }  %>
             </td>
             <td class="text-center">
-              <%= link_to image_tag("glyphicons/glyphicons_015_print.png"), quotation_path(q, :format => "pdf"),{:title => "Afficher le PDF", :class =>"btn"} %>
+              <%= link_to icon("print", '', class: 'fa-2x'), quotation_path(q, :format => "pdf"),{:title => "Afficher le PDF" } %>
             </td>
           </tr>
         <% end %>
