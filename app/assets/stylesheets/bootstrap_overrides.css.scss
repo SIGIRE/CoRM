@@ -627,10 +627,12 @@ hr {
   padding-bottom: 9px;
 }
 
+// Bigger text for navbar items
 .navbar .nav > li {
   font-size: 18px;
 }
 
+// Used with navbar-fixed
 body { padding-top: 60px; }
 
 // Patch from Bootstrap 3 : avoids dropdown-menu items from inheriting navbar items font size.
