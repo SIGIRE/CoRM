@@ -1,22 +1,22 @@
 <%# encoding: utf-8 %>
 
-<ul class="nav">	
-  <li class="dropdown">
+<ul class="nav pull-right">	
+  <li class="dropdown nav-item">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#" title ="Créer...">
       <%= icon('plus') %>
     </a>
-    <ul class="dropdown-menu right">
-      <li><%= link_to t('app.model.Quotation'), new_quotation_path %></li>
-      <li><%= link_to t('app.model.Opportunity'), new_opportunity_path %></li>
-      <li><%= link_to t('app.model.Task'), new_task_path %></li>
-      <li><%= link_to t('app.model.Contact'), new_contact_path %></li>
-      <li><%= link_to t('app.model.Account'), new_account_path %></li>
-      <li><%= link_to t('app.model.Document'), new_document_path %></li>
+    <ul class="dropdown-menu pull-right">
+      <li><%= link_to "<i class=\"fa fa-eur fa-fw\"></i> #{t('app.model.Quotation')}".html_safe, new_quotation_path %></li>
+      <li><%= link_to "<i class=\"fa fa-eye fa-fw\"></i> #{t('app.model.Opportunity')}".html_safe, new_opportunity_path %></li>
+      <li><%= link_to "<i class=\"fa fa-tasks fa-fw\"></i> #{t('app.model.Task')}".html_safe, new_task_path %></li>
+      <li><%= link_to "<i class=\"fa fa-user fa-fw\"></i> #{t('app.model.Contact')}".html_safe, new_contact_path %></li>
+      <li><%= link_to "<i class=\"fa fa-briefcase fa-fw\"></i> #{t('app.model.Account')}".html_safe, new_account_path %></li>
+      <li><%= link_to "<i class=\"fa fa-file-text fa-fw\"></i> #{t('app.model.Document')}".html_safe, new_document_path %></li>
     </ul>
   </li>
 
   <!-- NOTIFICATIONS -->
-  <li>	
+  <li class="nav-item">	
     <%= link_to icon('bell').html_safe, url_for(:controller => 'notifications', :action => 'index')%>
     <% if current_user.emails.length > 0 %>
       <%= link_to current_user.emails.length, url_for(:controller => 'notifications', :action => 'index'),  {:class => "badge btn-danger btn-sm", :style => "z-index:2; position: absolute; top: 0px; left: 68px;"} %>
@@ -25,15 +25,15 @@
 
   <!-- PROFIL -->
 
-  <li class="dropdown"> 
+  <li class="dropdown nav-item"> 
     <a class="dropdown-toggle" data-toggle="dropdown" href="#" title ="Profil et paramètres">
       <%= icon('cogs') %>
     </a>
-    <ul class="dropdown-menu right">
+    <ul class="dropdown-menu pull-right">
       <center><li role="presentation" class="dropdown-header" style="font-weight: bold"><%= current_user.forename %></li></center>
       <li class="divider"></li>
       <li><%= link_to '<i class="fa fa-user fa-fw"></i> Profil'.html_safe, edit_user_path(current_user) %></li>        
-      <li><%= link_to '<i class="fa fa-power-off fa-fw"></i> Déconnexion'.html_safe, destroy_user_session_path, :data => {:confirm => 'Confirmer la déconnexion ?'}, :method => :delete %></li>
+      <li><%= link_to '<i class="fa fa-sign-out fa-fw"></i> Déconnexion'.html_safe, destroy_user_session_path, :data => {:confirm => 'Confirmer la déconnexion ?'}, :method => :delete %></li>
       <!-- SETTINGS in PROFIL -->
 
       <% if current_user.has_role?(:admin) or current_user.has_role?(:super_user) %>

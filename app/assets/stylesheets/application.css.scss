@@ -9,7 +9,10 @@ $navbarLinkColor: #999;
 $navbarLinkColorHover: #EEE;
 $navbarLinkColorActive: #FFF;
 $navbarBackground: #2C2C2C;
+$baseFontSize: 13px;
 // I gather this file is a starting point for the project.
+
+$navbarHeight: 50px;
 @import "bootstrap";
 
 //= require jquery.fileupload-ui

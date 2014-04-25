@@ -1,5 +1,4 @@
 body {
-  font-size: 13px;
   line-height: 18px;
 }
 
@@ -619,4 +618,22 @@ span.caret-up {
 
 hr {
 	margin: 12px 0;
+}
+
+.navbar .brand {
+  max-height: 50px;
+  overflow: visible;
+  padding-top: 9px;
+  padding-bottom: 9px;
+}
+
+.navbar .nav > li {
+  font-size: 18px;
+}
+
+body { padding-top: 60px; }
+
+// Patch from Bootstrap 3 : avoids dropdown-menu items from inheriting navbar items font size.
+.dropdown-menu {
+  font-size: $baseFontSize;
 }
