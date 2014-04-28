@@ -33,9 +33,8 @@
             <td class="text-center"><%= email.send_at.strftime("%d/%m/%y à %H:%M") %></td>
 		  		<%# Affichage des boutons d'action %>
 			    	<td class="text-center">
-				    	<div class="btn-group">
-					      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						    <%= image_tag('/assets/glyphicons/glyphicons_241_flash.png', :size => '12x12') %>
+					      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						    <%= '<i class="fa fa-bolt fa-2x"></i>'.html_safe %>
 					      </a>
 
 					      <ul class="dropdown-menu right" style="margin: 2px -140px 0px;">
@@ -49,7 +48,6 @@
 						    <% end %>
 
 					    </ul>
-				    	</div>
 			      </td>
       		</tr>
 
