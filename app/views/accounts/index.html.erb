@@ -45,7 +45,7 @@
 	<th class="text-center">Genre</th>
 	<th class="text-center">Téléphone</th>
 	<th class="text-center">Site Web</th>
-	<th class="text-center">Éditer</th>        
+	<th class="text-center">Actions</th>        
     </tr>
     </thead>
 	<tbody>
@@ -93,7 +93,7 @@
 		<% else %>
 				<td class="text-center">-</td>
 		<% end %>
-		<td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_account_path(account) ,{:title => "Éditer le compte", :class =>"btn"} %></td>
+		<td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x"></i>'.html_safe, edit_account_path(account) ,{:title => "Éditer le compte" } %></td>
   </tr>
   <% end %>
   </tbody>

@@ -4,7 +4,7 @@
 <ul class="nav pull-right">	
   <li class="dropdown nav-item">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#" title ="Créer...">
-      <%= icon('plus-square') %>
+      <i class="fa fa-plus-circle"></i>
     </a>
     <ul class="dropdown-menu pull-right">
       <li><%= link_to "<i class=\"fa fa-eur fa-fw\"></i> #{t('app.model.Quotation')}".html_safe, new_quotation_path %></li>
@@ -18,7 +18,7 @@
 
   <!-- NOTIFICATIONS -->
   <li class="nav-item">	
-    <%= link_to icon('bell').html_safe, url_for(:controller => 'notifications', :action => 'index')%>
+    <%= link_to '<i class="fa fa-bell"></i>'.html_safe, url_for(:controller => 'notifications', :action => 'index')%>
     <% if current_user.emails.length > 0 %>
       <%= link_to current_user.emails.length, url_for(:controller => 'notifications', :action => 'index'),  {:class => "badge btn-danger btn-sm", :style => "z-index:2; position: absolute; top: 0px; left: 68px;"} %>
     <% end %>
@@ -28,7 +28,7 @@
 
   <li class="dropdown nav-item"> 
     <a class="dropdown-toggle" data-toggle="dropdown" href="#" title ="Profil et paramètres">
-      <%= icon('cogs') %>
+      <i class="fa fa-cogs"></i>
     </a>
     <ul class="dropdown-menu pull-right">
       <center><li role="presentation" class="dropdown-header" style="font-weight: bold"><%= current_user.forename %></li></center>

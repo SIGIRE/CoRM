@@ -203,9 +203,6 @@ h4,
 h5,
 h6 {
   margin: 0;
-  font-family: inherit;
-  font-weight: bold;
-  color: inherit;
   text-rendering: optimizelegibility;
 }
 h1 small,
@@ -641,7 +638,11 @@ body { padding-top: 60px; }
 }
 
 table a i {
-  // color: #135475;
+  color: #000;
+  &:hover { color: #4C818C }
+}
+
+.well a i {
   color: #000;
   &:hover { color: #4C818C }
 }
