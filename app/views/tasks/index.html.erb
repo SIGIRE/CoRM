@@ -13,7 +13,7 @@
                     <th class="text-center">Contact</th>
                     <th class="text-center">Échéance</th>
                     <th class="text-center">Collaborateur</th>
-                    <th class="text-center">Éditer</th>        
+                    <th class="text-center">Actions</th>        
                 </tr>
             </thead>
             <tbody>
@@ -97,7 +97,7 @@
 		                <% end %>
 
 		                <td class="text-center">
-		                  <%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_task_path(task) ,{:title => "Éditer la tâche", :class =>"btn"}  %>
+                      <%= link_to '<i class="fa fa-edit fa-2x"></i>'.html_safe, edit_task_path(task) ,{:title => "Éditer la tâche" }  %>
 		                </td>
 	                </tr>
 	            <% end %>

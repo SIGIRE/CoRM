@@ -1,5 +1,7 @@
-
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,700|Roboto+Condensed:400,700);
+@import "font-awesome-4.0.3/scss/font-awesome.scss";
 //= require ./jquery-ui.css
+//= require ./expanding-search-bar.css
 $navbarBackgroundHighlight: #333;
 $navbarBackground: lighten($navbarBackgroundHighlight, 5%);
 $navbarBorder: lighten($navbarBackground, 12%);
@@ -7,8 +9,13 @@ $navbarText: #999;
 $navbarLinkColor: #999;
 $navbarLinkColorHover: #EEE;
 $navbarLinkColorActive: #FFF;
-$navbarBackground: #2C2C2C;
+$navbarBackground: #333;
+$baseFontSize: 13px;
+$sansFontFamily: 'Roboto';
+$headingsFontFamily: 'Roboto Condensed';
 // I gather this file is a starting point for the project.
+
+$navbarHeight: 50px;
 @import "bootstrap";
 
 //= require jquery.fileupload-ui

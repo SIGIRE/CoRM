@@ -1,3 +1,5 @@
+<%# encoding: utf-8 %>
+
 <%# Récupération du des fonctions %>
 <% content_for(:attachments_js) do %>
     <%= javascript_include_tag "attachments" %>
@@ -48,6 +50,7 @@ end %>
             <div class="span2"></div>
             <% if ta.object.new_record? %>
               <%= ta.file_field :attach, id: 'fileupload' %>        
+              <script>$ (":file").filestyle({buttonText: 'Choisir un fichier'});</script>
             <% else %>
               <%= link_to ta.object.attach_file_name, ta.object.attach.url %>
             <% end %>
