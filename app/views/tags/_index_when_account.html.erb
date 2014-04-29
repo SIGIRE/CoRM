@@ -20,7 +20,7 @@
           <%= form_tag({:controller => "accounts", :action => "add_tag", :account_id => @account.id}, :method => "post") do %>
             <%= select_tag :tag_id, options_from_collection_for_select(@tags_select, "id", "name") %>
 						<% if (@tags_select.count > 0) %>
-              <%= submit_tag("Affecter") %>
+              <%= submit_tag "Affecter", class: "btn btn-primary" %>
 						<% else %>
 						  <%= label_tag(:tag_id, "Aucun tag disponible à l'ajout", { :class => 'badge badge-warning', :style => 'vertical-align: top; margin-left: 5px; margin-top: 6px;' }) %>		 
 					  <% end %>
