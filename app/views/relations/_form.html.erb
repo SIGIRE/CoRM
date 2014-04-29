@@ -14,13 +14,7 @@
 
   <div class="row row-fluid">
 		<div class="field full">
-      <div class="span2"><%= f.label(:name, t('app.fields.name') + colon) %></div>
-      <p><%= f.text_field :name, { :class => 'required' }%></p>
-    </div>
-	</div>
-  <div class="row row-fluid">
-		<div class="field full">
-			<div class="span2"><%= label_tag('account-search', t('app.model.Account') + ' Source' + colon) %></div>
+			<div class="span2"><%= label_tag('account-search', t('app.model.Account') + ' source' + colon) %></div>
 			<div>
 				<p>
 					<%= text_field_tag(nil, (@relation.account1.company unless @relation.account1.nil?), { :placeholder => 'Rechercher', :class => 'typeahead-account-search', :type => 'search', :autocomplete => 'off', 'data-field' => 'account1_id' }) %>
@@ -32,7 +26,13 @@
 	</div>
   <div class="row row-fluid">
 		<div class="field full">
-			<div class="span2"><%= label_tag('account-search', t('app.model.Account') + colon) %></div>
+      <div class="span2"><%= f.label(:name, "Relation :") %></div>
+      <p><%= f.text_field :name, { :class => 'required' }%></p>
+    </div>
+	</div>
+  <div class="row row-fluid">
+		<div class="field full">
+			<div class="span2"><%= label_tag('account-search', t('app.model.Account')  + ' cible'+ colon) %></div>
 			<div>
 				<p>
 					<%= text_field_tag(nil, (@relation.account2.company unless @relation.account2.nil?), { :placeholder => 'Rechercher', :class => 'typeahead-account-search', :type => 'search', :autocomplete => 'off', 'data-field' => 'account2_id' }) %>
