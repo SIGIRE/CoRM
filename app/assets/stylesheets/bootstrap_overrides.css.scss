@@ -646,3 +646,13 @@ table a i {
   color: #000;
   &:hover { color: #4C818C }
 }
+
+// Those two sets of instructions rule badge positionning on the alert icon of the top menu.
+.relative {
+  position: relative
+}
+.badge.bottom-right {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+}
