@@ -60,7 +60,7 @@
           <div class="field full">
             <div class="span2"></div>
             <% if ta.object.new_record? %>
-              <%= ta.file_field :attach, id: 'fileupload' %>        
+              <%= ta.file_field :attach %>        
               <script>$ (":file").filestyle({buttonText: 'Choisir un fichier'});</script>
             <% else %>
               <%= link_to ta.object.attach_file_name, ta.object.attach.url %>

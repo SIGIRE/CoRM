@@ -7,7 +7,7 @@
   <div class="row row-fluid by_2">
     <div class="field-group">
       <div class="field small-date">
-        <p><%= f.label :date_begin, "Début :", :class => 'top' %><%= f.text_field :date_begin, :value => Date.today.strftime("%d/%m/%Y"), :class =>"event_date" %></p>
+        <p><%= f.label :date_begin, "Début :", :class => 'top' %><%= f.text_field :date_begin, :value => Date.today.strftime("%d/%m/%Y"), class: "event_date", data: { provide: "datepicker" } %></p>
       </div>
       <div class="field time">
         <%= f.label :date_begin, " à ", { :class => 'no-margin-bottom' } %><%= f.time_select :date_begin , :class => "event_time" %>
@@ -15,7 +15,7 @@
     </div>
     <div class="field-group">
       <div class="field small-date">
-        <p><%= f.label :date_end, "Fin : ", :class => 'top' %><%= f.text_field :date_end, :value => Date.today.strftime("%d/%m/%Y"), :class =>"event_date" %></p>
+        <p><%= f.label :date_end, "Fin : ", :class => 'top' %><%= f.text_field :date_end, :value => Date.today.strftime("%d/%m/%Y"), class: "event_date", data: { provide: "datepicker" } %></p>
       </div>
       <div class="field time text-center">
         <%= f.label :date_end, " à ", { :class => 'no-margin-bottom' } %><%= f.time_select :date_end , :class => "event_time" %>
@@ -44,7 +44,7 @@
           <div class="field">
             <div class="span2"></div>
             <% if ta.object.new_record? %>
-              <%= ta.file_field :attach, id: 'fileupload' %>        
+              <%= ta.file_field :attach %>        
               <script>$ (":file").filestyle({buttonText: 'Choisir un fichier'});</script>
             <% else %>
               <%= link_to ta.object.attach_file_name, ta.object.attach.url %>

@@ -14,9 +14,9 @@ function display(id) {
 </script>
 <% if !@events.nil? and @events.length > 0 %>
 <div id="listing-event">
-  <label class="checkbox" id="toggle-events-more">
-    <input type="checkbox"/>Déplier tous les évenements
-  </label>
+  <%# <label class="checkbox" id="toggle-events-more"> %>
+  <%#   <input type="checkbox"/>Déplier tous les évenements %>
+  <%# </label> %>
   <% @events.each do |e| %>
   <div class="event-container">
     <div class="event small">

@@ -130,7 +130,9 @@ $(document).ready(function() {
   check_event_more_fn.call(document.getElementById('toggle-events-more'));
   
   $(document).on('click', '#listing-event .event', function() {
-    $(this).find('.more').toggle();
+    if (window.getSelection() == "") {
+      $(this).find('.more').toggle();
+    }
   });
 
   /* datepicker for all this classes/ids */
