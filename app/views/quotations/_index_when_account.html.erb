@@ -8,8 +8,7 @@
       <th class="text-center">Total HT</th>
       <th class="text-center">Date</th>
       <th class="text-center">Collaborateur</th>
-      <th class="text-center">Éditer</th>
-      <th class="text-center">PDF</th>        
+      <th class="text-center">Actions</th>
     </tr>
   </thead>
   
@@ -66,9 +65,8 @@
       <td class="text-center">-</td>
   <% end %>	
       
-  <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_path(quotation),{:title => "Éditer le devis", :class =>"btn"} %></td>
-      
-  <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_015_print.png"), quotation_path(quotation, :format => "pdf"),{:title => "Afficher le PDF", :class =>"btn", :target => '_blank'} %></td>
+  <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x"></i>'.html_safe, edit_quotation_path(quotation),{:title => "Éditer le devis"} %>
+  <%= link_to '<i class="fa fa-print fa-2x"></i>'.html_safe, quotation_path(quotation, :format => "pdf"),{:title => "Afficher le PDF", :target => '_blank'} %></td>
   </tr>
   <% end %>
   </tbody>

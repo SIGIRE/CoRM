@@ -1,5 +1,4 @@
 body {
-  font-size: 13px;
   line-height: 18px;
 }
 
@@ -204,9 +203,6 @@ h4,
 h5,
 h6 {
   margin: 0;
-  font-family: inherit;
-  font-weight: bold;
-  color: inherit;
   text-rendering: optimizelegibility;
 }
 h1 small,
@@ -580,7 +576,6 @@ span.caret-up {
 				.notes {
 					background-color: #FFF;
 					padding: 8px;
-					font-size: 14px;
 					word-wrap: break-word;
 					text-align: justify;
 				}
@@ -619,4 +614,44 @@ span.caret-up {
 
 hr {
 	margin: 12px 0;
+}
+
+.navbar .brand {
+  max-height: 50px;
+  overflow: visible;
+  padding-top: 9px;
+  padding-bottom: 9px;
+}
+
+// Bigger text for navbar items
+.navbar .nav > li {
+  font-size: 18px;
+}
+
+// Used with navbar-fixed
+body { padding-top: 60px; }
+
+// Patch from Bootstrap 3 : avoids dropdown-menu items from inheriting navbar items font size.
+.dropdown-menu {
+  font-size: $baseFontSize;
+}
+
+table a i {
+  color: #000;
+  &:hover { color: #4C818C }
+}
+
+.well a i {
+  color: #000;
+  &:hover { color: #4C818C }
+}
+
+// Those two sets of instructions rule badge positionning on the alert icon of the top menu.
+.relative {
+  position: relative
+}
+.badge.bottom-right {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
 }

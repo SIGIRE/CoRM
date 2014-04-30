@@ -2,9 +2,9 @@
   <div class="well">
     <div class="row-fluid">
       <div class="span9">
-        <h1>Opportunités</h1>
+        <h2>Opportunités de <%= @account.company %></h2>
       </div>
-      <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_opportunity_path(account_id: @account.id), {:title => "Créer une Opportunité", :class =>"pull-right btn"}%>
+      <%= link_to '<i class="fa fa-plus-circle fa-3x"></i>'.html_safe, new_opportunity_path(account_id: @account.id), {:title => "Créer une Opportunité", :class =>"pull-right"}%>
     </div>
   </div>
 </div>

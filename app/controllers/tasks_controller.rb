@@ -140,7 +140,7 @@ class TasksController < ApplicationController
         flash[:notice] += " Un email a été envoyé à #{@task.user.full_name}"
       end
       self.create_event(true)
-      redirect_to (@task.account.nil?() ? filter_tasks_path : account_events_path(@task.account))
+      redirect_to (@task.account.nil?() ? tasks_path : account_events_path(@task.account))
     else
       render :action => "edit"
     end
