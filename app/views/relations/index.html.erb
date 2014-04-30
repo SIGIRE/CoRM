@@ -4,9 +4,9 @@
      <div class="well">
        <div class="row-fluid">
          <div class="span9">
-           <h3>Relation(s) de <%= @account.company %></h3>
+           <h2>Relation(s) de <%= @account.company %></h2>
          </div>
-           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_relation_path(:account_id_1 => @account.id) ,{:title => "Créer une relation", :class =>"pull-right btn"}%>
+           <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_relation_path(:account_id_1 => @account.id) ,{:title => "Créer une relation", :class =>"pull-right"}%>
        </div>
      </div>
 
@@ -22,22 +22,18 @@
 
     <table class="table table-bordered table-striped">
       <tr>
-        <th><center>Nom</center></th>
-        <th><center>Compte lié</center></th>
-        <th><center>Éditer</center></th> 
+        <th class="text-center"><center>Compte source</center></th>
+        <th class="text-center"><center>Relation</center></th>
+        <th class="text-center"><center>Compte cible</center></th>
+        <th class="text-center"><center>Éditer</center></th> 
       </tr>
     
     <% @relations.each do |relation| %>
       <tr>
-        <td style="width: 15em;"><center><%= relation.name %></center></td>
-        <td><center>
-          <% if relation.account2.id == @account.id %>
-            <%= link_to relation.account1.company, account_events_path(relation.account1) %>
-          <% else %>
-            <%= link_to relation.account2.company, account_events_path(relation.account2) %>
-          <% end %>
-        </center></td>
-        <td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_relation_path(relation) ,{:title => "Modifier la relation", :class =>"btn"} %></center></td>
+        <td class="text-center"><%= relation.account1.company %></td>
+        <td class="text-center"><%= relation.name %></td>
+        <td class="text-center"><%= relation.account2.company %></td>
+        <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_relation_path(relation) ,{:title => "Modifier la relation"} %></td>
     <% end %>
     </table>
     

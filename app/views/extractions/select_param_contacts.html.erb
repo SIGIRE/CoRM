@@ -1,13 +1,17 @@
 <div class="container-fluid">
-  <div class="well" style="margin-top: 1em;">
-    <div class="row-fluid">
-      <div class="span9">
-        <h1>Extraction des Contacts</h1>
+   
+   <div class="well" style="margin-top: 1em;">
+      <div class="row-fluid">
+         <div class="span9">
+         <h1>Extraction des Contacts</h1>
+         </div>
+          <%= link_to '<i class="fa fa-arrow-circle-left fa-3x action-icon"></i>'.html_safe, :back ,{:title => "Retour", :class=>"pull-right"} %>
       </div>
-      <%= link_to image_tag("glyphicons/glyphicons_210_left_arrow.png"), :back ,{:title => "Retour", :class=>"pull-right btn"} %>
-    </div>
-  </div>
+   </div>
 </div>
+<div class="container-fluid">
+<div class="well">
+  <%= form_tag({:controller => "extractions", :action => "contacts", format: :csv}, :method => "post") do %>
 
 <div id="task_value" class="container-fluid">
   <%= form_tag( { controller: :contacts, format: :csv }, { method: :get } ) do %>

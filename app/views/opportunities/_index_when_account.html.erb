@@ -9,7 +9,7 @@
         <th class="text-center">Marge</th>
         <th class="text-center">Échéance</th>
         <th class="text-center">Collaborateur</th>
-        <th class="text-center">Éditer</th>   
+        <th class="text-center">Actions</th>   
       </tr>
     </thead>
     <tbody>
@@ -68,7 +68,7 @@
 		<% else %>
 		<td class="text-center">-</td>
 		<% end %>
-		<td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_opportunity_path(opportunity),{:title => "Éditer l'opportunité", :class =>"btn"}  %></td>
+		<td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_opportunity_path(opportunity),{:title => "Éditer l'opportunité"}  %></td>
       </tr>
       <% end %>
     </tbody>

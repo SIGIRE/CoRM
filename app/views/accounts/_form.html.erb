@@ -100,8 +100,8 @@
 	<hr />
   
   <div class="row">
-	<%= if !@account.id.nil? then f.submit 'Modifier ce Compte', :class =>"btn btn-primary",:id =>"account_validate_form" else f.submit 'Créer un Compte', :class =>"btn btn-primary",:id =>"account_validate_form" end%>
-    <%= if !@account.id.nil? then  link_to image_tag("glyphicons/glyphicons_016_bin.png"), @account,:title => "Supprimer le compte", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn trash", :method => :delete end %>
+	<%= if !@account.id.nil? then f.submit 'Modifier le compte', :class =>"btn btn-primary",:id =>"account_validate_form" else f.submit 'Créer un compte', :class =>"btn btn-primary",:id =>"account_validate_form" end%>
+    <%= if !@account.id.nil? then  link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, @account,:title => "Supprimer le compte", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn btn-danger", :method => :delete end %>
   </div>
  
 </form>

@@ -37,8 +37,8 @@
 	<hr />
   
    <div class="row">
-   	<%= if !@eventtype.id.nil? then f.submit 'Modifier ce Type', :class =>"btn btn-primary",:id =>"eventtype_validate_form" else f.submit 'Créer un Type', :class =>"btn btn-primary",:id =>"eventtype_validate_form" end%>
-	<%= if !@eventtype.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"),@eventtype,:title => "Supprimer le type", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn trash", :method => :delete end %> 
+   	<%= if !@eventtype.id.nil? then f.submit 'Modifier le type', :class =>"btn btn-primary",:id =>"eventtype_validate_form" else f.submit 'Créer un type', :class =>"btn btn-primary",:id =>"eventtype_validate_form" end%>
+	<%= if !@eventtype.id.nil? then link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, @eventtype,:title => "Supprimer le type", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn btn-danger", :method => :delete end %> 
     </div>
   </div>
   

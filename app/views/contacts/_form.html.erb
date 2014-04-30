@@ -145,14 +145,14 @@
 
 	<div class="row">
 	  <% if (!@contact.id.nil?) %> 
-			<%= f.submit 'Modifier ce Contact', :class =>"btn btn-primary",:id =>"contact_submit_form" %>
+			<%= f.submit 'Modifier le contact', :class =>"btn btn-primary",:id =>"contact_submit_form" %>
 		<% else %>
-			<%= f.submit 'Créer un Contact', :class =>"btn btn-primary",:id =>"contact_submit_form" %>
+			<%= f.submit 'Créer un contact', :class =>"btn btn-primary",:id =>"contact_submit_form" %>
 		<% end %>
 
     <%# Ajout du bouton de suppression %>
 		<% if !@contact.id.nil? %>
-		 	<%= link_to image_tag("glyphicons/glyphicons_016_bin.png"), @contact, :title => "Supprimer le contact", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn trash", :method => :delete %>
+		 	<%= link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, @contact, :title => "Supprimer le contact", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn btn-danger", :method => :delete %>
 		<% end %> 
   </div>
  

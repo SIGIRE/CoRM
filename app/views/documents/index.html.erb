@@ -4,9 +4,9 @@
      <div class="well">
        <div class="row-fluid">
          <div class="span8">
-           <h3>Document(s) de <%= @account.company %></h3>
+           <h2>Documents de <%= @account.company %></h2>
          </div>
-           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_document_path(:account_id => @account.id) ,{:title => "Créer un document", :class =>"pull-right btn"}%>
+           <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_document_path(:account_id => @account.id) ,{:title => "Créer un document", :class =>"pull-right"}%>
        </div>
      </div>
 
@@ -24,9 +24,8 @@
     <thead>
       <tr>
         <th class="text-center">Nom</th>
-        <th class="text-center">Document</th>
         <th class="text-center">Description</center></th>
-	<th class="text-center">Télécharger</th>
+	<th class="text-center">Fichiers joints</th>
         <th class="text-center">Éditer</th>
       </tr>
     </thead>
@@ -35,18 +34,13 @@
       <% @documents.each do |document| %>
         <tr>
          <td class="text-center"><%= document.name %></td>
-         <td class="text-center">
-         <% document.document_attachments.each do |attachment| %>
-            <%= link_to (attachment.attach_file_name), attachment.attach.url, :target => '_blank' %><br/>
-         <% end %>
-         </td>
          <td class="text-center"><%= truncate(document.notes, :length => 600, :separator => ' ') %></td>
          <td class="text-center">
          <% document.document_attachments.each do |attachment| %>
-            <%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + attachment.attach_file_name , attachment.attach.url, :target => '_blank' %><br/>
+            <%= link_to attachment.attach_file_name , attachment.attach.url, :target => '_blank' %><br/>
          <% end %>
          </td>
-         <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_document_path(document),{:title => "Éditer le document", :class =>"btn"} %></td>
+         <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_document_path(document),{:title => "Éditer le document"} %></td>
         </tr>
         <% end %>
       </tbody>

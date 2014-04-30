@@ -60,7 +60,8 @@
           <div class="field full">
             <div class="span2"></div>
             <% if ta.object.new_record? %>
-              <%= ta.file_field :attach, id: 'fileupload' %>        
+              <%= ta.file_field :attach %>        
+              <script>$ (":file").filestyle({buttonText: 'Choisir un fichier'});</script>
             <% else %>
               <%= link_to ta.object.attach_file_name, ta.object.attach.url %>
             <% end %>
@@ -116,8 +117,8 @@
   <% end %>
   <hr />
   <div class="row row-fluid">
-	<%= if !@opportunity.id.nil? then f.submit 'Modifier cette Opportunité', :class =>"btn btn-primary",:id =>"opportunity_submit_form" else f.submit 'Créer une Opportunité', :class =>"btn btn-primary",:id =>"opportunity_submit_form" end %>
-	<%= if !@opportunity.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), opportunity_path(@opportunity), :title => "Supprimer cette Opportunité", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn trash", :method => :delete end %> 
+	<%= if !@opportunity.id.nil? then f.submit "Modifier l'opportunité", :class =>"btn btn-primary",:id =>"opportunity_submit_form" else f.submit 'Créer une opportunité', :class =>"btn btn-primary",:id =>"opportunity_submit_form" end %>
+	<%= if !@opportunity.id.nil? then link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, opportunity_path(@opportunity), :title => "Supprimer l'opportunité", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn btn-danger", :method => :delete end %> 
  
   </div>
 <% end %>

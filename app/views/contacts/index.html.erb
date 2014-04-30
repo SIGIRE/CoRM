@@ -109,7 +109,7 @@
           <% end %>
 
 
-          <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_contact_path(contact),{:title => "Éditer le contact", :class =>"btn"} %></td>
+          <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_contact_path(contact),{:title => "Éditer le contact"} %></td>
         </tr>
       <% end %>
     </tbody>
