@@ -7,6 +7,9 @@
 //= require bootstrap
 //= require jquery-fileupload
 //= require bootstrap-filestyle.min
+//
+//= require bootstrap-datepicker/bootstrap-datepicker
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.fr
 
 /* for the shared functions */
 //= require ./corm_lib.js

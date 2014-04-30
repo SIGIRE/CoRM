@@ -38,8 +38,8 @@
 	<hr />
   
    <div class="row">
-    <%= if !@origin.id.nil? then f.submit 'Modifier cette Origine', :class =>"btn btn-primary",:id =>"origin_validate_form" else f.submit 'Créer une Origine', :class =>"btn btn-primary",:id =>"origin_validate_form" end%>
-    <%= if !@origin.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @origin, :title => "Supprimer l'origin", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn trash", :method => :delete end %> 
+    <%= if !@origin.id.nil? then f.submit "Modifier l'origine", :class =>"btn btn-primary",:id =>"origin_validate_form" else f.submit 'Créer une origine', :class =>"btn btn-primary",:id =>"origin_validate_form" end%>
+    <%= if !@origin.id.nil? then link_to "Supprimer l'origine", @origin, :title => "Supprimer l'origine", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn btn-danger", :method => :delete end %> 
     </div>
   </div>
 <% end %>

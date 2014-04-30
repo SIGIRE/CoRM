@@ -18,7 +18,7 @@
       <td><center><%= tag.id %></center></td>
       <td><center><%= tag.name %></center></td>
       <td><center><%= truncate(tag.description, :length => 75, :separator => ' ')%></center></td>
-      <td><center><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_tag_path(tag),{:title => "Éditer le tag", :class =>"btn"} %></center></td>
+      <td><center><%= link_to '<i class="fa fa-edit fa-2x"></i>'.html_safe, edit_tag_path(tag),{:title => "Éditer le tag"} %></center></td>
     </tr>
   <% end %>
   </tbody>

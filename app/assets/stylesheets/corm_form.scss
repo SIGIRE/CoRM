@@ -36,7 +36,6 @@ form {
 				/* This field is required */
 				display: inline-block;
 				vertical-align: middle;
-				font-size: 14px;
 				color: $form-error-on-require-field-color;
 				font-weight: 900;
 				padding-left: 15px;
@@ -64,7 +63,6 @@ form {
 }
 
 label {
-  font-size: 13px;
   line-height: 18px;
   display: inline-block;
   &.top {
@@ -73,7 +71,6 @@ label {
     width: 100%;
   }
   &.checkbox {
-    font-size: 14px;
     padding: 8px;
     width: auto;
     &:hover {
@@ -139,7 +136,6 @@ form#new_event {
 
 .small-message {
     vertical-align: middle;
-    font-size: 13px;
     font-family: Helvetica;
     color: green;
     padding-left: 20px;

@@ -1,5 +1,7 @@
-
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
+@import "font-awesome-4.0.3/scss/font-awesome.scss";
 //= require ./jquery-ui.css
+//= require ./expanding-search-bar.css
 $navbarBackgroundHighlight: #333;
 $navbarBackground: lighten($navbarBackgroundHighlight, 5%);
 $navbarBorder: lighten($navbarBackground, 12%);
@@ -7,8 +9,13 @@ $navbarText: #999;
 $navbarLinkColor: #999;
 $navbarLinkColorHover: #EEE;
 $navbarLinkColorActive: #FFF;
-$navbarBackground: #2C2C2C;
+$navbarBackground: #000;
+$baseFontSize: 13px;
+$sansFontFamily: 'Roboto';
+$headingsFontFamily: 'Roboto';
 // I gather this file is a starting point for the project.
+
+$navbarHeight: 50px;
 @import "bootstrap";
 
 //= require jquery.fileupload-ui
@@ -44,7 +51,7 @@ $navbarBackground: #2C2C2C;
 @import "./corm_form.scss";
 @import "./corm_navbar.scss";
 @import "bootstrap-responsive";
-
+@import "datepicker";
 @import "./alertify.core";
 @import "./alertify.bootstrap";
 @import "./sticky-footer-navbar";

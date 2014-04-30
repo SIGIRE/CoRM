@@ -129,6 +129,12 @@ $(document).ready(function() {
   $(document).on('click', '#toggle-events-more', check_event_more_fn);
   check_event_more_fn.call(document.getElementById('toggle-events-more'));
   
+  $(document).on('click', '#listing-event .event', function() {
+    if (window.getSelection() == "") {
+      $(this).find('.more').toggle();
+    }
+  });
+
   /* datepicker for all this classes/ids */
   if ($.datepicker) {
     var lang = $.datepicker.regional[ 'fr' ];

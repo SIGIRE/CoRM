@@ -32,13 +32,11 @@
             <td class="text-center"><%=email.email_attachments.length%></td>
             <td class="text-center"><%= email.send_at.strftime("%d/%m/%y à %H:%M") %></td>
 		  		<%# Affichage des boutons d'action %>
-			    	<td class="text-center">
-				    	<div class="btn-group">
-					      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						    <%= image_tag('/assets/glyphicons/glyphicons_241_flash.png', :size => '12x12') %>
+			    	<td class="text-center dropdown">
+					      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						    <%= '<i class="fa fa-bolt fa-2x"></i>'.html_safe %>
 					      </a>
-
-					      <ul class="dropdown-menu right" style="margin: 2px -140px 0px;">
+					      <ul class="dropdown-menu pull-right">
 						    <li><%= link_to "Éditer", edit_email_path(email.id) %></li>
 						    <li><%= link_to "Supprimer", email, :id => email.id, :confirm => 'Confirmer la suppression ?', :method => :delete %></li>
 
@@ -49,7 +47,6 @@
 						    <% end %>
 
 					    </ul>
-				    	</div>
 			      </td>
       		</tr>
 

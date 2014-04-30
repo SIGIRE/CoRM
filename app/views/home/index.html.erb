@@ -11,7 +11,7 @@
         <tr>
           <th colspan="9">
             <h2 class="pull-left">Mes <%= t('app.model.Task').pluralize %></h2>
-            <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_task_path ,{:title => "Créer une tâche", :class=>"pull-right btn", :style => 'display: inline-block'} %>
+            <%= link_to '<i class="fa fa-plus-circle fa-3x"></i>'.html_safe, new_task_path ,{:title => "Créer une tâche", :class=>"pull-right", :style => 'display: inline-block'} %>
           </th>
         </tr>
         <tr>
@@ -21,7 +21,7 @@
           <th class="text-center"><%= t('app.fields.subject') %></th>
           <th class="text-center">Contact</th>
           <th class="text-center">Échéance</th>
-          <th class="text-center">Éditer</th>
+          <th class="text-center">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -54,7 +54,7 @@
             <td class="text-center"><%= Task::PRIORITIES[t.priority] %></td>
             <td class="text-center"><% if !t.account.nil? %><%= link_to t.account.company, account_events_path(t.account), { :title => 'Compte: ' + t.account.company, :class => 'ellipse' } %><% else %>-<% end %></td>
             <% if !t.title.nil? then ellipse = t.title.length > 45 ? '...' : '' end %>
-              <td class="text-center"><span><%= link_to (!t.title.blank?() ? t.title[0..45] + ellipse : "Pas de sujet"), edit_task_path(t), :title => 'Editer la tâche' %></span></td>
+              <td class="text-center"><span><%= link_to (!t.title.blank?() ? t.title[0..45] + ellipse : "Pas de sujet"), edit_task_path(t), :title => 'Éditer la tâche' %></span></td>
               <% if !t.contact.nil? %>
                 <td class="text-center"><%= link_to t.contact.full_name, edit_contact_path(t.contact),{:title => "Éditer le contact"}  %></td>
               <% else %>
@@ -74,7 +74,7 @@
                 <td class="text-center">-</td>
               <% end %>
               <td class="text-center">
-                <%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_task_path(t) ,{:title => "Éditer la tâche", :class =>"btn"}  %>
+                <%= link_to '<i class="fa fa-edit fa-2x"></i>'.html_safe, edit_task_path(t) ,{:title => "Éditer la tâche" }  %>
               </td>
             </tr>
           <% end %>
@@ -147,7 +147,7 @@
             <tr>
               <th colspan="9">
                 <h2 class="pull-left">Mes <%= t('app.model.Opportunity').pluralize %></h2>
-				<%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_task_path ,{:title => "Créer une opportunité", :class=>"pull-right btn", :style => 'display: inline-block'} %>
+                <%= link_to '<i class="fa fa-plus-circle fa-3x"></i>'.html_safe, new_task_path ,{:title => "Créer une opportunité", :class=>"pull-right", :style => 'display: inline-block'} %>
               </th>
             </tr>
             <tr>
@@ -158,7 +158,7 @@
               <th class="text-center">Estimation</th>
               <th class="text-center">Marge</th>
               <th class="text-center">Échéance</th>
-              <th class="text-center">Éditer</th>
+              <th class="text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -194,7 +194,7 @@
                 <td class="text-center">-</td>
               <% end %>
               <td class="text-center">
-                <%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_opportunity_path(o) ,{:title => "Éditer l'opportunité", :class =>"btn"}  %>
+                <%= link_to '<i class="fa fa-edit fa-2x"></i>'.html_safe, edit_opportunity_path(o) ,{:title => "Éditer l'opportunité"}  %>
               </td>				
             </tr>
           <% end %>
@@ -214,7 +214,7 @@
           <tr>
             <th colspan="9">
               <h2 class="pull-left">Mes <%= t('app.model.Quotation').pluralize %></h2>
-				<%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_quotation_path ,{:title => "Créer un devis", :class=>"pull-right btn", :style => 'display: inline-block'} %>
+              <%= link_to '<i class="fa fa-plus-circle fa-3x"></i>'.html_safe, new_quotation_path ,{:title => "Créer un devis", :class=>"pull-right", :style => 'display: inline-block'} %>
 
             </th>
           </tr>
@@ -225,8 +225,7 @@
             <th class="text-center">Contact</th>
             <th class="text-center">Total HT</th>
             <th class="text-center">Date</th>
-            <th class="text-center">Éditer</th>
-            <th class="text-center">PDF</th>
+            <th class="text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -249,10 +248,8 @@
               <td style="text-align :right;"><% if !q.total_excl_tax.nil? %><%= number_to_currency(q.total_excl_tax, :locale => :fr)  %> <strong> HT </strong></td><% else %>-<% end %></td>
             <td class="text-center"><% if !q.date.nil? %><%=  q.date.strftime("%d/%m/%y") %><% else %>-<% end %></td>
             <td class="text-center">
-              <%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_path(q) ,{:title => "Éditer le devis", :class =>"btn"}  %>
-            </td>
-            <td class="text-center">
-              <%= link_to image_tag("glyphicons/glyphicons_015_print.png"), quotation_path(q, :format => "pdf"),{:title => "Afficher le PDF", :class =>"btn"} %>
+              <%= link_to '<i class="fa fa-edit fa-2x"></i>'.html_safe, edit_quotation_path(q) ,{:title => "Éditer le devis" }  %>
+              <%= link_to '<i class="fa fa-print fa-2x"></i>'.html_safe, quotation_path(q, :format => "pdf"),{:title => "Afficher le PDF" } %>
             </td>
           </tr>
         <% end %>

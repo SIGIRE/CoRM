@@ -95,8 +95,8 @@
 	<hr /> 
     
   <div class="row">
-    <%= if !@template.id.nil? then f.submit 'Modifier ce Modèle', :class =>"btn btn-primary",:id =>"template_validate_form" else f.submit 'Créer un Modèle', :class =>"btn btn-primary",:id =>"template_validate_form" end%>
-    <%= if !@template.id.nil? then link_to image_tag("glyphicons/glyphicons_016_bin.png"), @template, :title => "Supprimer le modèle", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn trash", :method => :delete end %> 
+    <%= if !@template.id.nil? then f.submit 'Modifier le modèle', :class =>"btn btn-primary",:id =>"template_validate_form" else f.submit 'Créer un modèle', :class =>"btn btn-primary",:id =>"template_validate_form" end%>
+    <%= if !@template.id.nil? then link_to "Supprimer le modèle", @template, :title => "Supprimer le modèle", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn btn-danger", :method => :delete end %> 
 
   </div>    
     
