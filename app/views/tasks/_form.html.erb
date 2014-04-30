@@ -147,7 +147,7 @@
 	<hr />
   <div class="row row-fluid">
 	  <%= if !@task.id.nil? then f.submit 'Modifier la tâche', :class =>"btn btn-primary" else f.submit 'Créer une tâche', :class =>"btn btn-primary" end %>
-		<%= if !@task.new_record? && (can? :destroy, @task) then link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, @task, :title => "Supprimer la tâche" , :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn btn-danger", :method => :delete end %>    
+		<%= if !@task.new_record? && (can? :destroy, @task) then link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, @task, :title => "Supprimer la tâche" , :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %>    
   </div>
 <% end %>
 <!-- end form task -->

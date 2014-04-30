@@ -152,7 +152,7 @@
 
     <%# Ajout du bouton de suppression %>
 		<% if !@contact.id.nil? %>
-		 	<%= link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, @contact, :title => "Supprimer le contact", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn btn-danger", :method => :delete %>
+		 	<%= link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, @contact, :title => "Supprimer le contact", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete %>
 		<% end %> 
   </div>
  
