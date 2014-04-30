@@ -38,7 +38,7 @@
   
    <div class="row">
    <%= if !@tag.id.nil? then f.submit 'Modifier le tag', :class =>"btn btn-primary",:id =>"tag_validate_form" else f.submit 'Créer un tag', :class =>"btn btn-primary",:id =>"tag_validate_form" end%>
-   <%= if !@tag.id.nil? then link_to "Supprimer le tag", @tag, :title => "Supprimer le tag", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn btn-danger", :method => :delete end %> 
+   <%= if !@tag.id.nil? then link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, @tag, :title => "Supprimer le tag", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn btn-danger", :method => :delete end %> 
     </div>
   </div>
 <% end %>

@@ -636,12 +636,8 @@ body { padding-top: 60px; }
   font-size: $baseFontSize;
 }
 
-table a i {
-  color: #000;
-  &:hover { color: #4C818C }
-}
-
-.well a i {
+// When glyphicons are used as flat button
+.action-icon {
   color: #000;
   &:hover { color: #4C818C }
 }
