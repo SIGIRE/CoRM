@@ -27,6 +27,24 @@ class ContactsController < ApplicationController
       format.csv { render :text => @contacts.to_csv }
     end
   end
+  
+  ##
+  # Same as index, for extraction
+  #
+  # GET /contacts
+  # GET /contacts.json
+  def extract
+    @contacts = apply_scopes(Contact).
+                order("surname")
+
+    flash.now[:alert] = "Pas de contacts !" if @contacts.empty?
+
+    respond_to do |format|
+      format.html { @contacts = @contacts.page(params[:page]) }
+      format.json { render :json => @contacts }
+      format.csv { render :text => @contacts.to_csv }
+    end
+  end
 
   ##
   # Show one occurence of Contact

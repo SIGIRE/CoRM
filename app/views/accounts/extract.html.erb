@@ -1,0 +1,112 @@
+<div class="container-fluid" style="margin-top: 1em;">
+   
+
+  <div class="well">
+       <div class="row-fluid">
+         <div class="span9">
+				<h1>Extraction des comptes</h1>
+         </div>
+         <%= link_to '<i class="fa fa-cloud-download fa-3x action-icon"></i>'.html_safe, {format: :csv, params: params.except(:action, :controller)},{:title => "Télécharger en CSV", :class=>"pull-right"} %>
+    </div>
+
+         
+</div>
+
+<!-- FILTER -->
+
+  <div class="container-fluid">
+    <div class="field">
+      <label class="checkbox">
+        <%= check_box_tag :generate, "yes" %>
+        Rechercher dans les comptes
+      </label>
+    </div>
+  </div>
+
+<div id="task_value" class="container-fluid" style= "display: none;">
+  <%= form_tag('/comptes/extract', method: :get) do %>
+      <div class="row row-fluid">
+		<div class="">
+			<%= label_tag :company, "Société :", :class => "top" %>
+      <%= text_field_tag 'company' %>
+		</div>
+		<div class="">
+			<%= label_tag :contact, "Contact :", :class => "top" %>
+      <%= text_field_tag 'contact' %>
+		</div>
+		<div class="">
+			<%= label_tag :phone, "Téléphone :", :class => "top" %>
+      <%= text_field_tag 'phone' %>
+		</div>
+		<div>
+        <%= submit_tag "Filtrer", :class =>"btn "%>
+		</div>
+	  </div>
+   <% end %>
+</div>  
+
+<!-- END FILTER -->
+
+
+<div class="container-fluid">
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+	<th class="text-center">Soci&eacute;t&eacute;</th>
+	<th class="text-center">Adresse</th>	  
+	<th class="text-center">Genre</th>
+	<th class="text-center">Téléphone</th>
+	<th class="text-center">Site Web</th>
+    </tr>
+    </thead>
+	<tbody>
+  <% @accounts.each do |account| %>
+    <tr>
+
+		<% if !account.company.nil? %>
+			<% then %>
+				<td class="text-center"><%= link_to account.company, account_events_url(account),{:title => "Afficher les évenements"} %></td>
+			<% else %>
+				<td class="text-center">-</td>
+		<% end %>
+
+		<% if !account.full_adress.blank? %>
+			<% then %>
+				<td class="text-center"><%= account.full_adress %></td>
+			<% else %>
+				<td class="text-center">-</td>
+		<% end %>
+      
+		<% if !account.category.nil? %>
+			<% then %>
+				<td class="text-center"><%= account.category %></td>
+			<% else %>
+				<td class="text-center">-</td>
+		<% end %>
+
+		<% if !account.tel.blank? %>
+			<% then %>
+				<td class="text-center"><%= account.tel %></td>
+			<% else %>
+				<td class="text-center">-</td>
+		<% end %>
+
+		<% if !account.web.blank? then %>
+			<%
+			url = account.web
+				if !url[/http:\/\//].nil?
+					url = url[7..url.length]
+				elsif !url[/https:\/\//].nil?
+					url = url[8..url.length]
+				end
+			%>
+				<td class="text-center"><%= link_to url, account.web, :target => "_blank" %></td>
+		<% else %>
+				<td class="text-center">-</td>
+		<% end %>
+  </tr>
+  <% end %>
+  </tbody>
+  </table>
+  <%= paginate @accounts %>
+</div>
