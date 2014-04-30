@@ -4,9 +4,9 @@
      <div class="well">
        <div class="row-fluid">
          <div class="span9">
-           <h1>Devis</h1>
+           <h2>Devis de <%= @account.company %></h2>
          </div>
-           <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_quotation_path(account_id: @account.id) ,{:title => "Créer un devis", :class =>"pull-right btn"}%>
+         <%= link_to '<i class="fa fa-plus-circle fa-3x"></i>'.html_safe, new_quotation_path(account_id: @account.id) ,{:title => "Créer un devis", :class =>"pull-right"}%>
        </div>
      </div>
 

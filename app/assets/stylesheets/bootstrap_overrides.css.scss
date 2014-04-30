@@ -576,7 +576,6 @@ span.caret-up {
 				.notes {
 					background-color: #FFF;
 					padding: 8px;
-					font-size: 14px;
 					word-wrap: break-word;
 					text-align: justify;
 				}
@@ -645,4 +644,14 @@ table a i {
 .well a i {
   color: #000;
   &:hover { color: #4C818C }
+}
+
+// Those two sets of instructions rule badge positionning on the alert icon of the top menu.
+.relative {
+  position: relative
+}
+.badge.bottom-right {
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
 }

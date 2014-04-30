@@ -15,7 +15,7 @@
     <tr>
       <td class="text-center"><%= type.label %></td>
       <td class="text-center"><%= type.direction %></td>
-      <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_event_type_path(type),{:title => "Éditer le type", :class =>"btn"}%></td>
+      <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x"></i>'.html_safe, edit_event_type_path(type),{:title => "Éditer le type"}%></td>
      </tr>
   <% end %>
   </tbody>

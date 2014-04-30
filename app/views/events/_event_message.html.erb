@@ -28,7 +28,7 @@
           <% elsif !e.event_type.nil? %>
           <strong><%= e.event_type.full_type %></strong> <%= action %> par <%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %>.
             <% else %>
-              <%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %> à effectué une action<% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>.
+              <%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %> a effectué une action<% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>.
         <% end %>
         <% else %>
         <%= link_to "Tâche n° #{e.task.id}", edit_task_path(e.task.id) %> <%= action %> par <%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %> <% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>.

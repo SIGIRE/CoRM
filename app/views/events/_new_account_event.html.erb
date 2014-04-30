@@ -3,11 +3,11 @@
     <%= javascript_include_tag "attachments" %>
 <% end %>
 
-<%= form_for([@account, @event_new], :html => { :class => "well ", :multipart => true}) do |f| %>
+<%= nested_form_for([@account, @event_new], :html => { :class => "well ", :multipart => true}) do |f| %>
   <div class="row row-fluid by_2">
     <div class="field-group">
       <div class="field small-date">
-        <p><%= f.label :date_begin, "Début :", :class => 'top' %><%= f.text_field :date_begin, :value => Date.today.strftime("%d/%m/%Y"), :class =>"event_date" %></p>
+        <p><%= f.label :date_begin, "Début :", :class => 'top' %><%= f.text_field :date_begin, :value => Date.today.strftime("%d/%m/%Y"), class: "event_date", data: { provide: "datepicker" } %></p>
       </div>
       <div class="field time">
         <%= f.label :date_begin, " à ", { :class => 'no-margin-bottom' } %><%= f.time_select :date_begin , :class => "event_time" %>
@@ -15,7 +15,7 @@
     </div>
     <div class="field-group">
       <div class="field small-date">
-        <p><%= f.label :date_end, "Fin : ", :class => 'top' %><%= f.text_field :date_end, :value => Date.today.strftime("%d/%m/%Y"), :class =>"event_date" %></p>
+        <p><%= f.label :date_end, "Fin : ", :class => 'top' %><%= f.text_field :date_end, :value => Date.today.strftime("%d/%m/%Y"), class: "event_date", data: { provide: "datepicker" } %></p>
       </div>
       <div class="field time text-center">
         <%= f.label :date_end, " à ", { :class => 'no-margin-bottom' } %><%= f.time_select :date_end , :class => "event_time" %>
@@ -37,22 +37,29 @@
     </div>
   </div>
   <%#Affichage du champ d'ajout de pièce jointe %>
-<div class="row row-fluid">
-	<div class="field full">
-      <div><%= f.label :event_attachments_attach, "Pièce-jointe : ", :class => 'top' %> </div>
-      <div id="new_attachments">
-        <%= f.file_field('event-attachments_attach', name: "event[event_attachments_attributes][][attach]") %>
-      </div>
-      <input type="hidden" id="attachment_id" value="1">
-	</div>
-</div>
 
-<%#Affichage du bouton d'ajout de pièce-jointe %>
-<div class="row row-fluid">
-	<div class="field full">
-		<input type="image" src="/assets/glyphicons/glyphicons_190_circle_plus.png" class="btn" title="Ajouter une pièce-jointe" onClick="addFileField('event'); return false;">
-	</div>
-</div>
+    <div id="attachments">
+      <%= f.fields_for :event_attachments do |ta| %>
+        <div class="row row-fluid">
+          <div class="field">
+            <div class="span2"></div>
+            <% if ta.object.new_record? %>
+              <%= ta.file_field :attach %>        
+              <script>$ (":file").filestyle({buttonText: 'Choisir un fichier'});</script>
+            <% else %>
+              <%= link_to ta.object.attach_file_name, ta.object.attach.url %>
+            <% end %>
+            <%= ta.link_to_remove "", class: 'icon-remove' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="row row-fluid">
+      <div class="field">
+        <div class="span2"></div><%= f.link_to_add raw('<i class="icon-plus"></i> Ajouter une pièce-jointe'), :event_attachments, data: { target: '#attachments' } %>
+      </div>
+    </div>
 
   <div class="row row-fluid">
     <div class="field">
