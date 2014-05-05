@@ -82,6 +82,7 @@ class Account < ActiveRecord::Base
   scope :by_origin, lambda { |origin| where("origin_id IN (?)", origin) unless origin.blank? }
   scope :by_ids, lambda { |id| where("id IN (?)", id) unless id.blank?}
   scope :active, lambda { where(active: true) }
+  scope :inactive, lambda { where(active: false) }
   scope :none, lambda { where('1 = 0') }
   
   ###
