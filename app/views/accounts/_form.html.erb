@@ -15,7 +15,13 @@
   <div class="field">
 	  <div class="span2"> Société : </div> <%= f.text_field :company ,{ :class => 'required'}  %><span class="req" />
   </div>
-  
+
+  <% if @account.persisted? %>
+  <div class="field">
+    <div class="span2"> Status : </div> <%= f.select :active, options_for_select([["Actif", true], ["Inactif", false]], selected: @account.active) %><span class="req" />
+  </div>
+  <% end %>
+
   <div class="field">
     <div class="span2"> Adresse : </div> <%= f.text_field :adress1 %>
   </div>
