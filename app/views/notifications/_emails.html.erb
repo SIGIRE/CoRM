@@ -20,7 +20,7 @@
         <% @emails.each do |email| %> 
 				<% if email.is_convertible_to_events? %>
           <tr class="success">
-            <td class="text-center"><%=email.contacts.first.full_name%></td>
+            <td class="text-center"><%=email.contacts.first.full_name unless email.contacts.empty? %></td>
             <td class="text-center"><%=email.accounts.first.company%></td>
         <% else %>
           <tr>

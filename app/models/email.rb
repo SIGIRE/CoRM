@@ -24,7 +24,7 @@ class Email < ActiveRecord::Base
   # Checks if self can be converted to an Event instance.
 
   def is_convertible_to_events?
-    !accounts_with_contacts.empty?
+    !accounts_with_contacts.empty? || self.arbitrary_account
   end
 
   ##
@@ -41,8 +41,7 @@ class Email < ActiveRecord::Base
       end
     end
 
-    resultset[arbitrary_account].add(arbitrary_contact) if has_arbitrary_account_and_contact?
-    return resultset
+    resultset
   end
 
   def has_arbitrary_account_and_contact?
@@ -53,7 +52,9 @@ class Email < ActiveRecord::Base
   # Returns an array populated with accounts related to TO field.
 
   def accounts
-    accounts_with_contacts.keys
+    accounts = accounts_with_contacts.keys
+    accounts << arbitrary_account if arbitrary_account
+    accounts
   end
 
   ##
@@ -64,45 +65,57 @@ class Email < ActiveRecord::Base
     accounts_with_contacts.values.each do |contacts_set|
       contacts_set.each { |contact| resultset << contact }
     end
+    resultset << arbitrary_contact if arbitrary_contact
     resultset
   end
 
   private ##########################################################################
 
   ##
-  # Creates and returns an array of Event from current Email instance.
+  # Returns an array of Event from current Email instance.
   # There's one Event by identified account
 
   def convert
     events = []
+    # accounts_with_contacts.each { |account, contacts| events.push(create_event account, contacts) }
 
-    accounts_with_contacts.each do |account, contacts|
-      event = Event.new
-      event.account_id = account.id
-      event.contact_id = contacts.first.id
-      event.created_by = self.user_id
-      event.user_id = self.user_id
-      event.event_type_id = self.event_type_id
-
-      event.date_begin = self.send_at
-      event.date_end = self.send_at
-      event.notes = ""
-      event.notes += "Envoyé à : #{generate_string_from_mails(self.to)}" if self.to.length > 1 
-      event.notes += " - " if (self.to.length > 1) && !(self.cc.empty?)
-      event.notes += "Copie : #{generate_string_from_mails(self.cc)}\n" unless self.cc.empty?
-      event.notes +=  "Sujet : #{self.object}\n\n" unless self.object.blank?
-      event.notes += "#{self.content}"
-
-      self.attachments.each do |attachment|
-        attach = EventAttachment.new
-        attach.attach = attachment.attach
-        event.event_attachments.push attach
-      end
-
-      events.push event
+    if self.arbitrary_account
+      contacts = []
+      contacts.push self.arbitrary_contact if self.arbitrary_contact
+      events.push(create_event arbitrary_account, contacts)
     end
 
-    return events
+    events
+  end
+
+  ##
+  # Returns an event from an Account and an array of Contact
+  # for current Email instance.
+
+  def create_event account, contacts
+    event = Event.new
+    event.account_id = account.id
+    event.contact_id = contacts.first.id unless contacts.empty?
+    event.created_by = self.user_id
+    event.user_id = self.user_id
+    event.event_type_id = self.event_type_id
+
+    event.date_begin = self.send_at
+    event.date_end = self.send_at
+    event.notes = ""
+    event.notes += "Envoyé à : #{generate_string_from_mails(self.to)}" if self.to.length > 1 
+    event.notes += " - " if (self.to.length > 1) && !(self.cc.empty?)
+    event.notes += "Copie : #{generate_string_from_mails(self.cc)}\n" unless self.cc.empty?
+    event.notes +=  "Sujet : #{self.object}\n\n" unless self.object.blank?
+    event.notes += "#{self.content}"
+
+    self.attachments.each do |attachment|
+      attach = EventAttachment.new
+      attach.attach = attachment.attach
+      event.event_attachments.push attach
+    end
+
+    event
   end
 
   ##

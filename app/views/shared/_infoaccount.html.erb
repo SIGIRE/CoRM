@@ -1,6 +1,12 @@
 <div id="account-info-container">
   <p>
-    <%= link_to image_tag("glyphicons/glyphicons_020_home.png"), edit_account_path(@account),{:title => "Éditer le compte"} %> <i>(<%= @account.category %>)</i><br />
+    <%= link_to image_tag("glyphicons/glyphicons_020_home.png"), edit_account_path(@account),{:title => "Éditer le compte"} %> <i>(<%= @account.category %>)</i>
+
+    <% unless @account.active %>
+      <i class="fa fa-ban fa-2x pull-right"></i>
+    <% end %>
+    
+    <br />
   <% if !@account.company.blank? %>
     <b><%= @account.company %></b><br />
   <% end %>
