@@ -19,12 +19,7 @@ class ApplicationController < ActionController::Base
   end
   
   def get_locale
-    default_locale = I18n.default_locale
-    if current_user
-      I18n.locale = current_user.locale || default_locale
-    else
-      I18n.locale = default_locale
-    end
+    I18n.locale = current_user.locale unless current_user.locale.blank?
   end
 
   def after_sign_out_path_for(resource_or_scope)
