@@ -38,6 +38,10 @@
 			<%= label_tag :phone, "Téléphone :", :class => "top" %>
       <%= text_field_tag 'phone' %>
 		</div>
+    <div class="">
+      <%= label_tag :inactive, "Inactifs :", class: 'top' %>
+      <%= check_box_tag :inactive %>
+    </div>
 		<div>
         <%= submit_tag "Filtrer", :class =>"btn "%>
 		</div>
