@@ -23,6 +23,12 @@
     <div class="span2"> Civilité : </div> <%= f.select :title, Contact::TITLES, {:include_blank => true} %>
   </div>
   
+  <% if @contact.persisted? %>
+  <div class="field">
+    <div class="span2"> Status : </div> <%= f.select :active, options_for_select([["Actif", true], ["Inactif", false]], selected: @contact.active) %>
+  </div>
+
+  <% end %>
   <div class="field">
     <div class="span2"> Téléphone : </div> <%= f.text_field :tel %>
   </div>
@@ -145,9 +151,9 @@
 
 	<div class="row">
 	  <% if (!@contact.id.nil?) %> 
-			<%= f.submit 'Modifier le contact', :class =>"btn btn-primary",:id =>"contact_submit_form" %>
+			<%= f.button 'Modifier le contact', :type => :submit, :class =>"btn btn-primary",:id =>"contact_submit_form" %>
 		<% else %>
-			<%= f.submit 'Créer un contact', :class =>"btn btn-primary",:id =>"contact_submit_form" %>
+			<%= f.button 'Créer un contact', :type => :submit, :class =>"btn btn-primary",:id =>"contact_submit_form" %>
 		<% end %>
 
     <%# Ajout du bouton de suppression %>

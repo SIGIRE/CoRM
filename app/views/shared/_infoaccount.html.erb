@@ -43,7 +43,7 @@
 <div id="contacts_list">
 <% if !@account.contacts.nil? and @account.contacts.length > 0 %>
 
-<% @account.contacts.order_by_surname.each do |contact| %>
+<% @account.contacts.active.order_by_surname.each do |contact| %>
   <div class="contact-container">
     <% if contact.title == "Mme"%>
       <%= link_to image_tag("glyphicons/glyphicons_035_woman.png"), edit_contact_path(contact),{:title => "Éditer le contact"} %> <% if !contact.job.blank? then %> <i class="contact-job">(<%= contact.job %>)</i><% end %>

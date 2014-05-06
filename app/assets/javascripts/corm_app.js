@@ -2,8 +2,11 @@ $(document).ready(function() {
   
   /* Spinning icon on form submit */
   $('form').on('submit', function() {
-    var button = $(this).find(':submit');
-    button.html('<i class="fa fa-lg fa-spinner fa-spin"></i> Chargement...');
+    var validator = $(this).validate();
+    if (validator.form()) {
+      var button = $(this).find(':submit');
+      button.html('<i class="fa fa-lg fa-spinner fa-spin"></i> Chargement...');
+    }
   });
 
   /* AlertBox fadeout */

@@ -36,6 +36,10 @@
 			<%= label_tag :by_tel_like, "Téléphone :", :class => "top" %>
       <%= text_field_tag :by_tel_like %>
 		</div>
+    <div class="">
+      <%= label_tag :inactive, "Inactifs :", class: 'top' %>
+      <%= check_box_tag :inactive %>
+    </div>
 		<div>
         <%= submit_tag "Filtrer", :class =>"btn "%>
 		</div>
