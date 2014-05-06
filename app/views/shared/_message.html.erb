@@ -1,14 +1,14 @@
 <% if notice %>
     <!-- Alerte 'notice' -->
 	<script>
-        alertify.success('<strong><%= notice %></strong>');
+        alertify.success('<strong><i class="fa fa-check-circle fa-lg"></i>&nbsp;<%= notice %></strong>');
     </script>
 <% end %>
    
 <% if alert %>
     <!-- Alerte 'alert' -->
     <script>
-        alertify.error("<strong><%= alert %><strong>");
+        alertify.error('<strong><i class="fa fa-exclamation-circle fa-lg"></i>&nbsp;<%= alert %><strong>');
     </script>
 <% end %>
 
