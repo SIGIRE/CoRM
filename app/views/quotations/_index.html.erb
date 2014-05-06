@@ -73,7 +73,7 @@
       <td class="text-center">-</td>
   <% end %>	
       
-  <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x"></i>'.html_safe, edit_quotation_path(quotation),{:title => "Éditer le devis"} %> <%= link_to '<i class="fa fa-print fa-2x"></i>'.html_safe, quotation_path(quotation, :format => "pdf"),{:title => "Afficher le PDF", :target => '_blank'} %></td>
+  <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_quotation_path(quotation),{:title => "Éditer le devis"} %> <%= link_to '<i class="fa fa-print fa-2x action-icon"></i>'.html_safe, quotation_path(quotation, :format => "pdf"),{:title => "Afficher le PDF", :target => '_blank'} %></td>
   </tr>
   <% end %>
   </tbody>

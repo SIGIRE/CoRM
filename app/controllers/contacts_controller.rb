@@ -9,6 +9,9 @@ class ContactsController < ApplicationController
   has_scope :by_account_company_like
   has_scope :by_full_name_like
   has_scope :by_tel_like
+  has_scope :active, type: :boolean, default: true
+  has_scope :inactive, type: :boolean
+  has_scope :by_account_id
 
   ##
   # Show the full list of Contact by paginate_by
@@ -16,6 +19,24 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
+    @contacts = apply_scopes(Contact).
+                order("surname")
+
+    flash.now[:alert] = "Pas de contacts !" if @contacts.empty?
+
+    respond_to do |format|
+      format.html { @contacts = @contacts.page(params[:page]) }
+      format.json { render :json => @contacts }
+      format.csv { render :text => @contacts.to_csv }
+    end
+  end
+  
+  ##
+  # Same as index, for extraction
+  #
+  # GET /contacts
+  # GET /contacts.json
+  def extract
     @contacts = apply_scopes(Contact).
                 order("surname")
 

@@ -16,7 +16,7 @@
     <tr>
       <td class="text-center"><%= origin.name %></td>
       <td class="text-center"><%= truncate(origin.description, :length => 300, :separator => ' ')%></td>
-      <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x"></i>'.html_safe, edit_origin_path(origin),{:title => "Éditer l'origine"} %></td>   
+      <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_origin_path(origin),{:title => "Éditer l'origine"} %></td>   
     </tr>
   <% end %>
   </tbody>

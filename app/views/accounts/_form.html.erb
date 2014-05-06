@@ -15,7 +15,13 @@
   <div class="field">
 	  <div class="span2"> Société : </div> <%= f.text_field :company ,{ :class => 'required'}  %><span class="req" />
   </div>
-  
+
+  <% if @account.persisted? %>
+  <div class="field">
+    <div class="span2"> Status : </div> <%= f.select :active, options_for_select([["Actif", true], ["Inactif", false]], selected: @account.active) %>
+  </div>
+  <% end %>
+
   <div class="field">
     <div class="span2"> Adresse : </div> <%= f.text_field :adress1 %>
   </div>
@@ -100,8 +106,8 @@
 	<hr />
   
   <div class="row">
-	<%= if !@account.id.nil? then f.submit 'Modifier le compte', :class =>"btn btn-primary",:id =>"account_validate_form" else f.submit 'Créer un compte', :class =>"btn btn-primary",:id =>"account_validate_form" end%>
-    <%= if !@account.id.nil? then  link_to "Supprimer le compte", @account,:title => "Supprimer le compte", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn btn-danger", :method => :delete end %>
+    <%= if !@account.id.nil? then f.button 'Modifier le compte', :type => :submit, :class =>"btn btn-primary",:id =>"account_validate_form" else f.button 'Créer un compte', :type => :submit, :class =>"btn btn-primary",:id =>"account_validate_form" end%>
+    <%= if !@account.id.nil? then  link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, @account,:title => "Supprimer le compte", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %>
   </div>
  
 </form>

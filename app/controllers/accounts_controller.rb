@@ -10,11 +10,30 @@ class AccountsController < ApplicationController
   has_scope :by_company_like, as: :company
   has_scope :by_contact_full_name_like, as: :contact
   has_scope :by_tel, as: :phone
+  has_scope :active, type: :boolean, default: true
+  has_scope :inactive, type: :boolean
 
   ##
   # Show the full list of Accounts by paginate_by
 
   def index
+    @accounts = apply_scopes(Account).
+                order("company")
+   
+    #creation des ensembles contenant les comptes et contacts pour l'utilisation du typeahead
+    @autocomplete_accounts = Account.find(:all,:select=>'company').map(&:company) #societe
+    @autocomplete_contacts = Contact.find(:all,:select=>'surname').map(&:surname) #nom
+
+    flash.now[:alert] = "Pas de comptes !" if @accounts.empty?
+
+    respond_to do |format|
+      format.html { @accounts = @accounts.page(params[:page]) }
+      format.json { render :json => @accounts }
+      format.csv { render :text => @accounts.to_csv }
+    end
+  end
+
+  def extract
     @accounts = apply_scopes(Account).
                 active.
                 order("company")

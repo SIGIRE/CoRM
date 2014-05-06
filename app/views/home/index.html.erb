@@ -11,7 +11,7 @@
         <tr>
           <th colspan="9">
             <h2 class="pull-left">Mes <%= t('app.model.Task').pluralize %></h2>
-            <%= link_to '<i class="fa fa-plus-circle fa-3x"></i>'.html_safe, new_task_path ,{:title => "Créer une tâche", :class=>"pull-right", :style => 'display: inline-block'} %>
+            <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_task_path ,{:title => "Créer une tâche", :class=>"pull-right", :style => 'display: inline-block'} %>
           </th>
         </tr>
         <tr>
@@ -74,7 +74,7 @@
                 <td class="text-center">-</td>
               <% end %>
               <td class="text-center">
-                <%= link_to '<i class="fa fa-edit fa-2x"></i>'.html_safe, edit_task_path(t) ,{:title => "Éditer la tâche" }  %>
+                <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_task_path(t) ,{:title => "Éditer la tâche" }  %>
               </td>
             </tr>
           <% end %>
@@ -147,7 +147,7 @@
             <tr>
               <th colspan="9">
                 <h2 class="pull-left">Mes <%= t('app.model.Opportunity').pluralize %></h2>
-                <%= link_to '<i class="fa fa-plus-circle fa-3x"></i>'.html_safe, new_task_path ,{:title => "Créer une opportunité", :class=>"pull-right", :style => 'display: inline-block'} %>
+                <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_task_path ,{:title => "Créer une opportunité", :class=>"pull-right", :style => 'display: inline-block'} %>
               </th>
             </tr>
             <tr>
@@ -194,7 +194,7 @@
                 <td class="text-center">-</td>
               <% end %>
               <td class="text-center">
-                <%= link_to '<i class="fa fa-edit fa-2x"></i>'.html_safe, edit_opportunity_path(o) ,{:title => "Éditer l'opportunité"}  %>
+                <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_opportunity_path(o) ,{:title => "Éditer l'opportunité"}  %>
               </td>				
             </tr>
           <% end %>
@@ -214,7 +214,7 @@
           <tr>
             <th colspan="9">
               <h2 class="pull-left">Mes <%= t('app.model.Quotation').pluralize %></h2>
-              <%= link_to '<i class="fa fa-plus-circle fa-3x"></i>'.html_safe, new_quotation_path ,{:title => "Créer un devis", :class=>"pull-right", :style => 'display: inline-block'} %>
+              <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_quotation_path ,{:title => "Créer un devis", :class=>"pull-right", :style => 'display: inline-block'} %>
 
             </th>
           </tr>
@@ -248,8 +248,8 @@
               <td style="text-align :right;"><% if !q.total_excl_tax.nil? %><%= number_to_currency(q.total_excl_tax, :locale => :fr)  %> <strong> HT </strong></td><% else %>-<% end %></td>
             <td class="text-center"><% if !q.date.nil? %><%=  q.date.strftime("%d/%m/%y") %><% else %>-<% end %></td>
             <td class="text-center">
-              <%= link_to '<i class="fa fa-edit fa-2x"></i>'.html_safe, edit_quotation_path(q) ,{:title => "Éditer le devis" }  %>
-              <%= link_to '<i class="fa fa-print fa-2x"></i>'.html_safe, quotation_path(q, :format => "pdf"),{:title => "Afficher le PDF" } %>
+              <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_quotation_path(q) ,{:title => "Éditer le devis" }  %>
+              <%= link_to '<i class="fa fa-print fa-2x action-icon"></i>'.html_safe, quotation_path(q, :format => "pdf"),{:title => "Afficher le PDF" } %>
             </td>
           </tr>
         <% end %>

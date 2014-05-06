@@ -6,7 +6,7 @@
          <div class="span9">
            <h2>Relation(s) de <%= @account.company %></h2>
          </div>
-           <%= link_to '<i class="fa fa-plus-circle fa-3x"></i>'.html_safe, new_relation_path(:account_id_1 => @account.id) ,{:title => "Créer une relation", :class =>"pull-right"}%>
+           <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_relation_path(:account_id_1 => @account.id) ,{:title => "Créer une relation", :class =>"pull-right"}%>
        </div>
      </div>
 
@@ -33,7 +33,7 @@
         <td class="text-center"><%= relation.account1.company %></td>
         <td class="text-center"><%= relation.name %></td>
         <td class="text-center"><%= relation.account2.company %></td>
-        <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x"></i>'.html_safe, edit_relation_path(relation) ,{:title => "Modifier la relation"} %></td>
+        <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_relation_path(relation) ,{:title => "Modifier la relation"} %></td>
     <% end %>
     </table>
     

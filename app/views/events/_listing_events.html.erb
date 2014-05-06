@@ -63,7 +63,7 @@ function display(id) {
 
         <p class="time">
           <% if e.created_by == current_user.id or e.modified_by == current_user.id or current_user.has_role? :super_user %>
-            <%= link_to "Supprimer", event_path(e), :data => { :confirm => 'Confirmer la Suppression?'},:class => "" , :title => "Supprimer l'évènement", :method => :delete %>
+            <%= link_to '<i class="fa fa-trash-o action-icon"></i>'.html_safe, event_path(e), :data => { :confirm => 'Confirmer la Suppression?'},:class => "" , :title => "Supprimer l'évènement", :method => :delete %>
           <% end %>
         </p>
         

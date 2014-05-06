@@ -117,8 +117,8 @@
   <% end %>
   <hr />
   <div class="row row-fluid">
-	<%= if !@opportunity.id.nil? then f.submit "Modifier l'opportunité", :class =>"btn btn-primary",:id =>"opportunity_submit_form" else f.submit 'Créer une opportunité', :class =>"btn btn-primary",:id =>"opportunity_submit_form" end %>
-	<%= if !@opportunity.id.nil? then link_to "Supprimer l'opportunité", opportunity_path(@opportunity), :title => "Supprimer l'opportunité", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn btn-danger", :method => :delete end %> 
+	<%= if !@opportunity.id.nil? then f.button "Modifier l'opportunité", :type => :submit, :class =>"btn btn-primary",:id =>"opportunity_submit_form" else f.button 'Créer une opportunité', :type => :submit, :class =>"btn btn-primary",:id =>"opportunity_submit_form" end %>
+	<%= if !@opportunity.id.nil? then link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, opportunity_path(@opportunity), :title => "Supprimer l'opportunité", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
  
   </div>
 <% end %>
