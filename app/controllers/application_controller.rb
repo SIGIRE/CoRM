@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   end
   
   def get_locale
-    I18n.locale = current_user.locale unless current_user.locale.blank?
+    I18n.locale = current_user.locale unless current_user.nil? || current_user.locale.blank?
   end
 
   def after_sign_out_path_for(resource_or_scope)
