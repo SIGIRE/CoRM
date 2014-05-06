@@ -78,17 +78,9 @@ class Contact < ActiveRecord::Base
   #
   TITLES = ["M.", "Mme"]
   
-  ##
-  # Order by surname
-  #
   scope :order_by_surname, :order => 'surname'
-  
-  ##
-  # Get contacts by company
-  # * *Args*
-  #   +company+ An instance of Account
-  #
   scope :by_account_company_like, lambda { |company| joins(:account).where("accounts.company LIKE UPPER(?)", "#{company}%") unless company.blank? }
+  scope :by_account_id, lambda { |account_id| where(account_id: account_id) }
   scope :by_surname, lambda { |surname| where('surname LIKE ?', surname) unless surname.blank?}
   scope :by_forename, lambda { |forename| where('forename LIKE ?', forname) unless forename.blank? }
   scope :by_tel_like, lambda { |tel| where("tel LIKE ?", '%'+tel+'%') unless tel.blank? }
@@ -109,7 +101,8 @@ class Contact < ActiveRecord::Base
            )
     end
   end)
+  scope :active, lambda { where(active: true) }
+  scope :inactive, lambda { where(active: false) }
   scope :none, lambda { where('1 = 0') }
-
   
 end
