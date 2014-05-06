@@ -52,7 +52,7 @@
 	<% end %>
 	<hr />
   <div class="field">
-    <%= f.submit 'Créer une relation', :class =>"btn btn-primary"%>
-	<%= if !@relation.id.nil? then  link_to "Supprimer la relation", @relation,:title => "Supprimer la relation", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn btn-danger", :method => :delete end %>
+    <%= f.button 'Créer une relation', :type => :submit, :class =>"btn btn-primary"%>
+	<%= if !@relation.id.nil? then  link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, @relation,:title => "Supprimer la relation", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %>
   </div>
 <% end %>

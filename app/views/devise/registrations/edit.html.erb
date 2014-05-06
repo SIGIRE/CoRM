@@ -4,11 +4,11 @@
        <div class="row-fluid">
          <div class="span9">
            <h1>Édition du compte Utilisateur</h1></div>
-		     <%= link_to '<i class="fa fa-arrow-circle-left fa-3x"></i>'.html_safe, :back ,{:title => "Retour", :class =>"pull-right"} %>
+		     <%= link_to '<i class="fa fa-arrow-circle-left fa-3x action-icon"></i>'.html_safe, users_path ,{:title => "Retour", :class =>"pull-right"} %>
 		</div>
 	 </div>
   
-  <%= form_for(@user, :url => user_path(@user), :html => { :method => :put , :class => "well"}) do |f| %>
+   <%= form_for(@user, :url => user_path(@user), :html => { :autocomplete => 'off', :method => :put , :class => "well"}) do |f| %>
     <%= devise_error_messages! %>
   
     <div class="field"> <div class="span2">Login : </div> <%= f.email_field :email , :disabled => @email_disabled, :style=>'width: 20em;' %><span class="req" />
@@ -30,6 +30,11 @@
     <div class="field"> <div class="span2">Mobile : </div>
       <%= f.text_field :mobile, { :style=>'width: 20em;' } %>
     </div>
+
+    <div class="field"><div class="span2"> Langue : </div>
+      <%= f.select :locale, I18n.available_locales %>
+    </div>
+
     <% if current_user.has_role?(:admin) %>
 		 <div class="row row-fluid">
 		      <div class="field full">
@@ -61,18 +66,18 @@
         <% unless current_user.has_role? :super_user %>
         <div class="span3">
           Mot de passe actuel : (obligatoire)<br />
-          <%= f.password_field :current_password, :id => "c_pwd" %>
+          <%= f.password_field :current_password, { autocomplete: 'off' } %>
         </div>
         <% end %>
 
         <div class="span3">
           Nouveau mot de passe : <br />
-          <%= f.password_field :password, {:id => "pwd", :autocomplete => "off"} %>
+          <%= f.password_field :password, { :autocomplete => "off" } %>
         </div>
         
         <div class="span3">
           Confirmer mot de passe : <br />
-        <%= f.password_field :password_confirmation , :id => "pwd_confirm"%>
+          <%= f.password_field :password_confirmation, {autocomplete: 'off' } %>
         </div>
       </div>
       
@@ -84,7 +89,7 @@
   </div>
   
   <div>
-    <%= f.submit "Modifier", :class =>"btn btn-primary" , :style =>"margin-left: 122px;"%>
+    <%= f.button "Modifier", :type => :submit, :class =>"btn btn-primary" , :style =>"margin-left: 122px;"%>
   </div>
   
   <% end %>

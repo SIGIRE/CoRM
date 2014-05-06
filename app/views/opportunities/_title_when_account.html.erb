@@ -4,7 +4,7 @@
       <div class="span9">
         <h2>Opportunités de <%= @account.company %></h2>
       </div>
-      <%= link_to '<i class="fa fa-plus-circle fa-3x"></i>'.html_safe, new_opportunity_path(account_id: @account.id), {:title => "Créer une Opportunité", :class =>"pull-right"}%>
+      <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_opportunity_path(account_id: @account.id), {:title => "Créer une Opportunité", :class =>"pull-right"}%>
     </div>
   </div>
 </div>

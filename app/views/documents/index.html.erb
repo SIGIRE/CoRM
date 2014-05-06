@@ -6,7 +6,7 @@
          <div class="span8">
            <h2>Documents de <%= @account.company %></h2>
          </div>
-           <%= link_to '<i class="fa fa-plus-circle fa-3x"></i>'.html_safe, new_document_path(:account_id => @account.id) ,{:title => "Créer un document", :class =>"pull-right"}%>
+           <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_document_path(:account_id => @account.id) ,{:title => "Créer un document", :class =>"pull-right"}%>
        </div>
      </div>
 
@@ -40,7 +40,7 @@
             <%= link_to attachment.attach_file_name , attachment.attach.url, :target => '_blank' %><br/>
          <% end %>
          </td>
-         <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x"></i>'.html_safe, edit_document_path(document),{:title => "Éditer le document"} %></td>
+         <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_document_path(document),{:title => "Éditer le document"} %></td>
         </tr>
         <% end %>
       </tbody>

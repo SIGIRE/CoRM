@@ -105,6 +105,7 @@ Crm::Application.routes.draw do
   match 'taches/filter(.:format)', :controller => 'tasks', :action => 'filter', :via => :get, :as => "filter_tasks"
 
   # Accounts
+  match 'comptes/extract', controller: 'accounts', action: 'extract'
   match 'comptes/delete_tag', :controller=> 'accounts', :action =>'delete_tag'
   resources :accounts, :path => 'compte' do
     collection do
@@ -129,6 +130,7 @@ Crm::Application.routes.draw do
 
   # Contacts routes
   set_route('contacts', 'contact', 'contacts');
+  match 'contacts/extract', controller: 'contacts', action: 'extract'
   match 'contacts/search(.:format)', :controller => 'contacts', :action => 'search', :via => :get, :as => "search_contact_index"
   match 'contacts/filter(.:format)', :controller => 'contacts', :action => 'filter', :via => :get, :as => "search_contact_index"
   

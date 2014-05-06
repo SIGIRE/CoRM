@@ -1,5 +1,13 @@
-
-<%= render 'title', :locals => { :title => @title }%>
+<div class="container-fluid" style="margin-top: 1em;">
+     <div class="well">
+       <div class="row-fluid">
+         <div class="span9">
+           <h1>Extraction des contacts</h1>
+         </div>
+         <%= link_to '<i class="fa fa-cloud-download fa-3x action-icon"></i>'.html_safe, {format: :csv, params: params.except(:controller, :action)},{:title => "Télécharger en CSV", :class=>"pull-right"} %>
+     </div>
+	 </div>
+</div>
 
 <!-- FILTER -->
 
@@ -53,7 +61,6 @@
         <th class="text-center">T&eacute;l</th>
         <th class="text-center">Mobile</th>
         <th class="text-center">E-mail</th>
-        <th class="text-center">Actions</th>         
       </tr>
     </thead>
     <tbody>
@@ -112,8 +119,6 @@
             <td class="text-center">-</td>
           <% end %>
 
-
-          <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_contact_path(contact),{:title => "Éditer le contact"} %></td>
         </tr>
       <% end %>
     </tbody>

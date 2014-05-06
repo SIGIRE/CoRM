@@ -166,7 +166,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
     password_changed = !params[:user][:password].empty?
     
-    if password_changed && (current_user.has_role? :super_user)
+    if current_user.has_role? :super_user && password_changed
       successfully_updated = @user.update_attributes(params[:user])
     elsif password_changed
       successfully_updated = @user.update_with_password(params[:user])

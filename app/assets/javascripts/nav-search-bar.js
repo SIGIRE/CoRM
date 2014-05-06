@@ -201,7 +201,7 @@ $(document).ready(function() {
           }
           /* getContacts */
           $.ajax({
-            url: "/taches/update_contact_select/".concat(item.id),
+            url: "/contacts?by_account_id=".concat(item.id),
             dataType: 'json',
             beforeSend: function() {
               select.parent().children('.loading').removeClass('hidden');

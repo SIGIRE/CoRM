@@ -53,7 +53,7 @@
           <% end %>
         <% end %>
         <% if current_user.has_role?(:super_user) or current_user.has_role?(:admin) %>
-        <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x"></i>'.html_safe, edit_user_path(u) ,{:title => "Éditer #{u.full_name}"} %></td>
+        <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_user_path(u) ,{:title => "Éditer #{u.full_name}"} %></td>
         <% end %>
       </tr>
     <% end %>

@@ -49,7 +49,7 @@
   <tr>
     <td style="width: 15em;" class="text-center"><%= tag.name %></td>
     <td><%= truncate(tag.description, :length => 500, :separator => ' ') %></td>
-    <td class="text-center"><%= link_to '<i class="fa fa-trash-o fa-2x"></i>'.html_safe, {:controller => "accounts", :action => "delete_tag", :account_id => @account.id, :tag_id => tag.id } %></td>
+    <td class="text-center"><%= link_to '<i class="fa fa-trash-o fa-2x action-icon"></i>'.html_safe, {:controller => "accounts", :action => "delete_tag", :account_id => @account.id, :tag_id => tag.id } %></td>
 	<% end %>
   </tbody>
 </table>
