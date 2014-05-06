@@ -2,64 +2,67 @@
 
 <div class="navbar navbar-inverted navbar-fixed-top">
   <div class="navbar-inner">
-  <div class="container">
-    <%= link_to image_tag("logo_crm_small.png"), url_for(:controller => 'home', :action => 'index' ) ,:class =>"brand" , :title => "Tableau de bord" %>
+    <div class="container">
+      <div class="navbar-left">
+      <%= link_to image_tag("logo_crm_small.png"), url_for(:controller => 'home', :action => 'index' ) ,:class =>"brand" , :title => "Tableau de bord" %>
 
-        <ul class="nav navbar-nav pull-left">
+      <ul class="nav navbar-nav">
 
-          <!-- TASKS -->
+        <!-- TASKS -->
 
-          <% cssClass = (params[:controller] == 'tasks') ? 'active' : '' %>
-          <li class="<%= "#{cssClass} "%>">
-            <%= link_to '<i class="fa fa-tasks"></i> Tâches'.html_safe, url_for(:controller => 'tasks') %>
-          </li>
+        <% cssClass = (params[:controller] == 'tasks') ? 'active' : '' %>
+        <li class="<%= "#{cssClass} "%>">
+          <%= link_to '<i class="fa fa-tasks"></i> Tâches'.html_safe, url_for(:controller => 'tasks') %>
+        </li>
 
-          <!-- ACTORS -->
+        <!-- ACTORS -->
 
-          <% cssClass = (params[:controller] == 'accounts' or params[:controller] == 'events' or params[:controller] == 'contacts') ? cssClass = 'active' : '' %>
-          <li class="dropdown<%= if !cssClass.blank? then " #{cssClass}" end %>">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-              <i class="fa fa-users"></i> Acteurs
-              <i class="caret"></i>
-            </a>
-            <ul class="dropdown-menu">
-              <li><%= link_to "<i class=\"fa fa-briefcase fa-fw\"></i> #{t('app.model.Account').pluralize}".html_safe, accounts_path %></li>
-              <li><%= link_to "<i class=\"fa fa-user fa-fw\"></i> #{t('app.model.Contact').pluralize}".html_safe, contacts_path %></li>
-            </ul>
-          </li>
+        <% cssClass = (params[:controller] == 'accounts' or params[:controller] == 'events' or params[:controller] == 'contacts') ? cssClass = 'active' : '' %>
+        <li class="dropdown<%= if !cssClass.blank? then " #{cssClass}" end %>">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="fa fa-users"></i> Acteurs
+            <i class="caret"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "<i class=\"fa fa-briefcase fa-fw\"></i> #{t('app.model.Account').pluralize}".html_safe, accounts_path %></li>
+            <li><%= link_to "<i class=\"fa fa-user fa-fw\"></i> #{t('app.model.Contact').pluralize}".html_safe, contacts_path %></li>
+          </ul>
+        </li>
 
-          <!-- TRADES -->
+        <!-- TRADES -->
 
-          <% cssClass = (params[:controller] == 'quotations' or params[:controller] == 'opportunities') ? 'active' : '' %>
-          <li class="dropdown<%= if !cssClass.blank? then " #{cssClass}" end %>">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-              <i class="fa fa-bar-chart-o"></i> Commerce
-              <i class="caret"></i>
-            </a>
-            <ul class="dropdown-menu">
-              <li><%= link_to "<i class=\"fa fa-eur fa-fw\"></i> #{t('app.model.Quotation').pluralize}".html_safe, quotations_path %></li>
-              <li><%= link_to "<i class=\"fa fa-eye fa-fw\"></i> #{t('app.model.Opportunity').pluralize}".html_safe, opportunities_path %></li>
-            </ul>
-          </li>
-        </ul>
+        <% cssClass = (params[:controller] == 'quotations' or params[:controller] == 'opportunities') ? 'active' : '' %>
+        <li class="dropdown<%= if !cssClass.blank? then " #{cssClass}" end %>">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="fa fa-bar-chart-o"></i> Commerce
+            <i class="caret"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "<i class=\"fa fa-eur fa-fw\"></i> #{t('app.model.Quotation').pluralize}".html_safe, quotations_path %></li>
+            <li><%= link_to "<i class=\"fa fa-eye fa-fw\"></i> #{t('app.model.Opportunity').pluralize}".html_safe, opportunities_path %></li>
+          </ul>
+        </li>
+      </ul>
 
-        <div class="navbar-right">
+      </div>
 
-      <!-- FORM SEARCH -->
+      <div class="navbar-right">
 
-      <%= form_tag(search_accounts_path, :method => "get", :class =>"navbar-search", :id =>"form-search") do %>
+        <!-- FORM SEARCH -->
+
+        <%= form_tag(search_accounts_path, :method => "get", :class =>"navbar-search", :id =>"form-search") do %>
           <div class="input-append">
             <%= text_field_tag :account , nil , { :class =>"span3", :placeholder => " Rechercher un acteur...", :autocomplete=> "off", :type => 'text', :id => 'main-search-bar' } %>
-                    <span class="add-on"><i class="icon-search"></i></span>
+            <span class="add-on"><i class="icon-search"></i></span>
             <ul id="search-list" class="typeahead dropdown-menu"></ul>
           </div>
         <% end %>
 
-      <% if user_signed_in? %>
-        <%= render 'shared/right_icon_menu' %>
-      <% end %>
+        <% if user_signed_in? %>
+          <%= render 'shared/right_icon_menu' %>
+        <% end %>
 
       </div>
+    </div>
   </div>
-</div>
 </div>
