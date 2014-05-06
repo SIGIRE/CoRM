@@ -231,5 +231,11 @@ form#form-search {
 
 .navbar-right {
   z-index:50;
-  position:absolute;right:0px;
+  position:absolute;
+  right:0px;
+}
+
+.navbar-left {
+  position:absolute;
+  left:15px;
 }
