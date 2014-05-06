@@ -17,11 +17,12 @@
 
   <!-- NOTIFICATIONS -->
   <li class="nav-item relative">	
-    <%= link_to '<i class="fa fa-bell red"></i>'.html_safe, url_for(:controller => 'notifications', :action => 'index')%>
-    <% if current_user.emails.length > 0 %>
-      <span class="badge badge-important bottom-right"><%= current_user.emails.length %></span>
-      <%# <%= link_to current_user.emails.length, url_for(:controller => 'notifications', :action => 'index'),  {:class => "badge badge-important", :style => "z-index:2; position: absolute; top: 0px; left: 68px;"} %1> %>
-    <% end %>
+	<a href=/notifications>
+		<i class="fa fa-bell"></i>
+		<% if current_user.emails.length > 0 %>
+			<span class="badge badge-important bottom-right"><%= current_user.emails.length %></span>
+		<% end %>
+	</a>
   </li>
 
   <!-- PROFIL -->
