@@ -43,20 +43,23 @@
           </li>
         </ul>
 
-
-      <% if user_signed_in? %>
-        <%= render 'shared/right_icon_menu' %>
-      <% end %>
+        <div class="navbar-right">
 
       <!-- FORM SEARCH -->
 
-        <%= form_tag(search_accounts_path, :method => "get", :class =>"navbar-search pull-right", :id =>"form-search") do %>
+      <%= form_tag(search_accounts_path, :method => "get", :class =>"navbar-search", :id =>"form-search") do %>
           <div class="input-append">
             <%= text_field_tag :account , nil , { :class =>"span3", :placeholder => " Rechercher un acteur...", :autocomplete=> "off", :type => 'text', :id => 'main-search-bar' } %>
                     <span class="add-on"><i class="icon-search"></i></span>
             <ul id="search-list" class="typeahead dropdown-menu"></ul>
           </div>
         <% end %>
+
+      <% if user_signed_in? %>
+        <%= render 'shared/right_icon_menu' %>
+      <% end %>
+
+      </div>
   </div>
 </div>
 </div>
