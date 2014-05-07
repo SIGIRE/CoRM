@@ -3,8 +3,6 @@
 
 require 'bundler/capistrano'
 require './config/CORM_Object.rb'
-require 'fileutils'
-require 'YAML'
 
 # 0: important, 1:info, 2: debug, 3: trace, 4: MAX-LEVEL
 #1logger.level = 4
