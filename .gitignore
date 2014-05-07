@@ -82,3 +82,6 @@ pickle-email-*.html
 
 # Exuberant CTags
 ./tags
+
+# Ignore application configuration
+/config/application.yml
