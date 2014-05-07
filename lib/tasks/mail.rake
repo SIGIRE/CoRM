@@ -14,7 +14,7 @@ namespace :mail do
     mails.each do |mail|
       begin
         mp.process(mail)
-      rescue Exception => e
+      rescue => e
         puts e.backtrace
       end
     end
@@ -32,22 +32,21 @@ namespace :mail do
   end    
 
   def get_mails(connection)
-    mails = nil
-    begin
-      Mail.defaults do
-        retriever_method :pop3,
-          { address: connection.server,
-            port: connection.port,
-            user_name: connection.login,
-            password: connection.password,
-            enable_ssl: false }
-        mails = Mail.find_and_delete
-        event_id = connection.type_event_id
-      end
-    rescue 
-      puts("An error occured")
+    Mail.defaults do
+      retriever_method :pop3,
+        { address: connection.server,
+          port: connection.port,
+          user_name: connection.login,
+          password: connection.password,
+          enable_ssl: false }
+      mails = Mail.find_and_delete
+      event_id = connection.type_event_id
     end
-    return mails || []
+  rescue 
+    puts("An error occured")
+  ensure
+    mails ||= []
+    return mails
   end
 
   def convert(text)
