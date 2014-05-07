@@ -127,7 +127,7 @@ namespace :deploy do
 
   desc "Check system variables and valorise if they don't exist"
   task :check_variables do
-    run "cd '#{current_path}' && rake variables:set"
+    run "cd '#{current_path}' && bundle exec rake variables:set"
   end
 end
 
