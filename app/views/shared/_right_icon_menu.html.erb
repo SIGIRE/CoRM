@@ -7,21 +7,22 @@
     </a>
     <ul class="dropdown-menu pull-right">
       <li><%= link_to "<i class=\"fa fa-eur fa-fw\"></i> #{t('app.model.Quotation')}".html_safe, new_quotation_path %></li>
-      <li><%= link_to "<i class=\"fa fa-eye fa-fw\"></i> #{t('app.model.Opportunity')}".html_safe, new_opportunity_path %></li>
+      <li><%= link_to "<i class=\"fa fa-briefcase fa-fw\"></i> #{t('app.model.Opportunity')}".html_safe, new_opportunity_path %></li>
       <li><%= link_to "<i class=\"fa fa-tasks fa-fw\"></i> #{t('app.model.Task')}".html_safe, new_task_path %></li>
       <li><%= link_to "<i class=\"fa fa-user fa-fw\"></i> #{t('app.model.Contact')}".html_safe, new_contact_path %></li>
-      <li><%= link_to "<i class=\"fa fa-briefcase fa-fw\"></i> #{t('app.model.Account')}".html_safe, new_account_path %></li>
+      <li><%= link_to "<i class=\"fa fa-home fa-fw\"></i> #{t('app.model.Account')}".html_safe, new_account_path %></li>
       <li><%= link_to "<i class=\"fa fa-file-text fa-fw\"></i> #{t('app.model.Document')}".html_safe, new_document_path %></li>
     </ul>
   </li>
 
   <!-- NOTIFICATIONS -->
   <li class="nav-item relative">	
-    <%= link_to '<i class="fa fa-bell red"></i>'.html_safe, url_for(:controller => 'notifications', :action => 'index')%>
-    <% if current_user.emails.length > 0 %>
-      <span class="badge badge-important bottom-right"><%= current_user.emails.length %></span>
-      <%# <%= link_to current_user.emails.length, url_for(:controller => 'notifications', :action => 'index'),  {:class => "badge badge-important", :style => "z-index:2; position: absolute; top: 0px; left: 68px;"} %1> %>
-    <% end %>
+	<a href=/notifications>
+		<i class="fa fa-bell"></i>
+		<% if current_user.emails.length > 0 %>
+			<span class="badge badge-important bottom-right"><%= current_user.emails.length %></span>
+		<% end %>
+	</a>
   </li>
 
   <!-- PROFIL -->
@@ -47,9 +48,9 @@
           <a tabindex="-1" href="#"><i class="fa fa-cog fa-fw"></i> Configuration</a>
           <ul class="dropdown-menu ">
             <li><%= link_to '<i class="fa fa-users fa-fw"></i> Utilisateurs'.html_safe, users_path %></li>
-            <li><%= link_to '<i class="fa fa-calendar-o fa-fw"></i> Types'.html_safe, event_types_path %></li>
+            <li><%= link_to '<i class="fa fa-comment fa-fw"></i> Types d\'évènements'.html_safe, event_types_path %></li>
             <li><%= link_to '<i class="fa fa-tags fa-fw"></i> Tags'.html_safe, tags_path %></li>
-            <li><%= link_to '<i class="fa fa-fast-backward fa-fw"></i> Origines'.html_safe, origins_path %></li>
+            <li><%= link_to '<i class="fa fa-random fa-fw"></i> Origines'.html_safe, origins_path %></li>
             <li><%= link_to '<i class="fa fa-files-o fa-fw"></i> Modèles devis'.html_safe, quotation_templates_path %></li>
             <% if current_user.has_role?(:admin) %>
               <li class="divider"></li>
@@ -58,9 +59,9 @@
           </ul>
         </li>
         <li class="dropdown-submenu pull-left">
-          <a tabindex="-1" href="#"><i class="fa fa-cloud-download fa-fw"></i> Extraction</a>
+          <a tabindex="-1" href="#"><i class="fa fa-download fa-fw"></i> Extraction</a>
           <ul class="dropdown-menu">
-            <li><%= link_to '<i class="fa fa-briefcase fa-fw"></i> Comptes'.html_safe, url_for(:controller => 'accounts', :action => 'extract') %></li>
+            <li><%= link_to '<i class="fa fa-home fa-fw"></i> Comptes'.html_safe, url_for(:controller => 'accounts', :action => 'extract') %></li>
             <li><%= link_to '<i class="fa fa-users fa-fw"></i> Contacts'.html_safe, url_for(:controller => 'contacts', :action => 'extract') %></li>
           </ul>
         </li>

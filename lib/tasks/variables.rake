@@ -1,3 +1,6 @@
+require 'fileutils'
+require 'yaml'
+
 namespace :variables do
 
   desc "Check system variables and valorise if they don't exist"

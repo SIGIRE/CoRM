@@ -32,7 +32,7 @@
     </div>
 
     <div class="field"><div class="span2"> Langue : </div>
-      <%= f.select :locale, I18n.available_locales %>
+      <%= f.select :locale, I18n.available_locales, include_blank: 'Locale système' %>
     </div>
 
     <% if current_user.has_role?(:admin) %>

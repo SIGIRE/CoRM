@@ -358,3 +358,6 @@ fr:
       subject: Sujet
       name: Nom
       company: Société
+
+  title:
+    dashboard: "Tableau de bord"
