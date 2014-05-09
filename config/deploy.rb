@@ -125,14 +125,14 @@ namespace :deploy do
     run "chown -R apache:apache #{deploy_to}"
    end
 
-  desc "Check system variables and valorise if they don't exist"
-  task :check_variables do
-    run "cd '#{current_path}' && bundle exec rake variables:set"
+  desc "Creates application.yml if it doesn't exist"
+  task :token_file do
+    run "cp config/application.yml.default config/application.yml" unless File.file?(config/application.yml)
   end
 end
 
 before 'deploy:assets:precompile', 'deploy:symlink_shared'
-after 'deploy:update_code', 'deploy:check_variables', 'deploy:migrate', 'deploy:change_owner_tmp'
+after 'deploy:update_code', 'deploy:token_file', 'deploy:migrate', 'deploy:change_owner_tmp'
 
 default_run_options[:pty] = true
 
