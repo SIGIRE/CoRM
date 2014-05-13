@@ -116,6 +116,7 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
     run "ln -nfs #{shared_path}/assets #{release_path}/public/assets"
     run "ln -nfs #{shared_path}/system #{release_path}/public/system"
+	run "ln -nfs #{shared_path}/config/application.yml #{release_path}/config/application.yml"
    end
    
    desc "Change owner of the tmp folder"
@@ -125,14 +126,11 @@ namespace :deploy do
     run "chown -R apache:apache #{deploy_to}"
    end
 
-  desc "Creates application.yml if it doesn't exist"
-  task :token_file do
-    run "cp config/application.yml.default config/application.yml" unless File.file?(config/application.yml)
-  end
+
 end
 
 before 'deploy:assets:precompile', 'deploy:symlink_shared'
-after 'deploy:update_code', 'deploy:token_file', 'deploy:migrate', 'deploy:change_owner_tmp'
+after 'deploy:update_code', 'deploy:migrate', 'deploy:change_owner_tmp'
 
 default_run_options[:pty] = true
 
