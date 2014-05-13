@@ -54,7 +54,7 @@
             <li><%= link_to '<i class="fa fa-files-o fa-fw"></i> Modèles devis'.html_safe, quotation_templates_path %></li>
             <% if current_user.has_role?(:admin) %>
               <li class="divider"></li>
-              <li><%= link_to 'Configuration CoRM', url_for({ :controller => 'settings', :action => 'index' }) %></li>
+              <li><%= link_to '<i class="fa fa-wrench fa-fw"></i> Configuration CoRM'.html_safe, url_for({ :controller => 'settings', :action => 'index' }) %></li>
             <% end %>
           </ul>
         </li>
