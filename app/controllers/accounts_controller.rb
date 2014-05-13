@@ -12,6 +12,7 @@ class AccountsController < ApplicationController
   has_scope :by_tel, as: :phone
   has_scope :active, type: :boolean, default: true
   has_scope :inactive, type: :boolean
+  has_scope :by_category, as: :category
 
   ##
   # Show the full list of Accounts by paginate_by

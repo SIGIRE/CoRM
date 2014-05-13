@@ -24,7 +24,7 @@
             }
         },
         "demo-crm.sigire.net": {
-            "enabled": true,
+            "enabled": false,
             "protocol": "http",
             "mail": {
                 "type": "smtp",
@@ -44,7 +44,7 @@
             }
         },
         "crm.ligepack.com": {
-            "enabled": false,
+            "enabled": true,
             "protocol": "https",
             "mail": {
                 "type": "smtp",
