@@ -19,7 +19,7 @@
     <div class="field">
       <label class="checkbox">
         <%= check_box_tag :generate, "yes" %>
-        Rechercher dans les comptes
+        Trier pour l'extraction
       </label>
     </div>
   </div>
@@ -32,6 +32,11 @@
 			<%= label_tag :category, "Genre :", :class => "top"  %>
 			<%= select_tag "category",options_for_select( Account::CATEGORIES), { :include_blank => "Tous", :class =>"filter_statut" }  %>
 		</div>
+		
+		<div class="">
+			<%= label_tag :origin, "Origine :", :class => "top"  %>
+			<%= select_tag "origin",options_from_collection_for_select( Origin.all, :id, :name), { :include_blank => "Tous", :class =>"filter_statut" }   %>
+		</div>		
 		
 		<div class="">
 			<%= label_tag :company, "Société :", :class => "top" %>

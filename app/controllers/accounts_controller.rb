@@ -13,6 +13,7 @@ class AccountsController < ApplicationController
   has_scope :active, type: :boolean, default: true
   has_scope :inactive, type: :boolean
   has_scope :by_category, as: :category
+  has_scope :by_origin, as: :origin
 
   ##
   # Show the full list of Accounts by paginate_by
