@@ -34,7 +34,7 @@
             }
         },
         "crm.sigire.net": {
-            "enabled": true,
+            "enabled": false,
             "protocol": "https",
             "mail": {
                 "type": "smtp",
