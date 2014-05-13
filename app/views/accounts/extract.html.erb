@@ -37,6 +37,11 @@
 			<%= label_tag :origin, "Origine :", :class => "top"  %>
 			<%= select_tag "origin",options_from_collection_for_select( Origin.all, :id, :name), { :include_blank => "Tous", :class =>"filter_statut" }   %>
 		</div>		
+
+		<div class="">
+			<%= label_tag :tag, "Tag :", :class => "top"  %>
+			<%= select_tag "tag",options_from_collection_for_select( Tag.all, :id, :name), { :include_blank => "Tous", :class =>"filter_statut" }   %>
+		</div>			
 		
 		<div class="">
 			<%= label_tag :company, "Société :", :class => "top" %>
