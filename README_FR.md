@@ -29,6 +29,7 @@ Pour l'instant, CoRM n'est pas modulaire et ne supporte pas la traduction multil
 
  * Executez la commande 'bundle install' pour installer les dépendances
  * Modifier config/database.yml pour définir la connexion à la base de données
+ * Pour des questions de sécurité, vous devez créer votre fichier application.yml dans le répertoire config (un exemple est présent)
 
 #### Préparation
 
