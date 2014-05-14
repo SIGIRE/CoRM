@@ -29,6 +29,7 @@ For now, CoRM is not modular and does not support the multilingual translation w
 
  * run 'bundle install' to add or update all gems
  * modify config/database.yml - to define your databases connections
+ * for security questions, you must create a application.yml file in config's directory (example inside)
 
 #### Preparation
 
