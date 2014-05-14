@@ -15,6 +15,7 @@ class Ability
       end
       can :manage, Email
       can :manage, Account
+	  cannot :destroy, Account
       can :manage, Contact
       can :manage, Event
       can :manage, Relation
@@ -25,7 +26,8 @@ class Ability
       can :read, User
       if user.has_role? :super_user
         # Only super_user can manage settings
-        can :activate, Account
+		can :destroy, Account
+		can :activate, Account
         can :deactivate, Account
         can :manage, QuotationTemplate
         can :manage, Tag

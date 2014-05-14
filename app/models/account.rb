@@ -14,12 +14,12 @@ class Account < ActiveRecord::Base
   
   before_save :uppercase_company
   
-  has_many :contacts
-  has_many :opportunities
-  has_many :quotations
-  has_many :events
-  has_many :tasks
-  has_many :documents
+  has_many :contacts, :dependent => :destroy
+  has_many :opportunities, :dependent => :destroy
+  has_many :quotations, :dependent => :destroy
+  has_many :events, :dependent => :destroy
+  has_many :tasks, :dependent => :destroy
+  has_many :documents, :dependent => :destroy
   has_many :tags
   
   has_and_belongs_to_many :tags

@@ -53,46 +53,44 @@ class MailProcessor
   end
 
   def retrieve_body(mail)
-    begin
-      text = ""
-      encoding = ""
-      # Si le mail est de type multipart
-      if (mail.multipart?)
-        puts "Multipart? => TRUE"
-        mail.parts.each do |p|
-          puts p.content_type
-          if (p.content_type.include? "text/plain")
-            text << "#{p.body}\n"
-            encoding = p.content_type_parameters["charset"]
-          elsif (p.content_type.include? "alternative")
-            p.parts.each do |sub|
-              if (sub.content_type.include? "text/plain")
-                text << "#{sub.body}\n"
-                encoding = sub.content_type_parameters["charset"]
-              end
+    text = ""
+    encoding = ""
+    # Si le mail est de type multipart
+    if (mail.multipart?)
+      puts "Multipart? => TRUE"
+      mail.parts.each do |p|
+        puts p.content_type
+        if (p.content_type.include? "text/plain")
+          text << "#{p.body}\n"
+          encoding = p.content_type_parameters["charset"]
+        elsif (p.content_type.include? "alternative")
+          p.parts.each do |sub|
+            if (sub.content_type.include? "text/plain")
+              text << "#{sub.body}\n"
+              encoding = sub.content_type_parameters["charset"]
             end
           end
         end
-        # Si le mail n'est pas de type multipart
-      else
-        text = mail.body.decoded
       end
-      if (!encoding.blank?)
-        text = text.force_encoding(encoding).encode('UTF-8')
-      else
-        if (text.force_encoding("UTF-8").encode('UTF-8').valid_encoding?)
-          text = text.force_encoding("UTF-8").encode('UTF-8')
-        elsif (text.force_encoding("iso-8859-1").encode('UTF-8').valid_encoding?)
-          text = text.force_encoding("iso-8859-1").encode('UTF-8')
-        end
-      end
-    rescue Exception => e
-      puts e
-      puts e.backtrace.join("\n")
-      return nil
+      # Si le mail n'est pas de type multipart
     else
-      return text
+      text = mail.body.decoded
     end
+    if (!encoding.blank?)
+      text = text.force_encoding(encoding).encode('UTF-8')
+    else
+      if (text.force_encoding("UTF-8").encode('UTF-8').valid_encoding?)
+        text = text.force_encoding("UTF-8").encode('UTF-8')
+      elsif (text.force_encoding("iso-8859-1").encode('UTF-8').valid_encoding?)
+        text = text.force_encoding("iso-8859-1").encode('UTF-8')
+      end
+    end
+  rescue => e 
+    puts e
+    puts e.backtrace.join("\n")
+    return nil
+  else
+    return text
   end
 
 

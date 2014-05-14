@@ -82,3 +82,11 @@ pickle-email-*.html
 
 # Exuberant CTags
 ./tags
+
+# Ignore application configuration
+/config/application.yml
+
+# Ignore Deploy Capistrano
+/config/deploy.rb
+/config/deploy.json
+

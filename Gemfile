@@ -42,6 +42,7 @@ gem 'cancan'
 gem 'rolify'
 
 gem 'capistrano', '~> 2.14.2', :group => :development
+gem 'figaro'
 gem 'meta_search', '~> 1.1.3'
 gem 'kaminari', '~> 0.14.1'
 gem 'paperclip', '~> 3.4.1'

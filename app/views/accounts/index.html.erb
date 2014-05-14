@@ -15,6 +15,11 @@
   <%= form_tag(accounts_path, method: :GET) do %>
       <div class="row row-fluid">
 		<div class="">
+			<%= label_tag :category, "Genre :", :class => "top"  %>
+			<%= select_tag "category",options_for_select( Account::CATEGORIES), { :include_blank => "Tous", :class =>"filter_statut" }  %>
+		</div>
+	  
+		<div class="">
 			<%= label_tag :company, "Société :", :class => "top" %>
       <%= text_field_tag 'company' %>
 		</div>
