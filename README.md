@@ -1,6 +1,6 @@
 # CORM
 ### Easier than a CRM
-Version: 0.9.2 (nightly)
+Version: 0.9.3 (nightly)
 
 ## About CORM
 CoRM is a **Customer Relationship Manager** (CRM) designed for businesses about 1 to 100 collaborators. This software helps you to manage your relations between each actor that composing your environment.
