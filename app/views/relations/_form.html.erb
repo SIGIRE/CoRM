@@ -17,9 +17,8 @@
 			<div class="span2"><%= label_tag('account-search', t('app.model.Account') + ' source' + colon) %></div>
 			<div>
 				<p>
-					<%= text_field_tag(nil, (@relation.account1.company unless @relation.account1.nil?), { :placeholder => 'Rechercher', :class => 'typeahead-account-search', :type => 'search', :autocomplete => 'off', 'data-field' => 'account1_id' }) %>
+          <%= text_field_tag(nil, (@relation.account1.company unless @relation.account1.nil?), { :placeholder => 'Rechercher', :class => 'typeahead-account-search required', :type => 'search', :autocomplete => 'off', 'data-field' => 'account1_id' }) %><span class='req'/>
 					<%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
-					<%= f.text_field :account1_id, { :style => 'display: none; visible: none;', :id => 'account1_id' } %>
 				</p>
 			</div>
 		</div>
@@ -27,7 +26,7 @@
   <div class="row row-fluid">
 		<div class="field full">
       <div class="span2"><%= f.label(:name, "Relation :") %></div>
-      <p><%= f.text_field :name, { :class => 'required' }%></p>
+      <p><%= f.text_field :name, { :class => 'required' }%></p><span class='req'/>
     </div>
 	</div>
   <div class="row row-fluid">
@@ -35,9 +34,8 @@
 			<div class="span2"><%= label_tag('account-search', t('app.model.Account')  + ' cible'+ colon) %></div>
 			<div>
 				<p>
-					<%= text_field_tag(nil, (@relation.account2.company unless @relation.account2.nil?), { :placeholder => 'Rechercher', :class => 'typeahead-account-search', :type => 'search', :autocomplete => 'off', 'data-field' => 'account2_id' }) %>
+          <%= text_field_tag(nil, (@relation.account2.company unless @relation.account2.nil?), { :placeholder => 'Rechercher', :class => 'typeahead-account-search required', :type => 'search', :autocomplete => 'off', 'data-field' => 'account2_id' }) %><span class='req'/>
 					<%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
-					<%= f.text_field :account2_id, { :style => 'display: none; visible: none;', :id => 'account2_id' } %>
 				</p>
 			</div>
 		</div>
