@@ -1,0 +1,25 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: db_corm_dev
+  pool: 5
+  username: user
+  password: MySuperPassword
+
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: db_corm_test
+  pool: 5
+  username: user
+  password: MySuperPassword
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: dv_corm_prod
+  pool: 5
+  username: user
+  password: MyBeterSuperPassword
+
