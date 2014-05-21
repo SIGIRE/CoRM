@@ -7,7 +7,7 @@ CoRM is a **Customer Relationship Manager** (CRM) designed for businesses about 
 
 CoRM does not contain inessentials functionnalities and does not have so much required fields. This software is build to help you, not to stop you during an interview or something else.
 
-For now, CoRM is not modular and does not support the multilingual translation with *I18n*. These evolutions are planned, so don't worry about.
+For now, CoRM is not modular and does not support the multilingual translation with *I18n*. These evolutions are in progress, so don't worry about.
 
 ## System requirement
 

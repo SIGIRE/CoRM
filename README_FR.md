@@ -7,7 +7,7 @@ Corm est un **Customer Relationship manager** (Gestionnaire de relation client) 
 
 Corm ne contient pas de fonctionnalités superflues. Ce logiciel est construit pour vous aider, pas pour vous stopper avec des champs obligatoires lors d'un entretien ou quelque chose d'autre.
 
-Pour l'instant, CoRM n'est pas modulaire et ne supporte pas la traduction multilingue avec * I18n *. Ces évolutions sont prévues, alors ne vous inquiétez pas.
+Pour l'instant, CoRM n'est pas modulaire et ne supporte pas la traduction multilingue avec * I18n *. Ces évolutions sont en cours, alors ne vous inquiétez pas.
 
 ## Système requis
 
