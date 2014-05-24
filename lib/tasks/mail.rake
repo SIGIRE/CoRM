@@ -32,6 +32,7 @@ namespace :mail do
   end    
 
   def get_mails(connection)
+    mails = nil
     Mail.defaults do
       retriever_method :pop3,
         { address: connection.server,
