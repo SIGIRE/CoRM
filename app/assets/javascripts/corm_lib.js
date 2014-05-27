@@ -26,7 +26,7 @@
             return HTML;
         },
         getContactsByAccount: function(toId, account) {
-          $.get('/contacts?by_account_id=' + account, 
+          $.get('/contacts.json?by_account_id=' + account, 
             function(data){
                 var option; var that = document.getElementById(toId);
                 that.innerHTML = '';
