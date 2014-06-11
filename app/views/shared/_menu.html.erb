@@ -52,7 +52,7 @@
 
         <%= form_tag(search_accounts_path, :method => "get", :class =>"navbar-search", :id =>"form-search") do %>
           <div class="input-append">
-            <%= text_field_tag :account , nil , { :class =>"span3", :placeholder => " Rechercher un acteur...", :autocomplete=> "off", :type => 'text', :id => 'main-search-bar' } %>
+            <%= text_field_tag :account , nil , { :class =>"span3", :placeholder => t('title.search_actor'), :autocomplete=> "off", :type => 'text', :id => 'main-search-bar' } %>
             <span class="add-on"><i class="icon-search"></i></span>
             <ul id="search-list" class="typeahead dropdown-menu"></ul>
           </div>

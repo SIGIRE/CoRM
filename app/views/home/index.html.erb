@@ -148,7 +148,7 @@
 			<%= link_to truncate(e.notes, :length => 80), account_events_path(e.account.id), { :title => "#{t('app.model.Event')}".html_safe + " : " + e.account.company } %>
 			<% end %>
 			</td>
-            <td class="text-center"><%= e.date_begin.to_s(:humanized) %></td>
+            <td class="text-center"><%= e.date_begin.to_s(:humanized) %> </td>
             </tr>													
 
           <% end %>

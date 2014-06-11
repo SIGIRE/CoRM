@@ -404,6 +404,7 @@ fr:
     latest_event: "Événements récents"
     statistic: "Statistique"
     filter_tasks: "Filtrer les Tâches"
+    search_actor: "Rechercher un acteur..."
 
   various:
     my: "Mes"

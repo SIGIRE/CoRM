@@ -406,6 +406,7 @@ en:
     latest_event: "Latest Events"
     statistic: "Statistic"
     filter_tasks: "Filter Tasks"
+    search_actor: "Search an actor..."
 
   various:
     my: "My"
