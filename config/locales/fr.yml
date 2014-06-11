@@ -294,6 +294,7 @@ fr:
       do: Faire
       created_by: "Créer par"
       updated_by: "Dernièrement modifié par"
+      filter: "Filtrer"
     cancan:
       messages:
         unauthorized: "Vous n'êtes pas autoriser à [action] [undefined_article] [model]"
@@ -390,6 +391,7 @@ fr:
       total_excluding_taxes: "Total HT"
       active: "Actif"
       size: "Taille"
+      content: "Contenu"
 
   title:
     dashboard: "Tableau de bord"
@@ -401,6 +403,7 @@ fr:
     show_all_quotation: "Afficher tous les devis"
     latest_event: "Événements récents"
     statistic: "Statistique"
+    filter_tasks: "Filtrer les Tâches"
 
   various:
     my: "Mes"

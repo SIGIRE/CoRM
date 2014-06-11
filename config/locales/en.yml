@@ -221,10 +221,10 @@ en:
     
   views:
     pagination:
-      first: "&laquo; Premier"
-      last: "Denier &raquo;"
-      previous: "&lsaquo; Pr&eacute;c."
-      next: "Suivant &rsaquo;"
+      first: "&laquo; First"
+      last: "Last &raquo;"
+      previous: "&lsaquo; Prev."
+      next: "Next &rsaquo;"
       truncate: "..."
   devise:
     failure:
@@ -297,6 +297,7 @@ en:
       do: Do
       created_by: "Created by"
       updated_by: "Last updated by"
+      filter: "Filter"
     cancan:
       messages:
         unauthorized: "Vous n'êtes pas autoriser à [action] [undefined_article] [model]"
@@ -393,7 +394,7 @@ en:
       total_excluding_taxes: "Total excluding taxes"
       active: "Active"
       size: "Size"
-
+      content: "Content"
   title:
     dashboard: "Dashboard"
     actor: "Actor"
@@ -404,6 +405,7 @@ en:
     show_all_quotation: "Show all quotations"
     latest_event: "Latest Events"
     statistic: "Statistic"
+    filter_tasks: "Filter Tasks"
 
   various:
     my: "My"
