@@ -318,12 +318,15 @@ fr:
     model:
       Account: Compte
       Contact: Contact
+      User: Utilisateur
       Quotation: Devis
       Task: Tâche
       Opportunity: Opportunité
       Event: Événement
       EventType: "Type d'évènement"
       QuotationTemplate: Modèle
+      Document: "Document"
+      Email: "E-mail"
     roles:
       admin: Administrateur
       super_user: Super Utilisateur
@@ -351,6 +354,7 @@ fr:
       refused: "Refusé"
     fields:
       colon: " : "
+      element: "Élément"
       detail: Détail
       label: Libellé
       term: Échéance
@@ -359,7 +363,8 @@ fr:
       collegue: Collaborateur
       emailToCollegue: "Envoyer un Mail à ce collaborateur"
       update_attach: "Modifier la pièce jointe"
-      attach: "Pièce jointe"
+      attach: "Pièce-jointe"
+      attaches: "Pièces-jointes"
       present_attach: "Pièce-jointe actuelle"
       state: 'Statut'
       remark: Remarque
@@ -383,6 +388,8 @@ fr:
       profit_margin: "Marge"
       estimate: "Estimation"
       total_excluding_taxes: "Total HT"
+      active: "Actif"
+      size: "Taille"
 
   title:
     dashboard: "Tableau de bord"
@@ -393,6 +400,7 @@ fr:
     show_all_opportunity: "Afficher toutes les opportunités"
     show_all_quotation: "Afficher tous les devis"
     latest_event: "Événements récents"
+    statistic: "Statistique"
 
   various:
     my: "Mes"

@@ -321,12 +321,15 @@ en:
     model:
       Account: Account
       Contact: Contact
+      User: User
       Quotation: Quotation
       Task: Task
       Opportunity: Opportunity
       Event: Event
       EventType: "Event type"
       QuotationTemplate: "Quotation template"
+      Document: "Document"
+      Email: "E-mail"
     roles:
       admin: Administrator
       super_user: Super User
@@ -354,6 +357,7 @@ en:
       refused: "Refused"
     fields:
       colon: " : "
+      element: "Element"
       detail: Detail
       label: Label
       term: Term
@@ -362,7 +366,8 @@ en:
       collegue: Colleague
       emailToCollegue: "Envoyer un Mail à ce collaborateur"
       update_attach: "Modifier la pièce jointe"
-      attach: "Pièce jointe"
+      attach: "Attachment"
+      attaches: "Attachments"
       present_attach: "Pièce-jointe actuelle"
       state: 'State'
       remark: Remark
@@ -386,6 +391,8 @@ en:
       profit_margin: "Profit margin"
       estimate: "Estimate"
       total_excluding_taxes: "Total excluding taxes"
+      active: "Active"
+      size: "Size"
 
   title:
     dashboard: "Dashboard"
@@ -396,6 +403,7 @@ en:
     show_all_opportunity: "Show all opportunities"
     show_all_quotation: "Show all quotations"
     latest_event: "Latest Events"
+    statistic: "Statistic"
 
   various:
     my: "My"
