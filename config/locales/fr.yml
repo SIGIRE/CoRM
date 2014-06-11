@@ -277,17 +277,21 @@ fr:
     save_undefined_error: "Une erreur est survenue pendant l'enregistrement"
     default:
       subject: Sujet
+      define_article_male: le
+      define_article_female: la
       undefine_article_male: un
       undefine_article_female: une
       undefine_article_plural: des
+      new_male: "nouveau"
+      new_female: "nouvelle"
     actions:
-      create: créer
-      new: créer
-      update: éditer
-      edit: éditer
-      destroy: supprimer
-      show: afficher
-      do: faire
+      create: Créer
+      new: Nouveau
+      update: Éditer
+      edit: Éditer
+      destroy: Supprimer
+      show: Afficher
+      do: Faire
       created_by: "Créer par"
       updated_by: "Dernièrement modifié par"
     cancan:
@@ -329,8 +333,25 @@ fr:
       tax: TVA
       excluding_taxes: Hors Taxes
       including_taxes: Toutes Taxes Comprises
+    priority:
+      low: "Bas"
+      normal: "Normal"
+      high: "Haut"
+      urgent: "Urgent"
+    status:
+      todo: "À faire"
+      in_progress: "En cours"
+      completed: "Terminé"
+      canceled: "Annulé"
+      detected: "Détectée"
+      won: "Gagnée"
+      lost: "Perdue"
+      save: "Sauvegardé"
+      accepted: "Accepté"
+      refused: "Refusé"
     fields:
       colon: " : "
+      detail: Détail
       label: Libellé
       term: Échéance
       description: Description
@@ -358,6 +379,20 @@ fr:
       subject: Sujet
       name: Nom
       company: Société
+      date: "Date"
+      profit_margin: "Marge"
+      estimate: "Estimation"
+      total_excluding_taxes: "Total HT"
 
   title:
     dashboard: "Tableau de bord"
+    actor: "Acteur"
+    trade: "Commerce"
+    show_all_task: "Afficher toutes mes tâches"
+    show_all_event: "Afficher tous les évènements"
+    show_all_opportunity: "Afficher toutes les opportunités"
+    show_all_quotation: "Afficher tous les devis"
+    latest_event: "Événements récents"
+
+  various:
+    my: "Mes"

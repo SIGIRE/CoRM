@@ -10,8 +10,8 @@
       <thead>
         <tr>
           <th colspan="9">
-            <h2 class="pull-left">Mes <%= t('app.model.Task').pluralize %></h2>
-            <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_task_path ,{:title => "Créer une tâche", :class=>"pull-right", :style => 'display: inline-block'} %>
+            <h2 class="pull-left"><%= t('various.my') %> <%= t('app.model.Task').pluralize %></h2>
+            <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_task_path ,{:title => "#{t('app.actions.create')} #{t('app.default.new_female')} #{t('app.model.Task')}".html_safe, :class=>"pull-right", :style => 'display: inline-block'} %>
           </th>
         </tr>
         <tr>
@@ -19,9 +19,9 @@
           <th class="text-center"><%= t('app.fields.priority') %></th>
           <th class="text-center"><%= t('app.model.Account') %></th>
           <th class="text-center"><%= t('app.fields.subject') %></th>
-          <th class="text-center">Contact</th>
-          <th class="text-center">Échéance</th>
-          <th class="text-center">Actions</th>
+          <th class="text-center"><%= t('app.model.Contact') %></th>
+          <th class="text-center"><%= t('app.fields.term') %></th>
+          <th class="text-center"><%= t('app.actions.Actions') %></th>
         </tr>
       </thead>
       <tbody>
@@ -48,15 +48,36 @@
                 badge_statut_class = ' badge-inverse'
               end %>
               <div class="badge-container">
-                <span class="badge<%= badge_statut_class unless badge_statut_class.nil? %>"><%= t.statut %></span>
+                <span class="badge<%= badge_statut_class unless badge_statut_class.nil? %>">
+				<% if t.statut == "A faire" %>
+					<%= t('app.status.todo') %>
+				<% elsif t.statut == "En cours" %>
+					<%= t('app.status.in_progress') %>
+				<% elsif t.statut == "Terminé" %>
+					<%= t('app.status.completed') %>
+				<% elsif t.statut == "Annulé" %>
+					<%= t('app.status.canceled') %>
+				<% end %>
+
+				</span>
               </div>
             </td>
-            <td class="text-center"><%= Task::PRIORITIES[t.priority] %></td>
-            <td class="text-center"><% if !t.account.nil? %><%= link_to t.account.company, account_events_path(t.account), { :title => 'Compte: ' + t.account.company, :class => 'ellipse' } %><% else %>-<% end %></td>
+            
+			<% if t.priority == 3 %>
+				<td class="text-center"><%= t('app.priority.urgent') %></td>
+            <% elsif t.priority == 2 %>
+				<td class="text-center"><%= t('app.priority.high') %></td>
+            <% elsif t.priority == 1 %>
+				<td class="text-center"><%= t('app.priority.normal') %></td>
+            <% elsif t.priority == 0 %>
+				<td class="text-center"><%= t('app.priority.low') %></td>
+            <% end %>
+			
+			<td class="text-center"><% if !t.account.nil? %><%= link_to t.account.company, account_events_path(t.account), { :title => "#{t('app.model.Event')}".html_safe + " : " + t.account.company, :class => 'ellipse' } %><% else %>-<% end %></td>
             <% if !t.title.nil? then ellipse = t.title.length > 45 ? '...' : '' end %>
-              <td class="text-center"><span><%= link_to (!t.title.blank?() ? t.title[0..45] + ellipse : "Pas de sujet"), edit_task_path(t), :title => 'Éditer la tâche' %></span></td>
+              <td class="text-center"><span><%= link_to (!t.title.blank?() ? t.title[0..45] + ellipse : "Pas de sujet"), edit_task_path(t), :title => "#{t('app.actions.edit')} #{t('app.default.define_article_female')} #{t('app.model.Task')}".html_safe %></span></td>
               <% if !t.contact.nil? %>
-                <td class="text-center"><%= link_to t.contact.full_name, edit_contact_path(t.contact),{:title => "Éditer le contact"}  %></td>
+                <td class="text-center"><%= link_to t.contact.full_name, edit_contact_path(t.contact),{:title => "#{t('app.actions.edit')} #{t('app.default.define_article_male')} #{t('app.model.Contact')}".html_safe } %></td>
               <% else %>
                 <td class="text-center">-</td>
               <% end %>
@@ -74,12 +95,12 @@
                 <td class="text-center">-</td>
               <% end %>
               <td class="text-center">
-                <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_task_path(t) ,{:title => "Éditer la tâche" }  %>
+                <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_task_path(t) ,{:title => "#{t('app.actions.edit')} #{t('app.default.define_article_female')} #{t('app.model.Task')}".html_safe }  %>
               </td>
             </tr>
           <% end %>
           <tr>
-            <td colspan="9" class="text-center"><%= link_to('Afficher toutes mes tâches', tasks_path, :title => 'Mes tâches') %></td>
+            <td colspan="9" class="text-center"><%= link_to"#{t('title.show_all_task')}".html_safe, tasks_path, :title => "#{t('title.show_all_task')}".html_safe %></td>
           </tr>
 
         </tbody>
@@ -94,21 +115,21 @@
       <thead>
         <tr>
           <th colspan="9">
-            <h2 class="pull-left"><%= t('app.model.Event').pluralize %> récents </h2>
+            <h2 class="pull-left"><%= t('title.latest_event') %> </h2>
           </th>
         </tr>
         <tr>
           <th class="text-center"><%= t('app.model.Account') %></th>	
-		  <th class="text-center">Collaborateur</th>
-		  <th class="text-center">Contact</th>
-		  <th class="text-center">Détails</th>
-		  <th class="text-center">Date</th>
+		  <th class="text-center"><%= t('app.fields.collegue') %></th>
+		  <th class="text-center"><%= t('app.model.Contact') %></th>
+		  <th class="text-center"><%= t('app.fields.detail').pluralize %></th>
+		  <th class="text-center"><%= t('app.model.date') %></th>
         </tr>
       </thead>
       <tbody>
         <% @events.each do |e| %>
           <tr>
-            <td class="text-center"><% if !e.account.nil? %><strong><%= link_to e.account.company, account_events_path(e.account.id) %></strong> <% end %></td>				
+            <td class="text-center"><% if !e.account.nil? %><strong><%= link_to e.account.company, account_events_path(e.account.id), { :title => "#{t('app.model.Event')}".html_safe + " : " + e.account.company, :class => 'ellipse' } %></strong> <% end %></td>				
 			<td class="text-center"><%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %></td>
 			<td class="text-center"><% if !e.contact.nil? %> <strong><%= " #{e.contact.full_name}" %></strong> <% else %> - <% end %></td>
 			<td>
@@ -121,10 +142,10 @@
 				<% end %>
 				
 			<% if !e.task.nil? %> 
-			<%= link_to e.task.title, edit_task_path(e.task.id) %> <% if !e.task.notes.blank? %> : <%= truncate(e.task.notes, :length => 80) %><% end %>
+			<%= link_to e.task.title, edit_task_path(e.task.id), :title => "#{t('app.actions.edit')} #{t('app.default.define_article_female')} #{t('app.model.Task')}".html_safe %> <% if !e.task.notes.blank? %> : <%= truncate(e.task.notes, :length => 80) %><% end %>
 			
 			<% else %>
-			<%= link_to truncate(e.notes, :length => 80), account_events_path(e.account.id) %>
+			<%= link_to truncate(e.notes, :length => 80), account_events_path(e.account.id), { :title => "#{t('app.model.Event')}".html_safe + " : " + e.account.company } %>
 			<% end %>
 			</td>
             <td class="text-center"><%= e.date_begin.to_s(:humanized) %></td>
@@ -132,8 +153,8 @@
 
           <% end %>
           <tr>
-            <td colspan="9" class="text-center"><%= link_to('Afficher tous les évènements', events_path, :title => 'Évènements') %></td>
-          </tr>
+            <td colspan="9" class="text-center"><%= link_to"#{t('title.show_all_event')}".html_safe, events_path, :title => "#{t('title.show_all_event')}".html_safe %></td>
+		  </tr>
         </tbody>
       </table>
       <!-- END NEW EVENTS-->	  
@@ -146,19 +167,19 @@
           <thead>
             <tr>
               <th colspan="9">
-                <h2 class="pull-left">Mes <%= t('app.model.Opportunity').pluralize %></h2>
-                <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_task_path ,{:title => "Créer une opportunité", :class=>"pull-right", :style => 'display: inline-block'} %>
+                <h2 class="pull-left"><%= t('various.my') %> <%= t('app.model.Opportunity').pluralize %></h2>
+                <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_opportunity_path ,{:title => "#{t('app.actions.create')} #{t('app.default.new_female')} #{t('app.model.Opportunity')}".html_safe, :class=>"pull-right", :style => 'display: inline-block'} %>
               </th>
             </tr>
             <tr>
-              <th class="text-center">Statut</th>
-              <th class="text-center">Compte</th>
-              <th class="text-center">Libellé</th>
-              <th class="text-center">Contact</th>
-              <th class="text-center">Estimation</th>
-              <th class="text-center">Marge</th>
-              <th class="text-center">Échéance</th>
-              <th class="text-center">Actions</th>
+              <th class="text-center"><%= t('app.fields.state') %></th>
+              <th class="text-center"><%= t('app.model.Account') %></th>
+              <th class="text-center"><%= t('app.fields.label') %></th>
+              <th class="text-center"><%= t('app.model.Contact') %></th>
+              <th class="text-center"><%= t('app.fields.estimate') %></th>
+              <th class="text-center"><%= t('app.fields.profit_margin') %></th>
+              <th class="text-center"><%= t('app.fields.term') %></th>
+              <th class="text-center"><%= t('app.actions.Actions') %></th>
             </tr>
           </thead>
           <tbody>
@@ -172,12 +193,19 @@
                     badge_statut_class = ' badge-warning'
                   end %>
                   <div class="badge-container">
-                    <span class="badge<%= badge_statut_class unless badge_statut_class.nil? %>"><%= o.statut %></span>
+                    <span class="badge<%= badge_statut_class unless badge_statut_class.nil? %>">
+					
+					<% if o.statut == "Détectée" %>
+						<%= t('app.status.detected') %>
+					<% elsif o.statut == "En cours" %>
+						<%= t('app.status.in_progress') %>
+					<% end %>
+					</span>
                   </div>
                 </td>
-                <td class="text-center"><% if !o.account.nil? %><%= link_to o.account.company, account_events_path(o.account), { :title => 'Compte: ' + o.account.company, :class => 'ellipse' } %><% else %>-<% end %></td>
-                <td class="text-center"><% if !o.name.blank? %><%= link_to o.name,  edit_opportunity_path(o),{:title => "Éditer l'opportunité"} %><% else %>-<% end %></td>
-                <td class="text-center"><% if !o.contact.nil? %><%= link_to o.contact.full_name, edit_contact_path(o.contact) ,{:title => "Éditer le contact"} %><% else %>-<% end %></td>
+                <td class="text-center"><% if !o.account.nil? %><%= link_to o.account.company, account_events_path(o.account), { :title => "#{t('app.model.Event')}".html_safe + " : " + o.account.company, :class => 'ellipse' } %><% else %>-<% end %></td>
+                <td class="text-center"><% if !o.name.blank? %><%= link_to o.name,  edit_opportunity_path(o), :title => "#{t('app.actions.edit')} #{t('app.model.Opportunity')}".html_safe %><% else %>-<% end %></td>
+                <td class="text-center"><% if !o.contact.nil? %><%= link_to o.contact.full_name, edit_contact_path(o.contact) ,{:title => "#{t('app.actions.edit')} #{t('app.default.define_article_male')} #{t('app.model.Contact')}".html_safe }%><% else %>-<% end %></td>
                 <td style="text-align :right;"><% if !o.amount.nil? %><%= number_to_currency(o.amount, :locale => :fr)  %> <strong> HT </strong></td><% else %>-<% end %></td>
               <td style="text-align :right;"><% if !o.profit.nil? %><%= number_to_currency(o.profit, :locale => :fr)  %> <strong> HT </strong><% else %>-<% end %></td>
               <% if !o.term.blank? %>
@@ -194,12 +222,12 @@
                 <td class="text-center">-</td>
               <% end %>
               <td class="text-center">
-                <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_opportunity_path(o) ,{:title => "Éditer l'opportunité"}  %>
+                <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_opportunity_path(o) ,{:title => "#{t('app.actions.edit')} #{t('app.model.Opportunity')}".html_safe}  %>
               </td>				
             </tr>
           <% end %>
           <tr>
-            <td colspan="9" class="text-center"><%= link_to('Afficher toutes mes opportunités', opportunities_path, :title => 'Mes opportunités') %></td>
+			<td colspan="9" class="text-center"><%= link_to"#{t('title.show_all_opportunity')}".html_safe, opportunities_path, :title => "#{t('title.show_all_opportunity')}".html_safe  %></td>
           </tr>
         </tbody>
       </table>
@@ -213,19 +241,19 @@
         <thead>
           <tr>
             <th colspan="9">
-              <h2 class="pull-left">Mes <%= t('app.model.Quotation').pluralize %></h2>
-              <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_quotation_path ,{:title => "Créer un devis", :class=>"pull-right", :style => 'display: inline-block'} %>
+              <h2 class="pull-left"><%= t('various.my') %> <%= t('app.model.Quotation').pluralize %></h2>
+              <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_quotation_path ,{:title => "#{t('app.actions.create')} #{t('app.default.new_male')} #{t('app.model.Quotation')}".html_safe, :class=>"pull-right", :style => 'display: inline-block'} %>
 
             </th>
           </tr>
           <tr>
-            <th class="text-center">Statut</th>
-            <th class="text-center">Compte</th>
-            <th class="text-center">Libellé</th>
-            <th class="text-center">Contact</th>
-            <th class="text-center">Total HT</th>
-            <th class="text-center">Date</th>
-            <th class="text-center">Actions</th>
+            <th class="text-center"><%= t('app.fields.state') %></th>
+            <th class="text-center"><%= t('app.model.Account') %></th>
+            <th class="text-center"><%= t('app.fields.label') %></th>
+            <th class="text-center"><%= t('app.model.Contact') %></th>
+            <th class="text-center"><%= t('app.fields.total_excluding_taxes') %></th>
+            <th class="text-center"><%= t('app.model.date') %></th>
+            <th class="text-center"><%= t('app.actions.Actions') %></th>
           </tr>
         </thead>
         <tbody>
@@ -239,22 +267,30 @@
                   badge_statut_class = ' badge-warning'
                 end %>
                 <div class="badge-container">
-                  <span class="badge<%= badge_statut_class unless badge_statut_class.nil? %>"><%= q.statut %></span>
+                <span class="badge<%= badge_statut_class unless badge_statut_class.nil? %>">
+					
+				<% if q.statut == "Sauvegardé" %>
+					<%= t('app.status.save') %>
+				<% elsif q.statut == "En cours" %>
+					<%= t('app.status.in_progress') %>
+				<% end %>					
+
+				</span>
                 </div>
               </td>
-              <td class="text-center"><% if !q.account.nil? %><%= link_to q.account.company, account_events_path(q.account), { :title => 'Compte: ' + q.account.company, :class => 'ellipse' } %><% else %>-<% end %></td>
-              <td class="text-center"><% if !q.label.blank? %><%= link_to q.label,  edit_quotation_path(q),{:title => "Éditer le devis"} %><% else %>-<% end %></td>
-              <td class="text-center"><% if !q.contact.nil? %><%= link_to q.contact.full_name, edit_contact_path(q.contact) ,{:title => "Éditer le contact"} %><% else %>-<% end %></td>
+              <td class="text-center"><% if !q.account.nil? %><%= link_to q.account.company, account_events_path(q.account),  { :title => "#{t('app.model.Event')}".html_safe + " : " + q.account.company, :class => 'ellipse' } %><% else %>-<% end %></td>
+              <td class="text-center"><% if !q.label.blank? %><%= link_to q.label,  edit_quotation_path(q),{:title => "#{t('app.actions.edit')} #{t('app.default.define_article_male')} #{t('app.model.Quotation')}".html_safe } %><% else %>-<% end %></td>
+              <td class="text-center"><% if !q.contact.nil? %><%= link_to q.contact.full_name, edit_contact_path(q.contact) ,{:title => "#{t('app.actions.edit')} #{t('app.default.define_article_male')} #{t('app.model.Contact')}".html_safe }%><% else %>-<% end %></td>
               <td style="text-align :right;"><% if !q.total_excl_tax.nil? %><%= number_to_currency(q.total_excl_tax, :locale => :fr)  %> <strong> HT </strong></td><% else %>-<% end %></td>
             <td class="text-center"><% if !q.date.nil? %><%=  q.date.strftime("%d/%m/%y") %><% else %>-<% end %></td>
             <td class="text-center">
-              <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_quotation_path(q) ,{:title => "Éditer le devis" }  %>
-              <%= link_to '<i class="fa fa-print fa-2x action-icon"></i>'.html_safe, quotation_path(q, :format => "pdf"),{:title => "Afficher le PDF" } %>
+              <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_quotation_path(q) ,{:title => "#{t('app.actions.edit')} #{t('app.default.define_article_male')} #{t('app.model.Quotation')}".html_safe }  %>
+              <%= link_to '<i class="fa fa-print fa-2x action-icon"></i>'.html_safe, quotation_path(q, :format => "pdf"),{:title => "#{t('app.actions.show')} #{t('app.default.define_article_male')} PDF".html_safe } %>
             </td>
           </tr>
         <% end %>
         <tr>
-          <td colspan="9" class="text-center"><%= link_to('Afficher tous mes devis', quotations_path, :title => 'Mes devis') %></td>
+		  <td colspan="9" class="text-center"><%= link_to"#{t('title.show_all_quotation')}".html_safe, quotations_path, :title => "#{t('title.show_all_quotation')}".html_safe %></td>
         </tr>
       </tbody>
     </table>
