@@ -17,6 +17,7 @@ class Ability
       can :manage, Account
 	  cannot :destroy, Account
       can :manage, Contact
+	  cannot :destroy, Contact
       can :manage, Event
       can :manage, Relation
       can :manage, Opportunity
