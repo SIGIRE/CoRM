@@ -329,8 +329,15 @@ fr:
       Document: "Document"
       Email: "E-mail"
     roles:
+      details: "Détail des roles"
       admin: Administrateur
+      admin_description: "C'est l'administrateur de la solution. Il a tous les droits."
       super_user: Super Utilisateur
+      super_user_description: "Il peut configurer l'application et supprimer ce qu'il souhaite."
+      user: Utilisateur
+      user_description: "Il peut uniquement supprimer ses propres éléments."
+      restricted_user: "Utilisateur restreint"
+      restricted_user_description: "Il ne peut rien supprimer."	  
     money:
       excl_tax: HT
       incl_tax: TTC

@@ -6,9 +6,32 @@ class Ability
   def initialize(user)
     user ||= User.new
     if user.has_role? :admin
+      # Role Admin
       can :manage, :all
     else
-      # General roles
+    if user.has_role? :restricted_user
+      # Role Restricted User
+      can :manage, Task
+      cannot :destroy, Task
+      can :manage, Email
+      cannot :destroy, Email
+      can :manage, Account
+	  cannot :destroy, Account
+      can :manage, Contact
+	  cannot :destroy, Contact
+      can :manage, Event
+	  cannot :destroy, Event
+      can :manage, Relation
+      can :manage, Opportunity
+	  cannot :destroy, Opportunity
+      can :manage, Quotation
+	  cannot :destroy, Quotation
+      can :manage, QuotationLine
+      can :manage, Document
+	  cannot :destroy, Document
+      can :read, User
+    else	
+      # Role User
       can :manage, Task
       cannot :destroy, Task do |task|
         task.user_id != user.id
@@ -26,7 +49,7 @@ class Ability
       can :manage, Document
       can :read, User
       if user.has_role? :super_user
-        # Only super_user can manage settings
+      # Role Super User
 		can :destroy, Account
 		can :activate, Account
         can :deactivate, Account
@@ -47,7 +70,7 @@ class Ability
         cannot :write, Origin
         cannot :write, EventType
       end
-      
+     end  
     end
     
     # Define abilities for the passed in user here. For example:
