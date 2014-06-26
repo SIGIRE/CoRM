@@ -332,8 +332,15 @@ en:
       Document: "Document"
       Email: "E-mail"
     roles:
+      details: "Roles specification"
       admin: Administrator
+      admin_description: "This is the application's administrator. He can do anything."
       super_user: Super User
+      super_user_description: "He can configure the application and delete anything he want."
+      user: User
+      user_description: "He can delete only his own elements."
+      restricted_user: Restricted User
+      restricted_user_description: "He can't delete anything."	
     money:
       excl_tax: HT
       incl_tax: TTC
