@@ -18,7 +18,7 @@ class Opportunity < ActiveRecord::Base
   
   paginates_per 10
   
-  STATUTS = ["Détectée", "En cours", "Gagnée", "Perdue"]
+  STATUTS = ["Détectée", "En cours", "Gagnée", "Perdue", "Abandonnée","Suspendue"]
   validates_inclusion_of :statut, :in => STATUTS
   
     # Conservé pour le bon fonctionnement des migrations --> non utilisé

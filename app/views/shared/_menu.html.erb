@@ -12,7 +12,7 @@
 
         <% cssClass = (params[:controller] == 'tasks') ? 'active' : '' %>
         <li class="<%= "#{cssClass} "%>">
-          <%= link_to '<i class="fa fa-tasks"></i> Tâches'.html_safe, url_for(:controller => 'tasks') %>
+          <%= link_to "<i class=\"fa fa-tasks\"></i>  #{t('app.model.Task').pluralize}".html_safe, url_for(:controller => 'tasks') %>
         </li>
 
         <!-- ACTORS -->
@@ -20,7 +20,7 @@
         <% cssClass = (params[:controller] == 'accounts' or params[:controller] == 'events' or params[:controller] == 'contacts') ? cssClass = 'active' : '' %>
         <li class="dropdown<%= if !cssClass.blank? then " #{cssClass}" end %>">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="fa fa-users"></i> Acteurs
+            <i class="fa fa-users"></i> <%= t('title.actor').pluralize %>
             <i class="caret"></i>
           </a>
           <ul class="dropdown-menu">
@@ -34,7 +34,7 @@
         <% cssClass = (params[:controller] == 'quotations' or params[:controller] == 'opportunities') ? 'active' : '' %>
         <li class="dropdown<%= if !cssClass.blank? then " #{cssClass}" end %>">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="fa fa-bar-chart-o"></i> Commerce
+            <i class="fa fa-bar-chart-o"></i> <%= t('title.trade') %>
             <i class="caret"></i>
           </a>
           <ul class="dropdown-menu">
@@ -52,7 +52,7 @@
 
         <%= form_tag(search_accounts_path, :method => "get", :class =>"navbar-search", :id =>"form-search") do %>
           <div class="input-append">
-            <%= text_field_tag :account , nil , { :class =>"span3", :placeholder => " Rechercher un acteur...", :autocomplete=> "off", :type => 'text', :id => 'main-search-bar' } %>
+            <%= text_field_tag :account , nil , { :class =>"span3", :placeholder => t('title.search_actor'), :autocomplete=> "off", :type => 'text', :id => 'main-search-bar' } %>
             <span class="add-on"><i class="icon-search"></i></span>
             <ul id="search-list" class="typeahead dropdown-menu"></ul>
           </div>

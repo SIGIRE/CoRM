@@ -6,14 +6,14 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th class="text-center">Statut</th>
-                    <th class="text-center">Priorité</th>
-                    <th class="text-center">Compte</th>
-                    <th class="text-center">Sujet</th>
-                    <th class="text-center">Contact</th>
-                    <th class="text-center">Échéance</th>
-                    <th class="text-center">Collaborateur</th>
-                    <th class="text-center">Actions</th>        
+                    <th class="text-center"><%= t('app.fields.state') %></th>
+                    <th class="text-center"><%= t('app.fields.priority') %></th>
+                    <th class="text-center"><%= t('app.model.Account') %></th>
+                    <th class="text-center"><%= t('app.fields.subject') %></th>
+                    <th class="text-center"><%= t('app.model.Contact') %></th>
+                    <th class="text-center"><%= t('app.fields.term') %></th>
+                    <th class="text-center"><%= t('app.fields.collegue') %></th>
+                    <th class="text-center"><%= t('app.actions.Actions') %></th>        
                 </tr>
             </thead>
             <tbody>
@@ -43,33 +43,52 @@
                             <% else %>
                                 -
                             <% end %>
-			                <%= task.statut %>
+								<% if task.statut == "A faire" %>
+									<%= t('app.status.todo') %>
+								<% elsif task.statut == "En cours" %>
+									<%= t('app.status.in_progress') %>
+								<% elsif task.statut == "Terminé" %>
+									<%= t('app.status.completed') %>
+								<% elsif task.statut == "Annulé" %>
+									<%= t('app.status.canceled') %>
+								<% end %>
 		                    </span>
                         </td>
                         <%# Récupération de la priorité %>
 		                <% if !task.priority.blank? %>
-			                <td class="text-center"><%= Task::PRIORITIES[task.priority] %></td>
+			                							
+						<% if task.priority == 3 %>
+							<td class="text-center"><%= t('app.priority.urgent') %></td>
+						<% elsif task.priority == 2 %>
+							<td class="text-center"><%= t('app.priority.high') %></td>
+						<% elsif task.priority == 1 %>
+							<td class="text-center"><%= t('app.priority.normal') %></td>
+						<% elsif task.priority == 0 %>
+							<td class="text-center"><%= t('app.priority.low') %></td>
+						<% end %>
+							
+							
 		                <% else %>
 			                <td class="text-center">-</td>
 		                <% end %>
 		                
 		                <%# Récupération du compte %>
 		                <% if !task.account.nil? %>
-			                <td class="text-center"><%= link_to task.account.company , account_events_url(task.account),{:title => "Afficher les évenements"} %></td>
+			                <td class="text-center"><%= link_to task.account.company , account_events_url(task.account),{ :title => "#{t('app.model.Event')}".html_safe + " : " + task.account.company } %></td>
 		                <% else %>
 			                <td class="text-center">-</td>
 		                <% end %>
 		                
 		                <%# Récupération du titre %>
 		                <% if !task.title.blank? %>
-			                <td class="text-center"><%= link_to truncate(task.title, :length => 75, :separator => ' '), edit_task_path(task),{:title => "Éditer la tâche"} %></td>
+			                <td class="text-center"><%= link_to truncate(task.title, :length => 75, :separator => ' '), edit_task_path(task), :title => "#{t('app.actions.edit')} #{t('app.default.define_article_female')} #{t('app.model.Task')}".html_safe  %></td>
 		                <% else %>
 			                <td class="text-center">-</td>
 		                <% end %>
 
                         <%# Récupération du contact %>
 		                <% if !task.contact.nil? %>
-			                <td class="text-center"><%= link_to task.contact.full_name, edit_contact_path(task.contact),{:title => "Éditer le contact"}  %></td>
+			                <td class="text-center"><%= link_to task.contact.full_name, edit_contact_path(task.contact),{:title => "#{t('app.actions.edit')} #{t('app.default.define_article_male')} #{t('app.model.Contact')}".html_safe }  %></td>
 		                <% else %>
 			                <td class="text-center">-</td>
 		                <% end %>		
@@ -97,7 +116,7 @@
 		                <% end %>
 
 		                <td class="text-center">
-                      <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_task_path(task) ,{:title => "Éditer la tâche" }  %>
+                      <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_task_path(task) , :title => "#{t('app.actions.edit')} #{t('app.default.define_article_female')} #{t('app.model.Task')}".html_safe   %>
 		                </td>
 	                </tr>
 	            <% end %>

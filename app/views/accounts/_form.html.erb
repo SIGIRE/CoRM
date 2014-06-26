@@ -18,7 +18,7 @@
 
   <% if @account.persisted? %>
   <div class="field">
-    <div class="span2"> Status : </div> <%= f.select :active, options_for_select([["Actif", true], ["Inactif", false]], selected: @account.active) %>
+    <div class="span2"> Statut : </div> <%= f.select :active, options_for_select([["Actif", true], ["Inactif", false]], selected: @account.active) %>
   </div>
   <% end %>
 
