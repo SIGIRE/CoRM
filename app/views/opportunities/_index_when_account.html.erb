@@ -24,6 +24,10 @@
           <span class="badge badge-success">
           <% elsif opportunity.statut == "Perdue"%>
           <span class="badge badge-inverse">
+		  <% elsif opportunity.statut == "Abandonnée"%>
+          <span class="badge badge-inverse">
+		  <% elsif opportunity.statut == "Suspendue"%>
+          <span class="badge badge-inverse">
           <% else %>
           -
           <% end %>
