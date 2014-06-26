@@ -81,15 +81,17 @@ class RegistrationsController < Devise::RegistrationsController
         if a.can? :create, User
           # Enabled and SuperUser role
           params[:user][:enabled] = (params[:user][:enabled] == '1')
-          superUserRole = (params[:super] == "1")
+          userRole = params[:role]
+          #superUserRole = (params[:super] == "1")
           @user = User.new(params[:user])
           # Save and add Roles
           if @user.save
-            if (!@user.has_role?(:super_user) and superUserRole)
-              @user.add_role(:super_user)
-            elsif (@user.has_role?(:super_user) and !superUserRole)
-              @user.remove_role(:super_user)
-            end 
+            #if (!@user.has_role?(:super_user) and superUserRole)
+            #  @user.add_role(:super_user)
+            #elsif (@user.has_role?(:super_user) and !superUserRole)
+            #  @user.remove_role(:super_user)
+            # end
+            @user.add_role(userRole)
             redirect_to users_url, :notice => t('devise.confirmations.account_created').gsub('[user]', @user.full_name)
           else
             redirect_to new_user_url(@user), :notice => "Une erreur est survenu lors de l'enregistrement de #{@user.full_name}"
@@ -139,8 +141,17 @@ class RegistrationsController < Devise::RegistrationsController
     elsif current_user.has_role?(:super_user) or current_user.has_role?(:admin) # this is an admin, yeah !
       @user = User.find(params[:id])
       @email_disabled = false
+      # identify the last role of the user
+      if !@user.roles.empty?
+        @user_role_name = @user.roles.first.name
+      else
+        @user_role_name = :user
+      end
     end
+    
   end
+  
+  
   
   ##
   # Process to update the User
@@ -156,14 +167,12 @@ class RegistrationsController < Devise::RegistrationsController
     elsif params[:id] == current_user.id
       @user = User.find(current_user.id)
     end
+    
+    userRole = params[:role]
+    
     params[:user][:enabled] = current_user.has_role?(:admin) ? (params[:user][:enabled] == '1') : true
     # tmp role treatment
     
-    if current_user.has_role?(:admin)
-      superUserRole = (params[:super] == '1')
-    else
-      superUserRole = @user.has_role?(:super_user) ? true : (params[:super] == '1')
-    end
     password_changed = !params[:user][:password].empty?
     
     if current_user.has_role? :super_user && password_changed
@@ -175,16 +184,26 @@ class RegistrationsController < Devise::RegistrationsController
     end
     
     if successfully_updated
-      if (!@user.has_role?(:super_user) and superUserRole)
-        @user.add_role(:super_user)
-      elsif (@user.has_role?(:super_user) and !superUserRole)
-        @user.remove_role(:super_user)
+      if !@user.has_role?(userRole) then @user.add_role(userRole) end
+      @user.roles.each do |role|
+        if @user.has_role?(role.name)
+          if !(role.name == userRole)
+            @user.remove_role(role.name)
+          end
+        else
+          if role.name == userRole
+            @user.add_role(role.name)
+          end  
+        end
       end
       redirect_to ((current_user.has_role?(:super_user) or current_user.has_role?(:admin)) ? users_path : root_path)
     else
       render "edit"
     end
+      
   end
+  
+  
   
   def destroy
     if !isLogged

@@ -44,15 +44,15 @@
 	<% if u.roles.length > 0 %>
 	  <% if u.roles[0].name == 'admin' %>
 	  <span class="badge badge-important"> <%= t('app.roles.admin') %> </span>
-	  <% end %>
-	  <% if u.roles[0].name == 'super_user' %>
+	  <% elsif u.roles[0].name == 'super_user' %>
 	  <span class="badge badge-warning"> <%= t('app.roles.super_user') %> </span>
-	  <% end %>
-	  <% if u.roles[0].name == 'restricted_user' %>
+	  <% elsif u.roles[0].name == 'restricted_user' %>
 	  <span class="badge badge-success"> <%= t('app.roles.restricted_user') %> </span>
+	  <% elsif u.roles[0].name == 'user' %>
+	  <span class="badge badge-info"> <%= t('app.roles.user') %> </span>
+	  <% else %>
+	  <span class="badge badge-info"> <%= t('app.roles.user') %> </span>
 	  <% end %>
-	<% else %>
-	 <span class="badge badge-info"> <%= t('app.roles.user') %> </span>
 	<% end %>
 	</td>
         <% if current_user.has_role?(:admin) %>
