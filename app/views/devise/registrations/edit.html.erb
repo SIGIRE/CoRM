@@ -35,26 +35,22 @@
       <%= f.select :locale, I18n.available_locales, include_blank: 'Locale système' %>
     </div>
 
+
     <% if current_user.has_role?(:admin) %>
+	 
+	 
+	       <div class="field"> 
+		    <div class="span2"> Droits d'accès : </div> <%= select_tag(:role, options_for_select(Role::CORM_ROLES, :selected => @user_role_name))  %> <span class="req" />
+	       </div>
+	 
 		 <div class="row row-fluid">
-		      <div class="field full">
-							 <label for="user_enabled" class="checkbox"><%= check_box_tag('user[enabled]', 1, @user.enabled,{ :class => 'checkbox' }) %>Compte activé</label>
-					</div>
+		    <div class="field full">
+			 <label for="user_enabled" class="checkbox"><%= check_box_tag('user[enabled]', 1, @user.enabled,{ :class => 'checkbox' }) %>Compte activé</label>
+		    </div>
 		 </div>
      <% end %>
-     <% if current_user.has_role?(:admin) or (current_user.has_role?(:super_user) and !@user.has_role?(:super_user)) %>
-		 <div class="row row-fluid">
-					<div class="field full">
-							 <label for="super" class="checkbox">
-							   <%= check_box_tag('super', 1, @user.has_role?(:super_user),{ :class => 'checkbox' }) %>Droits "Super Utilisateur"
-						   </label>
-					</div>
-		 </div>
-     <% end %>
-	
-	
-    
-    
+     
+
     <div class="modal hide fade" id="edit_profile_modal">
       
       <div class="modal-header">

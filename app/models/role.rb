@@ -4,4 +4,6 @@ resourcify
   belongs_to :resource, :polymorphic => true
   
   scopify
+  
+  CORM_ROLES = [[I18n.t('app.roles.user'), :user], [I18n.t('app.roles.restricted_user'), :restricted_user], [I18n.t('app.roles.admin'), :admin], [I18n.t('app.roles.super_user'), :super_user]]
 end
