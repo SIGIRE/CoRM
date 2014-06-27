@@ -5,8 +5,8 @@
          <div class="span9">
            <h1>Utilisateurs enregistrés</h1></div>
 		       <% if current_user.has_role? :admin %>
-    <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_user_path ,{:title => "Créer un utilisateur", :class=>"btn pull-right"} %>
-    <% end %>
+					<%= link_to '<i class="fa fa-plus-circle fa-3x action-icon pull-right"></i>'.html_safe, new_user_path ,{:title => "#{t('app.actions.create')} #{t('app.default.new_male')} #{t('app.model.User')}".html_safe} %>
+			<% end %>
          
 		</div>
 	 </div>
