@@ -36,7 +36,7 @@
      <% if !@first_creation %>
 	  <% if current_user.has_role?(:admin) %>
 	       <div class="field"> 
-		    <div class="span2"> Droits d'accès : </div> <%= select_tag(:role, options_for_select(Role::CORM_ROLES))  %> <span class="req" />
+		    <div class="span2"> Droits d'accès : </div> <%= select_tag(:role, options_for_select(Role.list_all))  %> <span class="req" />
 	       </div>
 	  <% end %>
 	  <div>

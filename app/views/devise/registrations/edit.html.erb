@@ -40,7 +40,7 @@
 	 
 	 
 	       <div class="field"> 
-		    <div class="span2"> Droits d'accès : </div> <%= select_tag(:role, options_for_select(Role::CORM_ROLES, :selected => @user_role_name))  %> <span class="req" />
+		    <div class="span2"> Droits d'accès : </div> <%= select_tag(:role, options_for_select(Role.list_all, :selected => @user_role_name))  %> <span class="req" />
 	       </div>
 	 
 		 <div class="row row-fluid">
