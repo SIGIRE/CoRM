@@ -1,0 +1,37 @@
+<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+
+<div class="container-fluid" style="margin-top: 1em;">
+     <div class="well">
+       <div class="row-fluid">
+         <div class="span9">
+           <h1><%= t('title.reporting')%></h1>
+         </div>
+       </div>
+     </div>
+</div>
+
+<!--<%= render partial: 'reporting_filter' %>-->
+
+<div class="container-fluid">
+<table class="table table-bordered table-striped table-hover">
+  <thead>
+    <tr>
+      <th class="text-center">Du <%= @start_at.strftime("%d/%m/%Y")%> au <%= @start_at.strftime("%d/%m/%Y") %></th>	
+      <th class="text-center">Nombre</th>
+      <th class="text-center">Plus ancien</th>
+      <th class="text-center">Plus récent</th>
+      <th class="text-center">Moy. journalière</th>
+    </tr>
+  </thead>
+  <tbody>
+     <tr>
+          <td class="text-center"><%= link_to"#{t('app.model.Event').pluralize}".html_safe, events_path, :title => "#{t('app.model.Event').pluralize}".html_safe %></td>
+          <td class="text-center"><%= @total_events %></td>
+          <td class="text-center"><%= @older_events.blank? ? '-' : @older_events.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
+          <td class="text-center"><%= @newer_events.blank? ? '-' : @newer_events.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
+          <td class="text-center"><%= number_with_precision(@average_events, :precision => 2) %></td>
+     </tr>
+  </tbody>
+</table>
+          <%= line_chart @events.group_by_day(:created_at).count %>
+</div>

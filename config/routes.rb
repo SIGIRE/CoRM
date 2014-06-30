@@ -134,8 +134,11 @@ Crm::Application.routes.draw do
   match 'contacts/search(.:format)', :controller => 'contacts', :action => 'search', :via => :get, :as => "search_contact_index"
   match 'contacts/filter(.:format)', :controller => 'contacts', :action => 'filter', :via => :get, :as => "search_contact_index"
   
-  #root :to => 'tasks#index'
+  # Dashboard
   root :to => 'home#index'
+  
+  # Reporting
+  match 'reporting', :controller => 'home', :action => 'reporting'
 
   resources :about
 

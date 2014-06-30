@@ -412,6 +412,8 @@ fr:
     statistic: "Statistique"
     filter_tasks: "Filtrer les Tâches"
     search_actor: "Rechercher un acteur..."
+    reporting: "Rapport d'activité"
+    filter_reporting: "Filtrer le rapport d'activité"
 
   various:
     my: "Mes"

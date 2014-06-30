@@ -52,3 +52,6 @@ gem 'mail', '~> 2.5.4'
 gem 'rails_autolink'
 
 gem 'has_scope'
+
+gem 'chartkick'
+gem 'groupdate'

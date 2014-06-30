@@ -16,7 +16,7 @@ class HomeController < ApplicationController
 
 	if current_user.has_role? :admin 
 	@count = Hash.new
-    @count[:user] = User.all_reals.count
+        @count[:user] = User.all_reals.count
 	@count[:account] = Account.count
 	@count[:contact] = Contact.count
 	@count[:event] = Event.count
@@ -75,5 +75,15 @@ class HomeController < ApplicationController
 		    end
 	    end
 	    return size
+    end
+    
+    def reporting
+	  @start_at= DateTime.now.to_date unless !@start_at.blank?
+	  @end_at= DateTime.now.to_date unless !@end_at.blank?
+	  @events = Event.between_dates(@start_at, @end_at)
+	  @total_events = @events.count
+	  @older_events = @events.order("created_at ASC").first
+	  @newer_events = @events.order("created_at DESC").first
+	  @average_events = (@events.count / (@end_at - @start_at + 1))
     end
 end
