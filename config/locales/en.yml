@@ -412,8 +412,10 @@ en:
     show_all_quotation: "Show all quotations"
     latest_event: "Latest Events"
     statistic: "Statistic"
-    filter_tasks: "Filter Tasks"
+    filter_tasks: "Tasks Filter"
     search_actor: "Search an actor..."
+    reporting: "Reporting"
+    filter_reporting: "Reporting Filter"
 
   various:
     my: "My"
