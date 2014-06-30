@@ -88,7 +88,7 @@ class EventsController < ApplicationController
 
     @event.date_end = params[:event][:date_end]
     @event.date_end = @event.date_end.change({:hour => params[:event]["date_end(4i)"].to_i, :min => params[:event]["date_end(5i)"].to_i}) 
-    if params[:generate]== "yes"
+    if params[:generate_task]== "yes"
       @event.notes2 = params[:notes]
       self.create_task
     end
