@@ -78,12 +78,20 @@ class HomeController < ApplicationController
     end
     
     def reporting
-	  @start_at= DateTime.now.to_date unless !@start_at.blank?
-	  @end_at= DateTime.now.to_date unless !@end_at.blank?
-	  @events = Event.between_dates(@start_at, @end_at)
-	  @total_events = @events.count
-	  @older_events = @events.order("created_at ASC").first
-	  @newer_events = @events.order("created_at DESC").first
-	  @average_events = (@events.count / (@end_at - @start_at + 1))
+
+	  
+	  @start_at = Time.zone.parse(params[:start_at]).to_datetime unless params[:start_at].blank?
+	  @end_at = Time.zone.parse(params[:end_at]).to_datetime unless params[:end_at].blank?
+	  @start_at= ((DateTime.now) - 30) unless !@start_at.blank?
+	  @end_at= DateTime.now unless !@end_at.blank?
+	  
+	  @user_id = params[:user_id]
+	  if (@user_id.blank? or (User.find_by_id(@user_id).blank?))
+	    @events = Event.between_dates(@start_at, @end_at)
+	    @tasks = Task.between_dates(@start_at, @end_at)
+	  elsif
+	    @events = Event.between_dates(@start_at, @end_at).by_user_id(@user_id)
+	    @tasks = Task.between_dates(@start_at, @end_at).by_user_id(@user_id)
+	  end  
     end
 end
