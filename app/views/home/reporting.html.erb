@@ -171,6 +171,9 @@
   </tbody>
 </table>
      <div class="row-fluid">
+          <div class="span8">
+               <%= bar_chart @opportunities.group(:statut).sum(:amount) %>
+          </div>          
           <div class="span4">
                <%= pie_chart @opportunities.group(:statut).count %>
           </div>
@@ -199,20 +202,23 @@
           <tr>
                <td class="text-center"><%= status %></td>
                <td class="text-center"><%= @quotations.by_statut(status).count %></td>
-               <td class="text-center"><%= @quotations.by_statut(status).sum(:total_excl_tax_cents) %></td>
-               <td class="text-center"><%= @quotations.by_statut(status).count == 0 ? '-' : number_with_precision( (@quotations.by_statut(status).sum(:total_excl_tax_cents) / @quotations.by_statut(status).count ), :precision => 2) %></td>
+               <td class="text-center"><%= number_with_precision(@quotations.by_statut(status).sum(:total_excl_tax_cents) / 100 , :precision => 2) %></td>
+               <td class="text-center"><%= @quotations.by_statut(status).count == 0 ? '-' : number_with_precision( (@quotations.by_statut(status).sum(:total_excl_tax_cents) / (@quotations.by_statut(status).count * 100) ), :precision => 2) %></td>
           </tr>
           <% end %>
      <% end %>
      <tr>
           <td class="text-center"><strong>Total</strong></td>
           <td class="text-center"><%= @quotations.count %></td>
-          <td class="text-center"><%= @quotations.sum(:total_excl_tax_cents) %></td>
-          <td class="text-center"><%= @quotations.count == 0 ? '-' : number_with_precision( (@quotations.sum(:total_excl_tax_cents) / @quotations.count ), :precision => 2) %></td>
+          <td class="text-center"><%= number_with_precision(@quotations.sum(:total_excl_tax_cents) / 100 , :precision => 2) %></td>
+          <td class="text-center"><%= @quotations.count == 0 ? '-' : number_with_precision( (@quotations.sum(:total_excl_tax_cents) / (@quotations.count * 100) ), :precision => 2) %></td>
      </tr>     
   </tbody>
 </table>
      <div class="row-fluid">
+          <div class="span8">
+               <%= bar_chart @quotations.group(:statut).sum('(total_excl_tax_cents / 100)') %>
+          </div>            
           <div class="span4">
                <%= pie_chart @quotations.group(:statut).count %>
           </div>
