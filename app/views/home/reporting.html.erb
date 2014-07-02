@@ -54,19 +54,19 @@
           <% if !(@events.by_event_type_id(event_type.id).count == 0) %>
           <tr>
                <td class="text-center"><%= event_type.label %> <%= event_type.direction %></td>
-               <td class="text-center"><%= @events.by_event_type_id(event_type.id).count %></td>
+               <td class="text-center"><%= number_with_delimiter(@events.by_event_type_id(event_type.id).count) %></td>
                <td class="text-center"><%= @events.by_event_type_id(event_type.id).blank? ? '-' : @events.by_event_type_id(event_type.id).order("created_at ASC").first.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
                <td class="text-center"><%= @events.by_event_type_id(event_type.id).blank? ? '-' : @events.by_event_type_id(event_type.id).order("created_at DESC").first.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
-               <td class="text-center"><%= number_with_precision( (@events.by_event_type_id(event_type.id).count / (@end_at.to_date - @start_at.to_date + 1)), :precision => 2) %></td>
+               <td class="text-center"><%= number_with_delimiter(number_with_precision( (@events.by_event_type_id(event_type.id).count / (@end_at.to_date - @start_at.to_date + 1)), :precision => 2)) %></td>
           </tr>
           <% end %>
      <% end %>
      <tr>
           <td class="text-center"><strong>Total</strong></td>
-          <td class="text-center"><%= @events.count %></td>
-          <td class="text-center"><%= @events.blank? ? '-' : @events.order("created_at ASC").first.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
-          <td class="text-center"><%= @events.blank? ? '-' : @events.order("created_at DESC").first.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
-          <td class="text-center"><%= number_with_precision( (@events.count / (@end_at - @start_at + 1.day)), :precision => 2) %></td>
+          <td class="text-center"><strong><%= number_with_delimiter(@events.count) %></strong></td>
+          <td class="text-center"><strong><%= @events.blank? ? '-' : @events.order("created_at ASC").first.created_at.strftime("%d/%m/%Y - %H:%M") %></strong></td>
+          <td class="text-center"><strong><%= @events.blank? ? '-' : @events.order("created_at DESC").first.created_at.strftime("%d/%m/%Y - %H:%M") %></strong></td>
+          <td class="text-center"><strong><%= number_with_delimiter(number_with_precision( (@events.count / (@end_at.to_date - @start_at.to_date + 1)), :precision => 2)) %></strong></td>
      </tr>     
   </tbody>
 </table>   
@@ -75,7 +75,7 @@
                <%= line_chart @events.group_by_day(:created_at).count %>
           </div>
           <div class="span4">
-               <%= pie_chart @events.joins(:event_type).group("(event_types.label, event_types.direction)").count %>
+               <%= pie_chart @events.joins(:event_type).group("(event_types.label, event_types.direction)").count, library: {is3D: false, pieHole: 0.4} %>
           </div>
      </div>
 
@@ -104,19 +104,19 @@
           <% if !(@tasks.by_statut(status).count == 0) %>
           <tr>
                <td class="text-center"><%= status %></td>
-               <td class="text-center"><%= @tasks.by_statut(status).count %></td>
+               <td class="text-center"><%= number_with_delimiter(@tasks.by_statut(status).count) %></td>
                <td class="text-center"><%= @tasks.by_statut(status).blank? ? '-' : @tasks.by_statut(status).order("created_at ASC").first.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
                <td class="text-center"><%= @tasks.by_statut(status).blank? ? '-' : @tasks.by_statut(status).order("created_at DESC").first.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
-               <td class="text-center"><%= number_with_precision( (@tasks.by_statut(status).count / (@end_at.to_date - @start_at.to_date + 1)), :precision => 2) %></td>
+               <td class="text-center"><%= number_with_delimiter(number_with_precision( (@tasks.by_statut(status).count / (@end_at.to_date - @start_at.to_date + 1)), :precision => 2)) %></td>
           </tr>
           <% end %>
      <% end %>
      <tr>
           <td class="text-center"><strong>Total</strong></td>
-          <td class="text-center"><%= @tasks.count %></td>
-          <td class="text-center"><%= @tasks.blank? ? '-' : @tasks.order("created_at ASC").first.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
-          <td class="text-center"><%= @tasks.blank? ? '-' : @tasks.order("created_at DESC").first.created_at.strftime("%d/%m/%Y - %H:%M") %></td>
-          <td class="text-center"><%= number_with_precision( (@tasks.count / (@end_at.to_date - @start_at.to_date + 1)), :precision => 2) %></td>
+          <td class="text-center"><strong><%= number_with_delimiter(@tasks.count) %></strong></td>
+          <td class="text-center"><strong><%= @tasks.blank? ? '-' : @tasks.order("created_at ASC").first.created_at.strftime("%d/%m/%Y - %H:%M") %></strong></td>
+          <td class="text-center"><strong><%= @tasks.blank? ? '-' : @tasks.order("created_at DESC").first.created_at.strftime("%d/%m/%Y - %H:%M") %></strong></td>
+          <td class="text-center"><strong><%= number_with_delimiter(number_with_precision( (@tasks.count / (@end_at.to_date - @start_at.to_date + 1)), :precision => 2)) %></strong></td>
      </tr>     
   </tbody>
 </table>
@@ -125,7 +125,7 @@
                <%= line_chart @tasks.group_by_day(:created_at).count %>
           </div>
           <div class="span4">
-               <%= pie_chart @tasks.group(:statut).count %>
+               <%= pie_chart @tasks.group(:statut).count, library: {is3D: false, pieHole: 0.4} %>
           </div>
      </div>
 </div>
@@ -141,10 +141,10 @@
     <tr>
       <th class="text-center"><%= link_to"#{t('app.model.Opportunity').pluralize}".html_safe, opportunities_path, :title => "#{t('app.model.Opportunity').pluralize}".html_safe %> modifiées du <%= @start_at.to_date.strftime("%d/%m/%Y") %> au <%= @end_at.to_date.strftime("%d/%m/%Y") %></th>	
       <th class="text-center">Nombre</th>
-      <th class="text-center">Montant</th>
-      <th class="text-center">Marge</th>
-      <th class="text-center">Montant moyen</th>
-      <th class="text-center">Marge moyenne</th>
+      <th class="text-center">Montant HT</th>
+      <th class="text-center">Marge HT</th>
+      <th class="text-center">Montant moyen HT</th>
+      <th class="text-center">Marge moyenne HT</th>
     </tr>
   </thead>
   <tbody>
@@ -153,20 +153,20 @@
           <tr>
                <td class="text-center"><%= status %></td>
                <td class="text-center"><%= @opportunities.by_statut(status).count %></td>
-               <td class="text-center"><%= @opportunities.by_statut(status).sum(:amount) %></td>
-               <td class="text-center"><%= @opportunities.by_statut(status).sum(:profit) %></td>
-               <td class="text-center"><%= @opportunities.by_statut(status).count == 0 ? '-' : number_with_precision( (@opportunities.by_statut(status).sum(:amount) / @opportunities.by_statut(status).count ), :precision => 2) %></td>
-               <td class="text-center"><%= @opportunities.by_statut(status).count == 0 ? '-' : number_with_precision( (@opportunities.by_statut(status).sum(:profit) / @opportunities.by_statut(status).count ), :precision => 2) %></td>
+               <td class="text-center"><%= number_to_currency(@opportunities.by_statut(status).sum(:amount)) %></td>
+               <td class="text-center"><%= number_to_currency(@opportunities.by_statut(status).sum(:profit)) %></td>
+               <td class="text-center"><%= @opportunities.by_statut(status).count == 0 ? '-' : number_to_currency((@opportunities.by_statut(status).sum(:amount) / @opportunities.by_statut(status).count )) %></td>
+               <td class="text-center"><%= @opportunities.by_statut(status).count == 0 ? '-' : number_to_currency((@opportunities.by_statut(status).sum(:profit) / @opportunities.by_statut(status).count )) %></td>
           </tr>
           <% end %>
      <% end %>
      <tr>
           <td class="text-center"><strong>Total</strong></td>
-          <td class="text-center"><%= @opportunities.count %></td>
-          <td class="text-center"><%= @opportunities.sum(:amount) %></td>
-          <td class="text-center"><%= @opportunities.sum(:profit) %></td>
-          <td class="text-center"><%= @opportunities.count == 0 ? '-' : number_with_precision( (@opportunities.sum(:amount) / @opportunities.count ), :precision => 2) %></td>
-          <td class="text-center"><%= @opportunities.count == 0 ? '-' : number_with_precision( (@opportunities.sum(:profit) / @opportunities.count ), :precision => 2) %></td>
+          <td class="text-center"><strong><%= number_with_delimiter(@opportunities.count) %></strong></td>
+          <td class="text-center"><strong><%= number_to_currency(@opportunities.sum(:amount)) %></strong></td>
+          <td class="text-center"><strong><%= number_to_currency(@opportunities.sum(:profit)) %></strong></td>
+          <td class="text-center"><strong><%= @opportunities.count == 0 ? '-' : number_to_currency((@opportunities.sum(:amount) / @opportunities.count )) %></strong></td>
+          <td class="text-center"><strong><%= @opportunities.count == 0 ? '-' : number_to_currency((@opportunities.sum(:profit) / @opportunities.count )) %></strong></td>
      </tr>     
   </tbody>
 </table>
@@ -175,7 +175,7 @@
                <%= bar_chart @opportunities.group(:statut).sum(:amount) %>
           </div>          
           <div class="span4">
-               <%= pie_chart @opportunities.group(:statut).count %>
+               <%= pie_chart @opportunities.group(:statut).count, library: {is3D: false, pieHole: 0.4} %>
           </div>
      </div>
 </div>
@@ -192,8 +192,8 @@
     <tr>
       <th class="text-center"><%= link_to"#{t('app.model.Quotation').pluralize}".html_safe, quotations_path, :title => "#{t('app.model.Quotation').pluralize}".html_safe %> modifiés du <%= @start_at.to_date.strftime("%d/%m/%Y") %> au <%= @end_at.to_date.strftime("%d/%m/%Y") %></th>	
       <th class="text-center">Nombre</th>
-      <th class="text-center">Montant</th>
-      <th class="text-center">Montant moyen</th>
+      <th class="text-center">Montant HT</th>
+      <th class="text-center">Montant moyen HT</th>
     </tr>
   </thead>
   <tbody>
@@ -201,17 +201,17 @@
           <% if !(@quotations.by_statut(status).count == 0) %>
           <tr>
                <td class="text-center"><%= status %></td>
-               <td class="text-center"><%= @quotations.by_statut(status).count %></td>
-               <td class="text-center"><%= number_with_precision(@quotations.by_statut(status).sum(:total_excl_tax_cents) / 100 , :precision => 2) %></td>
-               <td class="text-center"><%= @quotations.by_statut(status).count == 0 ? '-' : number_with_precision( (@quotations.by_statut(status).sum(:total_excl_tax_cents) / (@quotations.by_statut(status).count * 100) ), :precision => 2) %></td>
+               <td class="text-center"><%= number_with_delimiter(@quotations.by_statut(status).count) %></td>
+               <td class="text-center"><%= number_to_currency(@quotations.by_statut(status).sum(:total_excl_tax_cents) / 100 ) %></td>
+               <td class="text-center"><%= @quotations.by_statut(status).count == 0 ? '-' : number_to_currency((@quotations.by_statut(status).sum(:total_excl_tax_cents) / (@quotations.by_statut(status).count * 100) )) %></td>
           </tr>
           <% end %>
      <% end %>
      <tr>
           <td class="text-center"><strong>Total</strong></td>
-          <td class="text-center"><%= @quotations.count %></td>
-          <td class="text-center"><%= number_with_precision(@quotations.sum(:total_excl_tax_cents) / 100 , :precision => 2) %></td>
-          <td class="text-center"><%= @quotations.count == 0 ? '-' : number_with_precision( (@quotations.sum(:total_excl_tax_cents) / (@quotations.count * 100) ), :precision => 2) %></td>
+          <td class="text-center"><strong><%= number_with_delimiter(@quotations.count) %></strong></td>
+          <td class="text-center"><strong><%= number_to_currency(@quotations.sum(:total_excl_tax_cents) / 100 ) %></strong></td>
+          <td class="text-center"><strong><%= @quotations.count == 0 ? '-' : number_to_currency((@quotations.sum(:total_excl_tax_cents) / (@quotations.count * 100) )) %></strong></td>
      </tr>     
   </tbody>
 </table>
@@ -220,7 +220,7 @@
                <%= bar_chart @quotations.group(:statut).sum('(total_excl_tax_cents / 100)') %>
           </div>            
           <div class="span4">
-               <%= pie_chart @quotations.group(:statut).count %>
+               <%= pie_chart @quotations.group(:statut).count, library: {is3D: false, pieHole: 0.4} %>
           </div>
      </div>
 </div>
