@@ -35,6 +35,7 @@ Crm::Application.configure do
   #   :authentication => 'plain'
   }
 
+
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
 

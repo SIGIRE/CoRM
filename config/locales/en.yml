@@ -301,6 +301,7 @@ en:
     cancan:
       messages:
         unauthorized: "Vous n'êtes pas autoriser à [action] [undefined_article] [model]"
+        access_error: "You can't access this resource !"
     controllers:
       EventType: "type d'évènement"
       Event: event
@@ -340,7 +341,9 @@ en:
       user: User
       user_description: "He can delete only his own elements."
       restricted_user: Restricted User
-      restricted_user_description: "He can't delete anything."	
+      restricted_user_description: "He can create and update his data but can't delete anything."
+      readonly_user: Read-only User
+      readonly_user_description: "He can just read."	      
     money:
       excl_tax: HT
       incl_tax: TTC

@@ -24,7 +24,11 @@ class Email < ActiveRecord::Base
   # Checks if self can be converted to an Event instance.
 
   def is_convertible_to_events?
-    !accounts_with_contacts.empty? || self.arbitrary_account
+    if (!accounts_with_contacts.empty? or !self.arbitrary_account.blank?)
+      true
+    else
+      false
+    end
   end
 
   ##
@@ -77,13 +81,14 @@ class Email < ActiveRecord::Base
 
   def convert
     events = []
-    # accounts_with_contacts.each { |account, contacts| events.push(create_event account, contacts) }
+    accounts_with_contacts.each { |account, contacts| events.push(create_event account, contacts) }
 
-    if self.arbitrary_account
-      contacts = []
-      contacts.push self.arbitrary_contact if self.arbitrary_contact
-      events.push(create_event arbitrary_account, contacts)
-    end
+    #if self.arbitrary_account
+    #  puts "SECOND CONVERT CALLED"
+    #  contacts = []
+    #  contacts.push self.arbitrary_contact if self.arbitrary_contact
+    #  events.push(create_event arbitrary_account, contacts)
+    #end
 
     events
   end

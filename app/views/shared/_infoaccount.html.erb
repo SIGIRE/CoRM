@@ -83,6 +83,7 @@
 <% else %>
 <hr id="contact-hr" style="display: none;" />
 <% end %>
+<% if can? :create, @account => Contact %>
 <%= form_for( [@account, @account.contacts.new], :html => {:class => 'well'}) do |f| %>
 <p><%=image_tag("glyphicons/glyphicons_006_user_add.png")%>Ajouter un contact</p>
   <div class="row small-fields">
@@ -122,5 +123,7 @@
     </div>
   </div>
   <%= f.hidden_field :account_id %>
+  <br>
   <div class = "actions"><%= f.submit "Ajouter un Contact" %></div>
+<% end %>
 <% end %>

@@ -22,9 +22,10 @@ class MailProcessor
     # I'd suggest we merge all *Attachments in one class, so we'll just have to pass the foreign key of
     # the attachment to the new Event when created.
     email.save
-
     if email.is_convertible_to_events?
-      email.to_events.each { |event| event.save }
+      email.to_events.each do |event|
+        event.save
+      end
       email.destroy
     end
   end

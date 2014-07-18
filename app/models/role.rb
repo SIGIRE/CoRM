@@ -6,7 +6,7 @@ resourcify
   scopify
   
   def self.list_all
-    [[I18n.t('app.roles.user'), :user], [I18n.t('app.roles.restricted_user'), :restricted_user], [I18n.t('app.roles.admin'), :admin], [I18n.t('app.roles.super_user'), :super_user]]
+    [[I18n.t('app.roles.user'), :user], [I18n.t('app.roles.restricted_user'), :restricted_user], [I18n.t('app.roles.readonly_user'), :readonly_user], [I18n.t('app.roles.admin'), :admin], [I18n.t('app.roles.super_user'), :super_user]]
   end
   
 end
