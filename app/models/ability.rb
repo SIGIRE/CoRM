@@ -10,19 +10,34 @@ class Ability
       # Role Admin
       can :manage, :all
       
+    elsif user.has_role? :readonly_user
+      can :read, :all
+      can :search, Account
+      
     elsif user.has_role? :restricted_user
       # Role Restricted User
-      can :manage, Task
-      cannot :destroy, Task
-      can :manage, Email
-      cannot :destroy, Email
-      can :manage, Account
+      can :read, Account
+	  can :search, Account
+	  can :update, Account, :user_id => user.id
+	  can :create, Account
 	  cannot :destroy, Account
-      can :manage, Contact
+      can :read, Alias
+	  can :update, Alias, :user_id => user.id
+	  can :create, Account
+	  cannot :destroy, Account	  
+      can :read, Tag    
+      can :read, Contact
+	  can :update, Contact, :account => {:user_id => user.id}
+	  can :create, Contact, :account => {:user_id => user.id}      
 	  cannot :destroy, Contact
-      can :manage, Event
-	  cannot :destroy, Event
-      can :manage, Relation
+      can :read, Event
+	can :update, Event, :user_id => user.id 
+	can :create, Event, :account => {:user_id => user.id}
+	can :destroy, Event, :user_id => user.id
+      can :read, Relation
+	  can :update, Relation, :account => {:user_id => user.id}
+	  can :create, Relation, :account => {:user_id => user.id}
+	  can :destroy, Relation, :account => {:user_id => user.id}
       can :manage, Opportunity
 	  cannot :destroy, Opportunity
       can :manage, Quotation
@@ -31,6 +46,10 @@ class Ability
       can :manage, Document
 	  cannot :destroy, Document
       can :read, User
+      can :manage, Task
+      cannot :destroy, Task
+      can :manage, Email
+      cannot :destroy, Email
       
     elsif user.has_role? :user	
       # Role User
@@ -43,7 +62,10 @@ class Ability
 	  cannot :destroy, Account
       can :manage, Contact
 	  cannot :destroy, Contact
-      can :manage, Event
+      can :read, Event
+	can :update, Event, :user_id => user.id 
+	can :create, Event
+	can :destroy, Event, :user_id => user.id
       can :manage, Relation
       can :manage, Opportunity
       can :manage, Quotation
@@ -97,7 +119,10 @@ class Ability
 	  cannot :destroy, Account
       can :manage, Contact
 	  cannot :destroy, Contact
-      can :manage, Event
+      can :read, Event
+	can :update, Event, :user_id => user.id 
+	can :create, Event
+	can :destroy, Event, :user_id => user.id
       can :manage, Relation
       can :manage, Opportunity
       can :manage, Quotation
