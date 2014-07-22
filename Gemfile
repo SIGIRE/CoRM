@@ -25,7 +25,7 @@ group :assets do
 end
 
 gem 'json'
-gem 'therubyracer'
+gem 'therubyracer'  # comment this line for windows
 
 gem 'sass-rails', '~> 3.2'
 

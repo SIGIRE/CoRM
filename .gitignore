@@ -81,7 +81,7 @@ pickle-email-*.html
 /public/assets
 
 # Exuberant CTags
-./tags
+/tags
 
 # Ignore application configuration
 /config/application.yml
@@ -89,4 +89,14 @@ pickle-email-*.html
 # Ignore Deploy Capistrano
 /config/deploy.rb
 /config/deploy.json
+
+# Ignore .gitignore
+/.gitignore
+
+# Ignore various files
+/.ruby-gemset
+/.ruby-version
+/Capfile
+/Gemfile.lock
+
 
