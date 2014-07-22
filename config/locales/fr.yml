@@ -277,22 +277,28 @@ fr:
     save_undefined_error: "Une erreur est survenue pendant l'enregistrement"
     default:
       subject: Sujet
+      define_article_male: le
+      define_article_female: la
       undefine_article_male: un
       undefine_article_female: une
       undefine_article_plural: des
+      new_male: "nouveau"
+      new_female: "nouvelle"
     actions:
-      create: créer
-      new: créer
-      update: éditer
-      edit: éditer
-      destroy: supprimer
-      show: afficher
-      do: faire
+      create: Créer
+      new: Nouveau
+      update: Éditer
+      edit: Éditer
+      destroy: Supprimer
+      show: Afficher
+      do: Faire
       created_by: "Créer par"
       updated_by: "Dernièrement modifié par"
+      filter: "Filtrer"
     cancan:
       messages:
-        unauthorized: "Vous n'êtes pas autoriser à [action] [undefined_article] [model]"
+        unauthorized: "Vous n'êtes pas autorisé à [action] [undefined_article] [model]"
+        access_error: "Vous n'êtes pas autorisé à accéder à cette ressource !"
     controllers:
       EventType: "type d'évènement"
       Event: évènement
@@ -314,23 +320,53 @@ fr:
     model:
       Account: Compte
       Contact: Contact
+      User: Utilisateur
       Quotation: Devis
       Task: Tâche
       Opportunity: Opportunité
-      Event: Événement
+      Event: Évènement
       EventType: "Type d'évènement"
       QuotationTemplate: Modèle
+      Document: "Document"
+      Email: "E-mail"
     roles:
+      details: "Détail des roles"
       admin: Administrateur
+      admin_description: "C'est l'administrateur de la solution. Il a tous les droits."
       super_user: Super Utilisateur
+      super_user_description: "Il peut configurer l'application et supprimer ce qu'il souhaite."
+      user: Utilisateur
+      user_description: "Il peut uniquement supprimer ses propres éléments."
+      restricted_user: "Utilisateur restreint"
+      restricted_user_description: "Il peut créer et modifiser ses données mais ne peut rien supprimer."
+      readonly_user: Lecteur
+      readonly_user_description: "Il peut seulement lire les données."      
     money:
       excl_tax: HT
       incl_tax: TTC
       tax: TVA
       excluding_taxes: Hors Taxes
       including_taxes: Toutes Taxes Comprises
+    priority:
+      low: "Bas"
+      normal: "Normal"
+      high: "Haut"
+      urgent: "Urgent"
+    status:
+      todo: "À faire"
+      in_progress: "En cours"
+      completed: "Terminé"
+      canceled: "Annulé"
+      detected: "Détectée"
+      won: "Gagnée"
+      lost: "Perdue"
+      save: "Sauvegardé"
+      accepted: "Accepté"
+      refused: "Refusé"
     fields:
       colon: " : "
+      element: "Élément"
+      detail: Détail
       label: Libellé
       term: Échéance
       description: Description
@@ -338,7 +374,8 @@ fr:
       collegue: Collaborateur
       emailToCollegue: "Envoyer un Mail à ce collaborateur"
       update_attach: "Modifier la pièce jointe"
-      attach: "Pièce jointe"
+      attach: "Pièce-jointe"
+      attaches: "Pièces-jointes"
       present_attach: "Pièce-jointe actuelle"
       state: 'Statut'
       remark: Remarque
@@ -358,6 +395,28 @@ fr:
       subject: Sujet
       name: Nom
       company: Société
+      date: "Date"
+      profit_margin: "Marge"
+      estimate: "Estimation"
+      total_excluding_taxes: "Total HT"
+      active: "Actif"
+      size: "Taille"
+      content: "Contenu"
 
   title:
     dashboard: "Tableau de bord"
+    actor: "Acteur"
+    trade: "Commerce"
+    show_all_task: "Afficher toutes mes tâches"
+    show_all_event: "Afficher tous les évènements"
+    show_all_opportunity: "Afficher toutes les opportunités"
+    show_all_quotation: "Afficher tous les devis"
+    latest_event: "Événements récents"
+    statistic: "Statistique"
+    filter_tasks: "Filtrer les Tâches"
+    search_actor: "Rechercher un acteur..."
+    reporting: "Rapport d'activité"
+    filter_reporting: "Filtrer le rapport d'activité"
+
+  various:
+    my: "Mes"

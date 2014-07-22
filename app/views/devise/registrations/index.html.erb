@@ -5,14 +5,22 @@
          <div class="span9">
            <h1>Utilisateurs enregistrés</h1></div>
 		       <% if current_user.has_role? :admin %>
-    <%= link_to image_tag("glyphicons/glyphicons_190_circle_plus.png"), new_user_path ,{:title => "Créer un utilisateur", :class=>"btn pull-right"} %>
-    <% end %>
+					<%= link_to '<i class="fa fa-plus-circle fa-3x action-icon pull-right"></i>'.html_safe, new_user_path ,{:title => "#{t('app.actions.create')} #{t('app.default.new_male')} #{t('app.model.User')}".html_safe} %>
+			<% end %>
          
 		</div>
 	 </div>
   <p>
     <h3>Utilisateurs actifs : <%= @all_reals_user_count %> </h3>
-
+	<br>
+	<h4><%= t('app.roles.details') %> :</h4>
+	<ul>
+     <li><span class="badge badge-important"> <%= t('app.roles.admin') %> </span> : <%= t('app.roles.admin_description') %> </li>
+	 <li><span class="badge badge-warning"> <%= t('app.roles.super_user') %> </span> : <%= t('app.roles.super_user_description') %> </li>
+	 <li><span class="badge badge-success"> <%= t('app.roles.user') %> </span> : <%= t('app.roles.user_description') %> </li>
+	 <li><span class="badge badge-info"> <%= t('app.roles.restricted_user') %> </span> : <%= t('app.roles.restricted_user_description') %> </li>
+	 <li><span class="badge"> <%= t('app.roles.readonly_user') %> </span> : <%= t('app.roles.readonly_user_description') %> </li>
+    </ul>
   </p>
   <% if @users.length > 0 %>
   </br>
@@ -37,12 +45,17 @@
 	<% if u.roles.length > 0 %>
 	  <% if u.roles[0].name == 'admin' %>
 	  <span class="badge badge-important"> <%= t('app.roles.admin') %> </span>
-	  <% end %>
-	  <% if u.roles[0].name == 'super_user' %>
+	  <% elsif u.roles[0].name == 'super_user' %>
 	  <span class="badge badge-warning"> <%= t('app.roles.super_user') %> </span>
+	  <% elsif u.roles[0].name == 'restricted_user' %>
+	  <span class="badge badge-info"> <%= t('app.roles.restricted_user') %> </span>
+	  <% elsif u.roles[0].name == 'readonly_user' %>
+	  <span class="badge"> <%= t('app.roles.readonly_user') %> </span>
+	  <% elsif u.roles[0].name == 'user' %>
+	  <span class="badge badge-success"> <%= t('app.roles.user') %> </span>
+	  <% else %>
+	  <span class="badge badge-info"> <%= t('app.roles.user') %> </span>
 	  <% end %>
-	<% else %>
-	 <span class="badge badge-info"> Utilisateur </span>
 	<% end %>
 	</td>
         <% if current_user.has_role?(:admin) %>

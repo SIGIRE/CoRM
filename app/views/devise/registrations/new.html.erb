@@ -4,7 +4,7 @@
        <div class="row-fluid">
          <div class="span9">
            <h1>Nouvel Utilisateur</h1></div>
-		     <%= link_to '<i class="fa fa-arrow-circle-left fa-3x action-icon"></i>'.html_safe, :back ,{:title => "Retour", :class =>"pull-right btn"} %>
+			<%= link_to '<i class="fa fa-arrow-circle-left fa-3x action-icon"></i>'.html_safe, :back ,{:title => "Retour", :class =>"pull-right"} %>
 		</div>
 	 </div>
 
@@ -33,20 +33,19 @@
   </div> 
 
 
-  <% if !@first_creation %>
-	<div>
-      <label for="user[enabled]" class="checkbox">
-        <input type="checkbox" checked="checked" name="user[enabled]" id="user[enabled]" value="1" />Compte Activé
-      </label>
-	</div>
-     <% if !@user.has_role?(:super_user) and current_user.has_role?(:super_user) or current_user.has_role?(:admin) %>
-  <div>
-     <label for="super" class="checkbox">
-		   <%= check_box_tag('super', 1, @user.has_role?(:super_user),{ :class => 'checkbox' }) %>Droits "Super Utilisateur"
-     </label>
-  </div>
-    <% end %>
-  <% end %>
+     <% if !@first_creation %>
+	  <% if current_user.has_role?(:admin) %>
+	       <div class="field"> 
+		    <div class="span2"> Droits d'accès : </div> <%= select_tag(:role, options_for_select(Role.list_all))  %> <span class="req" />
+	       </div>
+	  <% end %>
+	  <div>
+	       <label for="user[enabled]" class="checkbox">
+	       <input type="checkbox" checked="checked" name="user[enabled]" id="user[enabled]" value="1" />Compte Activé
+	       </label>
+	  </div>
+     <% end %>
+     
   <br />
   <div><%= f.submit "Créer", :class =>"btn btn-primary" %></div>
   <br />

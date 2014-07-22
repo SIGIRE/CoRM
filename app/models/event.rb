@@ -41,4 +41,14 @@ class Event < ActiveRecord::Base
   scope :by_contact_id, lambda { |contact_id| where("events.contact_id = ?", contact_id) unless contact_id.blank? }
   scope :by_user_id, lambda { |user_id| where("events.user_id = ?", user_id) unless user_id.blank? }
   scope :by_content_like, lambda { |content| where("UPPER(events.notes) LIKE UPPER(?) or UPPER(events.notes2) LIKE UPPER(?)", "%#{content}%", "%#{content}%") unless content.blank? }
+  scope :between_dates, lambda { |start_at, end_at| where("DATE(events.created_at) >= ? AND DATE(events.created_at) <= ?", start_at, end_at) }
+  
+  validate :validate_end_date_after_start_date
+
+  def validate_end_date_after_start_date
+    if date_end && date_begin
+        errors.add(:date_end, "La date de fin doit être postérieure à la date de début!") if date_end < date_begin
+    end
+  end
+  
 end

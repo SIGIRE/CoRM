@@ -3,7 +3,7 @@
     <%= link_to '<i class="fa fa-home fa-2x action-icon"></i>'.html_safe, edit_account_path(@account),{:title => "Éditer le compte"} %> <i>(<%= @account.category %>)</i>
 
     <% unless @account.active %>
-      <i class="fa fa-ban fa-2x pull-right"></i>
+      <span title="Compte désactivé"><i class="fa fa-ban fa-2x pull-right"></i></span>
     <% end %>
     
     <br />
@@ -43,9 +43,14 @@
 <div id="contacts_list">
 <% if !@account.contacts.nil? and @account.contacts.length > 0 %>
 
-<% @account.contacts.active.order_by_surname.each do |contact| %>
+<% @account.contacts.order("active DESC, surname ASC").each do |contact| %>
   <div class="contact-container">
-    <% if contact.title == "Mme"%>
+    
+	<% unless contact.active %>
+      <span title="Contact désactivé"><i class="fa fa-ban fa-2x pull-right"></i></span>
+    <% end %>
+    
+	<% if contact.title == "Mme"%>
       <%= link_to image_tag("glyphicons/glyphicons_035_woman.png"), edit_contact_path(contact),{:title => "Éditer le contact"} %> <% if !contact.job.blank? then %> <i class="contact-job">(<%= contact.job %>)</i><% end %>
     <% elsif contact.title == "M." %>
       <%= link_to image_tag("glyphicons/glyphicons_034_old_man.png"), edit_contact_path(contact),{:title => "Éditer le contact"} %><% if !contact.job.blank? then %><i class="contact-job"> (<%= contact.job %>)</i><% end %>
@@ -78,6 +83,7 @@
 <% else %>
 <hr id="contact-hr" style="display: none;" />
 <% end %>
+<% if can? :create, @account => Contact %>
 <%= form_for( [@account, @account.contacts.new], :html => {:class => 'well'}) do |f| %>
 <p><%=image_tag("glyphicons/glyphicons_006_user_add.png")%>Ajouter un contact</p>
   <div class="row small-fields">
@@ -117,5 +123,7 @@
     </div>
   </div>
   <%= f.hidden_field :account_id %>
+  <br>
   <div class = "actions"><%= f.submit "Ajouter un Contact" %></div>
+<% end %>
 <% end %>

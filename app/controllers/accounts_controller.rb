@@ -20,8 +20,7 @@ class AccountsController < ApplicationController
   # Show the full list of Accounts by paginate_by
 
   def index
-    @accounts = apply_scopes(Account).
-                order("company")
+    @accounts = apply_scopes(Account).order("company")
    
     #creation des ensembles contenant les comptes et contacts pour l'utilisation du typeahead
     @autocomplete_accounts = Account.find(:all,:select=>'company').map(&:company) #societe
@@ -91,7 +90,7 @@ class AccountsController < ApplicationController
 
   ##
   # Save an instance of Account to the DB
-  #
+  #exception.message
   # POST /accounts
   # POST /accounts.json
   def create
@@ -252,7 +251,7 @@ class AccountsController < ApplicationController
         gsub('[action]', t('app.actions.show')).
         gsub('[undefined_article]', t('app.default.undefine_article_male')).
         gsub('[model]', t('app.controllers.Account'))
-      redirect_to accounts_url
+      redirect_to :back
       return false
     end
   end

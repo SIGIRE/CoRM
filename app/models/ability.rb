@@ -5,10 +5,54 @@ class Ability
 
   def initialize(user)
     user ||= User.new
+    
     if user.has_role? :admin
+      # Role Admin
       can :manage, :all
-    else
-      # General roles
+      
+    elsif user.has_role? :readonly_user
+      can :read, :all
+      can :search, Account
+      
+    elsif user.has_role? :restricted_user
+      # Role Restricted User
+      can :read, Account
+	  can :search, Account
+	  can :update, Account, :user_id => user.id
+	  can :create, Account
+	  cannot :destroy, Account
+      can :read, Alias
+	  can :update, Alias, :user_id => user.id
+	  can :create, Account
+	  cannot :destroy, Account	  
+      can :read, Tag    
+      can :read, Contact
+	  can :update, Contact, :account => {:user_id => user.id}
+	  can :create, Contact, :account => {:user_id => user.id}      
+	  cannot :destroy, Contact
+      can :read, Event
+	can :update, Event, :user_id => user.id 
+	can :create, Event, :account => {:user_id => user.id}
+	can :destroy, Event, :user_id => user.id
+      can :read, Relation
+	  can :update, Relation, :account => {:user_id => user.id}
+	  can :create, Relation, :account => {:user_id => user.id}
+	  can :destroy, Relation, :account => {:user_id => user.id}
+      can :manage, Opportunity
+	  cannot :destroy, Opportunity
+      can :manage, Quotation
+	  cannot :destroy, Quotation
+      can :manage, QuotationLine
+      can :manage, Document
+	  cannot :destroy, Document
+      can :read, User
+      can :manage, Task
+      cannot :destroy, Task
+      can :manage, Email
+      cannot :destroy, Email
+      
+    elsif user.has_role? :user	
+      # Role User
       can :manage, Task
       cannot :destroy, Task do |task|
         task.user_id != user.id
@@ -17,37 +61,86 @@ class Ability
       can :manage, Account
 	  cannot :destroy, Account
       can :manage, Contact
-      can :manage, Event
+	  cannot :destroy, Contact
+      can :read, Event
+	can :update, Event, :user_id => user.id 
+	can :create, Event
+	can :destroy, Event, :user_id => user.id
       can :manage, Relation
       can :manage, Opportunity
       can :manage, Quotation
       can :manage, QuotationLine
       can :manage, Document
       can :read, User
-      if user.has_role? :super_user
-        # Only super_user can manage settings
-		can :destroy, Account
-		can :activate, Account
-        can :deactivate, Account
-        can :manage, QuotationTemplate
-        can :manage, Tag
-        can :manage, Origin
-        can :manage, EventType
-        # can   #index #show #update & #edit
-        can :update, User
-        # cannot  #new #create
-      else
-        can :read, QuotationTemplate
-        can :read, Tag
-        can :read, Origin
-        can :read, EventType
-        cannot :write, QuotationTemplate
-        cannot :write, Tag
-        cannot :write, Origin
-        cannot :write, EventType
-      end
+      can :read, QuotationTemplate
+      can :read, Tag
+      can :read, Origin
+      can :read, EventType
+      cannot :write, QuotationTemplate
+      cannot :write, Tag
+      cannot :write, Origin
+      cannot :write, EventType
       
-    end
+      elsif user.has_role? :super_user
+      # Role Super User
+      can :manage, Task
+      cannot :destroy, Task do |task|
+        task.user_id != user.id
+      end
+      can :manage, Email
+      can :manage, Account
+      can :activate, Account
+      can :deactivate, Account      
+      can :manage, Contact
+	  cannot :destroy, Contact
+      can :manage, Event
+      can :manage, Relation
+      can :manage, Opportunity
+      can :manage, Quotation
+      can :manage, QuotationLine
+      can :manage, Document
+      can :read, User      
+      can :manage, QuotationTemplate
+      can :manage, Tag
+      can :manage, Origin
+      can :manage, EventType
+      # can   #index #show #update & #edit
+      can :update, User
+      # cannot  #new #create
+      
+    else
+      # Role User by default
+      can :manage, Task
+      cannot :destroy, Task do |task|
+        task.user_id != user.id
+      end
+      can :manage, Email
+      can :manage, Account
+	  cannot :destroy, Account
+      can :manage, Contact
+	  cannot :destroy, Contact
+      can :read, Event
+	can :update, Event, :user_id => user.id 
+	can :create, Event
+	can :destroy, Event, :user_id => user.id
+      can :manage, Relation
+      can :manage, Opportunity
+      can :manage, Quotation
+      can :manage, QuotationLine
+      can :manage, Document
+      can :read, User
+      can :read, QuotationTemplate
+      can :read, Tag
+      can :read, Origin
+      can :read, EventType
+      cannot :write, QuotationTemplate
+      cannot :write, Tag
+      cannot :write, Origin
+      cannot :write, EventType      
+    end  
+  end
+    
+    
     
     # Define abilities for the passed in user here. For example:
     #
@@ -75,5 +168,4 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
-  end
 end

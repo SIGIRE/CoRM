@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
   before_filter :get_locale
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to main_app.root_url, :alert => exception.message
+    #redirect_to main_app.root_url, :alert => exception.message
+    redirect_to :back, :error => t('app.cancan.messages.access_error')
   end
 
   private
@@ -25,4 +26,8 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(resource_or_scope)
     new_user_session_url
   end
+  
+  
+
+  
 end

@@ -54,9 +54,11 @@ class EventsController < ApplicationController
   # GET /events/new
   # GET /events/new.json
   def new
+
     @event = Event.new
     @event.account_id = params[:account_id]
     @event.date_end = Date.today
+
 
     respond_to do |format|
       format.html # new.html.erb
@@ -88,20 +90,25 @@ class EventsController < ApplicationController
 
     @event.date_end = params[:event][:date_end]
     @event.date_end = @event.date_end.change({:hour => params[:event]["date_end(4i)"].to_i, :min => params[:event]["date_end(5i)"].to_i}) 
-    if params[:generate]== "yes"
-      @event.notes2 = params[:notes]
-      self.create_task
+    if @event.date_end < @event.date_begin
+      flash[:alert] = "La date de fin doit être postérieure à la date de début!"
+      redirect_to :back
+    elsif @event.save
+	if params[:generate_task]== "yes"
+	  @event.notes2 = params[:notes]
+	  self.create_task
+	end
+	flash[:notice] = "L'évènement a été créé."
+	if params[:generate] == "yes" and params[:mail] == "yes"
+	  UserMailer.mail_for(@event.user, @event.task, true).deliver
+	  flash[:notice] += "<br>Un email a été envoyé à #{@event.user.full_name}."
+	end
+	redirect_to account_events_url(@event.account_id)
+    else
+      flash[:alert] = "Erreur indéterminée."
+      redirect_to :back
     end
-		if @event.save
-			flash[:notice] = "L'évènement a été créé."
-			if params[:generate] == "yes" and params[:mail] == "yes"
-				UserMailer.mail_for(@event.user, @event.task, true).deliver
-				flash[:notice] += "<br>Un email a été envoyé à #{@event.user.full_name}."
-			end
-			redirect_to account_events_url(@event.account_id)
-		else
-			render :action => "new"
-		end
+    
   end
 
   ##

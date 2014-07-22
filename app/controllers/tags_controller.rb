@@ -1,7 +1,8 @@
 # encoding: utf-8
 
 class TagsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource :account
+  load_and_authorize_resource :tag, :through => :account
   before_filter :authenticate_user!
   before_filter :load_account, only: [:index, :filter]
   layout :current_layout

@@ -30,6 +30,7 @@ gem 'therubyracer'
 gem 'sass-rails', '~> 3.2'
 
 gem 'bootstrap-sass', '~> 2.3.1.0'
+#gem 'bootstrap-sass', '~> 3.1.1.1'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -52,3 +53,6 @@ gem 'mail', '~> 2.5.4'
 gem 'rails_autolink'
 
 gem 'has_scope'
+
+gem 'chartkick'
+gem 'groupdate'

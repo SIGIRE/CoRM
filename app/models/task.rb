@@ -73,4 +73,6 @@ class Task < ActiveRecord::Base
   scope :by_term, lambda { |date_begin,date_end| where("term BETWEEN ? AND ? OR term = ?", date_begin, date_end +'%', '')}
   scope :none, lambda { where('1 = 0') }
   scope :by_notes_like, lambda { |notes| where("UPPER(tasks.notes) LIKE UPPER(?)", "%#{notes}%") unless notes.blank? }
+  scope :between_dates, lambda { |start_at, end_at| where("DATE(created_at) >= ? AND DATE(created_at) <= ?", start_at, end_at) }
+  
 end
