@@ -1,6 +1,6 @@
 # CORM
 ### Easier than a CRM
-Version: 0.9.3 (nightly)
+Version: 0.9.4 (nightly)
 
 ## About CORM
 CoRM is a **Customer Relationship Manager** (CRM) designed for businesses about 1 to 100 collaborators. This software helps you to manage your relations between each actor that composing your environment.
@@ -16,12 +16,13 @@ For now, CoRM is not modular and does not support the multilingual translation w
 
 ### Database adapters minimum versions supported
 
- * PostgreSQL with gem *pg v0.14*
+ * PostgreSQL with gem *pg v0.14* (preferred)
  * MySQL with gem *mysql2 v0.3.11*
  * SQLite with gem *sqlite3 v1.3.7*
 
 ## Getting started
 
+ * Install your database manager (PostgreSQL Server for example)
  * Install Ruby and Rails (if you don't have)
  * Download/Unpack sources from git
 
@@ -49,6 +50,8 @@ Now, you can execute **rails s** if you're using WEBrick.
 
 Ok, your server's running but you must create the first user, the administrator of the application.
 Launch your prefered browser and goto **localhost:3000/user/new**
+
+**Be Careful**: the length of your password must be greater than 6 !
 
 Now, your main user is created! 
 So, it's time for you to add Events type as 'incoming call' or 'outgoing call', quotations templates to create your quotation easily and quickly...
