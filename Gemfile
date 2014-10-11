@@ -56,3 +56,6 @@ gem 'has_scope'
 
 gem 'chartkick'
 gem 'groupdate'
+
+gem 'yaml_db'
+gem 'rubyzip'

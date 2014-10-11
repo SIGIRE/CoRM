@@ -97,6 +97,6 @@ pickle-email-*.html
 /.ruby-gemset
 /.ruby-version
 /Capfile
-/Gemfile.lock
+# Ne surtout pas ignorer le Gemfile.lock !!
 
 

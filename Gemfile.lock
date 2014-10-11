@@ -164,6 +164,7 @@ GEM
       json (~> 1.4)
     ref (1.0.5)
     rolify (3.4.0)
+    rubyzip (1.1.6)
     sass (3.3.9)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -191,6 +192,7 @@ GEM
     unicode_utils (1.4.0)
     warden (1.2.3)
       rack (>= 1.0)
+    yaml_db (0.2.3)
 
 PLATFORMS
   ruby
@@ -223,7 +225,9 @@ DEPENDENCIES
   rails
   rails_autolink
   rolify
+  rubyzip
   sass-rails (~> 3.2)
   therubyracer
   uglifier (>= 1.0.3)
   unicode_utils
+  yaml_db
