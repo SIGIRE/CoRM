@@ -191,6 +191,7 @@ GEM
     unicode_utils (1.4.0)
     warden (1.2.3)
       rack (>= 1.0)
+    yaml_db (0.2.3)
 
 PLATFORMS
   ruby
@@ -227,3 +228,4 @@ DEPENDENCIES
   therubyracer
   uglifier (>= 1.0.3)
   unicode_utils
+  yaml_db
