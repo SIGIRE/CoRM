@@ -99,4 +99,5 @@ pickle-email-*.html
 /Capfile
 # Ne surtout pas ignorer le Gemfile.lock !!
 
-
+#Ignore data.yml file from Yaml_db
+/db/data.yml
