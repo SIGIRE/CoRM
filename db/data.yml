@@ -1,0 +1,823 @@
+
+---
+accounts:
+  columns:
+  - id
+  - company
+  - adress1
+  - adress2
+  - zip
+  - city
+  - country
+  - accounting_code
+  - notes
+  - created_by
+  - modified_by
+  - created_at
+  - updated_at
+  - user_id
+  - category
+  - tel
+  - fax
+  - email
+  - web
+  - origin_id
+  - active
+  records: 
+  - - '1'
+    - SIGIRE
+    - 20, rue de Sardaigne
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - '1'
+    - '2'
+    - '2014-06-30 10:00:08.681074'
+    - '2014-07-10 10:28:26.959403'
+    - '3'
+    - Client
+    - ''
+    - ''
+    - ''
+    - ''
+    - 
+    - true
+  - - '2'
+    - RESTRICT
+    - fff
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - '2'
+    - '2'
+    - '2014-07-11 11:56:25.090773'
+    - '2014-07-11 11:56:41.959941'
+    - '2'
+    - Client
+    - ''
+    - ''
+    - ''
+    - http://www.restrict.fr
+    - 
+    - true
+
+---
+aliases:
+  columns:
+  - id
+  - contact_id
+  - email
+  records: 
+  - - '1'
+    - '2'
+    - gggg.bbbb.com
+
+---
+contacts:
+  columns:
+  - id
+  - surname
+  - forename
+  - title
+  - tel
+  - fax
+  - mobile
+  - email
+  - job
+  - notes
+  - created_by
+  - modified_by
+  - created_at
+  - updated_at
+  - account_id
+  - active
+  records: 
+  - - '1'
+    - Essai
+    - Essai
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - ''
+    - 
+    - '2'
+    - 
+    - '2014-07-10 10:28:12.638172'
+    - '2014-07-10 10:28:12.638172'
+    - '1'
+    - true
+  - - '2'
+    - ''
+    - Essai
+    - M.
+    - ''
+    - ''
+    - ''
+    - dddd@ggg.com
+    - ''
+    - ''
+    - '2'
+    - '2'
+    - '2014-07-11 16:38:35.270845'
+    - '2014-07-11 16:38:49.123975'
+    - '2'
+    - true
+  - - '3'
+    - FORESTIER
+    - Gabriel
+    - M.
+    - ''
+    - ''
+    - ''
+    - gabriel@forestier.nom.fr
+    - ''
+    - ''
+    - '1'
+    - '1'
+    - '2014-07-18 08:16:04.995799'
+    - '2014-07-18 08:31:29.126767'
+    - '1'
+    - true
+
+---
+document_attachments:
+  columns:
+  - id
+  - document_id
+  - attach_file_name
+  - attach_content_type
+  - attach_file_size
+  - attach_updated_at
+  - created_at
+  - updated_at
+  records: 
+  - - '1'
+    - '1'
+    - MERETHIS_Business_Partner_2014_Plan_template_V0.5.pptx
+    - application/vnd.openxmlformats-officedocument.presentationml.presentation
+    - '224084'
+    - '2014-07-18 06:09:22.206217'
+    - '2014-07-18 06:09:22.260702'
+    - '2014-07-18 06:09:22.260702'
+
+---
+documents:
+  columns:
+  - id
+  - name
+  - notes
+  - created_by
+  - updated_by
+  - created_at
+  - updated_at
+  - account_id
+  records: 
+  - - '1'
+    - essai
+    - ''
+    - '1'
+    - 
+    - '2014-07-18 06:09:22.210678'
+    - '2014-07-18 06:09:22.210678'
+    - '2'
+
+---
+event_attachments:
+  columns:
+  - id
+  - event_id
+  - attach_file_name
+  - attach_content_type
+  - attach_file_size
+  - attach_updated_at
+  - created_at
+  - updated_at
+  records: 
+  - - '1'
+    - '14'
+    - 201408272900362311.pdf
+    - application/pdf
+    - '95043'
+    - '2014-10-11 04:18:16.51703'
+    - '2014-10-11 04:18:16.560216'
+    - '2014-10-11 04:18:16.560216'
+  - - '2'
+    - '15'
+    - 30194213.pdf
+    - application/pdf
+    - '48994'
+    - '2014-10-11 04:44:23.378039'
+    - '2014-10-11 04:44:23.387498'
+    - '2014-10-11 04:44:23.387498'
+
+---
+event_types:
+  columns:
+  - id
+  - label
+  - direction
+  - created_by
+  - modified_by
+  - created_at
+  - updated_at
+  records: 
+  - - '1'
+    - Appel téléphonique
+    - Entrant
+    - 
+    - 
+    - '2014-06-26 10:11:19.474903'
+    - '2014-06-26 10:11:19.474903'
+  - - '2'
+    - Appel téléphonique
+    - Sortant
+    - 
+    - 
+    - '2014-06-26 10:11:19.480943'
+    - '2014-06-26 10:11:19.480943'
+  - - '3'
+    - Appel téléphonique
+    - Interne
+    - 
+    - 
+    - '2014-06-26 10:11:19.486424'
+    - '2014-06-26 10:11:19.486424'
+  - - '4'
+    - E-mail
+    - Entrant
+    - 
+    - 
+    - '2014-06-26 10:11:19.489277'
+    - '2014-06-26 10:11:19.489277'
+  - - '5'
+    - E-mail
+    - Sortant
+    - 
+    - 
+    - '2014-06-26 10:11:19.491811'
+    - '2014-06-26 10:11:19.491811'
+  - - '6'
+    - E-mail
+    - Interne
+    - 
+    - 
+    - '2014-06-26 10:11:19.494498'
+    - '2014-06-26 10:11:19.494498'
+  - - '7'
+    - Courrier
+    - Entrant
+    - 
+    - 
+    - '2014-06-26 10:11:19.496877'
+    - '2014-06-26 10:11:19.496877'
+  - - '8'
+    - Courrier
+    - Sortant
+    - 
+    - 
+    - '2014-06-26 10:11:19.507809'
+    - '2014-06-26 10:11:19.507809'
+  - - '9'
+    - Note
+    - Interne
+    - 
+    - 
+    - '2014-06-26 10:11:19.512681'
+    - '2014-06-26 10:11:19.512681'
+  - - '10'
+    - Fax
+    - Entrant
+    - 
+    - 
+    - '2014-06-26 10:11:19.515701'
+    - '2014-06-26 10:11:19.515701'
+  - - '11'
+    - Fax
+    - Sortant
+    - 
+    - 
+    - '2014-06-26 10:11:19.521939'
+    - '2014-06-26 10:11:19.521939'
+  - - '12'
+    - Rendez-vous
+    - Interne
+    - 
+    - 
+    - '2014-06-26 10:11:19.525037'
+    - '2014-06-26 10:11:19.525037'
+  - - '13'
+    - Rendez-vous
+    - Externe
+    - 
+    - 
+    - '2014-06-26 10:11:19.527634'
+    - '2014-06-26 10:11:19.527634'
+
+---
+events:
+  columns:
+  - id
+  - date_begin
+  - date_end
+  - notes
+  - created_by
+  - modified_by
+  - created_at
+  - updated_at
+  - contact_id
+  - account_id
+  - event_type_id
+  - user_id
+  - task_id
+  - notes2
+  records: 
+  - - '1'
+    - '2014-06-30 10:00:00'
+    - '2014-06-30 10:00:00'
+    - yyyyy
+    - '1'
+    - 
+    - '2014-06-30 10:00:40.947084'
+    - '2014-06-30 10:00:40.947084'
+    - 
+    - '1'
+    - '1'
+    - '2'
+    - 
+    - 
+  - - '2'
+    - '2014-06-30 10:04:00'
+    - '2014-06-30 10:04:00'
+    - oouo
+    - '1'
+    - 
+    - '2014-06-30 10:04:47.834607'
+    - '2014-06-30 10:04:47.834607'
+    - 
+    - '1'
+    - '2'
+    - '2'
+    - '1'
+    - 
+  - - '3'
+    - '2014-07-01 17:24:00'
+    - '2014-07-01 17:24:00'
+    - zezezaeae
+    - '1'
+    - 
+    - '2014-07-01 17:25:01.279924'
+    - '2014-07-01 17:25:01.279924'
+    - 
+    - '1'
+    - '5'
+    - '2'
+    - 
+    - 
+  - - '4'
+    - '2014-07-02 10:02:00'
+    - '2014-07-02 10:02:00'
+    - hfghgfhfh
+    - '1'
+    - 
+    - '2014-07-02 10:12:18.286109'
+    - '2014-07-02 10:12:18.286109'
+    - 
+    - '1'
+    - '10'
+    - '2'
+    - 
+    - 
+  - - '5'
+    - '2014-07-02 10:12:00'
+    - '2014-07-02 10:12:00'
+    - dgdfgfdgdgfd
+    - '1'
+    - 
+    - '2014-07-02 10:13:21.944951'
+    - '2014-07-02 10:13:21.944951'
+    - 
+    - '1'
+    - 
+    - '2'
+    - 
+    - 
+  - - '6'
+    - '2014-07-02 10:14:00'
+    - '2014-07-02 10:14:00'
+    - rgregege
+    - '1'
+    - 
+    - '2014-07-02 10:14:24.339504'
+    - '2014-07-02 10:14:24.339504'
+    - 
+    - '1'
+    - 
+    - '2'
+    - 
+    - 
+  - - '7'
+    - '2014-07-08 10:19:00'
+    - '2014-07-08 10:19:00'
+    - essai
+    - '1'
+    - 
+    - '2014-07-08 10:20:35.928658'
+    - '2014-07-08 10:20:35.928658'
+    - 
+    - '1'
+    - '7'
+    - '2'
+    - 
+    - 
+  - - '9'
+    - '2014-07-10 09:43:00'
+    - '2014-07-10 09:43:00'
+    - gdfgdddd
+    - '4'
+    - 
+    - '2014-07-10 09:43:51.471218'
+    - '2014-07-10 09:43:51.471218'
+    - 
+    - '1'
+    - '2'
+    - '4'
+    - 
+    - 
+  - - '10'
+    - '2014-07-10 09:43:00'
+    - '2014-07-10 09:43:00'
+    - essai 2 user
+    - '4'
+    - 
+    - '2014-07-10 09:47:22.23814'
+    - '2014-07-10 09:47:22.23814'
+    - 
+    - '1'
+    - '4'
+    - '4'
+    - 
+    - 
+  - - '11'
+    - '2014-07-10 10:12:00'
+    - '2014-07-10 10:12:00'
+    - qdsdqsdq restricted
+    - '2'
+    - 
+    - '2014-07-10 10:12:47.035978'
+    - '2014-07-10 10:12:47.035978'
+    - 
+    - '1'
+    - '10'
+    - '2'
+    - 
+    - 
+  - - '12'
+    - '2014-07-18 06:09:22.303061'
+    - '2014-07-18 06:09:22.303152'
+    - ! "Document n°1 créé\r\nNom : essai\r\nDescription : "
+    - '1'
+    - 
+    - '2014-07-18 06:09:22.309527'
+    - '2014-07-18 06:09:22.309527'
+    - 
+    - '2'
+    - 
+    - '1'
+    - 
+    - 
+  - - '13'
+    - '2014-07-18 09:49:25'
+    - '2014-07-18 09:49:25'
+    - ! "Sujet : test 10\n\ntest 10\n\n-- \n\nGabriel Forestier\nSIGIRE\n20 rue de
+      Sardaigne\n72100 LE MANS - France\nTel: +33 (0)2 43 82 75 00\nFax: +33 (0)2
+      43 82 75 75\nhttp://www.sigire.fr\n[_Informatique & Telecom pour l'entreprise_]\n\n\n"
+    - '4'
+    - 
+    - '2014-07-18 09:50:08.651306'
+    - '2014-07-18 09:50:08.651306'
+    - '3'
+    - '1'
+    - '5'
+    - '4'
+    - 
+    - 
+  - - '14'
+    - '2014-10-11 04:17:00'
+    - '2014-10-11 04:17:00'
+    - fvdvfvdvd
+    - '1'
+    - 
+    - '2014-10-11 04:18:16.523271'
+    - '2014-10-11 04:18:16.523271'
+    - '2'
+    - '2'
+    - '5'
+    - '2'
+    - 
+    - 
+  - - '15'
+    - '2014-10-11 04:18:00'
+    - '2014-10-11 04:18:00'
+    - vxcvcv
+    - '1'
+    - 
+    - '2014-10-11 04:44:23.383885'
+    - '2014-10-11 04:44:23.383885'
+    - '2'
+    - '2'
+    - '7'
+    - '2'
+    - 
+    - 
+
+---
+opportunities:
+  columns:
+  - id
+  - name
+  - description
+  - statut
+  - remark
+  - amount
+  - term
+  - created_by
+  - updated_by
+  - created_at
+  - updated_at
+  - account_id
+  - contact_id
+  - user_id
+  - profit
+  records: 
+  - - '1'
+    - Projet CORM !
+    - Grosse affaire ! bnbn
+    - En cours
+    - ''
+    - '100000.52'
+    - '2014-07-03 22:00:00'
+    - '1'
+    - '2'
+    - '2014-07-02 15:17:05.763275'
+    - '2014-07-11 13:06:53.926286'
+    - '1'
+    - 
+    - '2'
+    - '1000.2'
+
+---
+roles:
+  columns:
+  - id
+  - name
+  - resource_id
+  - resource_type
+  - created_at
+  - updated_at
+  records: 
+  - - '1'
+    - admin
+    - 
+    - 
+    - '2014-06-26 10:12:08.826236'
+    - '2014-06-26 10:12:08.826236'
+  - - '2'
+    - super_user
+    - 
+    - 
+    - '2014-06-26 10:12:08.973463'
+    - '2014-06-26 10:12:08.973463'
+  - - '10'
+    - restricted_user
+    - 
+    - 
+    - '2014-06-26 16:55:28.378722'
+    - '2014-06-26 16:55:28.378722'
+  - - '11'
+    - user
+    - 
+    - 
+    - '2014-06-27 07:57:48.8787'
+    - '2014-06-27 07:57:48.8787'
+
+---
+settings:
+  columns:
+  - id
+  - attach_file_name
+  - attach_content_type
+  - attach_file_size
+  - attach_updated_at
+  records: 
+  - - '1'
+    - 
+    - 
+    - 
+    - 
+
+---
+tasks:
+  columns:
+  - id
+  - notes
+  - statut
+  - created_at
+  - created_by
+  - modified_at
+  - modified_by
+  - updated_at
+  - contact_id
+  - account_id
+  - user_id
+  - term
+  - priority
+  - title
+  records: 
+  - - '1'
+    - ''
+    - A faire
+    - '2014-06-30 10:04:47.768187'
+    - '1'
+    - 
+    - 
+    - '2014-06-30 10:04:47.768187'
+    - 
+    - '1'
+    - '2'
+    - ''
+    - '1'
+    - TOTO
+  - - '2'
+    - fdghd
+    - A faire
+    - '2014-07-02 10:13:22.047518'
+    - '1'
+    - 
+    - 
+    - '2014-07-02 10:13:22.047518'
+    - 
+    - '1'
+    - '2'
+    - ''
+    - '1'
+    - essai
+  - - '3'
+    - regege
+    - A faire
+    - '2014-07-02 10:14:24.345195'
+    - '1'
+    - 
+    - 
+    - '2014-07-02 10:14:24.345195'
+    - 
+    - '1'
+    - '2'
+    - ''
+    - '1'
+    - rgrgeg
+
+---
+users:
+  columns:
+  - id
+  - email
+  - encrypted_password
+  - reset_password_token
+  - reset_password_sent_at
+  - remember_created_at
+  - sign_in_count
+  - current_sign_in_at
+  - last_sign_in_at
+  - current_sign_in_ip
+  - last_sign_in_ip
+  - forename
+  - surname
+  - tel
+  - mobile
+  - created_at
+  - updated_at
+  - enabled
+  - locale
+  records: 
+  - - '1'
+    - admin@corm.fr
+    - $2a$10$8bic52/KYe.joqN06vJQSORHhnZthAIM23S60ZbzPWmAcEqm1wps2
+    - 
+    - 
+    - '2014-10-11 04:17:13.683225'
+    - '18'
+    - '2014-10-15 07:51:58.269628'
+    - '2014-10-14 08:06:52.637145'
+    - 192.168.189.1
+    - 192.168.189.1
+    - Admin
+    - admin
+    - 
+    - 
+    - '2014-06-26 10:16:05.704468'
+    - '2014-10-15 07:51:58.28457'
+    - true
+    - 
+  - - '2'
+    - restricted_try@corm.fr
+    - $2a$10$QErIvzX/fV/EcogPMKHVMuVaE1iSVIzcRz17BWp88PagFJ.s2mulW
+    - 
+    - 
+    - 
+    - '7'
+    - '2014-07-18 09:57:15.281292'
+    - '2014-07-18 02:49:46.704022'
+    - 192.168.189.1
+    - 192.168.189.1
+    - Restricted
+    - USer
+    - ''
+    - ''
+    - '2014-06-26 14:55:29.309666'
+    - '2014-07-18 10:15:27.578664'
+    - true
+    - ''
+  - - '3'
+    - toto@corm.fr
+    - $2a$10$cH06iz0/3vfLnv6cd8647OFurP8ctPQHlNaGDCi9otCzXRBNEzLyW
+    - 
+    - 
+    - 
+    - '2'
+    - '2014-07-18 06:34:21.372023'
+    - '2014-07-10 10:10:37.514266'
+    - 192.168.189.1
+    - 192.168.189.1
+    - prenom
+    - TOTO
+    - ''
+    - ''
+    - '2014-06-26 16:57:17.404624'
+    - '2014-07-18 08:03:05.844211'
+    - true
+    - ''
+  - - '4'
+    - g.forestier@sigire.fr
+    - $2a$10$0fQ5isshjwfiyOanH/MyZuhkk8Q0aBVk7wcMQdvbCjI0ODvFyHXL.
+    - 
+    - 
+    - '2014-07-18 10:15:41.149385'
+    - '5'
+    - '2014-07-18 10:15:41.144474'
+    - '2014-07-18 09:56:39.437862'
+    - 192.168.189.1
+    - 192.168.189.1
+    - Essai
+    - TOTO
+    - ''
+    - ''
+    - '2014-07-08 10:27:00.367916'
+    - '2014-07-18 10:15:41.149954'
+    - true
+    - ''
+
+---
+users_roles:
+  columns:
+  - user_id
+  - role_id
+  records: 
+  - - '1'
+    - '1'
+  - - '2'
+    - '10'
+  - - '3'
+    - '11'
+  - - '4'
+    - '11'
+
+---
+webmail_connections:
+  columns:
+  - id
+  - login
+  - password
+  - server
+  - port
+  - type_event_id
+  - created_at
+  - updated_at
+  - active
+  records: 
+  - - '1'
+    - test-gabriel-crm@sigire.net
+    - FNI46sfbed
+    - pop.sigire.net
+    - '110'
+    - '5'
+    - '2014-07-18 08:03:13.470431'
+    - '2014-07-18 08:15:10.28643'
+    - true
