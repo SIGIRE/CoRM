@@ -65,6 +65,14 @@
             <li><%= link_to '<i class="fa fa-users fa-fw"></i> Contacts'.html_safe, url_for(:controller => 'contacts', :action => 'extract') %></li>
           </ul>
         </li>
+	<li class="dropdown-submenu pull-left">
+	  <a tabindex="-1" href="#"><i class="fa fa-floppy-o fa-fw"></i> Sauvegarde</a>
+          <ul class="dropdown-menu">
+            <li><%= link_to '<i class="fa fa-file-o fa-fw"></i> Format YAML'.html_safe, url_for(:controller => 'application', :action => 'send_yaml_backup_file') %></li>
+            <li><%= link_to '<i class="fa fa-file-o fa-fw"></i> Format CSV'.html_safe, url_for(:controller => 'application', :action => 'send_csv_backup_file') %></li>
+          </ul>
+        </li>
+
 
       <% end %>
       <li class="divider"></li>
