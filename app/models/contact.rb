@@ -57,9 +57,9 @@ class Contact < ActiveRecord::Base
   
   def self.to_csv
     CSV.generate do |csv|
-      csv << column_names
-      all.each do |account|
-        csv << account.attributes.values_at(*column_names)
+      csv << (self.column_names + Account.column_names)
+      all.each do |contact|
+        csv << (contact.attributes.values_at(*self.column_names) + contact.account.attributes.values_at(*Account.column_names) )
       end
     end
   end
@@ -86,7 +86,8 @@ class Contact < ActiveRecord::Base
   scope :by_tel_like, lambda { |tel| where("tel LIKE ?", '%'+tel+'%') unless tel.blank? }
   scope :by_email, lambda { |email| includes(:aliases).where('UPPER(contacts.email) LIKE UPPER(?) OR UPPER(aliases.email) LIKE UPPER(?)', email, email) unless email.blank? }
   scope :by_accounts, lambda { |account| where("account_id IN (?)", account)unless account.blank? }
-  scope :by_tags, lambda { |tags| joins(:tags).where("tags.id IN (?)", tags) unless tags.blank? }  
+  scope :by_tags, lambda { |tags| joins(:tags).where("tags.id IN (?)", tags) unless tags.blank? }
+  #scope :by_account_tags, lambda { |tags| joins(:account).joins(:tags).where("account.tags.id IN (?)", tags) unless tags.blank? }
   scope :by_zip_account, lambda { |zip_account| joins(:account).where("account.zip LIKE ?", zip_account + '%') unless zip_account.blank? } 
   scope :by_country_account, lambda { |country_account| joins(:account).where("accounts.country" => country_account) unless country_account.blank? } 
   scope :by_category_account, lambda { |category_account| joins(:account).where("accounts.category IN (?)", category_account) unless category_account.blank? } 
