@@ -38,11 +38,7 @@
      <div class="">
 	  <%= label_tag :by_tags, "Tag contact :", :class => "top"  %>
 	  <%= select_tag "by_tags",options_from_collection_for_select( Tag.all, :id, :name), { :include_blank => "Tous", :class =>"filter_statut" }   %>
-     </div>
-     <div class="">
-	  <%= label_tag :by_account_tags, "Tag Compte :", :class => "top"  %>
-	  <%= select_tag "by_account_tags",options_from_collection_for_select( Tag.all, :id, :name), { :include_blank => "Tous", :class =>"filter_statut" }   %>
-     </div>	     
+     </div>     
      <div class="">
 	  <%= label_tag :inactive, "Inactifs :", class: 'top' %>
 	  <%= check_box_tag :inactive %>
