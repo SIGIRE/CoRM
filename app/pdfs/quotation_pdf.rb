@@ -83,11 +83,11 @@ class QuotationPdf < Prawn::Document
     move_down 80
     
     if @quotation.contact.nil?
-      table = make_table( [ ["Numéro", "Date", "Réf. Client", "Collaborateur"],
+      table = make_table( [ ["Réf.", "Date", "Réf. Client", "Collaborateur"],
                           ["#{@quotation.ref}", "#{@quotation.date.strftime("%d/%m/%Y") unless @quotation.date.blank?}", "#{@quotation.ref_account}", "#{@quotation.user.full_name}"]
                         ])
     else
-      table = make_table( [ ["Numéro", "Date", "Réf. Client", "Collaborateur", "Contact"],
+      table = make_table( [ ["Réf.", "Date", "Réf. Client", "Collaborateur", "Contact"],
                           ["#{@quotation.ref}", "#{@quotation.date.strftime("%d/%m/%Y") unless @quotation.date.blank?}", "#{@quotation.ref_account}", "#{@quotation.user.full_name}" ,"#{@quotation.contact.full_name}"]
                         ])
     end

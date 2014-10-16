@@ -1,10 +1,12 @@
 # encoding: utf-8
 
 class TagsController < ApplicationController
-  load_and_authorize_resource :account
-  load_and_authorize_resource :tag, :through => :account
+
+  load_and_authorize_resource :account, :parent => false
+  load_and_authorize_resource :tag, :through => :account, :shallow => true
   before_filter :authenticate_user!
   before_filter :load_account, only: [:index, :filter]
+
   layout :current_layout
 
   ##
@@ -109,7 +111,11 @@ class TagsController < ApplicationController
   
   private
     def load_account
-      @account = Account.find_by_id(params[:account_id])
+      if (params[:account_id].present? and !params[:account_id].to_s.blank?)
+        @account = Account.find_by_id(params[:account_id])
+      else
+        @account = nil
+      end
     end
     
     def tags

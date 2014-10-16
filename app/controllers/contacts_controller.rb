@@ -12,6 +12,8 @@ class ContactsController < ApplicationController
   has_scope :active, type: :boolean, default: true
   has_scope :inactive, type: :boolean
   has_scope :by_account_id
+  has_scope :by_tags
+  has_scope :by_account_tags
 
   ##
   # Show the full list of Contact by paginate_by
