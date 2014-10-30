@@ -120,3 +120,6 @@ fr:
       already_confirmed: "a déjà été confirmé"
       not_found: "introuvable"
       not_locked: "n’a pas été verrouillé"
+      not_saved:
+        one: "1 erreur empêchant la sauvegarde :"
+        other: "%{count} erreurs empêchant la sauvegarde :"

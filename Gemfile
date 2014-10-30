@@ -33,7 +33,7 @@ gem 'bootstrap-sass', '~> 2.3.1.0'
 #gem 'bootstrap-sass', '~> 3.1.1.1'
 
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails', '~> 4.2.1'
 gem 'jquery-validation-rails'
 gem 'nested_form'
 gem 'jquery-fileupload-rails'
@@ -56,3 +56,6 @@ gem 'has_scope'
 
 gem 'chartkick'
 gem 'groupdate'
+
+gem 'yaml_db'
+gem 'rubyzip'

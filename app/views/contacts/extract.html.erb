@@ -22,28 +22,31 @@
 
 <div id="task_value" class="container-fluid" style= "display: none;">
   <%= form_for(contacts_path, method: :GET ) do %>
-      <div class="row row-fluid">
-		<div class="">
-			<%= label_tag :by_account_company_like, "Société :", :class => "top" %>
-      <%= text_field_tag :by_account_company_like %>
-		</div>
-		<div class="">
-			<%= label_tag :by_full_name_like, "Contact :", :class => "top" %>
-      <%= text_field_tag :by_full_name_like %>
-        </select>
-		</div>
-		<div class="">
-			<%= label_tag :by_tel_like, "Téléphone :", :class => "top" %>
-      <%= text_field_tag :by_tel_like %>
-		</div>
-    <div class="">
-      <%= label_tag :inactive, "Inactifs :", class: 'top' %>
-      <%= check_box_tag :inactive %>
+    <div class="row row-fluid">
+     <div class="">
+	  <%= label_tag :by_account_company_like, "Société :", :class => "top" %>
+	  <%= text_field_tag :by_account_company_like %>
+     </div>
+     <div class="">
+	  <%= label_tag :by_full_name_like, "Contact :", :class => "top" %>
+	  <%= text_field_tag :by_full_name_like %>
+     </div>
+     <div class="">
+	  <%= label_tag :by_tel_like, "Téléphone :", :class => "top" %>
+	  <%= text_field_tag :by_tel_like %>
+     </div>	
+     <div class="">
+	  <%= label_tag :by_tags, "Tag contact :", :class => "top"  %>
+	  <%= select_tag "by_tags",options_from_collection_for_select( Tag.all, :id, :name), { :include_blank => "Tous", :class =>"filter_statut" }   %>
+     </div>     
+     <div class="">
+	  <%= label_tag :inactive, "Inactifs :", class: 'top' %>
+	  <%= check_box_tag :inactive %>
+     </div>
+     <div>
+	  <%= submit_tag "Filtrer", :class =>"btn "%>
+     </div>
     </div>
-		<div>
-        <%= submit_tag "Filtrer", :class =>"btn "%>
-		</div>
-	  </div>
    <% end %>
 </div>  
 

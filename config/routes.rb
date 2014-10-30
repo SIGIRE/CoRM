@@ -31,6 +31,10 @@ Crm::Application.routes.draw do
   match 'extractions/select_param_contacts', :controller=>'extractions', :action => 'select_param_contacts'
   match 'extractions/contacts', :controller=>'extractions', :action => 'contacts', :as => :csv
   
+  
+  match 'extractions/csv_backup', :controller=>'application', :action => 'send_csv_backup_file'
+  match 'extractions/yaml_backup', :controller=>'application', :action => 'send_yaml_backup_file'
+  
   # Resources needed for form_for support with a composed name Class (eventType)
   #
   #resources :eventTypes, :path => 'type-evenement'
