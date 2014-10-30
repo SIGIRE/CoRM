@@ -338,7 +338,7 @@ fr:
       user: Utilisateur
       user_description: "Il peut uniquement supprimer ses propres éléments."
       restricted_user: "Utilisateur restreint"
-      restricted_user_description: "Il peut créer et modifiser ses données mais ne peut rien supprimer."
+      restricted_user_description: "Il peut créer et modifier ses données mais ne peut rien supprimer."
       readonly_user: Lecteur
       readonly_user_description: "Il peut seulement lire les données."      
     money:
