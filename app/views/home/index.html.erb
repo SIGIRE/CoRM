@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="well" id="title-bar">
     <div class="row-fluid">
-      <h1><%= t('title.dashboard') %></h1>
+      <h1><%= '<i class="fa fa-pie-chart"></i>'.html_safe %> <%= t('title.dashboard') %></h1>
     </div>
   </div>
   <!-- TASK -->
@@ -10,7 +10,7 @@
       <thead>
         <tr>
           <th colspan="9">
-            <h2 class="pull-left"><%= t('various.my') %> <%= t('app.model.Task').pluralize %></h2>
+            <h2 class="pull-left"><%= '<i class="fa fa-tasks"></i>'.html_safe %> <%= t('various.my') %> <%= t('app.model.Task').pluralize %></h2>
             <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_task_path ,{:title => "#{t('app.actions.create')} #{t('app.default.new_female')} #{t('app.model.Task')}".html_safe, :class=>"pull-right", :style => 'display: inline-block'} %>
           </th>
         </tr>
@@ -115,7 +115,7 @@
       <thead>
         <tr>
           <th colspan="9">
-            <h2 class="pull-left"><%= t('title.latest_event') %> </h2>
+            <h2 class="pull-left"><%= '<i class="fa fa-bookmark"></i>'.html_safe %> <%= t('title.latest_event') %> </h2>
           </th>
         </tr>
         <tr>
@@ -167,7 +167,7 @@
           <thead>
             <tr>
               <th colspan="9">
-                <h2 class="pull-left"><%= t('various.my') %> <%= t('app.model.Opportunity').pluralize %></h2>
+                <h2 class="pull-left"><%= '<i class="fa fa-briefcase"></i>'.html_safe %> <%= t('various.my') %> <%= t('app.model.Opportunity').pluralize %></h2>
                 <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_opportunity_path ,{:title => "#{t('app.actions.create')} #{t('app.default.new_female')} #{t('app.model.Opportunity')}".html_safe, :class=>"pull-right", :style => 'display: inline-block'} %>
               </th>
             </tr>
@@ -241,7 +241,7 @@
         <thead>
           <tr>
             <th colspan="9">
-              <h2 class="pull-left"><%= t('various.my') %> <%= t('app.model.Quotation').pluralize %></h2>
+              <h2 class="pull-left"><%= '<i class="fa fa-eur"></i>'.html_safe %> <%= t('various.my') %> <%= t('app.model.Quotation').pluralize %></h2>
               <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_quotation_path ,{:title => "#{t('app.actions.create')} #{t('app.default.new_male')} #{t('app.model.Quotation')}".html_safe, :class=>"pull-right", :style => 'display: inline-block'} %>
 
             </th>

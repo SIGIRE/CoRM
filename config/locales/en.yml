@@ -292,6 +292,7 @@ en:
       new: New
       update: Update
       edit: Edit
+      edition: Edition
       destroy: Delete
       show: Show
       do: Do

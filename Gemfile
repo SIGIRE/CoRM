@@ -59,3 +59,5 @@ gem 'groupdate'
 
 gem 'yaml_db'
 gem 'rubyzip'
+
+gem "font-awesome-rails"
