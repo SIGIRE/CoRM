@@ -1,15 +1,13 @@
 <div class="container-fluid" style="margin-top: 1em;">
    
-
      <div class="well">
        <div class="row-fluid">
          <div class="span9">
-           <h1>Devis</h1>
+           <h1><%= "<i class=\"fa fa-file-text\"></i> #{t('app.model.Quotation').pluralize}".html_safe %></h1>
          </div>
-           <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_quotation_path ,{:title => "Créer un devis", :class =>"pull-right"}%>
+           <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_quotation_path ,{:title => "CrÃ©er un devis", :class =>"pull-right"}%>
        </div>
      </div>
-
          
 </div>
 

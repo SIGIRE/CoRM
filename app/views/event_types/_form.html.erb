@@ -38,7 +38,7 @@
   
    <div class="row">
    	<%= if !@eventtype.id.nil? then f.button 'Modifier le type', :type => :submit, :class =>"btn btn-primary",:id =>"eventtype_validate_form" else f.button 'Créer un type', :type => :submit, :class =>"btn btn-primary",:id =>"eventtype_validate_form" end%>
-	<%= if !@eventtype.id.nil? then link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, @eventtype,:title => "Supprimer le type", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
+	<%= if !@eventtype.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @eventtype,:title => "Supprimer le type", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
     </div>
   </div>
   

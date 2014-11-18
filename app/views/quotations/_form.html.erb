@@ -149,7 +149,7 @@
 		<!-- Submit or not submit -->
  		<div class="row row-fluid">
 			<%= if !@quotation.id.nil? then f.button 'Modifier le devis', :type => :submit, :class =>"btn btn-primary",:id =>"quotation_submit_form" else f.button 'Créer un devis', :type => :submit, :class =>"btn btn-primary",:id =>"quotation_submit_form" end %>
-      <%= if !@quotation.id.nil? then link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, quotation_path(@quotation), :title => "Supprimer le Devis", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
+      <%= if !@quotation.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, quotation_path(@quotation), :title => "Supprimer le Devis", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
 		</div>
   <% end %>
 </div>

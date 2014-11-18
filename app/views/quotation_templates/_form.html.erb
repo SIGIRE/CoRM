@@ -153,7 +153,7 @@
     
   <div class="row">
     <%= if !@template.id.nil? then f.button 'Modifier le modèle', :type => :submit, :class =>"btn btn-primary",:id =>"template_validate_form" else f.button 'Créer un modèle', :type => :submit, :class =>"btn btn-primary",:id =>"template_validate_form" end%>
-    <%= if !@template.id.nil? then link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, @template, :title => "Supprimer le modèle", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn", :method => :delete end %> 
+    <%= if !@template.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @template, :title => "Supprimer le modèle", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn", :method => :delete end %> 
 
   </div>    
     

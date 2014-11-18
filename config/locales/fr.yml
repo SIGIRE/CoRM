@@ -283,12 +283,14 @@ fr:
       undefine_article_female: une
       undefine_article_plural: des
       new_male: "nouveau"
+      new_male_bis: "nouvel"
       new_female: "nouvelle"
     actions:
       create: Créer
       new: Nouveau
       update: Éditer
       edit: Éditer
+      edition: Édition
       destroy: Supprimer
       show: Afficher
       do: Faire
@@ -305,8 +307,8 @@ fr:
       Account: compte
       Contact: contact
       Quotation: devis
-      QuotationLine: ligne de devis
-      QuotationTemplate: modèle
+      QuotationLine: "ligne de devis"
+      QuotationTemplate: "modèle de devis"
       Relation: relation
       Tag: tag
       Task: tâche
@@ -329,6 +331,7 @@ fr:
       QuotationTemplate: Modèle
       Document: "Document"
       Email: "E-mail"
+      NotificationCenter: "Centre de notifications"
     roles:
       details: "Détail des roles"
       admin: Administrateur
@@ -417,6 +420,9 @@ fr:
     search_actor: "Rechercher un acteur..."
     reporting: "Rapport d'activité"
     filter_reporting: "Filtrer le rapport d'activité"
+    about: "À propos"
+    registered_users : "Utilisateurs enregistrés"
+    configuration_CoRM : "Configuration de CoRM"
 
   various:
     my: "Mes"
