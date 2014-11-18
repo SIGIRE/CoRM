@@ -6,12 +6,12 @@
       <i class="fa fa-plus-circle"></i>
     </a>
     <ul class="dropdown-menu pull-right">
-      <li><%= link_to "<i class=\"fa fa-eur fa-fw\"></i> #{t('app.model.Quotation')}".html_safe, new_quotation_path %></li>
+      <li><%= link_to "<i class=\"fa fa-file-text fa-fw\"></i> #{t('app.model.Quotation')}".html_safe, new_quotation_path %></li>
       <li><%= link_to "<i class=\"fa fa-briefcase fa-fw\"></i> #{t('app.model.Opportunity')}".html_safe, new_opportunity_path %></li>
       <li><%= link_to "<i class=\"fa fa-tasks fa-fw\"></i> #{t('app.model.Task')}".html_safe, new_task_path %></li>
       <li><%= link_to "<i class=\"fa fa-user fa-fw\"></i> #{t('app.model.Contact')}".html_safe, new_contact_path %></li>
       <li><%= link_to "<i class=\"fa fa-home fa-fw\"></i> #{t('app.model.Account')}".html_safe, new_account_path %></li>
-      <li><%= link_to "<i class=\"fa fa-file-text fa-fw\"></i> #{t('app.model.Document')}".html_safe, new_document_path %></li>
+      <li><%= link_to "<i class=\"fa fa-folder fa-fw\"></i> #{t('app.model.Document')}".html_safe, new_document_path %></li>
     </ul>
   </li>
 
@@ -68,8 +68,8 @@
 	<li class="dropdown-submenu pull-left">
 	  <a tabindex="-1" href="#"><i class="fa fa-floppy-o fa-fw"></i> Sauvegarde</a>
           <ul class="dropdown-menu">
-            <li><%= link_to '<i class="fa fa-file-o fa-fw"></i> Format YAML'.html_safe, url_for(:controller => 'application', :action => 'send_yaml_backup_file') %></li>
-            <li><%= link_to '<i class="fa fa-file-o fa-fw"></i> Format CSV'.html_safe, url_for(:controller => 'application', :action => 'send_csv_backup_file') %></li>
+            <li><%= link_to '<i class="fa fa-file-archive-o fa-fw"></i> Format YAML'.html_safe, url_for(:controller => 'application', :action => 'send_yaml_backup_file') %></li>
+            <li><%= link_to '<i class="fa fa-file-archive-o fa-fw"></i> Format CSV'.html_safe, url_for(:controller => 'application', :action => 'send_csv_backup_file') %></li>
           </ul>
         </li>
 

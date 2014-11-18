@@ -2,7 +2,7 @@
      <div class="well">
        <div class="row-fluid">
          <div class="span9">
-           <h1>Tags</h1>
+			<h1><%= "<i class=\"fa fa-tags\"></i> #{t('app.model.Tags')}".html_safe %></h1>
          </div>
            <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_tag_path ,{:title => "Créer un tag", :class=>"pull-right"}%>
        </div>

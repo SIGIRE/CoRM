@@ -2,7 +2,7 @@
    <div class="well" style="margin-top: 1em;">
      <div class="row-fluid">
        <div class="span9">
-         <h1>Édition du Devis n°<%= @quotation.id %></h1>
+         <h1><%= "<i class=\"fa fa-file-text\"></i>  #{t('app.actions.edition').capitalize} #{t('app.model.Quotation')}".html_safe %> n°<%= @quotation.id %></h1>
         </div>
           <%= link_to '<i class="fa fa-arrow-circle-left fa-3x action-icon"></i>'.html_safe, quotations_url ,{:title => "Retour", :class =>"pull-right"}%>
 		</div>

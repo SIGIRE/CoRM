@@ -2,7 +2,7 @@
      <div class="well">
        <div class="row-fluid">
          <div class="span9">
-           <h1>Origines</h1>
+			<h1><%= "<i class=\"fa fa-random\"></i> #{t('app.controllers.Origin').pluralize.capitalize}".html_safe %></h1>
          </div>
            <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_origin_path ,{:title => "Créer une Origine", :class=>"pull-right"}%>
        </div>

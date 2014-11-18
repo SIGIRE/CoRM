@@ -3,7 +3,7 @@
      <div class="well">
        <div class="row-fluid">
          <div class="span9">
-           <h1>Utilisateurs enregistrés</h1></div>
+           <h1><%= '<i class="fa fa-users"></i>'.html_safe %> <%= t('title.registered_users') %></h1></div>
 		       <% if current_user.has_role? :admin %>
 					<%= link_to '<i class="fa fa-plus-circle fa-3x action-icon pull-right"></i>'.html_safe, new_user_path ,{:title => "#{t('app.actions.create')} #{t('app.default.new_male')} #{t('app.model.User')}".html_safe} %>
 			<% end %>

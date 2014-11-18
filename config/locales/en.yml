@@ -310,7 +310,7 @@ en:
       Contact: contact
       Quotation: quotation
       QuotationLine: "quotation line"
-      QuotationTemplate: model
+      QuotationTemplate: "quotation template"
       Relation: relation
       Tag: tag
       Task: task
@@ -333,6 +333,7 @@ en:
       QuotationTemplate: "Quotation template"
       Document: "Document"
       Email: "E-mail"
+      NotificationCenter: "Notifications center"
     roles:
       details: "Roles specification"
       admin: Administrator
@@ -420,6 +421,9 @@ en:
     search_actor: "Search an actor..."
     reporting: "Reporting"
     filter_reporting: "Reporting Filter"
+    about: "About"
+    registered_users : "Registered Users"
+    configuration_CoRM : "CoRM's Configuration"
 
   various:
     my: "My"
