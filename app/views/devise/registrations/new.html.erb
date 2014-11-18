@@ -18,7 +18,7 @@
   </div>
 
   <div class="field"> 
-	<div class="span2"> Mot de passe : </div>  <%= f.password_field :password, { :required => 'required', :style=>'width: 20em;' } %><span class="req" /> (6 caractères minimum)
+	<div class="span2"> Mot de passe : </div>  <%= f.password_field :password, { :required => 'required', :style=>'width: 20em;' } %><span class="req" /> <%= t('devise.passwords.minimum_length') %>
   </div>  
 
   <div class="field"> 

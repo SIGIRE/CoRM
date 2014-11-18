@@ -1,7 +1,7 @@
 {
   "version": "0.9.4 (nightly)",
-  "protocol": "http",
-  "host": "localhost",
+  "protocol": "https",
+  "host": "192.168.0.47:8000",
   "mail": {
     "type": "smtp",
     "host": "localhost",

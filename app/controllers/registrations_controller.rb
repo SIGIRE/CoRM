@@ -115,6 +115,7 @@ class RegistrationsController < Devise::RegistrationsController
   # Render a page to edit the User
   #
   def edit
+  debugger
     # if he's not logged in, redirect him
     if !isLogged
       flash[:error] = "Vous devez etre connecté pour accéder à cette partie de l'application"
