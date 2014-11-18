@@ -14,6 +14,7 @@ Crm::Application.configure do
   config.action_controller.perform_caching = false
 
   # Mail settings
+  config.action_mailer.default_url_options = { :host => "192.168.0.47:3000" }
   config.action_mailer.delivery_method = CORM[:mail][:type]
   config.action_mailer.smtp_settings = {
     :address => CORM[:mail][:host],
