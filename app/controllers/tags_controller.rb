@@ -1,8 +1,9 @@
 # encoding: utf-8
 
 class TagsController < ApplicationController
-
-  load_and_authorize_resource :account, :parent => false
+  
+  
+  #load_and_authorize_resource :account, :parent => false #this line is commented on 2014/11/18 to avoid bug on edit tags
   load_and_authorize_resource :tag, :through => :account, :shallow => true
   before_filter :authenticate_user!
   before_filter :load_account, only: [:index, :filter]
