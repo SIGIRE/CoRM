@@ -20,7 +20,7 @@ class Account < ActiveRecord::Base
   has_many :events, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
   has_many :documents, :dependent => :destroy
-  has_many :tags
+  #has_many :tags
   
   has_and_belongs_to_many :tags
   belongs_to :user
