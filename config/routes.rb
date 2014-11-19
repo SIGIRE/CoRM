@@ -138,6 +138,8 @@ Crm::Application.routes.draw do
   match 'contacts/extract', controller: 'contacts', action: 'extract'
   match 'contacts/search(.:format)', :controller => 'contacts', :action => 'search', :via => :get, :as => "search_contact_index"
   match 'contacts/filter(.:format)', :controller => 'contacts', :action => 'filter', :via => :get, :as => "search_contact_index"
+  # 19/11/2014 add import fonctionnality
+   match 'contacts/import', controller: 'contacts', action: 'import'
   
   # Dashboard
   root :to => 'home#index'
