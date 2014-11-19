@@ -111,9 +111,9 @@ class TagsController < ApplicationController
   
   private
     def load_account
-      if (params[:account_id].present? and !params[:account_id].to_s.blank?)
-        @account = Account.find_by_id(params[:account_id])
-      else
+     if (params[:account_id].present? and !params[:account_id].to_s.blank?)
+       @account = Account.find_by_id(params[:account_id])
+     else
         @account = nil
       end
     end

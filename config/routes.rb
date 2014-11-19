@@ -101,6 +101,7 @@ Crm::Application.routes.draw do
   # Tag routes
   # resources :tags
   set_route('tags', 'tag', 'tags');
+  
 
   match 'taches/update_contact_select/:id', :controller=>'tasks', :action => 'update_contact_select'
   

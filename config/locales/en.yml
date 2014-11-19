@@ -230,7 +230,7 @@ en:
     failure:
       already_authenticated: "Vous êtes déjà connecté !"
       unauthenticated: "Vous devez vous connecter pour continuer."
-      incorrect: "Votre email ou mot de passe est incorrect."
+      incorrect: "Your email or password is incorrect !"
       unconfirmed: "Vous devez valider votre compte pour continuer."
       locked: "Votre compte est verrouillé. Veuillez contacter un adminstrateur."
       invalid: "Email ou mot de passe incorrect."

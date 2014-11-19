@@ -19,6 +19,6 @@ class Tag < ActiveRecord::Base
     return editor_user || User::default
   end
   
-  scope :by_account_with_contacts, lambda { |account| where("account_id = ?", account.id) unless account.nil? }
-  
+  #scope :by_account_with_contacts, lambda { |account| where("account_id = ?", account.id) unless account.nil? }
+  #scope :by_account_tags, lambda { |account| where("account_id = ?", account.id) unless account.nil? }
 end
