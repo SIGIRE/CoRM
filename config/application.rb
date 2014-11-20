@@ -8,6 +8,7 @@ if defined?(Bundler)
   Bundler.require(*Rails.groups(:assets => %w(development test)))
 end
 
+
 require 'json'
 require './config/CORM_Object.rb'
 

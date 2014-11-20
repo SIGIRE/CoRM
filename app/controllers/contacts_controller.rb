@@ -51,10 +51,6 @@ class ContactsController < ApplicationController
     end
   end
   
-  #19/11/2014 Import csv File 
-  def import
-    
-  end
 
   ##
   # Show one occurence of Contact

@@ -226,6 +226,8 @@ en:
       previous: "&lsaquo; Prev."
       next: "Next &rsaquo;"
       truncate: "..."
+    button:
+      import: "Import"
   devise:
     failure:
       already_authenticated: "Vous êtes déjà connecté !"
@@ -425,6 +427,7 @@ en:
     about: "About"
     registered_users : "Registered Users"
     configuration_CoRM : "CoRM's Configuration"
+    import_all: "Import all"
 
   various:
     my: "My"
