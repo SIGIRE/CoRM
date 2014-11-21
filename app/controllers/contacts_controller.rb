@@ -50,11 +50,6 @@ class ContactsController < ApplicationController
       format.csv { render :text => @contacts.to_csv }
     end
   end
-  
-  #19/11/2014 Import csv File 
-  def import
-    
-  end
 
   ##
   # Show one occurence of Contact
