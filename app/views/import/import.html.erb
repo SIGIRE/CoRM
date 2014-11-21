@@ -1,0 +1,25 @@
+<div class="container-fluid">
+     
+     <div class="well" style="margin-top: 1em;">
+       <div class="row-fluid">
+         <div class="span9">
+           <h1><%= t('title.import_all') %> <%= @key_word %></h1>
+      <!--     <h1><%#= "<i class=\"fa fa-folder\"></i> #{t('app.default.new_male').capitalize} #{t('app.model.Document')}".html_safe %></h1> -->
+         </div>
+         <%= link_to '<i class="fa fa-download fa-3x action-icon"></i>'.html_safe, {format: :csv, params: params.except(:controller, :action)},{:title => "Importer en CSV", :class=>"pull-right"} %>
+       </div>    
+     </div>
+
+     <div class="well" style="margin-top: 1em;">
+       <div class="row-fluid">
+         <div class="span9">
+     
+          <%= render 'form' %>
+         </div>
+       </div>
+     </div>
+</div>
+
+
+
+
