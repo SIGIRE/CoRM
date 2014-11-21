@@ -51,6 +51,7 @@ class ContactsController < ApplicationController
     end
   end
 
+
   ##
   # Show one occurence of Contact
   #

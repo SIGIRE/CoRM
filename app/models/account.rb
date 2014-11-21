@@ -8,6 +8,9 @@
 # This business cas have many Contact, Event, Task, Document or Relation.
 # Also, it belongs to one User and one Origin
 #
+
+
+
 class Account < ActiveRecord::Base
   extend ToCsv
   resourcify
@@ -104,6 +107,13 @@ class Account < ActiveRecord::Base
 		tmp += ', ' + self.city
 	end	
 	return tmp
+  end
+  
+  #2014/11/20 method to import csv file
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+    Account.create! row.to_hash
+    end
   end
   
 end

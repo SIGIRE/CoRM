@@ -138,8 +138,7 @@ Crm::Application.routes.draw do
   match 'contacts/extract', controller: 'contacts', action: 'extract'
   match 'contacts/search(.:format)', :controller => 'contacts', :action => 'search', :via => :get, :as => "search_contact_index"
   match 'contacts/filter(.:format)', :controller => 'contacts', :action => 'filter', :via => :get, :as => "search_contact_index"
-  # 19/11/2014 add import fonctionnality
-   match 'contacts/import', controller: 'contacts', action: 'import'
+  
   
   # Dashboard
   root :to => 'home#index'
@@ -161,6 +160,10 @@ Crm::Application.routes.draw do
   
 	# Notifications routes
 	set_route('notifications', 'notification', 'notifications')
+
+  # 2014/11/20 import routes
+  match 'import', :controller => 'import', :action => 'import'
+  match 'upload', :controller => 'import', :action => 'upload'
 
   # resources :home
   # The priority is based upon order of creation:
