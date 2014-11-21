@@ -127,6 +127,7 @@ fr:
       wrong_length:
         one: ne fait pas la bonne longueur (doit comporter %{count} caractère)
         other: ne fait pas la bonne longueur (doit comporter %{count} caractères)
+      no_relation: Aucune relation affectée à ce compte
     template:
       body: ! 'Veuillez vérifier les champs suivants : '
       header:
