@@ -1,23 +1,15 @@
-<div class="container-fluid">
-     
-     <div class="well" style="margin-top: 1em;">
-       <div class="row-fluid">
-         <div class="span9">
-           <h1><%= "<i class=\"fa fa-download fa-action-icon\"></i> #{t('title.import_all')} #{@key_word}".html_safe %></h1>
-      <!--     <h1><%#= "<i class=\"fa fa-folder\"></i> #{t('app.default.new_male').capitalize} #{t('app.model.Document')}".html_safe %></h1> -->
-         </div>
-         <%= link_to '<i class="fa fa-arrow-circle-left fa-3x action-icon"></i>'.html_safe, :back ,{:title => "Retour", :class=>"pull-right"} %>
-       </div>    
-     </div>
+<%= render 'title', :locals => { :title => @title }%>
 
+<div class="container-fluid">
      <div class="well" style="margin-top: 1em;">
        <div class="row-fluid">
          <div class="span9">
      
           <%= render 'form' %>
-         </div>
+         </div>        
        </div>
      </div>
+     
 </div>
 
 

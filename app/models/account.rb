@@ -109,11 +109,4 @@ class Account < ActiveRecord::Base
 	return tmp
   end
   
-  #2014/11/20 method to import csv file
-  def self.import(file)
-    CSV.foreach(file.path, headers: true) do |row|
-    Account.create! row.to_hash
-    end
-  end
-  
 end
