@@ -47,7 +47,7 @@ class ImportController < ApplicationController
  
             @line=Account.new row.to_hash
                 #search duplicate in base
-                if !Account.where(company: @line[:company]).exists?
+                if !Account.where(company: @line[:company]).exists? && !Account.where(company: @line[:company].upcase).exists?
                     #if not duplicate
                     @line.save
                 else

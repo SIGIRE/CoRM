@@ -97,13 +97,13 @@ class Account < ActiveRecord::Base
 
   def full_adress
 	tmp = self.adress1
-	if !self.adress2.blank?
+	if !tmp==nil? && !self.adress2.blank?
 		tmp += ', ' + self.adress2
 	end
-	if !self.zip.blank?
+	if !tmp==nil? && !self.zip.blank?
 		tmp += ', ' + self.zip
 	end
-	if !self.city.blank?
+	if !tmp==nil? && !self.city.blank?
 		tmp += ', ' + self.city
 	end	
 	return tmp
