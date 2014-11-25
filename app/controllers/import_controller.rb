@@ -4,7 +4,10 @@
 
 class ImportController < ApplicationController
     
-
+    def index 
+        import_with_origin = Import.joins(:origin)
+        @imports=import_with_origin.find(:all, :order=>"created_at")
+    end
     
     #to view to select file for import
     def import      
@@ -29,7 +32,10 @@ class ImportController < ApplicationController
             flash[:alert] = 'Doublons détectés !'
             
         end
- 
+        #respond_to do |format|
+            #format.html {
+                #@accounts = Kaminari.paginate_array(@accounts).page(params[:page]).per(10) #}
+        #end
         #redirect_to accounts_path
         #redirect_to :back
         
@@ -43,10 +49,10 @@ class ImportController < ApplicationController
             #create an array to store duplicate values
             @accounts=Array.new
             CSV.foreach(file.path, headers: true) do |row|
-            #Account.create! row.to_hash
  
             @line=Account.new row.to_hash
                 #search duplicate in base
+                
                 if !Account.where(company: @line[:company]).exists? && !Account.where(company: @line[:company].upcase).exists?
                     #if not duplicate
                     @line.save
@@ -55,10 +61,8 @@ class ImportController < ApplicationController
                     @accounts.push(@line)
                 end
             end
-            end
-        respond_to do |format|
-            format.html { @accounts = Kaminari.paginate_array(@accounts).page(params[:page]).per(10) }
         end
+        
     end
 
     #this methode return the model type concerned by the import
@@ -69,5 +73,23 @@ class ImportController < ApplicationController
         end
         return key_word
     end  
-          
+    
+    private
+    
+    def match_duplicate
+        match
+        #match company lowcase or upcase        
+        if !Account.where(company: @line[:company]).exists? && !Account.where(company: @line[:company].upcase).exists?
+            match=false
+        end
+        #match words on company name
+        words=@line[:company].split
+        words.each do |w|
+            if !Account.where(company: words).exists? && !Account.where(company: words.upcase).exists?
+            match=false
+        end
+        
+    return false
+    end
+        
 end

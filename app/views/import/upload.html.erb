@@ -1,6 +1,7 @@
 <%= render 'title', :locals => { :title => @title }%>
 
 <div class="container-fluid">
+  <h2>Liste des doublons</h2>
   <table class="table table-bordered table-striped table-hover">
     <thead>
     <tr>
@@ -41,5 +42,6 @@
     <% end %>
         </tbody>
   </table>
-  <%= paginate @accounts %> 
+  <%#= page_entries_info @duplicate %>
+  <%#= paginate @accounts%> 
 </div>
