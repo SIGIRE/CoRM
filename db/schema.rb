@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140505151449) do
+ActiveRecord::Schema.define(:version => 20141126084317) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -155,11 +155,19 @@ ActiveRecord::Schema.define(:version => 20140505151449) do
     t.text     "notes2"
   end
 
+  create_table "imports", :force => true do |t|
+    t.string   "categorie"
+    t.string   "created_by"
+    t.integer  "origine_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "opportunities", :force => true do |t|
     t.string   "name"
     t.text     "description"
     t.string   "statut"
-    t.string   "remark"
+    t.text     "remark"
     t.float    "amount"
     t.datetime "term"
     t.integer  "created_by"
