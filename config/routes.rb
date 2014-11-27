@@ -164,6 +164,8 @@ Crm::Application.routes.draw do
   # 2014/11/20 import routes
   match 'import', :controller => 'import', :action => 'import'
   match 'upload', :controller => 'import', :action => 'upload'
+  match 'imports', :controller => 'import', :action => 'index'
+  set_route('imports', 'import', 'import')
 
   # resources :home
   # The priority is based upon order of creation:

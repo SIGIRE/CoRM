@@ -4,5 +4,9 @@
 
 class Import < ActiveRecord::Base
   # attr_accessible :title, :body
-  belongs_to :origin
+  has_many :accounts, :dependent => :destroy
+  has_many :contacts, :dependent => :destroy
+  
+  paginates_per 10
+  
 end

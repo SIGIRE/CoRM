@@ -109,8 +109,16 @@ desc "import contacts from txt file"
         end
         
         if match
-          duplicates.push("#{contact1.id};#{contact1.surname};#{contact1.forename};#{contact1.tel}") unless duplicates.include?("#{contact1.id};#{contact1.surname};#{contact1.forename};#{contact1.tel}")
-          duplicates.push("#{contact2.id};#{contact2.surname};#{contact2.forename};#{contact2.tel}") unless duplicates.include?("#{contact2.id};#{contact2.surname};#{contact2.forename};#{contact2.tel}")
+          req_compte_assoc1=Account.find_by_id(contact1.account_id)
+          if !req_compte_assoc1==nil?
+            compte_assoc1=req_compte_assoc1.company
+          end
+          req_compte_assoc2=Account.find_by_id(contact2.account_id)
+          if !req_compte_assoc2==nil?
+            compte_assoc2=req_compte_assoc2.company
+          end
+          duplicates.push("#{contact1.id};#{contact1.surname};#{contact1.forename};#{contact1.tel};#{compte_assoc1}") unless duplicates.include?("#{contact1.id};#{contact1.surname};#{contact1.forename};#{contact1.tel};#{compte_assoc1}")
+          duplicates.push("#{contact2.id};#{contact2.surname};#{contact2.forename};#{contact2.tel};#{compte_assoc2}") unless duplicates.include?("#{contact2.id};#{contact2.surname};#{contact2.forename};#{contact2.tel};#{compte_assoc2}")
         end      
       end   
     end

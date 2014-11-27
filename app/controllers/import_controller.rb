@@ -4,9 +4,26 @@
 
 class ImportController < ApplicationController
     
+    #show full list of imports by paginate_by
     def index 
-        import_with_origin = Import.joins(:origin)
-        @imports=import_with_origin.find(:all, :order=>"created_at")
+        @imports=Import.order('created_at')
+        flash.now[:alert] = "Pas d'imports !" if @imports.empty?
+        respond_to do |format|
+            format.html { @imports = @imports.page(params[:page]) }  # index.html.erb
+            format.json  { render :json => @imports }
+        end
+    end
+    
+    def destroy
+        @import = Import.find(params[:id])
+        
+        #TODO implémenter la suppression des comptes ou contacts si aucune modification effectuée
+        
+        @import.destroy
+        respond_to do |format|
+            format.html { redirect_to root_path, :notice => "L'import a bien été supprimé."  }
+            format.json { head :no_content }
+        end
     end
     
     #to view to select file for import
@@ -86,7 +103,8 @@ class ImportController < ApplicationController
         words=@line[:company].split
         words.each do |w|
             if !Account.where(company: words).exists? && !Account.where(company: words.upcase).exists?
-            match=false
+                match=false
+            end
         end
         
     return false

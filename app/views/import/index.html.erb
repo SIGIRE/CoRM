@@ -1,0 +1,62 @@
+<div class="container-fluid" style="margin-top: 1em;">
+   
+
+     <div class="well">
+       <div class="row-fluid">
+         <div class="span8">
+           <h2>Liste des imports</h2>
+         </div>
+           <%= link_to '<i class="fa fa-arrow-circle-left fa-3x action-icon"></i>'.html_safe, :back ,{:title => "Retour", :class=>"pull-right"} %>
+       </div>
+     </div>
+    
+    <div class="container-fluid">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">Date import</th>
+                    <th class="text-center">Utilisateur</th>	  
+                    <th class="text-center">Nom</th>
+                    <th class="text-center">Libellé</th>
+                    <th class="text-center">Types</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @imports.each do |import| %>
+                    <tr>
+			<td class="text-center"><%= import.created_at %></td>
+                        <td class="text-center"><%= import.created_by %></td>
+                        <% if !import.name.nil? %>
+			<% then %>
+				<td class="text-center"><%#= link_to import.name, account_events_url(account),{:title => "Afficher la liste des comptes"} %></td>
+			<% else %>
+				<td class="text-center">-</td>
+                        <% end %>
+                        
+                        <% if !import.note.nil? %>
+			<% then %>
+				<td class="text-center"><%= import.note %></td>
+			<% else %>
+				<td class="text-center">-</td>
+                        <% end %>
+                        
+                        <% if !import.type.nil? %>
+			<% then %>
+				<td class="text-center"><%= import.type %></td>
+			<% else %>
+				<td class="text-center">-</td>
+                        <% end %>
+                        
+                        <% if !import.id.nil? %>
+                            <td class="text-center">-
+                                <%#= link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, import, :title => "Supprimer le compte", :confirm => "Attention : La suppression de l'import entraine la suppression de tous les éléments liés à cet import (contacts ou comptes) ! Confirmez-vous la suppression ?", :class =>"pull-right btn", :method => :destroy %>
+                            </td>
+                        <% end %>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+         
+</div>
