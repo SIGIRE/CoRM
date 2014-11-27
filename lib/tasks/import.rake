@@ -60,7 +60,7 @@ desc "import contacts from txt file"
         match=false
         hash_company2=account2.company.upcase.gsub(".","").split
         
-        if !account1.tel==nil? && !account2.tel==nil? && account1.tel.gsub(/\.| |-|\(|\)/,"") == account2.tel.gsub(/\.| |-|\(|\)/,"")
+        if !account1.tel==nil? && !account2.tel==nil? && account1.tel.gsub(/[^0-9]/,"") == account2.tel.gsub(/[^0-9]/,"")
           match=true
         else   
           hash_company2.each do |h|
@@ -73,8 +73,8 @@ desc "import contacts from txt file"
         end
         
         if match
-          duplicates.push("#{account1.id} - #{account1.company} - #{account1.full_adress} - #{account1.tel}") unless duplicates.include?("#{account1.id} - #{account1.company} - #{account1.full_adress} - #{account1.tel}")
-          duplicates.push("#{account2.id} - #{account2.company} - #{account2.full_adress} - #{account2.tel}") unless duplicates.include?("#{account2.id} - #{account2.company} - #{account2.full_adress} - #{account2.tel}")
+          duplicates.push("#{account1.id};#{account1.company};#{account1.full_adress};#{account1.tel}") unless duplicates.include?("#{account1.id};#{account1.company};#{account1.full_adress};#{account1.tel}")
+          duplicates.push("#{account2.id};#{account2.company};#{account2.full_adress};#{account2.tel}") unless duplicates.include?("#{account2.id};#{account2.company};#{account2.full_adress};#{account2.tel}")
           #first_match=false
         end      
       end   
@@ -99,7 +99,7 @@ desc "import contacts from txt file"
       Contact.find_each(start: (contact1.id)+1) do |contact2|
         match=false
         
-        if !contact1.tel==nil? && !contact2.tel==nil? && contact1.tel.gsub(/\.| |-|\(|\)/,"") == contact2.tel.gsub(/\.| |-|\(|\)/,"")
+        if !contact1.tel==nil? && !contact2.tel==nil? && contact1.tel.gsub(/[^0-9]/,"") == contact2.tel.gsub(/[^0-9]/,"")
           match=true
         else
         
@@ -109,8 +109,8 @@ desc "import contacts from txt file"
         end
         
         if match
-          duplicates.push("#{contact1.id} - #{contact1.surname} - #{contact1.forename} - #{contact1.tel}") unless duplicates.include?("#{contact1.id} - #{contact1.surname} - #{contact1.forename} - #{contact1.tel}")
-          duplicates.push("#{contact2.id} - #{contact2.surname} - #{contact2.forename} - #{contact2.tel}") unless duplicates.include?("#{contact2.id} - #{contact2.surname} - #{contact2.forename} - #{contact2.tel}")
+          duplicates.push("#{contact1.id};#{contact1.surname};#{contact1.forename};#{contact1.tel}") unless duplicates.include?("#{contact1.id};#{contact1.surname};#{contact1.forename};#{contact1.tel}")
+          duplicates.push("#{contact2.id};#{contact2.surname};#{contact2.forename};#{contact2.tel}") unless duplicates.include?("#{contact2.id};#{contact2.surname};#{contact2.forename};#{contact2.tel}")
         end      
       end   
     end
