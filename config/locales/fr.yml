@@ -409,6 +409,7 @@ fr:
       active: "Actif"
       size: "Taille"
       content: "Contenu"
+      category: "Catégorie"
 
   title:
     dashboard: "Tableau de bord"

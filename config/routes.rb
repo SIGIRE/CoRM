@@ -162,10 +162,22 @@ Crm::Application.routes.draw do
 	set_route('notifications', 'notification', 'notifications')
 
   # 2014/11/20 import routes
-  match 'import', :controller => 'import', :action => 'import'
-  match 'upload', :controller => 'import', :action => 'upload'
-  match 'imports', :controller => 'import', :action => 'index'
-  set_route('imports', 'import', 'import')
+  #match 'accounts/new', :controller => 'import', :action => 'new_accounts_file'
+  #match 'upload', :controller => 'import', :action => 'upload'
+  #match 'imports', :controller => 'import', :action => 'index'
+  #set_route('imports', 'import', 'import')
+  resources :imports do
+    new do
+      post 'accounts'
+      post 'contacts'
+    end
+    
+    member do
+      post 'read'
+    end
+    
+  end
+  
 
   # resources :home
   # The priority is based upon order of creation:

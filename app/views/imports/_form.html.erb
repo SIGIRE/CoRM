@@ -1,0 +1,58 @@
+<%# encoding: utf-8 %>
+
+<%# Récupération du des fonctions %>
+          <% content_for(:attachments_js) do %>
+               <%= javascript_include_tag "attachments" %>
+          <% end %>
+
+<% colon = t('app.fields.colon') %>
+<%= form_for(@import, :html => { :class => "well "}) do |f| %>
+<div class="row row-fluid">
+     <div class="field full">
+          
+          <% if @type=="comptes" %>
+	  <div class="row row-fluid">
+	       <div class="field full">
+		    <div class="span2"><%= f.label(:categorie ,t('app.fields.category') + colon) %></div>
+		    <p><%= f.select :categorie, Import::CATEGORIES %></p>
+	       </div>
+	  </div>
+	  <% end %>
+
+	  <div class="row row-fluid">
+	       <div class="field full">
+		    <div class="span2"><%= f.label(:name, t('app.fields.name') + colon) %></div>
+		    <p><%= f.text_field(:name ,{ :class => 'required' }) %><span class="req" /></p>
+	       </div>
+	  </div>
+	  
+	  <div class="row row-fluid">
+	       <div class="field full">
+		    <div class="span2"><%= f.label(:note, t('app.fields.description')) %></div>
+			<%= f.text_area :note, :rows => "5", :style => 'width: 50%;' %>
+	       </div>
+	  </div>	
+          
+	  <div id="attachments">        
+	  <%= fields_for :file do |ta| %>
+	       <div class="row row-fluid">
+		    <div class="field full">
+			 <div class="span2"></div>
+                      
+			      <%= file_field_tag :file %>
+			      <script>$ (":file").filestyle({buttonText: 'Choisir un fichier'});</script>
+                      
+			 </div>
+		    </div>
+	       </div>
+          <hr/>
+	  <div class="row">
+	       <%= submit_tag t('views.button.import'), class: "btn btn-primary"%>
+	  </div>                     
+	  <% end %>	      
+          </div>
+	  
+     </div>
+</div>
+<% end %>
+

@@ -411,6 +411,7 @@ en:
       active: "Active"
       size: "Size"
       content: "Content"
+      category: "Category"
   title:
     dashboard: "Dashboard"
     actor: "Actor"

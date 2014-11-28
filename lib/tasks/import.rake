@@ -4,7 +4,7 @@ namespace :import do
 desc "import accounts from txt file"
   task :comptes => :environment do
     require 'csv'
-    CSV.foreach('comptes.txt', headers: true) do |row|
+    CSV.foreach('accounts_MLV.txt', headers: true) do |row|
  
         Account.create row.to_hash
     end  
@@ -13,14 +13,14 @@ desc "import accounts from txt file"
 desc "import contacts from txt file"
   task :contacts => :environment do
     require 'csv'
-    CSV.foreach('contacts.txt', headers: true) do |row| 
+    CSV.foreach('contacts_MLV.txt', headers: true) do |row| 
         contact = Contact.create row.to_hash
         #compte = Account.select('id').where(accounting_code: (contact.account_id).to_s)
         
-        compte = Account.find_by_accounting_code((contact.account_id).to_s)
-        if !compte==nil?
-          contact.update_attributes(:account_id => compte.id)
-        end
+        #compte = Account.find_by_accounting_code((contact.account_id).to_s)
+        #if !compte==nil?
+        #  contact.update_attributes(:account_id => compte.id)
+        #end
     end
     
   end
@@ -93,19 +93,42 @@ desc "import contacts from txt file"
   desc "search duplicates contacts"
   task :doublons_c => :environment do
     duplicates=Array.new
+    no_match=["MONSIEUR",
+              "MADAME",
+              "MR",
+              "MME",
+              "DE",
+              "DU",
+              "LES",
+              "LE"]
 
     Contact.find_each do |contact1|
-
+      if !contact1.nil?
+        hash_surname1=contact1.surname.upcase.gsub(".","").split
+      end
+      
+      
+      
       Contact.find_each(start: (contact1.id)+1) do |contact2|
         match=false
+        if !contact2.nil?
+          hash_surname2=contact2.surname.upcase.gsub(".","").split
+        end
+        
+        
         
         if !contact1.tel==nil? && !contact2.tel==nil? && contact1.tel.gsub(/[^0-9]/,"") == contact2.tel.gsub(/[^0-9]/,"")
           match=true
         else
-        
-          if contact1.surname.gsub("-","").gsub(/ */,"").upcase == contact2.surname.gsub("-","").gsub(/ */,"").upcase
-            match=true
-          end
+          if !contact1.nil? && !contact2.nil?
+            hash_surname2.each do |h|
+              if !no_match.include?("#{h}")
+                if hash_surname1.include?("#{h}")
+                  match=true
+                end
+              end
+            end
+          end    
         end
         
         if match
