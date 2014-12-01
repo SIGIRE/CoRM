@@ -6,10 +6,15 @@
           <% end %>
 
 <% colon = t('app.fields.colon') %>
-<%= form_for(@import, :html => { :class => "well "}) do |f| %>
+<div id="attachments">
+          
+ 
+<%= form_for(@import, :html => { :class => "well ", :multipart => true}) do |f| %>
 <div class="row row-fluid">
      <div class="field full">
           
+	  <%= f.text_field(:import_type ,type:'hidden', value:@type) %>
+	  
           <% if @type=="comptes" %>
 	  <div class="row row-fluid">
 	       <div class="field full">
@@ -33,8 +38,9 @@
 	       </div>
 	  </div>	
           
-	  <div id="attachments">        
-	  <%= fields_for :file do |ta| %>
+	  <div id="attachments">
+	  
+	  <%#= fields_for :file_attachments do |ta| %>
 	       <div class="row row-fluid">
 		    <div class="field full">
 			 <div class="span2"></div>
@@ -47,9 +53,10 @@
 	       </div>
           <hr/>
 	  <div class="row">
-	       <%= submit_tag t('views.button.import'), class: "btn btn-primary"%>
+	       <%= f.button "#{t('views.button.import')}", :type => :submit,:class =>"btn btn-primary",:id =>"import_validate_form" %>
 	  </div>                     
-	  <% end %>	      
+	  <%# end %>
+
           </div>
 	  
      </div>

@@ -106,7 +106,7 @@ class AccountsController < ApplicationController
       @account.tags << tag #unless @compte.produits.exists?(produit)
     end
 
-    respond_to do |format|
+    respond_to do |format| 
       if @account.save
         format.html { redirect_to account_events_url(@account.id), :notice => 'Le compte a été créé.' }
         format.json { render :json => @account, :status => :created, :location => @account }
@@ -117,7 +117,7 @@ class AccountsController < ApplicationController
       end
     end
   end
-
+  
   ##
   # Save an instance of Account which already exists
   #
@@ -255,5 +255,4 @@ class AccountsController < ApplicationController
       return false
     end
   end
-  
 end

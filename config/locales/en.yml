@@ -412,6 +412,11 @@ en:
       size: "Size"
       content: "Content"
       category: "Category"
+      action: "Action"
+      type: "Type"
+      new_import: "New import of "
+      accounts: "accounts"
+      contacts: "contacts"
   title:
     dashboard: "Dashboard"
     actor: "Actor"
@@ -429,7 +434,7 @@ en:
     about: "About"
     registered_users : "Registered Users"
     configuration_CoRM : "CoRM's Configuration"
-    import_all: "Import all"
+    import_all: "Imports list"
 
   various:
     my: "My"

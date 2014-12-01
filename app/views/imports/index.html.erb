@@ -3,8 +3,8 @@
 
      <div class="well">
        <div class="row-fluid">
-         <div class="span8">
-           <h2>Liste des imports</h2>
+         <div class="span9">
+           <h1><%= "#{t('title.imports')}".html_safe %></h1>
          </div>
            <%= link_to '<i class="fa fa-arrow-circle-left fa-3x action-icon"></i>'.html_safe, :back ,{:title => "Retour", :class=>"pull-right"} %>
        </div>
@@ -14,12 +14,12 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th class="text-center">Date import</th>
-                    <th class="text-center">Utilisateur</th>	  
-                    <th class="text-center">Nom</th>
-                    <th class="text-center">Libellé</th>
-                    <th class="text-center">Types</th>
-                    <th class="text-center">Action</th>
+                    <th class="text-center"><%="#{t('app.fields.date')}".html_safe%></th>
+                    <th class="text-center"><%="#{t('app.model.User')}".html_safe%></th>	  
+                    <th class="text-center"><%="#{t('app.fields.name')}".html_safe%></th>
+                    <th class="text-center"><%="#{t('app.fields.description')}".html_safe%></th>
+                    <th class="text-center"><%="#{t('app.fields.type')}".html_safe%></th>
+                    <th class="text-center"><%="#{t('app.fields.action')}".html_safe%></th>
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +29,10 @@
                         <td class="text-center"><%= import.created_by %></td>
                         <% if !import.name.nil? %>
 			<% then %>
+			      <!--
 				<td class="text-center"><%#= link_to import.name, account_events_url(account),{:title => "Afficher la liste des comptes"} %></td>
+			      -->
+			      <td class="text-center"><%= import.name %></td>
 			<% else %>
 				<td class="text-center">-</td>
                         <% end %>
@@ -41,16 +44,16 @@
 				<td class="text-center">-</td>
                         <% end %>
                         
-                        <% if !import.type.nil? %>
+                        <% if !import.import_type.nil? %>
 			<% then %>
-				<td class="text-center"><%= import.type %></td>
+				<td class="text-center"><%= import.import_type %></td>
 			<% else %>
 				<td class="text-center">-</td>
                         <% end %>
                         
                         <% if !import.id.nil? %>
                             <td class="text-center">
-                                <%= link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, import, :title => "Supprimer le compte", :confirm => "Attention : La suppression de l'import entraine la suppression de tous les éléments liés à cet import (contacts ou comptes) ! Confirmez-vous la suppression ?", :class =>"pull-right btn", :method => :destroy %>
+                                <%= link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, import, :title => "Supprimer le compte", :confirm => "Attention : La suppression de l'import entraine la suppression de tous les éléments liés à cet import (contacts ou comptes) ! Confirmez-vous la suppression ?", :class =>"pull-right btn", :method => :delete %>
                             </td>
                         <% end %>
                     </tr>
@@ -58,5 +61,5 @@
             </tbody>
         </table>
     </div>
-         
+ <%= paginate @imports %>        
 </div>

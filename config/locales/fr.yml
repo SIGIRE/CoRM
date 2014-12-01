@@ -410,7 +410,8 @@ fr:
       size: "Taille"
       content: "Contenu"
       category: "Catégorie"
-
+      action: "Action"
+      type: "Type"
   title:
     dashboard: "Tableau de bord"
     actor: "Acteur"
@@ -428,7 +429,10 @@ fr:
     about: "À propos"
     registered_users : "Utilisateurs enregistrés"
     configuration_CoRM : "Configuration de CoRM"
-    import_all: "Importation des"
+    imports: "Liste des imports"
+    new_import: "Nouvel import de "
+    accounts: "comptes"
+    contacts: "contacts"
 
   various:
     my: "Mes"

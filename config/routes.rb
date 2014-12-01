@@ -161,21 +161,13 @@ Crm::Application.routes.draw do
 	# Notifications routes
 	set_route('notifications', 'notification', 'notifications')
 
-  # 2014/11/20 import routes
-  #match 'accounts/new', :controller => 'import', :action => 'new_accounts_file'
-  #match 'upload', :controller => 'import', :action => 'upload'
-  #match 'imports', :controller => 'import', :action => 'index'
-  #set_route('imports', 'import', 'import')
+  # import routes
+  
   resources :imports do
     new do
       post 'accounts'
       post 'contacts'
     end
-    
-    member do
-      post 'read'
-    end
-    
   end
   
 
