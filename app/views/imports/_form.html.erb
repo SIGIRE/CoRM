@@ -15,7 +15,7 @@
           
 	  <%= f.text_field(:import_type ,type:'hidden', value:@type) %>
 	  
-          <% if @type=="comptes" %>
+          <% if @type=="accounts" %>
 	  <div class="row row-fluid">
 	       <div class="field full">
 		    <div class="span2"><%= f.label(:categorie ,t('app.fields.category') + colon) %></div>
