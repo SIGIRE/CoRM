@@ -4,7 +4,7 @@
      <div class="well">
        <div class="row-fluid">
          <div class="span9">
-           <h1><%= "#{t('title.imports')}".html_safe %></h1>
+           <h1><i class="fa fa-download fa-fw"></i><%= "#{t('title.imports')}".html_safe %></h1>
          </div>
            <%= link_to '<i class="fa fa-arrow-circle-left fa-3x action-icon"></i>'.html_safe, :back ,{:title => "Retour", :class=>"pull-right"} %>
        </div>
@@ -26,13 +26,15 @@
                 <% @imports.each do |import| %>
                     <tr>
 			<td class="text-center"><%= import.created_at %></td>
-                        <td class="text-center"><%= import.created_by %></td>
+                        <td class="text-center"><%= import.author.full_name %></td>
                         <% if !import.name.nil? %>
 			<% then %>
 			      <!--
-				<td class="text-center"><%#= link_to import.name, account_events_url(account),{:title => "Afficher la liste des comptes"} %></td>
+				<td class="text-center"><%#= link_to import.name, accounts_path(:import_id=>import.id),{:title => "Afficher la liste des comptes"} %></td>
+			        <td class="text-center"><%#= import.name %></td>
 			      -->
-			      <td class="text-center"><%= import.name %></td>
+			      <td class="text-center"><%= link_to import.name, accounts_path(:import_id=>import.id),{:title => "Afficher la liste des comptes"} %></td>
+			      
 			<% else %>
 				<td class="text-center">-</td>
                         <% end %>
@@ -46,7 +48,7 @@
                         
                         <% if !import.import_type.nil? %>
 			<% then %>
-				<td class="text-center"><%= import.import_type %></td>
+				<td class="text-center"><%= t('title.'+import.import_type) %></td>
 			<% else %>
 				<td class="text-center">-</td>
                         <% end %>

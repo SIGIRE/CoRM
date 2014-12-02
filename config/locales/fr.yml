@@ -279,6 +279,7 @@ fr:
   app:
     at: le
     save_undefined_error: "Une erreur est survenue pendant l'enregistrement"
+    load_undefined_error: "Une erreur est survenue pendant la lecture du fichier"
     default:
       subject: Sujet
       define_article_male: le
@@ -336,6 +337,7 @@ fr:
       Document: "Document"
       Email: "E-mail"
       NotificationCenter: "Centre de notifications"
+      Origin: "Origine"
     roles:
       details: "Détail des roles"
       admin: Administrateur
@@ -412,6 +414,7 @@ fr:
       category: "Catégorie"
       action: "Action"
       type: "Type"
+      author: "Auteur"
   title:
     dashboard: "Tableau de bord"
     actor: "Acteur"

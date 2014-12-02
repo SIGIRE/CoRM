@@ -15,6 +15,7 @@ class AccountsController < ApplicationController
   has_scope :by_category, as: :category
   has_scope :by_origin, as: :origin
   has_scope :by_tags, as: :tag
+  has_scope :by_import_id, as: :import_id
 
   ##
   # Show the full list of Accounts by paginate_by

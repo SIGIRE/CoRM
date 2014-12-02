@@ -4,6 +4,7 @@
 
 class ImportsController < ApplicationController
     require 'csv'
+    
     #show full list of imports by paginate_by
     # GET /imports
     def index 
@@ -19,57 +20,65 @@ class ImportsController < ApplicationController
   # Render a page with a form to create a new import
   #
   # GET /imports/new
-  # GET /imports/new.json
   def new
-    
+    @import = Import.new
+    @import.user = current_user
+    @users = User.all_reals
+    respond_to do |format|
+        #format.html { render :template => new_import_path }# new.html.erb
+        format.html { render :action => "new" }
+    end
   end
   
     #form for import accounts file
     #POST /imports/new/accounts
     def accounts
-        init
         @type="accounts"
-        respond_to do |format|
-            format.html { render :template => new_import_path }# new.html.erb
-        end
+        new
     end
     
     #form for import contacts file
     #POST /imports/new/contacts
     def contacts
-        init
         @type="contacts"
-        respond_to do |format|
-            format.html { render :template => new_import_path }# new.html.erb
-        end
+        new
     end
     
+    #POST /imports
     def create
         @import = Import.new(params[:import])
         @import.created_by = current_user.id
         @category=params[:import][:categorie]
         @type=params[:import][:import_type]
-        
-      
+        @origin=params[:origin][:origin_id]
+             
         respond_to do |format|
             if @import.save
                 #read the file if import save        
                 if !params[:file].nil?
-                    read_file(params[:file])
+                    #begin-end is for catching exceptions that can occurs during reading file
+                    begin
+                        read_file(params[:file])
+                    end
                 end
-                format.html { redirect_to imports_path, :notice => 'L\'import a été réalisé.' }
+                #if all is ok redirect to account_controller to display the list of imported accounts
+                format.html { redirect_to accounts_path(:import_id=>@import.id), method: :GET, :notice => 'L\'import a été réalisé.' }
+                #format.html { redirect_to imports_path, :notice => 'L\'import a été réalisé.' }
                 #format.json { render :json => @import, :status => :created, :location => @import }
             else
-                flash[:error] = t('app.save_undefined_error')
-                format.html { render :template => new_import_path }
+                flash.now[:alert] = t('app.save_undefined_error')
+                format.html { render :template => new_import_path}
             end
         end
         rescue Exception => e
-            #if an exception occur during reading file and create accounts, import is deleted
             @import.destroy
             respond_to do |format|
-               format.html { render :template => new_import_path, :alert => "Erreur de chargement du fichier ! #{e.message}"}
+               flash.now[:alert] = t('app.load_undefined_error')+" : "+e.message
+               @origin=nil  #to avoid bug when render template
+               format.html { render :template => new_import_path }
             end
+        
+        
     end
     
     def destroy
@@ -84,28 +93,41 @@ class ImportsController < ApplicationController
     end
     
     private
-    def init
-        @import = Import.new
-        @import.user = current_user
-        @users = User.all_reals
-    end
     
+    #read each line of the file and create models in database
     def read_file(import_file)
         if @type=="accounts"
             #all accounts are created or not
            Account.transaction do
             CSV.foreach(import_file.path, headers: true) do |row|
-                row.push({:category=>@category},{:active=>true},{:created_by=>current_user.id})
+                row.push({:category=>@category},
+                            {:active=>true},
+                            {:created_by=>current_user.id},
+                            {:import_id=>@import.id},
+                            {:origin_id=>@origin})
                 @line=Account.new row.to_hash
                 @line.company = @line.uppercase_company
                 @line.web = to_url(@line.web)
-                @line.import_id=@import.id
-                if !@line.save
-                    raise ExceptionType, "Une ou plusieurs lignes du fichier sont incorrectes !"
-                end                
+                @line.save
+                                
             end
            end 
         end
+        
+        if @type=="contacts"
+            Contact.transaction do
+                CSV.foreach(import_file.path, headers: true) do |row|
+                    contact = Contact.new row.to_hash
+                    compte = Account.find_by_accounting_code((contact.account_id).to_s)
+                    if !compte==nil?
+                        contact.update_attributes(:account_id => compte.id)
+                    else
+                        raise "L'accounting code #{contact.account_id} n'existe pas"
+                    end
+                end
+            end
+        end
+        
       
     end
     

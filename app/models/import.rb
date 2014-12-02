@@ -7,7 +7,7 @@
 class Import < ActiveRecord::Base
     
   attr_accessible :name, :note, :import_type, :categorie
-  #has_many :accounts, :dependent => :destroy
+  has_many :accounts, :dependent => :destroy
   #has_many :contacts, :dependent => :destroy
   belongs_to :user
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
@@ -17,5 +17,9 @@ class Import < ActiveRecord::Base
   validates_inclusion_of :categorie, :in => CATEGORIES
   
   paginates_per 10
+  
+  def author
+    return author_user || User::default
+  end
   
 end

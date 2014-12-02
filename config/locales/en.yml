@@ -280,7 +280,8 @@ en:
         subject: "Instructions pour déverrouiller le compte"
   app:
     at: at
-    save_undefined_error: "Une erreur est survenue pendant l'enregistrement"
+    save_undefined_error: "An error has occurred while recording"
+    load_undefined_error: "An error has occurred while reading file"
     default:
       subject: subject
       define_article_male: the
@@ -338,6 +339,7 @@ en:
       Document: "Document"
       Email: "E-mail"
       NotificationCenter: "Notifications center"
+      Origin: "Origin"
     roles:
       details: "Roles specification"
       admin: Administrator
@@ -414,9 +416,7 @@ en:
       category: "Category"
       action: "Action"
       type: "Type"
-      new_import: "New import of "
-      accounts: "accounts"
-      contacts: "contacts"
+      author: "Author"
   title:
     dashboard: "Dashboard"
     actor: "Actor"
@@ -435,6 +435,8 @@ en:
     registered_users : "Registered Users"
     configuration_CoRM : "CoRM's Configuration"
     import_all: "Imports list"
-
+    new_import: "New import of "
+    accounts: "accounts"
+    contacts: "contacts"
   various:
     my: "My"

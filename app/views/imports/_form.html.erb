@@ -22,6 +22,16 @@
 		    <p><%= f.select :categorie, Import::CATEGORIES %></p>
 	       </div>
 	  </div>
+	  
+	  <div class="row row-fluid">
+	       <div class="field full">
+		    <div class="span2"><%= f.label(:origin ,t('app.model.Origin') + colon) %></div>
+			 <%= fields_for :origin do |o| %>
+			      <%= o.collection_select :origin_id, Origin.order('name ASC').all, :id, :name, :include_blank => true %>
+			 <% end %>
+		    </div>
+	       </div>
+	  </div>
 	  <% end %>
 
 	  <div class="row row-fluid">
@@ -45,7 +55,7 @@
 		    <div class="field full">
 			 <div class="span2"></div>
                       
-			      <%= file_field_tag :file %>
+			      <%= file_field_tag :file, { :class => 'required' } %>
 			      <script>$ (":file").filestyle({buttonText: 'Choisir un fichier'});</script>
                       
 			 </div>
