@@ -46,12 +46,15 @@ class ImportsController < ApplicationController
     
     #POST /imports
     def create
-        @import = Import.new(params[:import])
-        @import.created_by = current_user.id
-        @category=params[:import][:categorie]
-        @type=params[:import][:import_type]
-        @origin=params[:origin][:origin_id]
              
+        @type=params[:import][:import_type]       
+        if @type=="accounts"
+            @origin=params[:origin][:origin_id]
+            @category=params[:import][:categorie]
+        end
+        @import = Import.new(params[:import])
+        @import.created_by = current_user.id   
+     
         respond_to do |format|
             if @import.save
                 #read the file if import save        
@@ -61,9 +64,8 @@ class ImportsController < ApplicationController
                         read_file(params[:file])
                     end
                 end
-                #if all is ok redirect to account_controller to display the list of imported accounts
-                format.html { redirect_to accounts_path(:import_id=>@import.id), method: :GET, :notice => 'L\'import a été réalisé.' }
-                #format.html { redirect_to imports_path, :notice => 'L\'import a été réalisé.' }
+                #if all is ok redirect to model_controller to display the list of imported accounts
+                format.html { redirect_to @models_path, method: :GET, :notice => 'L\'import a été réalisé.' }
                 #format.json { render :json => @import, :status => :created, :location => @import }
             else
                 flash.now[:alert] = t('app.save_undefined_error')
@@ -105,27 +107,33 @@ class ImportsController < ApplicationController
                             {:created_by=>current_user.id},
                             {:import_id=>@import.id},
                             {:origin_id=>@origin})
-                @line=Account.new row.to_hash
-                @line.company = @line.uppercase_company
-                @line.web = to_url(@line.web)
-                @line.save
-                                
+                line=Account.new row.to_hash
+                line.company = @line.uppercase_company
+                line.web = to_url(@line.web)
+                line.save!                                
             end
-           end 
+           end
+           @models_path=accounts_path(:import_id=>@import.id)
         end
         
         if @type=="contacts"
             Contact.transaction do
                 CSV.foreach(import_file.path, headers: true) do |row|
-                    contact = Contact.new row.to_hash
-                    compte = Account.find_by_accounting_code((contact.account_id).to_s)
-                    if !compte==nil?
-                        contact.update_attributes(:account_id => compte.id)
+                    row.push({:created_by=>current_user.id},
+                                 {:active=>true},
+                                 {:import_id=>@import.id})
+                    line = Contact.new row.to_hash
+                    compte = Account.find_by_accounting_code((line.account_id).to_s)
+                    if !compte.nil?
+                        line.update_attributes(:account_id => compte.id)
                     else
-                        raise "L'accounting code #{contact.account_id} n'existe pas"
+                        raise "L'accounting code #{line.account_id} n'existe pas"
                     end
+                    title_format(line)
+                    line.save!
                 end
             end
+            @models_path=contacts_path(:import_id=>@import.id)
         end
         
       
@@ -143,7 +151,17 @@ class ImportsController < ApplicationController
                 end
             end
         end
-    return (!correction.nil?() ? correction.concat(url) : url)
+        return (!correction.nil?() ? correction.concat(url) : url)
+    end
+
+    def title_format(contact)
+        if !contact.title=="M." && !contact.title=="Mme"
+            if contact.title.upcase.include(/ME/)
+                contact.title="Mme"
+            else
+                contact.title="Mr."
+            end    
+        end   
     end
     
 end

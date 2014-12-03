@@ -18,6 +18,7 @@ class Contact < ActiveRecord::Base
   belongs_to :account
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
+  belongs_to :import
   
   accepts_nested_attributes_for :aliases, allow_destroy: true
 
@@ -105,5 +106,6 @@ class Contact < ActiveRecord::Base
   scope :active, lambda { where(active: true) }
   scope :inactive, lambda { where(active: false) }
   scope :none, lambda { where('1 = 0') }
+  scope :by_import_id, lambda {|import| where("import_id = ?", import) unless import.blank? }
   
 end

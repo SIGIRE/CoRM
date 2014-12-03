@@ -33,7 +33,14 @@
 				<td class="text-center"><%#= link_to import.name, accounts_path(:import_id=>import.id),{:title => "Afficher la liste des comptes"} %></td>
 			        <td class="text-center"><%#= import.name %></td>
 			      -->
-			      <td class="text-center"><%= link_to import.name, accounts_path(:import_id=>import.id),{:title => "Afficher la liste des comptes"} %></td>
+			      <td class="text-center">
+				   <%if import.import_type=="accounts" %>				   
+					<%= link_to import.name, accounts_path(:import_id=>import.id),{:title => "Afficher la liste des comptes"} %>
+				   <% end %>
+				   <%if import.import_type=="contacts" %>				   
+					<%= link_to import.name, contacts_path(:import_id=>import.id),{:title => "Afficher la liste des comptes"} %>
+				   <% end %>
+			      </td>
 			      
 			<% else %>
 				<td class="text-center">-</td>

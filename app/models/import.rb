@@ -8,13 +8,13 @@ class Import < ActiveRecord::Base
     
   attr_accessible :name, :note, :import_type, :categorie
   has_many :accounts, :dependent => :destroy
-  #has_many :contacts, :dependent => :destroy
+  has_many :contacts, :dependent => :destroy
   belongs_to :user
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
   
   CATEGORIES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire', 'Adhérent', 'Autre']
-  validates_inclusion_of :categorie, :in => CATEGORIES
+  #validates_inclusion_of :categorie, :in => CATEGORIES
   
   paginates_per 10
   

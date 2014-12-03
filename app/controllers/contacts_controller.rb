@@ -13,6 +13,7 @@ class ContactsController < ApplicationController
   has_scope :inactive, type: :boolean
   has_scope :by_account_id
   has_scope :by_tags
+  has_scope :by_import_id, as: :import_id
   #has_scope :by_account_tags
 
   ##

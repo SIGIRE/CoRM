@@ -17,10 +17,10 @@ desc "import contacts from txt file"
         contact = Contact.create row.to_hash
         #compte = Account.select('id').where(accounting_code: (contact.account_id).to_s)
         
-        #compte = Account.find_by_accounting_code((contact.account_id).to_s)
-        #if !compte==nil?
-        #  contact.update_attributes(:account_id => compte.id)
-        #end
+        compte = Account.find_by_accounting_code((contact.account_id).to_s)
+        if !compte==nil?
+          contact.update_attributes(:account_id => compte.id)
+        end
     end
     
   end
