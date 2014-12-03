@@ -98,7 +98,7 @@ class AccountsController < ApplicationController
     @account = Account.new(params[:account])
     @account.created_by = current_user.id
     @account.company = @account.uppercase_company
-    @account.web = self.to_url(@account.web)
+    @account.web = Format.to_url(@account.web)
     if params[:display_account_tag].nil?
       @account.tags.clear
     else
@@ -230,20 +230,7 @@ class AccountsController < ApplicationController
     end
   end
   
-  def to_url(url)
-    if !url.nil? and url.length > 0
-      correction = nil
-      # dont start with protocol://
-      if url[/^*:\/\//] == nil
-        correction = 'http://'
-        # if it is somthing like lang.website.tld
-        if url[/^www[.]/] == nil and url[/^.*.[.].*.[.].*.$/] == nil
-          correction.concat('www.')
-        end
-      end
-    end
-    return (!correction.nil?() ? correction.concat(url) : url)
-  end
+  
 
   private
   def check_can_read!

@@ -57,7 +57,7 @@ class ImportsController < ApplicationController
      
         respond_to do |format|
             if @import.save
-                #read the file if import save                        
+                #read the file if import save succesfully                       
                 #begin-end is for catching exceptions that can occurs during reading file
                 begin
                     read_file(params[:file])
@@ -71,6 +71,7 @@ class ImportsController < ApplicationController
             end
         end
         rescue Exception => e
+            #if an exception occurs during reading file, import must be destroy
             @import.destroy
             respond_to do |format|
                flash.now[:alert] = t('app.load_undefined_error')+" : "+e.message
@@ -97,7 +98,8 @@ class ImportsController < ApplicationController
     #read each line of the file and create models in database
     def read_file(import_file)
         if @type=="accounts"
-            #all accounts are created or not
+            #if create an account from a line failed, transaction is aborted and all
+            #created accounts are rolling back
            Account.transaction do
             CSV.foreach(import_file.path, headers: true) do |row|
                 row.push({:category=>@category},
@@ -107,10 +109,11 @@ class ImportsController < ApplicationController
                             {:origin_id=>@origin})
                 line=Account.new row.to_hash
                 line.company = line.uppercase_company
-                line.web = to_url(line.web)
+                line.web = Format.to_url(line.web)
                 line.save!                                
             end
            end
+           #for redirecting to the correct model template
            @models_path=accounts_path(:import_id=>@import.id)
         end
         
@@ -127,39 +130,12 @@ class ImportsController < ApplicationController
                     else
                         raise "L'accounting code #{line.account_id} n'existe pas"
                     end
-                    title_format(line)
+                    Format.title_format(line)
                     line.save!
                 end
             end
             @models_path=contacts_path(:import_id=>@import.id)
-        end
-        
-      
+        end      
     end
-    
-    def to_url(url)
-        if !url.nil? and url.length > 0
-            correction = nil
-            # dont start with protocol://
-            if url[/^*:\/\//] == nil
-                correction = 'http://'
-                # if it is somthing like lang.website.tld
-                if url[/^www[.]/] == nil and url[/^.*.[.].*.[.].*.$/] == nil
-                    correction.concat('www.')
-                end
-            end
-        end
-        return (!correction.nil?() ? correction.concat(url) : url)
-    end
-
-    def title_format(contact)
-        if !contact.title=="M." && !contact.title=="Mme"
-            if contact.title.upcase.include(/ME/)
-                contact.title="Mme"
-            else
-                contact.title="Mr."
-            end    
-        end   
-    end
-    
+   
 end
