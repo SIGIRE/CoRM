@@ -6,7 +6,7 @@
 
 class Import < ActiveRecord::Base
     
-  attr_accessible :name, :note, :import_type, :categorie
+  attr_accessible :name, :notes, :import_type, :category
   has_many :accounts, :dependent => :destroy
   has_many :contacts, :dependent => :destroy
   belongs_to :user
@@ -14,7 +14,7 @@ class Import < ActiveRecord::Base
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
   
   CATEGORIES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire', 'Adhérent', 'Autre']
-  #validates_inclusion_of :categorie, :in => CATEGORIES
+  #validates_inclusion_of :category, :in => CATEGORIES
   
   paginates_per 10
   

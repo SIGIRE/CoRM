@@ -18,8 +18,8 @@
           <% if @type=="accounts" %>
 	  <div class="row row-fluid">
 	       <div class="field full">
-		    <div class="span2"><%= f.label(:categorie ,t('app.fields.category') + colon) %></div>
-		    <p><%= f.select :categorie, Import::CATEGORIES %></p>
+		    <div class="span2"><%= f.label(:category ,t('app.fields.category') + colon) %></div>
+		    <p><%= f.select :category, Import::CATEGORIES %></p>
 	       </div>
 	  </div>
 	  
@@ -43,8 +43,8 @@
 	  
 	  <div class="row row-fluid">
 	       <div class="field full">
-		    <div class="span2"><%= f.label(:note, t('app.fields.description')) %></div>
-			<%= f.text_area :note, :rows => "5", :style => 'width: 50%;' %>
+		    <div class="span2"><%= f.label(:notes, t('app.fields.description')) %></div>
+			<%= f.text_area :notes, :rows => "5", :style => 'width: 50%;' %>
 	       </div>
 	  </div>	
           

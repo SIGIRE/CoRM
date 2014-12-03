@@ -38,7 +38,7 @@
 					<%= link_to import.name, accounts_path(:import_id=>import.id),{:title => "Afficher la liste des comptes"} %>
 				   <% end %>
 				   <%if import.import_type=="contacts" %>				   
-					<%= link_to import.name, contacts_path(:import_id=>import.id),{:title => "Afficher la liste des comptes"} %>
+					<%= link_to import.name, contacts_path(:import_id=>import.id),{:title => "Afficher la liste des contacts"} %>
 				   <% end %>
 			      </td>
 			      
@@ -46,9 +46,9 @@
 				<td class="text-center">-</td>
                         <% end %>
                         
-                        <% if !import.note.nil? %>
+                        <% if !import.notes.nil? %>
 			<% then %>
-				<td class="text-center"><%= import.note %></td>
+				<td class="text-center"><%= import.notes %></td>
 			<% else %>
 				<td class="text-center">-</td>
                         <% end %>

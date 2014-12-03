@@ -50,20 +50,18 @@ class ImportsController < ApplicationController
         @type=params[:import][:import_type]       
         if @type=="accounts"
             @origin=params[:origin][:origin_id]
-            @category=params[:import][:categorie]
+            @category=params[:import][:category]
         end
         @import = Import.new(params[:import])
         @import.created_by = current_user.id   
      
         respond_to do |format|
             if @import.save
-                #read the file if import save        
-                if !params[:file].nil?
-                    #begin-end is for catching exceptions that can occurs during reading file
-                    begin
-                        read_file(params[:file])
-                    end
-                end
+                #read the file if import save                        
+                #begin-end is for catching exceptions that can occurs during reading file
+                begin
+                    read_file(params[:file])
+                end         
                 #if all is ok redirect to model_controller to display the list of imported accounts
                 format.html { redirect_to @models_path, method: :GET, :notice => 'L\'import a été réalisé.' }
                 #format.json { render :json => @import, :status => :created, :location => @import }
@@ -108,8 +106,8 @@ class ImportsController < ApplicationController
                             {:import_id=>@import.id},
                             {:origin_id=>@origin})
                 line=Account.new row.to_hash
-                line.company = @line.uppercase_company
-                line.web = to_url(@line.web)
+                line.company = line.uppercase_company
+                line.web = to_url(line.web)
                 line.save!                                
             end
            end
