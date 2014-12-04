@@ -50,7 +50,6 @@ class ImportsController < ApplicationController
         @type=params[:import][:import_type]       
         if @type=="accounts"
             @origin=params[:origin][:origin_id]
-            @category=params[:import][:category]
         end
         @import = Import.new(params[:import])
         @import.created_by = current_user.id   
@@ -109,14 +108,14 @@ class ImportsController < ApplicationController
             #created accounts are rolling back
            Account.transaction do
             CSV.foreach(import_file.path, headers: true, :col_sep => ";") do |row|
-                row.push({:category=>@category},
-                            {:active=>true},
+                row.push(   {:active=>true},
                             {:created_by=>current_user.id},
                             {:import_id=>@import.id},
                             {:origin_id=>@origin})
                 line=Account.new row.to_hash
                 line.company = line.uppercase_company
                 line.web = Format.to_url(line.web)
+                line.category = line.category.capitalize
                 line.save!                                
             end
            end
