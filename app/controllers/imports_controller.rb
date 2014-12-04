@@ -76,6 +76,7 @@ class ImportsController < ApplicationController
             respond_to do |format|
                flash.now[:alert] = t('app.load_undefined_error')+" : "+e.message
                @origin=nil  #to avoid bug when render template
+               @collegue=nil
                format.html { render :template => new_import_path }
             end
         
@@ -93,6 +94,12 @@ class ImportsController < ApplicationController
         end
     end
     
+    def download
+        type=params[:type]
+        data = open("#{Rails.root}/app/public/#{type}/corm_import.csv") 
+        send_data data.read, filename: "corm_import.csv", type: "application/txt", disposition: 'inline', stream: 'true', buffer_size: '4096' 
+    end
+
     private
     
     #read each line of the file and create models in database
@@ -101,7 +108,7 @@ class ImportsController < ApplicationController
             #if create an account from a line failed, transaction is aborted and all
             #created accounts are rolling back
            Account.transaction do
-            CSV.foreach(import_file.path, headers: true) do |row|
+            CSV.foreach(import_file.path, headers: true, :col_sep => ";") do |row|
                 row.push({:category=>@category},
                             {:active=>true},
                             {:created_by=>current_user.id},
@@ -130,12 +137,11 @@ class ImportsController < ApplicationController
                     else
                         raise "L'accounting code #{line.account_id} n'existe pas"
                     end
-                    Format.title_format(line)
                     line.save!
                 end
             end
             @models_path=contacts_path(:import_id=>@import.id)
         end      
     end
-   
+    
 end

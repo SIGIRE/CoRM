@@ -48,26 +48,31 @@
 	       </div>
 	  </div>	
           
-	  <div id="attachments">
 	  
-	  <%#= fields_for :file_attachments do |ta| %>
-	       <div class="row row-fluid">
-		    <div class="field full">
-			 <div class="span2"></div>
-                      
-			      <%= file_field_tag :file, { :class => 'required' } %>
-			      <script>$ (":file").filestyle({buttonText: 'Choisir un fichier'});</script>
-                      
-			 </div>
+	  
+	  <div class="row row-fluid">
+	       <div class="field full">
+		    <div class="span2"></div>
+			 </br>
+			 <%= file_field_tag :file, { :class => 'required' } %>
+			 <script>$ (":file").filestyle({buttonText: 'Choisir un fichier'});</script>
+		 
 		    </div>
 	       </div>
-          <hr/>
+	  </div>
+	  
+	  <div class="row row-fluid">
+	       <div class="field full">
+		    <div class="span2"></div>
+			 <%= link_to "#{t('link.upload_csv_model')}", download_path(:type => @type) %>
+		    
+	       </div>
+	  </div>
+	    
+	  <hr/>
 	  <div class="row">
 	       <%= f.button "#{t('views.button.import')}", :type => :submit,:class =>"btn btn-primary",:id =>"import_validate_form" %>
 	  </div>                     
-	  <%# end %>
-
-          </div>
 	  
      </div>
 </div>

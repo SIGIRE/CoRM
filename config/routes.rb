@@ -161,14 +161,14 @@ Crm::Application.routes.draw do
 	# Notifications routes
 	set_route('notifications', 'notification', 'notifications')
 
-  # import routes
-  
+  # import routes  
   resources :imports do
     new do
       post 'accounts'
       post 'contacts'
     end
   end
+  match 'download', :controller => 'imports', :action => 'download'
   
 
   # resources :home

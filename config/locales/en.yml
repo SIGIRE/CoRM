@@ -438,5 +438,7 @@ en:
     new_import: "New import of "
     accounts: "accounts"
     contacts: "contacts"
+  link:
+    upload_csv_model: "download file model import"
   various:
     my: "My"

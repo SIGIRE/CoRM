@@ -16,17 +16,5 @@ class Format
             end
         end
         return (!correction.nil?() ? correction.concat(url) : url)
-    end
-    
-    #format string to correct title for contacts 
-    def title_format(contact)
-        if !contact.title=="M." && !contact.title=="Mme"
-            if contact.title.upcase.include(/ME/)
-                contact.title="Mme"
-            else
-                contact.title="Mr."
-            end    
-        end   
-    end 
-    
+    end   
 end

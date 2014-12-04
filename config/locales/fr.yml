@@ -436,6 +436,8 @@ fr:
     new_import: "Nouvel import de "
     accounts: "comptes"
     contacts: "contacts"
+  link:
+    upload_csv_model: "télécharger le modèle de fichier d'import"
 
   various:
     my: "Mes"
