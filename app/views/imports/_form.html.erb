@@ -1,13 +1,7 @@
 <%# encoding: utf-8 %>
 
-<%# Récupération du des fonctions %>
-          <% content_for(:attachments_js) do %>
-               <%= javascript_include_tag "attachments" %>
-          <% end %>
-
 <% colon = t('app.fields.colon') %>
-<div id="attachments">
-          
+      
  
 <%= form_for(@import, :html => { :class => "well ", :multipart => true}) do |f| %>
 <div class="row row-fluid">
@@ -29,7 +23,6 @@
 			 <%= fields_for :origin do |o| %>
 			      <%= o.collection_select :origin_id, Origin.order('name ASC').all, :id, :name, :include_blank => true %>
 			 <% end %>
-		    </div>
 	       </div>
 	  </div>
 	  <% end %>
@@ -47,9 +40,7 @@
 			<%= f.text_area :notes, :rows => "5", :style => 'width: 50%;' %>
 	       </div>
 	  </div>	
-          
-	  
-	  
+          	  
 	  <div class="row row-fluid">
 	       <div class="field full">
 		    <div class="span2"></div>
@@ -65,7 +56,6 @@
 	       <div class="field full">
 		    <div class="span2"></div>
 			 <%= link_to "#{t('link.upload_csv_model')}", download_path(:type => @type) %>
-		    
 	       </div>
 	  </div>
 	    
