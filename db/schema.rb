@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141203082349) do
+ActiveRecord::Schema.define(:version => 20141205140432) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -155,6 +155,31 @@ ActiveRecord::Schema.define(:version => 20141203082349) do
     t.integer  "user_id"
     t.integer  "task_id"
     t.text     "notes2"
+  end
+
+  create_table "import_accounts", :force => true do |t|
+    t.string   "company"
+    t.string   "adress1"
+    t.string   "adress2"
+    t.string   "zip"
+    t.string   "city"
+    t.string   "country"
+    t.string   "accounting_code"
+    t.text     "notes"
+    t.integer  "created_by"
+    t.integer  "modified_by"
+    t.integer  "user_id"
+    t.string   "category"
+    t.string   "tel"
+    t.string   "fax"
+    t.string   "email"
+    t.string   "web"
+    t.integer  "origin_id"
+    t.boolean  "active",          :default => true
+    t.integer  "import_id"
+    t.boolean  "valid_account",   :default => true
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
   create_table "imports", :force => true do |t|

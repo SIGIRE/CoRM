@@ -62,22 +62,22 @@ class ImportsController < ApplicationController
                     read_file(params[:file])
                 end         
                 #if all is ok redirect to model_controller to display the list of imported accounts
-                format.html { redirect_to @models_path, method: :GET, :notice => 'L\'import a été réalisé.' }
+                format.html { redirect_to @models_path, method: :GET, :notice => 'Import prêt pour validation' }
                 #format.json { render :json => @import, :status => :created, :location => @import }
             else
                 flash.now[:alert] = t('app.save_undefined_error')
                 format.html { render :template => new_import_path}
             end
         end
-        rescue Exception => e
-            #if an exception occurs during reading file, import must be destroy
-            @import.destroy
-            respond_to do |format|
-               flash.now[:alert] = t('app.load_undefined_error')+" : "+e.message
-               @origin=nil  #to avoid bug when render template
-               @collegue=nil
-               format.html { render :template => new_import_path }
-            end
+        #rescue Exception => e
+        #    #if an exception occurs during reading file, import must be destroy
+        #    @import.destroy
+        #    respond_to do |format|
+        #       flash.now[:alert] = t('app.load_undefined_error')+" : "+e.message
+        #       @origin=nil  #to avoid bug when render template
+        #       @collegue=nil
+        #       format.html { render :template => new_import_path }
+        #    end
         
         
     end
@@ -106,13 +106,13 @@ class ImportsController < ApplicationController
         if @type=="accounts"
             #if create an account from a line failed, transaction is aborted and all
             #created accounts are rolling back
-           Account.transaction do
+           ImportAccount.transaction do
             CSV.foreach(import_file.path, headers: true, :col_sep => ";") do |row|
                 row.push(   {:active=>true},
                             {:created_by=>current_user.id},
                             {:import_id=>@import.id},
                             {:origin_id=>@origin})
-                line=Account.new row.to_hash
+                line=ImportAccount.new row.to_hash
                 line.company = line.uppercase_company
                 line.web = Format.to_url(line.web)
                 line.category = line.category.capitalize
@@ -120,7 +120,7 @@ class ImportsController < ApplicationController
             end
            end
            #for redirecting to the correct model template
-           @models_path=accounts_path(:import_id=>@import.id)
+           @models_path=import_accounts_path #(:import_id=>@import.id) #pour filtrage sur l'import_id
         end
         
         if @type=="contacts"

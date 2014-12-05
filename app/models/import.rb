@@ -8,6 +8,7 @@ class Import < ActiveRecord::Base
     
   attr_accessible :name, :notes, :import_type, :category
   has_many :accounts, :dependent => :destroy
+  has_many :import_accounts, :dependent => :destroy
   has_many :contacts, :dependent => :destroy
   belongs_to :user
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'

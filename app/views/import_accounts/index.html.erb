@@ -1,0 +1,70 @@
+<%= render 'title', :locals => { :title => @title }%>
+
+
+<div class="container-fluid">
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+	<th class="text-center"><%= t('app.fields.company') %></th>
+	<th class="text-center"><%= t('app.fields.adress') %></th>	  
+	<th class="text-center"><%= t('app.fields.category') %></th>
+	<th class="text-center"><%= t('app.fields.phone') %></th>
+	<th class="text-center"><%= t('app.fields.web') %></th>
+	<th class="text-center"><%= t('app.actions.actions') %></th>        
+    </tr>
+    </thead>
+	<tbody>
+  <% @import_accounts.each do |account| %>
+  <tr class="<%='error' if !account.valid_account%>">
+
+        <% if !account.company.nil? %>
+                <% then %>
+                        <td class="text-center"><%= account.company %></td>
+                <% else %>
+                        <td class="text-center">-</td>
+        <% end %>
+
+        <% if !account.full_adress.blank? %>
+                <% then %>
+                        <td class="text-center"><%= account.full_adress %></td>
+                <% else %>
+                        <td class="text-center">-</td>
+        <% end %>
+
+        <% if !account.category.nil? %>
+                <% then %>
+                        <td class="text-center"><%= account.category %></td>
+                <% else %>
+                        <td class="text-center">-</td>
+        <% end %>
+
+        <% if !account.tel.blank? %>
+                <% then %>
+                        <td class="text-center"><%= account.tel %></td>
+                <% else %>
+                        <td class="text-center">-</td>
+        <% end %>
+
+        <% if !account.web.blank? then %>
+                <%
+                url = account.web
+                        if !url[/http:\/\//].nil?
+                                url = url[7..url.length]
+                        elsif !url[/https:\/\//].nil?
+                                url = url[8..url.length]
+                        end
+                %>
+                        <td class="text-center"><%= link_to url, account.web, :target => "_blank" %></td>
+        <% else %>
+                        <td class="text-center">-</td>
+        <% end %>
+        <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_account_path(account) ,{:title => "Éditer le compte" } %></td>
+  </tr>
+  <% end %>
+  </tbody>
+  </table>
+  <div class="row">
+    <%= button_to "#{t('views.button.import')}", {action: "validate"}, {class: "btn btn-primary", id: "import_validate_form"} %>
+  </div>
+  <%= paginate @import_accounts %>
+</div>

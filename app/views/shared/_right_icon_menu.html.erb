@@ -71,7 +71,7 @@
 	<li class="dropdown-submenu pull-left">
           <a tabindex="-1" href="#"><i class="fa fa-download fa-fw"></i> Import</a>
           <ul class="dropdown-menu">	    
-	    <li><%= link_to '<i class="fa fa-home fa-fw"></i> Comptes'.html_safe, accounts_new_import_path, :method=>:post %></li>
+	    <li><%= link_to '<i class="fa fa-home fa-fw"></i> Comptes'.html_safe, import_accounts_path, :method=>:get %></li>
 	    <li><%= link_to '<i class="fa fa-users fa-fw"></i> Contacts'.html_safe, contacts_new_import_path, :method=>:post %></li>
 	    <li class="divider"></li>
 	    <li><%= link_to '<i class="fa fa-database fa-fw"></i> Historique'.html_safe, imports_path%></li>

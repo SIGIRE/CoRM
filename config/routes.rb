@@ -170,6 +170,9 @@ Crm::Application.routes.draw do
   end
   match 'download', :controller => 'imports', :action => 'download'
   
+  # import_accounts routes
+  resources :import_accounts
+  match 'validate', :controller => 'import_accounts', :action => 'validate'
 
   # resources :home
   # The priority is based upon order of creation:

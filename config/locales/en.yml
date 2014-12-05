@@ -417,6 +417,9 @@ en:
       action: "Action"
       type: "Type"
       author: "Author"
+      adress: "Adress"
+      phone: "Phone"
+      web: "Web Site"
   title:
     dashboard: "Dashboard"
     actor: "Actor"
@@ -438,6 +441,7 @@ en:
     new_import: "New import of "
     accounts: "accounts"
     contacts: "contacts"
+    import_waiting: "Imports waiting for validation"
   link:
     upload_csv_model: "download file model import"
   various:
