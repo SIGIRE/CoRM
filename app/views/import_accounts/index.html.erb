@@ -1,13 +1,25 @@
 <%= render 'title', :locals => { :title => @title }%>
 
-
 <div class="container-fluid">
+  
+  <%= form_tag(import_accounts_path, method: :GET) do %>
+  <div class="row row-fluid">
+	 <div>
+	  <%= label_tag :invalid, "Comptes invalides :", class: 'top' %>
+	  <%= check_box_tag :invalid %>
+	</div>
+        <%= submit_tag "Filtrer", :class =>"btn"%>
+  </div>
+   <% end %>
+  
+  
   <table class="table table-bordered table-striped table-hover">
     <thead>
     <tr>
 	<th class="text-center"><%= t('app.fields.company') %></th>
 	<th class="text-center"><%= t('app.fields.adress') %></th>	  
 	<th class="text-center"><%= t('app.fields.category') %></th>
+	<th class="text-center"><%= t('app.fields.origin') %></th>
 	<th class="text-center"><%= t('app.fields.phone') %></th>
 	<th class="text-center"><%= t('app.fields.web') %></th>
 	<th class="text-center"><%= t('app.actions.actions') %></th>        
@@ -37,6 +49,14 @@
                 <% else %>
                         <td class="text-center">-</td>
         <% end %>
+        
+	<% if !account.origin.blank? %>
+                <% then %>
+                        <td class="text-center"><%= account.origin.name %></td>
+                <% else %>
+                        <td class="text-center">-</td>
+        <% end %>
+
 
         <% if !account.tel.blank? %>
                 <% then %>
@@ -58,13 +78,21 @@
         <% else %>
                         <td class="text-center">-</td>
         <% end %>
-        <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_account_path(account) ,{:title => "Éditer le compte" } %></td>
+        <td class="text-center">
+	  <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_import_account_path(account) ,{:title => "Éditer le compte" } %>
+	  <%= link_to '<i class="fa fa-trash fa-2x action-icon"></i>'.html_safe,
+			import_account_path(account),
+			:title => "Supprimer l\'import",
+			:confirm => "Ce compte ne sera pas importé ! Confirmez-vous la suppression ?",
+			:method => :delete %>
+	</td>
+	
   </tr>
   <% end %>
   </tbody>
   </table>
-  <div class="row">
+  <% if !@import_accounts.empty? %>
     <%= button_to "#{t('views.button.import')}", {action: "validate"}, {class: "btn btn-primary", id: "import_validate_form"} %>
-  </div>
+  <% end %>
   <%= paginate @import_accounts %>
 </div>

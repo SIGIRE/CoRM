@@ -9,7 +9,14 @@
           
 	  <%= f.text_field(:import_type ,type:'hidden', value:@type) %>
 	  
-          <% if @type=="accounts" %>
+          <div class="row row-fluid">
+	       <div class="field full">
+		    <div class="span2"><%= f.label(:name, t('app.fields.name') + colon) %></div>
+		    <p><%= f.text_field(:name ,{ :class => 'required' }) %><span class="req" /></p>
+	       </div>
+	  </div>
+	  
+	  <% if @type=="accounts" %>
 	  
 	  <div class="row row-fluid">
 	       <div class="field full">
@@ -21,12 +28,7 @@
 	  </div>
 	  <% end %>
 
-	  <div class="row row-fluid">
-	       <div class="field full">
-		    <div class="span2"><%= f.label(:name, t('app.fields.name') + colon) %></div>
-		    <p><%= f.text_field(:name ,{ :class => 'required' }) %><span class="req" /></p>
-	       </div>
-	  </div>
+	  
 	  
 	  <div class="row row-fluid">
 	       <div class="field full">
@@ -55,7 +57,7 @@
 	    
 	  <hr/>
 	  <div class="row">
-	       <%= f.button "#{t('views.button.import')}", :type => :submit,:class =>"btn btn-primary",:id =>"import_validate_form" %>
+	       <%= f.button "#{t('views.button.create_import')}", :type => :submit,:class =>"btn btn-primary",:id =>"import_validate_form" %>
 	  </div>                     
 	  
      </div>

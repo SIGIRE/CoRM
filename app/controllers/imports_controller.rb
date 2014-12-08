@@ -69,15 +69,15 @@ class ImportsController < ApplicationController
                 format.html { render :template => new_import_path}
             end
         end
-        #rescue Exception => e
-        #    #if an exception occurs during reading file, import must be destroy
-        #    @import.destroy
-        #    respond_to do |format|
-        #       flash.now[:alert] = t('app.load_undefined_error')+" : "+e.message
-        #       @origin=nil  #to avoid bug when render template
-        #       @collegue=nil
-        #       format.html { render :template => new_import_path }
-        #    end
+        rescue Exception => e
+            #if an exception occurs during reading file, import must be destroy
+            @import.destroy
+            respond_to do |format|
+               flash.now[:alert] = t('app.load_undefined_error')+" : "+e.message
+               @origin=nil  #to avoid bug when render template
+               @collegue=nil
+               format.html { render :template => new_import_path }
+            end
         
         
     end
@@ -113,14 +113,17 @@ class ImportsController < ApplicationController
                             {:import_id=>@import.id},
                             {:origin_id=>@origin})
                 line=ImportAccount.new row.to_hash
-                line.company = line.uppercase_company
+                line.company = line.uppercase_company unless line.company.nil?
                 line.web = Format.to_url(line.web)
-                line.category = line.category.capitalize
-                line.save!                                
+                line.category = line.category.capitalize unless line.category.nil?
+                line.save!
+                #checked import_account for invalid value in order to set valid_account
+                #to true or false.
+                ImportAccount.checked_account(line)
             end
            end
            #for redirecting to the correct model template
-           @models_path=import_accounts_path #(:import_id=>@import.id) #pour filtrage sur l'import_id
+           @models_path=import_accounts_path 
         end
         
         if @type=="contacts"

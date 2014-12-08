@@ -228,7 +228,8 @@ en:
       next: "Next &rsaquo;"
       truncate: "..."
     button:
-      import: "Import"
+      import: "Import valid accounts"
+      create_import: "Create import"
   devise:
     failure:
       already_authenticated: "Vous êtes déjà connecté !"
@@ -414,6 +415,7 @@ en:
       size: "Size"
       content: "Content"
       category: "Category"
+      origin: "Origin"
       action: "Action"
       type: "Type"
       author: "Author"

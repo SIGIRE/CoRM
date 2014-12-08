@@ -5,7 +5,10 @@
 class ImportAccount < ActiveRecord::Base
   extend ToCsv
   resourcify
-  paginates_per 10
+  
+  CATEGORIES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire', 'Adhérent', 'Autre']
+  
+  paginates_per 30
   
   before_save :uppercase_company
   
@@ -13,9 +16,11 @@ class ImportAccount < ActiveRecord::Base
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
   belongs_to :import
+  belongs_to :origin
   
   # Help to sort by criteria
-  scope :by_company_like, lambda { |company| where("UPPER(company) LIKE UPPER(?)",  "%#{company}%") unless company.blank? }
+  scope :invalid, lambda { where(valid_account: false) }
+  
   
   def author
     return author_user || User::default
@@ -45,5 +50,18 @@ class ImportAccount < ActiveRecord::Base
 	end	
 	return tmp
   end
+  
+    #this metohd checked import_account. If any invalid value, valid_account is turn to false
+    def self.checked_account(account)
+        valid=true
+        if account.company[/\w/]==nil #if company is nil or invalid characters
+            valid=false
+        end
+        if !(ImportAccount::CATEGORIES).include?("#{account.category}") #if category not in authorizes values
+            valid=false
+        end
+        account.update_attributes(:valid_account => valid)
+    end
+  
   
 end

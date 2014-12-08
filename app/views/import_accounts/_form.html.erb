@@ -1,63 +1,106 @@
-<%# encoding: utf-8 %>
+<%= form_for(@import_account, :html => { :class => "well "}) do |f| %>
+  <% if @import_account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@import_account.errors.count, "error") %> prohibited this compte from being saved:</h2>
 
-<% colon = t('app.fields.colon') %>
-      
+      <ul>
+      <% @import_account.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ <form class="well form-inline">
+  <div class="field">
+	  <div class="span2"> Société : </div> <%= f.text_field :company ,{ :class => 'required'}  %><span class="req" />
+  </div>
+
+  <% if @import_account.persisted? %>
+  <div class="field">
+    <div class="span2"> Statut : </div> <%= f.select :active, options_for_select([["Actif", true], ["Inactif", false]], selected: @import_account.active) %>
+  </div>
+  <% end %>
+
+  <div class="field">
+    <div class="span2"> Adresse : </div> <%= f.text_field :adress1 %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Adresse (suite) : </div> <%= f.text_field :adress2 %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> CP : </div> <%= f.text_field :zip %>
+  </div>
+
+  <div class="field">
+   <div class="span2"> Ville : </div> <%= f.text_field :city %>
+  </div>
+
+  <div class="field">
+   <div class="span2"> Pays : </div> <%= f.text_field :country %>
+  </div>
+
+  <div class="field">
+   <div class="span2"> Tel : </div> <%= f.text_field :tel %>
+  </div>
+
+  <div class="field">
+   <div class="span2"> Fax : </div> <%= f.text_field :fax %>
+  </div>
+
+  <div class="field">
+   <div class="span2"> E-mail : </div> <%= f.text_field :email %>
+  </div>
+
+  <div class="field">
+   <div class="span2"> Site web : </div> <%= f.text_field :web %>
+  </div>  
+
+  <div class="field">
+    <div class="span2"> Origine : </div> <%= f.collection_select :origin_id, Origin.order('name ASC').all, :id, :name, :include_blank => true %>
+  </div>
+
+  <div class="field">
+    <div class="span2"> Genre : </div> <%= f.select :category, ImportAccount::CATEGORIES%>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Code comptable : </div> <%= f.text_field :accounting_code %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"> Collaborateur : </div> <%= f.collection_select :user_id, @users, :id, :full_name %>
+  </div>
+  
+  <div class="field">
+    <div class="span2">Notes : </div> <%=f.text_area :notes , :display_with => :simple_format, :rows => "5", :style => 'width: 50%;' %>
+  </div>
+
+  <br />
+  	
+	<div class="field">
+    <% if !@import_account.id.nil? %>
+		<div class="span9"> Créé par : <%= @import_account.author.full_name %>, le </strong><%= @import_account.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+		
+		<% if !@import_account.modified_by.nil? %>
+			<div class="span9"> Dernièrement modifié par : <%= @import_account.editor.full_name %>, le <%= @import_account.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+		
+		<% else %>
+		<% end %>
+		
+	<% end %>
+	</div>
+	  
+	<hr />
+  
+  <div class="row">
+    <%= if !@import_account.id.nil? then f.button 'Modifier le compte', :type => :submit, :class =>"btn btn-primary",:id =>"account_validate_form" else f.button 'Créer un compte', :type => :submit, :class =>"btn btn-primary",:id =>"account_validate_form" end%>
+  <% if current_user.has_role?(:admin) or current_user.has_role?(:super_user) %>  
+	<%= if !@import_account.id.nil? then  link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @import_account,:title => "Supprimer le compte", :confirm => 'Attention : La suppression du compte entraine la suppression de tous les éléments liés à ce compte (contacts, évènements, devis, documents...) ! Confirmez-vous la suppression ?', :class =>"pull-right btn", :method => :delete end %>
+  <% end %>
+  </div>
  
-<%= form_for(@import, :html => { :class => "well ", :multipart => true}) do |f| %>
-<div class="row row-fluid">
-     <div class="field full">
-          
-	  <%= f.text_field(:import_type ,type:'hidden', value:@type) %>
-	  
-          <% if @type=="accounts" %>
-	  
-	  <div class="row row-fluid">
-	       <div class="field full">
-		    <div class="span2"><%= f.label(:origin ,t('app.model.Origin') + colon) %></div>
-			 <%= fields_for :origin do |o| %>
-			      <%= o.collection_select :origin_id, Origin.order('name ASC').all, :id, :name, :include_blank => true %>
-			 <% end %>
-	       </div>
-	  </div>
-	  <% end %>
-
-	  <div class="row row-fluid">
-	       <div class="field full">
-		    <div class="span2"><%= f.label(:name, t('app.fields.name') + colon) %></div>
-		    <p><%= f.text_field(:name ,{ :class => 'required' }) %><span class="req" /></p>
-	       </div>
-	  </div>
-	  
-	  <div class="row row-fluid">
-	       <div class="field full">
-		    <div class="span2"><%= f.label(:notes, t('app.fields.description')) %></div>
-			<%= f.text_area :notes, :rows => "5", :style => 'width: 50%;' %>
-	       </div>
-	  </div>	
-          	  
-	  <div class="row row-fluid">
-	       <div class="field full">
-		    <div class="span2"></div>
-			 </br>
-			 <%= file_field_tag :file, { :class => 'required' } %><span class="req" />
-			 <script>$ (":file").filestyle({buttonText: 'Choisir un fichier'});</script>
-		 
-		    </div>
-	       </div>
-	  </div>
-	  
-	  <div class="row row-fluid">
-	       <div class="field full">
-		    <div class="span2"></div>
-			 <%= link_to "#{t('link.upload_csv_model')}", download_path(:type => @type) %>
-	       </div>
-	  </div>
-	    
-	  <hr/>
-	  <div class="row">
-	       <%= f.button "#{t('views.button.import')}", :type => :submit,:class =>"btn btn-primary",:id =>"import_validate_form" %>
-	  </div>                     
-	  
-     </div>
-</div>
+</form>
 <% end %>

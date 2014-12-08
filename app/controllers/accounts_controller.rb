@@ -128,7 +128,7 @@ class AccountsController < ApplicationController
     @account = Account.find(params[:id])
     @account.modified_by = current_user.id
     params[:account][:company] = UnicodeUtils.upcase(params[:account][:company], I18n.locale)
-    params[:account][:web] = self.to_url(params[:account][:web])
+    params[:account][:web] = Format.to_url(params[:account][:web])
     if params[:display_account_tag].nil?
       @account.tags.clear
     else

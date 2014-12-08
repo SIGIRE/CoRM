@@ -34,10 +34,10 @@
 			      -->
 			      <td class="text-center">
 				   <%if import.import_type=="accounts" %>				   
-					<%= link_to import.name, accounts_path(:import_id=>import.id),{:title => "Afficher la liste des comptes"} %>
+					<%= link_to import.name, accounts_path(:import_id=>import.id),{:title => "Afficher la liste des comptes importés"} %>
 				   <% end %>
 				   <%if import.import_type=="contacts" %>				   
-					<%= link_to import.name, contacts_path(:import_id=>import.id),{:title => "Afficher la liste des contacts"} %>
+					<%= link_to import.name, contacts_path(:import_id=>import.id),{:title => "Afficher la liste des contacts importés"} %>
 				   <% end %>
 			      </td>
 			      

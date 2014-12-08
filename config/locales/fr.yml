@@ -226,7 +226,8 @@ fr:
       next: "Suivant &rsaquo;"
       truncate: "..."
     button:
-      import: "Importer"
+      import: "Importer les comptes valides"
+      create_import: "Créer un import"
   devise:
     failure:
       already_authenticated: "Vous êtes déjà connecté !"
@@ -413,6 +414,7 @@ fr:
       size: "Taille"
       content: "Contenu"
       category: "Catégorie"
+      origin: "Origine"
       action: "Action"
       type: "Type"
       author: "Auteur"

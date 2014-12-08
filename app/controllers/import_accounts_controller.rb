@@ -5,25 +5,50 @@
 #
 class ImportAccountsController < ApplicationController
 
-    has_scope :by_company_like, as: :company    
+    has_scope :invalid, type: :boolean
 
+  
   # Show the full list of Accounts by paginate_by
   def index
-      @title=t('title.import_waiting')
+    @title=t('title.import_waiting')
     @import_accounts = apply_scopes(ImportAccount).order("company")
     
-    #check if import_accounts are correct
-    if !@import_accounts.empty?
-        checkAccount
-    end
-    
-    flash.now[:alert] = "Pas de comptes en attente de validation !" if @import_accounts.empty?
+    flash.now[:alert] = "Pas de comptes en attente de validation" if @import_accounts.empty?
 
     respond_to do |format|
       format.html { @import_accounts = @import_accounts.page(params[:page]) }
       format.json { render :json => @import_accounts }
       format.csv { render :text => @import_accounts.to_csv }
     end
+  end
+  
+  ##
+  # Render a page to edit one occurence of Import_account
+  #
+  # GET /import_accounts/1/edit
+  def edit
+    @import_account = ImportAccount.find(params[:id])
+    @title = "#{t('app.actions.edition').capitalize} #{t('app.model.Account')} #{@import_account.company}"    
+    @users = User.all_reals
+  end
+  
+  ##
+  # Save an instance of Account which already exists
+  #
+  # PUT /import_accounts/1
+  def update
+    @import_account = ImportAccount.find(params[:id])
+    @import_account.modified_by = current_user.id
+    params[:import_account][:company] = UnicodeUtils.upcase(params[:import_account][:company], I18n.locale)
+    params[:import_account][:web] = Format.to_url(params[:import_account][:web])
+    @import_account.update_attributes(params[:import_account])
+    
+    ImportAccount.checked_account(@import_account)
+    
+    respond_to do |format|
+        format.html { redirect_to import_accounts_path, :notice => 'Le compte a été modifié.' }
+      
+    end 
   end
   
   #create accounts from import_accounts in database which have a true valid_account
@@ -65,15 +90,15 @@ class ImportAccountsController < ApplicationController
     end
   end
   
+  def destroy
+        @import_account = ImportAccount.find(params[:id])
+        @import_account.destroy
+        respond_to do |format|
+            format.html { redirect_to import_accounts_path, :notice => "Le compte a bien été supprimé."  }
+        end
+    end
+  
   private
   
-  def checkAccount    
-    @import_accounts.each do |i|
-        if i.company.nil? || !i.company=~(/\w/) #if company is nil or empty
-            i.update_attributes(:valid_account => false)
-        end
-        
-    end  
-  end
   
 end
