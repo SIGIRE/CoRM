@@ -56,7 +56,7 @@ class ImportContact < ActiveRecord::Base
         end
         #if title is incorrect
         if !contact.title=="M." && !contact.title=="Mme"
-          anomaly="Titre"
+          anomaly="Civilité"
         end 
         contact.update_attributes(:anomaly => anomaly)
     end

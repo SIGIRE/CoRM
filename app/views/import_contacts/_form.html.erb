@@ -13,41 +13,41 @@
 
 
   <div class="field">
-    <div class="span2"> Nom : </div> <%= f.text_field :surname %>
+    <div class="span2"><%= t('app.fields.name')+" :"  %></div> <%= f.text_field :surname %>
   </div>
   
   <div class="field">
-    <div class="span2"> Prénom : </div> <%= f.text_field :forename %>
+    <div class="span2"><%= t('app.fields.forename')+" :"  %></div> <%= f.text_field :forename %>
   </div>
   
   <div class="field">
-    <div class="span2"> Civilité : </div> <%= f.select :title, Contact::TITLES, {:include_blank => true} %>
+    <div class="span2"><%= t('app.fields.title')+" :"  %></div> <%= f.select :title, Contact::TITLES, {:include_blank => true} %>
   </div>
   
   <% if @contact.persisted? %>
   <div class="field">
-    <div class="span2"> Statut : </div> <%= f.select :active, options_for_select([["Actif", true], ["Inactif", false]], selected: @contact.active) %>
+    <div class="span2"><%= t('app.fields.state')+" :"  %></div> <%= f.select :active, options_for_select([["Actif", true], ["Inactif", false]], selected: @contact.active) %>
   </div>
 
   <% end %>
   <div class="field">
-    <div class="span2"> Téléphone : </div> <%= f.text_field :tel %>
+    <div class="span2"><%= t('app.fields.phone')+" :"  %></div> <%= f.text_field :tel %>
   </div>
   
   <div class="field">
-    <div class="span2"> Télécopie : </div> <%= f.text_field :fax%>
+    <div class="span2"><%= t('app.fields.fax')+" :"  %></div> <%= f.text_field :fax%>
   </div>
   
   <div class="field">
-    <div class="span2"> Mobile : </div> <%= f.text_field :mobile%>
+    <div class="span2"><%= t('app.fields.phone')+" :"  %></div> <%= f.text_field :mobile%>
   </div>
   
   <div class="field">
-    <div class="span2"> E-mail : </div> <%= f.text_field :email%> 
+    <div class="span2"><%= t('app.fields.email')+" :"  %></div> <%= f.text_field :email%> 
   </div>
 
 <div class="field">
-    <div class="span2"> Fonction : </div> <%= f.text_field :job%>
+    <div class="span2"><%= t('app.fields.job')+" :"  %></div> <%= f.text_field :job%>
   </div>
   
   <div class="field">
@@ -66,7 +66,7 @@
 
   
   <div class="field">
-    <div class="span2">Notes : </div> <%= f.text_area :notes , :rows => "5", :style => 'width: 50%;'%>
+    <div class="span2"><%= t('app.fields.notes')+t('app.fields.colon') %></div> <%= f.text_area :notes , :rows => "5", :style => 'width: 50%;'%>
   </div>
   
 
@@ -76,10 +76,10 @@
   	
 	<div class="field">
     <% if !@contact.id.nil? %>
-		<div class="span9"> Créé par : <%= @contact.author.full_name %>, le </strong><%= @contact.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+		<div class="span9"><%= t('app.actions.created_by')+t('app.fields.colon') %><%= @contact.author.full_name %>, le </strong><%= @contact.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
 		
 		<% if !@contact.modified_by.nil? %>
-			<div class="span9"> Dernièrement modifié par : <%= @contact.editor.full_name %>, le <%= @contact.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+			<div class="span9"><%= t('app.actions.updated_by')+t('app.fields.colon') %><%= @contact.editor.full_name %>, le <%= @contact.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
 		<% end %>
 	<% end %>
 	
@@ -89,12 +89,12 @@
         
 	<div class="row">
 	  <% if (!@contact.id.nil?) %> 
-			<%= f.button 'Modifier le contact', :type => :submit, :class =>"btn btn-primary",:id =>"contact_submit_form" %>
+			<%= f.button "#{t('app.actions.updated_contact')}", :type => :submit, :class =>"btn btn-primary",:id =>"contact_submit_form" %>
 		<% end %>
 
     <%# Ajout du bouton de suppression %>
 		<% if !@contact.id.nil? %>
-		 	<%= link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @contact, :title => "Supprimer le contact", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete %>
+		 	<%= link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @contact, :title => "#{t('link.delete_contact')}", :confirm => "#{t('app.message.confirm.delete')}", :class =>"pull-right btn", :method => :delete %>
 		<% end %>
         </div>
 </div>

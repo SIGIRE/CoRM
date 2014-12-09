@@ -7,10 +7,10 @@
   <%= form_tag(import_accounts_path, method: :GET) do %>
   <div class="row row-fluid">
 	 <div>
-	  <%= label_tag :invalid, "Comptes invalides :", class: 'top' %>
+	  <%= label_tag :invalid, "#{t('app.model.Account')} #{t('app.fields.invalid')}s :", class: 'top' %>
 	  <%= check_box_tag :invalid %>
 	</div>
-        <%= submit_tag "Filtrer", :class =>"btn"%>
+        <%= submit_tag "#{t('app.actions.filter')}", :class =>"btn"%>
   </div>
  <% end %>
  <!-- END FILTER -->
@@ -87,11 +87,11 @@
 
 	
         <td class="text-center">
-	  <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_import_account_path(account) ,{:title => "Éditer le compte" } %>
+	  <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_import_account_path(account) ,{:title => "#{t('link.edit', article:t('app.default.define_article_male'), model:t('app.model.Account'))}" } %>
 	  <%= link_to '<i class="fa fa-trash fa-2x action-icon"></i>'.html_safe,
 			import_account_path(account),
-			:title => "Supprimer l\'import",
-			:confirm => "Ce compte ne sera pas importé ! Confirmez-vous la suppression ?",
+			:title => "#{t('app.actions.destroy')} #{t('app.default.define_article_male')} #{t('app.model.Account')}",
+			:confirm => "#{t('app.message.confirm.delete_before_import',model: t('app.model.Account'))} #{t('app.message.confirm.delete')}",
 			:method => :delete %>
 	</td>
 	

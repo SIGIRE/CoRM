@@ -286,6 +286,7 @@ en:
     default:
       subject: subject
       define_article_male: the
+      define_article_apostrohpe: the
       define_article_female: the
       undefine_article_male: a
       undefine_article_female: a
@@ -305,6 +306,8 @@ en:
       created_by: "Created by"
       updated_by: "Last updated by"
       filter: "Filter"
+      updated_contact: "Updated contact"
+      updated_account: "Updated account"
     cancan:
       messages:
         unauthorized: "Vous n'êtes pas autoriser à [action] [undefined_article] [model]"
@@ -395,6 +398,7 @@ en:
       estimated_profit: "Marge estimée"
       ref: "Référence"
       ref_account: "Référence client"
+      accounting_code: "Accounting code"
       quotation_validity: "Validité du Devis"
       pay_mode: "Mode de réglement"
       designation: Désignation
@@ -407,6 +411,11 @@ en:
       subject: Subject
       name: Name
       company: "Company"
+      adress1: "Adress"
+      adress2: "Adress (next)"
+      zip: "Zip"
+      city: "City"
+      country: "Country"
       date: "Date"
       profit_margin: "Profit margin"
       estimate: "Estimate"
@@ -421,8 +430,20 @@ en:
       author: "Author"
       adress: "Adress"
       phone: "Phone"
+      fax: "Fax"
       web: "Web Site"
       anomaly: "Anomaly"
+      forename: "Forename"
+      title: "Title"
+      mobile: "Mobile"
+      email: "E-mail"
+      job: "Job"
+      notes: "Notes"
+      invalid: "invalid"
+    message:
+      confirm:
+        delete: "Confirm delete ?"
+        delete_before_import: "This %{model} won't be imported !"
   title:
     dashboard: "Dashboard"
     actor: "Actor"
@@ -447,5 +468,9 @@ en:
     import_waiting: "Imports waiting for validation"
   link:
     upload_csv_model: "download file model import"
+    back: "Back"
+    delete_contact: "Delete contact"
+    delete_account: "Delete account"
+    edit: "Edit %{article} %{model}"
   various:
     my: "My"

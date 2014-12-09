@@ -20,15 +20,15 @@
   <table class="table table-bordered table-striped table-hover">
     <thead>
       <tr>
-        <th class="text-center">Civ.</th>
-        <th class="text-center">Nom</th>
-        <th class="text-center">Pr&eacute;nom</th>
-        <th class="text-center">Soci&eacute;t&eacute;</th>
-        <th class="text-center">T&eacute;l</th>
-        <th class="text-center">Mobile</th>
-        <th class="text-center">E-mail</th>
+        <th class="text-center"><%= t('app.fields.title') %></th>
+        <th class="text-center"><%= t('app.fields.name') %></th>
+        <th class="text-center"><%= t('app.fields.forename') %></th>
+        <th class="text-center"><%= t('app.fields.company') %></th>
+        <th class="text-center"><%= t('app.fields.phone') %></th>
+        <th class="text-center"><%= t('app.fields.mobile') %></th>
+        <th class="text-center"><%= t('app.fields.email') %></th>
 	<th class="text-center"><%= t('app.fields.anomaly') %></th>
-        <th class="text-center">Actions</th>         
+        <th class="text-center"><%= t('app.fields.action') %></th>         
       </tr>
     </thead>
     <tbody>
@@ -91,11 +91,11 @@
 
 	
         <td class="text-center">
-	  <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_import_contact_path(contact) ,{:title => "Éditer le compte" } %>
+	  <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_import_contact_path(contact) ,{:title => "#{t('link.edit', article:t('app.default.define_article_male'), model:t('app.model.Contact'))}" } %>
 	  <%= link_to '<i class="fa fa-trash fa-2x action-icon"></i>'.html_safe,
 			import_contact_path(contact),
-			:title => "Supprimer l\'import",
-			:confirm => "Ce compte ne sera pas importé ! Confirmez-vous la suppression ?",
+			:title => "#{t('app.actions.destroy')} #{t('app.default.define_article_male')} #{t('app.model.Contact')}",
+			:confirm => "#{t('app.message.confirm.delete_before_import',model: t('app.model.Contact'))} #{t('app.message.confirm.delete')}",
 			:method => :delete %>
 	</td>
           

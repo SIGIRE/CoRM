@@ -284,6 +284,7 @@ fr:
     default:
       subject: Sujet
       define_article_male: le
+      define_article_apostrohpe: "l'"
       define_article_female: la
       undefine_article_male: un
       undefine_article_female: une
@@ -304,6 +305,8 @@ fr:
       created_by: "Créer par"
       updated_by: "Dernièrement modifié par"
       filter: "Filtrer"
+      updated_contact: "Modifier le contact"
+      updated_account: "Modifier le compte"
     cancan:
       messages:
         unauthorized: "Vous n'êtes pas autorisé à [action] [undefined_article] [model]"
@@ -394,6 +397,7 @@ fr:
       estimated_profit: "Marge estimée"
       ref: "Référence"
       ref_account: "Référence client"
+      accounting_code: "Code comptable"
       quotation_validity: "Validité du Devis"
       pay_mode: "Mode de réglement"
       designation: Désignation
@@ -406,6 +410,11 @@ fr:
       subject: Sujet
       name: Nom
       company: Société
+      adress1: "Adresse"
+      adress2: "Adresse (suite)"
+      zip: "CP"
+      city: "Ville"
+      country: "Pays"
       date: "Date"
       profit_margin: "Marge"
       estimate: "Estimation"
@@ -415,13 +424,25 @@ fr:
       content: "Contenu"
       category: "Catégorie"
       origin: "Origine"
-      action: "Action"
+      action: "Actions"
       type: "Type"
       author: "Auteur"
       adress: "Adresse"
       phone: "Téléphone"
+      fax: "Télécopie"
       web: "Site Web"
       anomaly: "Anomalie"
+      forename: "Prénom"
+      title: "Civ."
+      mobile: "Mobile"
+      email: "E-mail"
+      job: "Fonction"
+      notes: "Notes"
+      invalid: "invalide"
+    message:
+      confirm:
+        delete: "Confirmer la suppression ?"
+        delete_before_import: "Ce %{model} ne sera pas importé !"
   title:
     dashboard: "Tableau de bord"
     actor: "Acteur"
@@ -446,6 +467,10 @@ fr:
     import_waiting: "Imports en attente de validation"
   link:
     upload_csv_model: "télécharger le modèle de fichier d'import"
+    back: "Retour"
+    delete_contact: "Supprimer le contact"
+    delete_account: "Supprimer le compte"
+    edit: "Éditer %{article} %{model}"
 
   various:
     my: "Mes"
