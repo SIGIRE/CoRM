@@ -63,8 +63,7 @@
 		<%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id' } %>
   </div>
   
-  <!--to avoid bug in checked_contact -->
-  <%= f.text_field(:company ,type:'hidden') %>
+
   
   <div class="field">
     <div class="span2">Notes : </div> <%= f.text_area :notes , :rows => "5", :style => 'width: 50%;'%>

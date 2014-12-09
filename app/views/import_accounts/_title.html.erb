@@ -4,10 +4,8 @@
   <div class="well">
        <div class="row-fluid">
          <div class="span9">
-	    <h1><%= "<i class=\"fa fa-home\"></i> #{@title}".html_safe %></h1>
-         </div>
-         <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, accounts_new_import_path, :title => "#{t('title.new_import')}#{t('title.accounts')}", :class=>"pull-right", :method=> :post %>
-        </div>
+	    <h1><%= "<i class=\"fa fa-home\"></i> #{locals[:title]}".html_safe %></h1>
+         <%= render locals[:link] %>
   </div>
          
 </div>

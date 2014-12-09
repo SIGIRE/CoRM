@@ -1,16 +1,4 @@
-<div class="container-fluid" style="margin-top: 1em;">
-   
-
-  <div class="well">
-       <div class="row-fluid">
-         <div class="span9">
-	    <h1><%= "<i class=\"fa fa-home\"></i> #{t('app.actions.edition').capitalize} #{t('app.model.Account')} #{@import_account.company}".html_safe %></h1>
-         </div>
-         <%= link_to '<i class="fa fa-arrow-circle-left fa-3x action-icon"></i>'.html_safe, :back ,{:title => "Retour", :class=>"pull-right"} %>
-        </div>
-  </div>
-         
-</div>
+<%= render 'title', :locals => { :title => @title, :link => @link }%>
 
 <div class="container-fluid">
      

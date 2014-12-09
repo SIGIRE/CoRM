@@ -10,7 +10,10 @@ class ImportAccountsController < ApplicationController
   
   # Show the full list of Accounts by paginate_by
   def index
+    #variables for render
     @title=t('title.import_waiting')
+    @link="new_link"
+    
     @import_accounts = apply_scopes(ImportAccount).order("company")
     
     flash.now[:alert] = "Pas de comptes en attente de validation" if @import_accounts.empty?
@@ -29,6 +32,10 @@ class ImportAccountsController < ApplicationController
   def edit
     @import_account = ImportAccount.find(params[:id])
     @users = User.all_reals
+    
+    #variables for render
+    @title=t('app.actions.edition').capitalize+" "+t('app.model.Account')+" "+@import_account.company
+    @link="back_link"
   end
   
   ##

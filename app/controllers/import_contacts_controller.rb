@@ -10,7 +10,10 @@ class ImportContactsController < ApplicationController
  
   # Show the full list of Accounts by paginate_by
   def index
+    #variables for render
     @title=t('title.import_waiting')
+    @link="new_link"
+    
     @import_contacts = apply_scopes(ImportContact).order("surname")
     
     flash.now[:alert] = "Pas de contacts en attente de validation" if @import_contacts.empty?
@@ -26,11 +29,19 @@ class ImportContactsController < ApplicationController
   # Render a page to edit one occurence of Import_contact
   #
   # GET /import_contacts/1/edit
-  def edit
+  def edit 
     @contact = ImportContact.find(params[:id])
     @users = User.all_reals
+    
+    #variables for render
+    @title=t('app.actions.edition').capitalize+" "+t('app.model.Contact')+" "+@contact.full_name
+    @link="back_link"
   end
   
+  ##
+  # Save an instance of Account which already exists
+  #
+  # PUT /import_contacts/1
   def update
     @import_contact = ImportContact.find(params[:id])
     @import_contact.modified_by = current_user.id
