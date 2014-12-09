@@ -18,8 +18,8 @@ class ImportAccount < ActiveRecord::Base
   belongs_to :import
   belongs_to :origin
   
-  # Help to sort by criteria
-  scope :invalid, lambda { where(valid_account: false) }
+  # Help to sort by account in error
+  scope :invalid, -> anomaly { where("anomaly != '-'") }
   
   
   def author
@@ -53,14 +53,14 @@ class ImportAccount < ActiveRecord::Base
   
     #this metohd checked import_account. If any invalid value, valid_account is turn to false
     def self.checked_account(account)
-        valid=true
+        anomaly='-'
         if account.company[/\w/]==nil #if company is nil or invalid characters
-            valid=false
+            anomaly="Nom société"
         end
         if !(ImportAccount::CATEGORIES).include?("#{account.category}") #if category not in authorizes values
-            valid=false
+            anomaly="Catégorie"
         end
-        account.update_attributes(:valid_account => valid)
+        account.update_attributes(:anomaly => anomaly)
     end
   
   

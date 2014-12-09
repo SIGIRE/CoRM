@@ -5,7 +5,7 @@
 #
 class ImportAccountsController < ApplicationController
 
-    has_scope :invalid, type: :boolean
+    has_scope :invalid
 
   
   # Show the full list of Accounts by paginate_by
@@ -18,7 +18,7 @@ class ImportAccountsController < ApplicationController
     respond_to do |format|
       format.html { @import_accounts = @import_accounts.page(params[:page]) }
       format.json { render :json => @import_accounts }
-      format.csv { render :text => @import_accounts.to_csv }
+      #format.csv { render :text => @import_accounts.to_csv }
     end
   end
   
@@ -28,7 +28,6 @@ class ImportAccountsController < ApplicationController
   # GET /import_accounts/1/edit
   def edit
     @import_account = ImportAccount.find(params[:id])
-    @title = "#{t('app.actions.edition').capitalize} #{t('app.model.Account')} #{@import_account.company}"    
     @users = User.all_reals
   end
   
@@ -53,11 +52,12 @@ class ImportAccountsController < ApplicationController
   
   #create accounts from import_accounts in database which have a true valid_account
   #this method is called from import button in index view
-  def validate 
-    @total=0
+  def validate_accounts
+    total=0
     import_accounts=ImportAccount.all
     import_accounts.each do |i|
-        if i.valid_account
+        #if no anomaly in temporary account
+        if i.anomaly=='-'
             account=Account.new
             account.company=i.company
             account.adress1=i.adress1
@@ -80,13 +80,14 @@ class ImportAccountsController < ApplicationController
             account.active=i.active
             account.import_id=i.import_id
             account.save!
-            @total+=1
+            total+=1
+            #delete temporary contact when save in DB
             i.destroy
         end    
     end
     
     respond_to do |format|
-            format.html { redirect_to import_accounts_path, :notice => "#{@total} comptes ont été importés !"  }
+            format.html { redirect_to import_accounts_path, :notice => "#{total} comptes ont été importés !"  }
     end
   end
   
@@ -97,8 +98,7 @@ class ImportAccountsController < ApplicationController
             format.html { redirect_to import_accounts_path, :notice => "Le compte a bien été supprimé."  }
         end
     end
-  
-  private
+
   
   
 end

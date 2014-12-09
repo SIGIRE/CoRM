@@ -228,7 +228,7 @@ en:
       next: "Next &rsaquo;"
       truncate: "..."
     button:
-      import: "Import valid accounts"
+      import: "Import valid %{models}"
       create_import: "Create import"
   devise:
     failure:
@@ -422,6 +422,7 @@ en:
       adress: "Adress"
       phone: "Phone"
       web: "Web Site"
+      anomaly: "Anomaly"
   title:
     dashboard: "Dashboard"
     actor: "Actor"

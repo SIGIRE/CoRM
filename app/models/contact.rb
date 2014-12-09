@@ -106,6 +106,6 @@ class Contact < ActiveRecord::Base
   scope :active, lambda { where(active: true) }
   scope :inactive, lambda { where(active: false) }
   scope :none, lambda { where('1 = 0') }
-  scope :by_import_id, lambda {|import| where("import_id = ?", import) unless import.blank? }
+  scope :by_import_id, lambda {|import| joins(:import).where('import_id = ?', import) unless import.nil?}
   
 end

@@ -1,7 +1,9 @@
 <%= render 'title', :locals => { :title => @title }%>
 
 <div class="container-fluid">
-  
+ 
+ 
+ <!-- FILTER --> 
   <%= form_tag(import_accounts_path, method: :GET) do %>
   <div class="row row-fluid">
 	 <div>
@@ -10,7 +12,8 @@
 	</div>
         <%= submit_tag "Filtrer", :class =>"btn"%>
   </div>
-   <% end %>
+ <% end %>
+ <!-- END FILTER -->
   
   
   <table class="table table-bordered table-striped table-hover">
@@ -22,12 +25,13 @@
 	<th class="text-center"><%= t('app.fields.origin') %></th>
 	<th class="text-center"><%= t('app.fields.phone') %></th>
 	<th class="text-center"><%= t('app.fields.web') %></th>
+	<th class="text-center"><%= t('app.fields.anomaly') %></th>
 	<th class="text-center"><%= t('app.actions.actions') %></th>        
     </tr>
     </thead>
 	<tbody>
   <% @import_accounts.each do |account| %>
-  <tr class="<%='error' if !account.valid_account%>">
+  <tr class="<%='error' if account.anomaly!='-' %>">
 
         <% if !account.company.nil? %>
                 <% then %>
@@ -78,6 +82,10 @@
         <% else %>
                         <td class="text-center">-</td>
         <% end %>
+        
+          <td class="text-center"><%= account.anomaly %></td>
+
+	
         <td class="text-center">
 	  <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_import_account_path(account) ,{:title => "Éditer le compte" } %>
 	  <%= link_to '<i class="fa fa-trash fa-2x action-icon"></i>'.html_safe,
@@ -92,7 +100,7 @@
   </tbody>
   </table>
   <% if !@import_accounts.empty? %>
-    <%= button_to "#{t('views.button.import')}", {action: "validate"}, {class: "btn btn-primary", id: "import_validate_form"} %>
+    <%= button_to "#{t('views.button.import',models:t('title.accounts'))}", {action: "validate_accounts"}, {class: "btn btn-primary", id: "import_validate_form"} %>
   <% end %>
   <%= paginate @import_accounts %>
 </div>

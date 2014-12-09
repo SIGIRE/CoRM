@@ -28,16 +28,13 @@
                         <td class="text-center"><%= import.author.full_name %></td>
                         <% if !import.name.nil? %>
 			<% then %>
-			      <!--
-				<td class="text-center"><%#= link_to import.name, accounts_path(:import_id=>import.id),{:title => "Afficher la liste des comptes"} %></td>
-			        <td class="text-center"><%#= import.name %></td>
-			      -->
+
 			      <td class="text-center">
 				   <%if import.import_type=="accounts" %>				   
-					<%= link_to import.name, accounts_path(:import_id=>import.id),{:title => "Afficher la liste des comptes importés"} %>
+					<%= link_to import.name, accounts_path(:import_id=>import.id),{:title => "Afficher la liste des comptes importés et validés"} %>
 				   <% end %>
 				   <%if import.import_type=="contacts" %>				   
-					<%= link_to import.name, contacts_path(:import_id=>import.id),{:title => "Afficher la liste des contacts importés"} %>
+					<%= link_to import.name, contacts_path(:import_id=>import.id),{:title => "Afficher la liste des contacts importés et validés"} %>
 				   <% end %>
 			      </td>
 			      

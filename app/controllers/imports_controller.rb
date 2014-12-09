@@ -117,8 +117,7 @@ class ImportsController < ApplicationController
                 line.web = Format.to_url(line.web)
                 line.category = line.category.capitalize unless line.category.nil?
                 line.save!
-                #checked import_account for invalid value in order to set valid_account
-                #to true or false.
+                #checked import_account for invalid value in order to set anomaly
                 ImportAccount.checked_account(line)
             end
            end
@@ -128,21 +127,17 @@ class ImportsController < ApplicationController
         
         if @type=="contacts"
             Contact.transaction do
-                CSV.foreach(import_file.path, headers: true) do |row|
+                CSV.foreach(import_file.path, headers: true, :col_sep => ";") do |row|
                     row.push({:created_by=>current_user.id},
                                  {:active=>true},
                                  {:import_id=>@import.id})
-                    line = Contact.new row.to_hash
-                    compte = Account.find_by_accounting_code((line.account_id).to_s)
-                    if !compte.nil?
-                        line.update_attributes(:account_id => compte.id)
-                    else
-                        raise "L'accounting code #{line.account_id} n'existe pas"
-                    end
+                    line = ImportContact.new row.to_hash
+                    
                     line.save!
+                    ImportContact.checked_contact(line)
                 end
             end
-            @models_path=contacts_path(:import_id=>@import.id)
+            @models_path=import_contacts_path
         end      
     end
     

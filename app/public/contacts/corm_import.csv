@@ -1,5 +1,5 @@
-surname;forename;title;tel;fax;mobile;email;job;notes;account_id
-FORESTIER;Gabriel;M.;;;;;Gérant SIGIRE;;45866
+surname;forename;title;tel;fax;mobile;email;job;notes;company
+FORESTIER;Gabriel;M.;;;;;GÃ©rant SIGIRE;;45866
 ;;;;;;;;;
 ;!! NE PAS MODIFIER LES NOMS DE COLONNES;;;;;;;;
 ;PAS DE SIGNE POINT-VIRGULE DANS AUCUNE COLONNE;;;;;;;;

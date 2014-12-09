@@ -172,7 +172,11 @@ Crm::Application.routes.draw do
   
   # import_accounts routes
   resources :import_accounts
-  match 'validate', :controller => 'import_accounts', :action => 'validate'
+  match 'validate_accounts', :controller => 'import_accounts', :action => 'validate_accounts'
+  
+  #import_contacts routes
+  resources :import_contacts
+  match 'validate_contacts', :controller => 'import_contacts', :action => 'validate_contacts'
 
   # resources :home
   # The priority is based upon order of creation:

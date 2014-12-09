@@ -226,7 +226,7 @@ fr:
       next: "Suivant &rsaquo;"
       truncate: "..."
     button:
-      import: "Importer les comptes valides"
+      import: "Importer les %{models} valides"
       create_import: "Créer un import"
   devise:
     failure:
@@ -421,6 +421,7 @@ fr:
       adress: "Adresse"
       phone: "Téléphone"
       web: "Site Web"
+      anomaly: "Anomalie"
   title:
     dashboard: "Tableau de bord"
     actor: "Acteur"
