@@ -22,15 +22,17 @@ class Contact < ActiveRecord::Base
   
   accepts_nested_attributes_for :aliases, allow_destroy: true
 
-  validate :valid
+  
   
   paginates_per 10
   
-  def valid
-    if (self.surname.blank? && self.forename.blank?)
-      self.errors.add(:contact, 'Un de ces deux champs doit être remplis: Prénom ou Nom')
-    end
-  end
+  #this function is deprecated since use of class required in GET /contacts/new
+  #validate :valid
+  #def valid
+  #  if (self.surname.blank? && self.forename.blank?)
+  #    self.errors.add(:contact, 'Un de ces deux champs doit être remplis: Prénom ou Nom')
+  #  end
+  #end
   
   def author
     return author_user || User::default

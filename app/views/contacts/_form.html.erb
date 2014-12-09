@@ -12,11 +12,11 @@
   <% end %>
 
   <div class="field">
-    <div class="span2"> Nom : </div> <%= f.text_field :surname %>
+    <div class="span2"> Nom : </div> <%= f.text_field :surname,{ :class => 'required'} %>
   </div>
   
   <div class="field">
-    <div class="span2"> Prénom : </div> <%= f.text_field :forename %>
+    <div class="span2"> Prénom : </div> <%= f.text_field :forename,{ :class => 'required'} %>
   </div>
   
   <div class="field">
