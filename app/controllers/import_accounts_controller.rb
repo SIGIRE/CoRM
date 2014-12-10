@@ -14,7 +14,15 @@ class ImportAccountsController < ApplicationController
     @title=t('title.import_waiting')
     @link="new_link"
     
-    @import_accounts = apply_scopes(ImportAccount).order("company")
+    if params[:invalid]=="yes"
+        @import_accounts = apply_scopes(ImportAccount).order("company")
+        @check=true #keep check box checked
+    else
+        @import_accounts = ImportAccount.order("company")
+        @check=false
+    end
+    
+    
     
     flash.now[:alert] = "#{t('app.message.alert.no_account_pending_validation')}" if @import_accounts.empty?
 

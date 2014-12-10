@@ -14,7 +14,15 @@ class ImportContactsController < ApplicationController
     @title=t('title.import_waiting')
     @link="new_link"
     
-    @import_contacts = apply_scopes(ImportContact).order("surname")
+    if params[:invalid]=="yes"
+      @import_contacts = apply_scopes(ImportContact).order("surname")
+      @check=true #keep check box checked
+    else
+      @import_contacts = ImportContact.order("surname")
+      @check=false
+    end
+    
+    
     
     flash.now[:alert] = "#{t('app.message.alert.no_contact_pending_validation')}" if @import_contacts.empty?
 

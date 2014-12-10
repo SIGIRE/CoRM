@@ -7,8 +7,8 @@
   <%= form_tag(import_accounts_path, method: :GET) do %>
   <div class="row row-fluid">
 	 <div>
-	  <%= label_tag :invalid, "#{t('app.model.Account')} #{t('app.fields.invalid')}s :", class: 'top' %>
-	  <%= check_box_tag :invalid %>
+	  <%= label_tag :invalid, "#{t('app.model.Account')}s #{t('app.fields.invalid')}s :", class: 'top' %>
+	  <%= check_box_tag :invalid, 'yes', @check %>
 	</div>
         <%= submit_tag "#{t('app.actions.filter')}", :class =>"btn"%>
   </div>
