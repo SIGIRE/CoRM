@@ -1,22 +1,25 @@
 <%= nested_form_for(@contact, :html => { :class => "well ", :id => 'new_contact_form', :key => "blabla"}) do |f| %>
-  <% if @contact.errors.any? %>
+ 
+  <%# if @contact.errors.any? %>
+  <!-- repace by flash[:alert] 
     <div id="error_explanation">
-      <h2><%= pluralize(@contact.errors.count, "erreur") %> a empeché de sauvegarder ce contact:</h2>
+      <h2><%#= pluralize(@contact.errors.count, "erreur") %> a empeché de sauvegarder ce contact:</h2>
 
       <ul>
-      <% @contact.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+      <%# @contact.errors.full_messages.each do |msg| %>
+        <li><%#= msg %></li>
+      <%# end %>
       </ul>
     </div>
-  <% end %>
+    -->
+  <%# end %>
 
   <div class="field">
-    <div class="span2"> Nom : </div> <%= f.text_field :surname,{ :class => 'required'} %>
+    <div class="span2"> Nom : </div> <%= f.text_field :surname %>
   </div>
   
   <div class="field">
-    <div class="span2"> Prénom : </div> <%= f.text_field :forename,{ :class => 'required'} %>
+    <div class="span2"> Prénom : </div> <%= f.text_field :forename %>
   </div>
   
   <div class="field">
