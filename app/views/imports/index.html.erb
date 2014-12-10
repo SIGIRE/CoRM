@@ -31,10 +31,10 @@
 
 			      <td class="text-center">
 				   <%if import.import_type=="accounts" %>				   
-					<%= link_to import.name, accounts_path(:import_id=>import.id),{:title => "Afficher la liste des comptes importés et validés"} %>
+					<%= link_to import.name, accounts_path(:import_id=>import.id),{:title => "#{t('app.actions.show_valid_import',model: t('title.accounts'))}"} %>
 				   <% end %>
 				   <%if import.import_type=="contacts" %>				   
-					<%= link_to import.name, contacts_path(:import_id=>import.id),{:title => "Afficher la liste des contacts importés et validés"} %>
+					<%= link_to import.name, contacts_path(:import_id=>import.id),{:title => "#{t('app.actions.show_valid_import',model: t('title.contacts'))}"} %>
 				   <% end %>
 			      </td>
 			      
@@ -58,8 +58,8 @@
                         
 			<td class="text-center"><%= link_to '<i class="fa fa-trash fa-2x action-icon"></i>'.html_safe,
 			import,
-			:title => "Supprimer l\'import",
-			:confirm => "Attention : La suppression de l\'import entraine la suppression de tous les éléments liés à cet import (contacts ou comptes) ! Confirmez-vous la suppression ?",
+			:title => "#{t('link.delete_import')}",
+			:confirm => "#{t('app.message.confirm.delete_import')}",
 			:method => :delete %></td>
                             
                     </tr>

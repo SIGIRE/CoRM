@@ -308,6 +308,8 @@ en:
       filter: "Filter"
       updated_contact: "Updated contact"
       updated_account: "Updated account"
+      choose_file: "Choose a file"
+      show_valid_import: "Show valid imported %{model}"
     cancan:
       messages:
         unauthorized: "Vous n'êtes pas autoriser à [action] [undefined_article] [model]"
@@ -440,10 +442,25 @@ en:
       job: "Job"
       notes: "Notes"
       invalid: "invalid"
+      probability: "Probability of succes"
     message:
       confirm:
         delete: "Confirm delete ?"
         delete_before_import: "This %{model} won't be imported !"
+        delete_import: "Warning: The removal of import will cause the removal of all items related to this import (contacts or accounts) ! Do you confirm the suppression ?"
+      alert:
+        no_account_pending_validation: "No account pending validation"
+        no_contact_pending_validation: "No contact pending validation"
+        no_import: "No import !"
+      notice:
+        updated_account: "Account have been updated"
+        updated_contact: "Contact have been updated"
+        confirm_import_account: "%{nbr} accounts have been imported !"
+        confirm_import_contact: "%{nbr} contacts have been imported !"
+        delete_account: "Account have been deleted !"
+        delete_contact: "Contact have been deleted !"
+        delete_import: "Import have been deleted !"
+        import_done: "Import ready for validation"
   title:
     dashboard: "Dashboard"
     actor: "Actor"
@@ -471,6 +488,7 @@ en:
     back: "Back"
     delete_contact: "Delete contact"
     delete_account: "Delete account"
+    delete_import: "Delete import"
     edit: "Edit %{article} %{model}"
   various:
     my: "My"

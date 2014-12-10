@@ -9,7 +9,7 @@ class ImportsController < ApplicationController
     # GET /imports
     def index 
         @imports=Import.order('created_at')
-        flash.now[:alert] = "Pas d'imports !" if @imports.empty?
+        flash.now[:alert] = "#{t('app.message.alert.no_import')}" if @imports.empty?
         respond_to do |format|
             format.html { @imports = @imports.page(params[:page]) }  # index.html.erb
             format.json  { render :json => @imports }
@@ -62,7 +62,7 @@ class ImportsController < ApplicationController
                     read_file(params[:file])
                 end         
                 #if all is ok redirect to model_controller to display the list of imported accounts
-                format.html { redirect_to @models_path, method: :GET, :notice => 'Import prêt pour validation' }
+                format.html { redirect_to @models_path, method: :GET, :notice => "#{t('app.message.notice.import_done')}" }
                 #format.json { render :json => @import, :status => :created, :location => @import }
             else
                 flash.now[:alert] = t('app.save_undefined_error')
@@ -89,7 +89,7 @@ class ImportsController < ApplicationController
         
         @import.destroy
         respond_to do |format|
-            format.html { redirect_to imports_path, :notice => "L'import a bien été supprimé."  }
+            format.html { redirect_to imports_path, :notice => "#{t('app.message.notice.delete_import')}"  }
         end
     end
     

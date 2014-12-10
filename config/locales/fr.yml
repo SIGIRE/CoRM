@@ -307,6 +307,8 @@ fr:
       filter: "Filtrer"
       updated_contact: "Modifier le contact"
       updated_account: "Modifier le compte"
+      choose_file: "Choisir un fichier"
+      show_valid_import: "Afficher la liste des %{model} importés et validés"
     cancan:
       messages:
         unauthorized: "Vous n'êtes pas autorisé à [action] [undefined_article] [model]"
@@ -439,10 +441,25 @@ fr:
       job: "Fonction"
       notes: "Notes"
       invalid: "invalide"
+      probability: "Probabilité de succés"
     message:
       confirm:
         delete: "Confirmer la suppression ?"
         delete_before_import: "Ce %{model} ne sera pas importé !"
+        delete_import: "Attention : La suppression de l'import entraine la suppression de tous les éléments liés à cet import (contacts ou comptes) ! Confirmez-vous la suppression ?"
+      alert:
+        no_account_pending_validation: "Pas de comptes en attente de validation"
+        no_contact_pending_validation: "Pas de contact en attente de validation"
+        no_import: "Pas d'import !"
+      notice:
+        updated_account: "Le compte a été modifié"
+        updated_contact: "Le contact a été modifié"
+        confirm_import_account: "%{nbr} comptes ont été importés !"
+        confirm_import_contact: "%{nbr} contacts ont été importés !"
+        delete_account: "Le compte a bien été supprimé !"
+        delete_contact: "Le contact a bien été supprimé !"
+        delete_import: "L'import a bien été supprimé !"
+        import_done: "Import prêt pour validation"
   title:
     dashboard: "Tableau de bord"
     actor: "Acteur"
@@ -470,6 +487,7 @@ fr:
     back: "Retour"
     delete_contact: "Supprimer le contact"
     delete_account: "Supprimer le compte"
+    delete_import: "Supprimer l'import"
     edit: "Éditer %{article} %{model}"
 
   various:

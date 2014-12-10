@@ -16,7 +16,7 @@ class ImportAccountsController < ApplicationController
     
     @import_accounts = apply_scopes(ImportAccount).order("company")
     
-    flash.now[:alert] = "Pas de comptes en attente de validation" if @import_accounts.empty?
+    flash.now[:alert] = "#{t('app.message.alert.no_account_pending_validation')}" if @import_accounts.empty?
 
     respond_to do |format|
       format.html { @import_accounts = @import_accounts.page(params[:page]) }
@@ -52,7 +52,7 @@ class ImportAccountsController < ApplicationController
     ImportAccount.checked_account(@import_account)
     
     respond_to do |format|
-        format.html { redirect_to import_accounts_path, :notice => 'Le compte a été modifié.' }
+        format.html { redirect_to import_accounts_path, :notice => "#{t('app.message.notice.updated_account')}" }
       
     end 
   end
@@ -94,7 +94,7 @@ class ImportAccountsController < ApplicationController
     end
     
     respond_to do |format|
-            format.html { redirect_to import_accounts_path, :notice => "#{total} comptes ont été importés !"  }
+            format.html { redirect_to import_accounts_path, :notice => "#{t('app.message.notice.confirm_import_account', nbr: total)}"  }
     end
   end
   
@@ -102,7 +102,7 @@ class ImportAccountsController < ApplicationController
         @import_account = ImportAccount.find(params[:id])
         @import_account.destroy
         respond_to do |format|
-            format.html { redirect_to import_accounts_path, :notice => "Le compte a bien été supprimé."  }
+            format.html { redirect_to import_accounts_path, :notice => "#{t('app.message.notice.delete_account')}" }
         end
     end
 

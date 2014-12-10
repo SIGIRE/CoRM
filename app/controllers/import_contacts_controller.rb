@@ -16,7 +16,7 @@ class ImportContactsController < ApplicationController
     
     @import_contacts = apply_scopes(ImportContact).order("surname")
     
-    flash.now[:alert] = "Pas de contacts en attente de validation" if @import_contacts.empty?
+    flash.now[:alert] = "#{t('app.message.alert.no_contact_pending_validation')}" if @import_contacts.empty?
 
     respond_to do |format|
       format.html { @import_contacts = @import_contacts.page(params[:page]) }
@@ -50,7 +50,7 @@ class ImportContactsController < ApplicationController
     ImportContact.checked_contact(@import_contact)
     
     respond_to do |format|
-        format.html { redirect_to import_contacts_path, :notice => 'Le contact a été modifié.' }      
+        format.html { redirect_to import_contacts_path, :notice => "#{t('app.message.notice.updated_contact')}" }      
     end 
   end
   
@@ -85,7 +85,7 @@ class ImportContactsController < ApplicationController
     end
     
     respond_to do |format|
-            format.html { redirect_to import_contacts_path, :notice => "#{total} contacts ont été importés !"  }
+            format.html { redirect_to import_contacts_path, :notice => "#{t('app.message.notice.confirm_import_contact', nbr: total)}"  }
     end
   end
   
@@ -93,7 +93,7 @@ class ImportContactsController < ApplicationController
         @import_contact = ImportContact.find(params[:id])
         @import_contact.destroy
         respond_to do |format|
-            format.html { redirect_to import_contacts_path, :notice => "Le compte a bien été supprimé."  }
+            format.html { redirect_to import_contacts_path, :notice => "#{t('app.message.notice.delete_contact')}"  }
         end
     end
   
