@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141209084013) do
+ActiveRecord::Schema.define(:version => 20141210104525) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -228,6 +228,7 @@ ActiveRecord::Schema.define(:version => 20141209084013) do
     t.integer  "contact_id"
     t.integer  "user_id"
     t.float    "profit"
+    t.integer  "probability"
   end
 
   create_table "opportunity_attachments", :force => true do |t|

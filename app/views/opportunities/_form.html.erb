@@ -84,7 +84,26 @@
 		</div>
 	</div>
 	
-	
+	<div class="row row-fluid">
+	    <div class="field full">
+		    <div class="span2"><%= label(:prob ,"Probabilité de succés : ") %></div>
+		    <p><%= f.range_field :probability, :in=>0...101, :step=>25, :id=>"slider" %></p>
+		    <div id="prob">
+			<% if !@opportunity.probability.nil? %>
+			    <%= @opportunity.probability %>
+			<% else %>
+			     50
+			<% end %>
+		    </div>
+		    <!-- script is for show dynamic value of range -->
+		    <script>
+			$("#slider").change(function () {                    
+			var newValue = $('#slider').val();
+			$("#prob").html(newValue);
+			});
+		    </script>
+	    </div>
+	</div>
 	
 	<div class="row row-fluid">
 		<div class="field full">

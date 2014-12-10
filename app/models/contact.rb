@@ -21,12 +21,9 @@ class Contact < ActiveRecord::Base
   belongs_to :import
   
   accepts_nested_attributes_for :aliases, allow_destroy: true
-
-  
   
   paginates_per 10
-  
-  
+    
   validate :valid
   
   def valid
