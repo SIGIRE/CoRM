@@ -22,8 +22,6 @@ class ImportAccountsController < ApplicationController
         @check=false
     end
     
-    
-    
     flash.now[:alert] = "#{t('app.message.alert.no_account_pending_validation')}" if @import_accounts.empty?
 
     respond_to do |format|
@@ -44,6 +42,7 @@ class ImportAccountsController < ApplicationController
     #variables for render
     @title=t('app.actions.edition').capitalize+" "+t('app.model.Account')+" "+@import_account.company
     @link="back_link"
+    @check=params[:invalid]
   end
   
   ##
@@ -51,6 +50,11 @@ class ImportAccountsController < ApplicationController
   #
   # PUT /import_accounts/1
   def update
+    #if index is filter, keep it filter after delete account
+    if params[:invalid]=="true"
+        filter="yes"
+    end
+        
     @import_account = ImportAccount.find(params[:id])
     @import_account.modified_by = current_user.id
     params[:import_account][:company] = UnicodeUtils.upcase(params[:import_account][:company], I18n.locale)
@@ -60,7 +64,7 @@ class ImportAccountsController < ApplicationController
     ImportAccount.checked_account(@import_account)
     
     respond_to do |format|
-        format.html { redirect_to import_accounts_path, :notice => "#{t('app.message.notice.updated_account')}" }
+        format.html { redirect_to import_accounts_path(:invalid=>filter), :notice => "#{t('app.message.notice.updated_account')}" }
       
     end 
   end
@@ -107,10 +111,15 @@ class ImportAccountsController < ApplicationController
   end
   
   def destroy
+        #if index is filter, keep it filter after delete account
+        if params[:invalid]=="true"
+            filter="yes"
+        end
+        
         @import_account = ImportAccount.find(params[:id])
         @import_account.destroy
         respond_to do |format|
-            format.html { redirect_to import_accounts_path, :notice => "#{t('app.message.notice.delete_account')}" }
+            format.html { redirect_to import_accounts_path(:invalid=>filter), :notice => "#{t('app.message.notice.delete_account')}" }
         end
     end
 

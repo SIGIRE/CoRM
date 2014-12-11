@@ -51,17 +51,19 @@ class ImportAccount < ActiveRecord::Base
 	return tmp
   end
   
-    #this metohd checked import_account. If any invalid value, valid_account is turn to false
+    #this metohd checked import_account. If any invalid value, anomaly is set to type of anomaly
     def self.checked_account(account)
         anomaly='-'
-        if account.company[/\w/]==nil #if company is nil or invalid characters
-            anomaly="Nom société"
-        end
+        if !account.company.nil?
+            if account.company[/\w/]==nil #if company is nil or invalid characters
+                anomaly="Nom société"
+            end
+        end 
         if !(ImportAccount::CATEGORIES).include?("#{account.category}") #if category not in authorizes values
             anomaly="Catégorie"
         end
+     
         account.update_attributes(:anomaly => anomaly)
     end
-  
-  
+    
 end
