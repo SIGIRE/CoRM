@@ -3,7 +3,8 @@
 <div class="container-fluid">
  
  
- <!-- FILTER --> 
+ <!-- FILTER -->
+ <% if !@import_accounts.empty? %>
   <%= form_tag(import_accounts_path, method: :GET) do %>
   <div class="row row-fluid">
 	 <div>
@@ -13,6 +14,7 @@
         <%= submit_tag "#{t('app.actions.filter')}", :class =>"btn"%>
   </div>
  <% end %>
+<% end %>
  <!-- END FILTER -->
   
   

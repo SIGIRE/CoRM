@@ -36,6 +36,9 @@
       <%= f.text_area :notes, { :rows => "5", :style => 'width: 80%;', :class => 'required' } %>
     </div>
   </div>
+  
+  
+  
   <%#Affichage du champ d'ajout de pièce jointe %>
 
     <div id="attachments">
@@ -64,7 +67,7 @@
   <div class="row row-fluid">
     <div class="field">
       <label class="checkbox">
-        <%= check_box_tag :generate_task, "no" %>
+        <%= check_box_tag :generate_task, "yes" %>
         Générer une tâche liée à cet évènement
       </label>
     </div>
