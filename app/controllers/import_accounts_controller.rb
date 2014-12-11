@@ -110,19 +110,35 @@ class ImportAccountsController < ApplicationController
     end
   end
   
-  def destroy
+    def destroy
         #if index is filter, keep it filter after delete account
         if params[:invalid]=="true"
             filter="yes"
         end
         
         @import_account = ImportAccount.find(params[:id])
+        anomaly=@import_account.anomaly
         @import_account.destroy
+        
+        #if is delete because is a duplicate account, check import_accounts before redirect
+        #in order to change anomaly statut of the other account        
+        if anomaly=="Doublon"
+            ImportAccount.find_each(:conditions=>"anomaly = 'Doublon'") do |account1|
+                match=false
+                ImportAccount.find_each(:conditions=>"anomaly = 'Doublon'", start: (account1.id)+1) do |account2|
+                    if ImportAccount::is_match(account1,account2)
+                        match=true
+                    end
+                end
+                if match==false
+                    account1.update_attributes(:anomaly => '-')
+                end
+            end
+        end
+        
         respond_to do |format|
             format.html { redirect_to import_accounts_path(:invalid=>filter), :notice => "#{t('app.message.notice.delete_account')}" }
         end
     end
-
-  
-  
+ 
 end
