@@ -40,7 +40,11 @@ class ImportAccountsController < ApplicationController
     @users = User.all_reals
     
     #variables for render
-    @title=t('app.actions.edition').capitalize+" "+t('app.model.Account')+" "+@import_account.company
+    company_name = '-'
+    if !@import_account.company.nil?
+        company_name = @import_account.company
+    end        
+    @title=t('app.actions.edition').capitalize+" "+t('app.model.Account')+" "+company_name
     @link="back_link"
     @check=params[:invalid]
   end
@@ -125,12 +129,13 @@ class ImportAccountsController < ApplicationController
         if anomaly=="Doublon"
             ImportAccount.find_each(:conditions=>"anomaly = 'Doublon'") do |account1|
                 match=false
-                ImportAccount.find_each(:conditions=>"anomaly = 'Doublon'", start: (account1.id)+1) do |account2|
+                ImportAccount.find_each(:conditions=>"id != #{account1.id}") do |account2|
                     if ImportAccount::is_match(account1,account2)
                         match=true
                     end
+                    break if match
                 end
-                if match==false
+                if !match
                     account1.update_attributes(:anomaly => '-')
                 end
             end
