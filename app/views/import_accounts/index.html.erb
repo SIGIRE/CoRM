@@ -28,7 +28,7 @@
 	<th class="text-center"><%= t('app.fields.phone') %></th>
 	<th class="text-center"><%= t('app.fields.web') %></th>
 	<th class="text-center"><%= t('app.fields.anomaly') %></th>
-	<th class="text-center"><%= t('app.actions.actions') %></th>        
+	<th class="text-center" style="width:8%"><%= t('app.actions.actions') %></th>        
     </tr>
     </thead>
 	<tbody>
@@ -88,13 +88,22 @@
           <td class="text-center"><%= account.anomaly %></td>
 
 	
-        <td class="text-center">
+        <td class="text-center ">
 	  <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_import_account_path(account, :invalid=>@check ) ,{:title => "#{t('link.edit', article:t('app.default.define_article_male'), model:t('app.model.Account'))}" } %>
+	  <% if account.anomaly=='-' %>
+	    <i class="fa fa-check-square-o fa-2x muted"></i>
+	  <% else %>   
+	    <%= link_to '<i class="fa fa-check-square-o fa-2x action-icon"></i>'.html_safe,
+			  validate_account_path(account,:invalid=>@check),
+			  :title => "#{t('app.actions.validate')} #{t('app.default.define_article_male')} #{t('app.model.Account')}",
+			  :confirm => "#{t('app.message.confirm.validate_account')}" %>
+	  <% end %>
 	  <%= link_to '<i class="fa fa-trash fa-2x action-icon"></i>'.html_safe,
 			import_account_path(account,:invalid=>@check),
 			:title => "#{t('app.actions.destroy')} #{t('app.default.define_article_male')} #{t('app.model.Account')}",
 			:confirm => "#{t('app.message.confirm.delete_before_import',model: t('app.model.Account'))} #{t('app.message.confirm.delete')}",
 			:method => :delete %>
+	  
 	</td>
 	
   </tr>
@@ -102,7 +111,7 @@
   </tbody>
   </table>
   <% if !@import_accounts.empty? %>
-    <%= button_to "#{t('views.button.import',models:t('title.accounts'))}", {action: "validate_accounts"}, {class: "btn btn-primary", id: "import_validate_form"} %>
+    <%= button_to "#{t('views.button.import',models:t('title.accounts'))}", {action: "importing_accounts"}, {class: "btn btn-primary", id: "import_validate_form"} %>
   <% end %>
   <%= paginate @import_accounts %>
 </div>

@@ -310,6 +310,7 @@ en:
       updated_account: "Updated account"
       choose_file: "Choose a file"
       show_valid_import: "Show valid imported %{model}"
+      validate: "Validate"
     cancan:
       messages:
         unauthorized: "Vous n'êtes pas autoriser à [action] [undefined_article] [model]"
@@ -448,6 +449,7 @@ en:
         delete: "Confirm delete ?"
         delete_before_import: "This %{model} won't be imported !"
         delete_import: "Warning: The removal of import will cause the removal of all items related to this import (contacts or accounts) ! Do you confirm the suppression ?"
+        validate_account: "Validate this account ?"
       alert:
         no_account_pending_validation: "No account pending validation"
         no_contact_pending_validation: "No contact pending validation"
@@ -461,6 +463,7 @@ en:
         delete_contact: "Contact have been deleted !"
         delete_import: "Import have been deleted !"
         import_done: "Import ready for validation"
+        validate_account: "Account have been validated !"
   title:
     dashboard: "Dashboard"
     actor: "Actor"

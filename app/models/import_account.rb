@@ -54,8 +54,10 @@ class ImportAccount < ActiveRecord::Base
     #this metohd checked import_account. If any invalid value, anomaly is set to type of anomaly
     def self.checked_account(account)
         anomaly='-'
+        #search anomaly on company name
+        #if company is nil or invalid characters
         if !account.company.nil?
-            if account.company[/\w/]==nil #if company is nil or invalid characters
+            if account.company[/\w/]==nil 
                 anomaly="Nom société"
             else
                 #search duplicate account
@@ -71,6 +73,7 @@ class ImportAccount < ActiveRecord::Base
             end
         end 
         
+        #search anomaly on category
         if !(ImportAccount::CATEGORIES).include?("#{account.category}") #if category not in authorizes values
             anomaly="Catégorie"
         end     
@@ -113,6 +116,7 @@ class ImportAccount < ActiveRecord::Base
                   "INSTITUT"]
                   
             #split in hash account1 and account2 company name
+            #split with all non words characters and white space
             hash_company1=account1.company.upcase.gsub(/[^\w\s]/,"").split
             hash_company2=account2.company.upcase.gsub(/[^\w\s]/,"").split
             

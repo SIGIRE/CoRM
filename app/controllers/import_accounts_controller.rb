@@ -75,7 +75,7 @@ class ImportAccountsController < ApplicationController
   
   #create accounts from import_accounts in database which have a true valid_account
   #this method is called from import button in index view
-  def validate_accounts
+  def importing_accounts
     total=0
     import_accounts=ImportAccount.all
     import_accounts.each do |i|
@@ -144,6 +144,23 @@ class ImportAccountsController < ApplicationController
         respond_to do |format|
             format.html { redirect_to import_accounts_path(:invalid=>filter), :notice => "#{t('app.message.notice.delete_account')}" }
         end
+    end
+    
+    #this method change anomaly value of an account to '-'
+    def validate_account
+        import_account=ImportAccount.find(params[:id])
+        import_account.update_attributes(:anomaly => '-')
+        
+        if params[:invalid]=="true"
+            filter="yes"
+        end
+        
+        respond_to do |format|
+          format.html { redirect_to import_accounts_path(:invalid=>filter), :notice => "#{t('app.message.notice.validate_account')}" }
+          #format.json { render :json => @import_accounts }
+          #format.csv { render :text => @import_accounts.to_csv }
+        end
+        
     end
  
 end
