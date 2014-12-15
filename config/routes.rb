@@ -173,7 +173,8 @@ Crm::Application.routes.draw do
   # import_accounts routes
   resources :import_accounts
   match 'importing_accounts', :controller => 'import_accounts', :action => 'importing_accounts'
-  match 'validate_account/:id', :controller=> 'import_accounts', :action => 'validate_account', :as => 'validate_account'
+  match 'recalculate_duplicates', :controller=>'import_accounts', :action=>'recalculate_duplicates'
+  #match 'validate_account/:id', :controller=> 'import_accounts', :action => 'validate_account', :as => 'validate_account'
   
   #import_contacts routes
   resources :import_contacts

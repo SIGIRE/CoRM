@@ -4,7 +4,7 @@
  
  
  <!-- FILTER -->
- <% if !@import_accounts.empty? %>
+ <% if @all_import_accounts!=0 %>
   <%= form_tag(import_accounts_path, method: :GET) do %>
   <div class="row row-fluid">
 	 <div>
@@ -89,14 +89,16 @@
 	
         <td class="text-center ">
 	  <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_import_account_path(account, :invalid=>@check ) ,{:title => "#{t('link.edit', article:t('app.default.define_article_male'), model:t('app.model.Account'))}" } %>
-	  <% if account.anomaly=='-' %>
+	  <!--
+	  <%# if account.anomaly=='-' %>
 	    <i class="fa fa-check-square-o fa-2x muted"></i>
-	  <% else %>   
-	    <%= link_to '<i class="fa fa-check-square-o fa-2x action-icon"></i>'.html_safe,
+	  <%# else %>   
+	    <%#= link_to '<i class="fa fa-check-square-o fa-2x action-icon"></i>'.html_safe,
 			  validate_account_path(account,:invalid=>@check),
 			  :title => "#{t('app.actions.validate')} #{t('app.default.define_article_male')} #{t('app.model.Account')}",
 			  :confirm => "#{t('app.message.confirm.validate_account')}" %>
-	  <% end %>
+	  <%# end %>
+	  -->
 	  <%= link_to '<i class="fa fa-trash fa-2x action-icon"></i>'.html_safe,
 			import_account_path(account,:invalid=>@check),
 			:title => "#{t('app.actions.destroy')} #{t('app.default.define_article_male')} #{t('app.model.Account')}",
@@ -109,8 +111,16 @@
   <% end %>
   </tbody>
   </table>
+  
   <% if !@import_accounts.empty? %>
+    <div style="float:left;margin-right: 5px">
     <%= button_to "#{t('views.button.import',models:t('title.accounts'))}", {action: "importing_accounts"}, {class: "btn btn-primary", id: "import_validate_form"} %>
+  </div>
+
+    <%= button_to "#{t('app.actions.recalculate_duplicates')}", {action: "recalculate_duplicates"}, {class: "btn btn-danger", id: "import_validate_form"} %>
+
   <% end %>
+  
+
   <%= paginate @import_accounts %>
 </div>

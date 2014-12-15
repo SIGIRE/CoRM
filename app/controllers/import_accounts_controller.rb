@@ -13,6 +13,7 @@ class ImportAccountsController < ApplicationController
     #variables for render
     @title=t('title.import_waiting')
     @link="new_link"
+    @all_import_accounts=ImportAccount.count
     
     if params[:invalid]=="yes"
         @import_accounts = apply_scopes(ImportAccount).order("company")
@@ -46,7 +47,7 @@ class ImportAccountsController < ApplicationController
     end        
     @title=t('app.actions.edition').capitalize+" "+t('app.model.Account')+" "+company_name
     @link="back_link"
-    @check=params[:invalid]
+    @check=params[:invalid]   
   end
   
   ##
@@ -58,15 +59,20 @@ class ImportAccountsController < ApplicationController
     if params[:invalid]=="true"
         filter="yes"
     end
-        
+            
     @import_account = ImportAccount.find(params[:id])
     @import_account.modified_by = current_user.id
     params[:import_account][:company] = UnicodeUtils.upcase(params[:import_account][:company], I18n.locale)
     params[:import_account][:web] = Format.to_url(params[:import_account][:web])
     @import_account.update_attributes(params[:import_account])
     
-    ImportAccount.checked_account(@import_account)
-    
+    #if user decide this account is not duplicate, don't try to search duplicate
+    if params[:duplicate].nil?
+        @import_account.update_attributes(:anomaly => ImportAccount::ANOMALIES[:no])
+    #else
+        #ImportAccount.checked_account(@import_account)
+    end
+  
     respond_to do |format|
         format.html { redirect_to import_accounts_path(:invalid=>filter), :notice => "#{t('app.message.notice.updated_account')}" }
       
@@ -104,7 +110,7 @@ class ImportAccountsController < ApplicationController
             account.import_id=i.import_id
             account.save!
             total+=1
-            #delete temporary contact when save in DB
+            #delete temporary account when save in DB
             i.destroy
         end    
     end
@@ -146,21 +152,37 @@ class ImportAccountsController < ApplicationController
         end
     end
     
-    #this method change anomaly value of an account to '-'
-    def validate_account
-        import_account=ImportAccount.find(params[:id])
-        import_account.update_attributes(:anomaly => ImportAccount::ANOMALIES[:no])
-        
-        if params[:invalid]=="true"
-            filter="yes"
+    def recalculate_duplicates
+        Thread.new{
+        ImportAccount.find_each do |account1|
+            ImportAccount.find_each(start: (account1.id)+1) do |account2|
+                if ImportAccount.is_match(account1,account2)
+                    account1.update_attributes(:anomaly=>ImportAccount::ANOMALIES[:duplicate]) unless account1.anomaly==ImportAccount::ANOMALIES[:duplicate]
+                    account2.update_attributes(:anomaly=>ImportAccount::ANOMALIES[:duplicate]) unless account2.anomaly==ImportAccount::ANOMALIES[:duplicate]
+                end
+            end
         end
-        
+        }
         respond_to do |format|
-          format.html { redirect_to import_accounts_path(:invalid=>filter), :notice => "#{t('app.message.notice.validate_account')}" }
-          #format.json { render :json => @import_accounts }
-          #format.csv { render :text => @import_accounts.to_csv }
+            format.html { redirect_to import_accounts_path(:invalid=>"no"), :notice => "#{t('app.message.notice.recalculate_duplicates')}" }
         end
-        
     end
+    
+    #this method change anomaly value of an account to '-'
+    #def validate_account
+    #    import_account=ImportAccount.find(params[:id])
+    #    import_account.update_attributes(:anomaly => ImportAccount::ANOMALIES[:no])
+    #    
+    #    if params[:invalid]=="true"
+    #        filter="yes"
+    #    end
+    #    
+    #    respond_to do |format|
+    #      format.html { redirect_to import_accounts_path(:invalid=>filter), :notice => "#{t('app.message.notice.validate_account')}" }
+    #      #format.json { render :json => @import_accounts }
+    #      #format.csv { render :text => @import_accounts.to_csv }
+    #    end
+    #    
+    #end
  
 end

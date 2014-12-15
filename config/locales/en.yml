@@ -311,6 +311,7 @@ en:
       choose_file: "Choose a file"
       show_valid_import: "Show valid imported %{model}"
       validate: "Validate"
+      recalculate_duplicates: "Recalculate duplicates"
     cancan:
       messages:
         unauthorized: "Vous n'êtes pas autoriser à [action] [undefined_article] [model]"
@@ -444,6 +445,7 @@ en:
       notes: "Notes"
       invalid: "invalid"
       probability: "Probability of succes"
+      duplicate: "Duplicate"
     message:
       confirm:
         delete: "Confirm delete ?"
@@ -464,6 +466,7 @@ en:
         delete_import: "Import have been deleted !"
         import_done: "Import ready for validation"
         validate_account: "Account have been validated !"
+        recalculate_duplicates: "Duplicates have been recalculated"
   title:
     dashboard: "Dashboard"
     actor: "Actor"

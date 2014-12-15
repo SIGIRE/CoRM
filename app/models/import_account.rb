@@ -85,7 +85,11 @@ class ImportAccount < ActiveRecord::Base
     def self.is_match (account1,account2)
         match=false
         #try to match phone in priority
-        if !account1.tel.blank? && !account2.tel.blank? && account1.tel.gsub(/[^0-9]/,"").eql?(account2.tel.gsub(/[^0-9]/,""))
+        if !account1.tel.blank? &&
+            !account2.tel.blank? &&
+            !account1.tel=~/\d/ &&
+            !account2.tel=~/\d/ &&
+            account1.tel.gsub(/[^0-9]/,"").eql?(account2.tel.gsub(/[^0-9]/,""))
           match=true
           
         else #try to match company name and zip                     
