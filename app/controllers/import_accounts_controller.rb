@@ -80,7 +80,7 @@ class ImportAccountsController < ApplicationController
     import_accounts=ImportAccount.all
     import_accounts.each do |i|
         #if no anomaly in temporary account
-        if i.anomaly=='-'
+        if i.anomaly==ImportAccount::ANOMALIES[:no]
             account=Account.new
             account.company=i.company
             account.adress1=i.adress1
@@ -126,8 +126,8 @@ class ImportAccountsController < ApplicationController
         
         #if is delete because is a duplicate account, check import_accounts before redirect
         #in order to change anomaly statut of the other account        
-        if anomaly=="Doublon"
-            ImportAccount.find_each(:conditions=>"anomaly = 'Doublon'") do |account1|
+        if anomaly==ImportAccount::ANOMALIES[:duplicate]
+            ImportAccount.find_each(:conditions=>"anomaly = '#{ImportAccount::ANOMALIES[:duplicate]}'") do |account1|
                 match=false
                 ImportAccount.find_each(:conditions=>"id != #{account1.id}") do |account2|
                     if ImportAccount::is_match(account1,account2)
@@ -136,7 +136,7 @@ class ImportAccountsController < ApplicationController
                     break if match
                 end
                 if !match
-                    account1.update_attributes(:anomaly => '-')
+                    account1.update_attributes(:anomaly => ImportAccount::ANOMALIES[:no])
                 end
             end
         end
@@ -149,7 +149,7 @@ class ImportAccountsController < ApplicationController
     #this method change anomaly value of an account to '-'
     def validate_account
         import_account=ImportAccount.find(params[:id])
-        import_account.update_attributes(:anomaly => '-')
+        import_account.update_attributes(:anomaly => ImportAccount::ANOMALIES[:no])
         
         if params[:invalid]=="true"
             filter="yes"

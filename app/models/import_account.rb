@@ -9,7 +9,7 @@ class ImportAccount < ActiveRecord::Base
   resourcify
   
   CATEGORIES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire', 'Adhérent', 'Autre']
-  ANOMALIES = {:duplicate=>'Doublon',:company_name=>'Nom Société',:category=>'Catégorie'}
+  ANOMALIES = {:duplicate=>'Doublon',:company_name=>'Nom Société',:category=>'Catégorie',:no=>'-'}
   
   paginates_per 30
   
@@ -22,7 +22,7 @@ class ImportAccount < ActiveRecord::Base
   belongs_to :origin
   
   # Help to sort by account in error
-  scope :invalid, -> anomaly { where("anomaly != '-'") }
+  scope :invalid, -> anomaly { where("anomaly != '#{ImportAccount::ANOMALIES[:no]}'") }
   
   
   def author
@@ -56,23 +56,21 @@ class ImportAccount < ActiveRecord::Base
   
     #this metohd checked import_account. If any invalid value, anomaly is set to type of anomaly
     def self.checked_account(account)
-        anomaly='-'
+        anomaly=ImportAccount::ANOMALIES[:no]
         #search anomaly on company name
         #if company is nil or invalid characters
-        if !account.company.nil?
-            if account.company[/\w/]==nil 
-                anomaly=ImportAccount::ANOMALIES[:company_name]
-            else
-                #search duplicate account
-                #try to match with imported accounts except account itself
-                ImportAccount.find_each(:conditions => "id != #{account.id} AND company !=''") do |account2|            
-                  if is_match(account, account2)
-                    anomaly=ImportAccount::ANOMALIES[:duplicate]
-                    if account2.anomaly!=ImportAccount::ANOMALIES[:duplicate]
-                        account2.update_attributes(:anomaly=>ImportAccount::ANOMALIES[:duplicate])
-                    end
-                  end               
+        if !account.company.blank? && account.company[/\w/]==nil
+            anomaly=ImportAccount::ANOMALIES[:company_name]
+        else
+            #search duplicate account
+            #try to match with imported accounts except account itself
+            ImportAccount.find_each(:conditions => "id != #{account.id} AND company !=''") do |account2|            
+              if is_match(account, account2)
+                anomaly=ImportAccount::ANOMALIES[:duplicate]
+                if account2.anomaly!=ImportAccount::ANOMALIES[:duplicate]
+                    account2.update_attributes(:anomaly=>ImportAccount::ANOMALIES[:duplicate])
                 end
+              end               
             end
         end 
         
@@ -87,7 +85,7 @@ class ImportAccount < ActiveRecord::Base
     def self.is_match (account1,account2)
         match=false
         #try to match phone in priority
-        if !account1.tel==nil? && !account2.tel==nil? && account1.tel.gsub(/[^0-9]/,"").eql?(account2.tel.gsub(/[^0-9]/,""))
+        if !account1.tel.blank? && !account2.tel.blank? && account1.tel.gsub(/[^0-9]/,"").eql?(account2.tel.gsub(/[^0-9]/,""))
           match=true
           
         else #try to match company name and zip                     
