@@ -2,11 +2,14 @@
 
 #this class represent an account imported by a csv file and waiting for valitation
 
+require 'text'
+
 class ImportAccount < ActiveRecord::Base
   extend ToCsv
   resourcify
   
   CATEGORIES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire', 'Adhérent', 'Autre']
+  ANOMALIES = {:duplicate=>'Doublon',:company_name=>'Nom Société',:category=>'Catégorie'}
   
   paginates_per 30
   
@@ -58,15 +61,15 @@ class ImportAccount < ActiveRecord::Base
         #if company is nil or invalid characters
         if !account.company.nil?
             if account.company[/\w/]==nil 
-                anomaly="Nom société"
+                anomaly=ImportAccount::ANOMALIES[:company_name]
             else
                 #search duplicate account
                 #try to match with imported accounts except account itself
                 ImportAccount.find_each(:conditions => "id != #{account.id} AND company !=''") do |account2|            
                   if is_match(account, account2)
-                    anomaly="Doublon"
-                    if account2.anomaly!="Doublon"
-                        account2.update_attributes(:anomaly=>"Doublon")
+                    anomaly=ImportAccount::ANOMALIES[:duplicate]
+                    if account2.anomaly!=ImportAccount::ANOMALIES[:duplicate]
+                        account2.update_attributes(:anomaly=>ImportAccount::ANOMALIES[:duplicate])
                     end
                   end               
                 end
@@ -75,7 +78,7 @@ class ImportAccount < ActiveRecord::Base
         
         #search anomaly on category
         if !(ImportAccount::CATEGORIES).include?("#{account.category}") #if category not in authorizes values
-            anomaly="Catégorie"
+            anomaly=ImportAccount::ANOMALIES[:category]
         end     
         account.update_attributes(:anomaly => anomaly)
     end
@@ -90,55 +93,13 @@ class ImportAccount < ActiveRecord::Base
         else #try to match company name and zip                     
             #no test match if zip are empty          
           if !account1.zip==nil? && !account2.zip==nil?
-            
-            #don't try to match this words
-            no_match=["DE",
-                  "DES",
-                  "LA",
-                  "LE",
-                  "LES",
-                  "A",
-                  "AU",
-                  "AUX",
-                  "ET",
-                  "SA",
-                  "SARL",
-                  "SAS",
-                  "SCII",
-                  "ASSOCIATION",
-                  "MR",
-                  "MME",
-                  "FRANCE",
-                  "PARIS",
-                  "SERVICES",
-                  "LOCAL",
-                  "INTERIM",
-                  "INSTITUT"]
-                  
-            #split in hash account1 and account2 company name
-            #split with all non words characters and white space
-            hash_company1=account1.company.upcase.gsub(/[^\w\s]/,"").split
-            hash_company2=account2.company.upcase.gsub(/[^\w\s]/,"").split
-            
-            #delete no_match words from hashs
-            hash_company1.delete_if{|w| no_match.include?("#{w}")}
-            hash_company2.delete_if{|w| no_match.include?("#{w}")}
-            
-            nbr_match=0
-            hash_company2.each do |h|
-              #search for match if zip are equals
-              if account1.zip.gsub(/\s/,"").eql?(account2.zip.gsub(/\s/,""))
-                if hash_company1.include?("#{h}")
-                    if  
-                        nbr_match+=1            
-                    end
-                    #if all words of one of the two accounts are matchs, match is consider to be true
-                    if hash_company1.length==nbr_match || hash_company2.length==nbr_match
-                        match=true
-                    end                  
-                end
-              end
-            end
+            company1=account1.company.upcase
+            company2=account2.company.upcase
+            #use gem Text
+            score=Text::WhiteSimilarity.new
+            if score.similarity(company1,company2)>0.8 && account1.zip.gsub(/\s/,"").eql?(account2.zip.gsub(/\s/,""))
+                match=true                
+            end   
           end
         end
         return match
