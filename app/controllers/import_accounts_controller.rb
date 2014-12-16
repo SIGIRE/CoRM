@@ -24,6 +24,9 @@ class ImportAccountsController < ApplicationController
     #end
     @import_accounts = apply_scopes(ImportAccount).order("anomaly DESC").order("company")
     
+    if !params[:anomaly].nil?
+        @select=params[:anomaly]
+    end
     
     flash.now[:alert] = "#{t('app.message.alert.no_account_pending_validation')}" if @import_accounts.empty?
     flash.now[:alert] = "#{t('app.message.alert.accounts_in_anomaly', nbr: ImportAccount.where('anomaly != ?', ImportAccount::ANOMALIES[:no]).count)}"
@@ -50,7 +53,7 @@ class ImportAccountsController < ApplicationController
     end        
     @title=t('app.actions.edition').capitalize+" "+t('app.model.Account')+" "+company_name
     @link="back_link"
-    @check=params[:invalid]   
+    @select=params[:anomaly]   
   end
   
   ##
@@ -58,9 +61,9 @@ class ImportAccountsController < ApplicationController
   #
   # PUT /import_accounts/1
   def update
-    #if index is filter, keep it filter after delete account
-    if params[:invalid]=="true"
-        filter="yes"
+    #if index is filter, keep it filter
+    if !params[:anomaly].nil?
+        select=params[:anomaly]
     end
             
     @import_account = ImportAccount.find(params[:id])
@@ -77,7 +80,7 @@ class ImportAccountsController < ApplicationController
     end
   
     respond_to do |format|
-        format.html { redirect_to import_accounts_path(:invalid=>filter), :notice => "#{t('app.message.notice.updated_account')}" }
+        format.html { redirect_to import_accounts_path(:anomaly=>select), :notice => "#{t('app.message.notice.updated_account')}" }
       
     end 
   end
@@ -125,9 +128,10 @@ class ImportAccountsController < ApplicationController
   
     def destroy
         #if index is filter, keep it filter after delete account
-        if params[:invalid]=="true"
-            filter="yes"
+        if !params[:anomaly].nil?
+            select=params[:anomaly]
         end
+
         
         @import_account = ImportAccount.find(params[:id])
         anomaly=@import_account.anomaly
@@ -151,7 +155,7 @@ class ImportAccountsController < ApplicationController
         end
         
         respond_to do |format|
-            format.html { redirect_to import_accounts_path(:invalid=>filter), :notice => "#{t('app.message.notice.delete_account')}" }
+            format.html { redirect_to import_accounts_path(:anomaly=>select), :notice => "#{t('app.message.notice.delete_account')}" }
         end
     end
     
@@ -168,27 +172,9 @@ class ImportAccountsController < ApplicationController
             end
         end
         respond_to do |format|
-            format.html { redirect_to import_accounts_path(:invalid=>"no"), :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}
+            format.html { redirect_to import_accounts_path, :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}
 
         end
     end
-    
-    
-    #this method change anomaly value of an account to '-'
-    #def validate_account
-    #    import_account=ImportAccount.find(params[:id])
-    #    import_account.update_attributes(:anomaly => ImportAccount::ANOMALIES[:no])
-    #    
-    #    if params[:invalid]=="true"
-    #        filter="yes"
-    #    end
-    #    
-    #    respond_to do |format|
-    #      format.html { redirect_to import_accounts_path(:invalid=>filter), :notice => "#{t('app.message.notice.validate_account')}" }
-    #      #format.json { render :json => @import_accounts }
-    #      #format.csv { render :text => @import_accounts.to_csv }
-    #    end
-    #    
-    #end
  
 end

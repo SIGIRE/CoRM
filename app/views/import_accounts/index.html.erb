@@ -8,10 +8,9 @@
   <%= form_tag(import_accounts_path, method: :GET) do %>
   <div class="row row-fluid">
 	 <div>
-	  <%#= label_tag :invalid, "#{t('app.model.Account')}s #{t('app.fields.invalid')}s :", class: 'top' %>
-	  <%#= check_box_tag :invalid, 'yes', @check %>
 	  <%= label_tag :anomaly, "#{t('app.fields.anomaly')} :", :class => "top"  %>
-	  <%= select_tag "anomaly", options_for_select(ImportAccount::ANOMALIES.collect{|v| v[1]}), { :include_blank => "#{t('app.default.all')}", :class =>"filter_statut"}  %>
+	  <!--@select store value of selected anomaly -->
+	  <%= select_tag "anomaly", options_for_select(ImportAccount::ANOMALIES.collect{|v| v[1]},@select), { :include_blank => "#{t('app.default.all')}", :class =>"filter_statut"}  %>
 	 </div>
         <%= submit_tag "#{t('app.actions.filter')}", :class =>"btn"%>
   </div>
@@ -30,7 +29,7 @@
 	<th class="text-center"><%= t('app.fields.phone') %></th>
 	<th class="text-center"><%= t('app.fields.web') %></th>
 	<th class="text-center"><%= t('app.fields.anomaly') %></th>
-	<th class="text-center" style="width:8%"><%= t('app.actions.actions') %></th>        
+	<th class="text-center"><%= t('app.actions.actions') %></th>        
     </tr>
     </thead>
 	<tbody>
@@ -91,10 +90,10 @@
 
 	
         <td class="text-center ">
-	  <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_import_account_path(account, :invalid=>@check ) ,{:title => "#{t('link.edit', article:t('app.default.define_article_male'), model:t('app.model.Account'))}" } %>
+	  <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_import_account_path(account, :anomaly=>@select ) ,{:title => "#{t('link.edit', article:t('app.default.define_article_male'), model:t('app.model.Account'))}" } %>
 
 	  <%= link_to '<i class="fa fa-trash fa-2x action-icon"></i>'.html_safe,
-			import_account_path(account,:invalid=>@check),
+			import_account_path(account,:anomaly=>@select),
 			:title => "#{t('app.actions.destroy')} #{t('app.default.define_article_male')} #{t('app.model.Account')}",
 			:confirm => "#{t('app.message.confirm.delete_before_import',model: t('app.model.Account'))} #{t('app.message.confirm.delete')}",
 			:method => :delete %>

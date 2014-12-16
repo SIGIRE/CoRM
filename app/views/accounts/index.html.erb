@@ -16,7 +16,7 @@
       <div class="row row-fluid">
 		<div class="">
 			<%= label_tag :category, "Genre :", :class => "top"  %>
-			<%= select_tag "category",options_for_select(Account::CATEGORIES.collect{|v| v[1]}), { :include_blank => "Tous", :class =>"filter_statut" }  %>
+			<%= select_tag "category",options_for_select(Account::CATEGORIES), { :include_blank => "Tous", :class =>"filter_statut" }  %>
 		</div>
 	  
 		<div class="">
