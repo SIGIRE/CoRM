@@ -284,6 +284,7 @@ en:
     save_undefined_error: "An error has occurred while recording"
     load_undefined_error: "An error has occurred while reading file"
     default:
+      all: "All"
       subject: subject
       define_article_male: the
       define_article_apostrohpe: the

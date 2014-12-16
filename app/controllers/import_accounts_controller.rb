@@ -5,7 +5,7 @@
 #
 class ImportAccountsController < ApplicationController
 
-    has_scope :invalid
+    has_scope :anomaly
 
   
   # Show the full list of Accounts by paginate_by
@@ -15,13 +15,15 @@ class ImportAccountsController < ApplicationController
     @link="new_link"
     @all_import_accounts=ImportAccount.count
     
-    if params[:invalid]=="yes"
-        @import_accounts = apply_scopes(ImportAccount).order("anomaly DESC").order("company")
-        @check=true #keep check box checked
-    else
-        @import_accounts = ImportAccount.order("anomaly DESC").order("company")
-        @check=false
-    end
+    #if params[:anomaly]=="yes"
+    #    @import_accounts = apply_scopes(ImportAccount).order("anomaly DESC").order("company")
+    #    @check=true #keep check box checked
+    #else
+    #    @import_accounts = ImportAccount.order("anomaly DESC").order("company")
+    #    @check=false
+    #end
+    @import_accounts = apply_scopes(ImportAccount).order("anomaly DESC").order("company")
+    
     
     flash.now[:alert] = "#{t('app.message.alert.no_account_pending_validation')}" if @import_accounts.empty?
     flash.now[:alert] = "#{t('app.message.alert.accounts_in_anomaly', nbr: ImportAccount.where('anomaly != ?', ImportAccount::ANOMALIES[:no]).count)}"
@@ -153,6 +155,7 @@ class ImportAccountsController < ApplicationController
         end
     end
     
+    #this method scan all import_accounts and search duplicate
     def recalculate_duplicates
         nbr=0
         ImportAccount.find_each do |account1|

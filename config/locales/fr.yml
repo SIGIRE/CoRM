@@ -282,6 +282,7 @@ fr:
     save_undefined_error: "Une erreur est survenue pendant l'enregistrement"
     load_undefined_error: "Une erreur est survenue pendant la lecture du fichier"
     default:
+      all: "Tous"
       subject: Sujet
       define_article_male: le
       define_article_apostrohpe: "l'"

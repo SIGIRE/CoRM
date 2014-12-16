@@ -22,7 +22,8 @@ class ImportAccount < ActiveRecord::Base
   belongs_to :origin
   
   # Help to sort by account in error
-  scope :invalid, -> anomaly { where("anomaly != '#{ImportAccount::ANOMALIES[:no]}'") }
+  #scope :invalid, -> anomaly { where("anomaly != '#{ImportAccount::ANOMALIES[:no]}'") }
+  scope :anomaly, lambda { |a| where("anomaly IN (?)", a) unless a.blank? }
   
   
   def author

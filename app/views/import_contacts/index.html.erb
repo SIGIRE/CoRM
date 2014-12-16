@@ -8,8 +8,10 @@
   <%= form_tag(import_contacts_path, method: :GET) do %>
   <div class="row row-fluid">
 	 <div>
-	  <%= label_tag :invalid, "#{t('app.model.Contact')}s #{t('app.fields.invalid')}s :", class: 'top' %>
-	  <%= check_box_tag :invalid, 'yes', @check  %>
+	  <%#= label_tag :invalid, "#{t('app.model.Contact')}s #{t('app.fields.invalid')}s :", class: 'top' %>
+	  <%#= check_box_tag :invalid, 'yes', @check  %>
+	  <%= label_tag :anomaly, "#{t('app.fields.anomaly')} :", :class => "top"  %>
+	  <%= select_tag "anomaly", options_for_select(ImportContact::ANOMALIES.collect{|v| v[1]}), { :include_blank => "#{t('app.default.all')}", :class =>"filter_statut" }  %>
 	</div>
         <%= submit_tag "Filtrer", :class =>"btn"%>
   </div>
@@ -105,9 +107,12 @@
       <% end %>
     </tbody>
   </table>
-       <% if !@import_contacts.empty? %>
-    <%= button_to "#{t('views.button.import',models:t('title.contacts'))}", {action: "validate_contacts"}, {class: "btn btn-primary", id: "import_validate_form"} %>
-  <% end %>
+      <% if !@import_contacts.empty? %>
+	      <div style="float:left;margin-right: 5px">
+				<%= button_to "#{t('views.button.import',models:t('title.contacts'))}", {action: "importing_contacts"}, {class: "btn btn-primary", id: "import_validate_form"} %>
+			</div>
+			<%= button_to "#{t('app.actions.recalculate_duplicates')}", recalculate_duplicates_contacts_path, {class: "btn"} %>
+		<% end %>
   <%= paginate @import_contacts %> 
 
 </div>
