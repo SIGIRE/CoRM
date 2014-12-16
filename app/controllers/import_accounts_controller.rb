@@ -15,15 +15,9 @@ class ImportAccountsController < ApplicationController
     @link="new_link"
     @all_import_accounts=ImportAccount.count
     
-    #if params[:anomaly]=="yes"
-    #    @import_accounts = apply_scopes(ImportAccount).order("anomaly DESC").order("company")
-    #    @check=true #keep check box checked
-    #else
-    #    @import_accounts = ImportAccount.order("anomaly DESC").order("company")
-    #    @check=false
-    #end
     @import_accounts = apply_scopes(ImportAccount).order("anomaly DESC").order("company")
     
+    #to keep info filter
     if !params[:anomaly].nil?
         @select=params[:anomaly]
     end
@@ -75,8 +69,6 @@ class ImportAccountsController < ApplicationController
     #if user decide this account is not duplicate, don't try to search duplicate
     if params[:duplicate].nil?
         @import_account.update_attributes(:anomaly => ImportAccount::ANOMALIES[:no])
-    #else
-        #ImportAccount.checked_account(@import_account)
     end
   
     respond_to do |format|

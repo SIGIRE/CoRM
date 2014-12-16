@@ -8,10 +8,9 @@
   <%= form_tag(import_contacts_path, method: :GET) do %>
   <div class="row row-fluid">
 	 <div>
-	  <%#= label_tag :invalid, "#{t('app.model.Contact')}s #{t('app.fields.invalid')}s :", class: 'top' %>
-	  <%#= check_box_tag :invalid, 'yes', @check  %>
 	  <%= label_tag :anomaly, "#{t('app.fields.anomaly')} :", :class => "top"  %>
-	  <%= select_tag "anomaly", options_for_select(ImportContact::ANOMALIES.collect{|v| v[1]}), { :include_blank => "#{t('app.default.all')}", :class =>"filter_statut" }  %>
+	  <!--@select store value of selected anomaly -->
+	  <%= select_tag "anomaly", options_for_select(ImportContact::ANOMALIES.collect{|v| v[1]}, @select), { :include_blank => "#{t('app.default.all')}", :class =>"filter_statut" }  %>
 	</div>
         <%= submit_tag "Filtrer", :class =>"btn"%>
   </div>
@@ -95,9 +94,9 @@
 
 	
         <td class="text-center">
-	  <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_import_contact_path(contact) ,{:title => "#{t('link.edit', article:t('app.default.define_article_male'), model:t('app.model.Contact'))}" } %>
+	  <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_import_contact_path(contact, :anomaly=>@select) ,{:title => "#{t('link.edit', article:t('app.default.define_article_male'), model:t('app.model.Contact'))}" } %>
 	  <%= link_to '<i class="fa fa-trash fa-2x action-icon"></i>'.html_safe,
-			import_contact_path(contact),
+			import_contact_path(contact, :anomaly=>@select),
 			:title => "#{t('app.actions.destroy')} #{t('app.default.define_article_male')} #{t('app.model.Contact')}",
 			:confirm => "#{t('app.message.confirm.delete_before_import',model: t('app.model.Contact'))} #{t('app.message.confirm.delete')}",
 			:method => :delete %>

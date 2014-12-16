@@ -14,16 +14,12 @@ class ImportContactsController < ApplicationController
     @title=t('title.import_waiting')
     @link="new_link"
     
-    #if params[:invalid]=="yes"
-    #  @import_contacts = apply_scopes(ImportContact).order("anomaly DESC").order("surname")
-    #  @check=true #keep check box checked
-    #else
-    #  @import_contacts = ImportContact.order("anomaly DESC").order("surname")
-    #  @check=false
-    #end
-    
     @import_contacts = apply_scopes(ImportContact).order("anomaly DESC").order("company")
-    @check=params[:anomaly]
+    
+    #to keep info filter
+    if !params[:anomaly].nil?
+        @select=params[:anomaly]
+    end
         
     flash.now[:alert] = "#{t('app.message.alert.no_contact_pending_validation')}" if @import_contacts.empty?
     flash.now[:alert] = "#{t('app.message.alert.accounts_in_anomaly', nbr: ImportContact.where('anomaly != ?', ImportContact::ANOMALIES[:no]).count)}"
@@ -46,6 +42,7 @@ class ImportContactsController < ApplicationController
     #variables for render
     @title=t('app.actions.edition').capitalize+" "+t('app.model.Contact')+" "+@contact.full_name
     @link="back_link"
+    @select=params[:anomaly]
   end
   
   ##
@@ -53,6 +50,11 @@ class ImportContactsController < ApplicationController
   #
   # PUT /import_contacts/1
   def update
+    #if index is filter, keep it filter
+    if !params[:anomaly].nil?
+        select=params[:anomaly]
+    end
+    
     @import_contact = ImportContact.find(params[:id])
     @import_contact.modified_by = current_user.id
     @import_contact.update_attributes(params[:import_contact])
@@ -66,7 +68,7 @@ class ImportContactsController < ApplicationController
     end
     
     respond_to do |format|
-        format.html { redirect_to import_contacts_path, :notice => "#{t('app.message.notice.updated_contact')}" }      
+        format.html { redirect_to import_contacts_path(:anomaly=>select), :notice => "#{t('app.message.notice.updated_contact')}" }      
     end 
   end
   
@@ -106,30 +108,36 @@ class ImportContactsController < ApplicationController
   end
   
   def destroy
-        @import_contact = ImportContact.find(params[:id])
-        @import_contact.destroy
-        anomaly=@import_contact.anomaly
         
-        #if is delete because is a duplicate account, check import_accounts before redirect
-        #in order to change anomaly statut of the other account        
-        if anomaly==ImportContact::ANOMALIES[:duplicate]
-            ImportContact.find_each(:conditions=>"anomaly = '#{ImportContact::ANOMALIES[:duplicate]}'") do |contact1|
-                match=false
-                ImportContact.find_each(:conditions=>"id != #{contact1.id}") do |contact2|
-                    if ImportContact::is_match(contact1,contact2)
-                        match=true
-                    end
-                    break if match
+    #if index is filter, keep it filter after delete account
+    if !params[:anomaly].nil?
+        select=params[:anomaly]
+    end
+    
+    @import_contact = ImportContact.find(params[:id])
+    @import_contact.destroy
+    anomaly=@import_contact.anomaly
+    
+    #if is delete because is a duplicate account, check import_accounts before redirect
+    #in order to change anomaly statut of the other account        
+    if anomaly==ImportContact::ANOMALIES[:duplicate]
+        ImportContact.find_each(:conditions=>"anomaly = '#{ImportContact::ANOMALIES[:duplicate]}'") do |contact1|
+            match=false
+            ImportContact.find_each(:conditions=>"id != #{contact1.id}") do |contact2|
+                if ImportContact::is_match(contact1,contact2)
+                    match=true
                 end
-                if !match
-                    contact1.update_attributes(:anomaly => ImportContact::ANOMALIES[:no])
-                end
+                break if match
+            end
+            if !match
+                contact1.update_attributes(:anomaly => ImportContact::ANOMALIES[:no])
             end
         end
-        
-        respond_to do |format|
-            format.html { redirect_to import_contacts_path, :notice => "#{t('app.message.notice.delete_contact')}"  }
-        end
+    end
+    
+    respond_to do |format|
+        format.html { redirect_to import_contacts_path(:anomaly=>select), :notice => "#{t('app.message.notice.delete_contact')}"  }
+    end
   end
   
   #this method scan all import_contacts and search duplicate

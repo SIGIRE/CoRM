@@ -11,6 +11,8 @@
     </div>
   <% end %>
 
+  <!-- hidden_field is to keep filter value -->
+  <%=hidden_field_tag(:anomaly, @select)%>
 
   <div class="field">
     <div class="span2"><%= t('app.fields.name')+" :"  %></div> <%= f.text_field :surname %>
