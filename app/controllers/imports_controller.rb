@@ -69,15 +69,15 @@ class ImportsController < ApplicationController
                 format.html { render :template => new_import_path}
             end
         end
-        #rescue Exception => e
-        #    #if an exception occurs during reading file, import must be destroy
-        #    @import.destroy
-        #    respond_to do |format|
-        #       flash.now[:alert] = t('app.load_undefined_error')+" : "+e.message
-        #       @origin=nil  #to avoid bug when render template
-        #       @collegue=nil
-        #       format.html { render :template => new_import_path }
-        #    end
+        rescue Exception => e
+            #if an exception occurs during reading file, import must be destroy
+            @import.destroy
+            respond_to do |format|
+               flash.now[:alert] = t('app.load_undefined_error')+" : "+e.message
+               @origin=nil  #to avoid bug when render template
+               @collegue=nil
+               format.html { render :template => new_import_path }
+            end
         
         
     end
@@ -134,6 +134,7 @@ class ImportsController < ApplicationController
                     line = ImportContact.new row.to_hash
                     
                     line.save!
+                    #checked import_contact for invalid value in order to set anomaly
                     ImportContact.checked_contact(line)
                 end
             end

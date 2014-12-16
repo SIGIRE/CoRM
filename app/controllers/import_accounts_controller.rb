@@ -16,10 +16,10 @@ class ImportAccountsController < ApplicationController
     @all_import_accounts=ImportAccount.count
     
     if params[:invalid]=="yes"
-        @import_accounts = apply_scopes(ImportAccount).order("anomaly DESC")
+        @import_accounts = apply_scopes(ImportAccount).order("anomaly DESC").order("company")
         @check=true #keep check box checked
     else
-        @import_accounts = ImportAccount.order("anomaly DESC")
+        @import_accounts = ImportAccount.order("anomaly DESC").order("company")
         @check=false
     end
     

@@ -15,17 +15,16 @@ class ImportContactsController < ApplicationController
     @link="new_link"
     
     if params[:invalid]=="yes"
-      @import_contacts = apply_scopes(ImportContact).order("surname")
+      @import_contacts = apply_scopes(ImportContact).order("anomaly DESC").order("surname")
       @check=true #keep check box checked
     else
-      @import_contacts = ImportContact.order("surname")
+      @import_contacts = ImportContact.order("anomaly DESC").order("surname")
       @check=false
     end
-    
-    
-    
+        
     flash.now[:alert] = "#{t('app.message.alert.no_contact_pending_validation')}" if @import_contacts.empty?
-
+    flash.now[:alert] = "#{t('app.message.alert.accounts_in_anomaly', nbr: ImportContact.where('anomaly != ?', ImportContact::ANOMALIES[:no]).count)}"
+    
     respond_to do |format|
       format.html { @import_contacts = @import_contacts.page(params[:page]) }
       format.json { render :json => @import_contacts }
