@@ -17,6 +17,8 @@
 <% end %>
  <!-- END FILTER -->
  
+
+ 
   <table class="table table-bordered table-striped table-hover">
     <thead>
     <tr>
@@ -117,10 +119,13 @@
     <%= button_to "#{t('views.button.import',models:t('title.accounts'))}", {action: "importing_accounts"}, {class: "btn btn-primary", id: "import_validate_form"} %>
   </div>
 
-    <%= button_to "#{t('app.actions.recalculate_duplicates')}", {action: "recalculate_duplicates"}, {class: "btn btn-danger", id: "import_validate_form"} %>
+    <%= button_to "#{t('app.actions.recalculate_duplicates')}", {action: "recalculate_duplicates"}, {class: "btn"} %>
+    <%#= link_to 'doublon', recalculate_duplicates_path, remote: true, class: "btn btn-primary", data: { "loading-text" => "wait ..." } %>
+    <%#= form_tag(recalculate_duplicates_path, :html => { :class => "well ", :multipart => true}) %>
+    <%#= button_to "#{t('views.button.create_import')}", :type => :submit,:class =>"btn btn-primary",:id =>"import_validate_form" %>
 
   <% end %>
-  
 
   <%= paginate @import_accounts %>
 </div>
+

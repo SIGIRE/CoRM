@@ -456,6 +456,7 @@ en:
         no_account_pending_validation: "No account pending validation"
         no_contact_pending_validation: "No contact pending validation"
         no_import: "No import !"
+        accounts_in_anomaly: "%{nbr} invalidate(s) account(s) !"
       notice:
         updated_account: "Account have been updated"
         updated_contact: "Contact have been updated"
@@ -466,7 +467,7 @@ en:
         delete_import: "Import have been deleted !"
         import_done: "Import ready for validation"
         validate_account: "Account have been validated !"
-        recalculate_duplicates: "Duplicates have been recalculated"
+        recalculate_duplicates: "Duplicates have been recalculated : %{nbr} duplicate(s)"
   title:
     dashboard: "Dashboard"
     actor: "Actor"

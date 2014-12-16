@@ -454,6 +454,7 @@ fr:
       alert:
         no_account_pending_validation: "Pas de comptes en attente de validation"
         no_contact_pending_validation: "Pas de contact en attente de validation"
+        accounts_in_anomaly: "%{nbr} compte(s) invalide(s) !"
         no_import: "Pas d'import !"
       notice:
         updated_account: "Le compte a été modifié"
@@ -465,7 +466,7 @@ fr:
         delete_import: "L'import a bien été supprimé !"
         import_done: "Import prêt pour validation"
         validate_account: "Le compte a bien été validé !"
-        recalculate_duplicates: "Les doublons ont été recalculés"
+        recalculate_duplicates: "Les doublons ont été recalculés : %{nbr} doublon(s)"
   title:
     dashboard: "Tableau de bord"
     actor: "Acteur"

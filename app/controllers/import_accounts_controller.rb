@@ -16,14 +16,15 @@ class ImportAccountsController < ApplicationController
     @all_import_accounts=ImportAccount.count
     
     if params[:invalid]=="yes"
-        @import_accounts = apply_scopes(ImportAccount).order("company")
+        @import_accounts = apply_scopes(ImportAccount).order("anomaly DESC")
         @check=true #keep check box checked
     else
-        @import_accounts = ImportAccount.order("company")
+        @import_accounts = ImportAccount.order("anomaly DESC")
         @check=false
     end
     
     flash.now[:alert] = "#{t('app.message.alert.no_account_pending_validation')}" if @import_accounts.empty?
+    flash.now[:alert] = "#{t('app.message.alert.accounts_in_anomaly', nbr: ImportAccount.where('anomaly != ?', ImportAccount::ANOMALIES[:no]).count)}"
 
     respond_to do |format|
       format.html { @import_accounts = @import_accounts.page(params[:page]) }
@@ -153,20 +154,22 @@ class ImportAccountsController < ApplicationController
     end
     
     def recalculate_duplicates
-        Thread.new{
+        nbr=0
         ImportAccount.find_each do |account1|
             ImportAccount.find_each(start: (account1.id)+1) do |account2|
                 if ImportAccount.is_match(account1,account2)
+                    nbr+=1
                     account1.update_attributes(:anomaly=>ImportAccount::ANOMALIES[:duplicate]) unless account1.anomaly==ImportAccount::ANOMALIES[:duplicate]
                     account2.update_attributes(:anomaly=>ImportAccount::ANOMALIES[:duplicate]) unless account2.anomaly==ImportAccount::ANOMALIES[:duplicate]
                 end
             end
         end
-        }
         respond_to do |format|
-            format.html { redirect_to import_accounts_path(:invalid=>"no"), :notice => "#{t('app.message.notice.recalculate_duplicates')}" }
+            format.html { redirect_to import_accounts_path(:invalid=>"no"), :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}
+
         end
     end
+    
     
     #this method change anomaly value of an account to '-'
     #def validate_account
