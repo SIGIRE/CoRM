@@ -37,8 +37,17 @@
     <tbody>
       <% @import_contacts.each do |contact| %>		
 		
-        <tr class="<%='error' if contact.anomaly!=ImportContact::ANOMALIES[:no] %>">
-          <% if !contact.title.blank? %>
+		<%	case contact.anomaly
+				when ImportContact::ANOMALIES[:no]
+					%><tr class='success'><%
+				when ImportContact::ANOMALIES[:no_account]
+					%><tr class='warning'><%
+				else
+					%><tr class='error'><%
+			end
+		%> 
+          
+			 <% if !contact.title.blank? %>
             <% then %>
             <td class="text-center">
               <%= if contact.title == "M." then image_tag("glyphicons/glyphicons_034_old_man.png") end%>

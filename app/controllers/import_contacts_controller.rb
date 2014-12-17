@@ -72,8 +72,8 @@ class ImportContactsController < ApplicationController
     total=0
     import_contacts=ImportContact.all
     import_contacts.each do |i|
-      #if no anomaly in temporary contact
-      if i.anomaly==ImportContact::ANOMALIES[:no]
+      #if no anomaly in temporary contact or just warning on company name
+      if i.anomaly==ImportContact::ANOMALIES[:no] || i.anomaly==ImportContact::ANOMALIES[:no_account]
           contact=Contact.new
           contact.surname=i.surname
           contact.forename=i.forename

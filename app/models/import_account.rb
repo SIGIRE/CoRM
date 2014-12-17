@@ -9,7 +9,7 @@ class ImportAccount < ActiveRecord::Base
   resourcify
   
   CATEGORIES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire', 'Adhérent', 'Autre']
-  ANOMALIES = {:duplicate=>'Doublon',:company_name=>'Nom Société',:category=>'Catégorie',:no=>'Aucune'}
+  ANOMALIES = {:duplicate=>'Doublon',:company_name=>['Nom Société','error'],:category=>'Catégorie',:no=>'Aucune'}
   
   paginates_per 30
   
@@ -61,7 +61,7 @@ class ImportAccount < ActiveRecord::Base
         #search anomaly on company name
         #if company is nil or invalid characters
         if !account.company.blank? && account.company[/\w/]==nil
-            anomaly=ImportAccount::ANOMALIES[:company_name]
+            anomaly=ImportAccount::ANOMALIES[:company_name[0]]
         else
             #search duplicate account
             #try to match with imported accounts except account itself

@@ -8,7 +8,7 @@
   <%= form_tag(import_accounts_path, method: :GET) do %>
   <div class="row row-fluid">
     <div>
-      <%= label_tag :anomaly, "#{t('app.fields.anomaly')} :", :class => "top"  %>
+      <%= label_tag :anomaly, "#{t('app.fields.anomaly').pluralize} :", :class => "top"  %>
       <!--@select store value of selected anomaly -->
       <%= select_tag "anomaly", options_for_select(ImportAccount::ANOMALIES.collect{|v| v[1]},@select), { :prompt => "#{t('app.default.all')}", :class =>"filter_statut"}  %>
     </div>
@@ -34,8 +34,16 @@
     </thead>
 	<tbody>
   <% @import_accounts.each do |account| %>
-  <tr class="<%='error' if account.anomaly!='-' %>">
 
+
+    <%	case account.anomaly
+	  when ImportAccount::ANOMALIES[:no]
+		  %><tr class='success'><%
+	  else
+		  %><tr class='error'><%
+	end
+    %> 
+       
         <% if !account.company.nil? %>
                 <% then %>
                         <td class="text-center"><%= account.company %></td>
