@@ -13,8 +13,9 @@ class ImportContactsController < ApplicationController
     #variables for render
     @title=t('title.import_waiting')
     @link="new_link"
-    
-    @import_contacts = apply_scopes(ImportContact).order("anomaly DESC").order("company")
+    @all_import_contacts=ImportContact.count
+
+    @import_contacts = apply_scopes(ImportContact).order("anomaly DESC").order("surname")
     
     #to keep info filter
     if !params[:anomaly].nil?
@@ -58,14 +59,9 @@ class ImportContactsController < ApplicationController
     @import_contact = ImportContact.find(params[:id])
     @import_contact.modified_by = current_user.id
     @import_contact.update_attributes(params[:import_contact])
-    
-    #instead of an auto checking, user can manualy check for duplicate accounts
-    #ImportContact.checked_contact(@import_contact)
-    
-    #if user decide this contact is not duplicate, change anomaly status
-    if params[:duplicate].nil?
-        @import_contact.update_attributes(:anomaly => ImportContact::ANOMALIES[:no])
-    end
+  
+    #checked import_contact after update
+    ImportContact.checked_contact(@import_contact)
     
     respond_to do |format|
         format.html { redirect_to import_contacts_path(:anomaly=>select), :notice => "#{t('app.message.notice.updated_contact')}" }      
@@ -77,7 +73,7 @@ class ImportContactsController < ApplicationController
     import_contacts=ImportContact.all
     import_contacts.each do |i|
       #if no anomaly in temporary contact
-      if i.anomaly=='-'
+      if i.anomaly==ImportContact::ANOMALIES[:no]
           contact=Contact.new
           contact.surname=i.surname
           contact.forename=i.forename
@@ -119,7 +115,8 @@ class ImportContactsController < ApplicationController
     anomaly=@import_contact.anomaly
     
     #if is delete because is a duplicate account, check import_accounts before redirect
-    #in order to change anomaly statut of the other account        
+    #in order to change anomaly statut of the other account
+  
     if anomaly==ImportContact::ANOMALIES[:duplicate]
         ImportContact.find_each(:conditions=>"anomaly = '#{ImportContact::ANOMALIES[:duplicate]}'") do |contact1|
             match=false
@@ -144,16 +141,16 @@ class ImportContactsController < ApplicationController
   def recalculate_duplicates
     nbr=0
     ImportContact.find_each do |contact1|
-        ImportContact.find_each(start: (contact1.id)+1) do |contact2|
-            if ImportContact.is_match(contact1,contact2)
-                nbr+=1
-                contact1.update_attributes(:anomaly=>ImportContact::ANOMALIES[:duplicate]) unless contact1.anomaly==ImportContact::ANOMALIES[:duplicate]
-                contact2.update_attributes(:anomaly=>ImportContact::ANOMALIES[:duplicate]) unless contact2.anomaly==ImportContact::ANOMALIES[:duplicate]
-            end
+      ImportContact.find_each(start: (contact1.id)+1) do |contact2|
+        if ImportContact.is_match(contact1,contact2)
+          nbr+=1
+          contact1.update_attributes(:anomaly=>ImportContact::ANOMALIES[:duplicate]) unless contact1.anomaly==ImportContact::ANOMALIES[:duplicate]
+          contact2.update_attributes(:anomaly=>ImportContact::ANOMALIES[:duplicate]) unless contact2.anomaly==ImportContact::ANOMALIES[:duplicate]
         end
+      end
     end
     respond_to do |format|
-        format.html { redirect_to import_contacts_path(:invalid=>"no"), :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}
+      format.html { redirect_to import_contacts_path(:invalid=>"no"), :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}
 
     end
   end

@@ -4,13 +4,13 @@
  
  
  <!-- FILTER -->
- <% if !@import_contacts.empty? %>
+ <% if @all_import_contacts!=0 %>
   <%= form_tag(import_contacts_path, method: :GET) do %>
   <div class="row row-fluid">
 	 <div>
-	  <%= label_tag :anomaly, "#{t('app.fields.anomaly')} :", :class => "top"  %>
+	  <%= label_tag :anomaly, "#{t('app.fields.anomaly').pluralize} :", :class => "top"  %>
 	  <!--@select store value of selected anomaly -->
-	  <%= select_tag "anomaly", options_for_select(ImportContact::ANOMALIES.collect{|v| v[1]}, @select), { :include_blank => "#{t('app.default.all')}", :class =>"filter_statut" }  %>
+	  <%= select_tag "anomaly", options_for_select(ImportContact::ANOMALIES.collect{|v| v[1]}, @select), {:prompt => "#{t('app.default.all')}", :class =>"filter_statut" }  %>
 	</div>
         <%= submit_tag "Filtrer", :class =>"btn"%>
   </div>
@@ -30,13 +30,14 @@
         <th class="text-center"><%= t('app.fields.phone') %></th>
         <th class="text-center"><%= t('app.fields.mobile') %></th>
         <th class="text-center"><%= t('app.fields.email') %></th>
-	<th class="text-center"><%= t('app.fields.anomaly') %></th>
+		  <th class="text-center"><%= t('app.fields.anomaly') %></th>
         <th class="text-center"><%= t('app.fields.action') %></th>         
       </tr>
     </thead>
     <tbody>
-      <% @import_contacts.each do |contact| %>
-        <tr class="<%='error' if contact.anomaly!='-' %>">
+      <% @import_contacts.each do |contact| %>		
+		
+        <tr class="<%='error' if contact.anomaly!=ImportContact::ANOMALIES[:no] %>">
           <% if !contact.title.blank? %>
             <% then %>
             <td class="text-center">

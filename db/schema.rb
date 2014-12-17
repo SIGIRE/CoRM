@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141210104525) do
+ActiveRecord::Schema.define(:version => 20141217101901) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -195,12 +195,13 @@ ActiveRecord::Schema.define(:version => 20141210104525) do
     t.integer  "created_by"
     t.integer  "modified_by"
     t.integer  "account_id"
-    t.boolean  "active",      :default => true
+    t.boolean  "active",            :default => true
     t.integer  "import_id"
     t.string   "anomaly"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.string   "company"
+    t.boolean  "search_duplicates", :default => true
   end
 
   create_table "imports", :force => true do |t|

@@ -16,12 +16,12 @@
 
   <div class="field">
     <div class="span2"><%= t('app.fields.name')+" :"  %></div> <%= f.text_field :surname %>
-    <% if @contact.anomaly==ImportContact::ANOMALIES[:duplicate] %>
-	       <span>
-	       <%= label_tag :duplicate, "#{t('app.fields.duplicate')} :" %>
-	       <%= check_box_tag :duplicate, 'yes', true %>
-	       </span>
-    <% end %>
+
+      <span>
+      <%= label_tag :search_duplicates, "#{t('app.fields.duplicate')} :" %>
+      <%= f.check_box :search_duplicates %>
+      </span>
+
   </div>
   
   <div class="field">

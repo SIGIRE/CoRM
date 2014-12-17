@@ -284,7 +284,7 @@ en:
     save_undefined_error: "An error has occurred while recording"
     load_undefined_error: "An error has occurred while reading file"
     default:
-      all: "All"
+      all: "No filter"
       subject: subject
       define_article_male: the
       define_article_apostrohpe: the
@@ -446,7 +446,7 @@ en:
       notes: "Notes"
       invalid: "invalid"
       probability: "Probability of succes"
-      duplicate: "Duplicate"
+      duplicate: "Include in search Duplicates"
     message:
       confirm:
         delete: "Confirm delete ?"

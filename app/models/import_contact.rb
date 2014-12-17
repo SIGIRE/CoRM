@@ -13,7 +13,7 @@ class ImportContact < ActiveRecord::Base
   # Can be: M.|Mme
   #
   TITLES = ["M.", "Mme"]
-  ANOMALIES = {:duplicate=>'Doublon',:title=>'Civilité', :name=>'Nom Prénom',:no_account=>'Pas de compte correspondant',:no=>'-'}
+  ANOMALIES = {:duplicate=>'Doublon',:title=>'Civilité', :name=>'Nom Prénom',:no_account=>'Pas de compte correspondant',:no=>'Aucune'}
   
   paginates_per 30
   
@@ -42,51 +42,59 @@ class ImportContact < ActiveRecord::Base
     "#{forename} #{UnicodeUtils.upcase(surname, I18n.locale)}"
   end
   
-  #this metohd checked import_account. If any invalid value, valid_account is turn to false
-    def self.checked_contact(contact)
-      anomaly=ImportContact::ANOMALIES[:no]
-      if contact.account_id.blank?
-        puts "account id blank"
-        #search in DB if an account with company name like company name of the contact exist
-        compte = Account.find_by_company(contact.company.upcase) unless contact.company.blank?
-        if compte.nil?
-            anomaly=ImportContact::ANOMALIES[:no_account]
-        else
-          puts "compte existe"
-            contact.update_attributes(:account_id=>compte.id)
-        end
+  #
+  # this metohd checked import_contact. If any invalid value, anomaly is set to type of anomaly
+  # just one anomaly at a time. after each update import contact controller launch a new check
+  # so, until anomaly doesn't exist, contact appear in red with a message in anomaly
+  # column in index view
+  #
+  def self.checked_contact(contact)
+    anomaly=ImportContact::ANOMALIES[:no]
+    if contact.account_id.blank?
+      #search in DB if an account with company name like company name of the contact exist
+      compte = Account.find_by_company(contact.company.upcase) unless contact.company.blank?
+      if compte.nil?
+          anomaly=ImportContact::ANOMALIES[:no_account]
+      else
+          contact.update_attributes(:account_id=>compte.id)
       end
-      
-      #if surname and forename are nil
-      if contact.surname.blank? && contact.forename.blank?
-        anomaly=ImportContact::ANOMALIES[:name]
-      end
-             
-      #if surname or forname is nil or invalid characters
-      if (!contact.surname.blank? && contact.surname[/\w/]==nil) || (!contact.forename.blank? && contact.forename[/\w/]==nil)
-        anomaly=ImportContact::ANOMALIES[:name]
-      
-      #else search for duplicates (surname and forename equals)
-      else                   
-        try to match with imported contacts except contact itself
-        ImportContact.find_each(:conditions => "id != #{contact.id}") do |contact2|            
+    end
+    
+    #if surname and forename are nil
+    if contact.surname.blank? && contact.forename.blank?
+      anomaly=ImportContact::ANOMALIES[:name]
+    end
+           
+    #if surname or forname is nil or invalid characters
+    if (!contact.surname.blank? && contact.surname[/\w/]==nil) || (!contact.forename.blank? && contact.forename[/\w/]==nil)
+      anomaly=ImportContact::ANOMALIES[:name]
+    
+    #else search for duplicates (surname and forename equals)
+    else
+      #try to match with imported contacts except contact itself
+      if contact.search_duplicates==true
+        ImportContact.find_each(:conditions => "id != #{contact.id} AND search_duplicates=TRUE") do |contact2|            
           if is_match(contact, contact2)
             anomaly=ImportContact::ANOMALIES[:duplicate]
             if contact2.anomaly!=ImportAccount::ANOMALIES[:duplicate]
                 contact2.update_attributes(:anomaly=>ImportAccount::ANOMALIES[:duplicate])
             end
           end               
-        end          
+        end  
       end
-      
-      #if title is incorrect
-      if !contact.title=="M." && !contact.title=="Mme"
-        anomaly=ImportContact::ANOMALIES[:title]
-      end 
-      contact.update_attributes(:anomaly => anomaly)
+            
     end
     
+    #if title is incorrect
+    if !contact.title=="M." && !contact.title=="Mme"
+      anomaly=ImportContact::ANOMALIES[:title]
+    end 
+    contact.update_attributes(:anomaly => anomaly)
+  end
+    
+    #
     #this method match 2 contacts and return true if they seems duplicates
+    #
     def self.is_match (contact1,contact2)
         match=false
         #try to match phone and mobile in priority
