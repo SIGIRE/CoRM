@@ -175,11 +175,12 @@ ActiveRecord::Schema.define(:version => 20141217101901) do
     t.string   "email"
     t.string   "web"
     t.integer  "origin_id"
-    t.boolean  "active",          :default => true
+    t.boolean  "active",            :default => true
     t.integer  "import_id"
-    t.string   "anomaly",         :default => "-"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.string   "anomaly",           :default => "-"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.boolean  "search_duplicates", :default => true
   end
 
   create_table "import_contacts", :force => true do |t|

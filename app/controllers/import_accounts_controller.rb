@@ -8,7 +8,7 @@ class ImportAccountsController < ApplicationController
     has_scope :anomaly
 
   
-  # Show the full list of Accounts by paginate_by
+  # Show the full list of Import_accounts by paginate_by
   def index
     #variables for render
     @title=t('title.import_waiting')
@@ -66,10 +66,8 @@ class ImportAccountsController < ApplicationController
     params[:import_account][:web] = Format.to_url(params[:import_account][:web])
     @import_account.update_attributes(params[:import_account])
     
-    #if user decide this account is not duplicate, don't try to search duplicate
-    if params[:duplicate].nil?
-        @import_account.update_attributes(:anomaly => ImportAccount::ANOMALIES[:no])
-    end
+    #checked import_contact after update
+    ImportAccount.checked_account(@import_account)
   
     respond_to do |format|
         format.html { redirect_to import_accounts_path(:anomaly=>select), :notice => "#{t('app.message.notice.updated_account')}" }

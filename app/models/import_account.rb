@@ -9,7 +9,7 @@ class ImportAccount < ActiveRecord::Base
   resourcify
   
   CATEGORIES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire', 'Adhérent', 'Autre']
-  ANOMALIES = {:duplicate=>'Doublon',:company_name=>'Nom Société',:category=>'Catégorie',:no=>'-'}
+  ANOMALIES = {:duplicate=>'Doublon',:company_name=>'Nom Société',:category=>'Catégorie',:no=>'Aucune'}
   
   paginates_per 30
   
@@ -65,13 +65,15 @@ class ImportAccount < ActiveRecord::Base
         else
             #search duplicate account
             #try to match with imported accounts except account itself
-            ImportAccount.find_each(:conditions => "id != #{account.id} AND company !=''") do |account2|            
-              if is_match(account, account2)
-                anomaly=ImportAccount::ANOMALIES[:duplicate]
-                if account2.anomaly!=ImportAccount::ANOMALIES[:duplicate]
-                    account2.update_attributes(:anomaly=>ImportAccount::ANOMALIES[:duplicate])
+            if account.search_duplicates==true
+                ImportAccount.find_each(:conditions => "id != #{account.id} AND company !='' AND search_duplicates=TRUE") do |account2|            
+                  if is_match(account, account2)
+                    anomaly=ImportAccount::ANOMALIES[:duplicate]
+                    if account2.anomaly!=ImportAccount::ANOMALIES[:duplicate]
+                        account2.update_attributes(:anomaly=>ImportAccount::ANOMALIES[:duplicate])
+                    end
+                  end               
                 end
-              end               
             end
         end 
         

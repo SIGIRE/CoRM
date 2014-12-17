@@ -17,12 +17,12 @@
  <form class="well form-inline">
   <div class="field">
 	  <div class="span2"><%= t('app.fields.company')+" :" %></div> <%= f.text_field :company ,{ :class => 'required'}  %><span class="req" />
-	  <% if @import_account.anomaly==ImportAccount::ANOMALIES[:duplicate] %>
+	  
 	       <span>
-	       <%= label_tag :duplicate, "#{t('app.fields.duplicate')} :" %>
-	       <%= check_box_tag :duplicate, 'yes', true %>
+	       <%= label_tag :search_duplicates, "#{t('app.fields.duplicate')} :" %>
+	       <%= f.check_box :search_duplicates %>
 	       </span>
-	  <% end %>
+	  
   </div>
 
   <% if @import_account.persisted? %>
