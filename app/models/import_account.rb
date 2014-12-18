@@ -9,7 +9,7 @@ class ImportAccount < ActiveRecord::Base
   resourcify
   
   CATEGORIES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire', 'Adhérent', 'Autre']
-  ANOMALIES = {:duplicate=>'Doublon',:company_name=>['Nom Société','error'],:category=>'Catégorie',:no=>'Aucune'}
+  ANOMALIES = {:duplicate=>'Doublon',:company_name=>'Nom Société',:category=>'Catégorie',:no=>'Aucune'}
   
   paginates_per 30
   
@@ -60,8 +60,8 @@ class ImportAccount < ActiveRecord::Base
         anomaly=ImportAccount::ANOMALIES[:no]
         #search anomaly on company name
         #if company is nil or invalid characters
-        if !account.company.blank? && account.company[/\w/]==nil
-            anomaly=ImportAccount::ANOMALIES[:company_name[0]]
+        if account.company.blank? || account.company[/\w/]==nil
+            anomaly=ImportAccount::ANOMALIES[:company_name]
         else
             #search duplicate account
             #try to match with imported accounts except account itself
@@ -102,7 +102,7 @@ class ImportAccount < ActiveRecord::Base
             company2=account2.company.upcase
             #use gem Text
             score=Text::WhiteSimilarity.new
-            if score.similarity(company1,company2)>0.8 && account1.zip.gsub(/\s/,"").eql?(account2.zip.gsub(/\s/,""))
+            if score.similarity(company1,company2)>0.7 && account1.zip.gsub(/\s/,"").eql?(account2.zip.gsub(/\s/,""))
                 match=true                
             end   
           end

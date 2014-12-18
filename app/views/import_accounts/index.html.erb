@@ -37,6 +37,8 @@
 
 
     <%	case account.anomaly
+	  when '-'
+		  %><tr class=''><%
 	  when ImportAccount::ANOMALIES[:no]
 		  %><tr class='success'><%
 	  else

@@ -10,26 +10,46 @@ class ImportAccountsController < ApplicationController
   
   # Show the full list of Import_accounts by paginate_by
   def index
+ 
     #variables for render
     @title=t('title.import_waiting')
     @link="new_link"
     @all_import_accounts=ImportAccount.count
     
-    @import_accounts = apply_scopes(ImportAccount).order("anomaly DESC").order("company")
-    
+    @import_accounts = apply_scopes(ImportAccount).order("anomaly DESC", "company")    
+        
+    #check for anomaly except for rendering filter
+    if params[:commit]!='Filtrer'
+        ImportAccount.transaction do    
+            ImportAccount.find_each do |i|
+                ImportAccount.checked_account(i)
+            end
+        end
+    end
+ 
     #to keep info filter
     if !params[:anomaly].nil?
         @select=params[:anomaly]
     end
     
-    flash.now[:alert] = "#{t('app.message.alert.no_account_pending_validation')}" if @import_accounts.empty?
-    flash.now[:alert] = "#{t('app.message.alert.accounts_in_anomaly', nbr: ImportAccount.where('anomaly != ?', ImportAccount::ANOMALIES[:no]).count)}"
+    if @all_import_accounts.empty==0
+        flash.now[:alert] = "#{t('app.message.alert.no_account_pending_validation')}" 
+    else
+        flash.now[:alert] = "#{t('app.message.alert.accounts_in_anomaly', nbr: ImportAccount.where('anomaly != ?', ImportAccount::ANOMALIES[:no]).count)}"
+    end
 
     respond_to do |format|
       format.html { @import_accounts = @import_accounts.page(params[:page]) }
       format.json { render :json => @import_accounts }
-      #format.csv { render :text => @import_accounts.to_csv }
     end
+    
+    rescue Exception => e
+            #if an exception occurs during checking import_accounts
+            respond_to do |format|
+               flash.now[:alert] = t('app.check_undefined_error')+" : "+e.message
+               format.html { @import_accounts = @import_accounts.page(params[:page]) }
+            end
+    
   end
   
   ##
@@ -65,9 +85,6 @@ class ImportAccountsController < ApplicationController
     params[:import_account][:company] = UnicodeUtils.upcase(params[:import_account][:company], I18n.locale)
     params[:import_account][:web] = Format.to_url(params[:import_account][:web])
     @import_account.update_attributes(params[:import_account])
-    
-    #checked import_contact after update
-    ImportAccount.checked_account(@import_account)
   
     respond_to do |format|
         format.html { redirect_to import_accounts_path(:anomaly=>select), :notice => "#{t('app.message.notice.updated_account')}" }
@@ -130,9 +147,9 @@ class ImportAccountsController < ApplicationController
         #if is delete because is a duplicate account, check import_accounts before redirect
         #in order to change anomaly statut of the other account        
         if anomaly==ImportAccount::ANOMALIES[:duplicate]
-            ImportAccount.find_each(:conditions=>"anomaly = '#{ImportAccount::ANOMALIES[:duplicate]}'") do |account1|
+            ImportAccount.find_each(:conditions=>"anomaly = '#{ImportAccount::ANOMALIES[:duplicate]}' AND company!=''") do |account1|
                 match=false
-                ImportAccount.find_each(:conditions=>"id != #{account1.id}") do |account2|
+                ImportAccount.find_each(:conditions=>"id != #{account1.id} AND company!=''") do |account2|
                     if ImportAccount::is_match(account1,account2)
                         match=true
                     end
@@ -152,8 +169,8 @@ class ImportAccountsController < ApplicationController
     #this method scan all import_accounts and search duplicate
     def recalculate_duplicates
         nbr=0
-        ImportAccount.find_each do |account1|
-            ImportAccount.find_each(start: (account1.id)+1) do |account2|
+        ImportAccount.find_each(:conditions=>"company!=''") do |account1|
+            ImportAccount.find_each(:conditions=>"company!=''", start: (account1.id)+1) do |account2|
                 if ImportAccount.is_match(account1,account2)
                     nbr+=1
                     account1.update_attributes(:anomaly=>ImportAccount::ANOMALIES[:duplicate]) unless account1.anomaly==ImportAccount::ANOMALIES[:duplicate]

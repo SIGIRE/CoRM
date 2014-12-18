@@ -15,21 +15,50 @@ class ImportContactsController < ApplicationController
     @link="new_link"
     @all_import_contacts=ImportContact.count
 
-    @import_contacts = apply_scopes(ImportContact).order("anomaly DESC").order("surname")
+    @import_contacts = apply_scopes(ImportContact).order("anomaly DESC", "surname")
+    
+    #check for anomaly except when just rendering filter
+    if params[:commit]!='Filtrer'
+      ImportContact.transaction do    
+        ImportContact.find_each do |i|
+            ImportContact.checked_contact(i)
+        end
+      end
+    end
+    
+    
     
     #to keep info filter
     if !params[:anomaly].nil?
         @select=params[:anomaly]
     end
+    
+    if @all_import_contacts==0 
+      flash.now[:alert] = "#{t('app.message.alert.no_contact_pending_validation')}" 
+    else
+      nbr_anomaly=ImportContact.where('anomaly != ?', ImportContact::ANOMALIES[:no]).count
+      if nbr_anomaly>0
+        flash.now[:alert] = "#{t('app.message.alert.accounts_in_anomaly', nbr: nbr_anomaly)}"
+      else
+        flash.now[:notice] = "#{t('app.message.alert.accounts_in_anomaly', nbr: 'Aucun')}"
+      end
+      
         
-    flash.now[:alert] = "#{t('app.message.alert.no_contact_pending_validation')}" if @import_contacts.empty?
-    flash.now[:alert] = "#{t('app.message.alert.accounts_in_anomaly', nbr: ImportContact.where('anomaly != ?', ImportContact::ANOMALIES[:no]).count)}"
+    end
     
     respond_to do |format|
       format.html { @import_contacts = @import_contacts.page(params[:page]) }
       format.json { render :json => @import_contacts }
       #format.csv { render :text => @import_contacts.to_csv }
     end
+    
+    rescue Exception => e
+            #if an exception occurs during checking import_contacts
+            respond_to do |format|
+               flash.now[:alert] = t('app.check_undefined_error')+" : "+e.message
+               format.html { @import_contacts = @import_contacts.page(params[:page]) }
+            end
+    
   end
   
   ##
@@ -59,9 +88,6 @@ class ImportContactsController < ApplicationController
     @import_contact = ImportContact.find(params[:id])
     @import_contact.modified_by = current_user.id
     @import_contact.update_attributes(params[:import_contact])
-  
-    #checked import_contact after update
-    ImportContact.checked_contact(@import_contact)
     
     respond_to do |format|
         format.html { redirect_to import_contacts_path(:anomaly=>select), :notice => "#{t('app.message.notice.updated_contact')}" }      

@@ -279,8 +279,9 @@ fr:
         subject: "Instructions pour déverrouiller le compte"
   app:
     at: le
-    save_undefined_error: "Une erreur est survenue pendant l'enregistrement"
-    load_undefined_error: "Une erreur est survenue pendant la lecture du fichier"
+    save_undefined_error: "Une erreur est survenue pendant l'enregistrement !"
+    load_undefined_error: "Une erreur est survenue pendant la lecture du fichier ligne !"
+    check_undefined_error: "Une erreur a empêchée la détection des anomalies !"
     default:
       all: "Non filtré(es)"
       subject: Sujet

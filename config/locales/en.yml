@@ -281,8 +281,9 @@ en:
         subject: "Instructions pour déverrouiller le compte"
   app:
     at: at
-    save_undefined_error: "An error has occurred while recording"
-    load_undefined_error: "An error has occurred while reading file"
+    save_undefined_error: "An error has occurred while recording !"
+    load_undefined_error: "An error has occurred while reading file line !"
+    check_undefined_error: "An error has break anomaly detection !"
     default:
       all: "No filter"
       subject: subject

@@ -38,8 +38,16 @@ class ImportContact < ActiveRecord::Base
   # Get the complete name of this person.
   #
   def full_name
-    #"#{title} #{forename} #{UnicodeUtils.upcase(surname, I18n.locale)}"
-    "#{forename} #{UnicodeUtils.upcase(surname, I18n.locale)}"
+    _forename='-'
+    _surname='-'
+    if !forename.blank?
+      _forename=forename
+    end
+    if !surname.blank?
+      _surname=surname
+    end
+    
+    "#{_forename} #{UnicodeUtils.upcase(_surname, I18n.locale)}"
   end
   
   #
@@ -50,6 +58,7 @@ class ImportContact < ActiveRecord::Base
   #
   def self.checked_contact(contact)
     anomaly=ImportContact::ANOMALIES[:no]
+    
     if contact.account_id.blank?
       #search in DB if an account with company name like company name of the contact exist
       compte = Account.find_by_company(contact.company.upcase) unless contact.company.blank?
@@ -86,9 +95,10 @@ class ImportContact < ActiveRecord::Base
     end
     
     #if title is incorrect
-    if !contact.title=="M." && !contact.title=="Mme"
+    if contact.title!="M." && contact.title!="Mme"
       anomaly=ImportContact::ANOMALIES[:title]
-    end 
+    end
+    
     contact.update_attributes(:anomaly => anomaly)
   end
     
