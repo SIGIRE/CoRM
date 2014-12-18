@@ -123,8 +123,7 @@ class ImportsController < ApplicationController
                 end
                 line.save!
                 @num_line+=1
-                #checked import_account for invalid value in order to set anomaly
-                #ImportAccount.checked_account(line)
+
             end
            end
            #for redirecting to the correct model template
@@ -140,8 +139,7 @@ class ImportsController < ApplicationController
                     line = ImportContact.new row.to_hash
                     
                     line.save!
-                    #checked import_contact for invalid value in order to set anomaly
-                    ImportContact.checked_contact(line)
+
                 end
             end
             @models_path=import_contacts_path
