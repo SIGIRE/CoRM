@@ -13,7 +13,7 @@ class ImportContact < ActiveRecord::Base
   # Can be: M.|Mme
   #
   TITLES = ["M.", "Mme"]
-  ANOMALIES = {:duplicate=>'Doublon',:title=>'Civilité', :name=>'Nom Prénom',:no_account=>'Pas de compte correspondant',:no=>'Aucune'}
+  ANOMALIES = {:duplicate=>'Doublon',:title=>'Civilité', :name=>'Nom Prénom',:no_account=>'Compte société inexistant',:no=>'Aucune'}
   
   paginates_per 30
   
