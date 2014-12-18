@@ -118,9 +118,13 @@
   </table>
       <% if !@import_contacts.empty? %>
 	      <div style="float:left;margin-right: 5px">
-				<%= button_to "#{t('views.button.import',models:t('title.contacts'))}", {action: "importing_contacts"}, {class: "btn btn-primary", id: "import_validate_form"} %>
+				<%= form_tag(action: "importing_contacts") do %>
+					<%= button_tag "#{t('views.button.import',models:t('title.contacts'))}", class: "btn btn-primary" %>
+				<% end %>
 			</div>
-			<%= button_to "#{t('app.actions.recalculate_duplicates')}", recalculate_duplicates_contacts_path, {class: "btn"} %>
+			<%= form_tag(recalculate_duplicates_contacts_path) do %>
+				<%= button_tag "#{t('app.actions.recalculate_duplicates')}", class: "btn" %>
+			<% end %>
 		<% end %>
   <%= paginate @import_contacts %> 
 

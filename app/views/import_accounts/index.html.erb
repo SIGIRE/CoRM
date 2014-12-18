@@ -115,12 +115,15 @@
   
   <% if !@import_accounts.empty? %>
     <div style="float:left;margin-right: 5px">
-    <%= button_to "#{t('views.button.import',models:t('title.accounts'))}", {action: "importing_accounts"}, {class: "btn btn-primary", id: "import_validate_form"} %>
-  </div>
+      <%= form_tag(action: "importing_accounts") do %>
+	<%= button_tag "#{t('views.button.import',models:t('title.accounts'))}", class: "btn btn-primary" %>
+      <% end %>
+    </div>
 
-    <%= button_to "#{t('app.actions.recalculate_duplicates')}", recalculate_duplicates_accounts_path, {class: "btn"} %>
+    <%= form_tag(recalculate_duplicates_accounts_path) do %>
+      <%= button_tag "#{t('app.actions.recalculate_duplicates')}", class: "btn" %>
+    <% end %>
     
-
   <% end %>
 
   <%= paginate @import_accounts %>

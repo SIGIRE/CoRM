@@ -4,7 +4,7 @@
 # Controller that manage Import_account
 #
 class ImportAccountsController < ApplicationController
-
+    
     has_scope :anomaly
 
   
