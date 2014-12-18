@@ -279,9 +279,11 @@ fr:
         subject: "Instructions pour déverrouiller le compte"
   app:
     at: le
-    save_undefined_error: "Une erreur est survenue pendant l'enregistrement"
-    load_undefined_error: "Une erreur est survenue pendant la lecture du fichier"
+    save_undefined_error: "Une erreur est survenue pendant l'enregistrement !"
+    load_undefined_error: "Une erreur est survenue pendant la lecture du fichier ligne !"
+    check_undefined_error: "Une erreur a empêchée la détection des anomalies !"
     default:
+      all: "Non filtré(es)"
       subject: Sujet
       define_article_male: le
       define_article_apostrohpe: "l'"
@@ -309,6 +311,8 @@ fr:
       updated_account: "Modifier le compte"
       choose_file: "Choisir un fichier"
       show_valid_import: "Afficher la liste des %{model} importés et validés"
+      validate: "valider"
+      recalculate_duplicates: "Recalculer les doublons"
     cancan:
       messages:
         unauthorized: "Vous n'êtes pas autorisé à [action] [undefined_article] [model]"
@@ -442,14 +446,17 @@ fr:
       notes: "Notes"
       invalid: "invalide"
       probability: "Probabilité de succés"
+      duplicate: "Inclure dans la recherche de doublons"
     message:
       confirm:
         delete: "Confirmer la suppression ?"
         delete_before_import: "Ce %{model} ne sera pas importé !"
         delete_import: "Attention : La suppression de l'import entraine la suppression de tous les éléments liés à cet import (contacts ou comptes) ! Confirmez-vous la suppression ?"
+        validate_account: "Valider le compte ?"
       alert:
         no_account_pending_validation: "Pas de comptes en attente de validation"
         no_contact_pending_validation: "Pas de contact en attente de validation"
+        accounts_in_anomaly: "%{nbr} compte(s) invalide(s) !"
         no_import: "Pas d'import !"
       notice:
         updated_account: "Le compte a été modifié"
@@ -460,6 +467,8 @@ fr:
         delete_contact: "Le contact a bien été supprimé !"
         delete_import: "L'import a bien été supprimé !"
         import_done: "Import prêt pour validation"
+        validate_account: "Le compte a bien été validé !"
+        recalculate_duplicates: "Les doublons ont été recalculés : %{nbr} doublon(s)"
   title:
     dashboard: "Tableau de bord"
     actor: "Acteur"

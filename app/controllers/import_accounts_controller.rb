@@ -4,31 +4,52 @@
 # Controller that manage Import_account
 #
 class ImportAccountsController < ApplicationController
-
-    has_scope :invalid
+    
+    has_scope :anomaly
 
   
-  # Show the full list of Accounts by paginate_by
+  # Show the full list of Import_accounts by paginate_by
   def index
+ 
     #variables for render
     @title=t('title.import_waiting')
     @link="new_link"
+    @all_import_accounts=ImportAccount.count
     
-    if params[:invalid]=="yes"
-        @import_accounts = apply_scopes(ImportAccount).order("company")
-        @check=true #keep check box checked
-    else
-        @import_accounts = ImportAccount.order("company")
-        @check=false
+    @import_accounts = apply_scopes(ImportAccount).order("anomaly DESC", "company")    
+        
+    #check for anomaly except for rendering filter
+    if params[:commit]!='Filtrer'
+        ImportAccount.transaction do    
+            ImportAccount.find_each do |i|
+                ImportAccount.checked_account(i)
+            end
+        end
+    end
+ 
+    #to keep info filter
+    if !params[:anomaly].nil?
+        @select=params[:anomaly]
     end
     
-    flash.now[:alert] = "#{t('app.message.alert.no_account_pending_validation')}" if @import_accounts.empty?
+    if @all_import_accounts==0
+        flash.now[:alert] = "#{t('app.message.alert.no_account_pending_validation')}" 
+    else
+        flash.now[:alert] = "#{t('app.message.alert.accounts_in_anomaly', nbr: ImportAccount.where('anomaly != ?', ImportAccount::ANOMALIES[:no]).count)}"
+    end
 
     respond_to do |format|
       format.html { @import_accounts = @import_accounts.page(params[:page]) }
       format.json { render :json => @import_accounts }
-      #format.csv { render :text => @import_accounts.to_csv }
     end
+    
+    rescue Exception => e
+            #if an exception occurs during checking import_accounts
+            respond_to do |format|
+               flash.now[:alert] = t('app.check_undefined_error')+" : "+e.message
+               format.html { @import_accounts = @import_accounts.page(params[:page]) }
+            end
+    
   end
   
   ##
@@ -40,9 +61,13 @@ class ImportAccountsController < ApplicationController
     @users = User.all_reals
     
     #variables for render
-    @title=t('app.actions.edition').capitalize+" "+t('app.model.Account')+" "+@import_account.company
+    company_name = '-'
+    if !@import_account.company.nil?
+        company_name = @import_account.company
+    end        
+    @title=t('app.actions.edition').capitalize+" "+t('app.model.Account')+" "+company_name
     @link="back_link"
-    @check=params[:invalid]
+    @select=params[:anomaly]   
   end
   
   ##
@@ -50,33 +75,31 @@ class ImportAccountsController < ApplicationController
   #
   # PUT /import_accounts/1
   def update
-    #if index is filter, keep it filter after delete account
-    if params[:invalid]=="true"
-        filter="yes"
+    #if index is filter, keep it filter
+    if !params[:anomaly].nil?
+        select=params[:anomaly]
     end
-        
+            
     @import_account = ImportAccount.find(params[:id])
     @import_account.modified_by = current_user.id
     params[:import_account][:company] = UnicodeUtils.upcase(params[:import_account][:company], I18n.locale)
     params[:import_account][:web] = Format.to_url(params[:import_account][:web])
     @import_account.update_attributes(params[:import_account])
-    
-    ImportAccount.checked_account(@import_account)
-    
+  
     respond_to do |format|
-        format.html { redirect_to import_accounts_path(:invalid=>filter), :notice => "#{t('app.message.notice.updated_account')}" }
+        format.html { redirect_to import_accounts_path(:anomaly=>select), :notice => "#{t('app.message.notice.updated_account')}" }
       
     end 
   end
   
   #create accounts from import_accounts in database which have a true valid_account
   #this method is called from import button in index view
-  def validate_accounts
+  def importing_accounts
     total=0
     import_accounts=ImportAccount.all
     import_accounts.each do |i|
         #if no anomaly in temporary account
-        if i.anomaly=='-'
+        if i.anomaly==ImportAccount::ANOMALIES[:no]
             account=Account.new
             account.company=i.company
             account.adress1=i.adress1
@@ -100,7 +123,7 @@ class ImportAccountsController < ApplicationController
             account.import_id=i.import_id
             account.save!
             total+=1
-            #delete temporary contact when save in DB
+            #delete temporary account when save in DB
             i.destroy
         end    
     end
@@ -110,19 +133,55 @@ class ImportAccountsController < ApplicationController
     end
   end
   
-  def destroy
+    def destroy
         #if index is filter, keep it filter after delete account
-        if params[:invalid]=="true"
-            filter="yes"
+        if !params[:anomaly].nil?
+            select=params[:anomaly]
         end
+
         
         @import_account = ImportAccount.find(params[:id])
+        anomaly=@import_account.anomaly
         @import_account.destroy
+        
+        #if is delete because is a duplicate account, check import_accounts before redirect
+        #in order to change anomaly statut of the other account        
+        if anomaly==ImportAccount::ANOMALIES[:duplicate]
+            ImportAccount.find_each(:conditions=>"anomaly = '#{ImportAccount::ANOMALIES[:duplicate]}' AND company!=''") do |account1|
+                match=false
+                ImportAccount.find_each(:conditions=>"id != #{account1.id} AND company!=''") do |account2|
+                    if ImportAccount::is_match(account1,account2)
+                        match=true
+                    end
+                    break if match
+                end
+                if !match
+                    account1.update_attributes(:anomaly => ImportAccount::ANOMALIES[:no])
+                end
+            end
+        end
+        
         respond_to do |format|
-            format.html { redirect_to import_accounts_path(:invalid=>filter), :notice => "#{t('app.message.notice.delete_account')}" }
+            format.html { redirect_to import_accounts_path(:anomaly=>select), :notice => "#{t('app.message.notice.delete_account')}" }
         end
     end
+    
+    #this method scan all import_accounts and search duplicate
+    def recalculate_duplicates
+        nbr=0
+        ImportAccount.find_each(:conditions=>"company!=''") do |account1|
+            ImportAccount.find_each(:conditions=>"company!=''", start: (account1.id)+1) do |account2|
+                if ImportAccount.is_match(account1,account2)
+                    nbr+=1
+                    account1.update_attributes(:anomaly=>ImportAccount::ANOMALIES[:duplicate]) unless account1.anomaly==ImportAccount::ANOMALIES[:duplicate]
+                    account2.update_attributes(:anomaly=>ImportAccount::ANOMALIES[:duplicate]) unless account2.anomaly==ImportAccount::ANOMALIES[:duplicate]
+                end
+            end
+        end
+        respond_to do |format|
+            format.html { redirect_to import_accounts_path, :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}
 
-  
-  
+        end
+    end
+ 
 end

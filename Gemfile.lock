@@ -177,6 +177,7 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    text (1.3.0)
     therubyracer (0.12.1)
       libv8 (~> 3.16.14.0)
       ref
@@ -230,6 +231,7 @@ DEPENDENCIES
   rolify
   rubyzip
   sass-rails (~> 3.2)
+  text (~> 1.3.0)
   therubyracer
   uglifier (>= 1.0.3)
   unicode_utils

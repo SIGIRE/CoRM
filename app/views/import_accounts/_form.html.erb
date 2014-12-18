@@ -12,11 +12,17 @@
   <% end %>
   
   <!-- hidden_field is to keep filter value -->
-  <%=hidden_field_tag(:invalid, @check)%>
+  <%=hidden_field_tag(:anomaly, @select)%>
 
  <form class="well form-inline">
   <div class="field">
 	  <div class="span2"><%= t('app.fields.company')+" :" %></div> <%= f.text_field :company ,{ :class => 'required'}  %><span class="req" />
+	  
+	       <span>
+	       <%= label_tag :search_duplicates, "#{t('app.fields.duplicate')} :" %>
+	       <%= f.check_box :search_duplicates %>
+	       </span>
+	  
   </div>
 
   <% if @import_account.persisted? %>

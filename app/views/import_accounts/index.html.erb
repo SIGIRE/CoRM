@@ -4,20 +4,21 @@
  
  
  <!-- FILTER -->
- <% if !@import_accounts.empty? %>
+ <% if @all_import_accounts!=0 %>
   <%= form_tag(import_accounts_path, method: :GET) do %>
   <div class="row row-fluid">
-	 <div>
-	  <%= label_tag :invalid, "#{t('app.model.Account')}s #{t('app.fields.invalid')}s :", class: 'top' %>
-	  <%= check_box_tag :invalid, 'yes', @check %>
-	</div>
-        <%= submit_tag "#{t('app.actions.filter')}", :class =>"btn"%>
+    <div>
+      <%= label_tag :anomaly, "#{t('app.fields.anomaly').pluralize} :", :class => "top"  %>
+      <!--@select store value of selected anomaly -->
+      <%= select_tag "anomaly", options_for_select(ImportAccount::ANOMALIES.collect{|v| v[1]},@select), { :prompt => "#{t('app.default.all')}", :class =>"filter_statut"}  %>
+    </div>
+    <%= submit_tag "#{t('app.actions.filter')}", :class =>"btn"%>
   </div>
  <% end %>
 <% end %>
- <!-- END FILTER -->
-  
-  
+ <!-- END FILTER --> 
+
+ 
   <table class="table table-bordered table-striped table-hover">
     <thead>
     <tr>
@@ -33,8 +34,18 @@
     </thead>
 	<tbody>
   <% @import_accounts.each do |account| %>
-  <tr class="<%='error' if account.anomaly!='-' %>">
 
+
+    <%	case account.anomaly
+	  when '-'
+		  %><tr class=''><%
+	  when ImportAccount::ANOMALIES[:no]
+		  %><tr class='success'><%
+	  else
+		  %><tr class='error'><%
+	end
+    %> 
+       
         <% if !account.company.nil? %>
                 <% then %>
                         <td class="text-center"><%= account.company %></td>
@@ -88,21 +99,35 @@
           <td class="text-center"><%= account.anomaly %></td>
 
 	
-        <td class="text-center">
-	  <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_import_account_path(account, :invalid=>@check ) ,{:title => "#{t('link.edit', article:t('app.default.define_article_male'), model:t('app.model.Account'))}" } %>
+        <td class="text-center ">
+	  <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_import_account_path(account, :anomaly=>@select ) ,{:title => "#{t('link.edit', article:t('app.default.define_article_male'), model:t('app.model.Account'))}" } %>
+
 	  <%= link_to '<i class="fa fa-trash fa-2x action-icon"></i>'.html_safe,
-			import_account_path(account,:invalid=>@check),
+			import_account_path(account,:anomaly=>@select),
 			:title => "#{t('app.actions.destroy')} #{t('app.default.define_article_male')} #{t('app.model.Account')}",
 			:confirm => "#{t('app.message.confirm.delete_before_import',model: t('app.model.Account'))} #{t('app.message.confirm.delete')}",
 			:method => :delete %>
+	  
 	</td>
 	
   </tr>
   <% end %>
   </tbody>
   </table>
+  
   <% if !@import_accounts.empty? %>
-    <%= button_to "#{t('views.button.import',models:t('title.accounts'))}", {action: "validate_accounts"}, {class: "btn btn-primary", id: "import_validate_form"} %>
+    <div style="float:left;margin-right: 5px">
+      <%= form_tag(action: "importing_accounts") do %>
+	<%= button_tag "#{t('views.button.import',models:t('title.accounts'))}", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+
+    <%= form_tag(recalculate_duplicates_accounts_path) do %>
+      <%= button_tag "#{t('app.actions.recalculate_duplicates')}", class: "btn" %>
+    <% end %>
+    
   <% end %>
+
   <%= paginate @import_accounts %>
 </div>
+

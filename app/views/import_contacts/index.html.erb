@@ -4,12 +4,13 @@
  
  
  <!-- FILTER -->
- <% if !@import_contacts.empty? %>
+ <% if @all_import_contacts!=0 %>
   <%= form_tag(import_contacts_path, method: :GET) do %>
   <div class="row row-fluid">
 	 <div>
-	  <%= label_tag :invalid, "#{t('app.model.Contact')}s #{t('app.fields.invalid')}s :", class: 'top' %>
-	  <%= check_box_tag :invalid, 'yes', @check  %>
+	  <%= label_tag :anomaly, "#{t('app.fields.anomaly').pluralize} :", :class => "top"  %>
+	  <!--@select store value of selected anomaly -->
+	  <%= select_tag "anomaly", options_for_select(ImportContact::ANOMALIES.collect{|v| v[1]}, @select), {:prompt => "#{t('app.default.all')}", :class =>"filter_statut" }  %>
 	</div>
         <%= submit_tag "Filtrer", :class =>"btn"%>
   </div>
@@ -29,14 +30,26 @@
         <th class="text-center"><%= t('app.fields.phone') %></th>
         <th class="text-center"><%= t('app.fields.mobile') %></th>
         <th class="text-center"><%= t('app.fields.email') %></th>
-	<th class="text-center"><%= t('app.fields.anomaly') %></th>
+		  <th class="text-center"><%= t('app.fields.anomaly') %></th>
         <th class="text-center"><%= t('app.fields.action') %></th>         
       </tr>
     </thead>
     <tbody>
-      <% @import_contacts.each do |contact| %>
-        <tr class="<%='error' if contact.anomaly!='-' %>">
-          <% if !contact.title.blank? %>
+      <% @import_contacts.each do |contact| %>		
+		
+		<%	case contact.anomaly
+				when '-'
+					%><tr class=''><%
+				when ImportContact::ANOMALIES[:no]
+					%><tr class='success'><%
+				when ImportContact::ANOMALIES[:no_account]
+					%><tr class='warning'><%
+				else
+					%><tr class='error'><%
+			end
+		%> 
+          
+			 <% if !contact.title.blank? %>
             <% then %>
             <td class="text-center">
               <%= if contact.title == "M." then image_tag("glyphicons/glyphicons_034_old_man.png") end%>
@@ -93,9 +106,9 @@
 
 	
         <td class="text-center">
-	  <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_import_contact_path(contact) ,{:title => "#{t('link.edit', article:t('app.default.define_article_male'), model:t('app.model.Contact'))}" } %>
+	  <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_import_contact_path(contact, :anomaly=>@select) ,{:title => "#{t('link.edit', article:t('app.default.define_article_male'), model:t('app.model.Contact'))}" } %>
 	  <%= link_to '<i class="fa fa-trash fa-2x action-icon"></i>'.html_safe,
-			import_contact_path(contact),
+			import_contact_path(contact, :anomaly=>@select),
 			:title => "#{t('app.actions.destroy')} #{t('app.default.define_article_male')} #{t('app.model.Contact')}",
 			:confirm => "#{t('app.message.confirm.delete_before_import',model: t('app.model.Contact'))} #{t('app.message.confirm.delete')}",
 			:method => :delete %>
@@ -105,9 +118,16 @@
       <% end %>
     </tbody>
   </table>
-       <% if !@import_contacts.empty? %>
-    <%= button_to "#{t('views.button.import',models:t('title.contacts'))}", {action: "validate_contacts"}, {class: "btn btn-primary", id: "import_validate_form"} %>
-  <% end %>
+      <% if !@import_contacts.empty? %>
+	      <div style="float:left;margin-right: 5px">
+				<%= form_tag(action: "importing_contacts") do %>
+					<%= button_tag "#{t('views.button.import',models:t('title.contacts'))}", class: "btn btn-primary" %>
+				<% end %>
+			</div>
+			<%= form_tag(recalculate_duplicates_contacts_path) do %>
+				<%= button_tag "#{t('app.actions.recalculate_duplicates')}", class: "btn" %>
+			<% end %>
+		<% end %>
   <%= paginate @import_contacts %> 
 
 </div>
