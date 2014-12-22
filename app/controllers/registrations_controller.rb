@@ -169,7 +169,15 @@ class RegistrationsController < Devise::RegistrationsController
       @user = User.find(current_user.id)
     end
     
-    userRole = params[:role]
+    #modified on 2014/11/21 to correct bug that if we change langage, user's role (except for admin)
+    #was set to simple user
+    #userRole = params[:role] #code modified by lines below
+    if current_user.has_role?(:admin)
+      userRole = params[:role]
+    else
+      userRole = @user.roles.first.name
+    end
+
     
     params[:user][:enabled] = current_user.has_role?(:admin) ? (params[:user][:enabled] == '1') : true
     # tmp role treatment

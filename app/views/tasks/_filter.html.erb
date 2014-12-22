@@ -12,12 +12,12 @@
         <div class="row row-fluid">
 		    <div class="">
 			    <%= label_tag :by_statut, t('app.fields.state') + " :", :class => "top" %>
-          <%= select_tag 'by_statut', options_for_select(Task::STATUTS_A_FILTRER), { :include_blank => "Tous", :class => "filter_statut" } %>
+          <%= select_tag 'by_statut', options_for_select(Task::STATUTS_A_FILTRER), { :prompt => "Tous", :class => "filter_statut" } %>
 		    </div>
 		    <div class="">
 			    <%= label_tag :by_priority, t('app.fields.priority') + " :", :class => "top" %>
           <select name="by_priority" id="by_priority">
-            <option value=""></option>
+            <option value="">Toutes</option>
             <% Task::PRIORITIES.each_with_index do |value, index| %>
               <option value="<%= index %>"><%= value %></option>
             <% end %>
@@ -40,7 +40,7 @@
 			    <%= label_tag :by_account_id, t('app.fields.collegue') + " :", :class => "top" %>
           <%= select_tag "by_user_id",
                          options_from_collection_for_select(User.all_reals, :id, :full_name),
-                         { :include_blank => "Tous", :class =>"filter_statut" } %>
+                         { :prompt => "Tous", :class =>"filter_statut" } %>
 		    </div>
         <div class="">
           <%= label_tag :by_notes_like,  t('app.fields.content') + " :", :class => "top" %>

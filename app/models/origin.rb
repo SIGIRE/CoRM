@@ -8,6 +8,8 @@ class Origin < ActiveRecord::Base
   resourcify
   
   has_many :account
+  has_many :import
+  has_many :import_account
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'updated_by', :class_name => 'User'
   

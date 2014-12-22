@@ -13,6 +13,7 @@ class ContactsController < ApplicationController
   has_scope :inactive, type: :boolean
   has_scope :by_account_id
   has_scope :by_tags
+  has_scope :by_import_id, as: :import_id
   #has_scope :by_account_tags
 
   ##
@@ -21,8 +22,7 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = apply_scopes(Contact).
-                order("surname")
+    @contacts = apply_scopes(Contact).order("surname")
 
     flash.now[:alert] = "Pas de contacts !" if @contacts.empty?
 
@@ -50,6 +50,7 @@ class ContactsController < ApplicationController
       format.csv { render :text => @contacts.to_csv }
     end
   end
+
 
   ##
   # Show one occurence of Contact
@@ -125,7 +126,8 @@ class ContactsController < ApplicationController
         }
         format.json { render :json => o, :status => :created, :location => @contact }
       else
-        flash[:error] = t('app.save_undefined_error')
+        #flash[:error] = t('app.save_undefined_error')
+        flash.now[:alert] = @contact.errors.messages[:contact][0]
         format.html { render :action => "new" }
         format.json { render :json => @contact.errors, :status => :unprocessable_entity }
       end
@@ -159,7 +161,8 @@ class ContactsController < ApplicationController
               end }
         format.json { head :no_content }
       else
-        flash[:error] = t('app.save_undefined_error')
+        #flash[:error] = t('app.save_undefined_error')
+        flash.now[:alert] = @contact.errors.messages[:contact][0]
         format.html { render :action => "edit" }
         format.json { render :json => @contact.errors, :status => :unprocessable_entity }
       end

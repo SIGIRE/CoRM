@@ -1,0 +1,154 @@
+<%= render 'title', :locals => { :title => @title, :link => @link }%>
+
+<div class="container-fluid">
+ 
+ <!-- notice -->
+ <div class="row">
+  <div class="span3">
+	<table class="table table-condensed table-bordered">
+		<tr class="success"><td class="text-center"><%=t('app.caption.importable_accounts') %></td></tr>
+	</table>
+  </div>
+  
+  <div class="span3">
+	<table class="table table-condensed table-bordered">
+		<tr class="warning"><td class="text-center"><%=t('app.caption.warning_anomaly') %></td></tr>
+	</table>
+  </div>
+  <div class="span3">
+	<table class="table table-condensed table-bordered">
+		<tr class="error"><td class="text-center"><%=t('app.caption.error_anomaly') %></td></tr>
+	</table>
+  </div>
+  
+ </div>
+ 
+ <!-- end notice -->
+ 
+ 
+ <!-- FILTER -->
+ <% if @all_import_contacts!=0 %>
+  <%= form_tag(import_contacts_path, method: :GET) do %>
+  <div class="row row-fluid">
+	 <div>
+	  <%= label_tag :anomaly, "#{t('app.fields.anomaly').pluralize} :", :class => "top"  %>
+	  <!--@select store value of selected anomaly -->
+	  <%= select_tag "anomaly", options_for_select(ImportContact::ANOMALIES.collect{|v| v[1]}, @select), {:prompt => "#{t('app.default.all')}", :class =>"filter_statut" }  %>
+	</div>
+        <%= submit_tag "Filtrer", :class =>"btn"%>
+  </div>
+ <% end %>
+<% end %>
+ <!-- END FILTER -->
+ 
+
+
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th class="text-center"><%= t('app.fields.title') %></th>
+        <th class="text-center"><%= t('app.fields.name') %></th>
+        <th class="text-center"><%= t('app.fields.forename') %></th>
+        <th class="text-center"><%= t('app.fields.company') %></th>
+        <th class="text-center"><%= t('app.fields.phone') %></th>
+        <th class="text-center"><%= t('app.fields.mobile') %></th>
+        <th class="text-center"><%= t('app.fields.email') %></th>
+		  <th class="text-center"><%= t('app.fields.anomaly') %></th>
+        <th class="text-center"><%= t('app.fields.action') %></th>         
+      </tr>
+    </thead>
+    <tbody>
+      <% @import_contacts.each do |contact| %>		
+		
+		<%	case contact.anomaly
+				when ImportContact::ANOMALIES[:no]
+					%><tr class='success'><%
+				when ImportContact::ANOMALIES[:no_account]
+					%><tr class='warning'><%
+				else
+					%><tr class='error'><%
+			end
+		%> 
+          
+			 <% if !contact.title.blank? %>
+            <% then %>
+            <td class="text-center">
+              <%= if contact.title == "M." then image_tag("glyphicons/glyphicons_034_old_man.png") end%>
+              <%= if contact.title == "Mme" then image_tag("glyphicons/glyphicons_035_woman.png") end%>
+            </td>
+          <% else %>
+            <td class="text-center">-</td>
+          <% end %>
+
+          <% if !contact.surname.blank? %>
+            <% then %>
+            <td class="text-center"><%= contact.surname %></td>
+          <% else %>
+            <td class="text-center">-</td>
+          <% end %> 		
+
+          <% if !contact.forename.blank? %>
+            <% then %>
+            <td class="text-center"><%= contact.forename %></td>
+          <% else %>
+            <td class="text-center">-</td>
+          <% end %> 		
+
+          <% if !contact.account.nil? %>
+            <% then %>
+            <td class="text-center"><%= link_to contact.account.company , account_events_url(contact.account),{:title => "Afficher les évenements"} %></td>
+          <% else %>
+            <td class="text-center">-</td>
+          <% end %> 
+
+
+          <% if !contact.tel.blank? %>
+            <% then %>
+            <td class="text-center"><%= contact.tel %></td>
+          <% else %>
+            <td class="text-center">-</td>
+          <% end %> 
+
+          <% if !contact.mobile.blank? %>
+            <% then %>
+            <td class="text-center"><%= contact.mobile %></td>
+          <% else %>
+            <td class="text-center">-</td>
+          <% end %>		
+
+          <% if !contact.email.blank? %>
+            <% then %>
+            <td class="text-center"><%= mail_to(contact.email)%></td>
+          <% else %>
+            <td class="text-center">-</td>
+          <% end %>
+
+       <td class="text-center"><%= contact.anomaly %></td>
+
+	
+        <td class="text-center">
+	  <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_import_contact_path(contact, :anomaly=>@select) ,{:title => "#{t('link.edit', article:t('app.default.define_article_male'), model:t('app.model.Contact'))}" } %>
+	  <%= link_to '<i class="fa fa-trash fa-2x action-icon"></i>'.html_safe,
+			import_contact_path(contact, :anomaly=>@select),
+			:title => "#{t('app.actions.destroy')} #{t('app.default.define_article_male')} #{t('app.model.Contact')}",
+			:confirm => "#{t('app.message.confirm.delete_before_import',model: t('app.model.Contact'))} #{t('app.message.confirm.delete')}",
+			:method => :delete %>
+	</td>
+          
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+      <% if !@import_contacts.empty? %>
+	      <div style="float:left;margin-right: 5px">
+				<%= form_tag(action: "importing_contacts") do %>
+					<%= button_tag "#{t('views.button.import',models:t('title.contacts'))}", class: "btn btn-primary" %>
+				<% end %>
+			</div>
+			<%= form_tag(recalculate_duplicates_contacts_path) do %>
+				<%= button_tag "#{t('app.actions.recalculate_duplicates')}", class: "btn" %>
+			<% end %>
+		<% end %>
+  <%= paginate @import_contacts %> 
+
+</div>

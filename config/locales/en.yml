@@ -130,6 +130,7 @@ en:
         one: is the wrong length (should be 1 character)
         other: is the wrong length (should be %{count} characters)
       other_than: "must be other than %{count}"
+      no_relation: "No relation attach to this account"
     template:
       body: ! 'There were problems with the following fields:'
       header:
@@ -226,6 +227,9 @@ en:
       previous: "&lsaquo; Prev."
       next: "Next &rsaquo;"
       truncate: "..."
+    button:
+      import: "Import valid %{models}"
+      create_import: "Create import"
   devise:
     failure:
       already_authenticated: "Vous êtes déjà connecté !"
@@ -277,16 +281,24 @@ en:
         subject: "Instructions pour déverrouiller le compte"
   app:
     at: at
-    save_undefined_error: "Une erreur est survenue pendant l'enregistrement"
+    save_undefined_error: "An error has occurred while recording !"
+    load_undefined_error: "An error has occurred while reading file line !"
+    check_undefined_error: "An error has break anomaly detection !"
     default:
+      all: "No filter"
       subject: subject
       define_article_male: the
+      define_article_apostrohpe: the
       define_article_female: the
       undefine_article_male: a
       undefine_article_female: a
       undefine_article_plural: some
       new_male: "new"
       new_female: "new"
+    caption:
+      importable_accounts: "Importables accounts"
+      warning_anomaly: "Non-blocking anomalies for import"
+      error_anomaly: "Bloking anomalies for import"
     actions:
       actions: Actions
       create: Create
@@ -300,6 +312,12 @@ en:
       created_by: "Created by"
       updated_by: "Last updated by"
       filter: "Filter"
+      updated_contact: "Updated contact"
+      updated_account: "Updated account"
+      choose_file: "Choose a file"
+      show_valid_import: "Show valid imported %{model}"
+      validate: "Validate"
+      recalculate_duplicates: "Recalculate duplicates"
     cancan:
       messages:
         unauthorized: "Vous n'êtes pas autoriser à [action] [undefined_article] [model]"
@@ -335,6 +353,7 @@ en:
       Document: "Document"
       Email: "E-mail"
       NotificationCenter: "Notifications center"
+      Origin: "Origin"
     roles:
       details: "Roles specification"
       admin: Administrator
@@ -389,6 +408,7 @@ en:
       estimated_profit: "Marge estimée"
       ref: "Référence"
       ref_account: "Référence client"
+      accounting_code: "Accounting code"
       quotation_validity: "Validité du Devis"
       pay_mode: "Mode de réglement"
       designation: Désignation
@@ -401,6 +421,11 @@ en:
       subject: Subject
       name: Name
       company: "Company"
+      adress1: "Adress"
+      adress2: "Adress (next)"
+      zip: "Zip"
+      city: "City"
+      country: "Country"
       date: "Date"
       profit_margin: "Profit margin"
       estimate: "Estimate"
@@ -408,6 +433,47 @@ en:
       active: "Active"
       size: "Size"
       content: "Content"
+      category: "Category"
+      origin: "Origin"
+      action: "Action"
+      type: "Type"
+      author: "Author"
+      adress: "Adress"
+      phone: "Phone"
+      fax: "Fax"
+      web: "Web Site"
+      anomaly: "Notes"
+      forename: "Forename"
+      title: "Title"
+      mobile: "Mobile"
+      email: "E-mail"
+      job: "Job"
+      notes: "Notes"
+      invalid: "invalid"
+      probability: "Probability of succes"
+      duplicate: "Disabled duplicates detection for this"
+    message:
+      confirm:
+        delete: "Confirm delete ?"
+        delete_before_import: "This %{model} won't be imported !"
+        delete_import: "Warning: The removal of import will cause the removal of all items related to this import (contacts or accounts) ! Do you confirm the suppression ?"
+        validate_account: "Validate this account ?"
+      alert:
+        no_account_pending_validation: "No account pending validation"
+        no_contact_pending_validation: "No contact pending validation"
+        no_import: "No import !"
+        accounts_in_anomaly: "%{nbr} invalidate(s) account(s) !"
+      notice:
+        updated_account: "Account have been updated"
+        updated_contact: "Contact have been updated"
+        confirm_import_account: "%{nbr} accounts have been imported !"
+        confirm_import_contact: "%{nbr} contacts have been imported !"
+        delete_account: "Account have been deleted !"
+        delete_contact: "Contact have been deleted !"
+        delete_import: "Import have been deleted !"
+        import_done: "Import ready for validation"
+        validate_account: "Account have been validated !"
+        recalculate_duplicates: "Duplicates have been recalculated : %{nbr} duplicate(s)"
   title:
     dashboard: "Dashboard"
     actor: "Actor"
@@ -425,6 +491,18 @@ en:
     about: "About"
     registered_users : "Registered Users"
     configuration_CoRM : "CoRM's Configuration"
-
+    import_all: "Imports list"
+    new_import: "New import of "
+    accounts: "accounts"
+    contacts: "contacts"
+    import_accounts_waiting: "Imports accounts waiting for validation"
+    import_contacts_waiting: "Imports contacts waiting for validation"
+  link:
+    upload_csv_model: "download file model import"
+    back: "Back"
+    delete_contact: "Delete contact"
+    delete_account: "Delete account"
+    delete_import: "Delete import"
+    edit: "Edit %{article} %{model}"
   various:
     my: "My"

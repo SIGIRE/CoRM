@@ -1,11 +1,11 @@
 <div class="row row-fluid"><div class="field full"><div class="span2"><%= label_tag('quotation_opportunity_id', t('app.model.Opportunity') + t('app.fields.colon')) %></div>
 <p><% if opportunities.nil? %>
-  <% if !@quotation.account.nil? %>
-    <%= collection_select :quotation, :opportunity_id, Opportunity.where(:account_id => @quotation.account.id).order(:name), :id, :name, { :include_blank => true } %>
-  <% else %>
-    <%= collection_select  :quotation, :opportunity_id, Opportunity.where(:account_id => 0), :id, :name, {:include_blank => true} %>
-  <% end %> 
-<% else %>
-  <%= collection_select  :quotation, :opportunity_id, opportunities , :id, :name, {:include_blank => true} %>
-<% end %></p>
+      <% if !@quotation.account.nil? %>
+        <%= collection_select :quotation, :opportunity_id, Opportunity.where(:account_id => @quotation.account.id).where(:statut => ["En cours","Détectée","Suspendue"]).order(:name), :id, :name, { :include_blank => true } %>
+      <% else %>
+        <%= collection_select  :quotation, :opportunity_id, Opportunity.where(:account_id => 0), :id, :name, {:include_blank => true} %>
+      <% end %> 
+    <% else %>
+      <%= collection_select  :quotation, :opportunity_id, opportunities, :id, :name, {:include_blank => true} %>
+    <% end %></p>
 </div></div>

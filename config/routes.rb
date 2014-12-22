@@ -139,6 +139,7 @@ Crm::Application.routes.draw do
   match 'contacts/search(.:format)', :controller => 'contacts', :action => 'search', :via => :get, :as => "search_contact_index"
   match 'contacts/filter(.:format)', :controller => 'contacts', :action => 'filter', :via => :get, :as => "search_contact_index"
   
+  
   # Dashboard
   root :to => 'home#index'
   
@@ -159,6 +160,25 @@ Crm::Application.routes.draw do
   
 	# Notifications routes
 	set_route('notifications', 'notification', 'notifications')
+
+  # import routes  
+  resources :imports do
+    new do
+      post 'accounts'
+      post 'contacts'
+    end
+  end
+  match 'download', :controller => 'imports', :action => 'download'
+  
+  # import_accounts routes
+  resources :import_accounts
+  match 'importing_accounts', :controller => 'import_accounts', :action => 'importing_accounts'
+  match 'recalculate_duplicates_accounts', :controller=>'import_accounts', :action=>'recalculate_duplicates'
+  
+  #import_contacts routes
+  resources :import_contacts
+  match 'importing_contacts', :controller => 'import_contacts', :action => 'importing_contacts'
+  match 'recalculate_duplicates_contacts', :controller=>'import_contacts', :action=>'recalculate_duplicates'
 
   # resources :home
   # The priority is based upon order of creation:

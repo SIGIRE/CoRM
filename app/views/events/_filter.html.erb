@@ -16,7 +16,7 @@
         <%= label_tag :by_event_type_id, "Type :", :class => "top" %>
         <%= select_tag "by_event_type_id", 
                        options_from_collection_for_select(EventType.find(:all), :id, :full_type),
-                       { :include_blank => "Tous", :class =>"filter_statut" } %>
+                       { :prompt => "Tous", :class =>"filter_statut" } %>
       </div>
 
       <%# Le typeahead et la mise à jour des contacts associés sont gérés par nav-search-bar.js %>
@@ -36,13 +36,13 @@
         <%= label_tag :by_contact_id, "Contact :", :class => "top" %>
         <%= select_tag "by_contact_id",
                        options_for_select([]),
-                       { include_blank: 'Tous', id: 'contact_id' } %>
+                       { prompt: 'Tous', id: 'contact_id' } %>
       </div>
       <div class="">
         <%= label_tag :by_user_id, "Collaborateur :", :class => "top" %>
         <%= select_tag "by_user_id",
                        options_from_collection_for_select(User.all_reals, :id, :full_name),
-                       { :include_blank => "Tous", :class =>"filter_statut" } %>
+                       { :prompt => "Tous", :class =>"filter_statut" } %>
       </div>
       <div>
         <%= submit_tag "Filtrer", :class =>"btn "%>

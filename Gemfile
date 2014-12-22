@@ -61,3 +61,5 @@ gem 'yaml_db'
 gem 'rubyzip'
 
 gem "font-awesome-rails"
+#gem text provide class and methods for matching string
+gem 'text', '~> 1.3.0'

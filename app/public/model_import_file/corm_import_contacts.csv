@@ -1,0 +1,7 @@
+surname;forename;title;tel;fax;mobile;email;job;notes;company
+FORESTIER;Gabriel;M.;;;;;Gérant SIGIRE;;45866
+;;;;;;;;;
+;!! NE PAS MODIFIER LES NOMS DE COLONNES;;;;;;;;
+;PAS DE SIGNE POINT-VIRGULE DANS AUCUNE COLONNE;;;;;;;;
+;LE CHAMPS TITLE DOIT PRENDRE LES VALEURS M. ou Mme !!;;;;;;;;
+;(supprimer ces lignes avant l'import du fichier);;;;;;;;

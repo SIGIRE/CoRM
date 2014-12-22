@@ -1,0 +1,67 @@
+<div class="container-fluid">
+     <div class="well" id="title-bar">
+          <div class="row-fluid">
+              <h1><%= '<i class="fa fa-area-chart"></i>'.html_safe %> <%= t('title.statistic').pluralize %></h1>
+          </div>
+     </div>
+	<table class="table table-bordered table-striped table-hover">
+		<thead>
+			<tr>
+				 <th class="text-center"><%= t('app.fields.element').pluralize %></th>
+				<th class="text-center"><%= t('app.fields.quantity') %></th>
+				<th class="text-center"><%= t('app.fields.size') %></th>
+			</tr>
+		 </thead>
+		<tbody>
+			<tr>
+				<td class="text-center"><%= t('app.model.User').pluralize %> (<%= t('app.fields.active') %>)</td>
+				<td class="text-center"><%= @count[:user] %></td>
+				<td class="text-center">-</td>
+			</tr>
+			<tr>
+				<td class="text-center"><%= t('app.model.Account').pluralize %></td>
+				<td class="text-center"><%= @count[:account] %></td>
+				<td class="text-center">-</td>
+			</tr>
+			<tr>
+				<td class="text-center"><%= t('app.model.Contact').pluralize %></td>
+				<td class="text-center"><%= @count[:contact] %></td>
+				<td class="text-center">-</td>
+			</tr>
+			<tr>
+				<td class="text-center"><%= t('app.model.Event').pluralize %></td>
+				<td class="text-center"><%= @count[:event] %></td>
+				<td class="text-center"><%= number_to_human_size(@bdd_size[:event], :locale => I18n.locale, :separator => ',') %> </td>
+			</tr>
+			<tr>
+			    <td class="text-center"><%= t('app.model.Email').pluralize %></td>
+				<td class="text-center"><%= @count[:email] %></td>
+				<td class="text-center"><%= number_to_human_size(@bdd_size[:email], :locale => I18n.locale, :separator => ',') %> </td>
+			</tr>
+			<tr>
+				<td class="text-center"><%= t('app.model.Task').pluralize %></td>
+				<td class="text-center"><%= @count[:task] %></td>
+				<td class="text-center"><%= number_to_human_size(@bdd_size[:task], :locale => I18n.locale, :separator => ',') %> </td>
+			</tr>
+			<tr>
+				<td class="text-center"><%= t('app.model.Opportunity').pluralize %></td>
+				<td class="text-center"><%= @count[:opportunity] %></td>
+				<td class="text-center"><%= number_to_human_size(@bdd_size[:opportunity], :locale => I18n.locale, :separator => ',') %> </td>
+			</tr>
+			<tr>
+				<td class="text-center"><%= t('app.model.Quotation').pluralize %></td>
+				<td class="text-center"><%= @count[:quotation] %></td>
+				<td class="text-center"><%= number_to_human_size(@bdd_size[:quotation], :locale => I18n.locale, :separator => ',') %> </td>
+			</tr>
+			<tr>
+				<td class="text-center"><%= t('app.model.Document').pluralize %></td>
+				<td class="text-center"><%= @count[:document] %></td>
+				<td class="text-center"><%= number_to_human_size(@bdd_size[:document], :locale => I18n.locale, :separator => ',') %> </td>
+			</tr>
+			<tr>
+			    <td colspan='2' class="text-center"><strong>Total</strong></td>
+				<td class="text-center"><%= number_to_human_size(@bdd_size[:total], :locale => I18n.locale, :separator => ',') %> </td>
+			</tr>
+		</tbody>
+	</table>
+</div>

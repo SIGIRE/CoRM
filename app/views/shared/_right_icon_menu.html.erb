@@ -59,12 +59,26 @@
           </ul>
         </li>
         <li class="dropdown-submenu pull-left">
-          <a tabindex="-1" href="#"><i class="fa fa-download fa-fw"></i> Extraction</a>
+          <a tabindex="-1" href="#"><i class="fa fa-upload fa-fw"></i> Extraction</a>
           <ul class="dropdown-menu">
             <li><%= link_to '<i class="fa fa-home fa-fw"></i> Comptes'.html_safe, url_for(:controller => 'accounts', :action => 'extract') %></li>
             <li><%= link_to '<i class="fa fa-users fa-fw"></i> Contacts'.html_safe, url_for(:controller => 'contacts', :action => 'extract') %></li>
           </ul>
         </li>
+	
+
+	<!-- 19/11/2014 add import fonctionnality -->
+	<li class="dropdown-submenu pull-left">
+          <a tabindex="-1" href="#"><i class="fa fa-download fa-fw"></i> Import</a>
+          <ul class="dropdown-menu">	    
+	    <li><%= link_to '<i class="fa fa-home fa-fw"></i> Comptes'.html_safe, import_accounts_path, :method=>:get %></li>
+	    <li><%= link_to '<i class="fa fa-users fa-fw"></i> Contacts'.html_safe, import_contacts_path, :method=>:get %></li>
+	    <li class="divider"></li>
+	    <li><%= link_to '<i class="fa fa-database fa-fw"></i> Historique'.html_safe, imports_path%></li>
+          </ul>
+        </li>
+
+	
 	<li class="dropdown-submenu pull-left">
 	  <a tabindex="-1" href="#"><i class="fa fa-floppy-o fa-fw"></i> Sauvegarde</a>
           <ul class="dropdown-menu">

@@ -1,0 +1,118 @@
+<%= form_for(@import_account, :html => { :class => "well "}) do |f| %>
+  <% if @import_account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@import_account.errors.count, "error") %> prohibited this compte from being saved:</h2>
+
+      <ul>
+      <% @import_account.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <!-- hidden_field is to keep filter value -->
+  <%=hidden_field_tag(:anomaly, @select)%>
+
+ <form class="well form-inline">
+  
+  <div class="field">
+
+     <%= label_tag :no_search_duplicates, "#{t('app.fields.duplicate')} #{t('app.model.Account')} :" %>
+     <%= f.check_box :no_search_duplicates %>
+
+  </div>
+  
+  <div class="field">
+	  <div class="span2"><%= t('app.fields.company')+" :" %></div> <%= f.text_field :company ,{ :class => 'required'}  %><span class="req" />
+	  
+  </div>
+
+  <% if @import_account.persisted? %>
+  <div class="field">
+    <div class="span2"><%= t('app.fields.state')+" :" %></div> <%= f.select :active, options_for_select([["Actif", true], ["Inactif", false]], selected: @import_account.active) %>
+  </div>
+  <% end %>
+
+  <div class="field">
+    <div class="span2"><%= t('app.fields.adress1')+" :" %></div> <%= f.text_field :adress1 %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"><%= t('app.fields.adress2')+" :" %></div> <%= f.text_field :adress2 %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"><%= t('app.fields.zip')+" :" %></div> <%= f.text_field :zip %>
+  </div>
+
+  <div class="field">
+   <div class="span2"><%= t('app.fields.city')+" :"  %></div> <%= f.text_field :city %>
+  </div>
+
+  <div class="field">
+   <div class="span2"><%= t('app.fields.country')+" :"  %></div> <%= f.text_field :country %>
+  </div>
+
+  <div class="field">
+   <div class="span2"><%= t('app.fields.phone')+" :"  %></div> <%= f.text_field :tel %>
+  </div>
+
+  <div class="field">
+   <div class="span2"><%= t('app.fields.fax')+" :"  %></div> <%= f.text_field :fax %>
+  </div>
+
+  <div class="field">
+   <div class="span2"><%= t('app.fields.email')+" :"  %></div> <%= f.text_field :email %>
+  </div>
+
+  <div class="field">
+   <div class="span2"><%= t('app.fields.web')+" :"  %></div> <%= f.text_field :web %>
+  </div>  
+
+  <div class="field">
+    <div class="span2"><%= t('app.fields.origin')+" :"  %></div> <%= f.collection_select :origin_id, Origin.order('name ASC').all, :id, :name, :include_blank => true %>
+  </div>
+
+  <div class="field">
+    <div class="span2"><%= t('app.fields.category')+" :"  %></div> <%= f.select :category, ImportAccount::CATEGORIES%>
+  </div>
+  
+  <div class="field">
+    <div class="span2"><%= t('app.fields.accounting_code')+" :"  %></div> <%= f.text_field :accounting_code %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"><%= t('app.fields.collegue')+" :"  %></div> <%= f.collection_select :user_id, @users, :id, :full_name %>
+  </div>
+  
+  <div class="field">
+    <div class="span2"><%= t('app.fields.notes')+" :"  %></div> <%=f.text_area :notes , :display_with => :simple_format, :rows => "5", :style => 'width: 50%;' %>
+  </div>
+
+  <br />
+  	
+	<div class="field">
+    <% if !@import_account.id.nil? %>
+		<div class="span9"><%= t('app.actions.created_by')+" :"  %><%= @import_account.author.full_name %>, le </strong><%= @import_account.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+		
+		<% if !@import_account.modified_by.nil? %>
+			<div class="span9"><%= t('app.actions.updated_by')+" :"  %><%= @import_account.editor.full_name %>, le <%= @import_account.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+		
+		<% else %>
+		<% end %>
+		
+	<% end %>
+	</div>
+	  
+	<hr />
+  
+  <div class="row">
+    <%= f.button "#{t('app.actions.updated_account')}", :type => :submit, :class =>"btn btn-primary",:id =>"account_validate_form" %>
+  <% if current_user.has_role?(:admin) or current_user.has_role?(:super_user) %>  
+	<%= if !@import_account.id.nil? then  link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @import_account,:title => "#{t('link.delete_account')}", :confirm => "#{t('app.message.confirm.delete')}", :class =>"pull-right btn", :method => :delete end %>
+  <% end %>
+  </div>
+ 
+</form>
+<% end %>

@@ -15,6 +15,7 @@ class AccountsController < ApplicationController
   has_scope :by_category, as: :category
   has_scope :by_origin, as: :origin
   has_scope :by_tags, as: :tag
+  has_scope :by_import_id, as: :import_id
 
   ##
   # Show the full list of Accounts by paginate_by
@@ -97,7 +98,7 @@ class AccountsController < ApplicationController
     @account = Account.new(params[:account])
     @account.created_by = current_user.id
     @account.company = @account.uppercase_company
-    @account.web = self.to_url(@account.web)
+    @account.web = Format.to_url(@account.web)
     if params[:display_account_tag].nil?
       @account.tags.clear
     else
@@ -106,7 +107,7 @@ class AccountsController < ApplicationController
       @account.tags << tag #unless @compte.produits.exists?(produit)
     end
 
-    respond_to do |format|
+    respond_to do |format| 
       if @account.save
         format.html { redirect_to account_events_url(@account.id), :notice => 'Le compte a été créé.' }
         format.json { render :json => @account, :status => :created, :location => @account }
@@ -117,7 +118,7 @@ class AccountsController < ApplicationController
       end
     end
   end
-
+  
   ##
   # Save an instance of Account which already exists
   #
@@ -127,7 +128,7 @@ class AccountsController < ApplicationController
     @account = Account.find(params[:id])
     @account.modified_by = current_user.id
     params[:account][:company] = UnicodeUtils.upcase(params[:account][:company], I18n.locale)
-    params[:account][:web] = self.to_url(params[:account][:web])
+    params[:account][:web] = Format.to_url(params[:account][:web])
     if params[:display_account_tag].nil?
       @account.tags.clear
     else
@@ -229,20 +230,7 @@ class AccountsController < ApplicationController
     end
   end
   
-  def to_url(url)
-    if !url.nil? and url.length > 0
-      correction = nil
-      # dont start with protocol://
-      if url[/^*:\/\//] == nil
-        correction = 'http://'
-        # if it is somthing like lang.website.tld
-        if url[/^www[.]/] == nil and url[/^.*.[.].*.[.].*.$/] == nil
-          correction.concat('www.')
-        end
-      end
-    end
-    return (!correction.nil?() ? correction.concat(url) : url)
-  end
+  
 
   private
   def check_can_read!
@@ -255,5 +243,4 @@ class AccountsController < ApplicationController
       return false
     end
   end
-  
 end
