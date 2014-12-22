@@ -24,7 +24,7 @@
             <tbody>
                 <% @imports.each do |import| %>
                     <tr>
-			<td><center><%= import.created_at %></center></td>
+			<td><center><%= l import.created_at, format: :long %></center></td>
                         <td class="text-center"><%= import.author.full_name %></td>
                         <% if !import.name.nil? %>
 			<% then %>

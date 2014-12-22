@@ -15,11 +15,18 @@
   <%=hidden_field_tag(:anomaly, @select)%>
 
   <div class="field">
+
+     <%= label_tag :no_search_duplicates, "#{t('app.fields.duplicate')} #{t('app.model.Contact')} :" %>
+     <%= f.check_box :no_search_duplicates %>
+
+  </div>
+  
+  <div class="field">
     <div class="span2"><%= t('app.fields.name')+" :"  %></div> <%= f.text_field :surname %>
 
       <span>
-      <%= label_tag :search_duplicates, "#{t('app.fields.duplicate')} :" %>
-      <%= f.check_box :search_duplicates %>
+      <%#= label_tag :search_duplicates, "#{t('app.fields.duplicate')} :" %>
+      <%#= f.check_box :search_duplicates %>
       </span>
 
   </div>

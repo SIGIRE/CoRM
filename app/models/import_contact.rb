@@ -13,7 +13,7 @@ class ImportContact < ActiveRecord::Base
   # Can be: M.|Mme
   #
   TITLES = ["M.", "Mme"]
-  ANOMALIES = {:duplicate=>'Doublon',:title=>'Civilité', :name=>'Nom Prénom',:no_account=>'Compte société inexistant',:no=>'Aucune'}
+  ANOMALIES = {:duplicate=>'Doublon détecté',:duplicate_in_db=>'Doublon détecté dans la base', :title=>'Civilité incorrecte', :name=>'Nom Prénom incorrect',:no_account=>'Compte société inexistant',:no=>'-'}
   
   paginates_per 30
   
@@ -81,8 +81,8 @@ class ImportContact < ActiveRecord::Base
     #else search for duplicates (surname and forename equals)
     else
       #try to match with imported contacts except contact itself
-      if contact.search_duplicates==true
-        ImportContact.find_each(:conditions => "id != #{contact.id} AND search_duplicates=TRUE") do |contact2|            
+      if contact.no_search_duplicates==false
+        ImportContact.find_each(:conditions => "id != #{contact.id} AND no_search_duplicates=FALSE") do |contact2|            
           if is_match(contact, contact2)
             anomaly=ImportContact::ANOMALIES[:duplicate]
             if contact2.anomaly!=ImportAccount::ANOMALIES[:duplicate]
@@ -91,7 +91,16 @@ class ImportContact < ActiveRecord::Base
           end               
         end  
       end
-            
+      
+      #try to match with contacts
+      if contact.no_search_duplicates==false
+        Contact.find_each do |contact2|            
+          if is_match(contact, contact2)
+            anomaly=ImportAccount::ANOMALIES[:duplicate_in_db]+" : "+contact2.surname+"-"+contact2.forename
+          end               
+        end
+      end
+     
     end
     
     #if title is incorrect

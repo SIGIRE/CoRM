@@ -295,6 +295,10 @@ en:
       undefine_article_plural: some
       new_male: "new"
       new_female: "new"
+    caption:
+      importable_accounts: "Importables accounts"
+      warning_anomaly: "Non-blocking anomalies for import"
+      error_anomaly: "Bloking anomalies for import"
     actions:
       actions: Actions
       create: Create
@@ -438,7 +442,7 @@ en:
       phone: "Phone"
       fax: "Fax"
       web: "Web Site"
-      anomaly: "Anomaly"
+      anomaly: "Notes"
       forename: "Forename"
       title: "Title"
       mobile: "Mobile"
@@ -447,7 +451,7 @@ en:
       notes: "Notes"
       invalid: "invalid"
       probability: "Probability of succes"
-      duplicate: "Include in search Duplicates"
+      duplicate: "Disabled duplicates detection for this"
     message:
       confirm:
         delete: "Confirm delete ?"
@@ -491,7 +495,8 @@ en:
     new_import: "New import of "
     accounts: "accounts"
     contacts: "contacts"
-    import_waiting: "Imports waiting for validation"
+    import_accounts_waiting: "Imports accounts waiting for validation"
+    import_contacts_waiting: "Imports contacts waiting for validation"
   link:
     upload_csv_model: "download file model import"
     back: "Back"

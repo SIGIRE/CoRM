@@ -2,6 +2,28 @@
 
 <div class="container-fluid">
  
+ <!-- notice -->
+ <div class="row">
+  <div class="span3">
+	<table class="table table-condensed table-bordered">
+		<tr class="success"><td class="text-center"><%=t('app.caption.importable_accounts') %></td></tr>
+	</table>
+  </div>
+  
+  <div class="span3">
+	<table class="table table-condensed table-bordered">
+		<tr class="warning"><td class="text-center"><%=t('app.caption.warning_anomaly') %></td></tr>
+	</table>
+  </div>
+  <div class="span3">
+	<table class="table table-condensed table-bordered">
+		<tr class="error"><td class="text-center"><%=t('app.caption.error_anomaly') %></td></tr>
+	</table>
+  </div>
+  
+ </div>
+ 
+ <!-- end notice -->
  
  <!-- FILTER -->
  <% if @all_import_accounts!=0 %>
@@ -25,7 +47,6 @@
 	<th class="text-center"><%= t('app.fields.company') %></th>
 	<th class="text-center"><%= t('app.fields.adress') %></th>	  
 	<th class="text-center"><%= t('app.fields.category') %></th>
-	<th class="text-center"><%= t('app.fields.origin') %></th>
 	<th class="text-center"><%= t('app.fields.phone') %></th>
 	<th class="text-center"><%= t('app.fields.web') %></th>
 	<th class="text-center"><%= t('app.fields.anomaly') %></th>
@@ -37,8 +58,6 @@
 
 
     <%	case account.anomaly
-	  when '-'
-		  %><tr class=''><%
 	  when ImportAccount::ANOMALIES[:no]
 		  %><tr class='success'><%
 	  else
@@ -66,14 +85,6 @@
                 <% else %>
                         <td class="text-center">-</td>
         <% end %>
-        
-	<% if !account.origin.blank? %>
-                <% then %>
-                        <td class="text-center"><%= account.origin.name %></td>
-                <% else %>
-                        <td class="text-center">-</td>
-        <% end %>
-
 
         <% if !account.tel.blank? %>
                 <% then %>
@@ -96,8 +107,16 @@
                         <td class="text-center">-</td>
         <% end %>
         
-          <td class="text-center"><%= account.anomaly %></td>
-
+          <td class="text-center">
+	    <%# if account.anomaly.include?(ImportAccount::ANOMALIES[:duplicate_in_db]) %>
+	      <%#= account.anomaly.split(':')[1] %>
+	      <%#= (Account.find_by_company("#{account.anomaly.split(':')[1]}")).inspect %>
+	      <%#= (Account.find_by_company("sigire")).inspect %>
+	      <%#= link_to account.anomaly, edit_account_path(Account.find_by_company(account.anomaly.split(':')[1])) %>
+	    <%# end %>
+	    <%= account.anomaly %>	  
+	  </td>
+	
 	
         <td class="text-center ">
 	  <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_import_account_path(account, :anomaly=>@select ) ,{:title => "#{t('link.edit', article:t('app.default.define_article_male'), model:t('app.model.Account'))}" } %>

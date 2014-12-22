@@ -12,7 +12,7 @@ class ImportAccountsController < ApplicationController
   def index
  
     #variables for render
-    @title=t('title.import_waiting')
+    @title=t('title.import_accounts_waiting')
     @link="new_link"
     @all_import_accounts=ImportAccount.count
     
@@ -35,7 +35,12 @@ class ImportAccountsController < ApplicationController
     if @all_import_accounts==0
         flash.now[:alert] = "#{t('app.message.alert.no_account_pending_validation')}" 
     else
-        flash.now[:alert] = "#{t('app.message.alert.accounts_in_anomaly', nbr: ImportAccount.where('anomaly != ?', ImportAccount::ANOMALIES[:no]).count)}"
+        nbr_anomaly=ImportAccount.where('anomaly != ?', ImportAccount::ANOMALIES[:no]).count
+        if nbr_anomaly==0
+            flash.now[:notice] = "#{t('app.message.alert.accounts_in_anomaly', nbr: 0)}"
+        else
+            flash.now[:alert] = "#{t('app.message.alert.accounts_in_anomaly', nbr: nbr_anomaly)}"
+        end   
     end
 
     respond_to do |format|

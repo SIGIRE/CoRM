@@ -84,9 +84,8 @@ class ImportsController < ApplicationController
     
     def destroy
         @import = Import.find(params[:id])
-        
-        #TODO implémenter la suppression des comptes ou contacts si aucune modification effectuée
-        
+        #delete accounts or contacts associated with delete import are implemented in import model
+        #with dependent in has_many
         @import.destroy
         respond_to do |format|
             format.html { redirect_to imports_path, :notice => "#{t('app.message.notice.delete_import')}"  }
@@ -95,8 +94,11 @@ class ImportsController < ApplicationController
     
     def download
         type=params[:type]
-        data = open("#{Rails.root}/app/public/#{type}/corm_import.csv") 
-        send_data data.read, filename: "corm_import.csv", type: "application/txt", disposition: 'inline', stream: 'true', buffer_size: '4096' 
+        #data = open("#{Rails.root}/app/public/#{type}/corm_import.csv") 
+        #send_data data.read, filename: "corm_import.csv", type: "application/txt", disposition: 'inline', stream: 'true', buffer_size: '4096'
+
+        data = open("#{Rails.root}/app/public/model_import_file/corm_import_#{type}.csv") 
+        send_data data.read, filename: "corm_import_#{type}.csv", type: "application/txt", disposition: 'inline', stream: 'true', buffer_size: '4096'
     end
 
     private

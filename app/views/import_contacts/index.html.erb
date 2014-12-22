@@ -2,6 +2,29 @@
 
 <div class="container-fluid">
  
+ <!-- notice -->
+ <div class="row">
+  <div class="span3">
+	<table class="table table-condensed table-bordered">
+		<tr class="success"><td class="text-center"><%=t('app.caption.importable_accounts') %></td></tr>
+	</table>
+  </div>
+  
+  <div class="span3">
+	<table class="table table-condensed table-bordered">
+		<tr class="warning"><td class="text-center"><%=t('app.caption.warning_anomaly') %></td></tr>
+	</table>
+  </div>
+  <div class="span3">
+	<table class="table table-condensed table-bordered">
+		<tr class="error"><td class="text-center"><%=t('app.caption.error_anomaly') %></td></tr>
+	</table>
+  </div>
+  
+ </div>
+ 
+ <!-- end notice -->
+ 
  
  <!-- FILTER -->
  <% if @all_import_contacts!=0 %>
@@ -38,8 +61,6 @@
       <% @import_contacts.each do |contact| %>		
 		
 		<%	case contact.anomaly
-				when '-'
-					%><tr class=''><%
 				when ImportContact::ANOMALIES[:no]
 					%><tr class='success'><%
 				when ImportContact::ANOMALIES[:no_account]

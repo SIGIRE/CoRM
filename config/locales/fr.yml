@@ -283,7 +283,7 @@ fr:
     load_undefined_error: "Une erreur est survenue pendant la lecture du fichier ligne !"
     check_undefined_error: "Une erreur a empêchée la détection des anomalies !"
     default:
-      all: "Non filtré(es)"
+      all: "Non filtrées"
       subject: Sujet
       define_article_male: le
       define_article_apostrohpe: "l'"
@@ -294,6 +294,10 @@ fr:
       new_male: "nouveau"
       new_male_bis: "nouvel"
       new_female: "nouvelle"
+    caption:
+      importable_accounts: "Comptes importables"
+      warning_anomaly: "Anomalies non bloquantes pour l'import"
+      error_anomaly: "Anomalies bloquantes pour l'import"
     actions:
       actions: "Actions"
       create: Créer
@@ -437,7 +441,7 @@ fr:
       phone: "Téléphone"
       fax: "Télécopie"
       web: "Site Web"
-      anomaly: "Anomalie"
+      anomaly: "Commentaire"
       forename: "Prénom"
       title: "Civ."
       mobile: "Mobile"
@@ -446,7 +450,7 @@ fr:
       notes: "Notes"
       invalid: "invalide"
       probability: "Probabilité de succés"
-      duplicate: "Inclure dans la recherche de doublons"
+      duplicate: "Désactiver la détection de doublon pour ce"
     message:
       confirm:
         delete: "Confirmer la suppression ?"
@@ -490,7 +494,8 @@ fr:
     new_import: "Nouvel import de "
     accounts: "comptes"
     contacts: "contacts"
-    import_waiting: "Imports en attente de validation"
+    import_accounts_waiting: "Imports comptes en attente de validation"
+    import_contacts_waiting: "Imports contacts en attente de validation"
   link:
     upload_csv_model: "télécharger le modèle de fichier d'import"
     back: "Retour"

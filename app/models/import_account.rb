@@ -9,7 +9,7 @@ class ImportAccount < ActiveRecord::Base
   resourcify
   
   CATEGORIES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire', 'Adhérent', 'Autre']
-  ANOMALIES = {:duplicate=>'Doublon',:company_name=>'Nom Société',:category=>'Catégorie',:no=>'Aucune'}
+  ANOMALIES = {:duplicate=>'Doublon détecté dans l\'import',:duplicate_in_db=>'Doublon détecté dans la base', :company_name=>'Nom Société incorrect',:category=>'Catégorie incorrecte',:no=>'-'}
   
   paginates_per 30
   
@@ -65,8 +65,8 @@ class ImportAccount < ActiveRecord::Base
         else
             #search duplicate account
             #try to match with imported accounts except account itself
-            if account.search_duplicates==true
-                ImportAccount.find_each(:conditions => "id != #{account.id} AND company !='' AND search_duplicates=TRUE") do |account2|            
+            if account.no_search_duplicates==false
+                ImportAccount.find_each(:conditions => "id != #{account.id} AND company !='' AND no_search_duplicates=false") do |account2|            
                   if is_match(account, account2)
                     anomaly=ImportAccount::ANOMALIES[:duplicate]
                     if account2.anomaly!=ImportAccount::ANOMALIES[:duplicate]
@@ -74,6 +74,17 @@ class ImportAccount < ActiveRecord::Base
                     end
                   end               
                 end
+                
+                #try to match with accounts
+                if account.no_search_duplicates==false
+                    Account.find_each do |account2|            
+                        if is_match(account, account2)
+                          anomaly=ImportAccount::ANOMALIES[:duplicate_in_db]+" :"+account2.company
+                        end               
+                    end
+                end
+                
+                
             end
         end 
         
@@ -95,17 +106,23 @@ class ImportAccount < ActiveRecord::Base
             account1.tel.gsub(/[^0-9]/,"").eql?(account2.tel.gsub(/[^0-9]/,""))
           match=true
           
-        else #try to match company name and zip                     
-            #no test match if zip are empty          
-          if !account1.zip==nil? && !account2.zip==nil?
-            company1=account1.company.upcase
-            company2=account2.company.upcase
-            #use gem Text
+        else #try to match company name AND zip if both zip exist else try to match only company name                    
+
             score=Text::WhiteSimilarity.new
-            if score.similarity(company1,company2)>0.7 && account1.zip.gsub(/\s/,"").eql?(account2.zip.gsub(/\s/,""))
-                match=true                
-            end   
-          end
+
+            if !account1.zip==nil? && !account2.zip==nil?
+                company1=account1.company.upcase
+                company2=account2.company.upcase
+                
+                #use gem Text : if score = 1 similarity is total                
+                if score.similarity(company1,company2)>0.7 && account1.zip.gsub(/\s/,"").eql?(account2.zip.gsub(/\s/,""))
+                    match=true                
+                end
+            else
+                if score.similarity(company1,company2)>0.8
+                    match=true                
+                end              
+            end
         end
         return match
     end

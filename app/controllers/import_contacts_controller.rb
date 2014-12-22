@@ -11,7 +11,7 @@ class ImportContactsController < ApplicationController
   # Show the full list of Accounts by paginate_by
   def index
     #variables for render
-    @title=t('title.import_waiting')
+    @title=t('title.import_contacts_waiting')
     @link="new_link"
     @all_import_contacts=ImportContact.count
 
