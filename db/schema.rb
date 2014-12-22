@@ -155,14 +155,6 @@ ActiveRecord::Schema.define(:version => 20141126084317) do
     t.text     "notes2"
   end
 
-  create_table "imports", :force => true do |t|
-    t.string   "categorie"
-    t.string   "created_by"
-    t.integer  "origine_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "opportunities", :force => true do |t|
     t.string   "name"
     t.text     "description"
