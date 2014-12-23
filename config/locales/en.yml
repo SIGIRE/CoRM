@@ -456,7 +456,8 @@ en:
       confirm:
         delete: "Confirm delete ?"
         delete_before_import: "This %{model} won't be imported !"
-        delete_import: "Warning: The removal of import will cause the removal of all items related to this import (contacts or accounts) ! Do you confirm the suppression ?"
+        delete_import: "Warning: the removal of import will cause the removal of all items related to this import (contacts or accounts) ! Do you confirm the suppression ?"
+        delete_contact: "Warning: the removal of this contact could cause loss of informations for linked elements as events, tasks, accounts... Do you confirm ?"
         validate_account: "Validate this account ?"
       alert:
         no_account_pending_validation: "No account pending validation"
