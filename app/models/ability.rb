@@ -92,7 +92,7 @@ class Ability
       can :activate, Account
       can :deactivate, Account      
       can :manage, Contact
-	  cannot :destroy, Contact
+	  #cannot :destroy, Contact
       can :manage, Event
       can :manage, Relation
       can :manage, Opportunity
