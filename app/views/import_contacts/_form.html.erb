@@ -16,7 +16,7 @@
 
   <div class="field">
 
-     <%= label_tag :no_search_duplicates, "#{t('app.fields.duplicate')} #{t('app.model.Contact')} :" %>
+     <%= label_tag :no_search_duplicates, "#{t('app.fields.duplicate')} #{t('app.model.Contact').downcase} :" %>
      <%= f.check_box :no_search_duplicates %>
 
   </div>
