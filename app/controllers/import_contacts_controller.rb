@@ -18,13 +18,13 @@ class ImportContactsController < ApplicationController
     @import_contacts = apply_scopes(ImportContact).order("anomaly DESC", "surname")
     
     #check for anomaly except when just rendering filter
-    if params[:commit]!='Filtrer'
-      ImportContact.transaction do    
-        ImportContact.find_each do |i|
-            i.checked_contact
-        end
-      end
-    end
+    #if params[:commit]!='Filtrer'
+    #  ImportContact.transaction do    
+    #    ImportContact.find_each do |i|
+    #        i.checked_contact
+    #    end
+    #  end
+    #end
     
     
     
@@ -52,12 +52,12 @@ class ImportContactsController < ApplicationController
       #format.csv { render :text => @import_contacts.to_csv }
     end
     
-    rescue Exception => e
-            #if an exception occurs during checking import_contacts
-            respond_to do |format|
-               flash.now[:alert] = t('app.check_undefined_error')+" : "+e.message
-               format.html { @import_contacts = @import_contacts.page(params[:page]) }
-            end
+    #rescue Exception => e
+    #        #if an exception occurs during checking import_contacts
+    #        respond_to do |format|
+    #           flash.now[:alert] = t('app.check_undefined_error')+" : "+e.message
+    #           format.html { @import_contacts = @import_contacts.page(params[:page]) }
+    #        end
     
   end
   
@@ -88,6 +88,9 @@ class ImportContactsController < ApplicationController
     @import_contact = ImportContact.find(params[:id])
     @import_contact.modified_by = current_user.id
     @import_contact.update_attributes(params[:import_contact])
+    
+    #check after update
+    @import_contact.check
     
     respond_to do |format|
         format.html { redirect_to import_contacts_path(:anomaly=>select), :notice => "#{t('app.message.notice.updated_contact')}" }      
@@ -140,8 +143,8 @@ class ImportContactsController < ApplicationController
     @import_contact.destroy
     anomaly=@import_contact.anomaly
     
-    #if is delete because is a duplicate account, check import_accounts before redirect
-    #in order to change anomaly statut of the other account
+    #if is delete because is a duplicate account, match import_contacts before redirect
+    #in order to change anomaly statut of the other contact
   
     if anomaly==ImportContact::ANOMALIES[:duplicate]
         ImportContact.find_each(:conditions=>"anomaly = '#{ImportContact::ANOMALIES[:duplicate]}'") do |contact1|

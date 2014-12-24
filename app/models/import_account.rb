@@ -9,7 +9,7 @@ class ImportAccount < ActiveRecord::Base
   resourcify
   
   CATEGORIES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire', 'Adhérent', 'Autre']
-  ANOMALIES = {:duplicate=>'Doublon détecté dans l\'import',:duplicate_in_db=>'Doublon détecté dans la base', :company_name=>'Nom Société incorrect',:category=>'Catégorie incorrecte',:no=>'-'}
+  ANOMALIES = {:duplicate=>'Doublon détecté dans import',:duplicate_in_db=>'Doublon détecté dans la base', :company_name=>'Nom Société incorrect',:category=>'Catégorie incorrecte',:no=>'-'}
   
   paginates_per 30
   
@@ -56,7 +56,7 @@ class ImportAccount < ActiveRecord::Base
   end
   
     #this metohd checked import_account. If any invalid value, anomaly is set to type of anomaly
-    def checked_account
+    def check
         anomaly=ImportAccount::ANOMALIES[:no]
         #search anomaly on company name
         #if company is nil or invalid characters
@@ -96,6 +96,8 @@ class ImportAccount < ActiveRecord::Base
     end
     
     #this method match 2 accounts and return true if they seems duplicates
+    #this is a class method because we need to match all import_accounts when we destroy an
+    #import_account 
     def self.is_match (account1,account2)
         match=false
         #try to match phone in priority

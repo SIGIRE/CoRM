@@ -13,7 +13,7 @@ class ImportContact < ActiveRecord::Base
   # Can be: M.|Mme
   #
   TITLES = ["M.", "Mme"]
-  ANOMALIES = {:duplicate=>'Doublon détecté',:duplicate_in_db=>'Doublon détecté dans la base', :title=>'Civilité incorrecte', :name=>'Nom Prénom incorrect',:no_account=>'Compte société inexistant',:no=>'-'}
+  ANOMALIES = {:duplicate=>'Doublon détecté dans import',:duplicate_in_db=>'Doublon détecté dans la base', :title=>'Civilité incorrecte', :name=>'Nom Prénom incorrect',:no_account=>'Compte société inexistant',:no=>'-'}
   
   paginates_per 30
   
@@ -56,7 +56,7 @@ class ImportContact < ActiveRecord::Base
   # so, until anomaly doesn't exist, contact appear in red with a message in anomaly
   # column in index view
   #
-  def checked_contact
+  def check
     anomaly=ImportContact::ANOMALIES[:no]
     
     if self.account_id.blank?
@@ -113,6 +113,8 @@ class ImportContact < ActiveRecord::Base
     
     #
     #this method match 2 contacts and return true if they seems duplicates
+    #this is a class method because we need to match all import_contact when we destroy an
+    #import_contact 
     #
     def self.is_match (contact1,contact2)
         match=false

@@ -17,15 +17,6 @@ class ImportAccountsController < ApplicationController
     @all_import_accounts=ImportAccount.count
     
     @import_accounts = apply_scopes(ImportAccount).order("anomaly DESC", "company")    
-        
-    #check for anomaly except for rendering filter
-    if params[:commit]!='Filtrer'
-        ImportAccount.transaction do    
-            ImportAccount.find_each do |i|
-                i.checked_account
-            end
-        end
-    end
  
     #to keep info filter
     if !params[:anomaly].nil?
@@ -47,13 +38,6 @@ class ImportAccountsController < ApplicationController
       format.html { @import_accounts = @import_accounts.page(params[:page]) }
       format.json { render :json => @import_accounts }
     end
-    
-    rescue Exception => e
-            #if an exception occurs during checking import_accounts
-            respond_to do |format|
-               flash.now[:alert] = t('app.check_undefined_error')+" : "+e.message
-               format.html { @import_accounts = @import_accounts.page(params[:page]) }
-            end
     
   end
   
@@ -90,7 +74,10 @@ class ImportAccountsController < ApplicationController
     params[:import_account][:company] = UnicodeUtils.upcase(params[:import_account][:company], I18n.locale)
     params[:import_account][:web] = Format.to_url(params[:import_account][:web])
     @import_account.update_attributes(params[:import_account])
-  
+    
+    #check after update
+    @import_account.check
+    
     respond_to do |format|
         format.html { redirect_to import_accounts_path(:anomaly=>select), :notice => "#{t('app.message.notice.updated_account')}" }
       
@@ -149,7 +136,7 @@ class ImportAccountsController < ApplicationController
         anomaly=@import_account.anomaly
         @import_account.destroy
         
-        #if is delete because is a duplicate account, check import_accounts before redirect
+        #if is delete because is a duplicate account, match import_accounts for duplicates before redirect
         #in order to change anomaly statut of the other account        
         if anomaly==ImportAccount::ANOMALIES[:duplicate]
             ImportAccount.find_each(:conditions=>"anomaly = '#{ImportAccount::ANOMALIES[:duplicate]}' AND company!=''") do |account1|

@@ -52,15 +52,16 @@ class ImportsController < ApplicationController
             @origin=params[:origin][:origin_id]
         end
         @import = Import.new(params[:import])
-        @import.created_by = current_user.id   
+        @import.created_by = current_user.id
      
         respond_to do |format|
             if @import.save
                 #read the file if import save succesfully                       
                 #begin-end is for catching exceptions that can occurs during reading file
                 begin
-                    read_file(params[:file])
-                end         
+                    read_file(params[:file])              
+                end
+                
                 #if all is ok redirect to model_controller to display the list of imported accounts
                 format.html { redirect_to @models_path, method: :GET, :notice => "#{t('app.message.notice.import_done')}" }
                 #format.json { render :json => @import, :status => :created, :location => @import }
@@ -71,15 +72,14 @@ class ImportsController < ApplicationController
         end
         rescue Exception => e
             #if an exception occurs during reading file, import must be destroy
-            @import.destroy
+            @import.destroy  
             respond_to do |format|
                flash.now[:alert] = t('app.load_undefined_error')+" #{@num_line} : "+e.message
                @origin=nil  #to avoid bug when render template
                @collegue=nil
                format.html { render :template => new_import_path }
             end
-        
-        
+       
     end
     
     def destroy
@@ -94,9 +94,6 @@ class ImportsController < ApplicationController
     
     def download
         type=params[:type]
-        #data = open("#{Rails.root}/app/public/#{type}/corm_import.csv") 
-        #send_data data.read, filename: "corm_import.csv", type: "application/txt", disposition: 'inline', stream: 'true', buffer_size: '4096'
-
         data = open("#{Rails.root}/app/public/model_import_file/corm_import_#{type}.csv") 
         send_data data.read, filename: "corm_import_#{type}.csv", type: "application/txt", disposition: 'inline', stream: 'true', buffer_size: '4096'
     end
@@ -105,7 +102,7 @@ class ImportsController < ApplicationController
     
     #read each line of the file and create models in database
     def read_file(import_file)
-        @num_line=0
+        @num_line=2
         if @type=="accounts"
             #if create an account from a line failed, transaction is aborted and all
             #created accounts are rolling back
@@ -125,6 +122,9 @@ class ImportsController < ApplicationController
                 end
                 line.save!
                 @num_line+=1
+                
+                #check datas
+                line.check
             end
            end
            #for redirecting to the correct model template
@@ -140,6 +140,10 @@ class ImportsController < ApplicationController
                     line = ImportContact.new row.to_hash
                     
                     line.save!
+                    @num_line+=1
+                    
+                    #check datas
+                    line.check
 
                 end
             end
