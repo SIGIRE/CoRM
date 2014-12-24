@@ -17,17 +17,6 @@ class ImportContactsController < ApplicationController
 
     @import_contacts = apply_scopes(ImportContact).order("anomaly DESC", "surname")
     
-    #check for anomaly except when just rendering filter
-    #if params[:commit]!='Filtrer'
-    #  ImportContact.transaction do    
-    #    ImportContact.find_each do |i|
-    #        i.checked_contact
-    #    end
-    #  end
-    #end
-    
-    
-    
     #to keep info filter
     if !params[:anomaly].nil?
         @select=params[:anomaly]
@@ -51,13 +40,6 @@ class ImportContactsController < ApplicationController
       format.json { render :json => @import_contacts }
       #format.csv { render :text => @import_contacts.to_csv }
     end
-    
-    #rescue Exception => e
-    #        #if an exception occurs during checking import_contacts
-    #        respond_to do |format|
-    #           flash.now[:alert] = t('app.check_undefined_error')+" : "+e.message
-    #           format.html { @import_contacts = @import_contacts.page(params[:page]) }
-    #        end
     
   end
   

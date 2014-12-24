@@ -33,7 +33,7 @@
 	 <div>
 	  <%= label_tag :anomaly, "#{t('app.fields.anomaly').pluralize} :", :class => "top"  %>
 	  <!--@select store value of selected anomaly -->
-	  <%= select_tag "anomaly", options_for_select(ImportContact::ANOMALIES.collect{|v| v[1]}, @select), {:prompt => "#{t('app.default.all')}", :class =>"filter_statut" }  %>
+	  <%= select_tag "anomaly", options_for_select(ImportContact::ANOMALIES.collect{|v| v[1]=='-' ? 'Aucun' : v[1]}, @select), {:prompt => "#{t('app.default.all')}", :class =>"filter_statut" }  %>
 	</div>
         <%= submit_tag "Filtrer", :class =>"btn"%>
   </div>
