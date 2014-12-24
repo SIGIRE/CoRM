@@ -22,7 +22,7 @@ class ImportAccountsController < ApplicationController
     if params[:commit]!='Filtrer'
         ImportAccount.transaction do    
             ImportAccount.find_each do |i|
-                ImportAccount.checked_account(i)
+                i.checked_account
             end
         end
     end

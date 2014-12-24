@@ -21,7 +21,7 @@ class ImportContactsController < ApplicationController
     if params[:commit]!='Filtrer'
       ImportContact.transaction do    
         ImportContact.find_each do |i|
-            ImportContact.checked_contact(i)
+            i.checked_contact
         end
       end
     end

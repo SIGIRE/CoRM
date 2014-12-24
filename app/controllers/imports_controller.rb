@@ -125,7 +125,6 @@ class ImportsController < ApplicationController
                 end
                 line.save!
                 @num_line+=1
-
             end
            end
            #for redirecting to the correct model template

@@ -56,18 +56,18 @@ class ImportAccount < ActiveRecord::Base
   end
   
     #this metohd checked import_account. If any invalid value, anomaly is set to type of anomaly
-    def self.checked_account(account)
+    def checked_account
         anomaly=ImportAccount::ANOMALIES[:no]
         #search anomaly on company name
         #if company is nil or invalid characters
-        if account.company.blank? || account.company[/\w/]==nil
+        if self.company.blank? || self.company[/\w/]==nil
             anomaly=ImportAccount::ANOMALIES[:company_name]
         else
             #search duplicate account
             #try to match with imported accounts except account itself
-            if account.no_search_duplicates==false
-                ImportAccount.find_each(:conditions => "id != #{account.id} AND company !='' AND no_search_duplicates=false") do |account2|            
-                  if is_match(account, account2)
+            if self.no_search_duplicates==false
+                ImportAccount.find_each(:conditions => "id != #{self.id} AND company !='' AND no_search_duplicates=false") do |account2|            
+                  if ImportAccount.is_match(self, account2)
                     anomaly=ImportAccount::ANOMALIES[:duplicate]
                     if account2.anomaly!=ImportAccount::ANOMALIES[:duplicate]
                         account2.update_attributes(:anomaly=>ImportAccount::ANOMALIES[:duplicate])
@@ -76,9 +76,9 @@ class ImportAccount < ActiveRecord::Base
                 end
                 
                 #try to match with accounts
-                if account.no_search_duplicates==false
+                if self.no_search_duplicates==false
                     Account.find_each do |account2|            
-                        if is_match(account, account2)
+                        if ImportAccount.is_match(self, account2)
                           anomaly=ImportAccount::ANOMALIES[:duplicate_in_db]+" :"+account2.company
                         end               
                     end
@@ -89,10 +89,10 @@ class ImportAccount < ActiveRecord::Base
         end 
         
         #search anomaly on category
-        if !(ImportAccount::CATEGORIES).include?("#{account.category}") #if category not in authorizes values
+        if !(ImportAccount::CATEGORIES).include?("#{self.category}") #if category not in authorizes values
             anomaly=ImportAccount::ANOMALIES[:category]
         end     
-        account.update_attributes(:anomaly => anomaly)
+        self.update_attributes(:anomaly => anomaly)
     end
     
     #this method match 2 accounts and return true if they seems duplicates

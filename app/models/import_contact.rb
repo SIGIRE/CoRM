@@ -56,34 +56,34 @@ class ImportContact < ActiveRecord::Base
   # so, until anomaly doesn't exist, contact appear in red with a message in anomaly
   # column in index view
   #
-  def self.checked_contact(contact)
+  def checked_contact
     anomaly=ImportContact::ANOMALIES[:no]
     
-    if contact.account_id.blank?
+    if self.account_id.blank?
       #search in DB if an account with company name like company name of the contact exist
-      compte = Account.find_by_company(contact.company.upcase) unless contact.company.blank?
+      compte = Account.find_by_company(self.company.upcase) unless self.company.blank?
       if compte.nil?
           anomaly=ImportContact::ANOMALIES[:no_account]
       else
-          contact.update_attributes(:account_id=>compte.id)
+          self.update_attributes(:account_id=>compte.id)
       end
     end
     
     #if surname and forename are nil
-    if contact.surname.blank? && contact.forename.blank?
+    if self.surname.blank? && self.forename.blank?
       anomaly=ImportContact::ANOMALIES[:name]
     end
            
     #if surname or forname is nil or invalid characters
-    if (!contact.surname.blank? && contact.surname[/\w/]==nil) || (!contact.forename.blank? && contact.forename[/\w/]==nil)
+    if (!self.surname.blank? && self.surname[/\w/]==nil) || (!self.forename.blank? && self.forename[/\w/]==nil)
       anomaly=ImportContact::ANOMALIES[:name]
     
     #else search for duplicates (surname and forename equals)
     else
       #try to match with imported contacts except contact itself
-      if contact.no_search_duplicates==false
-        ImportContact.find_each(:conditions => "id != #{contact.id} AND no_search_duplicates=FALSE") do |contact2|            
-          if is_match(contact, contact2)
+      if self.no_search_duplicates==false
+        ImportContact.find_each(:conditions => "id != #{self.id} AND no_search_duplicates=FALSE") do |contact2|            
+          if ImportContact.is_match(self, contact2)
             anomaly=ImportContact::ANOMALIES[:duplicate]
             if contact2.anomaly!=ImportAccount::ANOMALIES[:duplicate]
                 contact2.update_attributes(:anomaly=>ImportAccount::ANOMALIES[:duplicate])
@@ -93,9 +93,9 @@ class ImportContact < ActiveRecord::Base
       end
       
       #try to match with contacts
-      if contact.no_search_duplicates==false
+      if self.no_search_duplicates==false
         Contact.find_each do |contact2|            
-          if is_match(contact, contact2)
+          if ImportContact.is_match(self, contact2)
             anomaly=ImportAccount::ANOMALIES[:duplicate_in_db]+" : "+contact2.surname+"-"+contact2.forename
           end               
         end
@@ -104,11 +104,11 @@ class ImportContact < ActiveRecord::Base
     end
     
     #if title is incorrect
-    if contact.title!="M." && contact.title!="Mme"
+    if self.title!="M." && self.title!="Mme"
       anomaly=ImportContact::ANOMALIES[:title]
     end
     
-    contact.update_attributes(:anomaly => anomaly)
+    self.update_attributes(:anomaly => anomaly)
   end
     
     #
