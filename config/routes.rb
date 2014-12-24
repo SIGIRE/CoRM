@@ -107,7 +107,7 @@ Crm::Application.routes.draw do
   
   # Tasks routes
   set_route('taches', 'tache', 'tasks')
-  match 'taches/filter(.:format)', :controller => 'tasks', :action => 'filter', :via => :get, :as => "filter_tasks"
+  match '/taches/filter(.:format)', :controller => 'tasks', :action => 'filter', :via => :get, :as => "filter_tasks_index"
 
   # Accounts
   match 'comptes/extract', controller: 'accounts', action: 'extract'
@@ -121,6 +121,7 @@ Crm::Application.routes.draw do
       post 'add_tag'
     end
     resources :events, path: 'evenements'
+    resources :tasks, path: 'taches'
     resources :opportunities, path: 'opportunites'
     resources :quotations, path: 'devis'
     resources :tags, path: 'tags'

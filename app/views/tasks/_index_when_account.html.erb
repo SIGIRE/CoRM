@@ -1,0 +1,120 @@
+<% if Task.all.length > 0 %>
+    <div class="container-fluid">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center"><%= t('app.fields.state') %></th>
+                    <th class="text-center"><%= t('app.fields.priority') %></th>
+                    <th class="text-center"><%= t('app.fields.subject') %></th>
+                    <th class="text-center"><%= t('app.model.Contact') %></th>
+                    <th class="text-center"><%= t('app.fields.term') %></th>
+                    <th class="text-center"><%= t('app.fields.collegue') %></th>
+                    <th class="text-center"><%= t('app.actions.Actions') %></th>        
+                </tr>
+            </thead>
+            <tbody>
+                <% @tasks.each do |task| %>
+                    <%
+	                    if task.priority == 3
+	                      attr = ' class="bold error"'.html_safe
+	                    elsif task.priority == 2 
+	                      attr = ' class="error"'.html_safe
+	                    elsif task.priority == 0
+	                      attr = ' class="info"'.html_safe
+	                    else
+	                      attr = ''
+	                    end 
+                    %>
+	                <tr<%= attr %>>
+
+                        <td class="text-center">
+                            <% if task.statut == "A faire"%>
+                                <span class="badge badge-important">
+                            <% elsif task.statut == "En cours"%>
+                                <span class="badge badge-warning">
+                            <% elsif task.statut == "Terminé"%>
+                                <span class="badge badge-success">
+                            <% elsif task.statut == "Annulé"%>
+                                <span class="badge badge-inverse">
+                            <% else %>
+                                -
+                            <% end %>
+								<% if task.statut == "A faire" %>
+									<%= t('app.status.todo') %>
+								<% elsif task.statut == "En cours" %>
+									<%= t('app.status.in_progress') %>
+								<% elsif task.statut == "Terminé" %>
+									<%= t('app.status.completed') %>
+								<% elsif task.statut == "Annulé" %>
+									<%= t('app.status.canceled') %>
+								<% end %>
+		                    </span>
+                        </td>
+                        <%# Récupération de la priorité %>
+		                <% if !task.priority.blank? %>
+			                							
+						<% if task.priority == 3 %>
+							<td class="text-center"><%= t('app.priority.urgent') %></td>
+						<% elsif task.priority == 2 %>
+							<td class="text-center"><%= t('app.priority.high') %></td>
+						<% elsif task.priority == 1 %>
+							<td class="text-center"><%= t('app.priority.normal') %></td>
+						<% elsif task.priority == 0 %>
+							<td class="text-center"><%= t('app.priority.low') %></td>
+						<% end %>
+							
+							
+		                <% else %>
+			                <td class="text-center">-</td>
+		                <% end %>
+		                
+
+		                
+		                <%# Récupération du titre %>
+		                <% if !task.title.blank? %>
+			                <td class="text-center"><%= link_to truncate(task.title, :length => 75, :separator => ' '), edit_task_path(task), :title => "#{t('app.actions.edit')} #{t('app.default.define_article_female')} #{t('app.model.Task')}".html_safe  %></td>
+		                <% else %>
+			                <td class="text-center">-</td>
+		                <% end %>
+
+                        <%# Récupération du contact %>
+		                <% if !task.contact.nil? %>
+			                <td class="text-center"><%= link_to task.contact.full_name, edit_contact_path(task.contact),{:title => "#{t('app.actions.edit')} #{t('app.default.define_article_male')} #{t('app.model.Contact')}".html_safe }  %></td>
+		                <% else %>
+			                <td class="text-center">-</td>
+		                <% end %>		
+
+                        <%# Récupération du terme %>
+		                <% if !task.term.blank? %>
+			                <% if task.term.to_date == Date.today %>
+				                <td class="text-center"><span class="label label-info"><%= task.term.split('/').reverse!.join('/') %></span></td>
+			                <% else %>
+				                <% if task.term.to_date < Date.today %>
+					                <td class="text-center"><span class="label label-important"><%= task.term.split('/').reverse!.join('/') %></span></td>
+				                <% else %>
+					                <td class="text-center"><%= task.term.split('/').reverse!.join('/') %></td>
+				                <% end %>
+			                <% end %>
+		                <% else %>
+			                <td class="text-center">-</td>
+		                <% end %>
+                        
+                        <%# Récupération de l'utilisateur' %>
+		                <% if !task.user.nil? %>	
+			                <td class="text-center"><%= task.user.full_name %></td>
+		                <% else %>
+			                <td class="text-center">-</td>
+		                <% end %>
+
+		                <td class="text-center">
+                      <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_task_path(task) , :title => "#{t('app.actions.edit')} #{t('app.default.define_article_female')} #{t('app.model.Task')}".html_safe   %>
+		                </td>
+	                </tr>
+	            <% end %>
+            </tbody>
+        </table>
+	<%= paginate @tasks %>
+    </div>
+    <% end %>
+
+</div>

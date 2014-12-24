@@ -12,7 +12,8 @@
 
         <% cssClass = (params[:controller] == 'tasks') ? 'active' : '' %>
         <li class="<%= "#{cssClass} "%>">
-          <%= link_to "<i class=\"fa fa-tasks\"></i>  #{t('app.model.Task').pluralize}".html_safe, url_for(:controller => 'tasks') %>
+          <%#= link_to "<i class=\"fa fa-tasks\"></i>  #{t('app.model.Task').pluralize}".html_safe, url_for(:controller => 'tasks') %>
+          <%= link_to "<i class=\"fa fa-tasks\"></i>  #{t('app.model.Task').pluralize}".html_safe, tasks_path %>
         </li>
 
         <!-- ACTORS -->

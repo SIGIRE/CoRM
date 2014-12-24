@@ -6,6 +6,8 @@
 class TasksController < ApplicationController
  
   load_and_authorize_resource
+  before_filter :load_account, only: [:index]
+  layout :current_layout
 
   has_scope :by_statut do |controller, scope, value|
     value == 'Non terminé' ? scope.undone : scope.by_statut(value)
@@ -23,7 +25,7 @@ class TasksController < ApplicationController
   # GET /tasks.json
  
   def index
-    @tasks = apply_scopes(Task)
+    @tasks = apply_scopes(tasks)
     @tasks = @tasks.by_user(current_user).undone if current_scopes.empty? # Default filtering
     @tasks = @tasks.order("priority DESC, created_at DESC, updated_at DESC")
                    .page(params[:page])
@@ -60,6 +62,7 @@ class TasksController < ApplicationController
   def new
     @task = Task.new
     @task.user = current_user
+    @task.account_id = params[:account_id]
     @users = User.all_reals
 
     respond_to do |format|
@@ -212,6 +215,23 @@ class TasksController < ApplicationController
 			@event = Event.create(hash)
 		end
   end
+  
+  private
+    def load_account
+      @account = Account.find_by_id(params[:account_id])
+    end
+    
+    def tasks 
+      @account ? @account.tasks : Task
+    end
+
+    def current_layout
+      if @account && @account.persisted? && request.path_parameters[:action] == "index" # i prefer helper 'current_action'
+        "accounts_show"
+      else
+        "application"
+      end
+    end
   
 end
 

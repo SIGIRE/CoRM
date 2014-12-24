@@ -18,6 +18,7 @@
 
     <ul class="nav nav-tabs">
       <li<%=' class=active' if controller_name.eql? 'events' %>><%= link_to "<i class=\"fa fa-comment fa-fw\"></i> #{t('app.model.Event').pluralize}".html_safe, [@account, :events]%></li>
+      <li<%=' class=active' if controller_name.eql? 'tasks'%>><%= link_to "<i class=\"fa fa-tasks fa-fw\"></i> #{t('app.controllers.Task').pluralize}".html_safe, [@account, :tasks] %></li><!-- account_tasks_path -->
       <li<%=' class=active' if controller_name.eql? 'opportunities'%>><%= link_to "<i class=\"fa fa-briefcase fa-fw\"></i> #{t('app.controllers.Opportunity').pluralize}".html_safe, [@account, :opportunities] %></li>
       <li<%=' class=active' if controller_name.eql? 'tags'%>><%= link_to "<i class=\"fa fa-tags fa-fw\"></i> #{t('app.model.Tags')}".html_safe, [@account, :tags] %></li>
       <li<%=' class=active' if controller_name.eql? 'documents' %>><%= link_to "<i class=\"fa fa-folder fa-fw\"></i> #{t('app.controllers.Document').pluralize}".html_safe, [@account, :documents]%></li>
