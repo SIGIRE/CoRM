@@ -17,8 +17,9 @@ class ImportAccountsController < ApplicationController
     @all_import_accounts=ImportAccount.count
     
     #@import_accounts = apply_scopes(ImportAccount).order("anomaly DESC", "company")
-    @import_accounts = ImportAccount.joins(:anomaly).joins('LEFT OUTER JOIN accounts ON accounts.id = import_accounts.id').order("level DESC", "company")
- 
+    @import_accounts = apply_scopes(ImportAccount).joins(:anomaly).joins('LEFT OUTER JOIN accounts ON accounts.id = import_accounts.id').order("level DESC", "company")
+    
+    
     #to keep info filter
     if !params[:anomaly].nil?
         @select=params[:anomaly]
@@ -131,35 +132,14 @@ class ImportAccountsController < ApplicationController
         if !params[:anomaly].nil?
             select=params[:anomaly]
         end
-
         
         @import_account = ImportAccount.find(params[:id])
-        #anomaly_id=@import_account.anomaly_id
         @import_account.destroy
         
-        #check import_accounts
+        #check after destroy
         ImportAccount.find_each do |i|
             i.check
         end
-        
-        #if is delete because is a duplicate account, match import_accounts for duplicates before redirect
-        #in order to change anomaly statut of the other account        
-        #if anomaly_id==Anomaly.find_by_name('duplicate_import').id  
-        #    duplicate_import_id=Anomaly.find_by_name('duplicate_import').id
-        #    duplicate_db_id=Anomaly.find_by_name('duplicate_db').id
-        #    ImportAccount.find_each(:conditions=>["(anomaly_id = ? OR anomaly_id = ?) AND company!=''",duplicate_import_id, duplicate_db_id]) do |account1|
-        #        match=false
-        #        ImportAccount.find_each(:conditions=>"id != #{account1.id} AND company!=''") do |account2|
-        #            if ImportAccount::is_match(account1,account2)
-        #                match=true
-        #            end
-        #            break if match
-        #        end
-        #        if !match
-        #            account1.update_attributes(:anomaly => Anomaly.find_by_name('ok'))
-        #        end
-        #    end
-        #end
         
         respond_to do |format|
             format.html { redirect_to import_accounts_path(:anomaly=>select), :notice => "#{t('app.message.notice.delete_account')}" }
