@@ -129,7 +129,7 @@ class ImportContactsController < ApplicationController
     #in order to change anomaly statut of the other contact
   
     if anomaly==ImportContact::ANOMALIES[:duplicate]
-        ImportContact.find_each(:conditions=>"anomaly = '#{ImportContact::ANOMALIES[:duplicate]}'") do |contact1|
+        ImportContact.find_each(:conditions=>"anomaly LIKE 'Doublon%import'") do |contact1|
             match=false
             ImportContact.find_each(:conditions=>"id != #{contact1.id}") do |contact2|
                 if ImportContact::is_match(contact1,contact2)

@@ -139,7 +139,7 @@ class ImportAccountsController < ApplicationController
         #if is delete because is a duplicate account, match import_accounts for duplicates before redirect
         #in order to change anomaly statut of the other account        
         if anomaly==ImportAccount::ANOMALIES[:duplicate]
-            #ImportAccount.find_each(:conditions=>"anomaly LIKE '#{ImportAccount::ANOMALIES[:duplicate]}' AND company!=''") do |account1|
+            
             ImportAccount.find_each(:conditions=>"anomaly LIKE 'Doublon%import' AND company!=''") do |account1|
                 match=false
                 ImportAccount.find_each(:conditions=>"id != #{account1.id} AND company!=''") do |account2|

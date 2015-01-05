@@ -13,7 +13,7 @@ class ImportContact < ActiveRecord::Base
   # Can be: M.|Mme
   #
   TITLES = ["M.", "Mme"]
-  ANOMALIES = {:duplicate=>'Doublon détecté dans import',:duplicate_in_db=>'Doublon détecté dans la base', :title=>'Civilité incorrecte', :name=>'Nom Prénom incorrect',:no_account=>'Compte société inexistant',:no=>'-'}
+  ANOMALIES = {:duplicate=>'Doublon détecté dans l\'import',:duplicate_in_db=>'Doublon détecté dans la base', :title=>'Civilité incorrecte', :name=>'Nom Prénom incorrect',:no_account=>'Compte société inexistant',:no=>'-'}
   
   paginates_per 30
   
