@@ -16,7 +16,8 @@ class ImportAccountsController < ApplicationController
     @link="new_link"
     @all_import_accounts=ImportAccount.count
     
-    @import_accounts = apply_scopes(ImportAccount).order("anomaly DESC", "company")    
+    #@import_accounts = apply_scopes(ImportAccount).order("anomaly DESC", "company")
+    @import_accounts = ImportAccount.joins(:anomaly).joins('LEFT OUTER JOIN accounts ON accounts.id = import_accounts.id').order("level DESC", "company")
  
     #to keep info filter
     if !params[:anomaly].nil?
@@ -26,7 +27,7 @@ class ImportAccountsController < ApplicationController
     if @all_import_accounts==0
         flash.now[:alert] = "#{t('app.message.alert.no_account_pending_validation')}" 
     else
-        nbr_anomaly=ImportAccount.where('anomaly != ?', ImportAccount::ANOMALIES[:no]).count
+        nbr_anomaly=ImportAccount.joins(:anomaly).where('name != ?', 'ok').count
         if nbr_anomaly==0
             flash.now[:notice] = "#{t('app.message.alert.accounts_in_anomaly', nbr: 0)}"
         else
@@ -133,26 +134,32 @@ class ImportAccountsController < ApplicationController
 
         
         @import_account = ImportAccount.find(params[:id])
-        anomaly=@import_account.anomaly
+        #anomaly_id=@import_account.anomaly_id
         @import_account.destroy
+        
+        #check import_accounts
+        ImportAccount.find_each do |i|
+            i.check
+        end
         
         #if is delete because is a duplicate account, match import_accounts for duplicates before redirect
         #in order to change anomaly statut of the other account        
-        if anomaly==ImportAccount::ANOMALIES[:duplicate]
-            
-            ImportAccount.find_each(:conditions=>"anomaly LIKE 'Doublon%import' AND company!=''") do |account1|
-                match=false
-                ImportAccount.find_each(:conditions=>"id != #{account1.id} AND company!=''") do |account2|
-                    if ImportAccount::is_match(account1,account2)
-                        match=true
-                    end
-                    break if match
-                end
-                if !match
-                    account1.update_attributes(:anomaly => ImportAccount::ANOMALIES[:no])
-                end
-            end
-        end
+        #if anomaly_id==Anomaly.find_by_name('duplicate_import').id  
+        #    duplicate_import_id=Anomaly.find_by_name('duplicate_import').id
+        #    duplicate_db_id=Anomaly.find_by_name('duplicate_db').id
+        #    ImportAccount.find_each(:conditions=>["(anomaly_id = ? OR anomaly_id = ?) AND company!=''",duplicate_import_id, duplicate_db_id]) do |account1|
+        #        match=false
+        #        ImportAccount.find_each(:conditions=>"id != #{account1.id} AND company!=''") do |account2|
+        #            if ImportAccount::is_match(account1,account2)
+        #                match=true
+        #            end
+        #            break if match
+        #        end
+        #        if !match
+        #            account1.update_attributes(:anomaly => Anomaly.find_by_name('ok'))
+        #        end
+        #    end
+        #end
         
         respond_to do |format|
             format.html { redirect_to import_accounts_path(:anomaly=>select), :notice => "#{t('app.message.notice.delete_account')}" }
@@ -162,19 +169,38 @@ class ImportAccountsController < ApplicationController
     #this method scan all import_accounts and search duplicate
     def recalculate_duplicates
         nbr=0
-        ImportAccount.find_each(:conditions=>"company!=''") do |account1|
+        ImportAccount.find_each(:conditions=>"company!=''") do |account1|            
+            
+            #set duplicate_import to no_anomaly
+            if account1.anomaly_id==Anomaly.find_by_name('duplicate_import').id || account1.anomaly_id==Anomaly.find_by_name('duplicate_db').id
+                account1.update_attributes(:anomaly_id=>Anomaly.find_by_name('ok').id)
+            end
+     
+            #search in import_account
             ImportAccount.find_each(:conditions=>"company!=''", start: (account1.id)+1) do |account2|
                 if ImportAccount.is_match(account1,account2)
                     nbr+=1
-                    account1.update_attributes(:anomaly=>ImportAccount::ANOMALIES[:duplicate]) unless account1.anomaly==ImportAccount::ANOMALIES[:duplicate]
-                    account2.update_attributes(:anomaly=>ImportAccount::ANOMALIES[:duplicate]) unless account2.anomaly==ImportAccount::ANOMALIES[:duplicate]
+                    account1.update_attributes(:anomaly_id=>Anomaly.find_by_name('duplicate_import').id) unless account1.anomaly_id==Anomaly.find_by_name('duplicate_import').id
+                    account2.update_attributes(:anomaly_id=>Anomaly.find_by_name('duplicate_import').id) unless account2.anomaly_id==Anomaly.find_by_name('duplicate_import').id
                 end
             end
+            
+            #search in db
+            Account.find_each do |account2|            
+                if ImportAccount.is_match(account1, account2)
+                  account1.update_attributes(:anomaly_id => Anomaly.find_by_name('duplicate_db').id)
+                  account1.update_attributes(:account_id=>account2.id)
+                end               
+            end
         end
+        
         respond_to do |format|
-            format.html { redirect_to import_accounts_path, :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}
+            format.html { redirect_to import_accounts_path(:invalid=>"no"), :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}
 
         end
+        
     end
+    
+    
  
 end

@@ -32,8 +32,9 @@
     <div>
       <%= label_tag :anomaly, "#{t('app.fields.anomaly').pluralize} :", :class => "top"  %>
       <!--@select store value of selected anomaly -->
-      <%= select_tag "anomaly", options_for_select(ImportAccount::ANOMALIES.collect{|v| v[1]=='-' ? 'Aucun' : v[1]},@select), { :prompt => "#{t('app.default.all')}", :class =>"filter_statut"}  %>
-    </div>
+      <%#= select_tag "anomaly", options_for_select(ImportAccount::ANOMALIES.collect{|v| v[1]=='-' ? 'Aucun' : v[1]},@select), { :prompt => "#{t('app.default.all')}", :class =>"filter_statut"}  %>
+      <%= select_tag "anomaly", options_for_select(Anomaly.all.collect{|v| v.notes},@select), { :prompt => "#{t('app.default.all')}", :class =>"filter_statut"}  %>  
+  </div>
     <%= submit_tag "#{t('app.actions.filter')}", :class =>"btn"%>
   </div>
  <% end %>
@@ -54,11 +55,12 @@
     </tr>
     </thead>
 	<tbody>
+
   <% @import_accounts.each do |account| %>
 
 
-    <%	case account.anomaly
-	  when ImportAccount::ANOMALIES[:no]
+    <%	case account.anomaly.level
+	  when 1
 		  %><tr class='success'><%
 	  else
 		  %><tr class='error'><%
@@ -107,14 +109,12 @@
                         <td class="text-center">-</td>
         <% end %>
         
-          <td class="text-center">
-	    <%# if account.anomaly.include?(ImportAccount::ANOMALIES[:duplicate_in_db]) %>
-	      <%#= account.anomaly.split(':')[1] %>
-	      <%#= (Account.find_by_company("#{account.anomaly.split(':')[1]}")).inspect %>
-	      <%#= (Account.find_by_company("sigire")).inspect %>
-	      <%#= link_to account.anomaly, edit_account_path(Account.find_by_company(account.anomaly.split(':')[1])) %>
-	    <%# end %>
-	    <%= account.anomaly %>	  
+	  <td class="text-center">
+	    <%= account.anomaly.notes %>
+	    <!-- if duplicate in db display company name of account in db with link-->
+	    <% if account.anomaly.name=='duplicate_db' %>
+	      <%= link_to account.account.company, edit_account_path(:id=>account.account_id),{:title => "#{t('app.actions.edit')}"} %>
+	    <% end %>
 	  </td>
 	
 	

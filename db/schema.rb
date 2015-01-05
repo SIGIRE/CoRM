@@ -11,9 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-ActiveRecord::Schema.define(:version => 20141217101901) do
-
+ActiveRecord::Schema.define(:version => 20150105091525) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -52,6 +50,14 @@ ActiveRecord::Schema.define(:version => 20141217101901) do
   create_table "aliases", :force => true do |t|
     t.integer "contact_id"
     t.string  "email"
+  end
+
+  create_table "anomalies", :force => true do |t|
+    t.string   "name"
+    t.string   "notes"
+    t.integer  "level"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "contacts", :force => true do |t|
@@ -179,10 +185,11 @@ ActiveRecord::Schema.define(:version => 20141217101901) do
     t.integer  "origin_id"
     t.boolean  "active",               :default => true
     t.integer  "import_id"
-    t.string   "anomaly",              :default => "-"
     t.datetime "created_at",                              :null => false
     t.datetime "updated_at",                              :null => false
     t.boolean  "no_search_duplicates", :default => false
+    t.integer  "anomaly_id"
+    t.integer  "account_id"
   end
 
   create_table "import_contacts", :force => true do |t|

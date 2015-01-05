@@ -17,6 +17,9 @@ class Account < ActiveRecord::Base
   
   before_save :uppercase_company
   
+  #has_one is added because import_account has an account_id column to store id of duplicate account
+  has_one :import_account
+  
   has_many :contacts, :dependent => :destroy
   has_many :opportunities, :dependent => :destroy
   has_many :quotations, :dependent => :destroy
