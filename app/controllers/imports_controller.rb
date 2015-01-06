@@ -57,11 +57,9 @@ class ImportsController < ApplicationController
         respond_to do |format|
             if @import.save
                 #read the file if import save succesfully                       
-                #begin-end is for catching exceptions that can occurs during reading file
-                begin
-                    read_file(params[:file])              
-                end
-                
+
+                read_file(params[:file])              
+   
                 #if all is ok redirect to model_controller to display the list of imported accounts
                 format.html { redirect_to @models_path, method: :GET, :notice => "#{t('app.message.notice.import_done')}" }
                 #format.json { render :json => @import, :status => :created, :location => @import }

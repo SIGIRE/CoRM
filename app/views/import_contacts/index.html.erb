@@ -33,7 +33,7 @@
 	 <div>
 	  <%= label_tag :anomaly, "#{t('app.fields.anomaly').pluralize} :", :class => "top"  %>
 	  <!--@select store value of selected anomaly -->
-	  <%= select_tag "anomaly", options_for_select(ImportContact::ANOMALIES.collect{|v| v[1]=='-' ? 'Aucun' : v[1]}, @select), {:prompt => "#{t('app.default.all')}", :class =>"filter_statut" }  %>
+	  <%= select_tag "anomaly", options_for_select(Anomaly.all.collect{|v| [ v.notes=='-' ? 'Aucun' : v.notes, v.id]},@select), {:prompt => "#{t('app.default.all')}", :class =>"filter_statut" }  %>
 	</div>
         <%= submit_tag "Filtrer", :class =>"btn"%>
   </div>
@@ -60,10 +60,10 @@
     <tbody>
       <% @import_contacts.each do |contact| %>		
 		
-		<%	case contact.anomaly
-				when ImportContact::ANOMALIES[:no]
+		<%	case contact.anomaly.level
+				when 1
 					%><tr class='success'><%
-				when ImportContact::ANOMALIES[:no_account]
+				when 2
 					%><tr class='warning'><%
 				else
 					%><tr class='error'><%
@@ -123,7 +123,13 @@
             <td class="text-center">-</td>
           <% end %>
 
-       <td class="text-center"><%= contact.anomaly %></td>
+       <td class="text-center">
+			<%= contact.anomaly.notes %>
+			<!-- if duplicate in db, display company name of account in db with link-->
+			<% if contact.anomaly.name=='duplicate_db' %>
+	      <%= link_to contact.contact.full_name, edit_contact_path(:id=>contact.contact_id),{:title => "#{t('app.actions.edit')}"} %>
+			<% end %>
+		 </td>
 
 	
         <td class="text-center">

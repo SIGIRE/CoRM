@@ -138,7 +138,7 @@ class ImportAccountsController < ApplicationController
         @import_account = ImportAccount.find(params[:id])
         @import_account.destroy
         
-        #check after destroy
+        #check import_accounts after destroy in order to eliminate isolated duplicates anomaly
         ImportAccount.find_each do |i|
             i.check
         end
@@ -170,6 +170,7 @@ class ImportAccountsController < ApplicationController
             #search in db
             Account.find_each do |account2|            
                 if ImportAccount.is_match(account1, account2)
+                  nbr+=1
                   account1.update_attributes(:anomaly_id => Anomaly.find_by_name('duplicate_db').id)
                   account1.update_attributes(:account_id=>account2.id)
                 end               

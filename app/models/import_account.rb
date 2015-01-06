@@ -120,7 +120,9 @@ class ImportAccount < ActiveRecord::Base
                 company1=account1.company.upcase
                 company2=account2.company.upcase
                 
-                #use gem Text : if score = 1 similarity is total                
+                #use gem Text : if score = 1 similarity is total
+                # if match is too large, up value from 0.7 to upper
+                # if match is too strict, down value from 0.7 to down
                 if score.similarity(company1,company2)>0.7 && account1.zip.gsub(/\s/,"").eql?(account2.zip.gsub(/\s/,""))
                     match=true                
                 end

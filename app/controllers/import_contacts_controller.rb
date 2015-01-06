@@ -15,7 +15,8 @@ class ImportContactsController < ApplicationController
     @link="new_link"
     @all_import_contacts=ImportContact.count
 
-    @import_contacts = apply_scopes(ImportContact).order("anomaly DESC", "surname")
+    #@import_contacts = apply_scopes(ImportContact).order("anomaly DESC", "surname")
+     @import_contacts = apply_scopes(ImportContact).joins(:anomaly).joins('LEFT OUTER JOIN contacts ON contacts.id = import_contacts.id').order("level DESC", "company")
     
     #to keep info filter
     if !params[:anomaly].nil?
@@ -25,7 +26,7 @@ class ImportContactsController < ApplicationController
     if @all_import_contacts==0 
       flash.now[:alert] = "#{t('app.message.alert.no_contact_pending_validation')}" 
     else
-      nbr_anomaly=ImportContact.where('anomaly != ?', ImportContact::ANOMALIES[:no]).count
+      nbr_anomaly=ImportContact.joins(:anomaly).where('name != ?', 'ok').count
       if nbr_anomaly>0
         flash.now[:alert] = "#{t('app.message.alert.accounts_in_anomaly', nbr: nbr_anomaly)}"
       else
@@ -123,25 +124,11 @@ class ImportContactsController < ApplicationController
     
     @import_contact = ImportContact.find(params[:id])
     @import_contact.destroy
-    anomaly=@import_contact.anomaly
     
-    #if is delete because is a duplicate account, match import_contacts before redirect
-    #in order to change anomaly statut of the other contact
-  
-    if anomaly==ImportContact::ANOMALIES[:duplicate]
-        ImportContact.find_each(:conditions=>"anomaly LIKE 'Doublon%import'") do |contact1|
-            match=false
-            ImportContact.find_each(:conditions=>"id != #{contact1.id}") do |contact2|
-                if ImportContact::is_match(contact1,contact2)
-                    match=true
-                end
-                break if match
-            end
-            if !match
-                contact1.update_attributes(:anomaly => ImportContact::ANOMALIES[:no])
-            end
-        end
-    end
+    #check import_contacts after destroy in order to eliminate isolated duplicates anomaly
+      ImportContact.find_each do |i|
+          i.check
+      end
     
     respond_to do |format|
         format.html { redirect_to import_contacts_path(:anomaly=>select), :notice => "#{t('app.message.notice.delete_contact')}"  }
@@ -152,13 +139,30 @@ class ImportContactsController < ApplicationController
   def recalculate_duplicates
     nbr=0
     ImportContact.find_each do |contact1|
+      
+      #set duplicate_import to no_anomaly
+      if contact1.anomaly_id==Anomaly.find_by_name('duplicate_import').id || contact1.anomaly_id==Anomaly.find_by_name('duplicate_db').id
+        contact1.update_attributes(:anomaly_id=>Anomaly.find_by_name('ok').id)
+      end
+      
+      #search in import_contacts
       ImportContact.find_each(start: (contact1.id)+1) do |contact2|
         if ImportContact.is_match(contact1,contact2)
           nbr+=1
-          contact1.update_attributes(:anomaly=>ImportContact::ANOMALIES[:duplicate]) unless contact1.anomaly==ImportContact::ANOMALIES[:duplicate]
-          contact2.update_attributes(:anomaly=>ImportContact::ANOMALIES[:duplicate]) unless contact2.anomaly==ImportContact::ANOMALIES[:duplicate]
+          contact1.update_attributes(:anomaly_id=>Anomaly.find_by_name('duplicate_import').id) unless contact1.anomaly_id==Anomaly.find_by_name('duplicate_import').id
+          contact2.update_attributes(:anomaly_id=>Anomaly.find_by_name('duplicate_import').id) unless contact2.anomaly_id==Anomaly.find_by_name('duplicate_import').id
         end
       end
+      
+      #search in db
+      Contact.find_each do |contact2|            
+          if ImportContact.is_match(contact1, contact2)
+            nbr+=1
+            contact1.update_attributes(:anomaly_id => Anomaly.find_by_name('duplicate_db').id)
+            contact1.update_attributes(:contact_id=>contact2.id)
+          end               
+      end
+      
     end
     respond_to do |format|
       format.html { redirect_to import_contacts_path(:invalid=>"no"), :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}

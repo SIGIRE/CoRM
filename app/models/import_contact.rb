@@ -13,18 +13,20 @@ class ImportContact < ActiveRecord::Base
   # Can be: M.|Mme
   #
   TITLES = ["M.", "Mme"]
-  ANOMALIES = {:duplicate=>'Doublon détecté dans l\'import',:duplicate_in_db=>'Doublon détecté dans la base', :title=>'Civilité incorrecte', :name=>'Nom Prénom incorrect',:no_account=>'Compte société inexistant',:no=>'-'}
+  #ANOMALIES = {:duplicate=>'Doublon détecté dans l\'import',:duplicate_in_db=>'Doublon détecté dans la base', :title=>'Civilité incorrecte', :name=>'Nom Prénom incorrect',:no_account=>'Compte société inexistant',:no=>'-'}
   
   paginates_per 30
   
   belongs_to :account
+  belongs_to :contact
+  belongs_to :anomaly
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
   belongs_to :import
   
   # Help to sort by contacts in error
-  #scope :invalid, -> anomaly { where("anomaly != '#{ImportContact::ANOMALIES[:no]}'") }
-  scope :anomaly, lambda { |a| where("anomaly IN (?)", a) unless a.blank? }
+  #scope :anomaly, lambda { |a| where("anomaly IN (?)", a) unless a.blank? }
+  scope :anomaly, lambda{|a| where('anomaly_id=?',a)}
   
   def author
     return author_user || User::default
@@ -57,13 +59,13 @@ class ImportContact < ActiveRecord::Base
   # column in index view
   #
   def check
-    anomaly=ImportContact::ANOMALIES[:no]
+    anomaly=Anomaly.find_by_name('ok')
     
     if self.account_id.blank?
       #search in DB if an account with company name like company name of the contact exist
       compte = Account.find_by_company(self.company.upcase) unless self.company.blank?
       if compte.nil?
-          anomaly=ImportContact::ANOMALIES[:no_account]
+          anomaly=Anomaly.find_by_name('no_company')
       else
           self.update_attributes(:account_id=>compte.id)
       end
@@ -71,12 +73,12 @@ class ImportContact < ActiveRecord::Base
     
     #if surname and forename are nil
     if self.surname.blank? && self.forename.blank?
-      anomaly=ImportContact::ANOMALIES[:name]
+      anomaly=Anomaly.find_by_name('name')
     end
            
     #if surname or forname is nil or invalid characters
     if (!self.surname.blank? && self.surname[/\w/]==nil) || (!self.forename.blank? && self.forename[/\w/]==nil)
-      anomaly=ImportContact::ANOMALIES[:name]
+      anomaly=Anomaly.find_by_name('name')
     
     #else search for duplicates (surname and forename equals)
     else
@@ -84,9 +86,9 @@ class ImportContact < ActiveRecord::Base
       if self.no_search_duplicates==false
         ImportContact.find_each(:conditions => "id != #{self.id} AND no_search_duplicates=FALSE") do |contact2|            
           if ImportContact.is_match(self, contact2)
-            anomaly=ImportContact::ANOMALIES[:duplicate]
-            if contact2.anomaly!=ImportAccount::ANOMALIES[:duplicate]
-                contact2.update_attributes(:anomaly=>ImportAccount::ANOMALIES[:duplicate])
+            anomaly=Anomaly.find_by_name('duplicate_import')
+            if contact2.anomaly.name!='duplicate_import'
+                contact2.update_attributes(:anomaly_id=>Anomaly.find_by_name('duplicate_import').id)
             end
           end               
         end  
@@ -96,7 +98,9 @@ class ImportContact < ActiveRecord::Base
       if self.no_search_duplicates==false
         Contact.find_each do |contact2|            
           if ImportContact.is_match(self, contact2)
-            anomaly=ImportAccount::ANOMALIES[:duplicate_in_db]+" : "+contact2.surname+"-"+contact2.forename
+            #anomaly=ImportAccount::ANOMALIES[:duplicate_in_db]+" : "+contact2.surname+"-"+contact2.forename
+            anomaly=Anomaly.find_by_name('duplicate_db')
+            self.update_attributes(:contact_id=>contact2.id)
           end               
         end
       end
@@ -105,10 +109,10 @@ class ImportContact < ActiveRecord::Base
     
     #if title is incorrect
     if self.title!="M." && self.title!="Mme"
-      anomaly=ImportContact::ANOMALIES[:title]
+      anomaly=Anomaly.find_by_name('title')
     end
     
-    self.update_attributes(:anomaly => anomaly)
+    self.update_attributes(:anomaly_id => anomaly.id)
   end
     
     #
@@ -143,6 +147,8 @@ class ImportContact < ActiveRecord::Base
               surname2=contact2.surname.upcase
               forename2=contact2.forename.upcase
               score=Text::WhiteSimilarity.new
+              # if match is too large, up value from 0.7 to upper
+              # if match is too strict, down value from 0.7 to down
               if score.similarity(surname1,surname2)>0.7 && score.similarity(forename1,forename2)>0.7
                   match=true
               end

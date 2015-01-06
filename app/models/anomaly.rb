@@ -7,6 +7,6 @@ class Anomaly < ActiveRecord::Base
   attr_accessible :level, :name, :notes
   
   has_many :import_accounts
-  
+  has_many :import_contacts
   
 end
