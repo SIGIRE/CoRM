@@ -9,4 +9,5 @@ class Anomaly < ActiveRecord::Base
   has_many :import_accounts
   has_many :import_contacts
   
+  
 end

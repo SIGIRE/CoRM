@@ -14,6 +14,10 @@ class ImportContactsController < ApplicationController
     @title=t('title.import_contacts_waiting')
     @link="new_link"
     @all_import_contacts=ImportContact.count
+    
+    #these two lines are for filter with anomalies that exists in the index of import_contacts
+    @by_anomalies = ImportContact.select(:anomaly_id).uniq
+    @anomalies_filter = Anomaly.where(id: @by_anomalies)
 
     #@import_contacts = apply_scopes(ImportContact).order("anomaly DESC", "surname")
      @import_contacts = apply_scopes(ImportContact).joins(:anomaly).joins('LEFT OUTER JOIN contacts ON contacts.id = import_contacts.id').order("level DESC", "company")
