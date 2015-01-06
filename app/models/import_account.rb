@@ -9,7 +9,13 @@ class ImportAccount < ActiveRecord::Base
   resourcify
   
   CATEGORIES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire', 'Adhérent', 'Autre']
-  #ANOMALIES = {:duplicate=>"Doublon détecté dans l'import",:duplicate_in_db=>'Doublon détecté dans la base', :company_name=>'Nom Société incorrect',:category=>'Catégorie incorrecte',:no=>'-'}
+  
+  #take anomalies in constants
+  NO_ANOMALY = Anomaly.find_by_name('ok')
+  COMPANY_NAME_ANOMALY = Anomaly.find_by_name('company_name')
+  DUPLICATE_IMPORT_ANOMALY = Anomaly.find_by_name('duplicate_import')
+  DUPLICATE_DB_ANOMALY = Anomaly.find_by_name('duplicate_db')
+  CATEGORY_ANOMALY = Anomaly.find_by_name('category')
   
   paginates_per 30
   
@@ -60,20 +66,20 @@ class ImportAccount < ActiveRecord::Base
     #this metohd checked import_account. If any invalid value, anomaly is set to type of anomaly
     def check
         #anomaly is first set to 'no anomaly'
-        anomaly=Anomaly.find_by_name('ok')
+        anomaly=NO_ANOMALY
         #search anomaly on company name
         #if company is nil or invalid characters
         if self.company.blank? || self.company[/\w/]==nil
-            anomaly=Anomaly.find_by_name('company_name')
+            anomaly=COMPANY_NAME_ANOMALY
         else
             #search duplicate account
             #try to match with imported accounts except account itself
             if self.no_search_duplicates==false
                 ImportAccount.find_each(:conditions => "id != #{self.id} AND company !='' AND no_search_duplicates=false") do |account2|            
                   if ImportAccount.is_match(self, account2)
-                    anomaly=Anomaly.find_by_name('duplicate_import')
+                    anomaly=DUPLICATE_IMPORT_ANOMALY
                     if account2.anomaly.name!='duplicate_import'
-                        account2.update_attributes(:anomaly_id=>Anomaly.find_by_name('duplicate_import').id)
+                        account2.update_attributes(:anomaly_id=>DUPLICATE_IMPORT_ANOMALY.id)
                     end
                   end               
                 end
@@ -82,7 +88,7 @@ class ImportAccount < ActiveRecord::Base
                 if self.no_search_duplicates==false
                     Account.find_each do |account2|            
                         if ImportAccount.is_match(self, account2)
-                          anomaly=Anomaly.find_by_name('duplicate_db')
+                          anomaly=DUPLICATE_DB_ANOMALY
                           self.update_attributes(:account_id=>account2.id)
                         end               
                     end
@@ -94,7 +100,7 @@ class ImportAccount < ActiveRecord::Base
         
         #search anomaly on category
         if !(ImportAccount::CATEGORIES).include?("#{self.category}") #if category not in authorizes values
-            anomaly=Anomaly.find_by_name('category')
+            anomaly=CATEGORY_ANOMALY
         end     
         self.update_attributes(:anomaly_id => anomaly.id)
     end

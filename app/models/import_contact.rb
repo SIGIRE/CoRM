@@ -13,7 +13,14 @@ class ImportContact < ActiveRecord::Base
   # Can be: M.|Mme
   #
   TITLES = ["M.", "Mme"]
-  #ANOMALIES = {:duplicate=>'Doublon détecté dans l\'import',:duplicate_in_db=>'Doublon détecté dans la base', :title=>'Civilité incorrecte', :name=>'Nom Prénom incorrect',:no_account=>'Compte société inexistant',:no=>'-'}
+  
+  #take anomalies in constants
+  NO_ANOMALY = Anomaly.find_by_name('ok')
+  NO_COMPANY_ANOMALY = Anomaly.find_by_name('no_company')
+  NAME_ANOMALY = Anomaly.find_by_name('name')
+  DUPLICATE_IMPORT_ANOMALY = Anomaly.find_by_name('duplicate_import')
+  DUPLICATE_DB_ANOMALY = Anomaly.find_by_name('duplicate_db')
+  TITLE_ANOMALY = Anomaly.find_by_name('title')
   
   paginates_per 30
   
@@ -59,13 +66,13 @@ class ImportContact < ActiveRecord::Base
   # column in index view
   #
   def check
-    anomaly=Anomaly.find_by_name('ok')
+    anomaly=NO_ANOMALY
     
     if self.account_id.blank?
       #search in DB if an account with company name like company name of the contact exist
       compte = Account.find_by_company(self.company.upcase) unless self.company.blank?
       if compte.nil?
-          anomaly=Anomaly.find_by_name('no_company')
+          anomaly=NO_COMPANY_ANOMALY
       else
           self.update_attributes(:account_id=>compte.id)
       end
@@ -73,12 +80,12 @@ class ImportContact < ActiveRecord::Base
     
     #if surname and forename are nil
     if self.surname.blank? && self.forename.blank?
-      anomaly=Anomaly.find_by_name('name')
+      anomaly=NAME_ANOMALY
     end
            
     #if surname or forname is nil or invalid characters
     if (!self.surname.blank? && self.surname[/\w/]==nil) || (!self.forename.blank? && self.forename[/\w/]==nil)
-      anomaly=Anomaly.find_by_name('name')
+      anomaly=NAME_ANOMALY
     
     #else search for duplicates (surname and forename equals)
     else
@@ -86,9 +93,9 @@ class ImportContact < ActiveRecord::Base
       if self.no_search_duplicates==false
         ImportContact.find_each(:conditions => "id != #{self.id} AND no_search_duplicates=FALSE") do |contact2|            
           if ImportContact.is_match(self, contact2)
-            anomaly=Anomaly.find_by_name('duplicate_import')
+            anomaly=DUPLICATE_IMPORT_ANOMALY
             if contact2.anomaly.name!='duplicate_import'
-                contact2.update_attributes(:anomaly_id=>Anomaly.find_by_name('duplicate_import').id)
+                contact2.update_attributes(:anomaly_id=>DUPLICATE_IMPORT_ANOMALY.id)
             end
           end               
         end  
@@ -99,7 +106,7 @@ class ImportContact < ActiveRecord::Base
         Contact.find_each do |contact2|            
           if ImportContact.is_match(self, contact2)
             #anomaly=ImportAccount::ANOMALIES[:duplicate_in_db]+" : "+contact2.surname+"-"+contact2.forename
-            anomaly=Anomaly.find_by_name('duplicate_db')
+            anomaly=DUPLICATE_DB_ANOMALY
             self.update_attributes(:contact_id=>contact2.id)
           end               
         end
@@ -109,7 +116,7 @@ class ImportContact < ActiveRecord::Base
     
     #if title is incorrect
     if self.title!="M." && self.title!="Mme"
-      anomaly=Anomaly.find_by_name('title')
+      anomaly=TITLE_ANOMALY
     end
     
     self.update_attributes(:anomaly_id => anomaly.id)
