@@ -458,6 +458,8 @@ fr:
         delete_import: "Attention : La suppression de l'import entraine la suppression de tous les éléments liés à cet import (contacts ou comptes) ! Confirmez-vous la suppression ?"
         delete_contact: "Attention ! En supprimant ce contact vous risquez de perdre de l\'information sur les éléments liés à ce contact (évènements, tâches, comptes...). Confirmer la suppression ?"
         validate_account: "Valider le compte ?"
+        delete_all_invalids_accounts: "Confirmez vous la suppression de tous les comptes non valides"
+        delete_all_invalids_contacts: "Confirmez vous la suppression de tous les contacts non valides"
       alert:
         no_account_pending_validation: "Pas de comptes en attente de validation"
         no_contact_pending_validation: "Pas de contact en attente de validation"

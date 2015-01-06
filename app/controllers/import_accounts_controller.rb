@@ -148,6 +148,17 @@ class ImportAccountsController < ApplicationController
         end
     end
     
+    def destroy_all_invalids
+        import_accounts = ImportAccount.joins(:anomaly).where(anomalies: {level: 3})
+        import_accounts.each do |i|
+            i.destroy
+        end
+        
+        respond_to do |format|
+            format.html { redirect_to import_accounts_path, :notice => "#{t('app.message.notice.delete_account')}" }
+        end
+    end
+    
     #this method scan all import_accounts and search duplicate
     def recalculate_duplicates
         nbr=0
