@@ -175,8 +175,8 @@ class ImportAccountsController < ApplicationController
             ImportAccount.find_each(:conditions=>"company!=''", start: (account1.id)+1) do |account2|
                 if ImportAccount.is_match(account1,account2)
                     nbr+=1
-                    account1.update_attributes(:anomaly_id=>Anomaly.find_by_name('duplicate_import').id) unless account1.anomaly_id==Anomaly.find_by_name('duplicate_import').id
-                    account2.update_attributes(:anomaly_id=>Anomaly.find_by_name('duplicate_import').id) unless account2.anomaly_id==Anomaly.find_by_name('duplicate_import').id
+                    account1.update_attributes(:anomaly_id=>ImportAccount::DUPLICATE_IMPORT_ANOMALY.id) unless account1.anomaly_id==ImportAccount::DUPLICATE_IMPORT_ANOMALY.id
+                    account2.update_attributes(:anomaly_id=>ImportAccount::DUPLICATE_IMPORT_ANOMALY.id) unless account2.anomaly_id==ImportAccount::DUPLICATE_IMPORT_ANOMALY.id
                 end
             end
             
@@ -184,7 +184,7 @@ class ImportAccountsController < ApplicationController
             Account.find_each do |account2|            
                 if ImportAccount.is_match(account1, account2)
                   nbr+=1
-                  account1.update_attributes(:anomaly_id => Anomaly.find_by_name('duplicate_db').id)
+                  account1.update_attributes(:anomaly_id => ImportAccount::DUPLICATE_DB_ANOMALY.id)
                   account1.update_attributes(:account_id=>account2.id)
                 end               
             end

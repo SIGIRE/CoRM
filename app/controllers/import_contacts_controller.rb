@@ -20,7 +20,7 @@ class ImportContactsController < ApplicationController
     @anomalies_filter = Anomaly.where(id: @by_anomalies)
 
     #@import_contacts = apply_scopes(ImportContact).order("anomaly DESC", "surname")
-     @import_contacts = apply_scopes(ImportContact).joins(:anomaly).joins('LEFT OUTER JOIN contacts ON contacts.id = import_contacts.id').order("level DESC", "company")
+    @import_contacts = apply_scopes(ImportContact).joins(:anomaly).joins('LEFT OUTER JOIN contacts ON contacts.id = import_contacts.id').order("level DESC", "company")
     
     #to keep info filter
     if !params[:anomaly].nil?
@@ -166,8 +166,8 @@ class ImportContactsController < ApplicationController
       ImportContact.find_each(start: (contact1.id)+1) do |contact2|
         if ImportContact.is_match(contact1,contact2)
           nbr+=1
-          contact1.update_attributes(:anomaly_id=>Anomaly.find_by_name('duplicate_import').id) unless contact1.anomaly_id==Anomaly.find_by_name('duplicate_import').id
-          contact2.update_attributes(:anomaly_id=>Anomaly.find_by_name('duplicate_import').id) unless contact2.anomaly_id==Anomaly.find_by_name('duplicate_import').id
+          contact1.update_attributes(:anomaly_id=>ImportContact::DUPLICATE_IMPORT_ANOMALY.id) unless contact1.anomaly_id==ImportContact::DUPLICATE_IMPORT_ANOMALY.id
+          contact2.update_attributes(:anomaly_id=>ImportContact::DUPLICATE_IMPORT_ANOMALY.id) unless contact2.anomaly_id==ImportContact::DUPLICATE_IMPORT_ANOMALY.id
         end
       end
       
@@ -175,7 +175,7 @@ class ImportContactsController < ApplicationController
       Contact.find_each do |contact2|            
           if ImportContact.is_match(contact1, contact2)
             nbr+=1
-            contact1.update_attributes(:anomaly_id => Anomaly.find_by_name('duplicate_db').id)
+            contact1.update_attributes(:anomaly_id => ImportContact::DUPLICATE_DB_ANOMALY.id)
             contact1.update_attributes(:contact_id=>contact2.id)
           end               
       end
