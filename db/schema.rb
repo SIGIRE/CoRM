@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150105091525) do
+ActiveRecord::Schema.define(:version => 20150106130556) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -207,11 +207,12 @@ ActiveRecord::Schema.define(:version => 20150105091525) do
     t.integer  "account_id"
     t.boolean  "active",               :default => true
     t.integer  "import_id"
-    t.string   "anomaly"
     t.datetime "created_at",                              :null => false
     t.datetime "updated_at",                              :null => false
     t.string   "company"
     t.boolean  "no_search_duplicates", :default => false
+    t.integer  "anomaly_id"
+    t.integer  "contact_id"
   end
 
   create_table "imports", :force => true do |t|

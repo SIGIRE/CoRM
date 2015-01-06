@@ -32,7 +32,7 @@
     <div>
       <%= label_tag :anomaly, "#{t('app.fields.anomaly').pluralize} :", :class => "top"  %>
       <!--@select store value of selected anomaly -->
-      <%= select_tag "anomaly", options_for_select(Anomaly.all.collect{|v| [v.notes, v.id]},@select), { :prompt => "#{t('app.default.all')}", :class =>"filter_statut"}  %>  
+      <%= select_tag "anomaly", options_for_select(@anomaly_filter.all.collect{|v| [v.notes, v.id]},@select), { :prompt => "#{t('app.default.all')}", :class =>"filter_statut"}  %>  
   </div>
     <%= submit_tag "#{t('app.actions.filter')}", :class =>"btn"%>
   </div>

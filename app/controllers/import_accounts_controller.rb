@@ -15,6 +15,8 @@ class ImportAccountsController < ApplicationController
     @title=t('title.import_accounts_waiting')
     @link="new_link"
     @all_import_accounts=ImportAccount.count
+    anomaly_filter=ImportAccount.select(:anomaly_id).distinct
+    #@anomaly_filter=Anomaly.where(:id=>anomaly_filter)
     
     #@import_accounts = apply_scopes(ImportAccount).order("anomaly DESC", "company")
     @import_accounts = apply_scopes(ImportAccount).joins(:anomaly).joins('LEFT OUTER JOIN accounts ON accounts.id = import_accounts.id').order("level DESC", "company")
