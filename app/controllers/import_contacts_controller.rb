@@ -150,16 +150,18 @@ class ImportContactsController < ApplicationController
     end
   end
   
-  #this method scan all import_contacts and search duplicate
+  #this method reset duplicates anomalies and re-scan all import_contacts for searching duplicates
   def recalculate_duplicates
     nbr=0
-    ImportContact.find_each do |contact1|
-      
-      #set duplicate_import to no_anomaly
-      if contact1.anomaly_id==Anomaly.find_by_name('duplicate_import').id || contact1.anomaly_id==Anomaly.find_by_name('duplicate_db').id
-        contact1.update_attributes(:anomaly_id=>Anomaly.find_by_name('ok').id)
-      end
-      
+    
+    #set duplicate_import to no_anomaly
+    duplicates_contacts = ImportContact.where(anomaly_id: [ImportContact::DUPLICATE_IMPORT_ANOMALY.id, ImportContact::DUPLICATE_DB_ANOMALY.id])
+    duplicates_contacts.each do |d|
+      d.update_attributes(:anomaly_id=>ImportContact::NO_ANOMALY.id)
+    end
+    
+    
+    ImportContact.find_each do |contact1|      
       #search in import_contacts
       ImportContact.find_each(start: (contact1.id)+1) do |contact2|
         if ImportContact.is_match(contact1,contact2)

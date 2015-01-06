@@ -159,15 +159,17 @@ class ImportAccountsController < ApplicationController
         end
     end
     
-    #this method scan all import_accounts and search duplicate
+    #this method reset duplicates anomalies and re-scan all import_accounts for searching duplicates
     def recalculate_duplicates
         nbr=0
+        
+        #set duplicate_import to no_anomaly
+        duplicates_accounts = ImportAccount.where(anomaly_id: [ImportAccount::DUPLICATE_IMPORT_ANOMALY.id, ImportAccount::DUPLICATE_DB_ANOMALY.id])
+        duplicates_accounts.each do |d|
+          d.update_attributes(:anomaly_id=>ImportAccount::NO_ANOMALY.id)
+        end
+        
         ImportAccount.find_each(:conditions=>"company!=''") do |account1|            
-            
-            #set duplicate_import to no_anomaly
-            if account1.anomaly_id==Anomaly.find_by_name('duplicate_import').id || account1.anomaly_id==Anomaly.find_by_name('duplicate_db').id
-                account1.update_attributes(:anomaly_id=>Anomaly.find_by_name('ok').id)
-            end
      
             #search in import_account
             ImportAccount.find_each(:conditions=>"company!=''", start: (account1.id)+1) do |account2|
@@ -194,7 +196,5 @@ class ImportAccountsController < ApplicationController
         end
         
     end
-    
-    
- 
+
 end
