@@ -92,10 +92,10 @@ class ImportAccountsController < ApplicationController
   #this method is called from import button in index view
   def importing_accounts
     total=0
-    import_accounts=ImportAccount.all
+    import_accounts=ImportAccount.joins(:anomaly)
     import_accounts.each do |i|
         #if no anomaly in temporary account
-        if i.anomaly==ImportAccount::ANOMALIES[:no]
+        if i.anomaly.level!=3
             account=Account.new
             account.company=i.company
             account.adress1=i.adress1
@@ -155,7 +155,7 @@ class ImportAccountsController < ApplicationController
         end
         
         respond_to do |format|
-            format.html { redirect_to import_accounts_path, :notice => "#{t('app.message.notice.delete_account')}" }
+            format.html { redirect_to import_accounts_path }
         end
     end
     

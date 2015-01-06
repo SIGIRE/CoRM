@@ -86,10 +86,10 @@ class ImportContactsController < ApplicationController
   
   def importing_contacts
     total=0
-    import_contacts=ImportContact.all
+    import_contacts=ImportContact.joins(:anomaly)
     import_contacts.each do |i|
       #if no anomaly in temporary contact or just warning on company name
-      if i.anomaly==ImportContact::ANOMALIES[:no] || i.anomaly==ImportContact::ANOMALIES[:no_account]
+      if i.anomaly.level!=3
           contact=Contact.new
           contact.surname=i.surname
           contact.forename=i.forename
@@ -136,6 +136,17 @@ class ImportContactsController < ApplicationController
     
     respond_to do |format|
         format.html { redirect_to import_contacts_path(:anomaly=>select), :notice => "#{t('app.message.notice.delete_contact')}"  }
+    end
+  end
+  
+  def destroy_all_invalids
+    import_contacts = ImportContact.joins(:anomaly).where(anomalies: {level: 3})
+    import_contacts.each do |i|
+        i.destroy
+    end
+    
+    respond_to do |format|
+        format.html { redirect_to import_contacts_path }
     end
   end
   

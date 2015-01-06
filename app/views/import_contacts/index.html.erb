@@ -152,9 +152,21 @@
 					<%= button_tag "#{t('views.button.import',models:t('title.contacts'))}", class: "btn btn-primary" %>
 				<% end %>
 			</div>
-			<%= form_tag(recalculate_duplicates_contacts_path) do %>
-				<%= button_tag "#{t('app.actions.recalculate_duplicates')}", class: "btn" %>
-			<% end %>
+			
+			<div style="float:left;margin-right: 5px">
+				<%= form_tag(recalculate_duplicates_contacts_path) do %>
+					<%= button_tag "#{t('app.actions.recalculate_duplicates')}", class: "btn" %>
+				<% end %>
+			</div>
+			
+			<div style="float:right;margin-right: 5px">
+				<%= link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe,
+					 destroy_all_invalids_contacts_path,
+					 :title => "#{t('app.actions.destroy')} #{t('app.default.define_article_male').pluralize} #{t('app.model.Contact').pluralize.downcase } #{t('app.fields.invalid').pluralize}",
+					 :confirm => "#{t('app.message.confirm.delete_all_invalids_contacts')}",
+					 :class =>"pull-right btn" %>
+			</div>
+			
 		<% end %>
   <%= paginate @import_contacts %> 
 
