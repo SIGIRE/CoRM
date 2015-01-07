@@ -16,8 +16,8 @@ class ImportContactsController < ApplicationController
     @all_import_contacts=ImportContact.count
     
     #these two lines are for filter with anomalies that exists in the index of import_contacts
-    @by_anomalies = ImportContact.select(:anomaly_id).uniq
-    @anomalies_filter = Anomaly.where(id: @by_anomalies)
+    by_anomalies = ImportContact.select(:anomaly_id).uniq
+    @anomalies_filter = Anomaly.where(id: by_anomalies)
 
     #@import_contacts = apply_scopes(ImportContact).order("anomaly DESC", "surname")
     @import_contacts = apply_scopes(ImportContact).joins(:anomaly).joins('LEFT OUTER JOIN contacts ON contacts.id = import_contacts.id').order("level DESC", "company")
@@ -186,7 +186,7 @@ class ImportContactsController < ApplicationController
     end
     
     respond_to do |format|
-      format.html { redirect_to import_contacts_path(:invalid=>"no"), :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}
+      format.html { redirect_to import_contacts_path, :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}
 
     end
   end
