@@ -101,12 +101,13 @@ Crm::Application.routes.draw do
   # Tag routes
   # resources :tags
   set_route('tags', 'tag', 'tags');
+  
 
   match 'taches/update_contact_select/:id', :controller=>'tasks', :action => 'update_contact_select'
   
   # Tasks routes
   set_route('taches', 'tache', 'tasks')
-  match 'taches/filter(.:format)', :controller => 'tasks', :action => 'filter', :via => :get, :as => "filter_tasks"
+  match '/taches/filter(.:format)', :controller => 'tasks', :action => 'filter', :via => :get, :as => "filter_tasks_index"
 
   # Accounts
   match 'comptes/extract', controller: 'accounts', action: 'extract'
@@ -120,6 +121,7 @@ Crm::Application.routes.draw do
       post 'add_tag'
     end
     resources :events, path: 'evenements'
+    resources :tasks, path: 'taches'
     resources :opportunities, path: 'opportunites'
     resources :quotations, path: 'devis'
     resources :tags, path: 'tags'
@@ -137,6 +139,7 @@ Crm::Application.routes.draw do
   match 'contacts/extract', controller: 'contacts', action: 'extract'
   match 'contacts/search(.:format)', :controller => 'contacts', :action => 'search', :via => :get, :as => "search_contact_index"
   match 'contacts/filter(.:format)', :controller => 'contacts', :action => 'filter', :via => :get, :as => "search_contact_index"
+  
   
   # Dashboard
   root :to => 'home#index'
@@ -159,6 +162,27 @@ Crm::Application.routes.draw do
 	# Notifications routes
 	set_route('notifications', 'notification', 'notifications')
 
+  # import routes  
+  resources :imports do
+    new do
+      post 'accounts'
+      post 'contacts'
+    end
+  end
+  match 'download', :controller => 'imports', :action => 'download'
+  
+  # import_accounts routes
+  resources :import_accounts
+  match 'importing_accounts', :controller => 'import_accounts', :action => 'importing_accounts'
+  match 'recalculate_duplicates_accounts', :controller=>'import_accounts', :action=>'recalculate_duplicates'
+  match 'destroy_all_invalids_accounts', :controller=>'import_accounts', :action=>'destroy_all_invalids'
+  
+  #import_contacts routes
+  resources :import_contacts
+  match 'importing_contacts', :controller => 'import_contacts', :action => 'importing_contacts'
+  match 'recalculate_duplicates_contacts', :controller=>'import_contacts', :action=>'recalculate_duplicates'
+  match 'destroy_all_invalids_contacts', :controller=>'import_contacts', :action=>'destroy_all_invalids'
+  
   # resources :home
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -13,6 +13,7 @@ class Ability
     elsif user.has_role? :readonly_user
       can :read, :all
       can :search, Account
+      cannot :manage, [Import, ImportAccount, ImportContact]
       
     elsif user.has_role? :restricted_user
       # Role Restricted User
@@ -50,6 +51,7 @@ class Ability
       cannot :destroy, Task
       can :manage, Email
       cannot :destroy, Email
+      cannot :manage, [Import, ImportAccount, ImportContact]
       
     elsif user.has_role? :user	
       # Role User
@@ -80,6 +82,7 @@ class Ability
       cannot :write, Tag
       cannot :write, Origin
       cannot :write, EventType
+      cannot :manage, [Import, ImportAccount, ImportContact]
       
       elsif user.has_role? :super_user
       # Role Super User
@@ -92,7 +95,7 @@ class Ability
       can :activate, Account
       can :deactivate, Account      
       can :manage, Contact
-	  cannot :destroy, Contact
+	  #cannot :destroy, Contact
       can :manage, Event
       can :manage, Relation
       can :manage, Opportunity
@@ -107,6 +110,7 @@ class Ability
       # can   #index #show #update & #edit
       can :update, User
       # cannot  #new #create
+      can :manage, [Import, ImportAccount, ImportContact]
       
     else
       # Role User by default
@@ -136,7 +140,8 @@ class Ability
       cannot :write, QuotationTemplate
       cannot :write, Tag
       cannot :write, Origin
-      cannot :write, EventType      
+      cannot :write, EventType
+      cannot :manage, [Import, ImportAccount, ImportContact]
     end  
   end
     

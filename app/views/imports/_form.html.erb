@@ -1,0 +1,70 @@
+<%# encoding: utf-8 %>
+
+<% colon = t('app.fields.colon') %>
+      
+ 
+<%= form_for(@import, :html => { :class => "well ", :multipart => true}) do |f| %>
+<div class="row row-fluid">
+     <div class="field full">
+          
+	  <%= f.text_field(:import_type ,type:'hidden', value:@type) %>
+	  
+          <div class="row row-fluid">
+	       <div class="field full">
+		    <div class="span2"><%= f.label(:name, t('app.fields.name') + colon) %></div>
+		    <p><%= f.text_field(:name ,{ :class => 'required' }) %><span class="req" /></p>
+	       </div>
+	  </div>
+	  
+	  <% if @type=="accounts" %>
+	  
+	  <div class="row row-fluid">
+	       <div class="field full">
+		    <div class="span2"><%= f.label(:origin ,t('app.model.Origin') + colon) %></div>
+			 <%= fields_for :origin do |o| %>
+			      <%= o.collection_select :origin_id, Origin.order('name ASC').all, :id, :name, :include_blank => true %>
+			 <% end %>
+	       </div>
+	  </div>
+	  <% end %>
+
+	  
+	  
+	  <div class="row row-fluid">
+	       <div class="field full">
+		    <div class="span2"><%= f.label(:notes, t('app.fields.description')) %></div>
+			<%= f.text_area :notes, :rows => "5", :style => 'width: 50%;' %>
+	       </div>
+	  </div>	
+          	  
+	  <div class="row row-fluid">
+	       <div class="field full">
+		    <div class="span2"></div>
+			 </br>
+			 <%= file_field_tag :file, { :class => 'required' } %><span class="req" />
+			 <script>$ (":file").filestyle({buttonText: "<%=t('app.actions.choose_file')%>"});</script>
+		 
+		    </div>
+	       </div>
+	  </div>
+	  
+	  <div class="row row-fluid">
+	       <div class="field full">
+		    <div class="span2"></div>
+			 <%= link_to "#{t('link.upload_csv_model')}", download_path(:type => @type) %>
+	       </div>
+	  </div>
+	    
+	  <hr/>
+	  <div class="row">
+	       <% if can? :manage, Import %>
+	       
+	       <%= f.button "#{t('views.button.create_import')}", :type => :submit,:class =>"btn btn-primary",:id =>"import_validate_form" %>
+	  
+	       <% end %>
+	  </div>                     
+	  
+     </div>
+</div>
+<% end %>
+

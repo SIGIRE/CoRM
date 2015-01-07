@@ -12,70 +12,125 @@
       </div>
     <% end %>
   
-  
-    <div class="field"> 
-      <div class="span2">Societe : </div><%= f.text_field :company ,{ :class => 'required'}%><span class="req" />
-    </div>
-    
-    <div class="field"> 
-      <div class="span2">Adresse : </div><%= f.text_field :adress %>
-    </div>
-    
-    <div class="field"> 
-      <div class="span2">Ville : </div><%= f.text_field :city %>
-    </div>
-    
-    <div class="field"> 
-      <div class="span2">Code postal : </div><%= f.text_field :zip %>
-    </div>
-    
-    <div class="field"> 
-      <div class="span2">Pays : </div><%= f.text_field :country %>
-    </div>
-    
-    <div class="field"> 
-      <div class="span2">Téléphone : </div><%= f.text_field :tel %>
-    </div>
-    
-    <div class="field"> 
-      <div class="span2">Fax : </div><%= f.text_field :fax %>
-    </div>
-    
-    <div class="field"> 
-      <div class="span2">Site internet : </div><%= f.text_field :web %>
-    </div>
-    
-    <div class="field"> 
-      <div class="span2">E-mail : </div><%= f.text_field :email %>
-    </div>
-    
-    <div class="field"> 
-      <div class="span2">Infos sur le capital : </div><%= f.text_field :capital %>
-    </div>
-    
-    <div class="field"> 
-      <div class="span2">APE : </div><%= f.text_field :ape %>
-    </div>
-    
-    <div class="field"> 
-      <div class="span2">SIRET : </div><%= f.text_field :company_registration_number %>
-    </div>
-    
-    <div class="field"> 
-      <div class="span2">N°TVA : </div><%= f.text_field :vat %>
-    </div>
-
-    <div class="field"> 
-      <div class="span2">Taux TVA (%) : </div><%= f.text_field :vat_rate ,{ :class => 'required'}%><span class="req" />
-    </div>
 
 
-  	<% if @template.attach.exists? %> 
+<div class="row-fluid">
+  <div class="span5 offset1">
+	<div class="field"> 
+	    <div class="span2">Societe : </div><%= f.text_field :company ,{ :class => 'required'}%><span class="req" />
+	</div>
+  </div>
+  <div>
+      <div class="field"> 
+	<div class="span2">Adresse : </div><%= f.text_field :adress %>
+    </div>
+  </div>
+</div>
+ 
+<div class="row-fluid">
+  <div class="span5 offset1">
+	<div class="field"> 
+		<div class="span2">Ville : </div><%= f.text_field :city %>
+	</div>
+  </div>
+  <div>
+      <div class="field"> 
+		<div class="span2">Code postal : </div><%= f.text_field :zip %>
+    </div>
+  </div>
+</div>
+    
+<div class="row-fluid">
+  <div class="span5 offset1">
+	<div class="field"> 
+		<div class="span2">Pays :</div> <%= f.text_field :country %>
+	</div>
+  </div>
+  <div>
+      <div class="field"> 
+		<div class="span2">Téléphone :</div><%= f.text_field :tel %>
+    </div>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="span5 offset1">
+	<div class="field"> 
+	    <div class="span2">Fax :</div> <%= f.text_field :fax %>
+	</div>
+  </div>
+  <div>
+      <div class="field"> 
+		<div class="span2">Site internet :</div> <%= f.text_field :web %>
+    </div>
+  </div>
+</div>
+    
+<div class="row-fluid">
+  <div class="span5 offset1">
+	<div class="field"> 
+		<div class="span2">E-mail :</div> <%= f.text_field :email %>
+	</div>
+  </div>
+  <div>
+      <div class="field"> 
+		<div class="span2">Infos sur le capital :</div> <%= f.text_field :capital %>
+    </div>
+  </div>
+</div>
+    
+
+<div class="row-fluid">
+  <div class="span5 offset1">
+	<div class="field"> 
+		<div class="span2">APE :</div> <%= f.text_field :ape %>
+	</div>
+  </div>
+  <div>
+      <div class="field"> 
+		<div class="span2">SIRET :</div> <%= f.text_field :company_registration_number %>
+    </div>
+  </div>
+</div>
+    
+
+<div class="row-fluid">
+  <div class="span5 offset1">
+	<div class="field"> 
+		<div class="span2">N°TVA :</div> <%= f.text_field :vat %>
+	</div>
+  </div>
+  <div>
+      <div class="field"> 
+		<div class="span2">Taux TVA (%) :</div> <%= f.text_field :vat_rate ,{ :class => 'required'}%><span class="req" />
+    </div>
+  </div>
+</div>
+
+<br>	
+
+<% if @template.attach.exists? %>     
+<div class="row-fluid">
+  <div class="span5 offset1">
+	<div class="field">
+		<div class="field"><div class="span2">Logo : </div><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + @template.attach_file_name, @template.attach.url, :target => '_blank' %></div>	
+	</div>
+  </div>
+  <div>
+      <div class="field"> 
 		<div class="field"><div class="span2">Nouveau logo : </div><%= f.file_field :attach, :style=>'width: 20em;' %></div>
-		<div class="field"><div class="span2">Logo actuel : </div><%= link_to image_tag('glyphicons/glyphicons_062_attach.png') + ' ' + @template.attach_file_name, @template.attach.url, :target => '_blank' %></div>
-		<% else %>
+    </div>
+  </div>  
+</div>
+<% else %>
+<div class="row-fluid">
+  <div class="span5 offset1">
+	<div class="field">
 		<div class="field"><div class="span2">Logo : </div><%= f.file_field :attach, {:style=>'width: 20em;', :class => 'required' } %></div>
-	<% end %>
+	</div>
+  </div>
+</div>
+<% end %>
 
       <br />
   	
@@ -93,10 +148,12 @@
 	</div>
 	  
 	<hr /> 
+
+
     
   <div class="row">
     <%= if !@template.id.nil? then f.button 'Modifier le modèle', :type => :submit, :class =>"btn btn-primary",:id =>"template_validate_form" else f.button 'Créer un modèle', :type => :submit, :class =>"btn btn-primary",:id =>"template_validate_form" end%>
-    <%= if !@template.id.nil? then link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, @template, :title => "Supprimer le modèle", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn", :method => :delete end %> 
+    <%= if !@template.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @template, :title => "Supprimer le modèle", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn", :method => :delete end %> 
 
   </div>    
     

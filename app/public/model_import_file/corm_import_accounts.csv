@@ -1,0 +1,8 @@
+company;adress1;adress2;zip;city;country;accounting_code;notes;tel;fax;email;web;category
+SIGIRE;20, rue de Sardaigne;;72000;Le Mans;France;99201;prestataire informatique;02 43 82 75 00;;;www.sigire.fr;
+;;;;;;;;;;;;
+;!! AUCUN SIGNE POINT-VIRGULE NE DOIT APPARAITRE DANS AUCUNE COLONNE;;;;;;;;;;;
+;NE PAS MODIFIER LES NOMS DES COLONNES !!;;;;;;;;;;;
+;LE CHAMPS CATEGORY DOIT PRENDRE UNE DES VALEURS CI-DESSOUS;;;;;;;;;;;
+;Client - Suspect - Prospect - Fournisseur - Partenaire - Adhérent - Autre;;;;;;;;;;;
+;(supprimer ces lignes avant l'import du fichier);;;;;;;;;;;

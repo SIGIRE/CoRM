@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   # nécessaire pour pouvoir modifer la valeur de ces attributs par nos propres forms
   attr_accessible :email, :password, :password_confirmation, :remember_me, :forename, :surname, :tel, :mobile, :current_password, :enabled, :locale
   attr_accessor :current_password
+  
 
   def self.default
      return User.new({:email => '', :forename => 'Neant', :surname => ''})

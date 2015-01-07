@@ -127,6 +127,7 @@ fr:
       wrong_length:
         one: ne fait pas la bonne longueur (doit comporter %{count} caractère)
         other: ne fait pas la bonne longueur (doit comporter %{count} caractères)
+      no_relation: Aucune relation affectée à ce compte
     template:
       body: ! 'Veuillez vérifier les champs suivants : '
       header:
@@ -224,6 +225,9 @@ fr:
       previous: "&lsaquo; Pr&eacute;c."
       next: "Suivant &rsaquo;"
       truncate: "..."
+    button:
+      import: "Importer les %{models} valides"
+      create_import: "Créer un import"
   devise:
     failure:
       already_authenticated: "Vous êtes déjà connecté !"
@@ -245,6 +249,7 @@ fr:
       updated_not_active: 'Votre mot de passe a été changé avec succès.'
       send_paranoid_instructions: "Si votre e-mail existe dans notre base de données, vous allez recevoir un lien de réinitialisation par e-mail"
       no_token: "Vous ne pouvez accéder à cette page sans passer par un e-mail de réinitialisation de mot de passe. Si vous êtes passé par un e-mail de ce type, assurez-vous d'utiliser l'URL complète."
+      minimum_length: "6 caractères minimum"	  
     confirmations:
       send_instructions: 'Vous allez recevoir les instructions nécessaires à la confirmation de votre compte dans quelques minutes'
       send_paranoid_instructions: 'Si votre e-mail existe dans notre base de données, vous allez bientôt recevoir un e-mail contenant les instructions de confirmation de votre compte.'
@@ -274,27 +279,44 @@ fr:
         subject: "Instructions pour déverrouiller le compte"
   app:
     at: le
-    save_undefined_error: "Une erreur est survenue pendant l'enregistrement"
+    save_undefined_error: "Une erreur est survenue pendant l'enregistrement !"
+    load_undefined_error: "Une erreur est survenue pendant la lecture du fichier ligne !"
+    check_undefined_error: "Une erreur a empêchée la détection des anomalies !"
     default:
+      all: "Non filtrées"
       subject: Sujet
       define_article_male: le
+      define_article_apostrohpe: "l'"
       define_article_female: la
       undefine_article_male: un
       undefine_article_female: une
       undefine_article_plural: des
       new_male: "nouveau"
+      new_male_bis: "nouvel"
       new_female: "nouvelle"
+    caption:
+      importable_accounts: "Comptes importables"
+      warning_anomaly: "Anomalies non bloquantes pour l'import"
+      error_anomaly: "Anomalies bloquantes pour l'import"
     actions:
+      actions: "Actions"
       create: Créer
       new: Nouveau
       update: Éditer
       edit: Éditer
+      edition: Édition
       destroy: Supprimer
       show: Afficher
       do: Faire
       created_by: "Créer par"
       updated_by: "Dernièrement modifié par"
       filter: "Filtrer"
+      updated_contact: "Modifier le contact"
+      updated_account: "Modifier le compte"
+      choose_file: "Choisir un fichier"
+      show_valid_import: "Afficher la liste des %{model} importés et validés"
+      validate: "valider"
+      recalculate_duplicates: "Recalculer les doublons"
     cancan:
       messages:
         unauthorized: "Vous n'êtes pas autorisé à [action] [undefined_article] [model]"
@@ -305,8 +327,8 @@ fr:
       Account: compte
       Contact: contact
       Quotation: devis
-      QuotationLine: ligne de devis
-      QuotationTemplate: modèle
+      QuotationLine: "ligne de devis"
+      QuotationTemplate: "modèle de devis"
       Relation: relation
       Tag: tag
       Task: tâche
@@ -329,6 +351,8 @@ fr:
       QuotationTemplate: Modèle
       Document: "Document"
       Email: "E-mail"
+      NotificationCenter: "Centre de notifications"
+      Origin: "Origine"
     roles:
       details: "Détail des roles"
       admin: Administrateur
@@ -383,6 +407,7 @@ fr:
       estimated_profit: "Marge estimée"
       ref: "Référence"
       ref_account: "Référence client"
+      accounting_code: "Code comptable"
       quotation_validity: "Validité du Devis"
       pay_mode: "Mode de réglement"
       designation: Désignation
@@ -395,6 +420,11 @@ fr:
       subject: Sujet
       name: Nom
       company: Société
+      adress1: "Adresse"
+      adress2: "Adresse (suite)"
+      zip: "CP"
+      city: "Ville"
+      country: "Pays"
       date: "Date"
       profit_margin: "Marge"
       estimate: "Estimation"
@@ -402,7 +432,50 @@ fr:
       active: "Actif"
       size: "Taille"
       content: "Contenu"
-
+      category: "Catégorie"
+      origin: "Origine"
+      action: "Actions"
+      type: "Type"
+      author: "Auteur"
+      adress: "Adresse"
+      phone: "Téléphone"
+      fax: "Télécopie"
+      web: "Site Web"
+      anomaly: "Commentaire"
+      forename: "Prénom"
+      title: "Civ."
+      mobile: "Mobile"
+      email: "E-mail"
+      job: "Fonction"
+      notes: "Notes"
+      invalid: "invalide"
+      probability: "Probabilité de succés"
+      duplicate: "Désactiver la détection de doublon pour ce"
+    message:
+      confirm:
+        delete: "Confirmer la suppression ?"
+        delete_before_import: "Ce %{model} ne sera pas importé !"
+        delete_import: "Attention : La suppression de l'import entraine la suppression de tous les éléments liés à cet import (contacts ou comptes) ! Confirmez-vous la suppression ?"
+        delete_contact: "Attention ! En supprimant ce contact vous risquez de perdre de l\'information sur les éléments liés à ce contact (évènements, tâches, comptes...). Confirmer la suppression ?"
+        validate_account: "Valider le compte ?"
+        delete_all_invalids_accounts: "Confirmez vous la suppression de tous les comptes non valides"
+        delete_all_invalids_contacts: "Confirmez vous la suppression de tous les contacts non valides"
+      alert:
+        no_account_pending_validation: "Pas de comptes en attente de validation"
+        no_contact_pending_validation: "Pas de contact en attente de validation"
+        accounts_in_anomaly: "%{nbr} compte(s) invalide(s) !"
+        no_import: "Pas d'import !"
+      notice:
+        updated_account: "Le compte a été modifié"
+        updated_contact: "Le contact a été modifié"
+        confirm_import_account: "%{nbr} comptes ont été importés !"
+        confirm_import_contact: "%{nbr} contacts ont été importés !"
+        delete_account: "Le compte a bien été supprimé !"
+        delete_contact: "Le contact a bien été supprimé !"
+        delete_import: "L'import a bien été supprimé !"
+        import_done: "Import prêt pour validation"
+        validate_account: "Le compte a bien été validé !"
+        recalculate_duplicates: "Les doublons ont été recalculés : %{nbr} doublon(s)"
   title:
     dashboard: "Tableau de bord"
     actor: "Acteur"
@@ -417,6 +490,22 @@ fr:
     search_actor: "Rechercher un acteur..."
     reporting: "Rapport d'activité"
     filter_reporting: "Filtrer le rapport d'activité"
+    about: "À propos"
+    registered_users : "Utilisateurs enregistrés"
+    configuration_CoRM : "Configuration de CoRM"
+    imports: "Liste des imports"
+    new_import: "Nouvel import de "
+    accounts: "comptes"
+    contacts: "contacts"
+    import_accounts_waiting: "Imports comptes en attente de validation"
+    import_contacts_waiting: "Imports contacts en attente de validation"
+  link:
+    upload_csv_model: "télécharger le modèle de fichier d'import"
+    back: "Retour"
+    delete_contact: "Supprimer le contact"
+    delete_account: "Supprimer le compte"
+    delete_import: "Supprimer l'import"
+    edit: "Éditer %{article} %{model}"
 
   various:
     my: "Mes"

@@ -89,6 +89,6 @@ end %>
  
      <div class="row">
 	  <%= if !@document.id.nil? then f.button 'Modifier le document', :type => :submit, :class =>"btn btn-primary",:id =>"document_submit_form" else f.button 'Créer un document', :type => :submit, :class =>"btn btn-primary",:id =>"document_submit_form" end %>
-      <%= if !@document.id.nil? then link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, @document, :title => "Supprimer le document", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
+      <%= if !@document.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @document, :title => "Supprimer le document", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
   </div>
 <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140505151449) do
+ActiveRecord::Schema.define(:version => 20150107080343) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20140505151449) do
     t.string   "web"
     t.integer  "origin_id"
     t.boolean  "active",          :default => true
+    t.integer  "import_id"
   end
 
   create_table "accounts_tags", :id => false, :force => true do |t|
@@ -49,6 +50,14 @@ ActiveRecord::Schema.define(:version => 20140505151449) do
   create_table "aliases", :force => true do |t|
     t.integer "contact_id"
     t.string  "email"
+  end
+
+  create_table "anomalies", :force => true do |t|
+    t.string   "name"
+    t.string   "notes"
+    t.integer  "level"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "contacts", :force => true do |t|
@@ -67,6 +76,7 @@ ActiveRecord::Schema.define(:version => 20140505151449) do
     t.datetime "updated_at",                    :null => false
     t.integer  "account_id"
     t.boolean  "active",      :default => true
+    t.integer  "import_id"
   end
 
   create_table "contacts_tags", :id => false, :force => true do |t|
@@ -155,11 +165,70 @@ ActiveRecord::Schema.define(:version => 20140505151449) do
     t.text     "notes2"
   end
 
+  create_table "import_accounts", :force => true do |t|
+    t.string   "company"
+    t.string   "adress1"
+    t.string   "adress2"
+    t.string   "zip"
+    t.string   "city"
+    t.string   "country"
+    t.string   "accounting_code"
+    t.text     "notes"
+    t.integer  "created_by"
+    t.integer  "modified_by"
+    t.integer  "user_id"
+    t.string   "category"
+    t.string   "tel"
+    t.string   "fax"
+    t.string   "email"
+    t.string   "web"
+    t.integer  "origin_id"
+    t.boolean  "active",               :default => true
+    t.integer  "import_id"
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+    t.boolean  "no_search_duplicates", :default => false
+    t.integer  "anomaly_id"
+    t.integer  "account_id"
+  end
+
+  create_table "import_contacts", :force => true do |t|
+    t.string   "surname"
+    t.string   "forename"
+    t.string   "title"
+    t.string   "tel"
+    t.string   "fax"
+    t.string   "mobile"
+    t.string   "email"
+    t.string   "job"
+    t.text     "notes"
+    t.integer  "created_by"
+    t.integer  "modified_by"
+    t.integer  "account_id"
+    t.boolean  "active",               :default => true
+    t.integer  "import_id"
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+    t.string   "company"
+    t.boolean  "no_search_duplicates", :default => false
+    t.integer  "anomaly_id"
+    t.integer  "contact_id"
+  end
+
+  create_table "imports", :force => true do |t|
+    t.string   "created_by"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "import_type"
+    t.string   "notes"
+    t.string   "name"
+  end
+
   create_table "opportunities", :force => true do |t|
     t.string   "name"
     t.text     "description"
     t.string   "statut"
-    t.string   "remark"
+    t.text     "remark"
     t.float    "amount"
     t.datetime "term"
     t.integer  "created_by"
@@ -170,6 +239,7 @@ ActiveRecord::Schema.define(:version => 20140505151449) do
     t.integer  "contact_id"
     t.integer  "user_id"
     t.float    "profit"
+    t.integer  "probability"
   end
 
   create_table "opportunity_attachments", :force => true do |t|

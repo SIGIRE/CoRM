@@ -8,11 +8,17 @@
 # This business cas have many Contact, Event, Task, Document or Relation.
 # Also, it belongs to one User and one Origin
 #
+
+
+
 class Account < ActiveRecord::Base
   extend ToCsv
   resourcify
   
   before_save :uppercase_company
+  
+  #has_one is added because import_account has an account_id column to store id of duplicate account
+  has_one :import_account
   
   has_many :contacts, :dependent => :destroy
   has_many :opportunities, :dependent => :destroy
@@ -20,13 +26,14 @@ class Account < ActiveRecord::Base
   has_many :events, :dependent => :destroy
   has_many :tasks, :dependent => :destroy
   has_many :documents, :dependent => :destroy
-  has_many :tags
+  #has_many :tags
   
   has_and_belongs_to_many :tags
   belongs_to :user
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
   belongs_to :origin
+  belongs_to :import
 
   accepts_nested_attributes_for :events
   accepts_nested_attributes_for :contacts
@@ -84,23 +91,26 @@ class Account < ActiveRecord::Base
   scope :active, lambda { where(active: true) }
   scope :inactive, lambda { where(active: false) }
   scope :none, lambda { where('1 = 0') }
+  scope :by_import_id, lambda {|import| joins(:import).where('import_id = ?', import) unless import.nil?}
   
   ###
   # Set the business name to upper
   #
   def uppercase_company
+
     UnicodeUtils.upcase(self.company, I18n.locale)
+ 
   end
 
   def full_adress
 	tmp = self.adress1
-	if !self.adress2.blank?
+	if !tmp==nil? && !self.adress2.blank?
 		tmp += ', ' + self.adress2
 	end
-	if !self.zip.blank?
+	if !tmp==nil? && !self.zip.blank?
 		tmp += ', ' + self.zip
 	end
-	if !self.city.blank?
+	if !tmp==nil? && !self.city.blank?
 		tmp += ', ' + self.city
 	end	
 	return tmp

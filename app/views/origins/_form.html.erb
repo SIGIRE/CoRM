@@ -39,7 +39,7 @@
   
    <div class="row">
     <%= if !@origin.id.nil? then f.button "Modifier l'origine", :type => :submit, :class =>"btn btn-primary",:id =>"origin_validate_form" else f.button 'Créer une origine', :type => :submit, :class =>"btn btn-primary",:id =>"origin_validate_form" end%>
-    <%= if !@origin.id.nil? then link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, @origin, :title => "Supprimer l'origine", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn", :method => :delete end %> 
+    <%= if !@origin.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @origin, :title => "Supprimer l'origine", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn", :method => :delete end %> 
     </div>
   </div>
 <% end %>

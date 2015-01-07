@@ -3,7 +3,8 @@
      <div class="well">
        <div class="row-fluid">
          <div class="span9">
-           <h1>Nouvel Utilisateur</h1></div>
+		   <h1><%= "<i class=\"fa fa-users\"></i> #{t('app.default.new_male_bis').capitalize} #{t('app.model.User')}".html_safe %></h1>
+		 </div>
 			<%= link_to '<i class="fa fa-arrow-circle-left fa-3x action-icon"></i>'.html_safe, :back ,{:title => "Retour", :class =>"pull-right"} %>
 		</div>
 	 </div>
@@ -17,7 +18,7 @@
   </div>
 
   <div class="field"> 
-	<div class="span2"> Mot de passe : </div>  <%= f.password_field :password, { :required => 'required', :style=>'width: 20em;' } %><span class="req" />
+	<div class="span2"> Mot de passe : </div>  <%= f.password_field :password, { :required => 'required', :style=>'width: 20em;' } %><span class="req" /> <%= t('devise.passwords.minimum_length') %>
   </div>  
 
   <div class="field"> 

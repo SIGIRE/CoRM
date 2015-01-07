@@ -108,9 +108,12 @@
   <div class="row">
     <%= if !@account.id.nil? then f.button 'Modifier le compte', :type => :submit, :class =>"btn btn-primary",:id =>"account_validate_form" else f.button 'Créer un compte', :type => :submit, :class =>"btn btn-primary",:id =>"account_validate_form" end%>
   <% if current_user.has_role?(:admin) or current_user.has_role?(:super_user) %>  
-	<%= if !@account.id.nil? then  link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, @account,:title => "Supprimer le compte", :confirm => 'Attention : La suppression du compte entraine la suppression de tous les éléments liés à ce compte (contacts, évènements, devis, documents...) ! Confirmez-vous la suppression ?', :class =>"pull-right btn", :method => :delete end %>
+      <%= if !@account.id.nil? then  link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @account,:title => "Supprimer le compte", :confirm => 'Attention : La suppression du compte entraine la suppression de tous les éléments liés à ce compte (contacts, évènements, devis, documents...) ! Confirmez-vous la suppression ?', :class =>"pull-right btn", :method => :delete end %>
   <% end %>
+
   </div>
- 
+
 </form>
 <% end %>
+
+

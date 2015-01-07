@@ -10,6 +10,9 @@ class Contact < ActiveRecord::Base
   extend ToCsv
   resourcify
   
+  #has_one is added because import_contact has an contact_id column to store id of duplicate account
+  has_one :import_contact
+  
   has_many :tasks
   has_many :aliases, dependent: :destroy
 
@@ -18,12 +21,13 @@ class Contact < ActiveRecord::Base
   belongs_to :account
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
+  belongs_to :import
   
   accepts_nested_attributes_for :aliases, allow_destroy: true
-
-  validate :valid
   
   paginates_per 10
+    
+  validate :valid
   
   def valid
     if (self.surname.blank? && self.forename.blank?)
@@ -105,5 +109,6 @@ class Contact < ActiveRecord::Base
   scope :active, lambda { where(active: true) }
   scope :inactive, lambda { where(active: false) }
   scope :none, lambda { where('1 = 0') }
+  scope :by_import_id, lambda {|import| joins(:import).where('import_id = ?', import) unless import.nil?}
   
 end

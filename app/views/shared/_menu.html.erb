@@ -12,7 +12,8 @@
 
         <% cssClass = (params[:controller] == 'tasks') ? 'active' : '' %>
         <li class="<%= "#{cssClass} "%>">
-          <%= link_to "<i class=\"fa fa-tasks\"></i>  #{t('app.model.Task').pluralize}".html_safe, url_for(:controller => 'tasks') %>
+          <%#= link_to "<i class=\"fa fa-tasks\"></i>  #{t('app.model.Task').pluralize}".html_safe, url_for(:controller => 'tasks') %>
+          <%= link_to "<i class=\"fa fa-tasks\"></i>  #{t('app.model.Task').pluralize}".html_safe, tasks_path %>
         </li>
 
         <!-- ACTORS -->
@@ -38,10 +39,10 @@
             <i class="caret"></i>
           </a>
           <ul class="dropdown-menu">
-            <li><%= link_to "<i class=\"fa fa-eur fa-fw\"></i> #{t('app.model.Quotation').pluralize}".html_safe, quotations_path %></li>
+            <li><%= link_to "<i class=\"fa fa-file-text fa-fw\"></i> #{t('app.model.Quotation').pluralize}".html_safe, quotations_path %></li>
             <li><%= link_to "<i class=\"fa fa-briefcase fa-fw\"></i> #{t('app.model.Opportunity').pluralize}".html_safe, opportunities_path %></li>
             <li class="divider"></li>
-            <li><%= link_to "<i class=\"fa fa-tachometer\"></i> #{t('title.reporting')}".html_safe, reporting_path %></li>
+            <li><%= link_to "<i class=\"fa fa-pie-chart  fa-fw\"></i> #{t('title.reporting')}".html_safe, reporting_path %></li>
           </ul>
         </li>
       </ul>

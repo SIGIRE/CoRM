@@ -83,6 +83,28 @@
 			<p><%= f.select :statut, Opportunity::STATUTS %></p>
 		</div>
 	</div>
+	
+	<div class="row row-fluid">
+	    <div class="field full">
+		    <div class="span2"><%= label(:prob ,"#{t('app.fields.probability')} :") %></div>
+		    <p><%= f.range_field :probability, :in=>0...101, :step=>25, :id=>"slider" %></p>
+		    <div id="prob">
+			<% if !@opportunity.probability.nil? %>
+			    <%= @opportunity.probability %>
+			<% else %>
+			     50%
+			<% end %>
+		    </div>
+		    <!-- script is for show dynamic value of range -->
+		    <script>
+			$("#slider").change(function () {                    
+			var newValue = $('#slider').val();
+			$("#prob").html(newValue+"%");
+			});
+		    </script>
+	    </div>
+	</div>
+	
 	<div class="row row-fluid">
 		<div class="field full">
 			<div class="span2"><%= f.label(:remark, t('app.fields.remark')) %></div>
@@ -118,7 +140,7 @@
   <hr />
   <div class="row row-fluid">
 	<%= if !@opportunity.id.nil? then f.button "Modifier l'opportunité", :type => :submit, :class =>"btn btn-primary",:id =>"opportunity_submit_form" else f.button 'Créer une opportunité', :type => :submit, :class =>"btn btn-primary",:id =>"opportunity_submit_form" end %>
-	<%= if !@opportunity.id.nil? then link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, opportunity_path(@opportunity), :title => "Supprimer l'opportunité", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
+	<%= if !@opportunity.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, opportunity_path(@opportunity), :title => "Supprimer l'opportunité", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
  
   </div>
 <% end %>

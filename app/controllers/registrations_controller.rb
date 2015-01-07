@@ -115,6 +115,7 @@ class RegistrationsController < Devise::RegistrationsController
   # Render a page to edit the User
   #
   def edit
+ 
     # if he's not logged in, redirect him
     if !isLogged
       flash[:error] = "Vous devez etre connecté pour accéder à cette partie de l'application"
@@ -168,7 +169,15 @@ class RegistrationsController < Devise::RegistrationsController
       @user = User.find(current_user.id)
     end
     
-    userRole = params[:role]
+    #modified on 2014/11/21 to correct bug that if we change langage, user's role (except for admin)
+    #was set to simple user
+    #userRole = params[:role] #code modified by lines below
+    if current_user.has_role?(:admin)
+      userRole = params[:role]
+    else
+      userRole = @user.roles.first.name
+    end
+
     
     params[:user][:enabled] = current_user.has_role?(:admin) ? (params[:user][:enabled] == '1') : true
     # tmp role treatment
@@ -240,12 +249,14 @@ class RegistrationsController < Devise::RegistrationsController
               :domain => CORM[:host],
             }
           end
+        
         redirect_to root_url, :notice => t('devise.sessions.signed_in')
       else
+        
         redirect_to new_user_session_url, :notice => t('devise.failure.locked')
       end
     else
-      flash[:error] = t('devise.failure.incorrect')
+      flash[:alert] = t('devise.failure.incorrect')
       redirect_to new_user_session_url
     end
   end

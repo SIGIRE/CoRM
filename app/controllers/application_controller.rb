@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   before_filter :getAbility
   before_filter :get_locale
 
+
   rescue_from CanCan::AccessDenied do |exception|
     #redirect_to main_app.root_url, :alert => exception.message
     redirect_to :back, :error => t('app.cancan.messages.access_error')

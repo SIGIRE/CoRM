@@ -1,15 +1,18 @@
 <%= nested_form_for(@contact, :html => { :class => "well ", :id => 'new_contact_form', :key => "blabla"}) do |f| %>
-  <% if @contact.errors.any? %>
+ 
+  <%# if @contact.errors.any? %>
+  <!-- repace by flash[:alert] 
     <div id="error_explanation">
-      <h2><%= pluralize(@contact.errors.count, "erreur") %> a empeché de sauvegarder ce contact:</h2>
+      <h2><%#= pluralize(@contact.errors.count, "erreur") %> a empeché de sauvegarder ce contact:</h2>
 
       <ul>
-      <% @contact.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+      <%# @contact.errors.full_messages.each do |msg| %>
+        <li><%#= msg %></li>
+      <%# end %>
       </ul>
     </div>
-  <% end %>
+    -->
+  <%# end %>
 
   <div class="field">
     <div class="span2"> Nom : </div> <%= f.text_field :surname %>
@@ -158,7 +161,11 @@
 
     <%# Ajout du bouton de suppression %>
 		<% if !@contact.id.nil? %>
-		 	<%= link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, @contact, :title => "Supprimer le contact", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete %>
+		 	<%= link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @contact,
+		 	:title => "Supprimer le contact",
+		 	:confirm => t('app.message.confirm.delete_contact'),
+		 	:class =>"pull-right btn",
+		 	:method => :delete %>
 		<% end %> 
   </div>
  
