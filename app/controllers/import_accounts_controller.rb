@@ -82,6 +82,13 @@ class ImportAccountsController < ApplicationController
     #check after update
     @import_account.check
     
+    # if no_search_duplicates is set to true, check method don't search duplicate for it
+    # so if it was duplicate, the other duplicate import_contact will not be set to no_anomaly
+    # so we need to recalculate duplicates
+    if @import_account.no_search_duplicates==true
+      calculate_duplicates
+    end
+    
     respond_to do |format|
         format.html { redirect_to import_accounts_path(:anomaly=>select), :notice => "#{t('app.message.notice.updated_account')}" }
       
@@ -163,7 +170,24 @@ class ImportAccountsController < ApplicationController
     end
     
     #this method reset duplicates anomalies and re-scan all import_accounts for searching duplicates
+    #and redirect to index import_accounts
+    #call by clic on recalculate button in index
     def recalculate_duplicates
+        
+        calculate_duplicates
+        
+        respond_to do |format|
+            format.html { redirect_to import_accounts_path, :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}
+
+        end
+        
+    end
+    
+    private
+    
+    #private algorithme for searching duplicates
+    #call by recalculate_duplicates method and update method
+    def calculate_duplicates
         nbr=0
         
         #set duplicate_import to no_anomaly
@@ -172,10 +196,10 @@ class ImportAccountsController < ApplicationController
           d.update_attributes(:anomaly_id=>ImportAccount::NO_ANOMALY.id)
         end
         
-        ImportAccount.find_each(:conditions=>"company!=''") do |account1|            
+        ImportAccount.find_each(:conditions=>"company!='' AND no_search_duplicates=FALSE") do |account1|            
      
             #search in import_account
-            ImportAccount.find_each(:conditions=>"company!=''", start: (account1.id)+1) do |account2|
+            ImportAccount.find_each(:conditions=>"company!='' AND no_search_duplicates=FALSE", start: (account1.id)+1) do |account2|
                 if ImportAccount.is_match(account1,account2)
                     nbr+=1
                     account1.update_attributes(:anomaly_id=>ImportAccount::DUPLICATE_IMPORT_ANOMALY.id) unless account1.anomaly_id==ImportAccount::DUPLICATE_IMPORT_ANOMALY.id
@@ -192,12 +216,6 @@ class ImportAccountsController < ApplicationController
                 end               
             end
         end
-        
-        respond_to do |format|
-            format.html { redirect_to import_accounts_path, :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}
-
-        end
-        
     end
 
 end

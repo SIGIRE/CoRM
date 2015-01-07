@@ -79,6 +79,14 @@ class ImportContactsController < ApplicationController
     #check after update
     @import_contact.check
     
+    # if no_search_duplicates is set to true, check method don't search duplicate for it
+    # so if it was duplicate, the other duplicate import_contact will not be set to no_anomaly
+    # so we need to recalculate duplicates
+    if @import_contact.no_search_duplicates==true
+      calculate_duplicates
+    end
+    
+    
     respond_to do |format|
         format.html { redirect_to import_contacts_path(:anomaly=>select), :notice => "#{t('app.message.notice.updated_contact')}" }      
     end 
@@ -155,7 +163,23 @@ class ImportContactsController < ApplicationController
   end
   
   #this method reset duplicates anomalies and re-scan all import_contacts for searching duplicates
+  #and redirect to index import_contacts
+  #call by clic on recalculate button in index
   def recalculate_duplicates
+    
+    calculate_duplicates
+    
+    respond_to do |format|
+      format.html { redirect_to import_contacts_path, :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}
+
+    end
+  end
+  
+  private
+  
+  #private algorithme for searching duplicates
+  #call by recalculate_duplicates method and update method
+  def calculate_duplicates
     nbr=0
     
     #set duplicate_import to no_anomaly
@@ -163,11 +187,10 @@ class ImportContactsController < ApplicationController
     duplicates_contacts.each do |d|
       d.update_attributes(:anomaly_id=>ImportContact::NO_ANOMALY.id)
     end
-    
-    
-    ImportContact.find_each do |contact1|      
+        
+    ImportContact.find_each(:conditions => "no_search_duplicates=FALSE") do |contact1|      
       #search in import_contacts
-      ImportContact.find_each(start: (contact1.id)+1) do |contact2|
+      ImportContact.find_each(:conditions => "no_search_duplicates=FALSE", start: (contact1.id)+1) do |contact2|
         if ImportContact.is_match(contact1,contact2)
           nbr+=1
           contact1.update_attributes(:anomaly_id=>ImportContact::DUPLICATE_IMPORT_ANOMALY.id) unless contact1.anomaly_id==ImportContact::DUPLICATE_IMPORT_ANOMALY.id
@@ -183,11 +206,6 @@ class ImportContactsController < ApplicationController
             contact1.update_attributes(:contact_id=>contact2.id)
           end               
       end      
-    end
-    
-    respond_to do |format|
-      format.html { redirect_to import_contacts_path, :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}
-
     end
   end
   
