@@ -103,14 +103,18 @@
         </div>
         
 	<div class="row">
+	<% if can? :manage, ImportContact %>
+	  
 	  <% if (!@contact.id.nil?) %> 
-			<%= f.button "#{t('app.actions.updated_contact')}", :type => :submit, :class =>"btn btn-primary",:id =>"contact_submit_form" %>
-		<% end %>
+	      <%= f.button "#{t('app.actions.updated_contact')}", :type => :submit, :class =>"btn btn-primary",:id =>"contact_submit_form" %>
+	  <% end %>
 
-    <%# Ajout du bouton de suppression %>
-		<% if !@contact.id.nil? %>
-		 	<%= link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @contact, :title => "#{t('link.delete_contact')}", :confirm => "#{t('app.message.confirm.delete')}", :class =>"pull-right btn", :method => :delete %>
-		<% end %>
+	  <%# Ajout du bouton de suppression %>
+	  <% if !@contact.id.nil? %>
+		  <%= link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @contact, :title => "#{t('link.delete_contact')}", :confirm => "#{t('app.message.confirm.delete')}", :class =>"pull-right btn", :method => :delete %>
+	  <% end %>
+	  
+	<% end %>
         </div>
 </div>
  

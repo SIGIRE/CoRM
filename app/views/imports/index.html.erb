@@ -56,12 +56,17 @@
 				<td class="text-center">-</td>
                         <% end %>
                         
-			<td class="text-center"><%= link_to '<i class="fa fa-trash fa-2x action-icon"></i>'.html_safe,
-			import,
-			:title => "#{t('link.delete_import')}",
-			:confirm => "#{t('app.message.confirm.delete_import')}",
-			:method => :delete %></td>
-                            
+			
+			 <td class="text-center">
+			      <% if can? :manage, import %>
+			      <%= link_to '<i class="fa fa-trash fa-2x action-icon"></i>'.html_safe,
+				   import,
+				   :title => "#{t('link.delete_import')}",
+				   :confirm => "#{t('app.message.confirm.delete_import')}",
+				   :method => :delete %>
+			      <% end %>	
+			 </td>
+				      
                     </tr>
                 <% end %>
             </tbody>

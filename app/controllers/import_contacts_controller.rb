@@ -89,7 +89,7 @@ class ImportContactsController < ApplicationController
     import_contacts=ImportContact.joins(:anomaly)
     import_contacts.each do |i|
       #if no anomaly in temporary contact or just warning on company name
-      if i.anomaly.level!=3
+      if i.anomaly.level!=3 && (can? :manage, ImportContact)
           contact=Contact.new
           contact.surname=i.surname
           contact.forename=i.forename
@@ -140,11 +140,15 @@ class ImportContactsController < ApplicationController
   end
   
   def destroy_all_invalids
-    import_contacts = ImportContact.joins(:anomaly).where(anomalies: {level: 3})
-    import_contacts.each do |i|
-        i.destroy
-    end
     
+    # test user ability to prevent from accessing method from URL (see routes file)
+    if can? :manage, ImportContact
+      import_contacts = ImportContact.joins(:anomaly).where(anomalies: {level: 3})
+      import_contacts.each do |i|
+        i.destroy
+      end
+    end
+
     respond_to do |format|
         format.html { redirect_to import_contacts_path }
     end
@@ -178,9 +182,9 @@ class ImportContactsController < ApplicationController
             contact1.update_attributes(:anomaly_id => ImportContact::DUPLICATE_DB_ANOMALY.id)
             contact1.update_attributes(:contact_id=>contact2.id)
           end               
-      end
-      
+      end      
     end
+    
     respond_to do |format|
       format.html { redirect_to import_contacts_path(:invalid=>"no"), :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}
 

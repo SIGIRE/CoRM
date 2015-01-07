@@ -57,7 +57,11 @@
 	    
 	  <hr/>
 	  <div class="row">
+	       <% if can? :manage, Import %>
+	       
 	       <%= f.button "#{t('views.button.create_import')}", :type => :submit,:class =>"btn btn-primary",:id =>"import_validate_form" %>
+	  
+	       <% end %>
 	  </div>                     
 	  
      </div>

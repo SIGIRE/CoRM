@@ -1,3 +1,5 @@
 </div>
+    <% if can? :manage, ImportAccount %>
     <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, accounts_new_import_path, :title => "#{t('title.new_import')}#{t('title.accounts')}", :class=>"pull-right", :method=> :post %>
+    <% end %>
 </div>

@@ -94,8 +94,8 @@ class ImportAccountsController < ApplicationController
     total=0
     import_accounts=ImportAccount.joins(:anomaly)
     import_accounts.each do |i|
-        #if no anomaly in temporary account
-        if i.anomaly.level!=3
+        #if no anomaly in temporary account (test user ability to prevent from accessing method from URL (see routes file))
+        if i.anomaly.level!=3 && (can? :manage, ImportAccount)
             account=Account.new
             account.company=i.company
             account.adress1=i.adress1
@@ -125,7 +125,7 @@ class ImportAccountsController < ApplicationController
     end
     
     respond_to do |format|
-            format.html { redirect_to import_accounts_path, :notice => "#{t('app.message.notice.confirm_import_account', nbr: total)}"  }
+        format.html { redirect_to import_accounts_path, :notice => "#{t('app.message.notice.confirm_import_account', nbr: total)}"  }
     end
   end
   
@@ -149,11 +149,14 @@ class ImportAccountsController < ApplicationController
     end
     
     def destroy_all_invalids
-        import_accounts = ImportAccount.joins(:anomaly).where(anomalies: {level: 3})
-        import_accounts.each do |i|
-            i.destroy
+        # test user ability to prevent from accessing method from URL (see routes file)
+        if can? :manage, ImportAccount
+            import_accounts = ImportAccount.joins(:anomaly).where(anomalies: {level: 3})
+            import_accounts.each do |i|
+                i.destroy
+            end
         end
-        
+ 
         respond_to do |format|
             format.html { redirect_to import_accounts_path }
         end

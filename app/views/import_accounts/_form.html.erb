@@ -108,10 +108,11 @@
 	<hr />
   
   <div class="row">
-    <%= f.button "#{t('app.actions.updated_account')}", :type => :submit, :class =>"btn btn-primary",:id =>"account_validate_form" %>
-  <% if current_user.has_role?(:admin) or current_user.has_role?(:super_user) %>  
+     <% if can? :manage, ImportAccount %>
+	  <%= f.button "#{t('app.actions.updated_account')}", :type => :submit, :class =>"btn btn-primary",:id =>"account_validate_form" %>
+    
 	<%= if !@import_account.id.nil? then  link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @import_account,:title => "#{t('link.delete_account')}", :confirm => "#{t('app.message.confirm.delete')}", :class =>"pull-right btn", :method => :delete end %>
-  <% end %>
+     <% end %>
   </div>
  
 </form>
