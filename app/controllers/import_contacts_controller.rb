@@ -76,14 +76,16 @@ class ImportContactsController < ApplicationController
     @import_contact.modified_by = current_user.id
     @import_contact.update_attributes(params[:import_contact])
     
-    #check after update
-    @import_contact.check
-    
     # if no_search_duplicates is set to true, check method don't search duplicate for it
     # so if it was duplicate, the other duplicate import_contact will not be set to no_anomaly
-    # so we need to recalculate duplicates
+    # so we need to check all contacts in this case
     if @import_contact.no_search_duplicates==true
-      calculate_duplicates
+        ImportContact.find_each do |i|
+            i.check
+        end
+    else
+        #only check current import_account
+        @import_contact.check
     end
     
     
@@ -167,19 +169,6 @@ class ImportContactsController < ApplicationController
   #call by clic on recalculate button in index
   def recalculate_duplicates
     
-    calculate_duplicates
-    
-    respond_to do |format|
-      format.html { redirect_to import_contacts_path, :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}
-
-    end
-  end
-  
-  private
-  
-  #private algorithme for searching duplicates
-  #call by recalculate_duplicates method and update method
-  def calculate_duplicates
     nbr=0
     
     #set duplicate_import to no_anomaly
@@ -206,6 +195,11 @@ class ImportContactsController < ApplicationController
             contact1.update_attributes(:contact_id=>contact2.id)
           end               
       end      
+    end
+    
+    respond_to do |format|
+      format.html { redirect_to import_contacts_path, :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}
+
     end
   end
   

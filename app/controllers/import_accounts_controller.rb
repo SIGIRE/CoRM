@@ -9,6 +9,7 @@ class ImportAccountsController < ApplicationController
 
   
   # Show the full list of Import_accounts by paginate_by
+  # GET /import_accounts
   def index
  
     #variables for render
@@ -40,7 +41,6 @@ class ImportAccountsController < ApplicationController
 
     respond_to do |format|
       format.html { @import_accounts = @import_accounts.page(params[:page]) }
-      format.json { render :json => @import_accounts }
     end
     
   end
@@ -78,15 +78,18 @@ class ImportAccountsController < ApplicationController
     params[:import_account][:company] = UnicodeUtils.upcase(params[:import_account][:company], I18n.locale)
     params[:import_account][:web] = Format.to_url(params[:import_account][:web])
     @import_account.update_attributes(params[:import_account])
-    
-    #check after update
-    @import_account.check
+
     
     # if no_search_duplicates is set to true, check method don't search duplicate for it
     # so if it was duplicate, the other duplicate import_contact will not be set to no_anomaly
-    # so we need to recalculate duplicates
+    # so we need to check all accounts in this case
     if @import_account.no_search_duplicates==true
-      calculate_duplicates
+        ImportAccount.find_each do |i|
+            i.check
+        end
+    else
+        #only check current import_account
+        @import_account.check
     end
     
     respond_to do |format|
@@ -136,6 +139,7 @@ class ImportAccountsController < ApplicationController
     end
   end
   
+    #delete one account
     def destroy
         #if index is filter, keep it filter after delete account
         if !params[:anomaly].nil?
@@ -155,6 +159,7 @@ class ImportAccountsController < ApplicationController
         end
     end
     
+    #delete all import_accounts where anomaly level equals 3
     def destroy_all_invalids
         # test user ability to prevent from accessing method from URL (see routes file)
         if can? :manage, ImportAccount
@@ -174,23 +179,9 @@ class ImportAccountsController < ApplicationController
     #call by clic on recalculate button in index
     def recalculate_duplicates
         
-        calculate_duplicates
-        
-        respond_to do |format|
-            format.html { redirect_to import_accounts_path, :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}
-
-        end
-        
-    end
-    
-    private
-    
-    #private algorithme for searching duplicates
-    #call by recalculate_duplicates method and update method
-    def calculate_duplicates
         nbr=0
         
-        #set duplicate_import to no_anomaly
+        #set duplicate_import anomaly to no_anomaly
         duplicates_accounts = ImportAccount.where(anomaly_id: [ImportAccount::DUPLICATE_IMPORT_ANOMALY.id, ImportAccount::DUPLICATE_DB_ANOMALY.id])
         duplicates_accounts.each do |d|
           d.update_attributes(:anomaly_id=>ImportAccount::NO_ANOMALY.id)
@@ -216,6 +207,13 @@ class ImportAccountsController < ApplicationController
                 end               
             end
         end
+        
+        respond_to do |format|
+            format.html { redirect_to import_accounts_path, :notice => "#{t('app.message.notice.recalculate_duplicates', nbr: nbr)}"}
+
+        end
+        
     end
+        
 
 end
