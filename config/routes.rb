@@ -108,6 +108,7 @@ Crm::Application.routes.draw do
   # Tasks routes
   set_route('taches', 'tache', 'tasks')
   match '/taches/filter(.:format)', :controller => 'tasks', :action => 'filter', :via => :get, :as => "filter_tasks_index"
+  match '/tache/:id/finished', :controller=>'tasks', :action=>'finished', :as=>"finished_task"
 
   # Accounts
   match 'comptes/extract', controller: 'accounts', action: 'extract'

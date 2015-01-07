@@ -317,6 +317,7 @@ fr:
       show_valid_import: "Afficher la liste des %{model} importés et validés"
       validate: "valider"
       recalculate_duplicates: "Recalculer les doublons"
+      finished: "Terminer"
     cancan:
       messages:
         unauthorized: "Vous n'êtes pas autorisé à [action] [undefined_article] [model]"

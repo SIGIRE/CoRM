@@ -1,6 +1,6 @@
 #encoding: utf-8
 
-#this class represent an anomaly in imported datas (import_accounst or import_contacts)
+#this class represent an anomaly in imported datas (import_accounts or import_contacts)
 
 class Anomaly < ActiveRecord::Base
 

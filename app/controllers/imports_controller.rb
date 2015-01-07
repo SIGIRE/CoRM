@@ -3,7 +3,6 @@
 ##2014/11/20 - this class is used to import values from csv file to database
 
 class ImportsController < ApplicationController
-    require 'csv'
     
     #show full list of imports by paginate_by
     # GET /imports
@@ -82,7 +81,7 @@ class ImportsController < ApplicationController
     
     def destroy
         @import = Import.find(params[:id])
-        #delete accounts or contacts associated with delete import are implemented in import model
+        #delete accounts or contacts associated with delete import are implemented in import_model
         #with dependent in has_many
         @import.destroy
         respond_to do |format|

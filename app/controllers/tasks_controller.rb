@@ -148,7 +148,28 @@ class TasksController < ApplicationController
       render :action => "edit"
     end
   end
-
+  
+  #finished task from action finished in index tasks view 
+  def finished
+    # Récupération de la tâche
+    @task = Task.find(params[:id])
+    @task.modified_by = current_user.id
+    
+    #conversion de la string term pour qu'elle soit formatté correctement pour l'afficahge
+    @task.term = @task.term.split('/').reverse!.join('/')
+    
+    # Set statut to closed
+   @task.statut = tasks::STATUTS[2]
+    
+    if @task.update_attributes(params[:task])
+      flash[:notice] = "La tâche n°#{@task.id} a été mise à jour."
+      redirect_to (@task.account.nil?() ? tasks_path : account_events_path(@task.account))
+    else
+      render :action => "edit"
+    end
+    
+  end
+  
   ##
   # Process that remove a Task from the DB
   #
