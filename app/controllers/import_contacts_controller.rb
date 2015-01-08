@@ -23,7 +23,7 @@ class ImportContactsController < ApplicationController
     @import_contacts = apply_scopes(ImportContact).joins(:anomaly).joins('LEFT OUTER JOIN contacts ON contacts.id = import_contacts.id').order("level DESC", "company")
     
     #to keep info filter
-    if !params[:anomaly].nil?
+    if !params[:anomaly].nil? 
         @select=params[:anomaly]
     end
     

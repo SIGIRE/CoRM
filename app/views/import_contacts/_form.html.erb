@@ -111,7 +111,12 @@
 
 	  <%# Ajout du bouton de suppression %>
 	  <% if !@contact.id.nil? %>
-		  <%= link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @contact, :title => "#{t('link.delete_contact')}", :confirm => "#{t('app.message.confirm.delete')}", :class =>"pull-right btn", :method => :delete %>
+		  <%= link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe,
+		      import_contact_path(@contact, :anomaly=>@select),
+		      :title => "#{t('link.delete_contact')}",
+		      :confirm => "#{t('app.message.confirm.delete')}",
+		      :class =>"pull-right btn",
+		      :method => :delete %>
 	  <% end %>
 	  
 	<% end %>
