@@ -140,13 +140,13 @@
     
    
     <div style="float:left;margin-right: 5px">
-      <%= form_tag(action: "importing_accounts") do %>
+      <%= form_tag(import_accounts_importing_path) do %>
 	<%= button_tag "#{t('views.button.import',models:t('title.accounts'))}", class: "btn btn-primary" %>
       <% end %>
     </div>
     
     <div style="float:left;margin-right: 5px">
-    <%= form_tag(recalculate_duplicates_accounts_path) do %>
+    <%= form_tag(import_accounts_recalculate_duplicates_path) do %>
       <%= button_tag "#{t('app.actions.recalculate_duplicates')}", class: "btn" %>
     <% end %>
     </div>
