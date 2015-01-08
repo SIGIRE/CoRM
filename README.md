@@ -1,8 +1,8 @@
-# CORM
+# CoRM
 ### Easier than a CRM
-Version: 0.9.4 (nightly)
+[Release Note's Link in French](https://github.com/SIGIRE/CoRM/blob/master/RELEASE_NOTES_FR.md "The CoRM's Release notes...")
 
-## About CORM
+## About CoRM
 CoRM is a **Customer Relationship Manager** (CRM) designed for businesses about 1 to 100 collaborators. This software helps you to manage your relations between each actor that composing your environment.
 
 CoRM does not contain inessentials functionnalities and does not have so much required fields. This software is build to help you, not to stop you during an interview or something else.
