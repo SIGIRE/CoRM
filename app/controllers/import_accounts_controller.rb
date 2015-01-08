@@ -80,22 +80,30 @@ class ImportAccountsController < ApplicationController
     @import_account.update_attributes(params[:import_account])
 
     
-    # if no_search_duplicates is set to true, check method don't search duplicate for it
-    # so if it was duplicate, the other duplicate import_contact will not be set to no_anomaly
-    # so we need to check all accounts in this case
-    if @import_account.no_search_duplicates==true
-        ImportAccount.find_each do |i|
+    ## if no_search_duplicates is set to true, check method don't search duplicate for it
+    ## so if it was duplicate, the other duplicate import_contact will not be set to no_anomaly
+    ## so we need to check all accounts in this case
+    #if @import_account.no_search_duplicates==true
+    #    ImportAccount.find_each do |i|
+    #        i.check
+    #    end
+    #else
+    #    #only check current import_account
+    #    @import_account.check
+    #end
+    #
+    #
+    
+    #check all import_accounts (necessary cause duplicates)
+    ImportAccount.find_each do |i|
             i.check
         end
-    else
-        #only check current import_account
-        @import_account.check
-    end
-    
+       
     respond_to do |format|
         format.html { redirect_to import_accounts_path(:anomaly=>select), :notice => "#{t('app.message.notice.updated_account')}" }
       
-    end 
+    end
+    
   end
   
   #create accounts from import_accounts in database which have a true valid_account
