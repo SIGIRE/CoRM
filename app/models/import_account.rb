@@ -2,6 +2,7 @@
 
 #this class represent an account imported by a csv file and waiting for valitation
 
+#gem for matching string
 require 'text'
 
 class ImportAccount < ActiveRecord::Base

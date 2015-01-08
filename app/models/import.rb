@@ -16,7 +16,6 @@ class Import < ActiveRecord::Base
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
   
   CATEGORIES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire', 'Adhérent', 'Autre']
-  #validates_inclusion_of :category, :in => CATEGORIES
   
   paginates_per 10
   

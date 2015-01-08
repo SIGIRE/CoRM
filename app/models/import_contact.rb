@@ -69,6 +69,7 @@ class ImportContact < ActiveRecord::Base
     anomaly=NO_ANOMALY
     
     if self.account_id.blank?
+      #anomaly level 2
       #search in DB if an account with company name like company name of the contact exist
       compte = Account.find_by_company(self.company.upcase) unless self.company.blank?
       if compte.nil?
@@ -78,6 +79,7 @@ class ImportContact < ActiveRecord::Base
       end
     end
     
+    #anomaly level 3
     #if surname and forename are nil
     if self.surname.blank? && self.forename.blank?
       anomaly=NAME_ANOMALY

@@ -318,6 +318,7 @@ en:
       show_valid_import: "Show valid imported %{model}"
       validate: "Validate"
       recalculate_duplicates: "Recalculate duplicates"
+      finished: "Finished"
     cancan:
       messages:
         unauthorized: "Vous n'êtes pas autoriser à [action] [undefined_article] [model]"

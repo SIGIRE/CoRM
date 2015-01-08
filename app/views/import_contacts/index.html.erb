@@ -154,13 +154,13 @@
   </table>
       <% if !@import_contacts.empty? && (can? :manage, ImportContact) %>
 	      <div style="float:left;margin-right: 5px">
-				<%= form_tag(action: "importing_contacts") do %>
+				<%= form_tag(import_contacts_importing_path) do %>
 					<%= button_tag "#{t('views.button.import',models:t('title.contacts'))}", class: "btn btn-primary" %>
 				<% end %>
 			</div>
 			
 			<div style="float:left;margin-right: 5px">
-				<%= form_tag(recalculate_duplicates_contacts_path) do %>
+				<%= form_tag(import_contacts_recalculate_duplicates_path) do %>
 					<%= button_tag "#{t('app.actions.recalculate_duplicates')}", class: "btn" %>
 				<% end %>
 			</div>
