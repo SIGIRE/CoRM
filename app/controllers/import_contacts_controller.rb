@@ -76,16 +76,21 @@ class ImportContactsController < ApplicationController
     @import_contact.modified_by = current_user.id
     @import_contact.update_attributes(params[:import_contact])
     
-    # if no_search_duplicates is set to true, check method don't search duplicate for it
-    # so if it was duplicate, the other duplicate import_contact will not be set to no_anomaly
-    # so we need to check all contacts in this case
-    if @import_contact.no_search_duplicates==true
-        ImportContact.find_each do |i|
+    ## if no_search_duplicates is set to true, check method don't search duplicate for it
+    ## so if it was duplicate, the other duplicate import_contact will not be set to no_anomaly
+    ## so we need to check all contacts in this case
+    #if @import_contact.no_search_duplicates==true
+    #    ImportContact.find_each do |i|
+    #        i.check
+    #    end
+    #else
+    #    #only check current import_account
+    #    @import_contact.check
+    #end
+    
+    #check all import_accounts (because duplicates must be reclaculate)
+    ImportContact.find_each do |i|
             i.check
-        end
-    else
-        #only check current import_account
-        @import_contact.check
     end
     
     
