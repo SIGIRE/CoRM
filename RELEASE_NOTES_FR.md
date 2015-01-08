@@ -2,10 +2,10 @@
 
 ### Version 0.10.0
 
-**Fonctionnalité**
+**Fonctionnalités**
  * Ajout du module d'import des comptes et des contacts ;
  * Onglet Tâches dans la vue principale d'un compte ;
- * État d'avancement d'une opportunitéen pourcentage) ;
+ * État d'avancement d'une opportunité (en pourcentage) ;
  * Possibilitée terminer une Tâche via un bouton "Terminer la Tâche".
 
 **Corrections**
@@ -14,10 +14,10 @@
  
 ### Version 0.9.6
 
-**Fonctionnalité**
- * Ajout du Release Note
+**Fonctionnalités**
+ * Ajout du fichier Release Note.
 
- **Corrections**
+**Corrections**
  * Bug du changement de mot de passe ;
  * Erreur dans la pagination des tableaux ;
  * Le super-user peut supprimer un contact.
