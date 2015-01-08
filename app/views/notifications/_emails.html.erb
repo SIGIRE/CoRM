@@ -28,7 +28,7 @@
             <td class="text-center"></td>
         <%end%>
             <td class="text-center"><%=email.object%></td>
-            <td class="text-center"><%=email.content%></td>
+            <td class="text-center"><%=email.content.truncate(40) %></td>
             <td class="text-center"><%=email.email_attachments.length%></td>
             <td class="text-center"><%= email.send_at.strftime("%d/%m/%y à %H:%M") %></td>
 		  		<%# Affichage des boutons d'action %>
