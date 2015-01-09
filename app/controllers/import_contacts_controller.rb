@@ -89,9 +89,10 @@ class ImportContactsController < ApplicationController
     #end
     
     #check all import_accounts (because duplicates must be reclaculate)
-    ImportContact.find_each do |i|
-            i.check
-    end
+    #ImportContact.find_each do |i|
+    #        i.check
+    #end
+    @import_contact.check
     
     
     respond_to do |format|
@@ -145,9 +146,9 @@ class ImportContactsController < ApplicationController
     @import_contact.destroy
     
     #check import_contacts after destroy in order to eliminate isolated duplicates anomaly
-      ImportContact.find_each do |i|
-          i.check
-      end
+      #ImportContact.find_each do |i|
+      #    i.check
+      #end
     
     respond_to do |format|
         format.html { redirect_to import_contacts_path(:anomaly=>select), :notice => "#{t('app.message.notice.delete_contact')}"  }
