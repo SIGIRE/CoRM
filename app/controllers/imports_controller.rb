@@ -99,7 +99,7 @@ class ImportsController < ApplicationController
     
     #read each line of the file and create models in database
     def read_file(import_file)
-        @num_line=2
+        @num_line=1
         if @type=="accounts"
             #if create an account from a line failed, transaction is aborted and all
             #created accounts are rolling back
