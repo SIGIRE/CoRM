@@ -123,7 +123,7 @@ class ImportAccount < ActiveRecord::Base
 
             score=Text::WhiteSimilarity.new
 
-            if !account1.zip==nil? && !account2.zip==nil?
+            if !account1.zip.blank? && !account2.zip.blank?
                 company1=account1.company.upcase
                 company2=account2.company.upcase
                 
@@ -134,6 +134,8 @@ class ImportAccount < ActiveRecord::Base
                     match=true                
                 end
             else
+                company1=account1.company.upcase
+                company2=account2.company.upcase
                 if score.similarity(company1,company2)>0.8
                     match=true                
                 end              
