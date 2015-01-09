@@ -12,7 +12,8 @@
         <div class="row row-fluid">
 		    <div class="">
 			    <%= label_tag :by_statut, t('app.fields.state') + " :", :class => "top" %>
-          <%= select_tag 'by_statut', options_for_select(Task::STATUTS_A_FILTRER), { :prompt => "Tous", :class => "filter_statut" } %>
+          <%#= select_tag 'by_statut', options_for_select(Task::STATUTS_A_FILTRER), { :prompt => "Tous", :class => "filter_statut" } %>
+	    <%= select_tag 'by_statut', options_for_select(Task::STATUTS_A_FILTRER, "Non terminé"), {:class => "filter_statut" } %>	    
 		    </div>
 		    <div class="">
 			    <%= label_tag :by_priority, t('app.fields.priority') + " :", :class => "top" %>
