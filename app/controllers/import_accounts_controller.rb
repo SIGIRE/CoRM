@@ -95,9 +95,10 @@ class ImportAccountsController < ApplicationController
     #
     
     #check all import_accounts (necessary cause duplicates)
-    ImportAccount.find_each do |i|
-            i.check
-        end
+    #ImportAccount.find_each do |i|
+    #        i.check
+    #end
+    @import_account.check
        
     respond_to do |format|
         format.html { redirect_to import_accounts_path(:anomaly=>select), :notice => "#{t('app.message.notice.updated_account')}" }
@@ -158,9 +159,9 @@ class ImportAccountsController < ApplicationController
         @import_account.destroy
         
         #check import_accounts after destroy in order to eliminate isolated duplicates anomaly
-        ImportAccount.find_each do |i|
-            i.check
-        end
+        #ImportAccount.find_each do |i|
+        #    i.check
+        #end
         
         respond_to do |format|
             format.html { redirect_to import_accounts_path(:anomaly=>select), :notice => "#{t('app.message.notice.delete_account')}" }

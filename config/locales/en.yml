@@ -502,7 +502,7 @@ en:
     import_accounts_waiting: "Imports accounts waiting for validation"
     import_contacts_waiting: "Imports contacts waiting for validation"
   link:
-    upload_csv_model: "download file model import"
+    upload_csv_model: "Download file model import"
     back: "Back"
     delete_contact: "Delete contact"
     delete_account: "Delete account"
