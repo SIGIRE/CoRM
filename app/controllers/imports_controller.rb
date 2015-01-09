@@ -67,15 +67,15 @@ class ImportsController < ApplicationController
                 format.html { render :template => new_import_path}
             end
         end
-        rescue Exception => e
-            #if an exception occurs during reading file, import must be destroy
-            @import.destroy  
-            respond_to do |format|
-               flash.now[:alert] = t('app.load_undefined_error')+" #{@num_line} : "+e.message
-               @origin=nil  #to avoid bug when render template
-               @collegue=nil
-               format.html { render :template => new_import_path }
-            end
+        #rescue Exception => e
+        #    #if an exception occurs during reading file, import must be destroy
+        #    @import.destroy  
+        #    respond_to do |format|
+        #       flash.now[:alert] = t('app.load_undefined_error')+" #{@num_line} : "+e.message
+        #       @origin=nil  #to avoid bug when render template
+        #       @collegue=nil
+        #       format.html { render :template => new_import_path }
+        #    end
        
     end
     
