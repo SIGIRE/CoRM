@@ -63,7 +63,11 @@ class Contact < ActiveRecord::Base
     CSV.generate do |csv|
       csv << (self.column_names + Account.column_names)
       all.each do |contact|
-        csv << (contact.attributes.values_at(*self.column_names) + contact.account.attributes.values_at(*Account.column_names) )
+        if contact.account.blank?
+          csv << (contact.attributes.values_at(*self.column_names))
+        else
+          csv << (contact.attributes.values_at(*self.column_names) + contact.account.attributes.values_at(*Account.column_names) )          
+        end
       end
     end
   end
