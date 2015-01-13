@@ -66,6 +66,6 @@ class Opportunity < ActiveRecord::Base
   scope :by_user, lambda { |user| where( "opportunities.user_id = ?", user.id) unless user.nil? }
   scope :by_user_id, lambda { |user_id| where( "opportunities.user_id = ?", user_id) unless user_id.blank? }
   scope :by_term, lambda { |date_begin,date_end|  where( "term BETWEEN ? AND ? OR term IS NULL", '%'+date_begin, date_end+'%')}
-  scope :between_dates, lambda { |start_at, end_at| where("DATE(updated_at) >= ? AND DATE(updated_at) <= ?", start_at, end_at) }
+  scope :between_dates, lambda { |start_at, end_at| where("updated_at >= ? AND updated_at <= ?", start_at, end_at) }
   
 end
