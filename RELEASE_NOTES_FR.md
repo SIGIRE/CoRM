@@ -1,5 +1,11 @@
 ## RELEASE NOTES
 
+### Version 0.10.1
+
+**Corrections**
+ * Bug dans l'extraction des contacts ;
+ * Bug dans le calcul de certains éléments du rapport d'activité.
+
 ### Version 0.10.0
 
 **Fonctionnalités**
