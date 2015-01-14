@@ -87,12 +87,12 @@ class HomeController < ApplicationController
 	  
 	  @user_id = params[:user_id]
 	  if (@user_id.blank? or (User.find_by_id(@user_id).blank?))
-	    @events = Event.between_dates(@start_at, @end_at)
+	    @events = Event.between_dates(@start_at, @end_at).with_event_type
 	    @tasks = Task.between_dates(@start_at, @end_at)
 	    @opportunities = Opportunity.between_dates(@start_at, @end_at)
 	    @quotations = Quotation.between_dates(@start_at, @end_at)
 	  elsif
-	    @events = Event.between_dates(@start_at, @end_at).by_user_id(@user_id)
+	    @events = Event.between_dates(@start_at, @end_at).by_user_id(@user_id).with_event_type
 	    @tasks = Task.between_dates(@start_at, @end_at).by_user_id(@user_id)
 	    @opportunities = Opportunity.between_dates(@start_at, @end_at).by_user_id(@user_id)
 	    @quotations = Quotation.between_dates(@start_at, @end_at).by_user_id(@user_id)

@@ -83,5 +83,5 @@ class Quotation < ActiveRecord::Base
   scope :by_contact_id, lambda { |contact_id| where("quotations.contact_id = ?", contact_id) unless contact_id.blank? }
   scope :by_user, lambda { |user| where("quotations.user_id = ?", user.id) unless user.nil? }
   scope :by_user_id, lambda { |user_id| where("quotations.user_id = ?", user_id) unless user_id.blank? }
-  scope :between_dates, lambda { |start_at, end_at| where("updated_at >= ? AND updated_at <= ?", start_at, end_at) }
+  scope :between_dates, lambda { |start_at, end_at| where("created_at >= ? AND created_at <= ?", start_at, end_at) }
 end
