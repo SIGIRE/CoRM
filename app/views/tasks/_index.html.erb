@@ -8,6 +8,7 @@
                     <th class="text-center"><%= t('app.model.Account') %></th>
                     <th class="text-center"><%= t('app.fields.subject') %></th>
                     <th class="text-center"><%= t('app.model.Contact') %></th>
+                    <th class="text-center"><%= t('app.actions.created_at_female') %></th>
                     <th class="text-center"><%= t('app.fields.term') %></th>
                     <th class="text-center"><%= t('app.fields.collegue') %></th>
                     <th class="text-center"><%= t('app.actions.Actions') %></th>        
@@ -89,7 +90,12 @@
 		                <% else %>
 			                <td class="text-center">-</td>
 		                <% end %>		
-
+                        <%# Récupération de la date de création %>
+		                <% if !task.created_at.nil? %>
+			                <td class="text-center"><%= task.created_at.strftime("%d/%m/%y à %H:%M") %></td>
+		                <% else %>
+			                <td class="text-center">-</td>
+		                <% end %>			
                         <%# Récupération du terme %>
 		                <% if !task.term.blank? %>
 			                <% if task.term.to_date == Date.today %>

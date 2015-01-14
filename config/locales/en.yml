@@ -310,6 +310,7 @@ en:
       show: Show
       do: Do
       created_by: "Created by"
+      created_at_female: "Created at"
       updated_by: "Last updated by"
       filter: "Filter"
       updated_contact: "Updated contact"
