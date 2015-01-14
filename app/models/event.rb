@@ -42,6 +42,7 @@ class Event < ActiveRecord::Base
   scope :by_user_id, lambda { |user_id| where("events.user_id = ?", user_id) unless user_id.blank? }
   scope :by_content_like, lambda { |content| where("UPPER(events.notes) LIKE UPPER(?) or UPPER(events.notes2) LIKE UPPER(?)", "%#{content}%", "%#{content}%") unless content.blank? }
   scope :between_dates, lambda { |start_at, end_at| where("events.created_at >= ? AND events.created_at <= ?", start_at, end_at) }
+  scope :with_event_type, lambda { where("event_type_id is not null")}
   
   validate :validate_end_date_after_start_date
 
