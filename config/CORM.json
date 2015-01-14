@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "protocol": "http",
+  "host": "localhost",
+  "mail": {
+    "type": ":smtp",
+    "host": "localhost",
+    "port": 25,
+    "from": "corm@domain.tld"
+  }
+}

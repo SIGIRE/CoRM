@@ -20,6 +20,7 @@
           <th class="text-center"><%= t('app.model.Account') %></th>
           <th class="text-center"><%= t('app.fields.subject') %></th>
           <th class="text-center"><%= t('app.model.Contact') %></th>
+          <th class="text-center"><%= t('app.actions.created_at_female') %></th>
           <th class="text-center"><%= t('app.fields.term') %></th>
           <th class="text-center"><%= t('app.actions.Actions') %></th>
         </tr>
@@ -81,6 +82,12 @@
               <% else %>
                 <td class="text-center">-</td>
               <% end %>
+              <%# Récupération de la date de création %>
+		    <% if !t.created_at.nil? %>
+		      <td class="text-center"><%= t.created_at.strftime("%d/%m/%y à %H:%M") %></td>
+		    <% else %>
+              <td class="text-center">-</td>
+                <% end %>
               <% if !t.term.blank? %>
                 <% if t.term.to_date == Date.today %>
                   <td class="text-center"><span class="label label-info"><%= t.term.split('/').reverse!.join('/') %></span></td>
@@ -179,6 +186,7 @@
               <th class="text-center"><%= t('app.model.Contact') %></th>
               <th class="text-center"><%= t('app.fields.estimate') %></th>
               <th class="text-center"><%= t('app.fields.profit_margin') %></th>
+	      <th class="text-center"><%= t('app.actions.created_at_female') %></th>
               <th class="text-center"><%= t('app.fields.term') %></th>
               <th class="text-center"><%= t('app.actions.Actions') %></th>
             </tr>
@@ -209,7 +217,13 @@
                 <td class="text-center"><% if !o.contact.nil? %><%= link_to o.contact.full_name, edit_contact_path(o.contact) ,{:title => "#{t('app.actions.edit')} #{t('app.default.define_article_male')} #{t('app.model.Contact')}".html_safe }%><% else %>-<% end %></td>
                 <td style="text-align :right;"><% if !o.amount.nil? %><%= number_to_currency(o.amount, :locale => :fr)  %> <strong> HT </strong></td><% else %>-<% end %></td>
               <td style="text-align :right;"><% if !o.profit.nil? %><%= number_to_currency(o.profit, :locale => :fr)  %> <strong> HT </strong><% else %>-<% end %></td>
-              <% if !o.term.blank? %>
+              <%# Récupération de la date de création %>
+		    <% if !o.created_at.nil? %>
+		      <td class="text-center"><%= o.created_at.strftime("%d/%m/%y à %H:%M") %></td>
+		    <% else %>
+              <td class="text-center">-</td>
+                <% end %>              
+	      <% if !o.term.blank? %>
                 <% if o.term.to_date == Date.today %>
                   <td class="text-center"><span class="label label-info"><%= o.term.strftime("%d/%m/%y") %></span></td>
                 <% else %>
