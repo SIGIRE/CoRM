@@ -1,15 +1,13 @@
 <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
-
 <div class="container-fluid" style="margin-top: 1em;">
-     <div class="well">
+     <div class="well" id="title-bar">
        <div class="row-fluid">
-         <div class="span9">
+	     <div class="span9">
            <h1><%= '<i class="fa fa-pie-chart"></i>'.html_safe %> <%=t('title.reporting')%></h1>
-         </div>
        </div>
+	   </div>
      </div>
-</div>
-
+	 
 <div class="container-fluid">
      <%= form_tag(reporting_path, method: :GET) do %>
           <div class="row row-fluid">
@@ -225,3 +223,5 @@
      </div>
 </div>
 
+
+</div>
