@@ -7,6 +7,7 @@
         <th class="text-center">Contact</th>
         <th class="text-center">Estimation</th>
         <th class="text-center">Marge</th>
+	<th class="text-center"><%= t('app.actions.created_at_female') %></th>
         <th class="text-center">Échéance</th>
         <th class="text-center">Collaborateur</th>
         <th class="text-center">Actions</th>   
@@ -54,6 +55,12 @@
 		<% else %>
 		<td class="text-center">-</td>
 		<% end %>
+              <%# Récupération de la date de création %>
+		    <% if !opportunity.created_at.nil? %>
+		      <td class="text-center"><%= opportunity.created_at.strftime("%d/%m/%y") %></td>
+		    <% else %>
+              <td class="text-center">-</td>
+                <% end %>		
 		<% if !opportunity.term.blank? %>
 			<% if opportunity.term.to_date == Date.today %>
 				<td class="text-center"><span class="label label-info"><%= opportunity.term.strftime("%d/%m/%y") %></span></td>

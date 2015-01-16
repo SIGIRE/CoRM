@@ -1,15 +1,13 @@
 <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
-
 <div class="container-fluid" style="margin-top: 1em;">
-     <div class="well">
+     <div class="well" id="title-bar">
        <div class="row-fluid">
-         <div class="span9">
+	     <div class="span9">
            <h1><%= '<i class="fa fa-pie-chart"></i>'.html_safe %> <%=t('title.reporting')%></h1>
-         </div>
        </div>
+	   </div>
      </div>
-</div>
-
+	 
 <div class="container-fluid">
      <%= form_tag(reporting_path, method: :GET) do %>
           <div class="row row-fluid">
@@ -139,7 +137,7 @@
 <table class="table table-bordered table-striped table-hover">
   <thead>
     <tr>
-      <th class="text-center"><%= link_to"#{t('app.model.Opportunity').pluralize}".html_safe, opportunities_path, :title => "#{t('app.model.Opportunity').pluralize}".html_safe %> modifiées du <%= @start_at.to_date.strftime("%d/%m/%Y") %> au <%= @end_at.to_date.strftime("%d/%m/%Y") %></th>	
+      <th class="text-center"><%= link_to"#{t('app.model.Opportunity').pluralize}".html_safe, opportunities_path, :title => "#{t('app.model.Opportunity').pluralize}".html_safe %> créées du <%= @start_at.to_date.strftime("%d/%m/%Y") %> au <%= @end_at.to_date.strftime("%d/%m/%Y") %></th>	
       <th class="text-center">Nombre</th>
       <th class="text-center">Montant HT</th>
       <th class="text-center">Marge HT</th>
@@ -190,7 +188,7 @@
 <table class="table table-bordered table-striped table-hover">
   <thead>
     <tr>
-      <th class="text-center"><%= link_to"#{t('app.model.Quotation').pluralize}".html_safe, quotations_path, :title => "#{t('app.model.Quotation').pluralize}".html_safe %> modifiés du <%= @start_at.to_date.strftime("%d/%m/%Y") %> au <%= @end_at.to_date.strftime("%d/%m/%Y") %></th>	
+      <th class="text-center"><%= link_to"#{t('app.model.Quotation').pluralize}".html_safe, quotations_path, :title => "#{t('app.model.Quotation').pluralize}".html_safe %> créés du <%= @start_at.to_date.strftime("%d/%m/%Y") %> au <%= @end_at.to_date.strftime("%d/%m/%Y") %></th>	
       <th class="text-center">Nombre</th>
       <th class="text-center">Montant HT</th>
       <th class="text-center">Montant moyen HT</th>
@@ -225,3 +223,5 @@
      </div>
 </div>
 
+
+</div>

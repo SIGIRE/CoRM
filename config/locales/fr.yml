@@ -309,6 +309,7 @@ fr:
       show: Afficher
       do: Faire
       created_by: "Créer par"
+      created_at_female: "Créée le"
       updated_by: "Dernièrement modifié par"
       filter: "Filtrer"
       updated_contact: "Modifier le contact"

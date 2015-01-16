@@ -1,6 +1,6 @@
 # CORM
 ### Plus facile qu'un CRM
-Version: 0.9.4 (nightly)
+[Note de version](https://github.com/SIGIRE/CoRM/blob/master/RELEASE_NOTES_FR.md "La note de version de CoRM...")
 
 ## A propos de CoRM
 Corm est un **Customer Relationship manager** (Gestionnaire de relation client) conçu pour les entreprises de 1 à 100 collaborateurs. Ce logiciel vous aide à gérer vos relations entre chaque acteur qui composent votre environnement.
