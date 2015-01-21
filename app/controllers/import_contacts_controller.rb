@@ -20,7 +20,7 @@ class ImportContactsController < ApplicationController
     @anomalies_filter = Anomaly.where(id: by_anomalies)
 
     #@import_contacts = apply_scopes(ImportContact).order("anomaly DESC", "surname")
-    @import_contacts = apply_scopes(ImportContact).joins(:anomaly).joins('LEFT OUTER JOIN contacts ON contacts.id = import_contacts.id').order("level DESC", "surname")
+    @import_contacts = apply_scopes(ImportContact).joins(:anomaly).joins('LEFT OUTER JOIN contacts ON contacts.id = import_contacts.id').order("level DESC", "forename")
     
     #to keep info filter
     if !params[:anomaly].nil? 
