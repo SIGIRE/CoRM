@@ -133,7 +133,7 @@
 			<%= contact.anomaly.notes %>
 			<!-- if duplicate in db, display company name of account in db with link-->
 			<% if contact.anomaly.name=='duplicate_db' %>
-	      <%= link_to contact.contact.full_name, edit_contact_path(:id=>contact.contact_id),{:title => "#{t('app.actions.edit')}"} %>
+			 <%= link_to contact.contact.full_name, edit_contact_path(:id=>contact.contact_id),{:title => "#{t('app.actions.edit')}"} %>
 			<% end %>
 		 </td>
 

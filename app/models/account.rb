@@ -19,7 +19,9 @@ class Account < ActiveRecord::Base
   
   #has_one is added because import_account has an account_id column to store id of duplicate account
   has_many :import_account
-
+  
+  has_many :import_contacts
+  
   has_many :contacts, :dependent => :destroy
   has_many :opportunities, :dependent => :destroy
   has_many :quotations, :dependent => :destroy

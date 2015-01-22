@@ -68,7 +68,7 @@
   <div class="field">
     <div class="span2"><%= f.label('account-search', t('app.model.Account') + t('app.fields.colon')) %></div>
     <% company = ""
-    if !@contact.account.nil?
+    if !@contact.account_id.nil?
       company = @contact.account.company
     end %>
 		<p>
