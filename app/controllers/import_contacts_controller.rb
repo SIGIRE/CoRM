@@ -76,24 +76,16 @@ class ImportContactsController < ApplicationController
     @import_contact.modified_by = current_user.id
     @import_contact.update_attributes(params[:import_contact])
     
-    ## if no_search_duplicates is set to true, check method don't search duplicate for it
-    ## so if it was duplicate, the other duplicate import_contact will not be set to no_anomaly
-    ## so we need to check all contacts in this case
-    #if @import_contact.no_search_duplicates==true
-    #    ImportContact.find_each do |i|
-    #        i.check
-    #    end
-    #else
-    #    #only check current import_account
-    #    @import_contact.check
-    #end
-    
-    #check all import_accounts (because duplicates must be reclaculate)
-    #ImportContact.find_each do |i|
-    #        i.check
-    #end
+    #check
     @import_contact.check
     
+    #for each import_contact with duplicate_import_anomaly
+    ImportContact.where(anomaly_id: ImportContact::DUPLICATE_IMPORT_ANOMALY).find_each do |i|
+        #reset anomaly_id
+        i.update_attributes(:anomaly_id=>ImportContact::NO_ANOMALY)
+        #check for anomaly
+        i.check
+    end
     
     respond_to do |format|
         format.html { redirect_to import_contacts_path(:anomaly=>select), :notice => "#{t('app.message.notice.updated_contact')}" }      
@@ -145,10 +137,13 @@ class ImportContactsController < ApplicationController
     @import_contact = ImportContact.find(params[:id])
     @import_contact.destroy
     
-    #check import_contacts after destroy in order to eliminate isolated duplicates anomaly
-      #ImportContact.find_each do |i|
-      #    i.check
-      #end
+    #for each import_contact with duplicate_import_anomaly
+    ImportContact.where(anomaly_id: ImportContact::DUPLICATE_IMPORT_ANOMALY).find_each do |i|
+        #reset anomaly_id
+        i.update_attributes(:anomaly_id=>ImportContact::NO_ANOMALY)
+        #check for anomaly
+        i.check
+    end
     
     respond_to do |format|
         format.html { redirect_to import_contacts_path(:anomaly=>select), :notice => "#{t('app.message.notice.delete_contact')}"  }
