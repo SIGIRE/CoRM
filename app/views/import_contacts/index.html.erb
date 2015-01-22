@@ -97,9 +97,14 @@
 
           <% if !contact.account.nil? %>
             <% then %>
-            <td class="text-center"><%= link_to contact.account.company , account_events_url(contact.account),{:title => "Afficher les évenements"} %></td>
+            <td class="text-center"><%= link_to contact.account.company , account_events_url(contact.account),{:title => "Voir le compte"} %></td>
           <% else %>
-            <td class="text-center">-</td>
+            <% if !contact.company.blank? %>
+	     <% then %>
+	     <td class="text-center"><%= contact.company %></td>
+	    <% else %>
+	     <td class="text-center">-</td>
+	    <% end %>
           <% end %> 
 
 
