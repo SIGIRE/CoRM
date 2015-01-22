@@ -21,7 +21,7 @@ class ImportAccountsController < ApplicationController
     by_anomalies = ImportAccount.select(:anomaly_id).uniq
     @anomalies_filter = Anomaly.where(id: by_anomalies)
     
-    @import_accounts = apply_scopes(ImportAccount).joins(:anomaly).joins('LEFT OUTER JOIN accounts ON accounts.id = import_accounts.id').order("level DESC", "company")
+    @import_accounts = apply_scopes(ImportAccount).joins(:anomaly).order("level DESC", "company")
        
     #to keep info filter
     if !params[:anomaly].nil?
@@ -101,8 +101,8 @@ class ImportAccountsController < ApplicationController
   #this method is called from import button in index view
   def importing_accounts
     total=0
-    import_accounts=ImportAccount.joins(:anomaly)
-    import_accounts.each do |i|
+    #import_accounts=ImportAccount.joins(:anomaly)
+    ImportAccount.find_each do |i|
         #if no anomaly in temporary account (test user ability to prevent from accessing method from URL (see routes file))
         if i.anomaly.level!=3 && (can? :manage, ImportAccount)
             account=Account.new

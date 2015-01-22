@@ -5,7 +5,7 @@
 require 'text'
 
 class ImportContact < ActiveRecord::Base
-  extend ToCsv
+
   resourcify
   
   ##
@@ -24,7 +24,7 @@ class ImportContact < ActiveRecord::Base
   
   paginates_per 30
   
-  belongs_to :account
+  #belongs_to :account
   belongs_to :contact
   belongs_to :anomaly
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'

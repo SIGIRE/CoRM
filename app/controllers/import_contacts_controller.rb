@@ -19,8 +19,8 @@ class ImportContactsController < ApplicationController
     by_anomalies = ImportContact.select(:anomaly_id).uniq
     @anomalies_filter = Anomaly.where(id: by_anomalies)
 
-    #@import_contacts = apply_scopes(ImportContact)..joins(:anomaly).order("level DESC", "surname")
-    @import_contacts = apply_scopes(ImportContact).joins(:anomaly).joins('LEFT OUTER JOIN contacts ON contacts.id = import_contacts.id').order("level DESC", "surname")
+    @import_contacts = apply_scopes(ImportContact).joins(:anomaly).order("level DESC", "surname")
+    #@import_contacts = apply_scopes(ImportContact).joins(:anomaly).joins('LEFT OUTER JOIN contacts ON contacts.id = import_contacts.id').order("level DESC", "surname")
     
     #to keep info filter
     if !params[:anomaly].nil? 
@@ -94,8 +94,8 @@ class ImportContactsController < ApplicationController
   
   def importing_contacts
     total=0
-    import_contacts=ImportContact.joins(:anomaly)
-    import_contacts.each do |i|
+    #import_contacts=ImportContact.joins(:anomaly)
+    ImportContact.find_each do |i|
       #if no anomaly in temporary contact or just warning on company name
       if i.anomaly.level!=3 && (can? :manage, ImportContact)
           contact=Contact.new
