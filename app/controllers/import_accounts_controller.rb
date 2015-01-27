@@ -21,7 +21,7 @@ class ImportAccountsController < ApplicationController
     by_anomalies = ImportAccount.select(:anomaly_id).uniq
     @anomalies_filter = Anomaly.where(id: by_anomalies)
     
-    @import_accounts = apply_scopes(ImportAccount).joins(:anomaly).joins('LEFT OUTER JOIN accounts ON accounts.id = import_accounts.id').order("level DESC", "company")
+    @import_accounts = apply_scopes(ImportAccount).joins(:anomaly).order("level DESC", "company")
        
     #to keep info filter
     if !params[:anomaly].nil?
@@ -79,26 +79,16 @@ class ImportAccountsController < ApplicationController
     params[:import_account][:web] = Format.to_url(params[:import_account][:web])
     @import_account.update_attributes(params[:import_account])
 
-    
-    ## if no_search_duplicates is set to true, check method don't search duplicate for it
-    ## so if it was duplicate, the other duplicate import_contact will not be set to no_anomaly
-    ## so we need to check all accounts in this case
-    #if @import_account.no_search_duplicates==true
-    #    ImportAccount.find_each do |i|
-    #        i.check
-    #    end
-    #else
-    #    #only check current import_account
-    #    @import_account.check
-    #end
-    #
-    #
-    
-    #check all import_accounts (necessary cause duplicates)
-    #ImportAccount.find_each do |i|
-    #        i.check
-    #end
+    #check
     @import_account.check
+    
+    #for each import_account with duplicate_import_anomaly
+    ImportAccount.where(anomaly_id: ImportAccount::DUPLICATE_IMPORT_ANOMALY).find_each do |i|
+        #reset anomaly_id
+        i.update_attributes(:anomaly_id=>ImportAccount::NO_ANOMALY)
+        #check for anomaly
+        i.check
+    end
        
     respond_to do |format|
         format.html { redirect_to import_accounts_path(:anomaly=>select), :notice => "#{t('app.message.notice.updated_account')}" }
@@ -111,8 +101,8 @@ class ImportAccountsController < ApplicationController
   #this method is called from import button in index view
   def importing_accounts
     total=0
-    import_accounts=ImportAccount.joins(:anomaly)
-    import_accounts.each do |i|
+    #import_accounts=ImportAccount.joins(:anomaly)
+    ImportAccount.find_each do |i|
         #if no anomaly in temporary account (test user ability to prevent from accessing method from URL (see routes file))
         if i.anomaly.level!=3 && (can? :manage, ImportAccount)
             account=Account.new
@@ -158,10 +148,13 @@ class ImportAccountsController < ApplicationController
         @import_account = ImportAccount.find(params[:id])
         @import_account.destroy
         
-        #check import_accounts after destroy in order to eliminate isolated duplicates anomaly
-        #ImportAccount.find_each do |i|
-        #    i.check
-        #end
+        #for each import_account with duplicate_import_anomaly
+        ImportAccount.where(anomaly_id: ImportAccount::DUPLICATE_IMPORT_ANOMALY).find_each do |i|
+            #reset anomaly_id
+            i.update_attributes(:anomaly_id=>ImportAccount::NO_ANOMALY)
+            #check for anomaly
+            i.check
+        end
         
         respond_to do |format|
             format.html { redirect_to import_accounts_path(:anomaly=>select), :notice => "#{t('app.message.notice.delete_account')}" }

@@ -95,11 +95,16 @@
             <td class="text-center">-</td>
           <% end %> 		
 
-          <% if !contact.account.nil? %>
+          <% if !contact.account_id.nil? %>
             <% then %>
-            <td class="text-center"><%= link_to contact.account.company , account_events_url(contact.account),{:title => "Afficher les évenements"} %></td>
+            <td class="text-center"><%= link_to contact.company , account_events_url(contact.account_id),{:title => "Voir le compte"} %></td>
           <% else %>
-            <td class="text-center">-</td>
+            <% if !contact.company.blank? %>
+	     <% then %>
+	     <td class="text-center"><%= contact.company %></td>
+	    <% else %>
+	     <td class="text-center">-</td>
+	    <% end %>
           <% end %> 
 
 
@@ -128,7 +133,7 @@
 			<%= contact.anomaly.notes %>
 			<!-- if duplicate in db, display company name of account in db with link-->
 			<% if contact.anomaly.name=='duplicate_db' %>
-	      <%= link_to contact.contact.full_name, edit_contact_path(:id=>contact.contact_id),{:title => "#{t('app.actions.edit')}"} %>
+			 <%= link_to contact.contact.full_name, edit_contact_path(:id=>contact.contact_id),{:title => "#{t('app.actions.edit')}"} %>
 			<% end %>
 		 </td>
 

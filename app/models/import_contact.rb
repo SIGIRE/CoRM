@@ -5,7 +5,7 @@
 require 'text'
 
 class ImportContact < ActiveRecord::Base
-  extend ToCsv
+
   resourcify
   
   ##

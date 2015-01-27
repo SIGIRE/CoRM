@@ -6,7 +6,7 @@
 require 'text'
 
 class ImportAccount < ActiveRecord::Base
-  extend ToCsv
+
   resourcify
   
   CATEGORIES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire', 'Adhérent', 'Autre']

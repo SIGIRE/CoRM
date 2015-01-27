@@ -10,8 +10,8 @@ class Contact < ActiveRecord::Base
   extend ToCsv
   resourcify
   
-  #has_one is added because import_contact has an contact_id column to store id of duplicate account
-  has_one :import_contact
+  #has_many is added because import_contact has a contact_id column to store id of duplicate account
+  has_many :import_contact
   
   has_many :tasks
   has_many :aliases, dependent: :destroy
