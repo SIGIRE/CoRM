@@ -93,14 +93,14 @@
 
           <% if !contact.tel.blank? %>
             <% then %>
-            <td class="text-center"><%= contact.tel %></td>
+            <td class="text-center"><%= link_to contact.tel.html_safe, "tel:#{contact.tel}" ,{:title => "Click-to-call", :class =>"action-tel"}%></td>
           <% else %>
             <td class="text-center">-</td>
           <% end %> 
 
           <% if !contact.mobile.blank? %>
             <% then %>
-            <td class="text-center"><%= contact.mobile %></td>
+            <td class="text-center"><%= link_to contact.mobile.html_safe, "tel:#{contact.mobile}" ,{:title => "Click-to-call", :class =>"action-tel"}%></td>
           <% else %>
             <td class="text-center">-</td>
           <% end %>		

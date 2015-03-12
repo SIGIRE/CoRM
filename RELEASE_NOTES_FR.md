@@ -2,6 +2,9 @@
 
 ### Version 0.10.1
 
+**Fonctionnalités**
+ * Ajout des liens clic-to-call.
+ 
 **Corrections**
  * Bug dans l'extraction des contacts ;
  * Bug dans le calcul de certains éléments du rapport d'activité.
