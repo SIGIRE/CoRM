@@ -98,4 +98,69 @@ class HomeController < ApplicationController
 	    @quotations = Quotation.between_dates(@start_at, @end_at).by_user_id(@user_id)
 	  end  
     end
+    
+    # GET /search_by_phone/:phone_number
+    def search_by_phone
+	  @phone_number = params[:phone_number]
+	  case
+	    when @phone_number.blank?
+		  respond_to do |format|
+			format.html # search_by_phone.html.erb
+		  end
+	    #if contains alphabetic characters
+	    when (@phone_number =~ /[[:alpha:]]/)
+		@accounts = Account.where("company LIKE ?", @phone_number)
+		if @accounts.blank?
+			@contacts = Contact.where("surname LIKE ?", @phone_number)
+			if @contacts.blank?
+			      respond_to do |format|
+				    format.html # search_by_phone.html.erb
+			      end
+			elsif (@contacts.count ==1 and !@contacts.first.account.blank?)
+			      #found one only!
+			      redirect_to account_events_url(@contacts.first.account)
+			else
+			      respond_to do |format|
+				    format.html # search_by_phone.html.erb
+			      end
+			end
+		elsif @accounts.count == 1
+		      #found one only !
+		      redirect_to account_events_url(@accounts.first)
+		else
+		      	respond_to do |format|
+			      format.html # search_by_phone.html.erb
+			end
+		end
+	    else
+		# search in accounts
+		@accounts = Account.where("REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(tel, '/',''), '-', ''), '+', ''), '.', ''), ',', ''), ' ', '') LIKE ?", '%'+@phone_number.delete("^0-9")+'%')
+		if @accounts.blank?
+		  #no result : search in contacts
+		  @contacts = Contact.where("(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(tel, '/',''), '-', ''), '+', ''), '.', ''), ',', ''), ' ', '') LIKE ?) OR (REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(mobile, '/',''), '-', ''), '+', ''), '.', ''), ',', ''), ' ', '') LIKE ?)", '%'+@phone_number.delete("^0-9")+'%', '%'+@phone_number.delete("^0-9")+'%')
+			if @contacts.blank?
+			      respond_to do |format|
+				    format.html # search_by_phone.html.erb
+			      end
+			elsif @contacts.count == 1
+			      #found one only!
+			      @account = Account.find(@contacts.first.account.id)
+			      redirect_to account_events_url(@account)
+			else
+			      respond_to do |format|
+				    format.html # search_by_phone.html.erb
+			      end
+			end
+	        elsif @accounts.count == 1
+		      #found one only !
+		      redirect_to account_events_url(@accounts.first)
+		else
+		      	respond_to do |format|
+			      format.html # search_by_phone.html.erb
+			end
+		end
+	  end
+    end
+    
+    
 end
