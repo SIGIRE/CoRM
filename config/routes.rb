@@ -147,6 +147,9 @@ Crm::Application.routes.draw do
   
   # Reporting
   match 'reporting', :controller => 'home', :action => 'reporting'
+  
+  # Search Account By Phone
+  match 'search_by_phone/:phone_number', :controller => 'home', :action => 'search_by_phone'
 
   resources :about
 

@@ -1,0 +1,165 @@
+<div class="container-fluid" style="margin-top: 1em;">
+   
+
+     <div class="well">
+       <div class="row-fluid">
+         <div class="span9">
+           <h1><%= "Occurences trouvées".html_safe %></h1>
+         </div>
+     </div>
+	 </div>
+
+         
+</div>
+
+<% if (!@accounts.nil? and @accounts.count > 1) %>
+     <div class="container-fluid">
+       <table class="table table-bordered table-striped table-hover">
+	 <thead>
+	 <tr>
+	     <th class="text-center">Soci&eacute;t&eacute;</th>
+	     <th class="text-center">Adresse</th>	  
+	     <th class="text-center">Genre</th>
+	     <th class="text-center">Téléphone</th>
+	     <th class="text-center">Site Web</th>
+	     <th class="text-center">Actions</th>        
+	 </tr>
+	 </thead>
+	     <tbody>
+       <% @accounts.each do |account| %>
+	 <tr>
+     
+		     <% if !account.company.nil? %>
+			     <% then %>
+				     <td class="text-center"><%= link_to account.company, account_events_url(account),{:title => "Afficher les évenements"} %></td>
+			     <% else %>
+				     <td class="text-center">-</td>
+		     <% end %>
+     
+		     <% if !account.full_adress.blank? %>
+			     <% then %>
+				     <td class="text-center"><%= account.full_adress %></td>
+			     <% else %>
+				     <td class="text-center">-</td>
+		     <% end %>
+	   
+		     <% if !account.category.nil? %>
+			     <% then %>
+				     <td class="text-center"><%= account.category %></td>
+			     <% else %>
+				     <td class="text-center">-</td>
+		     <% end %>
+     
+		     <% if !account.tel.blank? %>
+			     <% then %>
+				     <td class="text-center"><%= link_to account.tel.html_safe, "tel:#{account.tel}" ,{:title => "Click-to-call", :class =>"action-tel"}%></td>
+			     <% else %>
+				     <td class="text-center">-</td>
+		     <% end %>
+     
+		     <% if !account.web.blank? then %>
+			     <%
+			     url = account.web
+				     if !url[/http:\/\//].nil?
+					     url = url[7..url.length]
+				     elsif !url[/https:\/\//].nil?
+					     url = url[8..url.length]
+				     end
+			     %>
+				     <td class="text-center"><%= link_to url, account.web, :target => "_blank" %></td>
+		     <% else %>
+				     <td class="text-center">-</td>
+		     <% end %>
+		     <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_account_path(account) ,{:title => "Éditer le compte" } %></td>
+       </tr>
+       <% end %>
+       </tbody>
+       </table>
+     </div>
+
+
+
+<% elsif (!@contacts.nil? and @contacts.count > 1) %>
+     <div class="container-fluid">
+       <table class="table table-bordered table-striped table-hover">
+	 <thead>
+	   <tr>
+	     <th class="text-center">Civ.</th>
+	     <th class="text-center">Nom</th>
+	     <th class="text-center">Pr&eacute;nom</th>
+	     <th class="text-center">Soci&eacute;t&eacute;</th>
+	     <th class="text-center">T&eacute;l</th>
+	     <th class="text-center">Mobile</th>
+	     <th class="text-center">E-mail</th>
+	     <th class="text-center">Actions</th>         
+	   </tr>
+	 </thead>
+	 <tbody>
+	   <% @contacts.each do |contact| %>
+	     <tr>
+	       <% if !contact.title.blank? %>
+		 <% then %>
+		 <td class="text-center">
+		   <%= if contact.title == "M." then image_tag("glyphicons/glyphicons_034_old_man.png") end%>
+		   <%= if contact.title == "Mme" then image_tag("glyphicons/glyphicons_035_woman.png") end%>
+		 </td>
+	       <% else %>
+		 <td class="text-center">-</td>
+	       <% end %>
+     
+	       <% if !contact.surname.blank? %>
+		 <% then %>
+		 <td class="text-center"><%= contact.surname %></td>
+	       <% else %>
+		 <td class="text-center">-</td>
+	       <% end %> 		
+     
+	       <% if !contact.forename.blank? %>
+		 <% then %>
+		 <td class="text-center"><%= contact.forename %></td>
+	       <% else %>
+		 <td class="text-center">-</td>
+	       <% end %> 		
+     
+	       <% if !contact.account.nil? %>
+		 <% then %>
+		 <td class="text-center"><%= link_to contact.account.company , account_events_url(contact.account),{:title => "Afficher les évenements"} %></td>
+	       <% else %>
+		 <td class="text-center">-</td>
+	       <% end %> 
+     
+     
+	       <% if !contact.tel.blank? %>
+		 <% then %>
+		 <td class="text-center"><%= link_to contact.tel.html_safe, "tel:#{contact.tel}" ,{:title => "Click-to-call", :class =>"action-tel"}%></td>
+	       <% else %>
+		 <td class="text-center">-</td>
+	       <% end %> 
+     
+	       <% if !contact.mobile.blank? %>
+		 <% then %>
+		 <td class="text-center"><%= link_to contact.mobile.html_safe, "tel:#{contact.mobile}" ,{:title => "Click-to-call", :class =>"action-tel"}%></td>
+	       <% else %>
+		 <td class="text-center">-</td>
+	       <% end %>		
+     
+	       <% if !contact.email.blank? %>
+		 <% then %>
+		 <td class="text-center"><%= mail_to(contact.email)%></td>
+	       <% else %>
+		 <td class="text-center">-</td>
+	       <% end %>
+     
+     
+	       <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_contact_path(contact),{:title => "Éditer le contact"} %></td>
+	     </tr>
+	   <% end %>
+	 </tbody>
+       </table>
+     </div>
+<% else %>
+     
+     <div class="container-fluid">
+	  Aucune occurence trouvée !
+     </div>
+<% end %>
