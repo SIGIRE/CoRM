@@ -21,6 +21,7 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     @event_new = @account.events.build if @account
+    @setting = Setting.all.first
     @events = apply_scopes(events).
               order("date_begin DESC").
               page(params[:page]).

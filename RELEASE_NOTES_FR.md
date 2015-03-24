@@ -3,7 +3,8 @@
 ### Version 0.10.1
 
 **Fonctionnalités**
- * Ajout des liens clic-to-call.
+ * Ajout des liens click-to-call ;
+ * Activation ou non de la fonctionnalité click-to-call.
  
 **Corrections**
  * Bug dans l'extraction des contacts ;

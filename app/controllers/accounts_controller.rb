@@ -23,6 +23,8 @@ class AccountsController < ApplicationController
   def index
     @accounts = apply_scopes(Account).order("company")
    
+    #ClickToCall
+    @setting = Setting.all.first
     #creation des ensembles contenant les comptes et contacts pour l'utilisation du typeahead
     @autocomplete_accounts = Account.find(:all,:select=>'company').map(&:company) #societe
     @autocomplete_contacts = Contact.find(:all,:select=>'surname').map(&:surname) #nom

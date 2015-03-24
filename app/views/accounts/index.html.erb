@@ -84,7 +84,13 @@
 
 		<% if !account.tel.blank? %>
 			<% then %>
-				<td class="text-center"><%= link_to account.tel.html_safe, "tel:#{account.tel}" ,{:title => "Click-to-call", :class =>"action-tel"}%></td>
+				<td class="text-center">
+				      <% if @setting.clicktocall %>
+					<%= link_to account.tel.html_safe, "tel:#{account.tel}" ,{:title => "Click-to-call", :class =>"action-tel"}%>
+				      <% else %>
+					<%= account.tel %>
+				      <% end %> 
+				</td>
 			<% else %>
 				<td class="text-center">-</td>
 		<% end %>

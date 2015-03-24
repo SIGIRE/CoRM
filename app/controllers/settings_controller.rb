@@ -26,11 +26,12 @@ class SettingsController < ApplicationController
     def update
     @setting = Setting.find(params[:setting][:id])
     if @setting.update_attributes(params[:setting])
-			redirect_to url_for({ :controller => 'settings', :action => 'index' }), :notice => "Le logo a été modifié."
+			redirect_to url_for({ :controller => 'settings', :action => 'index' }), :notice => "La configuration de CoRM a été modifiée."
 		else
-			redirect_to url_for({ :controller => 'settings', :action => 'index' }), :alert => "Le fichier fourni doit être une image."
+			redirect_to url_for({ :controller => 'settings', :action => 'index' }), :alert => "Il y a un problème dans votre configuration !"
 		end
     end
+
 
 end
 
