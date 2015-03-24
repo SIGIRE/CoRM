@@ -94,6 +94,8 @@ class Account < ActiveRecord::Base
   scope :inactive, lambda { where(active: false) }
   scope :none, lambda { where('1 = 0') }
   scope :by_import_id, lambda {|import| joins(:import).where('import_id = ?', import) unless import.nil?}
+  scope :by_account_tag, lambda { |tags| joins(:tags).where("tags.id IN (?)", tags) unless tags.blank? }
+
   
   ###
   # Set the business name to upper
