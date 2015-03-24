@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150107080343) do
+ActiveRecord::Schema.define(:version => 20150319151546) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -372,6 +372,7 @@ ActiveRecord::Schema.define(:version => 20150107080343) do
     t.string   "attach_content_type"
     t.integer  "attach_file_size"
     t.datetime "attach_updated_at"
+    t.boolean  "clicktocall",         :default => false
   end
 
   create_table "tags", :force => true do |t|

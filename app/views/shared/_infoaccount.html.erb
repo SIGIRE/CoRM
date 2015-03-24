@@ -20,7 +20,13 @@
     <%= @account.zip unless @account.zip.blank? %><%= " - " if !@account.zip.blank? and !@account.city.blank? %><%= @account.city unless @account.city.blank? %><br />
   <% end %>
   <% if !@account.tel.blank? %>
-    <i class="fa fa-phone fa-lg fa-fw" title="Téléphone"></i> <%= link_to @account.tel.html_safe, "tel:#{@account.tel}" ,{:title => "Click-to-call", :class =>"action-tel"}%><br />
+    <i class="fa fa-phone fa-lg fa-fw" title="Téléphone"></i>
+      <% if @setting.clicktocall %>
+	<%= link_to @account.tel.html_safe, "tel:#{@account.tel}" ,{:title => "Click-to-call", :class =>"action-tel"}%>
+      <% else %>
+	<%= @account.tel %>
+      <% end %>
+    <br />
   <% end %>
   <% if !@account.fax.blank? %>
     <i class="fa fa-fax fa-lg fa-fw" title="Fax"></i> <%= @account.fax %><br />
@@ -60,10 +66,10 @@
     <p>
       <b><%= contact.full_name %></b><br />
     <% if !contact.tel.blank? %>
-      <i class="fa fa-phone fa-lg fa-fw" title="Téléphone"></i><%= link_to contact.tel.html_safe, "tel:#{contact.tel}" ,{:title => "Click-to-call", :class =>"action-tel"}%><br />
+      <i class="fa fa-phone fa-lg fa-fw" title="Téléphone"></i><% if @setting.clicktocall %><%= link_to contact.tel.html_safe, "tel:#{contact.tel}" ,{:title => "Click-to-call", :class =>"action-tel"}%><% else %><%= contact.tel %><% end %><br />
     <% end %>
     <% if !contact.mobile.blank? %>
-      <i class="fa fa-mobile fa-lg fa-fw" title="Mobile"></i><%= link_to contact.mobile.html_safe, "tel:#{contact.mobile}" ,{:title => "Click-to-call", :class =>"action-tel"}%><br />
+      <i class="fa fa-mobile fa-lg fa-fw" title="Mobile"></i><% if @setting.clicktocall %><%= link_to contact.mobile.html_safe, "tel:#{contact.mobile}" ,{:title => "Click-to-call", :class =>"action-tel"}%><% else %><%= contact.mobile %><% end %><br />
     <% end %>
     <% if !contact.fax.blank? %>
       <i class="fa fa-fax fa-lg fa-fw" title="Fax"></i><%= contact.fax %>

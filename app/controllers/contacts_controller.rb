@@ -22,6 +22,9 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
+    #ClickToCall
+    @setting = Setting.all.first
+    
     @contacts = apply_scopes(Contact).order("surname")
 
     flash.now[:alert] = "Pas de contacts !" if @contacts.empty?

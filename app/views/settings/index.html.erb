@@ -8,7 +8,7 @@
     </div>
     <div name="general_settings">
      	<div class="span9">
-                <h2>Paramètres généraux</h2>
+                <h2>Logo d'accueil</h2>
 	    </div>
 	    <!-- On crée un formulaire pour cette entrée -->
         <%= form_for(Setting.new, :url => { :controller => 'settings', :action => 'update'}) do |f| %>
@@ -42,6 +42,38 @@
 			
         <% end %>
 	</div>
+    
+
+		    
+    <div name="general_settings">
+     	<div class="span9">
+            <h2>Fonction Click-to-call</h2>
+	</div>
+
+                
+		<%= form_for(Setting.new, :url => { :controller => 'settings', :action => 'update'}) do |f| %>
+		    <div class="row row-fluid">
+		        <div class="field full">
+    			<div class="span2"> Activé : </div> <%= f.check_box :clicktocall %>
+  			
+			<% if @setting.clicktocall == true %>
+		        <div class="alert alert-success">Fonction actuellement activée.</div>
+		    <% else %>
+			<div class="alert alert-warning">Fonction actuellement désactivée.</div>
+		    <% end %>
+			
+			</div>
+			
+		    <div class="field full">
+			<div class="span2"></div><input type="submit" value="Sauvegarder" class="btn btn-success">
+		    </div>
+		    </div>
+		    <%= hidden_field_tag "setting[id]", @setting.id%>
+		<% end %>
+  	                     
+	    </div>
+    </div>
+    
 	
 	<div name="mail_settings">
 		<div class="span9">
