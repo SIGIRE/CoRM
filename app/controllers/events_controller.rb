@@ -5,7 +5,7 @@
 #
 class EventsController < ApplicationController
   load_and_authorize_resource
-  before_filter :load_account, only: [:index, :filter]
+  before_filter :load_account, :load_settings, only: [:index, :filter]
   layout :current_layout
 
   has_scope :by_user_id
@@ -21,7 +21,6 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     @event_new = @account.events.build if @account
-    @setting = Setting.all.first
     @events = apply_scopes(events).
               order("date_begin DESC").
               page(params[:page]).
@@ -175,6 +174,11 @@ class EventsController < ApplicationController
     def load_account
       @account = Account.find_by_id(params[:account_id])
     end
+    
+    def load_settings
+      #ClickToCall
+      @setting = Setting.all.first
+    end    
     
     def events 
       @account ? @account.events : Event

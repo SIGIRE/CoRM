@@ -1,42 +1,42 @@
-<div class="container-fluid">
-  <div class="field">
-    <label class="checkbox">
-      <%= check_box_tag :generate, "yes" %>
-      Filtrer les devis
-    </label>
-  </div>
-</div>
+<div id="task_value" class="container-fluid">
+  <div class="well">
 
+      <legend>
+	Filtres
+      </legend>
 
-<div id="task_value" class="container-fluid" style= "display: none;">
-  <%= form_tag(quotations_path, method: :GET) do %>
-    <div class="row row-fluid">
-      <div class="">
-        <%= label_tag :statut, "Statut :", :class => "top" %>
-        <%= select_tag "by_statut", options_for_select(Quotation::STATUTS), { :include_blank => "Tous", :class =>"filter_statut" } %>
-      </div>
-      <%# Le typeahead et la mise à jour des contacts associés sont gérés par nav-search-bar.js %>
-      <div class="">
-        <%= label_tag :filter_priority, "Compte :", :class => "top" %>
-        <%= text_field_tag "by_account_company_like",
-                           nil,
+      <%= form_tag(quotations_path, method: :GET) do %>
+        <div class="row row-fluid">
+          
+          <div class="">
+          <%= label_tag :statut, "Statut :", :class => "top" %>
+          <%= select_tag "by_statut", options_for_select(Quotation::STATUTS, params[:by_statut]), { :include_blank => "Tous", :class =>"filter_statut" } %>
+          </div>
+          
+          <%# Le typeahead et la mise à jour des contacts associés sont gérés par nav-search-bar.js %>
+          <div class="">
+            <%= label_tag :filter_priority, "Compte :", :class => "top" %>
+            <%= text_field_tag "by_account_company_like",
+                           params[:by_account_company_like],
                            { :class => "filter_tfield typeahead-account-search",
                              :data => { :provide => 'typeahead'},
                              :autocomplete=>"off" } %>
-      </div>
-      <div class="">
-        <%= label_tag :user_email, "Contact :", :class => "top" %>
-        <%= select_tag "by_contact_id", options_for_select([]), { include_blank: '', id: 'contact_id' } %>
-      </div>
-      <div class="">
-        <%= label_tag :user_email, "Collaborateur :", :class => "top" %>
-        <%= select_tag "by_user_id",
-                       options_from_collection_for_select(User.all_reals, :id, :full_name),
+          </div>
+          
+          <div class="">
+            <%= label_tag :user_email, "Collaborateur :", :class => "top" %>
+            <%= select_tag "by_user_id",
+                       options_from_collection_for_select(User.all_reals, :id, :full_name, params[:by_user_id]),
                        { :include_blank => "Tous", :class =>"filter_statut" } %>
-      </div>
-      <div>
+          </div>
+          
+	  <div class="">
+	    <%= label_tag :account_activity, "Activité compte :", :class => "top"  %>
+	    <%= select_tag "account_activity", options_from_collection_for_select( Activity.all, :id, :name, params[:account_activity]), { :include_blank => "Toutes", :class =>"filter_statut" }  %>
+	  </div>	          
+          
         <%= submit_tag "Filtrer", :class =>"btn "%>
-      </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>  
 </div>

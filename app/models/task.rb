@@ -56,7 +56,7 @@ class Task < ActiveRecord::Base
   end
   
   scope :by_priority, lambda { |priority| where("priority = ?", priority) unless priority.blank? }
-  scope :by_statut, lambda { |statut| where("statut LIKE ?", statut+'%') unless statut.blank? }
+  scope :by_statut, lambda { |statut| where("statut = ?", statut) unless statut.blank? }
   scope :undone, lambda { where("statut IN ('A faire', 'En cours')") }
   scope :by_account, lambda { |account| where("account_id = ?", account.id) unless account.nil? }
   scope :by_account_id, lambda { |account_id| where("account_id = ?", account_id) unless account_id.blank?}

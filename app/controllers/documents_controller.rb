@@ -5,7 +5,7 @@
 #
 class DocumentsController < ApplicationController
   load_and_authorize_resource
-  before_filter :load_account, only: [:index, :filter]
+  before_filter :load_account, :load_settings, only: [:index, :filter]
   layout :current_layout
 
   ##
@@ -113,6 +113,11 @@ class DocumentsController < ApplicationController
     def load_account
       @account = Account.find_by_id(params[:account_id])
     end
+    
+    def load_settings
+      #ClickToCall
+      @setting = Setting.all.first
+    end    
     
     def documents
       @account ? @account.documents : Document

@@ -6,7 +6,7 @@
 class TasksController < ApplicationController
  
   load_and_authorize_resource
-  before_filter :load_account, only: [:index]
+  before_filter :load_account, :load_settings, only: [:index]
   layout :current_layout
 
   has_scope :by_statut do |controller, scope, value|
@@ -240,6 +240,11 @@ class TasksController < ApplicationController
   private
     def load_account
       @account = Account.find_by_id(params[:account_id])
+    end
+    
+    def load_settings
+      #ClickToCall
+      @setting = Setting.all.first
     end
     
     def tasks 

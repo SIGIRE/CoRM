@@ -84,4 +84,6 @@ class Quotation < ActiveRecord::Base
   scope :by_user, lambda { |user| where("quotations.user_id = ?", user.id) unless user.nil? }
   scope :by_user_id, lambda { |user_id| where("quotations.user_id = ?", user_id) unless user_id.blank? }
   scope :between_dates, lambda { |start_at, end_at| where("created_at >= ? AND created_at <= ?", start_at, end_at) }
+  scope :by_activity_account, lambda { |activity_account| joins(:account).where("accounts.activity_id IN (?)", activity_account) unless activity_account.blank? }
+  
 end
