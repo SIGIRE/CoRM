@@ -98,6 +98,11 @@ Crm::Application.routes.draw do
   # Origin routes
   # resources :origins
   set_route('origines', 'origine', 'origins');
+  
+  # Activity routes
+  # resources :activities
+  set_route('activites', 'activity', 'activities');
+  
   # Tag routes
   # resources :tags
   set_route('tags', 'tag', 'tags');

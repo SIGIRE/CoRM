@@ -3,10 +3,11 @@
 # It can contains a file
 #
 class QuotationTemplate < ActiveRecord::Base
-resourcify
+  resourcify
   has_many :quotation
   has_attached_file :attach
-  
+
+  validates :company, uniqueness: true  
   paginates_per 10
   
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'

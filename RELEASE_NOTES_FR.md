@@ -4,10 +4,12 @@
 
 **Fonctionnalités**
  * Ajout des liens click-to-call ;
+ * Ajout du champ Activité pour les comptes ;
  * Activation ou non de la fonctionnalité click-to-call.
  
 **Corrections**
  * Bug dans l'extraction des contacts ;
+ * Test d'unicité sur les Origines, Activités, Tag et Modèles Devis ;
  * Bug dans le calcul de certains éléments du rapport d'activité.
 
 ### Version 0.10.0

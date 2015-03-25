@@ -77,10 +77,12 @@ class Ability
       can :read, QuotationTemplate
       can :read, Tag
       can :read, Origin
+      can :read, Activity
       can :read, EventType
       cannot :write, QuotationTemplate
       cannot :write, Tag
       cannot :write, Origin
+      cannot :write, Activity
       cannot :write, EventType
       cannot :manage, [Import, ImportAccount, ImportContact]
       
@@ -106,6 +108,7 @@ class Ability
       can :manage, QuotationTemplate
       can :manage, Tag
       can :manage, Origin
+      can :manage, Activity
       can :manage, EventType
       # can   #index #show #update & #edit
       can :update, User
@@ -136,10 +139,12 @@ class Ability
       can :read, QuotationTemplate
       can :read, Tag
       can :read, Origin
+      can :read, Activity
       can :read, EventType
       cannot :write, QuotationTemplate
       cannot :write, Tag
       cannot :write, Origin
+      cannot :write, Activity
       cannot :write, EventType
       cannot :manage, [Import, ImportAccount, ImportContact]
     end  
