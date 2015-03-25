@@ -19,6 +19,7 @@ class AccountsController < ApplicationController
   has_scope :by_account_tag, as: :account_tag
   has_scope :by_zip, as: :zip
   has_scope :by_user, as: :user
+  has_scope :by_activity, as: :activity
 
   ##
   # Show the full list of Accounts by paginate_by
