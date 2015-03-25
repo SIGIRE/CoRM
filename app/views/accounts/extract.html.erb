@@ -21,49 +21,14 @@
       <legend>
 	Filtres
       </legend>
-
       <%= form_tag('/comptes/extract', method: :get) do %>
-	  <div class="row row-fluid">
+	      <div class="row row-fluid">
 		
-		<div class="">
-			<%= label_tag :category, "Genre :", :class => "top"  %>
-			<%= select_tag "category",options_for_select( Account::CATEGORIES, params[:category]),{ :include_blank => "Toutes", :class =>"filter_statut" }  %>
-		</div>
-		
-		<div class="">
-			<%= label_tag :origin, "Origine :", :class => "top"  %>
-			<%= select_tag "origin",options_from_collection_for_select( Origin.all, :id, :name, params[:origin]), { :include_blank => "Toutes", :class =>"filter_statut" }   %>
-		</div>		
+	      <%= render 'filter' %>
 
-		<div class="">
-			<%= label_tag :account_tag, "Tag compte :", :class => "top"  %>
-			<%= select_tag "account_tag",options_from_collection_for_select( Tag.all, :id, :name, params[:account_tag]), { :include_blank => "Tous", :class =>"filter_statut" }   %>
-		</div>
-		
-		<div class="">
-			<%= label_tag :activity, "Activité :", :class => "top"  %>
-			<%= select_tag "activity", options_from_collection_for_select( Activity.all, :id, :name, params[:activity]), { :include_blank => "Toutes", :class =>"filter_statut" }  %>
-		</div>		
-		
-		<div class="">
-			<%= label_tag :user, "Collaborateur :", :class => "top"  %>
-			<%= select_tag "user", options_from_collection_for_select(User.all_reals, :id, :full_name, params[:user]), { :prompt => "Tous", :class =>"filter_statut" } %>
-		</div>		
-		
-		<div class="">
-		  <%= label_tag :zip, "Code Postal :", :class => "top" %>
-		  <%= text_field_tag 'zip', params[:zip], class: 'input-mini' %>
-		</div>
-		
-		<div class="">
-		  <%= label_tag :inactive, "Inactifs :", class: 'top' %>
-		  <%= check_box_tag :inactive , 1, params[:inactive] %>
-		</div>
-			
-		
 	  <%= submit_tag "Filtrer", :class =>"btn "%>
       <% end %>
-    </div>
+      </div>
   </div>
 </div>  
 

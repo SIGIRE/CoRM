@@ -10,12 +10,20 @@ class OpportunitiesController < ApplicationController
   has_scope :by_user_id
   has_scope :by_statut
   has_scope :by_account_company_like
-  has_scope :by_contact_id
+  has_scope :by_account_tags, as: :account_tag
+  has_scope :by_origin_account, as: :account_origin
+  has_scope :by_zip_account, as: :account_zip
+  has_scope :by_activity_account, as: :account_activity
+
+
   
   ##
   # Display the full list of Opportunities by paginate_by
   #
   def index
+    #ClickToCall
+    @setting = Setting.all.first
+    
     @opportunities = apply_scopes(opportunities).
                      order('term desc').
                      page(params[:page])

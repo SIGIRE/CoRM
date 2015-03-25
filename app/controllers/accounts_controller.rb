@@ -38,7 +38,7 @@ class AccountsController < ApplicationController
     respond_to do |format|
       format.html { @accounts = @accounts.page(params[:page]) }
       format.json { render :json => @accounts }
-      format.csv { render :text => @accounts.to_csv }
+      #format.csv { render :text => @accounts.to_csv }
     end
   end
 

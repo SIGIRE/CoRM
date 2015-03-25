@@ -67,5 +67,10 @@ class Opportunity < ActiveRecord::Base
   scope :by_user_id, lambda { |user_id| where( "opportunities.user_id = ?", user_id) unless user_id.blank? }
   #scope :by_term, lambda { |date_begin,date_end|  where( "term BETWEEN ? AND ? OR term IS NULL", '%'+date_begin, date_end+'%')}
   scope :between_dates, lambda { |start_at, end_at| where("created_at >= ? AND created_at <= ?", start_at, end_at) }
+  scope :by_origin_account, lambda { |origin_account| joins(:account).where("accounts.origin_id IN (?)", origin_account) unless origin_account.blank? } 
+  scope :by_account_tags, lambda { |tags| joins(:account => :tags).where("tags.id IN (?)", tags) unless tags.blank? }
+  scope :by_activity_account, lambda { |activity_account| joins(:account).where("accounts.activity_id IN (?)", activity_account) unless activity_account.blank? }
+  scope :by_zip_account, lambda { |zip_account| joins(:account).where("accounts.zip LIKE ?", zip_account + '%') unless zip_account.blank? } 
+
   
 end

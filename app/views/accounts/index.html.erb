@@ -2,45 +2,23 @@
 
 <!-- FILTER -->
 
-  <div class="container-fluid">
-    <div class="field">
-      <label class="checkbox">
-        <%= check_box_tag :generate, "yes" %>
-        Rechercher dans les comptes
-      </label>
-    </div>
-  </div>
+<div id="task_value" class="container-fluid">
+  <div class="well">
 
-<div id="task_value" class="container-fluid" style= "display: none;">
-  <%= form_tag(accounts_path, method: :GET) do %>
-      <div class="row row-fluid">
-		<div class="">
-			<%= label_tag :category, "Genre :", :class => "top"  %>
-			<%= select_tag "category",options_for_select(Account::CATEGORIES), { :prompt => "Tous", :class =>"filter_statut" }  %>
-		</div>
-	  
-		<div class="">
-			<%= label_tag :company, "Société :", :class => "top" %>
-      <%= text_field_tag 'company' %>
-		</div>
-		<div class="">
-			<%= label_tag :contact, "Contact :", :class => "top" %>
-      <%= text_field_tag 'contact' %>
-		</div>
-		<div class="">
-			<%= label_tag :phone, "Téléphone :", :class => "top" %>
-      <%= text_field_tag 'phone' %>
-		</div>
-    <div class="">
-      <%= label_tag :inactive, "Inactifs :", class: 'top' %>
-      <%= check_box_tag :inactive %>
-    </div>
-		<div>
-        <%= submit_tag "Filtrer", :class =>"btn "%>
-		</div>
-	  </div>
-   <% end %>
+      <legend>
+	Filtres
+      </legend>
+      <%= form_tag(accounts_path, method: :get) do %>
+	      <div class="row row-fluid">
+		
+	      <%= render 'filter' %>
+
+	  <%= submit_tag "Filtrer", :class =>"btn "%>
+      <% end %>
+      </div>
+  </div>
 </div>  
+
 
 <!-- END FILTER -->
 
