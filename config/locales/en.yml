@@ -339,6 +339,8 @@ en:
       Opportunity: opportunity
       Document: document
       Origin: origin
+      Activity: activité
+      Activity: activité
       Role: role
       Ability: ability
       Extraction: extraction
@@ -356,6 +358,7 @@ en:
       Email: "E-mail"
       NotificationCenter: "Notifications center"
       Origin: "Origin"
+      Activity: activité
     roles:
       details: "Roles specification"
       admin: Administrator
@@ -437,6 +440,7 @@ en:
       content: "Content"
       category: "Category"
       origin: "Origin"
+      activity: "Activité"
       action: "Action"
       type: "Type"
       author: "Author"

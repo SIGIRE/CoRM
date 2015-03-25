@@ -36,7 +36,8 @@ class Account < ActiveRecord::Base
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
   belongs_to :origin
   belongs_to :import
-
+  belongs_to :activity
+  
   accepts_nested_attributes_for :events
   accepts_nested_attributes_for :contacts
 

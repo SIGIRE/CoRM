@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150319151546) do
+ActiveRecord::Schema.define(:version => 20150324170526) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -40,11 +40,21 @@ ActiveRecord::Schema.define(:version => 20150319151546) do
     t.integer  "origin_id"
     t.boolean  "active",          :default => true
     t.integer  "import_id"
+    t.integer  "activity_id"
   end
 
   create_table "accounts_tags", :id => false, :force => true do |t|
     t.integer "account_id"
     t.integer "tag_id"
+  end
+
+  create_table "activities", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "created_by"
+    t.string   "updated_by"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "aliases", :force => true do |t|

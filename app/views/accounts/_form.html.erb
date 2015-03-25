@@ -63,6 +63,10 @@
   </div>
 
   <div class="field">
+    <div class="span2"> Activité : </div> <%= f.collection_select :activity_id, Activity.order('name ASC').all, :id, :name, :include_blank => true %>
+  </div>  
+  
+  <div class="field">
     <div class="span2"> Genre : </div> <%= f.select :category, Account::CATEGORIES%>
   </div>
 

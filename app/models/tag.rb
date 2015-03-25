@@ -4,6 +4,9 @@
 #
 class Tag < ActiveRecord::Base
   resourcify
+  
+  validates :name, uniqueness: true
+  
   has_and_belongs_to_many :accounts
   has_and_belongs_to_many :contacts
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'

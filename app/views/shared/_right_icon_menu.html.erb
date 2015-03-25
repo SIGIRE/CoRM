@@ -51,6 +51,7 @@
             <li><%= link_to '<i class="fa fa-comment fa-fw"></i> Types d\'évènements'.html_safe, event_types_path %></li>
             <li><%= link_to '<i class="fa fa-tags fa-fw"></i> Tags'.html_safe, tags_path %></li>
             <li><%= link_to '<i class="fa fa-random fa-fw"></i> Origines'.html_safe, origins_path %></li>
+            <li><%= link_to '<i class="fa fa-graduation-cap fa-fw"></i> Activités'.html_safe, activities_path %></li>
             <li><%= link_to '<i class="fa fa-files-o fa-fw"></i> Modèles devis'.html_safe, quotation_templates_path %></li>
             <% if current_user.has_role?(:admin) %>
               <li class="divider"></li>
