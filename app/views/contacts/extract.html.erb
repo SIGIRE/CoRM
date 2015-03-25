@@ -10,45 +10,63 @@
 </div>
 
 <!-- FILTER -->
+<div id="task_value" class="container-fluid">
+  <div class="well">
 
-<div class="container-fluid">
-  <div class="field">
-    <label class="checkbox">
-      <%= check_box_tag :generate, "yes" %>
-      Trier pour l'extraction
-    </label>
-  </div>
-</div>
+      <legend>
+	Filtres
+      </legend>
 
-<div id="task_value" class="container-fluid" style= "display: none;">
-  <%= form_for(contacts_path, method: :GET ) do %>
-    <div class="row row-fluid">
-     <div class="">
-	  <%= label_tag :by_account_company_like, "Société :", :class => "top" %>
-	  <%= text_field_tag :by_account_company_like %>
-     </div>
-     <div class="">
-	  <%= label_tag :by_full_name_like, "Contact :", :class => "top" %>
-	  <%= text_field_tag :by_full_name_like %>
-     </div>
-     <div class="">
-	  <%= label_tag :by_tel_like, "Téléphone :", :class => "top" %>
-	  <%= text_field_tag :by_tel_like %>
-     </div>	
-     <div class="">
-	  <%= label_tag :by_tags, "Tag contact :", :class => "top"  %>
-	  <%= select_tag "by_tags",options_from_collection_for_select( Tag.all, :id, :name), { :include_blank => "Tous", :class =>"filter_statut" }   %>
-     </div>     
-     <div class="">
-	  <%= label_tag :inactive, "Inactifs :", class: 'top' %>
-	  <%= check_box_tag :inactive %>
-     </div>
-     <div>
+      <%= form_tag('/contacts/extract', method: :get) do %>
+	  <div class="row row-fluid">
+		
+		<div class="">
+			<%= label_tag :contact_tag, "Tag contact :", :class => "top"  %>
+			<%= select_tag "contact_tag",options_from_collection_for_select( Tag.all, :id, :name, params[:contact_tag]), { :include_blank => "Tous", :class =>"filter_statut" }   %>
+		</div>
+		
+	        <div class="">
+			<%= label_tag :job_like, "Fonction contact:", :class => "top" %>
+			<%= text_field_tag :job_like, params[:job_like], class: 'input-small' %>
+	        </div>		
+		
+		<div class="">
+			<%= label_tag :account_category, "Genre compte :", :class => "top"  %>
+			<%= select_tag "account_category",options_for_select( Account::CATEGORIES, params[:account_category]),{ :include_blank => "Toutes", :class =>"filter_statut" }  %>
+		</div>
+		
+		<div class="">
+			<%= label_tag :account_origin, "Origine compte :", :class => "top"  %>
+			<%= select_tag "account_origin",options_from_collection_for_select( Origin.all, :id, :name, params[:account_origin]), { :include_blank => "Toutes", :class =>"filter_statut" }   %>
+		</div>		
+
+		<div class="">
+			<%= label_tag :account_tag, "Tag compte :", :class => "top"  %>
+			<%= select_tag "account_tag",options_from_collection_for_select( Tag.all, :id, :name, params[:account_tag]), { :include_blank => "Tous", :class =>"filter_statut" }   %>
+		</div>
+		
+		<div class="">
+			<%= label_tag :account_activity, "Activité compte :", :class => "top"  %>
+			<%= select_tag "account_activity", options_from_collection_for_select( Activity.all, :id, :name, params[:account_activity]), { :include_blank => "Toutes", :class =>"filter_statut" }  %>
+		</div>		
+		
+		<div class="">
+			<%= label_tag :account_user, "Collaborateur compte :", :class => "top"  %>
+			<%= select_tag "account_user", options_from_collection_for_select(User.all_reals, :id, :full_name, params[:account_user]), { :prompt => "Tous", :class =>"filter_statut" } %>
+		</div>		
+		
+		<div class="">
+		  <%= label_tag :account_zip, "Code Postal compte :", :class => "top" %>
+		  <%= text_field_tag 'account_zip', params[:account_zip], class: 'input-mini' %>
+		</div>
+			
+		
 	  <%= submit_tag "Filtrer", :class =>"btn "%>
-     </div>
+      <% end %>
     </div>
-   <% end %>
+  </div>
 </div>  
+
 
 <!-- END FILTER -->
 
