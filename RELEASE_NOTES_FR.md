@@ -1,5 +1,14 @@
 ## RELEASE NOTES
 
+### Version 0.10.2
+
+**Fonctionnalités**
+ * Refonte graphique des filtres pour les tâches, comptes, contacts, opportunités, devis, rapport d'activités ;
+ * Ajout de nouveaux critères dans les filtres.
+ 
+**Corrections**
+ * Bug dans la lecture des paramètres (settings).
+
 ### Version 0.10.1
 
 **Fonctionnalités**
