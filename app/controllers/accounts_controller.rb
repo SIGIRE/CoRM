@@ -16,6 +16,9 @@ class AccountsController < ApplicationController
   has_scope :by_origin, as: :origin
   has_scope :by_tags, as: :tag
   has_scope :by_import_id, as: :import_id
+  has_scope :by_account_tag, as: :account_tag
+  has_scope :by_zip, as: :zip
+  has_scope :by_user, as: :user
 
   ##
   # Show the full list of Accounts by paginate_by
@@ -40,12 +43,11 @@ class AccountsController < ApplicationController
 
   def extract
     @accounts = apply_scopes(Account).
-                active.
                 order("company")
     
     #creation des ensembles contenant les comptes et contacts pour l'utilisation du typeahead
-    @autocomplete_accounts = Account.find(:all,:select=>'company').map(&:company) #societe
-    @autocomplete_contacts = Contact.find(:all,:select=>'surname').map(&:surname) #nom
+    #@autocomplete_accounts = Account.find(:all,:select=>'company').map(&:company) #societe
+    #@autocomplete_contacts = Contact.find(:all,:select=>'surname').map(&:surname) #nom
 
     flash.now[:alert] = "Pas de comptes !" if @accounts.empty?
 

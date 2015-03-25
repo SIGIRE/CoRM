@@ -15,55 +15,49 @@
 
 <!-- FILTER -->
 
-  <div class="container-fluid">
-    <div class="field">
-      <label class="checkbox">
-        <%= check_box_tag :generate, "yes" %>
-        Trier pour l'extraction
-      </label>
-    </div>
-  </div>
+<div id="task_value" class="container-fluid">
+  <div class="well">
 
-<div id="task_value" class="container-fluid" style= "display: none;">
-  <%= form_tag('/comptes/extract', method: :get) do %>
-      <div class="row row-fluid">
+      <legend>
+	Filtres
+      </legend>
+
+      <%= form_tag('/comptes/extract', method: :get) do %>
+	  <div class="row row-fluid">
 		
 		<div class="">
 			<%= label_tag :category, "Genre :", :class => "top"  %>
-			<%= select_tag "category",options_for_select( Account::CATEGORIES), { :include_blank => "Tous", :class =>"filter_statut" }  %>
+			<%= select_tag "category",options_for_select( Account::CATEGORIES, params[:category]),{ :include_blank => "Tous", :class =>"filter_statut" }  %>
 		</div>
 		
 		<div class="">
 			<%= label_tag :origin, "Origine :", :class => "top"  %>
-			<%= select_tag "origin",options_from_collection_for_select( Origin.all, :id, :name), { :include_blank => "Tous", :class =>"filter_statut" }   %>
+			<%= select_tag "origin",options_from_collection_for_select( Origin.all, :id, :name, params[:origin]), { :include_blank => "Tous", :class =>"filter_statut" }   %>
 		</div>		
 
 		<div class="">
-			<%= label_tag :tag, "Tag :", :class => "top"  %>
-			<%= select_tag "tag",options_from_collection_for_select( Tag.all, :id, :name), { :include_blank => "Tous", :class =>"filter_statut" }   %>
-		</div>			
+			<%= label_tag :account_tag, "Tag compte :", :class => "top"  %>
+			<%= select_tag "account_tag",options_from_collection_for_select( Tag.all, :id, :name, params[:account_tag]), { :include_blank => "Tous", :class =>"filter_statut" }   %>
+		</div>
 		
 		<div class="">
-			<%= label_tag :company, "Société :", :class => "top" %>
-      <%= text_field_tag 'company' %>
-		</div>
+			<%= label_tag :user, "Collaborateur :", :class => "top"  %>
+			<%= select_tag "user", options_from_collection_for_select(User.all_reals, :id, :full_name, params[:user]), { :prompt => "Tous", :class =>"filter_statut" } %>
+		</div>		
+		
 		<div class="">
-			<%= label_tag :contact, "Contact :", :class => "top" %>
-      <%= text_field_tag 'contact' %>
+		  <%= label_tag :zip, "Code Postal :", :class => "top" %>
+		  <%= text_field_tag 'zip', params[:zip] %>
 		</div>
+		
 		<div class="">
-			<%= label_tag :phone, "Téléphone :", :class => "top" %>
-      <%= text_field_tag 'phone' %>
+		  <%= label_tag :inactive, "Inactifs :", class: 'top' %>
+		  <%= check_box_tag :inactive , 1, params[:inactive] %>
 		</div>
-    <div class="">
-      <%= label_tag :inactive, "Inactifs :", class: 'top' %>
-      <%= check_box_tag :inactive %>
+	  <%= submit_tag "Filtrer", :class =>"btn "%>
+      <% end %>
     </div>
-		<div>
-        <%= submit_tag "Filtrer", :class =>"btn "%>
-		</div>
-	  </div>
-   <% end %>
+  </div>
 </div>  
 
 <!-- END FILTER -->
