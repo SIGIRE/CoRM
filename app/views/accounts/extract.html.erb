@@ -41,13 +41,18 @@
 		</div>
 		
 		<div class="">
+			<%= label_tag :user, "Collaborateur :", :class => "top"  %>
+			<%= select_tag "user", options_from_collection_for_select(User.all_reals, :id, :full_name, params[:user]), { :prompt => "Tous", :class =>"filter_statut" } %>
+		</div>		
+		
+		<div class="">
 		  <%= label_tag :zip, "Code Postal :", :class => "top" %>
 		  <%= text_field_tag 'zip', params[:zip] %>
 		</div>
 		
 		<div class="">
 		  <%= label_tag :inactive, "Inactifs :", class: 'top' %>
-		  <%= check_box_tag :inactive %>
+		  <%= check_box_tag :inactive , 1, params[:inactive] %>
 		</div>
 	  <%= submit_tag "Filtrer", :class =>"btn "%>
       <% end %>
