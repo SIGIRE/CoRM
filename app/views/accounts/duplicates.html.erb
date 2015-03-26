@@ -1,0 +1,58 @@
+<div class="container-fluid" style="margin-top: 1em;">
+   
+
+  <div class="well">
+       <div class="row-fluid">
+         <div class="span9">
+				<h1><%= "<i class=\"fa fa-home\"></i> Recherche de doublons".html_safe %></h1>
+         </div>
+    </div>
+  </div>
+         
+</div>
+
+<div class="container-fluid">
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+	<th class="text-center">Société 1</th>
+	<th class="text-center">Adresse</th>
+	<th class="text-center">Actions</th>
+	<th class="text-center">Société 2</th>
+	<th class="text-center">Adresse</th>	
+    </tr>
+    </thead>
+
+	<tbody>
+  <% @accounts_pairs.each do |account_pair| %>
+    <tr>
+
+		<% if !account_pair[0].company.nil? %>
+			<% then %>
+				<td class="text-center"><%= link_to account_pair[0].company, account_events_url(account_pair[0]),{:title => "Afficher les évenements"} %></td>
+			<% else %>
+				<td class="text-center">-</td>
+		<% end %>
+		
+
+		<td class="text-center"><%= account_pair[0].adress1 + ' - ' + account_pair[0].zip + ' ' + account_pair[0].city %></td>
+	
+		<td class="text-center"><%= link_to '<i class="fa fa-chevron-circle-right fa-2x action-icon"></i>'.html_safe, merge_accounts_path(account_pair[1].id, account_pair[0].id), {:method => :patch, :title => "Fusionner la société 1 vers la société 2" } %>  <%= link_to '<i class="fa fa-chevron-circle-left fa-2x action-icon"></i>'.html_safe, merge_accounts_path(account_pair[0].id, account_pair[1].id), {:method => :patch, :title => "Fusionner la société 2 vers la société 1" } %></td>
+	
+	
+		
+		<% if !account_pair[1].company.nil? %>
+			<% then %>
+				<td class="text-center"><%= link_to account_pair[1].company, account_events_url(account_pair[1]),{:title => "Afficher les évenements"} %></td>
+			<% else %>
+				<td class="text-center">-</td>
+		<% end %>
+		
+		<td class="text-center"><%= account_pair[1].adress1 + ' - ' + account_pair[1].zip + ' ' + account_pair[1].city %></td>
+		
+ 
+  <% end %>
+  </tbody>
+
+  </table>
+</div>

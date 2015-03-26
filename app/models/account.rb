@@ -97,6 +97,7 @@ class Account < ActiveRecord::Base
   scope :by_import_id, lambda {|import| joins(:import).where('import_id = ?', import) unless import.nil?}
   scope :by_account_tag, lambda { |tags| joins(:tags).where("tags.id IN (?)", tags) unless tags.blank? }
   scope :by_activity, lambda { |activity| where("activity_id IN (?)", activity) unless activity.blank? }
+  scope :duplicate_phone, lambda {|phone_number, account_id| where("((REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(tel, ' ', ''), '.', ''), '-', ''), '/', ''), '+', '') LIKE REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(?, ' ', ''), '.', ''), '-', ''), '/', ''), '+', '')) AND NOT(id = ?))", "%" + phone_number + "%", account_id)}
   
   ###
   # Set the business name to upper
@@ -119,6 +120,27 @@ class Account < ActiveRecord::Base
 		tmp += ', ' + self.city
 	end	
 	return tmp
+  end
+  
+  def merge(account_to_merge_id)
+    
+    account_to_merge = Account.find(account_to_merge_id)
+
+    self.contacts << account_to_merge.contacts
+    self.events << account_to_merge.events
+    self.tasks << account_to_merge.tasks
+    self.opportunities << account_to_merge.opportunities
+    account_to_merge.tags.each do |tag|
+      self.tags << tag unless self.tags.find {|t| t.id == tag.id}
+    end
+    self.documents << account_to_merge.documents
+    account_to_merge.relations.each do |relation|
+      relation.account1_id = self.id unless ((relation.account2_id == self.id) or (self.relations.find {|r| r.account2_id == relation.account2_id}))
+      relation.save
+    end    
+    self.quotations << account_to_merge.quotations
+    
+    account_to_merge.destroy
   end
   
 end
