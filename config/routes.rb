@@ -102,6 +102,10 @@ Crm::Application.routes.draw do
   # Activity routes
   # resources :activities
   set_route('activites', 'activity', 'activities');
+ 
+  # Contract_category routes
+  # resources :contract_categories
+  set_route('categorie_contrats', 'contract_category', 'contract_categories');
   
   # Tag routes
   # resources :tags

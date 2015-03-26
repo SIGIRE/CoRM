@@ -339,6 +339,7 @@ fr:
       Document: document
       Origin: origine
       Activity: activité
+      Contract_category: "Catégorie de contrat"
       Role: role
       Ability: droit
       Extraction: extraction

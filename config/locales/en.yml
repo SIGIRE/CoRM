@@ -343,6 +343,7 @@ en:
       Activity: activité
       Role: role
       Ability: ability
+      Contract_category: "Contract category"
       Extraction: extraction
     model:
       Account: Account

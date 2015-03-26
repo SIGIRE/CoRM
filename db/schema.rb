@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150324170526) do
+ActiveRecord::Schema.define(:version => 20150326093406) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -92,6 +92,29 @@ ActiveRecord::Schema.define(:version => 20150324170526) do
   create_table "contacts_tags", :id => false, :force => true do |t|
     t.integer "contact_id"
     t.integer "tag_id"
+  end
+
+  create_table "contract_categories", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "created_by"
+    t.string   "updated_by"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "contracts", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "created_by"
+    t.string   "updated_by"
+    t.date     "date_begin"
+    t.date     "date_end"
+    t.date     "date_initial"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.integer  "account_id"
+    t.integer  "contract_category_id"
   end
 
   create_table "document_attachments", :force => true do |t|
