@@ -18,34 +18,36 @@ class Ability
     elsif user.has_role? :restricted_user
       # Role Restricted User
       can :read, Account
-	  can :search, Account
-	  can :update, Account, :user_id => user.id
-	  can :create, Account
-	  cannot :destroy, Account
+      can :search, Account
+      can :update, Account, :user_id => user.id
+      can :create, Account
+      cannot :destroy, Account
       can :read, Alias
-	  can :update, Alias, :user_id => user.id
-	  can :create, Account
-	  cannot :destroy, Account	  
+      can :update, Alias, :user_id => user.id
+      can :create, Account
+      cannot :destroy, Account	  
       can :read, Tag    
       can :read, Contact
-	  can :update, Contact, :account => {:user_id => user.id}
-	  can :create, Contact, :account => {:user_id => user.id}      
-	  cannot :destroy, Contact
+      can :update, Contact, :account => {:user_id => user.id}
+      can :create, Contact, :account => {:user_id => user.id}      
+      cannot :destroy, Contact
       can :read, Event
-	can :update, Event, :user_id => user.id 
-	can :create, Event, :account => {:user_id => user.id}
-	can :destroy, Event, :user_id => user.id
+      can :update, Event, :user_id => user.id 
+      can :create, Event, :account => {:user_id => user.id}
+      can :destroy, Event, :user_id => user.id
       can :read, Relation
-	  can :update, Relation, :account => {:user_id => user.id}
-	  can :create, Relation, :account => {:user_id => user.id}
-	  can :destroy, Relation, :account => {:user_id => user.id}
+      can :update, Relation, :account => {:user_id => user.id}
+      can :create, Relation, :account => {:user_id => user.id}
+      can :destroy, Relation, :account => {:user_id => user.id}
       can :manage, Opportunity
-	  cannot :destroy, Opportunity
+      can :manage, Contract
+      cannot :destroy, Opportunity
+      cannot :destroy, Contract
       can :manage, Quotation
-	  cannot :destroy, Quotation
+      cannot :destroy, Quotation
       can :manage, QuotationLine
       can :manage, Document
-	  cannot :destroy, Document
+      cannot :destroy, Document
       can :read, User
       can :manage, Task
       cannot :destroy, Task
@@ -61,15 +63,16 @@ class Ability
       end
       can :manage, Email
       can :manage, Account
-	  cannot :destroy, Account
+      cannot :destroy, Account
       can :manage, Contact
-	  cannot :destroy, Contact
+      cannot :destroy, Contact
       can :read, Event
-	can :update, Event, :user_id => user.id 
-	can :create, Event
-	can :destroy, Event, :user_id => user.id
+      can :update, Event, :user_id => user.id 
+      can :create, Event
+      can :destroy, Event, :user_id => user.id
       can :manage, Relation
       can :manage, Opportunity
+      can :manage, Contract
       can :manage, Quotation
       can :manage, QuotationLine
       can :manage, Document
@@ -99,10 +102,11 @@ class Ability
       can :activate, Account
       can :deactivate, Account      
       can :manage, Contact
-	  #cannot :destroy, Contact
+      #cannot :destroy, Contact
       can :manage, Event
       can :manage, Relation
       can :manage, Opportunity
+      can :manage, Contract
       can :manage, Quotation
       can :manage, QuotationLine
       can :manage, Document
@@ -126,15 +130,16 @@ class Ability
       end
       can :manage, Email
       can :manage, Account
-	  cannot :destroy, Account
+      cannot :destroy, Account
       can :manage, Contact
-	  cannot :destroy, Contact
+      cannot :destroy, Contact
       can :read, Event
-	can :update, Event, :user_id => user.id 
-	can :create, Event
-	can :destroy, Event, :user_id => user.id
+      can :update, Event, :user_id => user.id 
+      can :create, Event
+      can :destroy, Event, :user_id => user.id
       can :manage, Relation
       can :manage, Opportunity
+      can :manage, Contract
       can :manage, Quotation
       can :manage, QuotationLine
       can :manage, Document

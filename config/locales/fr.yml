@@ -340,6 +340,7 @@ fr:
       Origin: origine
       Activity: activité
       Contract_category: "Catégorie de contrat"
+      Contract: "contrat"
       Role: role
       Ability: droit
       Extraction: extraction
@@ -358,6 +359,7 @@ fr:
       NotificationCenter: "Centre de notifications"
       Origin: "Origine"
       Activity: "Activité"
+      Contract: "Contrat"
     roles:
       details: "Détail des roles"
       admin: Administrateur

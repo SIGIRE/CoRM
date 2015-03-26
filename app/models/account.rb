@@ -29,6 +29,7 @@ class Account < ActiveRecord::Base
   has_many :tasks, :dependent => :destroy
   has_many :documents, :dependent => :destroy
   #has_many :tags
+  has_many :contracts, :dependent => :destroy
   
   has_and_belongs_to_many :tags
   belongs_to :user

@@ -1,0 +1,15 @@
+<%
+  title = 'title'
+  index = 'index'
+  filter = 'filter'
+  
+  if @account
+    title += '_when_account'
+    filter += '_when_account'
+    index += '_when_account'
+  end
+%>
+
+<%= render title, :locals => { :title => @title }%>
+
+<%= render index %>

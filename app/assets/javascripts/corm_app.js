@@ -152,12 +152,16 @@ $(document).ready(function() {
     });
     $(document.getElementById('filter_begin')).datepicker(lang);
     $(document.getElementById('filter_end')).datepicker(lang);
-    $(document.getElementById('tache_term')).datepicker(lang);
+    //$(document.getElementById('tache_term')).datepicker(lang);
     $(document.getElementsByClassName('event_date')).datepicker(lang);
     $(document.getElementsByClassName('filter_date')).datepicker(lang);
     $(document.getElementById('opportunity_term')).datepicker(lang);
     $(document.getElementById('quotation_date')).datepicker(lang);
-    $(document.getElementById('task_term')).datepicker(lang); 
+    $(document.getElementById('task_term')).datepicker(lang);
+    $(document.getElementById('contract_date_begin')).datepicker(lang); 
+    $(document.getElementById('contract_date_end')).datepicker(lang); 
+    $(document.getElementById('contract_date_initial')).datepicker(lang); 
+    
   }
   if ($.validator) {
     /* jQuery Validator about .required class */

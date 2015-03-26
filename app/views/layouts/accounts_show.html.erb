@@ -20,10 +20,11 @@
       <li<%=' class=active' if controller_name.eql? 'events' %>><%= link_to "<i class=\"fa fa-comment fa-fw\"></i> #{t('app.model.Event').pluralize}".html_safe, [@account, :events]%></li>
       <li<%=' class=active' if controller_name.eql? 'tasks'%>><%= link_to "<i class=\"fa fa-tasks fa-fw\"></i> #{t('app.controllers.Task').pluralize}".html_safe, [@account, :tasks] %></li><!-- account_tasks_path -->
       <li<%=' class=active' if controller_name.eql? 'opportunities'%>><%= link_to "<i class=\"fa fa-briefcase fa-fw\"></i> #{t('app.controllers.Opportunity').pluralize}".html_safe, [@account, :opportunities] %></li>
+      <li<%=' class=active' if controller_name.eql? 'quotations' %>><%= link_to "<i class=\"fa fa-file-text fa-fw\"></i> #{t('app.model.Quotation').pluralize}".html_safe, [@account, :quotations]%></li>
+      <li<%=' class=active' if controller_name.eql? 'contracts' %>><%= link_to "<i class=\"fa fa-suitcase fa-fw\"></i> #{t('app.model.Contract').pluralize}".html_safe, [@account, :contracts]%></li>
       <li<%=' class=active' if controller_name.eql? 'tags'%>><%= link_to "<i class=\"fa fa-tags fa-fw\"></i> #{t('app.model.Tags')}".html_safe, [@account, :tags] %></li>
       <li<%=' class=active' if controller_name.eql? 'documents' %>><%= link_to "<i class=\"fa fa-folder fa-fw\"></i> #{t('app.controllers.Document').pluralize}".html_safe, [@account, :documents]%></li>
       <li<%=' class=active' if controller_name.eql? 'relations' %>><%= link_to "<i class=\"fa fa-exchange fa-fw\"></i> #{t('app.controllers.Relations')}".html_safe, [@account, :relations]%></li>
-      <li<%=' class=active' if controller_name.eql? 'quotations' %>><%= link_to "<i class=\"fa fa-file-text fa-fw\"></i> #{t('app.model.Quotation')}".html_safe, [@account, :quotations]%></li>
     </ul>
     
     <div class="tab-content">

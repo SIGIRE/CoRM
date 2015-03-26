@@ -106,6 +106,10 @@ Crm::Application.routes.draw do
   # Contract_category routes
   # resources :contract_categories
   set_route('categorie_contrats', 'contract_category', 'contract_categories');
+
+  # Contract routes
+  # resources :contracts
+  set_route('contrats', 'contract', 'contracts');
   
   # Tag routes
   # resources :tags
@@ -138,6 +142,7 @@ Crm::Application.routes.draw do
     resources :documents, path: 'documents'
     resources :relations, path: 'relations'
     resources :contacts
+    resources :contracts, path: 'contrats'
   end
   match 'comptes', :controller => 'accounts', :action => 'index'
   
