@@ -6,19 +6,26 @@
 class ContractsController < ApplicationController
   load_and_authorize_resource
   
-  
   before_filter :authenticate_user!
   before_filter :load_account, :load_settings, only: [:index]
   layout :current_layout
 
+  has_scope :by_account_company_like
+  has_scope :by_description_like
+  has_scope :by_category_id
+  
   ##
   # Display the list of all Contracts by paginate_by
   #
   # GET /contracts
   # GET /contractsjson
   def index
-    @contracts = Contract.order('name').page(params[:page])
-   
+    @contracts = apply_scopes(contracts).
+                  order('name').
+                  page(params[:page])
+
+    flash.now[:alert] = "Pas de contrat !" if @contracts.empty?
+    
     respond_to do |format|
       format.html  # index.html.erb
       format.json  { render :json => @contracts }

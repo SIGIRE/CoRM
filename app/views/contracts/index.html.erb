@@ -1,8 +1,7 @@
 <%
   title = 'title'
-  index = 'index'
   filter = 'filter'
-  
+  index = 'index'
   if @account
     title += '_when_account'
     filter += '_when_account'
@@ -11,5 +10,5 @@
 %>
 
 <%= render title, :locals => { :title => @title }%>
-
+<%= render filter %>
 <%= render index %>

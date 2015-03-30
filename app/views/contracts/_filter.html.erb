@@ -1,17 +1,27 @@
-<div id="task_value" class="container-fluid">
+<div id="contract_value" class="container-fluid">
   <div class="well">
-
-      <legend>
-	Filtres
-      </legend>
-
-      <%= form_tag(contracts_path, method: :get) do %>
+      <%= form_tag(contracts_path, method: :GET) do %>
 	  <div class="row row-fluid">
-          
-                
-
-	  <%= submit_tag "Filtrer", :class =>"btn "%>
+		    <%# Le typeahead et la recherche automatique des contacts associés sont gérés par nav-search-bar.js %>
+		    <div class="">
+			<%= label_tag :by_account_company_like, t('app.model.Account') + " :", :class => "top" %>
+			<%= text_field_tag "by_account_company_like",
+			     params[:by_account_company_like],
+                             { :class => "filter_tfield typeahead-account-search",
+                               :data => { :provide => 'typeahead'},
+                               :autocomplete=>"off" } %>
+		    </div>
+		    
+		    <div class="">
+			<%= label_tag :by_description_like,  t('app.fields.content') + " :", :class => "top" %>
+			<%= text_field_tag "by_description_like", params[:by_description_like] %>
+		    </div>
+		<div class="">
+			<%= label_tag :by_category_id, "Catégorie :", :class => "top"  %>
+			<%= select_tag "by_category_id",options_from_collection_for_select( ContractCategory.all, :id, :name, params[:contract_category]), { :include_blank => "Toutes", :class =>"filter_statut" }   %>
+		</div>		    
+	  <%= submit_tag t('app.actions.filter'), :class =>"btn "%>
       <% end %>
     </div>
-  </div>
+</div>
 </div>    

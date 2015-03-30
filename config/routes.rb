@@ -110,6 +110,8 @@ Crm::Application.routes.draw do
   # Contract routes
   # resources :contracts
   set_route('contrats', 'contract', 'contracts');
+  match '/contrats/filter(.:format)', :controller => 'contracts', :action => 'filter', :via => :get, :as => "filter_contracts_index"
+
   
   # Tag routes
   # resources :tags

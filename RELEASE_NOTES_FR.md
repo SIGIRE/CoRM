@@ -3,6 +3,7 @@
 ### Version 0.10.2
 
 **Fonctionnalités**
+ * Ajout de la gestion contrats ;
  * Refonte graphique des filtres pour les tâches, comptes, contacts, opportunités, devis, rapport d'activités ;
  * Ajout de nouveaux critères dans les filtres.
  
