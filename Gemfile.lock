@@ -128,6 +128,10 @@ GEM
       mime-types
     pdf-core (0.2.5)
     pg (0.17.1)
+    piwik_analytics (1.0.2)
+      actionpack
+      activesupport
+      rails (>= 3.0.0)
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.5)
@@ -225,6 +229,7 @@ DEPENDENCIES
   nested_form
   paperclip (~> 3.4.1)
   pg
+  piwik_analytics (~> 1.0.1)
   prawn_rails (~> 0.0.11)
   rails
   rails_autolink
