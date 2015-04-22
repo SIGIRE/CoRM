@@ -339,8 +339,12 @@ en:
       Opportunity: opportunity
       Document: document
       Origin: origin
+      Activity: activité
+      Activity: activité
       Role: role
       Ability: ability
+      Contract_category: "Contract category"
+      Contract: "contract"
       Extraction: extraction
     model:
       Account: Account
@@ -356,6 +360,8 @@ en:
       Email: "E-mail"
       NotificationCenter: "Notifications center"
       Origin: "Origin"
+      Activity: "Activity"
+      Contract: "Contract"
     roles:
       details: "Roles specification"
       admin: Administrator
@@ -437,6 +443,7 @@ en:
       content: "Content"
       category: "Category"
       origin: "Origin"
+      activity: "Activité"
       action: "Action"
       type: "Type"
       author: "Author"

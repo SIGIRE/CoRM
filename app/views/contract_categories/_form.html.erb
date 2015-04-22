@@ -1,0 +1,45 @@
+<%= form_for(@contract_category, :html => { :class => "well "}) do |f| %>
+  <% if @contract_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contract_category.errors.count, "error") %> prohibited this origin from being saved:</h2>
+
+      <ul>
+      <% @contract_category.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ 
+  <div class="field">
+    <div class="span2">Nom :</div><%= f.text_field :name,{ :class => 'required'} %><span class="req" />
+  </div>
+  <div class="field">
+    <div class="span2"><%= f.label :description %></div>
+    <%= f.text_area :description, :display_with => :simple_format, :rows => "5", :style=>'width: 30em;' %>
+  </div>
+  
+          <br />
+  	
+	<div class="field">
+    <% if !@contract_category.id.nil? %>
+		<div class="span9"> Créé par : <%= @contract_category.author.full_name %>, le </strong><%= @contract_category.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+		
+		<% if !@contract_category.updated_by.nil? %>
+			<div class="span9"> Dernièrement modifié par : <%= @contract_category.editor.full_name %>, le <%= @contract_category.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
+		
+		<% else %>
+		<% end %>
+		
+	<% end %>
+	</div>
+	  
+	<hr />
+  
+   <div class="row">
+    <%= if !@contract_category.id.nil? then f.button "Modifier la catégorie de contrat", :type => :submit, :class =>"btn btn-primary",:id =>"contract_category_validate_form" else f.button 'Créer une catégorie de contrat', :type => :submit, :class =>"btn btn-primary",:id =>"contract_category_validate_form" end%>
+    <%= if !@contract_category.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @contract_category, :title => "Supprimer la catégorie de contrat", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn", :method => :delete end %> 
+    </div>
+  </div>
+<% end %>

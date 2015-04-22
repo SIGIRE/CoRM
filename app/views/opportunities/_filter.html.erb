@@ -1,42 +1,52 @@
-<div class="container-fluid">
-  <div class="field">
-    <label class="checkbox">
-      <%= check_box_tag :generate, "yes" %>
-      Filtrer les opportunités
-    </label>
-  </div>
-</div>
-  
+<div id="task_value" class="container-fluid">
+  <div class="well">
+      <%= form_tag(opportunities_path, method: :get) do %>
+	  <div class="row row-fluid">
+          
+                <div class="">
+                        <%= label_tag :statut, "Statut :", :class => "top" %>
+                        <%= select_tag "by_statut", options_for_select(Opportunity::STATUTS, params[:by_statut]), { :include_blank => "Tous", :class =>"filter_statut" } %>
+                </div>
+                
+                <%# Le typeahead et la mise à jour des contacts associés sont gérés par nav-search-bar.js %>
+                <div class="">
+                        <%= label_tag :by_account_company_like, "Compte :", :class => "top" %>
+                        <%= text_field_tag "by_account_company_like",
+                             params[:by_account_company_like],
+                            { :class => "filter_tfield typeahead-account-search",
+                              :data => { :provide => 'typeahead'},
+                              :autocomplete=>"off" } %>
+                </div>
+		
+		<div class="">
+			<%= label_tag :account_origin, "Origine compte :", :class => "top"  %>
+			<%= select_tag "account_origin",options_from_collection_for_select( Origin.all, :id, :name, params[:account_origin]), { :include_blank => "Toutes", :class =>"filter_statut" }   %>
+		</div>		
 
-<div id="task_value" class="container-fluid" style= "display: none;">
-  <%= form_tag(opportunities_path, method: :GET) do %>
-    <div class="row row-fluid">
-      <div class="">
-        <%= label_tag :statut, "Statut :", :class => "top" %>
-        <%= select_tag "by_statut", options_for_select(Opportunity::STATUTS), { :include_blank => "Tous", :class =>"filter_statut" } %>
-      </div>
-      <%# Le typeahead et la mise à jour des contacts associés sont gérés par nav-search-bar.js %>
-      <div class="">
-        <%= label_tag :by_account_company_like, "Compte :", :class => "top" %>
-        <%= text_field_tag "by_account_company_like",
-                           nil,
-                           { :class => "filter_tfield typeahead-account-search",
-                             :data => { :provide => 'typeahead'},
-                             :autocomplete=>"off" } %>
-      </div>
-      <div class="">
-        <%= label_tag :user_email, "Contact :", :class => "top" %>
-        <%= select_tag "by_contact_id", options_for_select([]), { include_blank: '', id: 'contact_id' } %>
-      </div>
-      <div class="">
-        <%= label_tag :user_email, "Collaborateur :", :class => "top" %>
-        <%= select_tag "by_user_id",
-                       options_from_collection_for_select(User.all_reals, :id, :full_name),
-                       { :include_blank => "Tous", :class =>"filter_statut" } %>
-      </div>
-      <div>
-        <%= submit_tag "Filtrer", :class =>"btn "%>
-      </div>
+		<div class="">
+			<%= label_tag :account_tag, "Tag compte :", :class => "top"  %>
+			<%= select_tag "account_tag",options_from_collection_for_select( Tag.all, :id, :name, params[:account_tag]), { :include_blank => "Tous", :class =>"filter_statut" }   %>
+		</div>
+		
+		<div class="">
+			<%= label_tag :account_activity, "Activité compte :", :class => "top"  %>
+			<%= select_tag "account_activity", options_from_collection_for_select( Activity.all, :id, :name, params[:account_activity]), { :include_blank => "Toutes", :class =>"filter_statut" }  %>
+		</div>		
+		
+		<div class="">
+			<%= label_tag :by_user_id, "Collaborateur :", :class => "top"  %>
+			<%= select_tag "by_user_id", options_from_collection_for_select(User.all_reals, :id, :full_name, params[:by_user_id]), { :prompt => "Tous", :class =>"filter_statut" } %>
+		</div>		
+		
+		<div class="">
+		  <%= label_tag :account_zip, "Code Postal compte :", :class => "top" %>
+		  <%= text_field_tag 'account_zip', params[:account_zip], class: 'input-mini' %>
+		</div>
+
+	  <%= submit_tag "Filtrer", :class =>"btn "%>
+      <% end %>
     </div>
-  <% end %>
-</div>  
+  </div>
+</div>    
+
+

@@ -95,8 +95,8 @@ class Contact < ActiveRecord::Base
   scope :by_email, lambda { |email| includes(:aliases).where('UPPER(contacts.email) LIKE UPPER(?) OR UPPER(aliases.email) LIKE UPPER(?)', email, email) unless email.blank? }
   scope :by_accounts, lambda { |account| where("account_id IN (?)", account)unless account.blank? }
   scope :by_tags, lambda { |tags| joins(:tags).where("tags.id IN (?)", tags) unless tags.blank? }
-  #scope :by_account_tags, lambda { |tags| joins(:account).joins(:tags).where("account.tags.id IN (?)", tags) unless tags.blank? }
-  scope :by_zip_account, lambda { |zip_account| joins(:account).where("account.zip LIKE ?", zip_account + '%') unless zip_account.blank? } 
+  scope :by_account_tags, lambda { |tags| joins(:account => :tags).where("tags.id IN (?)", tags) unless tags.blank? }
+  scope :by_zip_account, lambda { |zip_account| joins(:account).where("accounts.zip LIKE ?", zip_account + '%') unless zip_account.blank? } 
   scope :by_country_account, lambda { |country_account| joins(:account).where("accounts.country" => country_account) unless country_account.blank? } 
   scope :by_category_account, lambda { |category_account| joins(:account).where("accounts.category IN (?)", category_account) unless category_account.blank? } 
   scope :by_origin_account, lambda { |origin_account| joins(:account).where("accounts.origin_id IN (?)", origin_account) unless origin_account.blank? } 
@@ -114,5 +114,17 @@ class Contact < ActiveRecord::Base
   scope :inactive, lambda { where(active: false) }
   scope :none, lambda { where('1 = 0') }
   scope :by_import_id, lambda {|import| joins(:import).where('import_id = ?', import) unless import.nil?}
+  
+  scope :by_job_like, (lambda do |job|
+    unless job.blank?
+      where("UPPER(contacts.job) LIKE UPPER(?)", "%#{job}%")
+    end
+  end)
+  scope :by_activity_account, lambda { |activity_account| joins(:account).where("accounts.activity_id IN (?)", activity_account) unless activity_account.blank? } 
+
+  
+  
+  
+  
   
 end

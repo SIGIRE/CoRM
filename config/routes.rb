@@ -98,6 +98,21 @@ Crm::Application.routes.draw do
   # Origin routes
   # resources :origins
   set_route('origines', 'origine', 'origins');
+  
+  # Activity routes
+  # resources :activities
+  set_route('activites', 'activity', 'activities');
+ 
+  # Contract_category routes
+  # resources :contract_categories
+  set_route('categorie_contrats', 'contract_category', 'contract_categories');
+
+  # Contract routes
+  # resources :contracts
+  set_route('contrats', 'contract', 'contracts');
+  match '/contrats/filter(.:format)', :controller => 'contracts', :action => 'filter', :via => :get, :as => "filter_contracts_index"
+
+  
   # Tag routes
   # resources :tags
   set_route('tags', 'tag', 'tags');
@@ -129,6 +144,7 @@ Crm::Application.routes.draw do
     resources :documents, path: 'documents'
     resources :relations, path: 'relations'
     resources :contacts
+    resources :contracts, path: 'contrats'
   end
   match 'comptes', :controller => 'accounts', :action => 'index'
   
@@ -147,6 +163,9 @@ Crm::Application.routes.draw do
   
   # Reporting
   match 'reporting', :controller => 'home', :action => 'reporting'
+  
+  # Search Account By Phone
+  match 'search_by_phone/:phone_number', :controller => 'home', :action => 'search_by_phone'
 
   resources :about
 

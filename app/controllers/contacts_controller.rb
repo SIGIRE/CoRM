@@ -12,9 +12,16 @@ class ContactsController < ApplicationController
   has_scope :active, type: :boolean, default: true
   has_scope :inactive, type: :boolean
   has_scope :by_account_id
-  has_scope :by_tags
+  has_scope :by_tags, as: :contact_tag
   has_scope :by_import_id, as: :import_id
-  #has_scope :by_account_tags
+  has_scope :by_account_tags, as: :account_tag
+  has_scope :by_job_like, as: :job_like
+  has_scope :by_category_account, as: :account_category
+  has_scope :by_origin_account, as: :account_origin
+  has_scope :by_zip_account, as: :account_zip
+  has_scope :by_user_account, as: :account_user
+  has_scope :by_activity_account, as: :account_activity
+  
 
   ##
   # Show the full list of Contact by paginate_by
@@ -22,6 +29,9 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
+    #ClickToCall
+    @setting = Setting.all.first
+    
     @contacts = apply_scopes(Contact).order("surname")
 
     flash.now[:alert] = "Pas de contacts !" if @contacts.empty?
@@ -29,7 +39,7 @@ class ContactsController < ApplicationController
     respond_to do |format|
       format.html { @contacts = @contacts.page(params[:page]) }
       format.json { render :json => @contacts }
-      format.csv { render :text => @contacts.to_csv }
+      #format.csv { render :text => @contacts.to_csv }
     end
   end
   

@@ -6,11 +6,12 @@
       <i class="fa fa-plus-circle"></i>
     </a>
     <ul class="dropdown-menu pull-right">
+      <li><%= link_to "<i class=\"fa fa-tasks fa-fw\"></i> #{t('app.model.Task')}".html_safe, new_task_path %></li>
+      <li><%= link_to "<i class=\"fa fa-home fa-fw\"></i> #{t('app.model.Account')}".html_safe, new_account_path %></li>
+      <li><%= link_to "<i class=\"fa fa-user fa-fw\"></i> #{t('app.model.Contact')}".html_safe, new_contact_path %></li>
       <li><%= link_to "<i class=\"fa fa-file-text fa-fw\"></i> #{t('app.model.Quotation')}".html_safe, new_quotation_path %></li>
       <li><%= link_to "<i class=\"fa fa-briefcase fa-fw\"></i> #{t('app.model.Opportunity')}".html_safe, new_opportunity_path %></li>
-      <li><%= link_to "<i class=\"fa fa-tasks fa-fw\"></i> #{t('app.model.Task')}".html_safe, new_task_path %></li>
-      <li><%= link_to "<i class=\"fa fa-user fa-fw\"></i> #{t('app.model.Contact')}".html_safe, new_contact_path %></li>
-      <li><%= link_to "<i class=\"fa fa-home fa-fw\"></i> #{t('app.model.Account')}".html_safe, new_account_path %></li>
+      <li><%= link_to "<i class=\"fa fa-suitcase fa-fw\"></i> #{t('app.model.Contract')}".html_safe, new_contract_path %></li>
       <li><%= link_to "<i class=\"fa fa-folder fa-fw\"></i> #{t('app.model.Document')}".html_safe, new_document_path %></li>
     </ul>
   </li>
@@ -51,7 +52,9 @@
             <li><%= link_to '<i class="fa fa-comment fa-fw"></i> Types d\'évènements'.html_safe, event_types_path %></li>
             <li><%= link_to '<i class="fa fa-tags fa-fw"></i> Tags'.html_safe, tags_path %></li>
             <li><%= link_to '<i class="fa fa-random fa-fw"></i> Origines'.html_safe, origins_path %></li>
+            <li><%= link_to '<i class="fa fa-graduation-cap fa-fw"></i> Activités'.html_safe, activities_path %></li>
             <li><%= link_to '<i class="fa fa-files-o fa-fw"></i> Modèles devis'.html_safe, quotation_templates_path %></li>
+            <li><%= link_to '<i class="fa fa-suitcase fa-fw"></i> Catégorie de contrats'.html_safe, contract_categories_path %></li>
             <% if current_user.has_role?(:admin) %>
               <li class="divider"></li>
               <li><%= link_to '<i class="fa fa-wrench fa-fw"></i> Configuration CoRM'.html_safe, url_for({ :controller => 'settings', :action => 'index' }) %></li>

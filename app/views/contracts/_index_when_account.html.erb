@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  
+  <table class="table table-bordered table-striped">
+   <thead> 
+    <tr>
+      <th class="text-center">Nom</th>
+      <th class="text-center">Description</th>
+      <th class="text-center">Date de début</th>
+      <th class="text-center">Date de fin</th>
+      <th class="text-center">Catégorie</th>
+      <th class="text-center">Éditer</th>
+    </tr>
+   </thead>
+   
+  <tbody> 
+  <% @contracts.each do |contract| %>
+    <tr>
+      <td class="text-center"><%= contract.name %></td>
+      <td class="text-center"><%= truncate(contract.description, :length => 300, :separator => ' ')%></td>
+      <% if !contract.date_begin.blank? %>
+        <td class="text-center"><%= contract.date_begin.strftime("%d/%m/%y") unless contract.date_begin.blank? %></td>
+      <% else %>
+      <td class="text-center">-</td>
+      <% end %>
+      <% if !contract.date_end.blank? %>
+        <td class="text-center"><%= contract.date_end.strftime("%d/%m/%y") unless contract.date_end.blank? %></td>
+      <% else %>
+      <td class="text-center">-</td>
+    <% end %>
+      <% if !contract.contract_category.nil? %>
+      <td class="text-center"><%= contract.contract_category.name %></td>
+      <% else %>
+      <td class="text-center">-</td>
+    <% end %>
+      <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_contract_path(contract),{:title => "Éditer le contrat"} %></td>   
+    </tr>
+  <% end %>
+  </tbody>
+  </table>
+  
+  <br />
+  
+  <%= paginate @contracts %> 
+  
+</div>

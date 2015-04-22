@@ -63,3 +63,6 @@ gem 'rubyzip'
 gem "font-awesome-rails"
 #gem text provide class and methods for matching string
 gem 'text', '~> 1.3.0'
+
+# Piwik - Open Analytics Platform
+gem 'piwik_analytics', '~> 1.0.1'

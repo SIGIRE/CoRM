@@ -3,31 +3,37 @@
      <div class="well" id="title-bar">
        <div class="row-fluid">
 	     <div class="span9">
-           <h1><%= '<i class="fa fa-pie-chart"></i>'.html_safe %> <%=t('title.reporting')%></h1>
+                    <h1><%= '<i class="fa fa-pie-chart"></i>'.html_safe %> <%=t('title.reporting')%></h1>
+             </div>
        </div>
-	   </div>
      </div>
-	 
-<div class="container-fluid">
-     <%= form_tag(reporting_path, method: :GET) do %>
-          <div class="row row-fluid">
-               <div class="small-date">
-                    <p><%= label_tag :start_at, "Début :", :class => 'top' %><%= text_field_tag :start_at, @start_at.strftime("%d/%m/%Y"), class: "event_date", data: { provide: "datepicker" } %></p>
-               </div>
-               <div class="small-date">
-                    <p><%= label_tag :end_at, "Fin :", :class => 'top' %><%= text_field_tag :end_at, @end_at.strftime("%d/%m/%Y"), class: "event_date", data: { provide: "datepicker" } %></p>
-               </div>
-               <%# Le typeahead et la recherche automatique des contacts associés sont gérés par nav-search-bar.js %>
-               <div class="">
-                    <%= label_tag :by_account_id, t('app.fields.collegue') + " :", :class => "top" %>
-                    <%= select_tag "user_id", options_from_collection_for_select(User.all_reals, :id, :full_name, @user_id), { :include_blank => "All", :class =>"filter_statut" } %>
-               </div>
-               <div>
+</div>	 
+     <div id="task_value" class="container-fluid">
+          <div class="well">           
+               <%= form_tag(reporting_path, method: :GET) do %>
+               
+                    <div class="row row-fluid">
+                         
+                         <div class="small-date">
+                              <p><%= label_tag :start_at, "Début :", :class => 'top' %><%= text_field_tag :start_at, @start_at.strftime("%d/%m/%Y"), class: "event_date", data: { provide: "datepicker" } %></p>
+                         </div>
+                         
+                         <div class="small-date">
+                              <p><%= label_tag :end_at, "Fin :", :class => 'top' %><%= text_field_tag :end_at, @end_at.strftime("%d/%m/%Y"), class: "event_date", data: { provide: "datepicker" } %></p>
+                         </div>
+                         
+                         <%# Le typeahead et la recherche automatique des contacts associés sont gérés par nav-search-bar.js %>
+                         <div class="">
+                              <%= label_tag :by_account_id, t('app.fields.collegue') + " :", :class => "top" %>
+                              <%= select_tag "user_id", options_from_collection_for_select(User.all_reals, :id, :full_name, @user_id), { :include_blank => "All", :class =>"filter_statut" } %>
+                         </div>
+                         
                     <%= submit_tag t('app.actions.filter'), :class =>"btn "%>
-               </div>
+               <% end %>
           </div>
-     <% end %>
+     </div>
 </div>
+
 
 
 
@@ -224,4 +230,4 @@
 </div>
 
 
-</div>
+

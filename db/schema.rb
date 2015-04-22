@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150107080343) do
+ActiveRecord::Schema.define(:version => 20150326093406) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -40,11 +40,21 @@ ActiveRecord::Schema.define(:version => 20150107080343) do
     t.integer  "origin_id"
     t.boolean  "active",          :default => true
     t.integer  "import_id"
+    t.integer  "activity_id"
   end
 
   create_table "accounts_tags", :id => false, :force => true do |t|
     t.integer "account_id"
     t.integer "tag_id"
+  end
+
+  create_table "activities", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "created_by"
+    t.string   "updated_by"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "aliases", :force => true do |t|
@@ -82,6 +92,29 @@ ActiveRecord::Schema.define(:version => 20150107080343) do
   create_table "contacts_tags", :id => false, :force => true do |t|
     t.integer "contact_id"
     t.integer "tag_id"
+  end
+
+  create_table "contract_categories", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "created_by"
+    t.string   "updated_by"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "contracts", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "created_by"
+    t.string   "updated_by"
+    t.date     "date_begin"
+    t.date     "date_end"
+    t.date     "date_initial"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.integer  "account_id"
+    t.integer  "contract_category_id"
   end
 
   create_table "document_attachments", :force => true do |t|
@@ -372,6 +405,7 @@ ActiveRecord::Schema.define(:version => 20150107080343) do
     t.string   "attach_content_type"
     t.integer  "attach_file_size"
     t.datetime "attach_updated_at"
+    t.boolean  "clicktocall",         :default => false
   end
 
   create_table "tags", :force => true do |t|

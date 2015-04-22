@@ -7,6 +7,8 @@ class Origin < ActiveRecord::Base
   
   resourcify
   
+  validates :name, uniqueness: true
+  
   has_many :account
   has_many :import
   has_many :import_account

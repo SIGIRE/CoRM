@@ -6,7 +6,7 @@
          <div class="span9">
            <h2>Relation(s) de <%= @account.company %></h2>
          </div>
-           <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_relation_path(:account_id_1 => @account.id) ,{:title => "Créer une relation", :class =>"pull-right"}%>
+           <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_account_relation_path(:account_id_1 => @account.id) ,{:title => "Créer une relation", :class =>"pull-right"}%>
        </div>
      </div>
 

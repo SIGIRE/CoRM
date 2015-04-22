@@ -29,6 +29,7 @@ class Account < ActiveRecord::Base
   has_many :tasks, :dependent => :destroy
   has_many :documents, :dependent => :destroy
   #has_many :tags
+  has_many :contracts, :dependent => :destroy
   
   has_and_belongs_to_many :tags
   belongs_to :user
@@ -36,7 +37,8 @@ class Account < ActiveRecord::Base
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
   belongs_to :origin
   belongs_to :import
-
+  belongs_to :activity
+  
   accepts_nested_attributes_for :events
   accepts_nested_attributes_for :contacts
 
@@ -94,6 +96,8 @@ class Account < ActiveRecord::Base
   scope :inactive, lambda { where(active: false) }
   scope :none, lambda { where('1 = 0') }
   scope :by_import_id, lambda {|import| joins(:import).where('import_id = ?', import) unless import.nil?}
+  scope :by_account_tag, lambda { |tags| joins(:tags).where("tags.id IN (?)", tags) unless tags.blank? }
+  scope :by_activity, lambda { |activity| where("activity_id IN (?)", activity) unless activity.blank? }
   
   ###
   # Set the business name to upper

@@ -18,34 +18,36 @@ class Ability
     elsif user.has_role? :restricted_user
       # Role Restricted User
       can :read, Account
-	  can :search, Account
-	  can :update, Account, :user_id => user.id
-	  can :create, Account
-	  cannot :destroy, Account
+      can :search, Account
+      can :update, Account, :user_id => user.id
+      can :create, Account
+      cannot :destroy, Account
       can :read, Alias
-	  can :update, Alias, :user_id => user.id
-	  can :create, Account
-	  cannot :destroy, Account	  
+      can :update, Alias, :user_id => user.id
+      can :create, Account
+      cannot :destroy, Account	  
       can :read, Tag    
       can :read, Contact
-	  can :update, Contact, :account => {:user_id => user.id}
-	  can :create, Contact, :account => {:user_id => user.id}      
-	  cannot :destroy, Contact
+      can :update, Contact, :account => {:user_id => user.id}
+      can :create, Contact, :account => {:user_id => user.id}      
+      cannot :destroy, Contact
       can :read, Event
-	can :update, Event, :user_id => user.id 
-	can :create, Event, :account => {:user_id => user.id}
-	can :destroy, Event, :user_id => user.id
+      can :update, Event, :user_id => user.id 
+      can :create, Event, :account => {:user_id => user.id}
+      can :destroy, Event, :user_id => user.id
       can :read, Relation
-	  can :update, Relation, :account => {:user_id => user.id}
-	  can :create, Relation, :account => {:user_id => user.id}
-	  can :destroy, Relation, :account => {:user_id => user.id}
+      can :update, Relation, :account => {:user_id => user.id}
+      can :create, Relation, :account => {:user_id => user.id}
+      can :destroy, Relation, :account => {:user_id => user.id}
       can :manage, Opportunity
-	  cannot :destroy, Opportunity
+      can :manage, Contract
+      cannot :destroy, Opportunity
+      cannot :destroy, Contract
       can :manage, Quotation
-	  cannot :destroy, Quotation
+      cannot :destroy, Quotation
       can :manage, QuotationLine
       can :manage, Document
-	  cannot :destroy, Document
+      cannot :destroy, Document
       can :read, User
       can :manage, Task
       cannot :destroy, Task
@@ -61,15 +63,16 @@ class Ability
       end
       can :manage, Email
       can :manage, Account
-	  cannot :destroy, Account
+      cannot :destroy, Account
       can :manage, Contact
-	  cannot :destroy, Contact
+      cannot :destroy, Contact
       can :read, Event
-	can :update, Event, :user_id => user.id 
-	can :create, Event
-	can :destroy, Event, :user_id => user.id
+      can :update, Event, :user_id => user.id 
+      can :create, Event
+      can :destroy, Event, :user_id => user.id
       can :manage, Relation
       can :manage, Opportunity
+      can :manage, Contract
       can :manage, Quotation
       can :manage, QuotationLine
       can :manage, Document
@@ -77,10 +80,14 @@ class Ability
       can :read, QuotationTemplate
       can :read, Tag
       can :read, Origin
+      can :read, Activity
+      can :read, ContractCategory
       can :read, EventType
       cannot :write, QuotationTemplate
       cannot :write, Tag
       cannot :write, Origin
+      cannot :write, Activity
+      cannot :write, ContractCategory
       cannot :write, EventType
       cannot :manage, [Import, ImportAccount, ImportContact]
       
@@ -95,10 +102,11 @@ class Ability
       can :activate, Account
       can :deactivate, Account      
       can :manage, Contact
-	  #cannot :destroy, Contact
+      #cannot :destroy, Contact
       can :manage, Event
       can :manage, Relation
       can :manage, Opportunity
+      can :manage, Contract
       can :manage, Quotation
       can :manage, QuotationLine
       can :manage, Document
@@ -106,6 +114,8 @@ class Ability
       can :manage, QuotationTemplate
       can :manage, Tag
       can :manage, Origin
+      can :manage, Activity
+      can :manage, ContractCategory
       can :manage, EventType
       # can   #index #show #update & #edit
       can :update, User
@@ -120,15 +130,16 @@ class Ability
       end
       can :manage, Email
       can :manage, Account
-	  cannot :destroy, Account
+      cannot :destroy, Account
       can :manage, Contact
-	  cannot :destroy, Contact
+      cannot :destroy, Contact
       can :read, Event
-	can :update, Event, :user_id => user.id 
-	can :create, Event
-	can :destroy, Event, :user_id => user.id
+      can :update, Event, :user_id => user.id 
+      can :create, Event
+      can :destroy, Event, :user_id => user.id
       can :manage, Relation
       can :manage, Opportunity
+      can :manage, Contract
       can :manage, Quotation
       can :manage, QuotationLine
       can :manage, Document
@@ -136,41 +147,17 @@ class Ability
       can :read, QuotationTemplate
       can :read, Tag
       can :read, Origin
+      can :read, Activity
+      can :read, ContractCategory
       can :read, EventType
       cannot :write, QuotationTemplate
       cannot :write, Tag
       cannot :write, Origin
+      cannot :write, Activity
+      cannot :write, ContractCategory
       cannot :write, EventType
       cannot :manage, [Import, ImportAccount, ImportContact]
     end  
   end
     
-    
-    
-    # Define abilities for the passed in user here. For example:
-    #
-    #   user ||= User.new # guest user (not logged in)
-    #   if user.admin?
-    #     can :manage, :all
-    #   else
-    #     can :read, :all
-    #   end
-    #
-    # The first argument to `can` is the action you are giving the user 
-    # permission to do.
-    # If you pass :manage it will apply to every action. Other common actions
-    # here are :read, :create, :update and :destroy.
-    #
-    # The second argument is the resource the user can perform the action on. 
-    # If you pass :all it will apply to every resource. Otherwise pass a Ruby
-    # class of the resource.
-    #
-    # The third argument is an optional hash of conditions to further filter the
-    # objects.
-    # For example, here the user can only update published articles.
-    #
-    #   can :update, Article, :published => true
-    #
-    # See the wiki for details:
-    # https://github.com/ryanb/cancan/wiki/Defining-Abilities
 end
