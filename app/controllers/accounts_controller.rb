@@ -250,7 +250,6 @@ class AccountsController < ApplicationController
   end
   
   def merge
-    
     account1 = Account.find(params[:id])
     account2 = Account.find(params[:id_to_merge])
     account1.merge(account2.id)
