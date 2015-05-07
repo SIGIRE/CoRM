@@ -149,6 +149,8 @@ class Account < ActiveRecord::Base
 
       self.quotations << account_to_merge.quotations
       
+      self.contracts << account_to_merge.contracts
+      
       # Refresh the record
       account_to_merge = Account.find(account_to_merge_id)
       # Delete the merge account
