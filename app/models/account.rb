@@ -126,38 +126,31 @@ class Account < ActiveRecord::Base
     Account.transaction do
       account_to_merge = Account.find(account_to_merge_id)
       
-      account_to_merge.contacts.each do |contact|
-	self.contacts << contact
-      end
+      self.contacts << account_to_merge.contacts
       
-      account_to_merge.events.each do |event|
-	self.events << event
-      end
-      
-      account_to_merge.tasks.each do |task|
-	self.tasks << task
-      end      
+      self.events << account_to_merge.events
+  
+      self.tasks << account_to_merge.tasks
+ 
+      self.opportunities << account_to_merge.opportunities
 
-      account_to_merge.opportunities.each do |opportunity|
-	self.opportunities << opportunity
-      end
       
       account_to_merge.tags.each do |tag|
 	self.tags << tag unless self.tags.find {|t| t.id == tag.id}
       end
       
-      account_to_merge.documents.each do |document|
-	self.documents << document
-      end
+      self.documents << account_to_merge.documents
       
       account_to_merge.relations.each do |relation|
 	relation.update_attributes!(:account1_id => self.id) unless ((relation.account2_id == self.id) or (self.relations.find {|r| r.account2_id == relation.account2_id}))
       end
       
-      account_to_merge.quotations.each do |quotation|
-	self.quotations << quotation
-      end
+
+      self.quotations << account_to_merge.quotations
       
+      # Refresh the record
+      account_to_merge = Account.find(account_to_merge_id)
+      # Delete the merge account
       account_to_merge.destroy
     end # end transaction
   end
