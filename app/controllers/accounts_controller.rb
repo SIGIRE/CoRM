@@ -174,6 +174,7 @@ class AccountsController < ApplicationController
   # search?account=[xxx]
   #
   def search
+    
     if !params.nil? and !params[:account].nil?
       company = UnicodeUtils.upcase(params[:account].strip.concat("%"))
       if params[:format] and params[:format] != 'html' then
@@ -235,6 +236,26 @@ class AccountsController < ApplicationController
     end
   end
   
+  
+  def duplicates
+    @accounts_pairs = [] # array of hashes
+    Account.order(:id).each do |account|
+      if ( !(account.tel.blank?)  and !(@accounts_pairs.find {|a| a[0] == account or a[1] == account}) )
+        duplicates = Account.duplicate_phone(account.tel, account.id)
+          if !(duplicates.blank?)
+            @accounts_pairs << [account, duplicates.first]
+          end
+      end
+    end  
+  end
+  
+  def merge
+    account1 = Account.find(params[:id])
+    account2 = Account.find(params[:id_to_merge])
+    account1.merge(account2.id)
+
+    redirect_to duplicate_accounts_path
+  end
   
 
   private
