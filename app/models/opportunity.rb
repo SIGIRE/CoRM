@@ -5,7 +5,6 @@
 # It can have different status as Detected, In progress, Won or Lose
 #
 class Opportunity < ActiveRecord::Base
-  
   resourcify
   
   validates_presence_of :name

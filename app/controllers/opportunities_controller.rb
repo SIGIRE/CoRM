@@ -21,9 +21,17 @@ class OpportunitiesController < ApplicationController
   # Display the full list of Opportunities by paginate_by
   #
   def index
+    default_order = 'term'
+    default_direction = 'desc'
+    @sort = params[:sort] || default_order
+    @direction = params[:direction] || default_direction
+    
     @opportunities = apply_scopes(opportunities).
-                     order('term desc').
+                     order("#{@sort} #{@direction}").
                      page(params[:page])
+                     
+    @opportunities_scopes = current_scopes
+
     
     #initialisation puis calcul des totaux
     @total_amount = 0
@@ -37,7 +45,7 @@ class OpportunitiesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @opportunities, :locals => { :total_amount => @total_amount , :total_profit => @total_profit }  }
+      format.xls  # index.xls.erb
     end
   end
   
