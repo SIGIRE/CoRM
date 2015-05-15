@@ -9,6 +9,7 @@ class OpportunitiesController < ApplicationController
   layout :current_layout
 
   has_scope :by_user_id
+  has_scope :by_author_user_id  
   has_scope :by_statut
   has_scope :by_account_company_like
   has_scope :by_account_tags, as: :account_tag
