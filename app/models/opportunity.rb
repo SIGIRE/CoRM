@@ -6,6 +6,7 @@
 #
 class Opportunity < ActiveRecord::Base
   resourcify
+  acts_as_xlsx
   
   validates_presence_of :name
 

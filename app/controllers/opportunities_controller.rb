@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+
 class OpportunitiesController < ApplicationController
   load_and_authorize_resource
 
@@ -22,13 +23,14 @@ class OpportunitiesController < ApplicationController
   #
   def index
     default_order = 'term'
-    default_direction = 'desc'
+    default_direction = 'DESC'
     @sort = params[:sort] || default_order
     @direction = params[:direction] || default_direction
     
-    @opportunities = apply_scopes(opportunities).
-                     order("#{@sort} #{@direction}").
-                     page(params[:page])
+    @opportunities_all = apply_scopes(opportunities).
+                     order("#{@sort} #{@direction}")
+                     
+    @opportunities = @opportunities_all.page(params[:page])
                      
     @opportunities_scopes = current_scopes
 
@@ -36,7 +38,7 @@ class OpportunitiesController < ApplicationController
     #initialisation puis calcul des totaux
     @total_amount = 0
     @total_profit = 0
-    @opportunities.each do |op|
+    @opportunities_all.each do |op|
       @total_amount += op.amount
       @total_profit += op.profit
     end
@@ -45,7 +47,7 @@ class OpportunitiesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xls  # index.xls.erb
+      format.xlsx # index.xls.maker
     end
   end
   

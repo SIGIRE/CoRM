@@ -7,7 +7,4 @@ if Mime::Type.lookup('pdf').nil?
   Mime::Type.register "application/pdf", :pdf
 end
 
-#if Mime::Type.lookup('xls').nil?
-Mime::Type.register "application/vnd.ms-excel", :xls
-#end
 

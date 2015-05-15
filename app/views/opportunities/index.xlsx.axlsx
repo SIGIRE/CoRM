@@ -1,0 +1,8 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Opportunités") do |sheet|
+  sheet.add_row ["ID", "Statut", "ID Compte", "Compte", "Libellé", "Contact", "Estimation", "Marge", "Création", "Echéance", "Collaborateur"]
+  @opportunities_all.each do |opportunity|
+    sheet.add_row [(opportunity.id), (opportunity.statut), (if !opportunity.account.blank? then opportunity.account.id end), (if !opportunity.account.blank? then opportunity.account.company end), opportunity.name || "", (if !opportunity.contact.blank? then opportunity.contact.full_name end), opportunity.amount || 0 , opportunity.profit || 0 , opportunity.created_at, opportunity.term || "", (if !opportunity.user.blank? then opportunity.user.full_name end)]
+  end
+end
+
