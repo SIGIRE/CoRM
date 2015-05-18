@@ -48,7 +48,7 @@ class OpportunitiesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xlsx # index.xls.maker
+      format.xlsx # index.xlsx.axlsx
     end
   end
   

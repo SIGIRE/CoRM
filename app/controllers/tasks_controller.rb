@@ -25,6 +25,11 @@ class TasksController < ApplicationController
   # GET /tasks.json
  
   def index
+    default_order = 'term'
+    default_direction = 'DESC'
+    @sort = params[:sort] || default_order
+    @direction = params[:direction] || default_direction
+    
     @tasks = apply_scopes(tasks)
     @tasks = @tasks.by_user(current_user).undone if current_scopes.empty? # Default filtering
     @tasks = @tasks.order("priority DESC, created_at DESC, updated_at DESC")
