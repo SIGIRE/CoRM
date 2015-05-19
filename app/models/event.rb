@@ -40,6 +40,7 @@ class Event < ActiveRecord::Base
   scope :by_account_company_like, lambda { |account_company| joins(:account).where("UPPER(accounts.company) LIKE UPPER(?)", "%#{account_company}%") unless account_company.blank? }
   scope :by_contact_id, lambda { |contact_id| where("events.contact_id = ?", contact_id) unless contact_id.blank? }
   scope :by_user_id, lambda { |user_id| where("events.user_id = ?", user_id) unless user_id.blank? }
+  scope :by_author_user_id, lambda { |author_user_id| where( "events.created_by = ?", author_user_id) unless author_user_id.blank? }  
   scope :by_content_like, lambda { |content| where("UPPER(events.notes) LIKE UPPER(?) or UPPER(events.notes2) LIKE UPPER(?)", "%#{content}%", "%#{content}%") unless content.blank? }
   scope :between_dates, lambda { |start_at, end_at| where("events.created_at >= ? AND events.created_at <= ?", start_at, end_at) }
   scope :with_event_type, lambda { where("event_type_id is not null")}

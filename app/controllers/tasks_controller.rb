@@ -16,6 +16,7 @@ class TasksController < ApplicationController
   has_scope :by_account_company_like
   has_scope :by_contact_id
   has_scope :by_user_id
+  has_scope :by_author_user_id
   has_scope :by_notes_like
 
   ##
