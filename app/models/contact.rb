@@ -28,7 +28,7 @@ class Contact < ActiveRecord::Base
   paginates_per 10
     
   validate :valid
-  #validates :account, :presence => true, if: :mandatory_account_setting?
+  validates :account, :presence => true, if: :mandatory_account_setting?
   
   def valid
     if (self.surname.blank? && self.forename.blank?)
@@ -36,10 +36,10 @@ class Contact < ActiveRecord::Base
     end
   end
   
-  #def mandatory_account_setting?
-  #  @setting = Setting.all.first
-  #  @setting.mandatory_account
-  #end
+  def mandatory_account_setting?
+    @setting = Setting.all.first
+    @setting.mandatory_account
+  end
   
   def author
     return author_user || User::default
