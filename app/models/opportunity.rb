@@ -21,6 +21,11 @@ class Opportunity < ActiveRecord::Base
   STATUTS = ["Détectée", "En cours", "Gagnée", "Perdue", "Abandonnée","Suspendue"]
   validates_inclusion_of :statut, :in => STATUTS
   
+  # Validation using global Settings
+  # don't use validates_associated : it does not work ;)
+  validates :account, :presence => true, if: :mandatory_account_setting?
+  validates :contact, :presence => true, if: :mandatory_contact_setting?    
+  
     # Conservé pour le bon fonctionnement des migrations --> non utilisé
     has_attached_file :attach
       
@@ -28,6 +33,17 @@ class Opportunity < ActiveRecord::Base
     has_many :opportunity_attachments, :dependent => :destroy
     accepts_nested_attributes_for :opportunity_attachments, allow_destroy: true
     alias_attribute :attachments, :opportunity_attachments
+  
+  
+  def mandatory_account_setting?
+    @setting = Setting.all.first
+    @setting.mandatory_account
+  end
+  
+  def mandatory_contact_setting?
+    @setting = Setting.all.first
+    @setting.mandatory_account
+  end    
   
   def author
     return author_user || User::default
