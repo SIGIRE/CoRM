@@ -54,12 +54,15 @@ class ContractsController < ApplicationController
 
     respond_to do |format|
       if @contract.save
-        format.html  { redirect_to contracts_path, :notice => "Le contrat a été créée." }
-        format.json  { render :json => @contract, :status => :created}
+        if !@contract.account_id.nil?
+          format.html  { redirect_to account_contracts_url(@contract.account_id), :notice => "Le contrat a été créé." }
+        else
+          format.html  { redirect_to root_url(@contract.account_id), :notice => "Le contrat a été créé." }
+        end
       else
+        flash[:alert] = @contract.errors.full_messages.join("\n")
         format.html  { render :action => "new" }
-        format.json  { render :json => @contract.errors, :status => :unprocessable_entity }
-      end
+      end        
     end
   end
   
