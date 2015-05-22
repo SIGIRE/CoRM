@@ -73,6 +73,7 @@
     end %>
 		<p>
 			<%= text_field_tag(nil, company, { :class => "typeahead-account-search #{'required' unless !@contact.mandatory_account_setting? }", :type => 'search', :autocomplete => 'off', 'data-field' => 'account_id', :placeholder => 'Rechercher' }) %>
+			<% if @contact.mandatory_account_setting? then %> <span class="req"/></span><% end %>
 			<%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
 		</p>
 		<%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id' } %>

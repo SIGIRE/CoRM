@@ -42,7 +42,7 @@ class Opportunity < ActiveRecord::Base
   
   def mandatory_contact_setting?
     @setting = Setting.all.first
-    @setting.mandatory_account
+    @setting.mandatory_contact
   end    
   
   def author

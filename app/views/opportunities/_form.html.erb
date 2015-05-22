@@ -8,7 +8,7 @@
   <div class="row row-fluid">
 		<div class="field full"> 
 			<div class="span2"><%= f.label(:name, t('app.fields.label') + colon) %></div>
-      <div><p><%= f.text_field :name, { :class => 'required' } %></p><span class="req"/></div>
+      <div><p><%= f.text_field :name, { :class => 'required' } %></p><span class="req"/></span></div>
 		</div>	
 	</div>
   <div class="row row-fluid">
@@ -29,6 +29,7 @@
 			<div>
 				<p>
 					<%= text_field_tag(nil, (@opportunity.account.company unless @opportunity.account.nil?), { :placeholder => 'Rechercher', :class => "typeahead-account-search #{'required' unless !@opportunity.mandatory_account_setting?}" , :type => 'search', :autocomplete => 'off', 'data-field' => 'account_id' }) %>
+					<% if @opportunity.mandatory_account_setting? then %> <span class="req"/></span><% end %>
 					<%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
 					<span class="label label-info inline" id="task_notice" style="display: none; margin-left: 2em;">
 					  <i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant

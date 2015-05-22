@@ -27,6 +27,22 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :event_attachments
   alias_attribute :attachments, :event_attachments
   
+  # Validation using global Settings
+  # don't use validates_associated : it does not work ;)
+  validates :account, :presence => true, if: :mandatory_account_setting?
+  validates :contact, :presence => true, if: :mandatory_contact_setting?   
+  
+  
+  def mandatory_account_setting?
+    @setting = Setting.all.first
+    @setting.mandatory_account
+  end
+  
+  def mandatory_contact_setting?
+    @setting = Setting.all.first
+    @setting.mandatory_contact
+  end     
+  
   def author
     return author_user || User::default
   end

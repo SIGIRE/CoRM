@@ -16,6 +16,12 @@ class Quotation < ActiveRecord::Base
   # :created_by, :updated_by, :label
   
   validates_presence_of :label
+  
+  # Validation using global Settings
+  # don't use validates_associated : it does not work ;)
+  validates :account, :presence => true, if: :mandatory_account_setting?
+  validates :contact, :presence => true, if: :mandatory_contact_setting?    
+    
 
   belongs_to :opportunity
   belongs_to :contact
@@ -49,6 +55,17 @@ class Quotation < ActiveRecord::Base
   monetize :total_excl_tax_cents
   monetize :total_VAT_cents
   monetize :total_incl_tax_cents
+  
+  def mandatory_account_setting?
+    @setting = Setting.all.first
+    @setting.mandatory_account
+  end
+  
+  def mandatory_contact_setting?
+    @setting = Setting.all.first
+    @setting.mandatory_contact
+  end    
+    
 
   def author
     return author_user || User::default
