@@ -137,7 +137,8 @@ class ContactsController < ApplicationController
         format.json { render :json => o, :status => :created, :location => @contact }
       else
         #flash[:error] = t('app.save_undefined_error')
-        flash.now[:alert] = @contact.errors.messages[:contact][0]
+        #flash.now[:alert] = @contact.errors.messages[:contact][0]
+        flash.now[:error] = @contact.errors.empty? ? ('app.save_undefined_error') : @contact.errors.full_messages.to_sentence
         format.html { render :action => "new" }
         format.json { render :json => @contact.errors, :status => :unprocessable_entity }
       end

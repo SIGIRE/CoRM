@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+
 class OpportunitiesController < ApplicationController
   load_and_authorize_resource
 
@@ -8,6 +9,7 @@ class OpportunitiesController < ApplicationController
   layout :current_layout
 
   has_scope :by_user_id
+  has_scope :by_author_user_id  
   has_scope :by_statut
   has_scope :by_account_company_like
   has_scope :by_account_tags, as: :account_tag
@@ -21,14 +23,23 @@ class OpportunitiesController < ApplicationController
   # Display the full list of Opportunities by paginate_by
   #
   def index
-    @opportunities = apply_scopes(opportunities).
-                     order('term desc').
-                     page(params[:page])
+    default_order = 'term'
+    default_direction = 'DESC'
+    @sort = params[:sort] || default_order
+    @direction = params[:direction] || default_direction
+    
+    @opportunities_all = apply_scopes(opportunities).
+                     order("#{@sort} #{@direction}")
+                     
+    @opportunities = @opportunities_all.page(params[:page])
+                     
+    @opportunities_scopes = current_scopes
+
     
     #initialisation puis calcul des totaux
     @total_amount = 0
     @total_profit = 0
-    @opportunities.each do |op|
+    @opportunities_all.each do |op|
       @total_amount += op.amount
       @total_profit += op.profit
     end
@@ -37,7 +48,7 @@ class OpportunitiesController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @opportunities, :locals => { :total_amount => @total_amount , :total_profit => @total_profit }  }
+      format.xlsx # index.xlsx.axlsx
     end
   end
   

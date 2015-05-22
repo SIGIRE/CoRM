@@ -23,6 +23,11 @@ class Document < ActiveRecord::Base
   
   validates :name,  :presence => true
   
+  # Validation using global Settings
+  # don't use validates_associated : it does not work ;)
+  validates :account, :presence => true
+ 
+
   def author
     return author_user || User::default
   end

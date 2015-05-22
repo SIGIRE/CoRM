@@ -11,18 +11,38 @@ class QuotationsController < ApplicationController
   has_scope :by_account_company_like
   has_scope :by_contact_id
   has_scope :by_user_id
+  has_scope :by_author_user_id 
   has_scope :by_activity_account, as: :account_activity
+  has_scope :by_account_tags, as: :account_tag
+  has_scope :by_origin_account, as: :account_origin  
   
   def index
-    @quotations = apply_scopes(quotations).
-                  order('date DESC').
-                  page(params[:page])
+    default_order = 'date'
+    default_direction = 'DESC'
+    @sort = params[:sort] || default_order
+    @direction = params[:direction] || default_direction
+    
+    @quotations_all = apply_scopes(quotations).order("#{@sort} #{@direction}")
+                     
+    @quotations = @quotations_all.page(params[:page])
+
+    @quotations_scopes = current_scopes
+
+    #initialisation puis calcul des totaux
+    @total_amount = 0
+    @total_number = 0
+    total_amount_cents = 0
+    @quotations_all.each do |quotation|
+      total_amount_cents += quotation.total_excl_tax_cents
+      @total_number += 1
+    end
+    @total_amount = total_amount_cents / 100
 
     flash.now[:alert] = "Pas de devis !" if @quotations.empty?
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @quotations }
+      format.xlsx # index.xlsx.axlsx
     end
   end
  

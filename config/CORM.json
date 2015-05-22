@@ -6,6 +6,6 @@
     "type": ":smtp",
     "host": "localhost",
     "port": 25,
-    "from": "corm@domain.tld"
+    "from": "no_reply@corm.fr"
   }
 }

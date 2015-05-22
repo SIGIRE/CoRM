@@ -28,11 +28,17 @@ class Contact < ActiveRecord::Base
   paginates_per 10
     
   validate :valid
+  validates :account, :presence => true, if: :mandatory_account_setting?
   
   def valid
     if (self.surname.blank? && self.forename.blank?)
       self.errors.add(:contact, 'Un de ces deux champs doit être remplis: Prénom ou Nom')
     end
+  end
+  
+  def mandatory_account_setting?
+    @setting = Setting.all.first
+    @setting.mandatory_account
   end
   
   def author

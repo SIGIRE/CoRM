@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+  <table>
+    <Row>
+      <Cell><Data ss:Type="String">ID</Data></Cell>
+      <Cell><Data ss:Type="String">Statut</Data></Cell>
+      <Cell><Data ss:Type="String">ID Compte</Data></Cell>
+      <Cell><Data ss:Type="String">Compte</Data></Cell>
+      <Cell><Data ss:Type="String">Libellé</Data></Cell>
+      <Cell><Data ss:Type="String">Contact</Data></Cell>
+      <Cell><Data ss:Type="String">Estimation</Data></Cell>
+      <Cell><Data ss:Type="String">Marge</Data></Cell>
+      <Cell><Data ss:Type="String">Création</Data></Cell>
+      <Cell><Data ss:Type="String">Echéance</Data></Cell>
+      <Cell><Data ss:Type="String">Collaborateur</Data></Cell>
+    </Row>
+  <% @opportunities.each do |opportunity| %>
+    <Row>
+      <Cell><Data ss:Type="Number"><%= opportunity.id %></Data></Cell>
+      <Cell><Data ss:Type="String"><%= opportunity.statut %></Data></Cell>
+      <Cell><Data ss:Type="Number"><%= opportunity.account.id unless opportunity.account.nil? %></Data></Cell>
+      <Cell><Data ss:Type="String"><%= opportunity.account.company unless opportunity.account.nil? %></Data></Cell>
+      <Cell><Data ss:Type="String"><%= opportunity.name unless opportunity.name.blank? %></Data></Cell>
+      <Cell><Data ss:Type="String"><%= opportunity.contact.full_name unless opportunity.contact.nil? %></Data></Cell>
+      <Cell><Data ss:Type="Number"><%= opportunity.amount %></Data></Cell>
+      <Cell><Data ss:Type="Number"><%= opportunity.profit %></Data></Cell>
+      <Cell><Data ss:Type="Date"><%= opportunity.created_at %></Data></Cell>
+      <Cell><Data ss:Type="Date"><%= opportunity.term %></Data></Cell>
+      <Cell><Data ss:Type="String"><%= opportunity.user.full_name unless opportunity.user.nil? %></Data></Cell>
+    </Row>
+  <% end %>
+  </Table>
+  </Worksheet>
+</Workbook>

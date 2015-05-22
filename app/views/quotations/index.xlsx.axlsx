@@ -1,0 +1,8 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Devis") do |sheet|
+  sheet.add_row ["ID", "Statut", "ID Compte", "Compte", "Libellé", "Contact", "Total HT", "Date", "Créé par", "Géré par"]
+  @quotations_all.each do |quotation|
+    sheet.add_row [(quotation.id), (quotation.statut), (if !quotation.account.blank? then quotation.account.id end), (if !quotation.account.blank? then quotation.account.company end), quotation.ref || "", (if !quotation.contact.blank? then quotation.contact.full_name end), quotation.total_excl_tax.to_f || 0 , quotation.created_at, (if !quotation.author_user.blank? then quotation.author_user.full_name end) , (if !quotation.user.blank? then quotation.user.full_name end)]
+  end
+end
+

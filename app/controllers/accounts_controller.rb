@@ -250,9 +250,13 @@ class AccountsController < ApplicationController
   end
   
   def merge
-    account1 = Account.find(params[:id])
-    account2 = Account.find(params[:id_to_merge])
-    account1.merge(account2.id)
+    if ((@ability.can? :update, Account) and (@ability.can? :destroy, Account))
+      account1 = Account.find(params[:id])
+      account2 = Account.find(params[:id_to_merge])
+      account1.merge(account2.id)
+    else
+      flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
+    end      
 
     redirect_to duplicate_accounts_path
   end

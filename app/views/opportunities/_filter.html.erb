@@ -2,7 +2,10 @@
   <div class="well">
       <%= form_tag(opportunities_path, method: :get) do %>
 	  <div class="row row-fluid">
-          
+            
+                <%= hidden_field_tag "sort", @sort %>
+                <%= hidden_field_tag "direction", @direction %>
+                
                 <div class="">
                         <%= label_tag :statut, "Statut :", :class => "top" %>
                         <%= select_tag "by_statut", options_for_select(Opportunity::STATUTS, params[:by_statut]), { :include_blank => "Tous", :class =>"filter_statut" } %>
@@ -31,10 +34,15 @@
 		<div class="">
 			<%= label_tag :account_activity, "Activité compte :", :class => "top"  %>
 			<%= select_tag "account_activity", options_from_collection_for_select( Activity.all, :id, :name, params[:account_activity]), { :include_blank => "Toutes", :class =>"filter_statut" }  %>
-		</div>		
+		</div>
+                
+		<div class="">
+			<%= label_tag :by_author_user_id, "Créé par :", :class => "top"  %>
+			<%= select_tag "by_author_user_id", options_from_collection_for_select(User.all_reals, :id, :full_name, params[:by_author_user_id]), { :prompt => "Tous", :class =>"filter_statut" } %>
+		</div>	                
 		
 		<div class="">
-			<%= label_tag :by_user_id, "Collaborateur :", :class => "top"  %>
+			<%= label_tag :by_user_id, "Affecté à :", :class => "top"  %>
 			<%= select_tag "by_user_id", options_from_collection_for_select(User.all_reals, :id, :full_name, params[:by_user_id]), { :prompt => "Tous", :class =>"filter_statut" } %>
 		</div>		
 		
@@ -45,6 +53,7 @@
 
 	  <%= submit_tag "Filtrer", :class =>"btn "%>
       <% end %>
+
     </div>
   </div>
 </div>    

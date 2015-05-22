@@ -6,18 +6,50 @@
         <th class="text-center">Compte</th>
         <th class="text-center">Libellé</th>
         <th class="text-center">Contact</th>
-        <th class="text-center">Estimation</th>
-        <th class="text-center">Marge</th>
-	<th class="text-center"><%= t('app.actions.created_at_female') %></th>
-        <th class="text-center">Échéance</th>
-        <th class="text-center">Collaborateur</th>
+        <th class="text-center">Estimation
+				<% if @sort == "amount" and @direction == "ASC" then %>
+				  <%= link_to '<i class="fa fa-caret-down action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "amount", :direction => "DESC"}) %>
+				<% elsif @sort == "amount" and @direction == "DESC" then %>
+				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "amount", :direction => "ASC"}) %>
+				<% else %>
+				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "amount", :direction => "ASC"}) %>
+				<% end %>		
+	</th>
+        <th class="text-center">Marge
+				<% if @sort == "profit" and @direction == "ASC" then %>
+				  <%= link_to '<i class="fa fa-caret-down action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "profit", :direction => "DESC"}) %>
+				<% elsif @sort == "profit" and @direction == "DESC" then %>
+				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "profit", :direction => "ASC"}) %>
+				<% else %>
+				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "profit", :direction => "ASC"}) %>
+				<% end %>				
+	</th>
+	<th class="text-center"><%= t('app.actions.created_at_female') %>
+				<% if @sort == "created_at" and @direction == "ASC" then %>
+				  <%= link_to '<i class="fa fa-caret-down action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "created_at", :direction => "DESC"}) %>
+				<% elsif @sort == "created_at" and @direction == "DESC" then %>
+				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "created_at", :direction => "ASC"}) %>
+				<% else %>
+				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "created_at", :direction => "ASC"}) %>
+				<% end %>		
+	</th>
+        <th class="text-center">Échéance
+				<% if @sort == "term" and @direction == "ASC" then %>
+				  <%= link_to '<i class="fa fa-caret-down action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "term", :direction => "DESC"}) %>
+				<% elsif @sort == "term" and @direction == "DESC" then %>
+				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "term", :direction => "ASC"}) %>
+				<% else %>
+				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "term", :direction => "ASC"}) %>
+				<% end %>		
+	</th>
+        <th class="text-center">Affecté à</th>
         <th class="text-center">Actions</th>   
       </tr>
     </thead>
     <tbody>
       <% @opportunities.each do |opportunity| %>
       <tr>  
-		<td class="text-center">
+	<td class="text-center">
           <% if opportunity.statut == "Détectée"%>
           <span class="badge badge-important">
           <% elsif opportunity.statut == "En cours"%>
@@ -90,11 +122,29 @@
       <% end %>
     </tbody>
   </table>
+  
+  
+  <%= paginate @opportunities %>  
 
-  <%= paginate @opportunities %>
-
-  <div class="page-header pull-right text-right">
-    <h4> Montant total estimé : <%= number_to_currency(@total_amount, :locale => :fr) %>  HT</h4><br />
-    <h4> Marge totale estimée : <%= number_to_currency(@total_profit, :locale => :fr) %>  HT</h4> 
+  <div class="pull-right">
+    <table class="table">
+      <tbody>
+	<tr>
+	  <td><h4><p>Montant total estimé :</p></h4></td>
+	  <td><h4><p class="text-right"><%= number_to_currency(@total_amount, :locale => :fr) %>  HT</p></h4></td>
+	</tr>
+	<tr>
+	  <td><h4><p>Marge totale estimée :</p></h4></td>
+	  <td><h4><p class="text-right"><%= number_to_currency(@total_profit, :locale => :fr) %>  HT</p></h4></td>
+	</tr>
+	<tr>
+	  <td> </td>
+	  <td>
+	    <%= link_to '<i class="fa fa-file-excel-o fa-2x action-icon"></i>'.html_safe, {format: "xlsx", params: params.except(:action, :controller)},{:title => "Télécharger au format Excel", :class => "pull-right"}%>
+	  </td>
+	</tr>
+      </tbody>
+    </table>
   </div>
+  
 </div>

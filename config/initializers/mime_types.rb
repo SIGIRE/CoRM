@@ -6,3 +6,5 @@
 if Mime::Type.lookup('pdf').nil?
   Mime::Type.register "application/pdf", :pdf
 end
+
+

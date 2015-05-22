@@ -40,7 +40,7 @@ class CORM_Object < Hash
             c[:mail][:type] = ':smtp'
             c[:mail][:host] = 'localhost'
             c[:mail][:port] = 25
-            c[:mail][:from] = 'corm@domain.tld'
+            c[:mail][:from] = 'no_reply@corm.fr'
             c.save(@@path)
         end
         corm_json_string = File.read(@@path)

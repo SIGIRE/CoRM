@@ -8,6 +8,10 @@ class HomeController < ApplicationController
   ##
   # About page
   #
+  
+  has_scope :by_user_id
+  has_scope :by_author_user_id  
+  
   # GET /types
   # GET /types.json
   def index
@@ -85,18 +89,34 @@ class HomeController < ApplicationController
 	  @start_at= ((DateTime.now) - 30.day).beginning_of_day unless !@start_at.blank?
 	  @end_at= DateTime.now.end_of_day unless !@end_at.blank?
 	  
-	  @user_id = params[:user_id]
-	  if (@user_id.blank? or (User.find_by_id(@user_id).blank?))
-	    @events = Event.between_dates(@start_at, @end_at).with_event_type
-	    @tasks = Task.between_dates(@start_at, @end_at)
-	    @opportunities = Opportunity.between_dates(@start_at, @end_at)
-	    @quotations = Quotation.between_dates(@start_at, @end_at)
-	  elsif
-	    @events = Event.between_dates(@start_at, @end_at).by_user_id(@user_id).with_event_type
-	    @tasks = Task.between_dates(@start_at, @end_at).by_user_id(@user_id)
-	    @opportunities = Opportunity.between_dates(@start_at, @end_at).by_user_id(@user_id)
-	    @quotations = Quotation.between_dates(@start_at, @end_at).by_user_id(@user_id)
-	  end  
+	  @user_id = params[:by_user_id]
+	  @author_user_id = params[:by_author_user_id]
+	  if !@user_id.blank? then user = User.find(@user_id) else user = nil end
+	  if !@author_user_id.blank? then author_user = User.find(@author_user_id) else author_user = nil end
+	  
+	  if user.blank? then @user_name = "" else @user_name = user.full_name end
+	  if author_user.blank? then @author_user_name = "" else @author_user_name = author_user.full_name end
+	  
+	  # Use "scoped" to return an anonymous ActiveRecord Relation. With "all", it is just an array and no more scopes can be applied
+	  @events = apply_scopes(Event).with_event_type.between_dates(@start_at, @end_at).scoped
+	  @tasks = apply_scopes(Task).between_dates(@start_at, @end_at).scoped
+	  @opportunities = apply_scopes(Opportunity).between_dates(@start_at, @end_at).scoped
+	  @quotations = apply_scopes(Quotation).between_dates(@start_at, @end_at).scoped
+	  #if (@user_id.blank? or (User.find_by_id(@user_id).blank?))
+	  #  @events = Event.between_dates(@start_at, @end_at).with_event_type
+	  #  @tasks = Task.between_dates(@start_at, @end_at)
+	  #  @opportunities = Opportunity.between_dates(@start_at, @end_at)
+	  #  @quotations = Quotation.between_dates(@start_at, @end_at)
+	  #else
+	  #  @events = Event.between_dates(@start_at, @end_at).by_user_id(@user_id).with_event_type
+	  #  @tasks = Task.between_dates(@start_at, @end_at).by_user_id(@user_id)
+	  #  @opportunities = Opportunity.between_dates(@start_at, @end_at).by_user_id(@user_id)
+	  #  @quotations = Quotation.between_dates(@start_at, @end_at).by_user_id(@user_id)
+	  #end
+	   respond_to do |format|
+		  format.html 
+		  format.xlsx
+	   end	  
     end
     
     # GET /search_by_phone/:phone_number
