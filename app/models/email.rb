@@ -47,6 +47,7 @@ class Email < ActiveRecord::Base
 
     resultset
   end
+  
 
   def has_arbitrary_account_and_contact?
     self.arbitrary_account && self.arbitrary_contact
@@ -81,7 +82,17 @@ class Email < ActiveRecord::Base
 
   def convert
     events = []
-    accounts_with_contacts.each { |account, contacts| events.push(create_event account, contacts) }
+
+    #accounts_with_contacts.each { |account, contacts| events.push(create_event account, contacts) }
+        # add arbitrary_account and arbitrary_contact if exist (arbitrary is the value entered by user when the system does not know the account/contact)
+        if has_arbitrary_account_and_contact?
+          rs = Hash.new { |h, k| h[k] = Set.new }
+          rs[arbitrary_account].add(arbitrary_contact)
+          accounts_with_contacts.merge(rs).each { |account, contacts| events.push(create_event account, contacts) }
+        else
+          accounts_with_contacts.each { |account, contacts| events.push(create_event account, contacts) }
+        end
+
 
     #if self.arbitrary_account
     #  puts "SECOND CONVERT CALLED"
