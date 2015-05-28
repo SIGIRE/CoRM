@@ -83,16 +83,14 @@ class Email < ActiveRecord::Base
   def convert
     events = []
     
-    complete_accounts_with_contacts = accounts_with_contacts
-    
     # add arbitrary_account and arbitrary_contact if exist (arbitrary is the value entered by user when the system does not know the account/contact)
     if has_arbitrary_account_and_contact?
       rs = Hash.new { |h, k| h[k] = Set.new }
-      rs[arbitrary_account].add(arbitrary_contact)
-      complete_accounts_with_contacts.merge(rs)
+      rs[self.arbitrary_account].add(self.arbitrary_contact)
+      accounts_with_contacts.merge(rs).each { |account, contacts| events.push(create_event account, contacts) }
+    else
+      accounts_with_contacts.each { |account, contacts| events.push(create_event account, contacts) }
     end
-
-    complete_accounts_with_contacts.each { |account, contacts| events.push(create_event account, contacts) }
 
 
 

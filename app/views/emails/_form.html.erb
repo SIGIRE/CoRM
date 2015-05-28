@@ -11,6 +11,21 @@
       <input type="text" class="field left" value=<%= @email.to.join(' ; ') %> readonly/>
     </div>
   </div>
+  
+<%#Affichage du champ type d'evenement %>  
+<div class="row row-fluid">
+	<div class="field full">
+		<div class="span2">
+			Type :
+		</div>
+		<div class="field">
+		    <%= f.collection_select :event_type_id, EventType.order('label'), :id, :full_type, :class =>"filter_coll", :include_blank => false %></p>
+
+		</div>
+	</div>
+</div>  
+  
+  
 
 <%#Affichage du champ compte %>
 <div class="row row-fluid">
