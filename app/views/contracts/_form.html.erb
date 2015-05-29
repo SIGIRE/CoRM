@@ -37,17 +37,17 @@
 
     <div class="field">
         <div class="span2">Date de signature initiale :</div>
-				<p><%= f.text_field :date_initial %></p>
+				<p><%= f.text_field :date_initial, { :value => (@contract.date_initial.strftime('%d/%m/%Y') unless @contract.date_initial.blank?) } %></p>
       </div>
 	
       <div class="field">
         <div class="span2">Date de début de validité :</div>
-				<p><%= f.text_field :date_begin %></p>
+				<p><%= f.text_field :date_begin, { :value => (@contract.date_begin.strftime('%d/%m/%Y') unless @contract.date_begin.blank?) } %></p>
       </div>
     
       <div class="field">
         <div class="span2">Date de fin de validité :</div>
-				<p><%= f.text_field :date_end %></p>
+				<p><%= f.text_field :date_end, { :value => (@contract.date_end.strftime('%d/%m/%Y') unless @contract.date_end.blank?) } %></p>
       </div>
 
   <div class="field">
@@ -56,20 +56,23 @@
   
           <br />
   	
-	<div class="field">
-    <% if !@contract.id.nil? %>
-		<div class="span9"> Créé par : <%= @contract.author.full_name %>, le </strong><%= @contract.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
-		<% if !@contract.updated_by.nil? %>
-			<div class="span9"> Dernièrement modifié par : <%= @contract.editor.full_name %>, le <%= @contract.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
-		<% else %>
-		<% end %>
-		
-	<% end %>
+
+  
+	<% if !@contract.id.nil? or !@contract.updated_by.nil? %>
+	<div class="row row-fluid">
+		<div class="field full">
+			<% if !@contract.id.nil? %>
+			<p><%= t('app.actions.created_by') %> <strong><%= @contract.author.full_name %></strong>, <%= t('app.at') %> <strong><%= @contract.created_at.strftime("%d/%m/%y à %H:%M") %></strong>.</p>
+		  <% end %>
+		</div>
+    <div class="field full">
+			<% if !@contract.updated_by.nil? %>
+			<p><%= t('app.actions.updated_by') %> <strong><%= @contract.editor.full_name %></strong>, <%= t('app.at') %> <strong><%= @contract.updated_at.strftime("%d/%m/%y à %H:%M") %></strong>.</p>
+			<% end %>
+	  </div>
 	</div>
-	  
-	<hr />
+     <% end %>  
+    <hr />
   
    <div class="row">
     <%= if !@contract.id.nil? then f.button "Modifier le contrat", :type => :submit, :class =>"btn btn-primary",:id =>"contract_validate_form" else f.button 'Créer un contrat', :type => :submit, :class =>"btn btn-primary",:id =>"contract_validate_form" end%>

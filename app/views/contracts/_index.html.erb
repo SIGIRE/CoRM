@@ -4,10 +4,34 @@
    <thead> 
     <tr>
       <th class="text-center">Compte</th>      
-      <th class="text-center">Nom</th>
+      <th class="text-center">Nom
+			<% if @sort == "name" and @direction == "ASC" then %>
+				  <%= link_to '<i class="fa fa-caret-down action-icon"></i>'.html_safe, @contracts_scopes.merge({:sort => "name", :direction => "DESC"}) %>
+				<% elsif @sort == "name" and @direction == "DESC" then %>
+				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @contracts_scopes.merge({:sort => "name", :direction => "ASC"}) %>
+				<% else %>
+				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @contracts_scopes.merge({:sort => "name", :direction => "DESC"}) %>
+				<% end %>
+      </th>
       <th class="text-center">Description</th>
-      <th class="text-center">Date de début</th>
-      <th class="text-center">Date de fin</th>
+      <th class="text-center">Date de début
+			<% if @sort == "date_begin" and @direction == "ASC" then %>
+				  <%= link_to '<i class="fa fa-caret-down action-icon"></i>'.html_safe, @contracts_scopes.merge({:sort => "date_begin", :direction => "DESC"}) %>
+				<% elsif @sort == "date_begin" and @direction == "DESC" then %>
+				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @contracts_scopes.merge({:sort => "date_begin", :direction => "ASC"}) %>
+				<% else %>
+				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @contracts_scopes.merge({:sort => "date_begin", :direction => "DESC"}) %>
+				<% end %>	
+      </th>
+      <th class="text-center">Date de fin
+			<% if @sort == "date_end" and @direction == "ASC" then %>
+				  <%= link_to '<i class="fa fa-caret-down action-icon"></i>'.html_safe, @contracts_scopes.merge({:sort => "date_end", :direction => "DESC"}) %>
+				<% elsif @sort == "date_end" and @direction == "DESC" then %>
+				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @contracts_scopes.merge({:sort => "date_end", :direction => "ASC"}) %>
+				<% else %>
+				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @contracts_scopes.merge({:sort => "date_end", :direction => "DESC"}) %>
+				<% end %>
+      </th>
       <th class="text-center">Catégorie</th>
       <th class="text-center">Éditer</th>
     </tr>
@@ -46,6 +70,10 @@
   
   <br />
   
-  <%= paginate @contracts %> 
+  <%= paginate @contracts %>
+  
+  <div class="pull-right">
+    <%= link_to '<i class="fa fa-file-excel-o fa-2x action-icon"></i>'.html_safe, {format: "xlsx", params: params.except(:action, :controller)},{:title => "Télécharger au format Excel", :class => "pull-right"}%>
+  </div>
   
 </div>
