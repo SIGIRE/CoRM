@@ -12,7 +12,7 @@
 				<% elsif @sort == "total_excl_tax_cents" and @direction == "DESC" then %>
 				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @quotations_scopes.merge({:sort => "total_excl_tax_cents", :direction => "ASC"}) %>
 				<% else %>
-				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @quotations_scopes.merge({:sort => "total_excl_tax_cents", :direction => "ASC"}) %>
+				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @quotations_scopes.merge({:sort => "total_excl_tax_cents", :direction => "DESC"}) %>
 				<% end %>	      
       </th>
       <th class="text-center">Date
@@ -21,7 +21,7 @@
 				<% elsif @sort == "date" and @direction == "DESC" then %>
 				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @quotations_scopes.merge({:sort => "date", :direction => "ASC"}) %>
 				<% else %>
-				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @quotations_scopes.merge({:sort => "date", :direction => "ASC"}) %>
+				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @quotations_scopes.merge({:sort => "date", :direction => "DESC"}) %>
 				<% end %>
       </th>
       <th class="text-center">Affecté à</th>

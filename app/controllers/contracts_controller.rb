@@ -20,15 +20,24 @@ class ContractsController < ApplicationController
   # GET /contracts
   # GET /contractsjson
   def index
-    @contracts = apply_scopes(contracts).
-                  order('name').
-                  page(params[:page])
+    
+    default_order = 'name'
+    default_direction = 'DESC'
+    @sort = params[:sort] || default_order
+    @direction = params[:direction] || default_direction
+    
+    @contracts_all = apply_scopes(contracts).order("#{@sort} #{@direction}")
+                     
+    @contracts = @contracts_all.page(params[:page])
+
+    @contracts_scopes = current_scopes    
+    
 
     flash.now[:alert] = "Pas de contrat !" if @contracts.empty?
     
     respond_to do |format|
       format.html  # index.html.erb
-      format.json  { render :json => @contracts }
+      format.xlsx # index.xlsx.axlsx
     end
   end
   

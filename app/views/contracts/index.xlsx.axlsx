@@ -1,0 +1,8 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Contrats") do |sheet|
+  sheet.add_row ["ID", "Nom", "ID Compte", "Compte", "Description", "Catégorie", "Signature", "Début", "Fin", "Créé par", "Créé le"]
+  @contracts_all.each do |contract|
+    sheet.add_row [(contract.id), (contract.name || ""), (if !contract.account.blank? then contract.account.id end), (if !contract.account.blank? then contract.account.company end), (contract.description || ""), (if !contract.contract_category.blank? then contract.contract_category.name end), contract.date_initial, contract.date_begin , contract.date_end, (if !contract.author_user.blank? then contract.author_user.full_name end), contract.created_at]
+  end
+end
+

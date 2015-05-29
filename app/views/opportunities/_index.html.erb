@@ -12,7 +12,7 @@
 				<% elsif @sort == "amount" and @direction == "DESC" then %>
 				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "amount", :direction => "ASC"}) %>
 				<% else %>
-				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "amount", :direction => "ASC"}) %>
+				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "amount", :direction => "DESC"}) %>
 				<% end %>		
 	</th>
         <th class="text-center">Marge
@@ -21,7 +21,7 @@
 				<% elsif @sort == "profit" and @direction == "DESC" then %>
 				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "profit", :direction => "ASC"}) %>
 				<% else %>
-				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "profit", :direction => "ASC"}) %>
+				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "profit", :direction => "DESC"}) %>
 				<% end %>				
 	</th>
 	<th class="text-center"><%= t('app.actions.created_at_female') %>
@@ -30,7 +30,7 @@
 				<% elsif @sort == "created_at" and @direction == "DESC" then %>
 				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "created_at", :direction => "ASC"}) %>
 				<% else %>
-				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "created_at", :direction => "ASC"}) %>
+				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "created_at", :direction => "DESC"}) %>
 				<% end %>		
 	</th>
         <th class="text-center">Échéance
@@ -39,7 +39,7 @@
 				<% elsif @sort == "term" and @direction == "DESC" then %>
 				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "term", :direction => "ASC"}) %>
 				<% else %>
-				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "term", :direction => "ASC"}) %>
+				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "term", :direction => "DESC"}) %>
 				<% end %>		
 	</th>
         <th class="text-center">Affecté à</th>
