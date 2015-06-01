@@ -110,6 +110,7 @@ class ImportAccountsController < ApplicationController
             account.adress1=i.adress1
             account.adress2=i.adress2
             account.zip=i.zip
+            account.city=i.city
             account.country=i.country
             account.accounting_code=i.accounting_code
             account.notes=i.notes
