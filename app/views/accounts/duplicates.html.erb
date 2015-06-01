@@ -48,7 +48,7 @@
 				<td class="text-center">-</td>
 		<% end %>
 		
-		<td class="text-center"><%= account_pair[1].adress1 + ' - ' + account_pair[1].zip + ' ' + account_pair[1].city %></td>
+		<td class="text-center"><%= (account_pair[1].adress1 || '') + ' - ' + (account_pair[1].zip || '') + ' ' + (account_pair[1].city || '') %></td>
 		
  
   <% end %>
