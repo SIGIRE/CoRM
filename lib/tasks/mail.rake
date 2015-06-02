@@ -6,9 +6,6 @@ namespace :mail do
     require 'rubygems'
     require 'mail'
     require_relative '../../app/domain/mail_processor'
-    logger.debug "-------------------"
-    logger.debug "Entre dans mail.rake / :get_mails task"
-    logger.debug "-------------------"     
     connection = WebmailConnection.first
     mails = get_mails(connection)
     mp = MailProcessor.new
@@ -23,10 +20,7 @@ namespace :mail do
   end
 
   desc "TODO"
-  task :process_mails => :environment do
-    logger.debug "-------------------"
-    logger.debug "Entre dans mail.rake / process_mails"
-    logger.debug "-------------------"       
+  task :process_mails => :environment do     
     emails = Email.all
     emails.each do |email|
       if email.is_convertible_to_events?
@@ -36,10 +30,7 @@ namespace :mail do
     end
   end    
 
-  def get_mails(connection)
-    logger.debug "-------------------"
-    logger.debug "Entre dans mail.rake / get_mails(connection)"
-    logger.debug "-------------------"       
+  def get_mails(connection)      
     mails = nil
     Mail.defaults do
       retriever_method :pop3,
