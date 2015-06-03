@@ -17,6 +17,9 @@ class Email < ActiveRecord::Base
   # Otherwise, returns nil.
 
   def to_events
+    logger.debug "-------------------"
+    logger.debug "Entre dans models.rb / to_events"
+    logger.debug "-------------------"
     convert if is_convertible_to_events?
   end
 
@@ -24,9 +27,14 @@ class Email < ActiveRecord::Base
   # Checks if self can be converted to an Event instance.
 
   def is_convertible_to_events?
+    logger.debug "-------------------"
+    logger.debug "Entre dans models.rb / convertible_to_events"
+    logger.debug "-------------------"
     if (!accounts_with_contacts.empty? or !self.arbitrary_account.blank?)
+      logger.debug "convertible = true"
       true
     else
+      logger.debug "convertible = false"
       false
     end
   end
@@ -36,6 +44,9 @@ class Email < ActiveRecord::Base
   # Uses arbitrary 
 
   def accounts_with_contacts
+    logger.debug "-------------------"
+    logger.debug "Entre dans models.rb / accounts_with_contacts"
+    logger.debug "-------------------"    
     resultset = Hash.new { |h, k| h[k] = Set.new }
     self.to.each do |mail_adress|
       contact = Contact.by_email(mail_adress).first
@@ -44,11 +55,15 @@ class Email < ActiveRecord::Base
         resultset[account].add(contact) unless account.nil?
       end
     end
-
+    logger.debug "resultset = #{resultset}"
     resultset
   end
+  
 
   def has_arbitrary_account_and_contact?
+    logger.debug "-------------------"
+    logger.debug "Entre dans models.rb / has_arbitrary_account_and_contact"
+    logger.debug "-------------------"
     self.arbitrary_account && self.arbitrary_contact
   end
 
@@ -56,6 +71,9 @@ class Email < ActiveRecord::Base
   # Returns an array populated with accounts related to TO field.
 
   def accounts
+    logger.debug "-------------------"
+    logger.debug "Entre dans models.rb / accounts"
+    logger.debug "-------------------"    
     accounts = accounts_with_contacts.keys
     accounts << arbitrary_account if arbitrary_account
     accounts
@@ -65,11 +83,15 @@ class Email < ActiveRecord::Base
   # Returns an array of contacts wich are associated with an account.
 
   def contacts
+    logger.debug "-------------------"
+    logger.debug "Entre dans models.rb / contacts"
+    logger.debug "-------------------"    
     resultset = []
     accounts_with_contacts.values.each do |contacts_set|
       contacts_set.each { |contact| resultset << contact }
     end
     resultset << arbitrary_contact if arbitrary_contact
+    logger.debug "resultset = #{resultset}"
     resultset
   end
 
@@ -80,8 +102,21 @@ class Email < ActiveRecord::Base
   # There's one Event by identified account
 
   def convert
+    logger.debug "-------------------"
+    logger.debug "Entre dans models.rb / convert"
+    logger.debug "-------------------"    
     events = []
-    accounts_with_contacts.each { |account, contacts| events.push(create_event account, contacts) }
+    
+    # add arbitrary_account and arbitrary_contact if exist (arbitrary is the value entered by user when the system does not know the account/contact)
+    if has_arbitrary_account_and_contact?
+      rs = Hash.new { |h, k| h[k] = Set.new }
+      rs[self.arbitrary_account].add(self.arbitrary_contact)
+      accounts_with_contacts.merge(rs).each { |account, contacts| events.push(create_event account, contacts) }
+    else
+      accounts_with_contacts.each { |account, contacts| events.push(create_event account, contacts) }
+    end
+
+
 
     #if self.arbitrary_account
     #  puts "SECOND CONVERT CALLED"
@@ -89,7 +124,7 @@ class Email < ActiveRecord::Base
     #  contacts.push self.arbitrary_contact if self.arbitrary_contact
     #  events.push(create_event arbitrary_account, contacts)
     #end
-
+    logger.debug "events = #{events}"
     events
   end
 
@@ -98,6 +133,9 @@ class Email < ActiveRecord::Base
   # for current Email instance.
 
   def create_event account, contacts
+    logger.debug "-------------------"
+    logger.debug "Entre dans models.rb / create_event"
+    logger.debug "-------------------"        
     event = Event.new
     event.account_id = account.id
     event.contact_id = contacts.first.id unless contacts.empty?
@@ -119,7 +157,7 @@ class Email < ActiveRecord::Base
       attach.attach = attachment.attach
       event.event_attachments.push attach
     end
-
+    logger.debug "event = #{event}"
     event
   end
 
@@ -128,11 +166,15 @@ class Email < ActiveRecord::Base
   # Get mail adresses list as parameter : ['foo@bar.com', 'titi@tata.fr']
 
   def generate_string_from_mails(mail_adresses)
+    logger.debug "-------------------"
+    logger.debug "Entre dans models.rb / generate_strings_from_mail"
+    logger.debug "-------------------"      
     strings = []
     mail_adresses.each do |mail_adress|
       contact = Contact.by_email(mail_adress).first
       strings.push(contact.nil? ? mail_adress : "#{contact.forename} #{contact.surname}")
     end
+    logger.debug "strings = #{strings.join(', ')}"
     return strings.join(', ')
   end
 end

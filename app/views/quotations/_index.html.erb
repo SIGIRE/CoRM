@@ -6,9 +6,25 @@
       <th class="text-center">Compte</th>
       <th class="text-center">Libellé</th>
       <th class="text-center">Contact</th>
-      <th class="text-center">Total HT</th>
-      <th class="text-center">Date</th>
-      <th class="text-center">Collaborateur</th>
+      <th class="text-center">Total HT
+				<% if @sort == "total_excl_tax_cents" and @direction == "ASC" then %>
+				  <%= link_to '<i class="fa fa-caret-down action-icon"></i>'.html_safe, @quotations_scopes.merge({:sort => "total_excl_tax_cents", :direction => "DESC"}) %>
+				<% elsif @sort == "total_excl_tax_cents" and @direction == "DESC" then %>
+				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @quotations_scopes.merge({:sort => "total_excl_tax_cents", :direction => "ASC"}) %>
+				<% else %>
+				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @quotations_scopes.merge({:sort => "total_excl_tax_cents", :direction => "DESC"}) %>
+				<% end %>	      
+      </th>
+      <th class="text-center">Date
+				<% if @sort == "date" and @direction == "ASC" then %>
+				  <%= link_to '<i class="fa fa-caret-down action-icon"></i>'.html_safe, @quotations_scopes.merge({:sort => "date", :direction => "DESC"}) %>
+				<% elsif @sort == "date" and @direction == "DESC" then %>
+				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @quotations_scopes.merge({:sort => "date", :direction => "ASC"}) %>
+				<% else %>
+				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @quotations_scopes.merge({:sort => "date", :direction => "DESC"}) %>
+				<% end %>
+      </th>
+      <th class="text-center">Affecté à</th>
       <th class="text-center">Actions</th>
     </tr>
   </thead>
@@ -54,7 +70,7 @@
 
   <% if !quotation.total_excl_tax.nil? %>
     <% then %>
-      <td style="text-align :right;"><%= quotation.total_excl_tax.to_s + " "%> <%= currency_symbol %></td>
+      <td style="text-align :right;"><%= number_to_currency(quotation.total_excl_tax, :locale => :fr)  %> <strong> HT </strong></td>
     <% else %>
       <td class="text-center">-</td>
   <% end %>        
@@ -80,4 +96,26 @@
   </table>
 
 <%= paginate @quotations %>
+
+  <div class="pull-right">
+    <table class="table">
+      <tbody>
+	<tr>
+	  <td><h4><p>Nombre :</p></h4></td>
+	  <td><h4><p class="text-right"><%= number_with_precision(@total_number, :precision => 0, :locale => :fr) %></p></h4></td>
+	</tr>
+	<tr>
+	  <td><h4><p>Montant total HT :</p></h4></td>
+	  <td><h4><p class="text-right"><%= number_to_currency(@total_amount, :locale => :fr) %>  HT</p></h4></td>
+	</tr>
+	<tr>
+	  <td> </td>
+	  <td>
+	    <%= link_to '<i class="fa fa-file-excel-o fa-2x action-icon"></i>'.html_safe, {format: "xlsx", params: params.except(:action, :controller)},{:title => "Télécharger au format Excel", :class => "pull-right"}%>
+	  </td>
+	</tr>
+      </tbody>
+    </table>
+  </div>
+  
 </div>

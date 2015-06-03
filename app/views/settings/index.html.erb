@@ -54,7 +54,7 @@
 		<%= form_for(Setting.new, :url => { :controller => 'settings', :action => 'update'}) do |f| %>
 		    <div class="row row-fluid">
 		        <div class="field full">
-    			<div class="span2"> Activé : </div> <%= f.check_box :clicktocall %>
+    			<div class="span2"> Activé : </div> <%= f.check_box :clicktocall, {:checked => (@setting.clicktocall)} %>
   			
 			<% if @setting.clicktocall == true %>
 		        <div class="alert alert-success">Fonction actuellement activée.</div>
@@ -71,8 +71,42 @@
 		    <%= hidden_field_tag "setting[id]", @setting.id%>
 		<% end %>
   	                     
+
+    
+	<div class="span9">
+            <h2>Saisies obligatoires</h2>
+	</div>
+
+                
+		    <%= form_for(Setting.new, :url => { :controller => 'settings', :action => 'update'}) do |f| %>
+			<div class="row row-fluid">
+			<div class="field full">
+			    <div class="span2"> Saisie du compte obligatoire : </div> <%= f.check_box :mandatory_account, {:checked => (@setting.mandatory_account)} %>
+			    <% if @setting.mandatory_account == true %>
+				<div class="alert alert-success">Fonction actuellement activée.</div>
+			    <% else %>
+				<div class="alert alert-warning">Fonction actuellement désactivée.</div>
+			    <% end %>
+			</div>
+			
+		    	<div class="field full">
+    			<div class="span2"> Saisie du contact obligatoire : </div> <%= f.check_box :mandatory_contact, {:checked => (@setting.mandatory_contact)} %>
+			<% if @setting.mandatory_contact == true %>
+			    <div class="alert alert-success">Fonction actuellement activée.</div>
+		    	<% else %>
+			    <div class="alert alert-warning">Fonction actuellement désactivée.</div>
+			<% end %>
+			</div>
+			
+		    <div class="field full">
+			<div class="span2"></div><input type="submit" value="Sauvegarder" class="btn btn-success">
+		    </div>
+		    </div>
+		    <%= hidden_field_tag "setting[id]", @setting.id%>
+		<% end %>
+  	                     
 	    </div>
-    </div>
+
     
 	
 	<div name="mail_settings">
@@ -107,13 +141,13 @@
   			<div class="field full">
     			<div class="span2"> Activé : </div> <%= f.check_box :active %>
   			</div>
+			<%= f.hidden_field :id %>
 			<div class="field full">
 				<div class="span2"></div><input type="submit" value="Sauvegarder" class="btn btn-success">
 				<a class="btn btn-xs"
 				    <%= link_to "Vérifier la connexion", url_for(:controller => 'webmail_connections', :action => 'check') %>
 				</a>
 				<input type='hidden' name='_method' value='put'>
-				<%= f.hidden_field :id %>
 			</div>
 		</div>
 	<% end %>

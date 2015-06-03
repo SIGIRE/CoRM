@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 ##
 # This class represents an Contract.
 # It can contains name and a description
@@ -11,8 +13,23 @@ class Contract < ActiveRecord::Base
   belongs_to :account
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'updated_by', :class_name => 'User'
+  has_many :contract_attachments, :dependent => :destroy
+  accepts_nested_attributes_for :contract_attachments, allow_destroy: true
+  alias_attribute :attachments, :contract_attachments  
   
   paginates_per 10
+  
+  validate :validate_end_date_after_start_date
+  
+  # Validation using global Settings
+  # don't use validates_associated : it does not work ;)
+  validates :account, :presence => true, if: :mandatory_account_setting?  
+  
+  def mandatory_account_setting?
+    @setting = Setting.all.first
+    @setting.mandatory_account
+  end  
+  
   
   def author
     return author_user || User::default
@@ -21,6 +38,12 @@ class Contract < ActiveRecord::Base
   def editor
     return editor_user || User::default
   end
+  
+  def validate_end_date_after_start_date
+    if date_end && date_begin
+        errors.add(:date_end, "La date de fin doit être postérieure à la date de début!") if date_end < date_begin
+    end
+  end  
 
 
   scope :by_account, lambda { |account| where("account_id = ?", account.id) unless account.nil? }  

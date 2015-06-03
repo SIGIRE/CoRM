@@ -11,6 +11,21 @@
       <input type="text" class="field left" value=<%= @email.to.join(' ; ') %> readonly/>
     </div>
   </div>
+  
+<%#Affichage du champ type d'evenement %>  
+<div class="row row-fluid">
+	<div class="field full">
+		<div class="span2">
+			Type :
+		</div>
+		<div class="field">
+		    <%= f.collection_select :event_type_id, EventType.order('label'), :id, :full_type, :class =>"filter_coll", :include_blank => false %></p>
+
+		</div>
+	</div>
+</div>  
+  
+  
 
 <%#Affichage du champ compte %>
 <div class="row row-fluid">
@@ -27,12 +42,12 @@
 	    company = @email.arbitrary_account
 	end %>
 	<% if company.blank? %>
-			<%= text_field_tag(nil, company, { :class => 'typeahead-account-search', :type => 'search', :autocomplete => 'off', 'data-field' => 'account_id', :placeholder => 'Rechercher' }) %>
+			<%= text_field_tag(nil, company, { :class => 'typeahead-account-search required', :type => 'search', :autocomplete => 'off', 'data-field' => 'account_id', :placeholder => 'Rechercher' }) %><span class="req"/>
 	<% else %>
-		<%= text_field_tag(nil, company.company, { :class => 'typeahead-account-search', :type => 'search', :autocomplete => 'off', 'data-field' => 'account_id', :placeholder => 'Rechercher' }) %>
+		<%= text_field_tag(nil, company.company, { :class => 'typeahead-account-search required', :type => 'search', :autocomplete => 'off', 'data-field' => 'account_id', :placeholder => 'Rechercher' }) %><span class="req"/>
 	<% end %>
 	    <%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id' } %>
-		<%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
+		<%= image_tag('/assets/icons/loading.gif', :alt=> 'Please wait...', :class => 'loading hidden') %>
     </div>
 </div>
 
@@ -44,10 +59,10 @@
 		</div>
 		<div class="field">
         	<% if !company.nil? %>
-          	<%= collection_select :email, :contact_id, Contact.where(:account_id => company.id).order(:surname), :id, :full_name, {:include_blank => true }, { :id => 'contact_id' } %>
+          	<%= collection_select :email, :contact_id, Contact.where(:account_id => company.id).order(:surname), :id, :full_name, {:include_blank => false }, { :class => "required", :id => 'contact_id' } %><span class="req"/>
           <%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
         <% else %>
-          <%= collection_select :email, :contact_id, Contact.where(:account_id => 0), :id, :full_name, {:include_blank => true}, { :id => 'contact_id' } %>
+          <%= collection_select :email, :contact_id, Contact.where(:account_id => 0), :id, :full_name, {:include_blank => false}, { :class => "required", :id => 'contact_id' } %><span class="req"/>
           <%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
         <% end %>
 		</div>

@@ -128,6 +128,8 @@ Crm::Application.routes.draw do
   # Accounts
   match 'comptes/extract', controller: 'accounts', action: 'extract'
   match 'comptes/delete_tag', :controller=> 'accounts', :action =>'delete_tag'
+  match 'comptes/doublons', controller: 'accounts', action: 'duplicates', :as => 'duplicate_accounts'
+  match 'compte/:id/fusion/:id_to_merge', controller: 'accounts', action: 'merge', :via => :patch, :as => "merge_accounts"
   resources :accounts, :path => 'compte' do
     collection do
       get 'search'

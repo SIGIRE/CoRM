@@ -20,15 +20,24 @@ class ContractsController < ApplicationController
   # GET /contracts
   # GET /contractsjson
   def index
-    @contracts = apply_scopes(contracts).
-                  order('name').
-                  page(params[:page])
+    
+    default_order = 'name'
+    default_direction = 'DESC'
+    @sort = params[:sort] || default_order
+    @direction = params[:direction] || default_direction
+    
+    @contracts_all = apply_scopes(contracts).order("#{@sort} #{@direction}")
+                     
+    @contracts = @contracts_all.page(params[:page])
+
+    @contracts_scopes = current_scopes    
+    
 
     flash.now[:alert] = "Pas de contrat !" if @contracts.empty?
     
     respond_to do |format|
       format.html  # index.html.erb
-      format.json  { render :json => @contracts }
+      format.xlsx # index.xlsx.axlsx
     end
   end
   
@@ -54,12 +63,15 @@ class ContractsController < ApplicationController
 
     respond_to do |format|
       if @contract.save
-        format.html  { redirect_to contracts_path, :notice => "Le contrat a été créée." }
-        format.json  { render :json => @contract, :status => :created}
+        if !@contract.account_id.nil?
+          format.html  { redirect_to account_contracts_url(@contract.account_id), :notice => "Le contrat a été créé." }
+        else
+          format.html  { redirect_to root_url(@contract.account_id), :notice => "Le contrat a été créé." }
+        end
       else
+        flash[:alert] = @contract.errors.full_messages.join("\n")
         format.html  { render :action => "new" }
-        format.json  { render :json => @contract.errors, :status => :unprocessable_entity }
-      end
+      end        
     end
   end
   

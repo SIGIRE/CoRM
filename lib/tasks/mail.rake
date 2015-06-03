@@ -6,7 +6,6 @@ namespace :mail do
     require 'rubygems'
     require 'mail'
     require_relative '../../app/domain/mail_processor'
-
     connection = WebmailConnection.first
     mails = get_mails(connection)
     mp = MailProcessor.new
@@ -21,7 +20,7 @@ namespace :mail do
   end
 
   desc "TODO"
-  task :process_mails => :environment do
+  task :process_mails => :environment do     
     emails = Email.all
     emails.each do |email|
       if email.is_convertible_to_events?
@@ -31,7 +30,7 @@ namespace :mail do
     end
   end    
 
-  def get_mails(connection)
+  def get_mails(connection)      
     mails = nil
     Mail.defaults do
       retriever_method :pop3,

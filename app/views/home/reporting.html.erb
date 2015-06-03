@@ -5,6 +5,9 @@
 	     <div class="span9">
                     <h1><%= '<i class="fa fa-pie-chart"></i>'.html_safe %> <%=t('title.reporting')%></h1>
              </div>
+             <div class = "pull-right">
+                 <%= link_to '<i class="fa fa-file-excel-o fa-3x action-icon"></i>'.html_safe, {format: "xlsx", params: params.except(:action, :controller)},{:title => "Télécharger au format Excel"} %>
+             </div>             
        </div>
      </div>
 </div>	 
@@ -22,11 +25,21 @@
                               <p><%= label_tag :end_at, "Fin :", :class => 'top' %><%= text_field_tag :end_at, @end_at.strftime("%d/%m/%Y"), class: "event_date", data: { provide: "datepicker" } %></p>
                          </div>
                          
-                         <%# Le typeahead et la recherche automatique des contacts associés sont gérés par nav-search-bar.js %>
                          <div class="">
-                              <%= label_tag :by_account_id, t('app.fields.collegue') + " :", :class => "top" %>
-                              <%= select_tag "user_id", options_from_collection_for_select(User.all_reals, :id, :full_name, @user_id), { :include_blank => "All", :class =>"filter_statut" } %>
-                         </div>
+                                 <%= label_tag :by_author_user_id, "Créé par :", :class => "top"  %>
+                                 <%= select_tag "by_author_user_id", options_from_collection_for_select(User.all_reals, :id, :full_name, params[:by_author_user_id]), { :prompt => "Tous", :class =>"filter_statut" } %>
+                         </div>	                
+                                         
+                         
+                         <div class="">
+                           <%= label_tag :by_user_id, "Affecté à :", :class => "top" %>
+                           <%= select_tag "by_user_id",
+                                      options_from_collection_for_select(User.all_reals, :id, :full_name, params[:by_user_id]),
+                                      { :prompt => "Tous", :class =>"filter_statut" } %>
+                         </div>                         
+                         
+                         
+                         
                          
                     <%= submit_tag t('app.actions.filter'), :class =>"btn "%>
                <% end %>

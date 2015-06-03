@@ -24,7 +24,9 @@
   </div>
   <div class="row row-fluid by_2">
       <div class="field">
-        <p><%= f.label :contact_id, "Contact : ", :class => 'top' %><%= f.collection_select :contact_id, @account.contacts.order('surname'), :id, :full_name, :class =>"filter_coll", :include_blank => true %></p>
+        <p><%= f.label :contact_id, "Contact : ", :class => 'top' %><%= f.collection_select :contact_id, @account.contacts.order('surname'), :id, :full_name, :class =>"filter_coll", :include_blank =>!@event_new.mandatory_contact_setting? %>
+        <% if @event_new.mandatory_contact_setting? then %> <span class="req"/></span><% end %>
+        </p>
       </div>
       <div class="field">
         <p><%= f.label :event_type_id, "Type : ", :class => 'top' %><%= f.collection_select :event_type_id, EventType.order('label'), :id, :full_type, :class =>"filter_coll", :include_blank => true %></p>

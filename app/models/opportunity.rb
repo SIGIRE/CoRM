@@ -5,8 +5,8 @@
 # It can have different status as Detected, In progress, Won or Lose
 #
 class Opportunity < ActiveRecord::Base
-  
   resourcify
+  acts_as_xlsx
   
   validates_presence_of :name
 
@@ -21,6 +21,11 @@ class Opportunity < ActiveRecord::Base
   STATUTS = ["Détectée", "En cours", "Gagnée", "Perdue", "Abandonnée","Suspendue"]
   validates_inclusion_of :statut, :in => STATUTS
   
+  # Validation using global Settings
+  # don't use validates_associated : it does not work ;)
+  validates :account, :presence => true, if: :mandatory_account_setting?
+  validates :contact, :presence => true, if: :mandatory_contact_setting?    
+  
     # Conservé pour le bon fonctionnement des migrations --> non utilisé
     has_attached_file :attach
       
@@ -28,6 +33,17 @@ class Opportunity < ActiveRecord::Base
     has_many :opportunity_attachments, :dependent => :destroy
     accepts_nested_attributes_for :opportunity_attachments, allow_destroy: true
     alias_attribute :attachments, :opportunity_attachments
+  
+  
+  def mandatory_account_setting?
+    @setting = Setting.all.first
+    @setting.mandatory_account
+  end
+  
+  def mandatory_contact_setting?
+    @setting = Setting.all.first
+    @setting.mandatory_contact
+  end    
   
   def author
     return author_user || User::default
@@ -65,6 +81,7 @@ class Opportunity < ActiveRecord::Base
   scope :by_contact_id, lambda { |contact_id| where("contact_id = ?", contact_id) unless contact_id.blank? }
   scope :by_user, lambda { |user| where( "opportunities.user_id = ?", user.id) unless user.nil? }
   scope :by_user_id, lambda { |user_id| where( "opportunities.user_id = ?", user_id) unless user_id.blank? }
+  scope :by_author_user_id, lambda { |author_user_id| where( "opportunities.created_by = ?", author_user_id) unless author_user_id.blank? }  
   #scope :by_term, lambda { |date_begin,date_end|  where( "term BETWEEN ? AND ? OR term IS NULL", '%'+date_begin, date_end+'%')}
   scope :between_dates, lambda { |start_at, end_at| where("created_at >= ? AND created_at <= ?", start_at, end_at) }
   scope :by_origin_account, lambda { |origin_account| joins(:account).where("accounts.origin_id IN (?)", origin_account) unless origin_account.blank? } 

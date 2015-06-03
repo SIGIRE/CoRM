@@ -1,0 +1,36 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "Rapport d'activités") do |sheet|
+  sheet.add_row ["Du", @start_at]
+  sheet.add_row ["Au", @end_at]
+  sheet.add_row ["Créé par", @author_user_name]
+  sheet.add_row ["Affecté à", @user_name]
+end
+
+wb.add_worksheet(name: "Evènements") do |sheet|
+  sheet.add_row ["ID", "Début", "Fin", "Type", "ID Compte", "Compte", "Libellé", "Contact", "Créé par", "Créé le", "Affecté à"]
+  @events.each do |event|
+    sheet.add_row [(event.id), (event.date_begin), (event.date_end), (if !event.event_type.blank? then event.event_type.label + " " + event.event_type.direction end) , (if !event.account.blank? then event.account.id end), (if !event.account.blank? then event.account.company end), event.notes || "", (if !event.contact.blank? then event.contact.full_name end), (if !event.author_user.blank? then event.author_user.full_name end) , (event.created_at), (if !event.user.blank? then event.user.full_name end)]
+  end
+end
+
+wb.add_worksheet(name: "Tâches") do |sheet|
+  sheet.add_row ["ID", "Statut", "Priorité", "ID Compte", "Compte", "Libellé", "Contact", "Création", "Echéance", "Créé par", "Affecté à"]
+  @tasks.each do |task|
+    sheet.add_row [(task.id), (task.statut), (Task::PRIORITIES[task.priority]), (if !task.account.blank? then task.account.id end), (if !task.account.blank? then task.account.company end), task.title || "", (if !task.contact.blank? then task.contact.full_name end), task.created_at, task.term || "", (if !task.author_user.blank? then task.author_user.full_name end) , (if !task.user.blank? then task.user.full_name end)]
+  end
+end
+
+wb.add_worksheet(name: "Opportunités") do |sheet|
+  sheet.add_row ["ID", "Statut", "ID Compte", "Compte", "Libellé", "Contact", "Estimation", "Marge", "Création", "Echéance", "Créé par", "Affecté à"]
+  @opportunities.each do |opportunity|
+    sheet.add_row [(opportunity.id), (opportunity.statut), (if !opportunity.account.blank? then opportunity.account.id end), (if !opportunity.account.blank? then opportunity.account.company end), opportunity.name || "", (if !opportunity.contact.blank? then opportunity.contact.full_name end), opportunity.amount || 0 , opportunity.profit || 0 , opportunity.created_at, opportunity.term || "", (if !opportunity.author_user.blank? then opportunity.author_user.full_name end) , (if !opportunity.user.blank? then opportunity.user.full_name end)]
+  end
+end
+
+wb.add_worksheet(name: "Devis") do |sheet|
+  sheet.add_row ["ID", "Statut", "ID Compte", "Compte", "Libellé", "Contact", "Total HT", "Date", "Créé par", "Géré par"]
+  @quotations.each do |quotation|
+    sheet.add_row [(quotation.id), (quotation.statut), (if !quotation.account.blank? then quotation.account.id end), (if !quotation.account.blank? then quotation.account.company end), quotation.ref || "", (if !quotation.contact.blank? then quotation.contact.full_name end), quotation.total_excl_tax.to_f || 0 , quotation.created_at, (if !quotation.author_user.blank? then quotation.author_user.full_name end) , (if !quotation.user.blank? then quotation.user.full_name end)]
+  end
+end

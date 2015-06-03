@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150326093406) do
+ActiveRecord::Schema.define(:version => 20150529193906) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -92,6 +92,16 @@ ActiveRecord::Schema.define(:version => 20150326093406) do
   create_table "contacts_tags", :id => false, :force => true do |t|
     t.integer "contact_id"
     t.integer "tag_id"
+  end
+
+  create_table "contract_attachments", :force => true do |t|
+    t.integer  "contract_id"
+    t.string   "attach_file_name"
+    t.string   "attach_content_type"
+    t.integer  "attach_file_size"
+    t.datetime "attach_updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "contract_categories", :force => true do |t|
@@ -406,6 +416,8 @@ ActiveRecord::Schema.define(:version => 20150326093406) do
     t.integer  "attach_file_size"
     t.datetime "attach_updated_at"
     t.boolean  "clicktocall",         :default => false
+    t.boolean  "mandatory_account",   :default => false
+    t.boolean  "mandatory_contact",   :default => false
   end
 
   create_table "tags", :force => true do |t|

@@ -59,6 +59,8 @@ gem 'groupdate'
 
 gem 'yaml_db'
 gem 'rubyzip'
+# Ensure compatibility with the old rubyzip interface
+gem 'zip-zip'
 
 gem "font-awesome-rails"
 #gem text provide class and methods for matching string
@@ -66,3 +68,10 @@ gem 'text', '~> 1.3.0'
 
 # Piwik - Open Analytics Platform
 gem 'piwik_analytics', '~> 1.0.1'
+
+# Export to Excel format
+# Needed on CentOS : yum install libxml2-devel libxslt-devel
+# Needed on CentOS : gem install nokogiri -- --use-system-libraries
+gem 'axlsx', '~> 2.0'
+gem 'acts_as_xlsx'
+gem 'axlsx_rails'

@@ -16,6 +16,12 @@ class Quotation < ActiveRecord::Base
   # :created_by, :updated_by, :label
   
   validates_presence_of :label
+  
+  # Validation using global Settings
+  # don't use validates_associated : it does not work ;)
+  validates :account, :presence => true, if: :mandatory_account_setting?
+  validates :contact, :presence => true, if: :mandatory_contact_setting?    
+    
 
   belongs_to :opportunity
   belongs_to :contact
@@ -49,6 +55,17 @@ class Quotation < ActiveRecord::Base
   monetize :total_excl_tax_cents
   monetize :total_VAT_cents
   monetize :total_incl_tax_cents
+  
+  def mandatory_account_setting?
+    @setting = Setting.all.first
+    @setting.mandatory_account
+  end
+  
+  def mandatory_contact_setting?
+    @setting = Setting.all.first
+    @setting.mandatory_contact
+  end    
+    
 
   def author
     return author_user || User::default
@@ -83,7 +100,10 @@ class Quotation < ActiveRecord::Base
   scope :by_contact_id, lambda { |contact_id| where("quotations.contact_id = ?", contact_id) unless contact_id.blank? }
   scope :by_user, lambda { |user| where("quotations.user_id = ?", user.id) unless user.nil? }
   scope :by_user_id, lambda { |user_id| where("quotations.user_id = ?", user_id) unless user_id.blank? }
+  scope :by_author_user_id, lambda { |author_user_id| where( "quotations.created_by = ?", author_user_id) unless author_user_id.blank? }  
   scope :between_dates, lambda { |start_at, end_at| where("created_at >= ? AND created_at <= ?", start_at, end_at) }
   scope :by_activity_account, lambda { |activity_account| joins(:account).where("accounts.activity_id IN (?)", activity_account) unless activity_account.blank? }
+  scope :by_origin_account, lambda { |origin_account| joins(:account).where("accounts.origin_id IN (?)", origin_account) unless origin_account.blank? } 
+  scope :by_account_tags, lambda { |tags| joins(:account => :tags).where("tags.id IN (?)", tags) unless tags.blank? }
   
 end

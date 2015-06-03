@@ -1,5 +1,9 @@
+<%# Récupération du des fonctions %>
+<%# <% content_for(:attachments_js) do %1> %>
+<%#     <%= javascript_include_tag "attachments" %1> %>
+<%# <% end %1> %>
 
-<%= form_for(@contract, :html => { :class => "well "}) do |f| %>
+<%= nested_form_for(@contract, :html => { :class => "well "}) do |f| %>
   <% if @contract.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@contract.errors.count, "error") %> prohibited this origin from being saved:</h2>
@@ -13,63 +17,102 @@
   <% end %>
 
  
-  <div class="field">
-    <div class="span2">Nom :</div><%= f.text_field :name,{ :class => 'required'} %><span class="req" />
+  <div class="row row-fluid">
+    <div class="field full">
+      <div class="span2">Nom :</div><p><%= f.text_field :name,{ :class => 'required'} %><span class="req" /></p>
+    </div>
   </div>
   
         <!-- Account field -->
-
-		      <div class="field">
-			      <div class="span2">Compte :</div>
-				    <p>
-					    <%= text_field_tag(nil, (@contract.account.company unless @contract.account.nil?),{:class => 'typeahead-account-search', :type => 'search', :autocomplete => :off, 'data-field' => 'account_id', :placeholder => 'Rechercher', :id => 'account_search_field'}) %>
-					    <%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
-					    <span class="label label-info" id="task_notice"  style="display: none; margin-left: 2em;">
-							  <i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant
-					    </span>
-				    </p>
-				    <%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id' } %>
-		      </div>
-  <div class="field">
-    <div class="span2">Description :</div>
-    <%= f.text_area :description, :display_with => :simple_format, :rows => "5", :style=>'width: 30em;' %>
+  <div class="row row-fluid">
+    <div class="field full">
+      <div class="span2">Compte :</div>
+      <p>
+	<%= text_field_tag(nil, (@contract.account.company unless @contract.account.nil?),{:class => "typeahead-account-search #{'required' unless !@contract.mandatory_account_setting?}", :type => 'search', :autocomplete => :off, 'data-field' => 'account_id', :placeholder => 'Rechercher', :id => 'account_search_field'}) %>
+	<% if @contract.mandatory_account_setting? then %> <span class="req"/></span><% end %>
+	<%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
+	<span class="label label-info" id="task_notice"  style="display: none; margin-left: 2em;">
+	  <i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant
+	</span>
+      </p>
+      <%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id' } %>
+    </div>
+  </div>
+		      
+  <div class="row row-fluid">
+    <div class="field full">
+      <div class="span2">Description :</div><p><%= f.text_area :description, :display_with => :simple_format, :rows => "5", :style=>'width: 30em;' %></p>
+    </div>
   </div>
 
-    <div class="field">
-        <div class="span2">Date initial :</div>
-				<p><%= f.text_field :date_initial %></p>
-      </div>
+  <div class="row row-fluid">
+    <div class="field full">
+        <div class="span2">Date de signature initiale :</div><p><%= f.text_field :date_initial, { :value => (@contract.date_initial.strftime('%d/%m/%Y') unless @contract.date_initial.blank?) } %></p>
+    </div>
+  </div>
 	
-      <div class="field">
-        <div class="span2">Date de début :</div>
-				<p><%= f.text_field :date_begin %></p>
-      </div>
+  <div class="row row-fluid">
+    <div class="field full">
+        <div class="span2">Date de début de validité :</div><p><%= f.text_field :date_begin, { :value => (@contract.date_begin.strftime('%d/%m/%Y') unless @contract.date_begin.blank?) } %></p>
+    </div>
+  </div>
     
-      <div class="field">
-        <div class="span2">Date de fin :</div>
-				<p><%= f.text_field :date_end %></p>
-      </div>
+  <div class="row row-fluid">
+    <div class="field full">
+        <div class="span2">Date de fin de validité :</div><p><%= f.text_field :date_end, { :value => (@contract.date_end.strftime('%d/%m/%Y') unless @contract.date_end.blank?) } %></p>
+    </div>
+  </div>
+    
+      
+  <div class="row row-fluid">
+    <div class="field full">
+      <div class="span2"> Catégorie : </div> <p><%= f.collection_select :contract_category_id, ContractCategory.order('name ASC').all, :id, :name, :include_blank => true %></p>
+    </div>
+  </div>
+  
+    <div id="attachments">
+      <%= f.fields_for :contract_attachments do |ca| %>
+        <div class="row row-fluid">
+          <div class="field full">
+            <div class="span2"></div>
+            <% if ca.object.new_record? %>
+              <%= ca.file_field :attach, required: true%>        
+              <script>$ (":file").filestyle({buttonText: 'Choisir un fichier'});</script>
+            <% else %>
+              <%= link_to ca.object.attach_file_name, ca.object.attach.url %>
+            <% end %>
+            <%= ca.link_to_remove "", class: 'icon-remove' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
 
-  <div class="field">
-    <div class="span2"> Catégorie : </div> <%= f.collection_select :contract_category_id, ContractCategory.order('name ASC').all, :id, :name, :include_blank => true %>
-  </div> 
+    <div class="row row-fluid">
+      <div class="field full">
+        <div class="span2"></div><%= f.link_to_add raw('<i class="icon-plus"></i> Ajouter une pièce-jointe'), :contract_attachments, data: { target: '#attachments' } %>
+      </div>
+    </div>
+  
   
           <br />
   	
-	<div class="field">
-    <% if !@contract.id.nil? %>
-		<div class="span9"> Créé par : <%= @contract.author.full_name %>, le </strong><%= @contract.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
-		<% if !@contract.updated_by.nil? %>
-			<div class="span9"> Dernièrement modifié par : <%= @contract.editor.full_name %>, le <%= @contract.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
-		<% else %>
-		<% end %>
-		
-	<% end %>
+
+  
+	<% if !@contract.id.nil? or !@contract.updated_by.nil? %>
+	<div class="row row-fluid">
+		<div class="field full">
+			<% if !@contract.id.nil? %>
+			<p><%= t('app.actions.created_by') %> <strong><%= @contract.author.full_name %></strong>, <%= t('app.at') %> <strong><%= @contract.created_at.strftime("%d/%m/%y à %H:%M") %></strong>.</p>
+		  <% end %>
+		</div>
+    <div class="field full">
+			<% if !@contract.updated_by.nil? %>
+			<p><%= t('app.actions.updated_by') %> <strong><%= @contract.editor.full_name %></strong>, <%= t('app.at') %> <strong><%= @contract.updated_at.strftime("%d/%m/%y à %H:%M") %></strong>.</p>
+			<% end %>
+	  </div>
 	</div>
-	  
-	<hr />
+     <% end %>  
+    <hr />
   
    <div class="row">
     <%= if !@contract.id.nil? then f.button "Modifier le contrat", :type => :submit, :class =>"btn btn-primary",:id =>"contract_validate_form" else f.button 'Créer un contrat', :type => :submit, :class =>"btn btn-primary",:id =>"contract_validate_form" end%>

@@ -4,14 +4,17 @@
     <div>
       <% if contacts.nil? %>
         <% if !@quotation.account.nil? %>
-          <%= collection_select :quotation, :contact_id, Contact.where(:account_id => @quotation.account.id).order(:surname), :id, :full_name, {:include_blank => true }, { :id => 'contact_id' } %>
+          <%= collection_select :quotation, :contact_id, Contact.where(:account_id => @quotation.account.id).order(:surname), :id, :full_name, {:include_blank => !@quotation.mandatory_contact_setting? }, { :id => 'contact_id' } %>
+          <% if @quotation.mandatory_contact_setting? then %> <span class="req"/></span><% end %>
           <%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
         <% else %>
-          <%= collection_select  :quotation, :contact_id, Contact.where(:account_id => 0), :id, :full_name, {:include_blank => true}, { :id => 'contact_id' } %>
+          <%= collection_select  :quotation, :contact_id, Contact.where(:account_id => 0), :id, :full_name, {:include_blank => !@quotation.mandatory_contact_setting? }, { :id => 'contact_id' } %>
+          <% if @quotation.mandatory_contact_setting? then %> <span class="req"/></span><% end %>
           <%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
         <% end %> 
       <% else %>
-        <%= collection_select  :quotation, :contact_id, contacts , :id, :full_name, {:include_blank => true}, { :id => 'contact_id' } %>
+        <%= collection_select  :quotation, :contact_id, contacts , :id, :full_name, {:include_blank => !@quotation.mandatory_contact_setting? }, { :id => 'contact_id' } %>
+        <% if @quotation.mandatory_contact_setting? then %> <span class="req"/></span><% end %>
         <%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
       <% end %>
     </div>

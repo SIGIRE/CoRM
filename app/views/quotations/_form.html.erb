@@ -36,7 +36,8 @@
 						 company = @quotation.account.company.html_safe
 					 end %>
 					<p>
-						<%= text_field_tag(nil, company, { :placeholder => 'Rechercher', :class => 'typeahead-account-search', :type => 'search', :autocomplete => 'off', 'data-field' => 'account_id' }) %>
+						<%= text_field_tag(nil, company, { :placeholder => 'Rechercher', :class => "typeahead-account-search #{'required' unless !@quotation.mandatory_account_setting? }", :type => 'search', :autocomplete => 'off', 'data-field' => 'account_id' }) %>
+						<% if @quotation.mandatory_account_setting? then %> <span class="req"/></span><% end %>
 						<%= image_tag('/assets/icons/loading.gif', :alt => 'Please wait...', :class => 'loading hidden') %>
 						<span class="label label-info" id="task_notice"  style="display: none; margin-left: 2em;">
 							<i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant

@@ -9,6 +9,7 @@ class EventsController < ApplicationController
   layout :current_layout
 
   has_scope :by_user_id
+  has_scope :by_author_user_id
   has_scope :by_contact_id
   has_scope :by_content_like
   has_scope :by_event_type_id
