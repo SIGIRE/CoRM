@@ -26,3 +26,4 @@
 
 /* This adds alertify libs. */
 //= require ./alertify.min.js
+

@@ -509,12 +509,14 @@ span.caret-up {
 		&:nth-child(odd) {
 			> div {
 				background-color: #f4f4f4;
-				border-color: #e3e3e3;
+				/*border-color: #e3e3e3;*/
+				/*border-color: rgba(150, 22, 22, 0.53);*/
 			}
 		}
 		&:nth-child(even) {
 			> div {
 				background-color: #f8f8f8;
+				/*border-color: rgba(22, 43, 150, 0.53);*/
 			}
 		}
 		clear: both;
