@@ -1,6 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
 @import "font-awesome";
 
+
 //= require ./jquery-ui.css
 //= require ./expanding-search-bar.css
 $navbarBackgroundHighlight: #333;
@@ -65,3 +66,4 @@ display:block;
 div.event.hidden{
 display:none;
 }
+
