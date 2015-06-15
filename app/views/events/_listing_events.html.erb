@@ -19,7 +19,12 @@ function display(id) {
   <%# </label> %>
   <% @events.each do |e| %>
   <div class="event-container">
-    <div class="event small">
+    
+    <% if !e.event_type.nil? %>
+        <div class="event small" style="border-color: <%= e.event_type.bordercolor %> ;">
+        <% else %>
+        <div class="event small">   
+    <% end %>
       <div class="message row-fluid">
         <%= render :partial => 'event_message', :locals => { :e => e, :css_class => 'content' } %>
         <p class="time">

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150529193906) do
+ActiveRecord::Schema.define(:version => 20150612090852) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(:version => 20150529193906) do
     t.integer  "modified_by"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.string   "bordercolor"
   end
 
   create_table "events", :force => true do |t|

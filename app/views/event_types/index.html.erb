@@ -5,7 +5,8 @@
     <thead>
       <tr>
         <th class="text-center">Libell&eacute;</th>
-        <th class="text-center">Sens</th>  
+        <th class="text-center">Sens</th>
+        <th class="text-center">BorderColor</th>
         <th class="text-center">Éditer</th>
       </tr>
     </thead>
@@ -15,6 +16,7 @@
     <tr>
       <td class="text-center"><%= type.label %></td>
       <td class="text-center"><%= type.direction %></td>
+      <td class="text-center" style="color: <%= type.bordercolor %> ;"> <i class="fa fa-paint-brush fa-2x"></i> </td>
       <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_event_type_path(type),{:title => "Éditer le type"}%></td>
      </tr>
   <% end %>
