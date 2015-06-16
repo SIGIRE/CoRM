@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150612090852) do
+ActiveRecord::Schema.define(:version => 20150616160245) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -416,9 +416,13 @@ ActiveRecord::Schema.define(:version => 20150612090852) do
     t.string   "attach_content_type"
     t.integer  "attach_file_size"
     t.datetime "attach_updated_at"
-    t.boolean  "clicktocall",         :default => false
-    t.boolean  "mandatory_account",   :default => false
-    t.boolean  "mandatory_contact",   :default => false
+    t.boolean  "clicktocall",           :default => false
+    t.boolean  "mandatory_account",     :default => false
+    t.boolean  "mandatory_contact",     :default => false
+    t.boolean  "quotations_display",    :default => true
+    t.boolean  "opportunities_display", :default => true
+    t.boolean  "contracts_display",     :default => true
+    t.integer  "default_event_type_id"
   end
 
   create_table "tags", :force => true do |t|

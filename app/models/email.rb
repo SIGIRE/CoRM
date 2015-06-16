@@ -136,11 +136,9 @@ class Email < ActiveRecord::Base
     event = Event.new
     event.account_id = account.id
     event.contact_id = contacts.first.id unless contacts.empty?
-    logger.debug "event = #{event}"
     event.created_by = self.user_id
     event.user_id = self.user_id
     event.event_type_id = self.event_type_id
-    logger.debug "event = #{event}"
 
     event.date_begin = self.send_at
     event.date_end = self.send_at
@@ -150,7 +148,6 @@ class Email < ActiveRecord::Base
     event.notes += "Copie : #{generate_string_from_mails(self.cc)}\n" unless self.cc.empty?
     event.notes +=  "Sujet : #{self.object}\n\n" unless self.object.blank?
     event.notes += "#{self.content}"
-    logger.debug "event = #{event}"
     self.attachments.each do |attachment|
       attach = EventAttachment.new
       attach.attach = attachment.attach
