@@ -18,7 +18,7 @@ class Email < ActiveRecord::Base
 
   def to_events
     logger.debug "-------------------"
-    logger.debug "Entre dans models.rb / to_events"
+    logger.debug "Entre dans models/email.rb / to_events"
     logger.debug "-------------------"
     convert if is_convertible_to_events?
   end
@@ -28,7 +28,7 @@ class Email < ActiveRecord::Base
 
   def is_convertible_to_events?
     logger.debug "-------------------"
-    logger.debug "Entre dans models.rb / convertible_to_events"
+    logger.debug "Entre dans models/email.rb / convertible_to_events"
     logger.debug "-------------------"
     if (!accounts_with_contacts.empty? or !self.arbitrary_account.blank?)
       logger.debug "convertible = true"
@@ -45,7 +45,7 @@ class Email < ActiveRecord::Base
 
   def accounts_with_contacts
     logger.debug "-------------------"
-    logger.debug "Entre dans models.rb / accounts_with_contacts"
+    logger.debug "Entre dans models/email.rb / accounts_with_contacts"
     logger.debug "-------------------"    
     resultset = Hash.new { |h, k| h[k] = Set.new }
     self.to.each do |mail_adress|
@@ -62,7 +62,7 @@ class Email < ActiveRecord::Base
 
   def has_arbitrary_account_and_contact?
     logger.debug "-------------------"
-    logger.debug "Entre dans models.rb / has_arbitrary_account_and_contact"
+    logger.debug "Entre dans models/email.rb / has_arbitrary_account_and_contact"
     logger.debug "-------------------"
     self.arbitrary_account && self.arbitrary_contact
   end
@@ -72,7 +72,7 @@ class Email < ActiveRecord::Base
 
   def accounts
     logger.debug "-------------------"
-    logger.debug "Entre dans models.rb / accounts"
+    logger.debug "Entre dans models/email.rb / accounts"
     logger.debug "-------------------"    
     accounts = accounts_with_contacts.keys
     accounts << arbitrary_account if arbitrary_account
@@ -84,7 +84,7 @@ class Email < ActiveRecord::Base
 
   def contacts
     logger.debug "-------------------"
-    logger.debug "Entre dans models.rb / contacts"
+    logger.debug "Entre dans models/email.rb / contacts"
     logger.debug "-------------------"    
     resultset = []
     accounts_with_contacts.values.each do |contacts_set|
@@ -103,7 +103,7 @@ class Email < ActiveRecord::Base
 
   def convert
     logger.debug "-------------------"
-    logger.debug "Entre dans models.rb / convert"
+    logger.debug "Entre dans models/email.rb / convert"
     logger.debug "-------------------"    
     events = []
     
@@ -115,9 +115,6 @@ class Email < ActiveRecord::Base
     else
       accounts_with_contacts.each { |account, contacts| events.push(create_event account, contacts) }
     end
-
-
-
     #if self.arbitrary_account
     #  puts "SECOND CONVERT CALLED"
     #  contacts = []
@@ -134,14 +131,16 @@ class Email < ActiveRecord::Base
 
   def create_event account, contacts
     logger.debug "-------------------"
-    logger.debug "Entre dans models.rb / create_event"
+    logger.debug "Entre dans models/email.rb / create_event"
     logger.debug "-------------------"        
     event = Event.new
     event.account_id = account.id
     event.contact_id = contacts.first.id unless contacts.empty?
+    logger.debug "event = #{event}"
     event.created_by = self.user_id
     event.user_id = self.user_id
     event.event_type_id = self.event_type_id
+    logger.debug "event = #{event}"
 
     event.date_begin = self.send_at
     event.date_end = self.send_at
@@ -151,7 +150,7 @@ class Email < ActiveRecord::Base
     event.notes += "Copie : #{generate_string_from_mails(self.cc)}\n" unless self.cc.empty?
     event.notes +=  "Sujet : #{self.object}\n\n" unless self.object.blank?
     event.notes += "#{self.content}"
-
+    logger.debug "event = #{event}"
     self.attachments.each do |attachment|
       attach = EventAttachment.new
       attach.attach = attachment.attach
@@ -167,7 +166,7 @@ class Email < ActiveRecord::Base
 
   def generate_string_from_mails(mail_adresses)
     logger.debug "-------------------"
-    logger.debug "Entre dans models.rb / generate_strings_from_mail"
+    logger.debug "Entre dans models/email.rb / generate_strings_from_mail"
     logger.debug "-------------------"      
     strings = []
     mail_adresses.each do |mail_adress|
