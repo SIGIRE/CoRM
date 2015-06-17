@@ -31,21 +31,31 @@
         </li>
 
         <!-- TRADES -->
-
-        <% cssClass = (params[:controller] == 'quotations' or params[:controller] == 'opportunities') ? 'active' : '' %>
+        <% if Setting.display_business_menu? %>
+        <% cssClass = (params[:controller] == 'quotations' or params[:controller] == 'opportunities' or params[:controller] == 'contracts') ? 'active' : '' %>
         <li class="dropdown<%= if !cssClass.blank? then " #{cssClass}" end %>">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="fa fa-bar-chart-o"></i> <%= t('title.trade') %>
+            <i class="fa fa-money"></i> <%= t('title.trade') %>
             <i class="caret"></i>
           </a>
           <ul class="dropdown-menu">
-            <li><%= link_to "<i class=\"fa fa-file-text fa-fw\"></i> #{t('app.model.Quotation').pluralize}".html_safe, quotations_path %></li>
-            <li><%= link_to "<i class=\"fa fa-briefcase fa-fw\"></i> #{t('app.model.Opportunity').pluralize}".html_safe, opportunities_path %></li>
-            <li><%= link_to "<i class=\"fa fa-suitcase fa-fw\"></i> #{t('app.model.Contract').pluralize}".html_safe, contracts_path %></li>
-            <li class="divider"></li>
-            <li><%= link_to "<i class=\"fa fa-pie-chart  fa-fw\"></i> #{t('title.reporting')}".html_safe, reporting_path %></li>
+            <% if Setting.display_quotations? %> <li><%= link_to "<i class=\"fa fa-file-text fa-fw\"></i> #{t('app.model.Quotation').pluralize}".html_safe, quotations_path %></li> <% end %>
+            <% if Setting.display_opportunities? %> <li><%= link_to "<i class=\"fa fa-briefcase fa-fw\"></i> #{t('app.model.Opportunity').pluralize}".html_safe, opportunities_path %></li> <% end %>
+            <% if Setting.display_contracts? %> <li><%= link_to "<i class=\"fa fa-suitcase fa-fw\"></i> #{t('app.model.Contract').pluralize}".html_safe, contracts_path %></li> <% end %>
           </ul>
         </li>
+        <% end %>
+      
+      
+        <!-- REPORT -->
+        
+        <% cssClass = (params[:controller] == 'home' and params[:action] == 'reporting') ? 'active' : '' %>
+        <li class="<%= if !cssClass.blank? then " #{cssClass}" end %>">
+          <%= link_to "<i class=\"fa fa-pie-chart  fa-fw\"></i> #{t('title.reporting')}".html_safe, reporting_path %></li>
+        </li>
+     
+        
+        
       </ul>
 
       </div>

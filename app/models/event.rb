@@ -41,7 +41,12 @@ class Event < ActiveRecord::Base
   def mandatory_contact_setting?
     @setting = Setting.all.first
     @setting.mandatory_contact
-  end     
+  end
+  
+  def default_event_type_id
+    @setting = Setting.all.first
+    @setting.default_event_type_id    
+  end
   
   def author
     return author_user || User::default

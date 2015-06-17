@@ -22,6 +22,8 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     @event_new = @account.events.build if @account
+    @event_new.event_type_id = @event_new.default_event_type_id if @event_new
+    
     @events = apply_scopes(events).
               order("date_begin DESC").
               page(params[:page]).
@@ -59,6 +61,7 @@ class EventsController < ApplicationController
     @event = Event.new
     @event.account_id = params[:account_id]
     @event.date_end = Date.today
+    @event.event_type_id = Event.default_event_type_id
 
 
     respond_to do |format|

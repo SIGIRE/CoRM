@@ -107,6 +107,69 @@
   	                     
 	    </div>
 
+
+	<div class="span9">
+            <h2>Saisies par défaut</h2>
+	</div>
+
+                
+		    <%= form_for(Setting.new, :url => { :controller => 'settings', :action => 'update'}) do |f| %>
+			<div class="row row-fluid">
+			    <div class="field full">
+				<div class="span2"> Type d'évènement par défaut : </div>  <%= f.collection_select :default_event_type_id, EventType.all, :id, :full_type, :class =>"filter_coll", :include_blank => true, :selected => @setting.default_event_type_id.to_i %>
+			    </div>
+			    
+			    <div class="field full">
+				<div class="span2"></div><input type="submit" value="Sauvegarder" class="btn btn-success">
+			    </div>
+			</div>
+			<%= hidden_field_tag "setting[id]", @setting.id%>
+		    <% end %>
+  	                     
+	    </div>
+
+	<div class="span9">
+            <h2>Affichage</h2>
+	</div>
+
+                
+		    <%= form_for(Setting.new, :url => { :controller => 'settings', :action => 'update'}) do |f| %>
+			<div class="row row-fluid">
+			<div class="field full">
+			    <div class="span2"> Affichage des Devis : </div> <%= f.check_box :quotations_display, {:checked => (@setting.quotations_display)} %>
+			    <% if @setting.quotations_display == true %>
+				<div class="alert alert-success">Fonction actuellement activée.</div>
+			    <% else %>
+				<div class="alert alert-warning">Fonction actuellement désactivée.</div>
+			    <% end %>
+			</div>
+			
+		    	<div class="field full">
+    			<div class="span2"> Affichage des Opportunités : </div> <%= f.check_box :opportunities_display, {:checked => (@setting.opportunities_display)} %>
+			<% if @setting.opportunities_display == true %>
+			    <div class="alert alert-success">Fonction actuellement activée.</div>
+		    	<% else %>
+			    <div class="alert alert-warning">Fonction actuellement désactivée.</div>
+			<% end %>
+			</div>
+			
+		    	<div class="field full">
+    			<div class="span2"> Affichage des Contrats : </div> <%= f.check_box :contracts_display, {:checked => (@setting.contracts_display)} %>
+			<% if @setting.contracts_display == true %>
+			    <div class="alert alert-success">Fonction actuellement activée.</div>
+		    	<% else %>
+			    <div class="alert alert-warning">Fonction actuellement désactivée.</div>
+			<% end %>
+			</div>			
+			
+		    <div class="field full">
+			<div class="span2"></div><input type="submit" value="Sauvegarder" class="btn btn-success">
+		    </div>
+		    </div>
+		    <%= hidden_field_tag "setting[id]", @setting.id%>
+		<% end %>
+  	                     
+	    </div>
     
 	
 	<div name="mail_settings">
