@@ -496,7 +496,7 @@ fr:
     statistic: "Statistique"
     filter_tasks: "Filtrer les Tâches"
     search_actor: "Rechercher un acteur..."
-    reporting: "Rapport d'activité"
+    reporting: "Rapport"
     filter_reporting: "Filtrer le rapport d'activité"
     about: "À propos"
     registered_users : "Utilisateurs enregistrés"

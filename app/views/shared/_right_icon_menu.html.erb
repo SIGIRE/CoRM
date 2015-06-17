@@ -9,9 +9,9 @@
       <li><%= link_to "<i class=\"fa fa-tasks fa-fw\"></i> #{t('app.model.Task')}".html_safe, new_task_path %></li>
       <li><%= link_to "<i class=\"fa fa-home fa-fw\"></i> #{t('app.model.Account')}".html_safe, new_account_path %></li>
       <li><%= link_to "<i class=\"fa fa-user fa-fw\"></i> #{t('app.model.Contact')}".html_safe, new_contact_path %></li>
-      <li><%= link_to "<i class=\"fa fa-file-text fa-fw\"></i> #{t('app.model.Quotation')}".html_safe, new_quotation_path %></li>
-      <li><%= link_to "<i class=\"fa fa-briefcase fa-fw\"></i> #{t('app.model.Opportunity')}".html_safe, new_opportunity_path %></li>
-      <li><%= link_to "<i class=\"fa fa-suitcase fa-fw\"></i> #{t('app.model.Contract')}".html_safe, new_contract_path %></li>
+      <% if Setting.display_quotations? %> <li><%= link_to "<i class=\"fa fa-file-text fa-fw\"></i> #{t('app.model.Quotation')}".html_safe, new_quotation_path %></li> <% end %>
+      <% if Setting.display_opportunities? %> <li><%= link_to "<i class=\"fa fa-briefcase fa-fw\"></i> #{t('app.model.Opportunity')}".html_safe, new_opportunity_path %></li> <% end %>
+      <% if Setting.display_contracts? %> <li><%= link_to "<i class=\"fa fa-suitcase fa-fw\"></i> #{t('app.model.Contract')}".html_safe, new_contract_path %></li> <% end %>
       <li><%= link_to "<i class=\"fa fa-folder fa-fw\"></i> #{t('app.model.Document')}".html_safe, new_document_path %></li>
     </ul>
   </li>
