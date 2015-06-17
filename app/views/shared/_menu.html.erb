@@ -35,7 +35,7 @@
         <% cssClass = (params[:controller] == 'quotations' or params[:controller] == 'opportunities' or params[:controller] == 'contracts') ? 'active' : '' %>
         <li class="dropdown<%= if !cssClass.blank? then " #{cssClass}" end %>">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="fa fa-money"></i> <%= t('title.trade') %>
+            <i class="fa fa-line-chart"></i> <%= t('title.trade') %>
             <i class="caret"></i>
           </a>
           <ul class="dropdown-menu">
