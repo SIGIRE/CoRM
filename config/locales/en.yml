@@ -388,6 +388,7 @@ en:
     status:
       todo: "To do"
       in_progress: "In progress"
+      negotiation: "Negotiation"
       completed: "Completed"
       canceled: "Canceled"
       detected: "Detected"

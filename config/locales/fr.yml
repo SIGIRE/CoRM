@@ -386,6 +386,7 @@ fr:
     status:
       todo: "À faire"
       in_progress: "En cours"
+      negotiation: "Négociation"
       completed: "Terminé"
       canceled: "Annulé"
       detected: "Détectée"
@@ -487,7 +488,7 @@ fr:
   title:
     dashboard: "Tableau de bord"
     actor: "Acteur"
-    trade: "Commerce"
+    trade: "Affaires"
     show_all_task: "Afficher toutes mes tâches"
     show_all_event: "Afficher tous les évènements"
     show_all_opportunity: "Afficher toutes les opportunités"

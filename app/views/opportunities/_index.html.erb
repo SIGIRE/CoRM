@@ -54,7 +54,9 @@
           <span class="badge badge-important">
           <% elsif opportunity.statut == "En cours"%>
           <span class="badge badge-warning">
-          <% elsif opportunity.statut == "Gagnée"%>
+          <% elsif opportunity.statut == "Négociation"%>
+          <span class="badge badge-warning">
+	  <% elsif opportunity.statut == "Gagnée"%>
           <span class="badge badge-success">
           <% elsif opportunity.statut == "Perdue"%>
           <span class="badge badge-inverse">
