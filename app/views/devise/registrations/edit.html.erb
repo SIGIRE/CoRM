@@ -12,9 +12,13 @@
    <%= form_for(@user, :url => user_path(@user), :html => { :autocomplete => 'off', :method => :put , :class => "well"}) do |f| %>
     <%= devise_error_messages! %>
   
-    <div class="field"> <div class="span2">Login : </div> <%= f.email_field :email , :disabled => @email_disabled, :style=>'width: 20em;' %><span class="req" />
+  
+    <div class="field"> <div class="span2">Identifiant : </div> <%= f.text_field :login_name, :disabled => @email_disabled, :style=>'width: 20em;' %><span class="req" /><%= "@#{Setting.ad_domain_value}" if Setting.ad_enabled? %>
       <a id="profil_mdp" class="btn btn-success btn-small" data-toggle="modal" href="#edit_profile_modal" style="margin-bottom: 8px;">Modifier mon mot de passe</a>
     </div>
+    
+    <div class="field"> <div class="span2">E-mail : </div> <%= f.email_field :email , :disabled => @email_disabled, :style=>'width: 20em;' %><span class="req" />
+    </div>    
     
     <div class="field"> <div class="span2">Prénom : </div>
       <%= f.text_field :forename, { :class => 'required', :style=>'width: 20em;' } %><span class="req" />

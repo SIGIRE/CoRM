@@ -6,9 +6,8 @@
 #
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  # :database_authenticatable, :ldap_authenticatable, :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+  devise  :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
   rolify
   
@@ -18,7 +17,7 @@ class User < ActiveRecord::Base
   has_many :emails
 
   # nécessaire pour pouvoir modifer la valeur de ces attributs par nos propres forms
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :forename, :surname, :tel, :mobile, :current_password, :enabled, :locale
+  attr_accessible :login_name, :email, :password, :password_confirmation, :remember_me, :forename, :surname, :tel, :mobile, :current_password, :enabled, :locale
   attr_accessor :current_password
   
 
@@ -46,5 +45,6 @@ class User < ActiveRecord::Base
   end
 
 scope :by_mail, lambda { |mail| where('UPPER(users.email) = UPPER(?)', mail) unless mail.blank? }
+scope :by_login_name, lambda { |login_name| where('UPPER(users.login_name) = UPPER(?)', mail) unless login_name.blank? }
 
 end

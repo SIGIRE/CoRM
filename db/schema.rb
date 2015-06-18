@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150616160245) do
+ActiveRecord::Schema.define(:version => 20150618124323) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -423,6 +423,10 @@ ActiveRecord::Schema.define(:version => 20150616160245) do
     t.boolean  "opportunities_display", :default => true
     t.boolean  "contracts_display",     :default => true
     t.integer  "default_event_type_id"
+    t.boolean  "ad_enabled"
+    t.string   "ad_host"
+    t.string   "ad_port",               :default => "389"
+    t.string   "ad_domain"
   end
 
   create_table "tags", :force => true do |t|
@@ -479,6 +483,7 @@ ActiveRecord::Schema.define(:version => 20150616160245) do
     t.datetime "updated_at",                                             :null => false
     t.boolean  "enabled",                             :default => false
     t.string   "locale",                 :limit => 2
+    t.string   "login_name"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

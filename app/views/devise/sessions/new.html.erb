@@ -20,7 +20,7 @@
             <strong>Veuillez vous identifier</strong>
           </div>
           <br />
-          <div align="right">Identifiant <%= f.email_field :email, { :required => 'required'} %> </div>
+          <div align="right">Identifiant <%= f.text_field :login_name, { :required => 'required'} %> </div>
           <div align="right">Mot de passe <%= f.password_field :password, { :required => 'required'} %></div>
           <div class="pull-right">
             <% if devise_mapping.rememberable? -%>

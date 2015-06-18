@@ -170,6 +170,45 @@
 		<% end %>
   	                     
 	    </div>
+	    
+	    
+	    
+	<div class="span9">
+            <h2>Authentification</h2>
+	</div>
+
+                
+		    <%= form_for(Setting.new, :url => { :controller => 'settings', :action => 'update'}) do |f| %>
+			<div class="row row-fluid">
+			<div class="field full">
+			    <div class="span2"> Active Directory : </div> <%= f.check_box :ad_enabled, {:checked => (@setting.ad_enabled)} %>
+			    <% if @setting.ad_enabled == true %>
+				<div class="alert alert-success">Fonction actuellement activée.</div>
+			    <% else %>
+				<div class="alert alert-warning">Fonction actuellement désactivée.</div>
+			    <% end %>
+			</div>
+			
+			<div class="field full">
+			    <div class="span2"> Serveur : </div> <%= f.text_field :ad_host, :value => @setting.ad_host %>
+  			</div>
+			
+  			<div class="field full">
+			    <div class="span2"> Port : </div> <%= f.text_field :ad_port, :value => @setting.ad_port %>
+  			</div>
+			
+  			<div class="field full">
+			    <div class="span2"> Domaine : </div> <%= f.text_field :ad_domain, :value => @setting.ad_domain %>
+  			</div>				
+			
+		    <div class="field full">
+			<div class="span2"></div><input type="submit" value="Sauvegarder" class="btn btn-success">
+		    </div>
+		    </div>
+		    <%= hidden_field_tag "setting[id]", @setting.id%>
+		<% end %>
+  	                     
+	    </div>	    
     
 	
 	<div name="mail_settings">

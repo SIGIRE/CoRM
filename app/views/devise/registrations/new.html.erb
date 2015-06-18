@@ -14,7 +14,11 @@
 
   
   <div class="field"> 
-	<div class="span2"> Adresse e-mail (Login) : </div>  <%= f.email_field :email, { :required => 'required', :style=>'width: 20em;'} %><span class="req" />
+	<div class="span2"> Identifiant : </div>  <%= f.text_field :login_name, { :required => 'required', :style=>'width: 20em;'} %><span class="req" /><%= "@#{Setting.ad_domain_value}" if Setting.ad_enabled? %>
+  </div>  
+  
+  <div class="field"> 
+	<div class="span2"> Adresse e-mail : </div>  <%= f.email_field :email, { :required => 'required', :style=>'width: 20em;'} %><span class="req" />
   </div>
 
   <div class="field"> 
