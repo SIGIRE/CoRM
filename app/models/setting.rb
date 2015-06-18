@@ -24,4 +24,24 @@ class Setting < ActiveRecord::Base
         self.display_opportunities? || self.display_quotations? || self.display_contracts? 
     end
     
+    def self.ad_enabled?
+        setting = Setting.all.first
+        setting.ad_enabled 
+    end
+    
+    def self.ad_host_value
+        setting = Setting.all.first
+        setting.ad_host 
+    end
+    
+    def self.ad_port_value
+        setting = Setting.all.first
+        setting.ad_port
+    end
+    
+    def self.ad_domain_value
+        setting = Setting.all.first
+        setting.ad_domain 
+    end    
+    
 end

@@ -235,22 +235,40 @@ class RegistrationsController < Devise::RegistrationsController
   end
   
   def session_new
-    @user = User.find_by_email(params[:user][:email])
-    if !@user.nil? and @user.valid_password?(params[:user][:password])
+    
+    connected = false
+    
+    @user = User.find_by_login_name(params[:user][:login_name])
+    
+    if !@user.nil?  # and @user.valid_password?(params[:user][:password])
       if @user.enabled == true
-        sign_in(:user, @user)
-        current_user.remember_me!
-
-          #ensure remember_user_token is set
-          if Rails.env.production?
-            cookies.signed["remember_user_token"] = {
-              :value => @user.class.serialize_into_cookie(@user.reload),
-              :expires => 5.days.from_now,
-              :domain => CORM[:host],
-            }
-          end
+        if Setting.ad_enabled?
+          ldap = Net::LDAP.new
+          ldap.host = Setting.ad_host_value
+          ldap.port = Setting.ad_port_value
+          ldap.auth "#{params[:user][:login_name]}@#{Setting.ad_domain_value}", params[:user][:password]
+          connected = ldap.bind
+        else
+          connected = @user.valid_password?(params[:user][:password])
+        end
+        if connected
+          sign_in(:user, @user)
+          current_user.remember_me!
+  
+            #ensure remember_user_token is set
+            if Rails.env.production?
+              cookies.signed["remember_user_token"] = {
+                :value => @user.class.serialize_into_cookie(@user.reload),
+                :expires => 5.days.from_now,
+                :domain => CORM[:host],
+              }
+            end
         
         redirect_to root_url, :notice => t('devise.sessions.signed_in')
+        else
+          flash[:alert] = t('devise.failure.incorrect')
+          redirect_to new_user_session_url
+        end
       else
         
         redirect_to new_user_session_url, :notice => t('devise.failure.locked')
