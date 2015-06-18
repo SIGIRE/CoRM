@@ -340,4 +340,9 @@ $(document).ready(function() {
             return false;
       });
   }
+  
+  $(document.getElementById('event_type_bordercolor')).minicolors();
+  
 });
+
+

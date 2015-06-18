@@ -27,3 +27,6 @@
 /* This adds alertify libs. */
 //= require ./alertify.min.js
 
+//= require jquery.minicolors
+
+

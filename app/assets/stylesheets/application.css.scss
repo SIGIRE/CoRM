@@ -4,6 +4,7 @@
 
 //= require ./jquery-ui.css
 //= require ./expanding-search-bar.css
+
 $navbarBackgroundHighlight: #333;
 $navbarBackground: lighten($navbarBackgroundHighlight, 5%);
 $navbarBorder: lighten($navbarBackground, 12%);
@@ -67,3 +68,4 @@ div.event.hidden{
 display:none;
 }
 
+@import "jquery.minicolors"
