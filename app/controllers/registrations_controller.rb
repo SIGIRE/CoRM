@@ -242,7 +242,7 @@ class RegistrationsController < Devise::RegistrationsController
     
     if !@user.nil?  # and @user.valid_password?(params[:user][:password])
       if @user.enabled == true
-        if Setting.ad_enabled?
+        if Setting.ad_enabled? and !@user.has_role?(:admin)
           ldap = Net::LDAP.new
           ldap.host = Setting.ad_host_value
           ldap.port = Setting.ad_port_value
