@@ -1,12 +1,26 @@
 ## RELEASE NOTES
 
+### Version 0.11
+
+**Fonctionnalités**
+ * Masquage si besoin des notions de Devis, Oppotunités et Contrats ;
+ * Possibilité de coloriser les évènements (via le menu Configuration -> Types d'Évènements) ;
+ * Ajout du module SSO Active Directory ;
+ * Possibilité de mettre un Type d'Évènement par défaut lors de la création d'un Évènement ;
+ * Possibilité d'attacher une pièce-jointe à un Contrat.
+
+**Corrections**
+ * Renommage du menu Commerce en Affaire ;
+ * Amélioration de la fonctionnalité "Mail-to-Event" ;
+ * Ajout du statut "Négocitation" à une Opportunité.
+
 ### Version 0.10.2
 
 **Fonctionnalités**
- * Ajout de la gestion contrats ;
+ * Ajout de la gestion des contrats ;
  * Refonte graphique des filtres pour les tâches, comptes, contacts, opportunités, devis, rapport d'activités ;
  * Ajout de nouveaux critères dans les filtres.
- 
+
 **Corrections**
  * Bug dans la lecture des paramètres (settings).
 
@@ -29,7 +43,7 @@
  * Onglet Tâches dans la vue principale d'un compte ;
  * État d'avancement d'une opportunité (en pourcentage) ;
  * Possibilitée terminer une Tâche via un bouton "Terminer la Tâche".
-
+ 
 **Corrections**
  * Meilleure prise en charge des doublons ;
  * Traduction du texte.
