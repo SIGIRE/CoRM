@@ -149,6 +149,7 @@
 
 
 <!--Opportunities-->
+<% if Setting.display_opportunities? %>
 <div class="container-fluid">
 <div class="page-header">
      <h1><small><%= t('app.model.Opportunity').pluralize %></small></h1>
@@ -196,10 +197,11 @@
           </div>
      </div>
 </div>
-
+<% end %>
 
 
 <!--Quotations-->
+<% if Setting.display_quotations? %>
 <div class="container-fluid">
 <div class="page-header">
      <h1><small><%= t('app.model.Quotation').pluralize %></small></h1>
@@ -241,6 +243,6 @@
           </div>
      </div>
 </div>
-
+<% end %>
 
 
