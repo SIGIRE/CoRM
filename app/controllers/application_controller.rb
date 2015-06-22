@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
   before_filter :getAbility
   before_filter :get_locale
+  before_filter :get_previous_url, :only => [:edit, :new] 
 
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -116,6 +117,9 @@ class ApplicationController < ActionController::Base
     new_user_session_url
   end
   
+  def get_previous_url
+    session[:return_to] = request.referer  
+  end
   
 
   

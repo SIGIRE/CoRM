@@ -38,7 +38,7 @@ class RelationsController < ApplicationController
     @relation.created_by = current_user.id
     respond_to do |format|
       if @relation.save
-        format.html  { redirect_to account_events_url(@relation.account1_id), :notice => "La relation a été créée" }
+        format.html  { redirect_to session.delete(:return_to) || account_events_url(@relation.account1_id), :notice => "La relation a été créée" }
         format.json  { render :json => @relation,
                       :status => :created}
       else
@@ -64,7 +64,7 @@ class RelationsController < ApplicationController
     @relation.updated_by = current_user.id    
     respond_to do |format|
       if @relation.update_attributes(params[:relation])
-        format.html  { redirect_to account_events_url(@relation.account1_id), :notice => "La relation a été mise à jour." }
+        format.html  { redirect_to session.delete(:return_to) || account_events_url(@relation.account1_id), :notice => "La relation a été mise à jour." }
         format.json  { head :no_content }
       else
         format.html  { render :action => "edit" }
@@ -81,7 +81,7 @@ class RelationsController < ApplicationController
     @relation.destroy
    
     respond_to do |format|
-      format.html { redirect_to account_events_url(@relation.account1_id), :notice => "La relation a bien été supprimée."  }
+      format.html { redirect_to session.delete(:return_to) || account_events_url(@relation.account1_id), :notice => "La relation a bien été supprimée."  }
       format.json { head :no_content }
     end
   end

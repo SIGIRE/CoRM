@@ -52,7 +52,7 @@ class DocumentsController < ApplicationController
 				:date_begin => Time.now,
 				:date_end => Time.now })
 			e.save
-			redirect_to account_events_url(@document.account_id), :notice => 'Le document a été créé'
+			redirect_to session.delete(:return_to) || account_events_url(@document.account_id), :notice => 'Le document a été créé'
 		else
 			render :action => "new"
 		end
@@ -86,7 +86,7 @@ class DocumentsController < ApplicationController
    
     respond_to do |format|
       if @document.update_attributes(params[:document])
-        format.html  { redirect_to account_events_url(@document.account_id) , :notice => 'Le document a ete mis a jour.' }
+        format.html  { redirect_to session.delete(:return_to) || account_events_url(@document.account_id) , :notice => 'Le document a ete mis a jour.' }
         format.json  { head :no_content }
       else
         flash[:error] = t('app.save_undefined_error')
@@ -104,7 +104,7 @@ class DocumentsController < ApplicationController
     @document.destroy
    
     respond_to do |format|
-      format.html { redirect_to account_events_url(@document.account_id), :notice => "Le document a bien été supprimé." }
+      format.html { redirect_to session.delete(:return_to) || account_events_url(@document.account_id), :notice => "Le document a bien été supprimé." }
       format.json { head :no_content }
     end
   end

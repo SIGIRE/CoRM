@@ -94,11 +94,7 @@ class OpportunitiesController < ApplicationController
         if params[:mail] == 'yes'
           UserMailer.mail_for(@opportunity.user, @opportunity, true).deliver
         end
-        if !@opportunity.account_id.nil?
-          format.html  { redirect_to account_events_url(@opportunity.account_id), :notice => "L'opportunité a été créée." }
-        else
-          format.html  { redirect_to root_url(@opportunity.account_id), :notice => "L'opportunité a été créée." }
-        end
+        format.html { redirect_to session.delete(:return_to) , notice: "L'opportunité a été créée." }
       else
         flash[:alert] = @opportunity.errors.full_messages.join("\n")
         format.html  { render :action => "new" }
@@ -136,11 +132,12 @@ class OpportunitiesController < ApplicationController
         if params[:mail] == 'yes'
           UserMailer.mail_for(@opportunity.user, @opportunity, true).deliver
         end
-        if !@opportunity.account_id.blank?
-            format.html  { redirect_to account_events_url(@opportunity.account_id), :notice => "L'opportunité a été mise à jour." }
-        else
-            format.html  { redirect_to opportunities_url, :notice => "L'opportunité a été mise à jour." }
-        end
+        #if !@opportunity.account_id.blank?
+        #    format.html  { redirect_to account_events_url(@opportunity.account_id), :notice => "L'opportunité a été mise à jour." }
+        #else
+        #    format.html  { redirect_to opportunities_url, :notice => "L'opportunité a été mise à jour." }
+        #end
+        format.html { redirect_to session.delete(:return_to), notice: "L'opportunité a été mise à jour." }
       else
         flash[:error] = t('app.save_undefined_error')
         format.html  { render :action => "edit" }
@@ -156,7 +153,8 @@ class OpportunitiesController < ApplicationController
     @opportunity.destroy
    
     respond_to do |format|
-      format.html { redirect_to (!@opportunity.account.nil? ? account_events_path(@opportunity.account) : opportunities_url), :notice => "L'opportunité a bien été supprimée."  }
+      #format.html { redirect_to (!@opportunity.account.nil? ? account_events_path(@opportunity.account) : opportunities_url), :notice => "L'opportunité a bien été supprimée."  }*
+      format.html { redirect_to session.delete(:return_to), notice: "L'opportunité a bien été supprimée." }
     end
   end
   

@@ -63,11 +63,12 @@ class ContractsController < ApplicationController
 
     respond_to do |format|
       if @contract.save
-        if !@contract.account_id.nil?
-          format.html  { redirect_to account_contracts_url(@contract.account_id), :notice => "Le contrat a été créé." }
-        else
-          format.html  { redirect_to root_url(@contract.account_id), :notice => "Le contrat a été créé." }
-        end
+        format.html {redirect_to session.delete(:return_to) || (!@contract.account_id.nil? ? account_contracts_url(@contract.account_id) : root_url(@contract.account_id)), notice: "Le contrat a été créé."}
+        #if !@contract.account_id.nil?
+        #  format.html  { redirect_to account_contracts_url(@contract.account_id), :notice => "Le contrat a été créé." }
+        #else
+        #  format.html  { redirect_to root_url(@contract.account_id), :notice => "Le contrat a été créé." }
+        #end
       else
         flash[:alert] = @contract.errors.full_messages.join("\n")
         format.html  { render :action => "new" }
@@ -100,12 +101,10 @@ class ContractsController < ApplicationController
 
     respond_to do |format|
       if @contract.update_attributes(params[:contract])
-        format.html  { redirect_to(contracts_url, :notice => "Le contrat a été mise à jour.") }
-        format.json  { head :no_content }
+        format.html {redirect_to session.delete(:return_to) || (!@contract.account_id.nil? ? account_contracts_url(@contract.account_id) : root_url(@contract.account_id)), notice: "Le contrat a été mis à jour."}
       else
         flash[:error] = t('app.save_undefined_error')
         format.html  { render :action => "edit" }
-        format.json  { render :json => @contract.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -117,7 +116,7 @@ class ContractsController < ApplicationController
     @contract = Contract.find(params[:id])
     @contract.destroy
     respond_to do |format|
-      format.html { redirect_to contracts_url }
+      format.html {redirect_to session.delete(:return_to) || contracts_url }
       format.json { head :no_content }
     end
   end

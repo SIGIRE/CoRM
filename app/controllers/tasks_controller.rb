@@ -106,7 +106,7 @@ class TasksController < ApplicationController
         UserMailer.mail_for(@task.user, @task, true).deliver
       end
       self.create_event(false)
-      redirect_to (@task.account.nil?() ? tasks_path : account_events_path(@task.account)), :notice => 'La tâche a été créée.'
+      redirect_to session.delete(:return_to) || account_tasks_url(@event.account_id) , notice: "La tâche a été créée."
     else
       @users = User.all_reals
       render :action => 'new'
@@ -149,7 +149,7 @@ class TasksController < ApplicationController
         flash[:notice] += " Un email a été envoyé à #{@task.user.full_name}"
       end
       self.create_event(true)
-      redirect_to (@task.account.nil?() ? tasks_path : account_events_path(@task.account))
+      redirect_to session.delete(:return_to) || account_tasks_url(@event.account_id), notice: "La tâche n°#{@task.id} a été mise à jour." 
     else
       render :action => "edit"
     end
@@ -169,7 +169,7 @@ class TasksController < ApplicationController
     
     if @task.update_attributes(params[:task])
       flash[:notice] = "La tâche n°#{@task.id} a été mise à jour."
-      redirect_to (@task.account.nil?() ? tasks_path : account_events_path(@task.account))
+      redirect_to :back
     else
       render :action => "edit"
     end
@@ -185,7 +185,7 @@ class TasksController < ApplicationController
   def destroy
 	  @task = Task.find(params[:id])
 	  @task.destroy
-	  redirect_to tasks_path, :notice => 'La tâche a bien été supprimée'
+	  redirect_to session.delete(:return_to) || tasks_path, :notice => 'La tâche a bien été supprimée'
   end
   
   def isInt?(i)

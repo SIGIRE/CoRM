@@ -107,7 +107,8 @@ class EventsController < ApplicationController
 	  UserMailer.mail_for(@event.user, @event.task, true).deliver
 	  flash[:notice] += "<br>Un email a été envoyé à #{@event.user.full_name}."
 	end
-	redirect_to account_events_url(@event.account_id)
+	#redirect_to account_events_url(@event.account_id)
+	redirect_to session.delete(:return_to) || account_events_url(@event.account_id), notice: "L'évènement a été créé."
     else
       flash[:alert] = "Erreur indéterminée."
       redirect_to :back
@@ -126,11 +127,9 @@ class EventsController < ApplicationController
     
     respond_to do |format|
       if @event.update_attributes(params[:event])
-        format.html { redirect_to @event, :notice => "L'évènement a été mis à jour." }
-        format.json { head :no_content }
+        redirect_to session.delete(:return_to), notice: "L'évènement a été mis à jour."
       else
         format.html { render :action => "edit" }
-        format.json { render :json => @event.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -144,7 +143,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @event.destroy
     flash[:notice] = "L'évenement a été correctement supprimé"
-    redirect_to account_events_url(@event.account_id)
+    redirect_to session.delete(:return_to) || account_events_url(@event.account_id)
   end
   
   ##
