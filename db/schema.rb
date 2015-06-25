@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150618124323) do
+ActiveRecord::Schema.define(:version => 20150625063848) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -68,6 +68,49 @@ ActiveRecord::Schema.define(:version => 20150618124323) do
     t.integer  "level"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "campaign_completed_stages", :force => true do |t|
+    t.string   "name"
+    t.string   "created_by"
+    t.string   "modified_by"
+    t.integer  "completed_percentage"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  create_table "campaign_lines", :force => true do |t|
+    t.datetime "last_action_date"
+    t.text     "notes"
+    t.string   "created_by"
+    t.string   "modified_by"
+    t.integer  "completed_percentage"
+    t.integer  "result_percentage"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.integer  "account_id"
+    t.integer  "contact_id"
+  end
+
+  create_table "campaign_result_stages", :force => true do |t|
+    t.string   "name"
+    t.string   "created_by"
+    t.string   "modified_by"
+    t.integer  "result_percentage"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  create_table "campaigns", :force => true do |t|
+    t.datetime "date_begin"
+    t.datetime "date_end"
+    t.string   "name"
+    t.text     "notes"
+    t.string   "created_by"
+    t.string   "modified_by"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.integer  "event_type_id"
   end
 
   create_table "contacts", :force => true do |t|

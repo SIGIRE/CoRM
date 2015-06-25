@@ -1,5 +1,13 @@
 ## RELEASE NOTES
 
+### Version 0.12
+
+**Fonctionnalités**
+ * Gestion des campagnes marketing
+
+**Corrections**
+ * Retour à l'écran d'origine après l'édition d'un devis ou tâche ou contrat ou opportunité ;
+
 ### Version 0.11
 
 **Fonctionnalités**
@@ -12,7 +20,7 @@
 **Corrections**
  * Renommage du menu Commerce en Affaire ;
  * Amélioration de la fonctionnalité "Mail-to-Event" ;
- * Ajout du statut "Négocitation" à une Opportunité.
+ * Ajout du statut "Négociation" à une Opportunité.
 
 ### Version 0.10.2
 
