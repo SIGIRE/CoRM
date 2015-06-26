@@ -175,6 +175,9 @@ class AccountsController < ApplicationController
   #
   def search
     
+    #ClickToCall
+    @setting = Setting.all.first
+    
     if !params.nil? and !params[:account].nil?
       company = UnicodeUtils.upcase(params[:account].strip.concat("%"))
       if params[:format] and params[:format] != 'html' then
