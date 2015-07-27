@@ -7,17 +7,17 @@ class Setting < ActiveRecord::Base
     
     def self.display_opportunities?
         setting = Setting.all.first
-        setting.opportunities_display  
+        setting.blank? ? true : setting.opportunities_display
     end
     
     def self.display_quotations?
         setting = Setting.all.first
-        setting.quotations_display  
+        setting.blank? ? true : setting.quotations_display
     end
     
     def self.display_contracts?
         setting = Setting.all.first
-        setting.contracts_display  
+        setting.blank? ? true : setting.contracts_display
     end
     
     def self.display_business_menu?
@@ -26,7 +26,7 @@ class Setting < ActiveRecord::Base
     
     def self.ad_enabled?
         setting = Setting.all.first
-        setting.ad_enabled 
+         setting.blank? ? false : setting.ad_enabled
     end
     
     def self.ad_host_value

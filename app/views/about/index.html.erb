@@ -1,37 +1,34 @@
 <div class="container-fluid">
-     <div class="well" id="title-bar">
-          <div class="row-fluid">
-              <h1><%= "<i class=\"fa fa-info-circle \"></i> #{t('title.about')}".html_safe %></h1>
-          </div>
-     </div>
-	 
-	<table class="table table-bordered table-striped table-hover">
-		<tbody>
-			<tr>
-				<td><strong>Version de CORM : </strong><%= CORM[:version] %></td>
-			
-				<td rowspan=5 class="text-center">
-					<%= image_tag("logo-sigire.png") %>
-				</td>
-			</tr>
-			<tr>
-				<td><strong>Version de Rails : </strong><%= Rails::VERSION::STRING %></td>
-			</tr>
-			<tr>
-				<td><strong>Version de Ruby : </strong><%= RUBY_VERSION %></td>
-			</tr>
-			<tr>
-				<td><strong>Nom du Serveur : </strong><%= IO.popen("hostname").readlines.to_s.sub!('\n"]','').sub!('["','') %></td>
-			</tr>
-			<tr>
-				<td><strong>Version du Kernel GNU/Linux : </strong><%= IO.popen("uname -r").readlines.to_s.sub!('\n"]','').sub!('["','')%></td>
-			</tr>
-		</tbody>
-		<tfoot>
-			<tr>
-				<td colspan=2 class="text-center">Logo tous droits réservés SIGIRE &copy; <%= Date.today.year.to_s%> - <%= link_to  "Site officiel SIGIRE" , "http://www.sigire.fr/", :target => "_blank"%></td>
-			</tr>
-		</tfoot>
-	</table> 
-
+  <div class="well" id="title-bar">
+    <div class="row-fluid">
+      <h1><%= "<i class=\"fa fa-info-circle \"></i> #{t('title.about')}".html_safe %></h1>
+    </div>
+  </div>
+  <table class="table table-bordered table-striped table-hover">
+    <tbody>
+      <tr>
+        <td><strong>Version de CORM : </strong><%= CORM[:version] %></td>
+        <td rowspan=5 class="text-center">
+          <%= image_tag("logo-sigire.png") %>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Version de Rails : </strong><%= Rails::VERSION::STRING %></td>
+      </tr>
+      <tr>
+        <td><strong>Version de Ruby : </strong><%= RUBY_VERSION %></td>
+      </tr>
+      <tr>
+        <td><strong>Nom du Serveur : </strong><%= IO.popen("hostname").readlines.to_s.sub!('\n"]','').sub!('["','') %></td>
+      </tr>
+      <tr>
+        <td><strong>Version du Kernel GNU/Linux : </strong><%= IO.popen("uname -r").readlines.to_s.sub!('\n"]','').sub!('["','')%></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan=2 class="text-center">Logo tous droits réservés SIGIRE &copy; <%= Date.today.year.to_s%> - <%= link_to  "Site officiel SIGIRE" , "http://www.sigire.fr/", :target => "_blank"%></td>
+      </tr>
+    </tfoot>
+  </table>
 </div>
