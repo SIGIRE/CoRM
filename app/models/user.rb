@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   devise  :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable
 
   rolify
-  
+
   has_many :accounts
   has_many :events
   has_many :tasks
@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   # nécessaire pour pouvoir modifer la valeur de ces attributs par nos propres forms
   attr_accessible :login_name, :email, :password, :password_confirmation, :remember_me, :forename, :surname, :tel, :mobile, :current_password, :enabled, :locale
   attr_accessor :current_password
-  
+
 
   def self.default
      return User.new({:email => '', :forename => 'Neant', :surname => ''})
@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   def full_name
       "#{forename} #{UnicodeUtils.upcase(surname, I18n.locale)}"
   end
-  
+
   ##
   # Get all real users of application (without disabled and admins)
   # * *Returns*    :

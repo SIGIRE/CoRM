@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 class TagsController < ApplicationController
-  
-  
+
+
   #load_and_authorize_resource :account, :parent => false #this line is commented on 2014/11/18 to avoid bug on edit tags
   load_and_authorize_resource :tag, :through => :account, :shallow => true
   before_filter :authenticate_user!
@@ -17,7 +17,7 @@ class TagsController < ApplicationController
   # GET /tags.json
   def index
     @tags = tags.order('name').page(params[:page])
-   
+
     flash.now[:alert] = "Pas de tags !" if @tags.empty?
 
     respond_to do |format|
@@ -25,7 +25,7 @@ class TagsController < ApplicationController
       format.json  { render :json => @produits }
     end
   end
-  
+
   ##
   # Show the page with the form to add a new Tag
   #
@@ -37,7 +37,7 @@ class TagsController < ApplicationController
       format.json  { render :json => @tag }
     end
   end
-  
+
   ##
   # Process to create a new Tag into the DB
   #
@@ -58,7 +58,7 @@ class TagsController < ApplicationController
       end
     end
   end
-  
+
   ##
   # Dispay the page to show one occurence of Tag
   #
@@ -70,21 +70,21 @@ class TagsController < ApplicationController
       format.json  { render :json => @tag }
     end
   end
-  
+
   ##
   # Display the page with the form to edit one occurence of Tag
   #
   def edit
     @tag = Tag.find(params[:id])
   end
-  
+
   ##
   # Process to save one occurence of Tag which is already exists
   #
   def update
     @tag = Tag.find(params[:id])
     @tag.updated_by = current_user.id
-    
+
     respond_to do |format|
       if @tag.update_attributes(params[:tag])
         format.html  { redirect_to(tags_url, :notice => 'Le tag a été mis à jour.') }
@@ -96,20 +96,20 @@ class TagsController < ApplicationController
       end
     end
   end
-  
+
   ##
   # Delete one occurence of Tag from the Database
   #
   def destroy
     @tag = Tag.find(params[:id])
     @tag.destroy
-    
+
     respond_to do |format|
       format.html { redirect_to tags_url, :notice => 'Le tag a bien été supprimé.' }
       format.json { head :no_content }
     end
   end
-  
+
   private
     def load_account
      if (params[:account_id].present? and !params[:account_id].to_s.blank?)
@@ -118,12 +118,12 @@ class TagsController < ApplicationController
         @account = nil
       end
     end
-    
+
     def load_settings
       #ClickToCall
       @setting = Setting.all.first
-    end    
-    
+    end
+
     def tags
       @account ? @account.tags : Tag
     end

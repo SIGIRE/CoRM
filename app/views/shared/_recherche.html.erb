@@ -1,5 +1,5 @@
   <div class="container-fluid" style= "background-color: #EEEEEE;">
-    <div class="row" style="margin-top: 1em;"> 
+    <div class="row" style="margin-top: 1em;">
       <div class="span4">
         <%= form_tag("/accounts/search", :method => "get", :class =>"form-search") do %>
           <h6>Compte
@@ -9,7 +9,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="span4">
    <%= form_tag("/accounts/search_tel", :method => "get", :class =>"form-search") do %>
     <h6>Tél. Compte
@@ -17,7 +17,7 @@
      <%= submit_tag("Chercher") %></h6>
    <% end %>
   </div>
-  
+
     <div class="span4">
    <%= form_tag("/contacts/search", :method => "get", :class =>"form-search") do %>
     <h6>Contact
@@ -25,6 +25,6 @@
      <%= submit_tag("Chercher") %></h6>
    <% end %>
   </div>
-  
+
  </div>
  </div>

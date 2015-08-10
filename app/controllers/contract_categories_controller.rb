@@ -13,25 +13,25 @@ class ContractCategoriesController < ApplicationController
   # GET /contract_categories.json
   def index
     @contractcategories = ContractCategory.order('name').page(params[:page])
-   
+
     respond_to do |format|
       format.html  # index.html.erb
       format.json  { render :json => @contractcategories }
     end
   end
-  
+
   ##
   # Render a page to create new ContractCategory
   #
   def new
     @contract_category = ContractCategory.new
-    
+
     respond_to do |format|
       format.html  # new.html.erb
       format.json  { render :json => @contract_category }
     end
   end
-  
+
   ##
   # Process to insert a new ContractCategory into the DataBase
   #
@@ -49,7 +49,7 @@ class ContractCategoriesController < ApplicationController
       end
     end
   end
-  
+
   ##
   # Render a page to display an ContractCategory
   #
@@ -61,11 +61,11 @@ class ContractCategoriesController < ApplicationController
       format.json  { render :json => @contract_category }
     end
   end
-  
+
   def edit
     @contract_category = ContractCategory.find(params[:id])
   end
-  
+
   ##
   # Process that udpate an existing ContractCategory
   #
@@ -84,7 +84,7 @@ class ContractCategoriesController < ApplicationController
       end
     end
   end
-  
+
   ##
   # Process that remove an ContractCategory from the DB
   #

@@ -7,9 +7,9 @@ class CreateCampaignLines < ActiveRecord::Migration
       t.string :modified_by
       t.integer :completed_percentage
       t.integer :result_percentage
-      
+
       t.timestamps
-      
+
       t.references :account
       t.references :contact
     end

@@ -44,46 +44,46 @@ class AddUserRelation < ActiveRecord::Migration
       ]
     ]
   end
-  
+
   def up
     ActiveRecord::Base.record_timestamps = false
-    
+
     # modified_by objects
-    
+
     changeTablesUp(Event, :created_by)
     changeTablesUp(Event, :modified_by)
-    
+
     changeTablesUp(Account, :created_by)
     changeTablesUp(Account, :modified_by)
-    
+
     changeTablesUp(Contact, :created_by)
     changeTablesUp(Contact, :modified_by)
-    
+
     changeTablesUp(Task, :created_by)
     changeTablesUp(Task, :modified_by)
-    
+
     changeTablesUp(EventType, :created_by)
     changeTablesUp(EventType, :modified_by)
-    
+
     # updated_by objects
-    
+
     changeTablesUp(Document, :created_by)
     changeTablesUp(Document, :updated_by)
-    
+
     changeTablesUp(Opportunity, :created_by)
     changeTablesUp(Opportunity, :updated_by)
-    
+
     changeTablesUp(Origin, :created_by)
     changeTablesUp(Origin, :updated_by)
-    
+
     changeTablesUp(Quotation, :created_by)
     changeTablesUp(Quotation, :updated_by)
-    
+
     changeTablesUp(Tag, :created_by)
     changeTablesUp(Tag, :updated_by)
 
     init()
-    
+
     @elements.each do |table_name, table|
       table.each do |column|
         changeTableType(table_name, column, "string", "integer")
@@ -100,7 +100,7 @@ class AddUserRelation < ActiveRecord::Migration
       table.each { |column|
         changeTableType(table_name, column, "integer", "string")
       }
-    
+
     }
 
     @elements.each do |table_name, table|
@@ -108,45 +108,45 @@ class AddUserRelation < ActiveRecord::Migration
         changeTableType(table_name, column, "integer", "string")
       end
     end
-    
+
     # modified_by objects
-    
+
     changeTablesDown(Event, :created_by)
     changeTablesDown(Event, :modified_by)
-    
+
     changeTablesDown(Account, :created_by)
     changeTablesDown(Account, :modified_by)
-    
+
     changeTablesDown(Contact, :created_by)
     changeTablesDown(Contact, :modified_by)
-    
+
     changeTablesDown(Task, :created_by)
     changeTablesDown(Task, :modified_by)
-    
+
     changeTablesDown(EventType, :created_by)
     changeTablesDown(EventType, :modified_by)
-    
+
     # updated_by objects
-    
+
     changeTablesDown(Document, :created_by)
     changeTablesDown(Document, :updated_by)
-    
+
     changeTablesDown(Opportunity, :created_by)
     changeTablesDown(Opportunity, :updated_by)
-    
+
     changeTablesDown(Origin, :created_by)
     changeTablesDown(Origin, :updated_by)
-    
+
     changeTablesDown(Quotation, :created_by)
     changeTablesDown(Quotation, :updated_by)
-    
+
     changeTablesDown(Tag, :created_by)
     changeTablesDown(Tag, :updated_by)
     ActiveRecord::Base.record_timestamps = true
   end
-  
+
   ##
-  # 
+  #
   #
   def changeTablesUp(o, field)
     # Get class name for logs
@@ -171,9 +171,9 @@ class AddUserRelation < ActiveRecord::Migration
                 currentUser = User.where({ :forename => names[0] }).first()
               end
             end
-            
+
           end
-          
+
         end
         # if user exists, update created_by by currentUser.id
         if !currentUser.nil?
@@ -187,9 +187,9 @@ class AddUserRelation < ActiveRecord::Migration
     end
     logger.info("END OF #{class_name}")
   end
-  
+
   ##
-  # 
+  #
   #
   def changeTablesDown(o, field)
     i = 0
@@ -209,26 +209,26 @@ class AddUserRelation < ActiveRecord::Migration
     end
     return i
   end
-  
+
   def changeTableType(table, column, old_type, type)
     logger.info("Change table #{table} with column #{column} type was #{old_type} and is now #{type}")
     if (type == 'string')
       type = 'varchar(255)'
     end
-    
+
     query = "ALTER TABLE #{table} ALTER COLUMN #{column} TYPE #{type}"
     if (type == 'integer' && old_type == 'string')
       query.concat(" USING (trim(#{column})::integer)")
-    end  
+    end
     execute(query)
   end
-  
+
   def addFK(table, column)
     logger.info("ADD FOREIGN KEY TO #{table} AT #{column}")
     query = "ALTER TABLE #{table} ADD CONSTRAINT \"fk_users_#{table}_#{column}\" FOREIGN KEY (#{column}) REFERENCES users(id);"
     execute(query)
   end
-  
+
   def remFK(table, column)
     logger.info("REMOVE FOREIGN KEY TO #{table} AT #{column}")
     execute "ALTER TABLE #{table} DROP CONSTRAINT IF EXISTS \"fk_users_#{table}_#{column}\";"

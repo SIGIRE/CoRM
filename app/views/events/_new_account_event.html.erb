@@ -11,7 +11,7 @@
       </div>
       <div class="field time">
         <%= f.label :date_begin, " à ", { :class => 'no-margin-bottom' } %><%= f.time_select :date_begin , :class => "event_time" %>
-      </div>      
+      </div>
     </div>
     <div class="field-group">
       <div class="field small-date">
@@ -31,16 +31,16 @@
       <div class="field">
         <p><%= f.label :event_type_id, "Type : ", :class => 'top' %><%= f.collection_select :event_type_id, EventType.order('label'), :id, :full_type, :class =>"filter_coll", :include_blank => true %></p>
       </div>
-  </div>  
+  </div>
   <div class="row row-fluid">
     <div class="field full">
       <%= f.label :notes, ("Description : ".concat(content_tag('span', nil, :class => 'req'))).html_safe, :class => 'top' %>
       <%= f.text_area :notes, { :rows => "5", :style => 'width: 80%;', :class => 'required' } %>
     </div>
   </div>
-  
-  
-  
+
+
+
   <%#Affichage du champ d'ajout de pièce jointe %>
 
     <div id="attachments">
@@ -49,7 +49,7 @@
           <div class="field">
             <div class="span2"></div>
             <% if ta.object.new_record? %>
-              <%= ta.file_field :attach, required: true %>        
+              <%= ta.file_field :attach, required: true %>
               <script>$ (":file").filestyle({buttonText: 'Choisir un fichier'});</script>
             <% else %>
               <%= link_to ta.object.attach_file_name, ta.object.attach.url %>
@@ -74,7 +74,7 @@
       </label>
     </div>
   </div>
-  
+
   <div id="task_task_value" style="display: none;">
     <div class="row">
       <div class="field full">
@@ -88,7 +88,7 @@
       <div class="field ">
         <p>
           <%= label_tag('task_statut', "Statut :", :class => 'top') %>
-          
+
           <%= select 'task', :statut , Task::STATUTS %>
         </p>
       </div>

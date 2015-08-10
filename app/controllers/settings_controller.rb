@@ -14,7 +14,7 @@ class SettingsController < ApplicationController
 	    # On récupère les paramètres du serveur mail
 	    if (WebmailConnection.all.length == 1)
 		@webmail_connection = WebmailConnection.first
-	    else 
+	    else
 		@webmail_connection = WebmailConnection.create
 	    end
        else
@@ -23,18 +23,18 @@ class SettingsController < ApplicationController
 			return false
        end
     end
-    
-    
-    
+
+
+
     def update
-	
+
     @setting = Setting.find(params[:setting][:id])
     if @setting.update_attributes(params[:setting])
 	redirect_to url_for({ :controller => 'settings', :action => 'index' }), :notice => "La configuration de CoRM a été modifiée."
     else
 	redirect_to url_for({ :controller => 'settings', :action => 'index' }), :alert => "Il y a un problème dans votre configuration !"
     end
-    
+
     end
 
 

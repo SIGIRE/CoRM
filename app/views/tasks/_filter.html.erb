@@ -2,18 +2,18 @@
   <div class="well">
 	<%= form_tag(tasks_path, method: :GET) do %>
 	    <div class="row row-fluid">
-	    
+
 		    <div class="">
 			<%= label_tag :by_statut, t('app.fields.state') + " :", :class => "top" %>
 			<%#= select_tag 'by_statut', options_for_select(Task::STATUTS_A_FILTRER), { :prompt => "Tous", :class => "filter_statut" } %>
-			<%= select_tag 'by_statut', options_for_select(Task::STATUTS_A_FILTRER, (params.has_key?(:by_statut) ? params[:by_statut] : "Non terminé")), {:class => "filter_statut" } %>	    
+			<%= select_tag 'by_statut', options_for_select(Task::STATUTS_A_FILTRER, (params.has_key?(:by_statut) ? params[:by_statut] : "Non terminé")), {:class => "filter_statut" } %>
 		    </div>
-		    
+
 		    <div class="">
 			<%= label_tag :by_priority, t('app.fields.priority') + " :", :class => "top" %>
 			<%= select_tag "by_priority", options_for_select(Task::PRIORITIES.each_with_index.map{|priority, index| [priority, index]}, params[:by_priority]), { :include_blank => "Toutes", :class =>"filter_statut" } %>
 		    </div>
-		    
+
 		    <%# Le typeahead et la recherche automatique des contacts associés sont gérés par nav-search-bar.js %>
 		    <div class="">
 			<%= label_tag :by_account_company_like, t('app.model.Account') + " :", :class => "top" %>
@@ -23,14 +23,14 @@
                                :data => { :provide => 'typeahead'},
                                :autocomplete=>"off" } %>
 		    </div>
-		    
+
 		    <div class="">
 			<%= label_tag :by_account_id, t('app.fields.collegue') + " :", :class => "top" %>
 			<%= select_tag "by_user_id",
 				options_from_collection_for_select(User.all_reals, :id, :full_name, params[:by_user_id]),
 				{ :prompt => "Tous", :class =>"filter_statut" } %>
 		    </div>
-		    
+
 		    <div class="">
 			<%= label_tag :by_notes_like,  t('app.fields.content') + " :", :class => "top" %>
 			<%= text_field_tag "by_notes_like", params[:by_notes_like] %>
@@ -39,5 +39,5 @@
                 <%= submit_tag t('app.actions.filter'), :class =>"btn "%>
    <% end %>
      </div>
-    </div>   
+    </div>
 </div>

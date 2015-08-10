@@ -15,7 +15,7 @@
                         </ul>
                 </div>
         <% end %>
-        
+
         <!-- Account field -->
 	      <div class="row row-fluid">
 		      <div class="field full">
@@ -31,12 +31,12 @@
 				    <%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id' } %>
 		      </div>
 	      </div>
-	
+
 	    <!-- Contact field -->
         <div class="field" id="nameContacts">
           <%= render :partial => 'contacts' %>
         </div>
-	    
+
 	    <div class="row row-fluid">
 		    <div class="field full">
 			    <div class="span2"><%= f.label(:user_id, t('app.fields.assigned') + colon) %></div>
@@ -49,7 +49,7 @@
 			    </p>
 		    </div>
 	    </div>
-	    
+
 	    <!-- SUBJECT -->
 	      <div class="row row-fluid">
 	        <div class="field full">
@@ -57,7 +57,7 @@
 			      <%= f.text_field(:title, {:style => 'width: 50%;', :required => 'required' } ) %><span class="req"/>
 		      </div>
 	      </div>
-	      
+
 	    <!-- DESCRIPTION -->
         <div class="row row-fluid">
 		      <div class="field full">
@@ -72,7 +72,7 @@
 			      <p><%= f.select :statut, Task::STATUTS %></p>
 		      </div>
 	      </div>
-	      
+
 	    <!-- PRIORITY -->
 	      <div class="row row-fluid">
 		      <div class="field full">
@@ -86,7 +86,7 @@
 			      </p>
 		      </div>
 	      </div>
-	
+
 	<!-- TERM -->
 	  <div class="row row-fluid">
 		  <div class="field full">
@@ -101,7 +101,7 @@
           <div class="field full">
             <div class="span2"></div>
             <% if ta.object.new_record? %>
-              <%= ta.file_field :attach, required: true%>        
+              <%= ta.file_field :attach, required: true%>
               <script>$ (":file").filestyle({buttonText: 'Choisir un fichier'});</script>
             <% else %>
               <%= link_to ta.object.attach_file_name, ta.object.attach.url %>
@@ -117,7 +117,7 @@
         <div class="span2"></div><%= f.link_to_add raw('<i class="icon-plus"></i> Ajouter une pièce-jointe'), :task_attachments, data: { target: '#attachments' } %>
       </div>
     </div>
-	
+
   <div id="row_for_generate" class="row row-fluid" style="display: none;">
 		<div class="field full">
 			<label class="checkbox">
@@ -126,13 +126,13 @@
 		</div>
 		<div class="field full" id="task_value" style="display: none;">
 			<div class="field full">
-				<div class="span2"><label for="event_type_id"><%= t('app.model.EventType') + colon %></label></div> 
+				<div class="span2"><label for="event_type_id"><%= t('app.model.EventType') + colon %></label></div>
 				<%= collection_select :event_type, :id ,EventType.order('label'),:id, :full_type, {:include_blank => true }%>
-			</div>	
+			</div>
 			<div class="field full">
 				<div class="span2"><%= f.label(:notes, t('app.fields.description') + colon) %></div>
 				<%= text_area_tag :notes, nil, :rows => '5', :style => 'width: 50%;' %>
-			</div>	
+			</div>
 		</div>
   </div>
 	<% if !@task.id.nil? %>
@@ -148,7 +148,7 @@
 	<hr />
   <div class="row row-fluid">
     <%= if !@task.id.nil? then f.button 'Modifier la tâche', type: :submit, :class =>"btn btn-primary" else f.button 'Créer une tâche', :type => :submit, :class =>"btn btn-primary" end %>
-		<%= if !@task.new_record? && (can? :destroy, @task) then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @task, :title => "Supprimer la tâche" , :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %>    
+		<%= if !@task.new_record? && (can? :destroy, @task) then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @task, :title => "Supprimer la tâche" , :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %>
   </div>
 <% end %>
 <!-- end form task -->

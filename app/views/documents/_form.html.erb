@@ -49,7 +49,7 @@ end %>
           <div class="field full">
             <div class="span2"></div>
             <% if ta.object.new_record? %>
-              <%= ta.file_field :attach, required: true %>        
+              <%= ta.file_field :attach, required: true %>
               <script>$ (":file").filestyle({buttonText: 'Choisir un fichier'});</script>
             <% else %>
               <%= link_to ta.object.attach_file_name, ta.object.attach.url %>
@@ -71,24 +71,24 @@ end %>
 			<div class="span2"><%= f.label(:notes, t('app.fields.description')) %></div>
 			<%= f.text_area :notes, :rows => "5", :style => 'width: 50%;' %>
 		</div>
-	</div>	
+	</div>
 	<div class="field">
     <% if !@document.id.nil? %>
 		<div class="span9"> Créé par : <%= @document.author.full_name %>, le <%= @document.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
+
 		<% if !@document.updated_by.nil? %>
 			<div class="span9"> Dernièrement modifié par : <%= @document.editor.full_name %>, le <%= @document.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
+
 		<% else %>
 		<% end %>
-		
+
 	<% end %>
 	</div>
-	  
-	<hr /> 
- 
+
+	<hr />
+
      <div class="row">
 	  <%= if !@document.id.nil? then f.button 'Modifier le document', :type => :submit, :class =>"btn btn-primary",:id =>"document_submit_form" else f.button 'Créer un document', :type => :submit, :class =>"btn btn-primary",:id =>"document_submit_form" end %>
-      <%= if !@document.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @document, :title => "Supprimer le document", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
+      <%= if !@document.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @document, :title => "Supprimer le document", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %>
   </div>
 <% end %>

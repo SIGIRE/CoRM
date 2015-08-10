@@ -14,7 +14,7 @@
   <div class="field">
      <div class="span2"> Libellé : </div> <%= f.text_field :label,{ :class => 'required', :style=>'width: 30em;'}  %><span class="req" />
   </div>
-  
+
   <div class="field">
     <div class="span2"> Direction : </div> <%= f.text_field :direction , :style=>'width: 30em;'%>
   </div>
@@ -22,28 +22,28 @@
   <div class="field">
         <div class="span2"> Couleur : </div> <%= f.text_field :bordercolor  %>
   </div>
-  
+
     <br />
-  	
+
 	<div class="field">
     <% if !@eventtype.id.nil? %>
 		<div class="span9"> Créé par : <%= @eventtype.author.full_name %>, le </strong><%= @eventtype.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
+
 		<% if !@eventtype.modified_by.nil? %>
 			<div class="span9"> Dernièrement modifié par : <%= @eventtype.editor.full_name %>, le <%= @eventtype.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
+
 		<% else %>
 		<% end %>
-		
+
 	<% end %>
 	</div>
-	  
+
 	<hr />
-  
+
    <div class="row">
    	<%= if !@eventtype.id.nil? then f.button 'Modifier le type', :type => :submit, :class =>"btn btn-primary",:id =>"eventtype_validate_form" else f.button 'Créer un type', :type => :submit, :class =>"btn btn-primary",:id =>"eventtype_validate_form" end%>
-	<%= if !@eventtype.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @eventtype,:title => "Supprimer le type", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
+	<%= if !@eventtype.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @eventtype,:title => "Supprimer le type", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %>
     </div>
   </div>
-  
+
 <% end %>

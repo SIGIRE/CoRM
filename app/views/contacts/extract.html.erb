@@ -19,15 +19,15 @@
 
       <%= form_tag('/contacts/extract', method: :get) do %>
 	  <div class="row row-fluid">
-		
+
 	  <%= render 'filter' %>
-			
-		
+
+
 	  <%= submit_tag "Filtrer", :class =>"btn "%>
       <% end %>
     </div>
   </div>
-</div>  
+</div>
 
 
 <!-- END FILTER -->
@@ -64,21 +64,21 @@
             <td class="text-center"><%= contact.surname %></td>
           <% else %>
             <td class="text-center">-</td>
-          <% end %> 		
+          <% end %>
 
           <% if !contact.forename.blank? %>
             <% then %>
             <td class="text-center"><%= contact.forename %></td>
           <% else %>
             <td class="text-center">-</td>
-          <% end %> 		
+          <% end %>
 
           <% if !contact.account.nil? %>
             <% then %>
             <td class="text-center"><%= link_to contact.account.company , account_events_url(contact.account),{:title => "Afficher les évenements"} %></td>
           <% else %>
             <td class="text-center">-</td>
-          <% end %> 
+          <% end %>
 
 
           <% if !contact.tel.blank? %>
@@ -86,14 +86,14 @@
             <td class="text-center"><%= contact.tel %></td>
           <% else %>
             <td class="text-center">-</td>
-          <% end %> 
+          <% end %>
 
           <% if !contact.mobile.blank? %>
             <% then %>
             <td class="text-center"><%= contact.mobile %></td>
           <% else %>
             <td class="text-center">-</td>
-          <% end %>		
+          <% end %>
 
           <% if !contact.email.blank? %>
             <% then %>
@@ -107,6 +107,6 @@
     </tbody>
   </table>
 
-  <%= paginate @contacts %> 
+  <%= paginate @contacts %>
 
 </div>

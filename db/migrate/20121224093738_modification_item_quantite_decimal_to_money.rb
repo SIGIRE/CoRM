@@ -3,7 +3,7 @@ class ModificationItemQuantiteDecimalToMoney < ActiveRecord::Migration
     change_table :items do |t|
       t.remove :quantite
       t.money :quantite
-    end         
+    end
   end
 
 end

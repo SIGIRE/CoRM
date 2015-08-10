@@ -16,10 +16,10 @@ CORM = CORM_Object.get
 
 module Crm
   class Application < Rails::Application
-		
+
 	config.to_prepare do
 		Devise::SessionsController.layout "layout_for_sessions_controller"
-		Devise::PasswordsController.layout "layout_for_sessions_controller" 
+		Devise::PasswordsController.layout "layout_for_sessions_controller"
 	end
 
   # Default https
@@ -29,8 +29,8 @@ module Crm
     end
     # default base url for links in mails
     protocol = !CORM[:protocol].blank? ? CORM[:protocol] : 'http'
-    
-	config.action_mailer.default_url_options = { 
+
+	config.action_mailer.default_url_options = {
 	    :host => CORM[:host],
 	    :protocol => protocol
 	}

@@ -1,5 +1,5 @@
 <div class="container-fluid" style="margin-top: 1em;">
-   
+
 
      <div class="well">
        <div class="row-fluid">
@@ -12,15 +12,15 @@
        </div>
      </div>
 
-         
+
 </div>
 
 <div class="container-fluid">
-	
+
 	<% if Opportunity.by_account(@account).blank? %>
 		<h4> Aucune opportunité n'est rattachée à ce account </h4>
 	<% else %>
-        
+
 
   <table class="table table-bordered table-striped">
     <thead>
@@ -37,7 +37,7 @@
       </tr>
     </thead>
     <tbody>
-	
+
 			<% @opportunities = Opportunity.by_account(@account).order('name ASC').page(params[:page]) %>
 			<% @total_amount = 0 %>
 			<% @total_profit = 0 %>
@@ -81,15 +81,15 @@
         <% end %>
       </tbody>
   </table>
-  
+
   <%= paginate @opportunities %>
-  
+
   <div class="page-header pull-right" style="text-align: right;">
-    <h4> Montant total estimé : <%=number_to_currency(@total_amount, :locale => :fr) %>  HT</h4> <br /> 
-	<h4> Marge totale estimée : <%=number_to_currency(@total_profit, :locale => :fr) %>  HT</h4> 
+    <h4> Montant total estimé : <%=number_to_currency(@total_amount, :locale => :fr) %>  HT</h4> <br />
+	<h4> Marge totale estimée : <%=number_to_currency(@total_profit, :locale => :fr) %>  HT</h4>
   </div>
-  
+
   <% end %>
-  
+
 
 </div>

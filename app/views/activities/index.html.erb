@@ -1,29 +1,29 @@
 <%= render 'title', :locals => { :title => @title }%>
 
 <div class="container-fluid">
-  
+
   <table class="table table-bordered table-striped">
-   <thead> 
+   <thead>
     <tr>
       <th class="text-center">Nom</th>
       <th class="text-center">Description</th>
       <th class="text-center">Éditer</th>
     </tr>
    </thead>
-   
-  <tbody> 
+
+  <tbody>
   <% @activities.each do |activity| %>
     <tr>
       <td class="text-center"><%= activity.name %></td>
       <td class="text-center"><%= truncate(activity.description, :length => 300, :separator => ' ')%></td>
-      <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_activity_path(activity),{:title => "Éditer l'activité"} %></td>   
+      <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_activity_path(activity),{:title => "Éditer l'activité"} %></td>
     </tr>
   <% end %>
   </tbody>
   </table>
-  
+
   <br />
-  
-  <%= paginate @activities %> 
-  
+
+  <%= paginate @activities %>
+
 </div>

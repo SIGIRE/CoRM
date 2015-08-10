@@ -16,12 +16,12 @@
 			</div>
 		</div>
 	  <div class="row row-fluid">
-      <div class="field full"> 
+      <div class="field full">
         <div class="span2"><%= f.label(:ref, t('app.fields.ref') + colon) %></div>
 				<p><%= f.text_field :ref %></p>
 			</div>
 		</div>
-	  <div class="row row-fluid">	
+	  <div class="row row-fluid">
       <div class="field full">
         <div class="span2"><%= f.label(:date, t('app.fields.date') + colon) %></div>
 				<% dt = DateTime.now %>
@@ -48,13 +48,13 @@
 		</div>
 		<div class="field" id="nameContacts">
 			<%= render :partial => 'contacts' %>
-		</div>	
+		</div>
 	  <div class="row row-fluid">
       <div class="field full">
 				<div class="span2"><%= f.label(:ref_account, t('app.fields.ref_account') + colon) %></div>
 				<p><%= f.text_field :ref_account %></p>
 			</div>
-		</div> 
+		</div>
 		<div class="row row-fluid">
 			<div class="field full">
 				<div class="span2"><%= f.label(:user_id, t('app.fields.collegue') + colon) %></div>
@@ -88,7 +88,7 @@
       </div>
 		</div>
     <hr />
-		
+
     <div class="page-header">
       <h3> Propriétés </h3>
     </div>
@@ -99,7 +99,7 @@
           <div class="field full">
             <div class="span2"></div>
             <% if ta.object.new_record? %>
-              <%= ta.file_field :attach, required: true %>        
+              <%= ta.file_field :attach, required: true %>
               <script>$ (":file").filestyle({buttonText: 'Choisir un fichier'});</script>
             <% else %>
               <%= link_to ta.object.attach_file_name, ta.object.attach.url %>
@@ -126,10 +126,10 @@
       <%= render :partial => 'opportunities' %>
     </div>
 		<div class="row row-fluid">
-			<div class="field full"> 
+			<div class="field full">
 				<div class="span2"><%= f.label(:quotation_template_id, t('app.model.QuotationTemplate') + colon) %></div>
 				<p><%= f.collection_select :quotation_template_id, QuotationTemplate.order('company ASC').all, :id, :company, {}, :class => 'required' %><span class="req" /></p>
-			</div>	
+			</div>
 		</div>
 		<!-- Author and Editor -->
 		<% if !@quotation.id.nil? or !@quotation.updated_by.nil? %>
@@ -150,7 +150,7 @@
 		<!-- Submit or not submit -->
  		<div class="row row-fluid">
 			<%= if !@quotation.id.nil? then f.button 'Modifier le devis', :type => :submit, :class =>"btn btn-primary",:id =>"quotation_submit_form" else f.button 'Créer un devis', :type => :submit, :class =>"btn btn-primary",:id =>"quotation_submit_form" end %>
-      <%= if !@quotation.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, quotation_path(@quotation), :title => "Supprimer le Devis", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
+      <%= if !@quotation.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, quotation_path(@quotation), :title => "Supprimer le Devis", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %>
 		</div>
   <% end %>
 </div>

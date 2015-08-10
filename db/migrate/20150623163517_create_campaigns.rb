@@ -9,7 +9,7 @@ class CreateCampaigns < ActiveRecord::Migration
       t.string :modified_by
 
       t.timestamps
-      
+
       t.references :event_type
     end
   end

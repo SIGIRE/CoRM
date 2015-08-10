@@ -7,7 +7,7 @@ class CreateQuotationAttachments < ActiveRecord::Migration
         t.timestamps
     end
   end
-  
+
   def down
     # Suppression de la table "quotation_attachments"
     drop_table :quotation_attachments

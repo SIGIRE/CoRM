@@ -5,7 +5,7 @@ class CreateActivities < ActiveRecord::Migration
       t.text :description
       t.string :created_by
       t.string :updated_by
-      t.timestamps    
+      t.timestamps
     end
   end
 end

@@ -3,7 +3,7 @@ Tâche n°<%= @task.id %> : Mise à jour de la tâche
 ===============================================
 
 Bonjour, <%= @user.full_name %>
- 
+
 CRM SIGIRE vous informe que les données d'une tâche vous étant affectée ont été modifiées.
 
 Informations :
@@ -21,7 +21,7 @@ Statut : <%= @task.statut %>
 Echéance : <%= @task.term %>
 
 Sujet : <%= @task.title %>
-Description : 
+Description :
 <%= truncate(@task.notes, :length => 150, :separator => ' ')%>
- 
+
 Pour obtenir d'avantages d'informations sur cette tâche, veuillez cliquer sur ce lien : <%= link_to "Lien vers la tâche", @url %>

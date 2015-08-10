@@ -8,7 +8,7 @@ class WebmailConnection < ActiveRecord::Base
       puts("Connexion recuperee : #{connection.server}:#{connection.port} (#{connection.login}:#{connection.password})")
       puts("Attempting to connect to the specified email server...")
       Mail.defaults do
-        retriever_method :pop3, 
+        retriever_method :pop3,
           :address 	=> connection.server,
           :port		=> connection.port,
           :user_name 	=> connection.login,

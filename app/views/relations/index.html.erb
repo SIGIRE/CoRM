@@ -1,5 +1,5 @@
 <div class="container-fluid" style="margin-top: 1em;">
-   
+
 
      <div class="well">
        <div class="row-fluid">
@@ -10,12 +10,12 @@
        </div>
      </div>
 
-         
+
 </div>
 
 
 <div class="container-fluid">
-  
+
  <% if Relation.by_account(@account).blank? %>
   <h4><%= t('errors.messages.no_relation') %></h4>
  <% else %>
@@ -25,9 +25,9 @@
         <th class="text-center"><center>Compte source</center></th>
         <th class="text-center"><center>Relation</center></th>
         <th class="text-center"><center>Compte cible</center></th>
-        <th class="text-center"><center>Éditer</center></th> 
+        <th class="text-center"><center>Éditer</center></th>
       </tr>
-    
+
     <% @relations.each do |relation| %>
       <tr>
         <td class="text-center"><%= relation.account1.company %></td>
@@ -36,12 +36,12 @@
         <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_relation_path(relation) ,{:title => "Modifier la relation"} %></td>
     <% end %>
     </table>
-    
+
     <br />
-    
+
     <%= paginate @relations %>
   <% end %>
-  
 
-  
+
+
 </div>

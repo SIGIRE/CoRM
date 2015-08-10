@@ -11,19 +11,19 @@ class QuotationsController < ApplicationController
   has_scope :by_account_company_like
   has_scope :by_contact_id
   has_scope :by_user_id
-  has_scope :by_author_user_id 
+  has_scope :by_author_user_id
   has_scope :by_activity_account, as: :account_activity
   has_scope :by_account_tags, as: :account_tag
-  has_scope :by_origin_account, as: :account_origin  
-  
+  has_scope :by_origin_account, as: :account_origin
+
   def index
     default_order = 'date'
     default_direction = 'DESC'
     @sort = params[:sort] || default_order
     @direction = params[:direction] || default_direction
-    
+
     @quotations_all = apply_scopes(quotations).order("#{@sort} #{@direction}")
-                     
+
     @quotations = @quotations_all.page(params[:page])
 
     @quotations_scopes = current_scopes
@@ -45,7 +45,7 @@ class QuotationsController < ApplicationController
       format.xlsx # index.xlsx.axlsx
     end
   end
- 
+
   def get_companies
     partial_company_name = params[:company]
 
@@ -78,16 +78,16 @@ class QuotationsController < ApplicationController
     @quotation = Quotation.new(params[:quotation])
     @quotation.user = current_user
     @quotation.account_id = params[:account_id]
-    
+
     # Instanciate a default line
     1.times { @quotation.quotation_lines.build }
-    
+
     respond_to do |format|
       format.html  # new.html.erb
       format.json  { render :json => @quotation }
     end
   end
-  
+
   ##
   # Process to create a new Quotation into the DB
   #   Calculate the total_excl_tax, total_incl_tax, price and VAT
@@ -107,7 +107,7 @@ class QuotationsController < ApplicationController
 				@quotation.forename = @quotation.contact.forename
 				@quotation.title = @quotation.contact.title
 				@quotation.job = @quotation.contact.job
-			end	
+			end
 		end
 
     # Store variables to calculate price & total
@@ -135,7 +135,7 @@ class QuotationsController < ApplicationController
       render :action => "new"
     end
   end
-  
+
   ##
   # Render the page to edit one Quotation
   #
@@ -149,9 +149,9 @@ class QuotationsController < ApplicationController
   #
   def update
     @quotation = Quotation.find(params[:id])
-    
+
     @quotation.update_attributes(params[:quotation])
-    
+
     @quotation.updated_by = current_user.id
     if !@quotation.account.nil?
 			@quotation.company = @quotation.account.company
@@ -178,11 +178,11 @@ class QuotationsController < ApplicationController
 			@quotation.title = ''
 			@quotation.job = ''
 		end
-    
+
     #initialisation
     @quotation.VAT_rate = @quotation.quotation_template.vat_rate
     @quotation.total_excl_tax = 0
-    
+
     # For each lines, calculate the total exclude taxes
     @quotation.quotation_lines.each do |line|
       if !line.quantity.nil? && !line.price_excl_tax.nil? then
@@ -192,11 +192,11 @@ class QuotationsController < ApplicationController
         line.total_excl_tax = 0
       end
     end
-    
+
     # VAT and including taxes
     @quotation.total_VAT = @quotation.total_excl_tax * (@quotation.VAT_rate / 100)
     @quotation.total_incl_tax = @quotation.total_excl_tax + @quotation.total_VAT
-    
+
     if @quotation.save
       self.create_event(true)
       redirect_to session.delete(:return_to) || (!@quotation.account.nil? ? account_events_url(@quotation.account_id) : quotations_path), :notice => 'Le devis a été modifié.'
@@ -213,7 +213,7 @@ class QuotationsController < ApplicationController
   #
   def show
     @quotation = Quotation.find(params[:id])
-    
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @quotation }
@@ -223,9 +223,9 @@ class QuotationsController < ApplicationController
         type: "application/pdf", disposition: "inline"
       end
     end
-  
+
   end
-  
+
   ##
   # Remove a Quotation from the base
   #
@@ -235,23 +235,23 @@ class QuotationsController < ApplicationController
     url = @quotation.account.nil? ? quotations_path : account_events_url(@quotation.account)
     redirect_to session.delete(:return_to) || url, :notice => "Le devis a bien été supprimé."
   end
-  
+
   ##
   # Called to generate dynamically a Contact list per Account
   #
   def update_contact_select
     contacts = Contact.where(:account_id => params[:id]).order(:surname)
-    render :partial => "contacts" , :locals =>{:contacts => contacts }  
+    render :partial => "contacts" , :locals =>{:contacts => contacts }
   end
-  
+
   ##
   # Called to generate dynamically a Opportunity list per Account
   #
   def update_opportunity_select
     opportunities = Opportunity.where(:account_id => params[:id]).order(:name)
-    render :partial => "opportunities" , :locals =>{:opportunities => opportunities }  
+    render :partial => "opportunities" , :locals =>{:opportunities => opportunities }
   end
-  
+
   ##
   # Create an Event
   # * *Args*    :
@@ -277,21 +277,21 @@ class QuotationsController < ApplicationController
       hash["created_by"] = current_user.id
       hash["notes"] = "Devis n°" + @quotation.id.to_s + " créé."
     end
-    
+
     @event = Event.create(hash)
   end
-  
+
   private
     def load_account
       @account = Account.find_by_id(params[:account_id])
     end
-    
+
     def load_settings
       #ClickToCall
       @setting = Setting.all.first
-    end    
-    
-    def quotations 
+    end
+
+    def quotations
       @account ? @account.quotations : Quotation
     end
 

@@ -1,7 +1,7 @@
-Crm::Application.routes.draw do  
+Crm::Application.routes.draw do
 
   # we'll add some variables to change routes easily.
-  
+
   def set_route(pp, ps, c)
   # ex:    c => Tag
     # GET    tags/ => tags_path
@@ -19,22 +19,22 @@ Crm::Application.routes.draw do
     # DELETE tags/:id => tag_path(:tag)
     match "#{ps}/:id(.:format)",         :controller => c,  :action => 'destroy',   :via => :delete, :as => "#{c.singularize}"
   end
-  
+
 
   match 'attachment/:id(.:format)', to: 'attachments#destroy', via: :delete, as: :attachment
 
   match 'configuration', :controller => 'settings', :action => 'index', :via => :get, :as => 'settings'
   match 'configuration/update', :controller => 'settings', :action => 'update', :via => :post, :as => 'settings'
-  
+
   match 'extractions/select_param_accounts', :controller=>'extractions', :action => 'select_param_accounts'
   match 'extractions/comptes', :controller=>'extractions', :action => 'accounts', :as => :csv, :via => :post
   match 'extractions/select_param_contacts', :controller=>'extractions', :action => 'select_param_contacts'
   match 'extractions/contacts', :controller=>'extractions', :action => 'contacts', :as => :csv
-  
-  
+
+
   match 'extractions/csv_backup', :controller=>'application', :action => 'send_csv_backup_file'
   match 'extractions/yaml_backup', :controller=>'application', :action => 'send_yaml_backup_file'
-  
+
   # Resources needed for form_for support with a composed name Class (eventType)
   #
   #resources :eventTypes, :path => 'type-evenement'
@@ -45,7 +45,7 @@ Crm::Application.routes.draw do
   #match 'type-evenement/:id(.:format)', to: 'eventTypes#show', via: :get, as: :event_type
   match 'type-evenement/:id(.:format)', to: 'eventTypes#update', via: :put, as: :event_type
   match 'type-evenement/:id(.:format)', to: 'eventTypes#destroy', via: :delete, as: :event_type
-  
+
   # Resources needed for form_for support with a composed name Class (quotationTemplate)
   #
   #resources :eventTypes, :path => 'type-evenement'
@@ -57,11 +57,11 @@ Crm::Application.routes.draw do
   match 'modele-devis/:id(.:format)', to: 'quotationTemplates#update', via: :put, as: :quotation_template
   match 'modele-devis/:id(.:format)', to: 'quotationTemplates#destroy', via: :delete, as: :quotation_template
   #resources :quotationTemplates, :path => 'modele-devis'
-  
+
   resources :quotationLines
 
   # Quotations routes
-  set_route('devis', 'devis', 'quotations')  
+  set_route('devis', 'devis', 'quotations')
   match '/devis/filter(.:format)', :controller => 'quotations', :action => 'filter', :via => :get, :as => "filter_quotations_index"
   match '/devis/update_contact_select/:id', :controller=>'quotations', :action => 'update_contact_select'
   match '/devis/update_opportunity_select/:id', :controller=>'quotations', :action => 'update_opportunity_select'
@@ -72,14 +72,14 @@ Crm::Application.routes.draw do
   set_route('relations', 'relation', 'relations')
   # Documents routes
   set_route('documents', 'document', 'documents')
-  
+
   devise_for :user, :path_names => { :sign_in => 'login', :sign_out => 'logout', :sign_up => 'register' }, :controllers => { :registrations => 'registrations' }, :skip => [ :registrations, :sessions ]
   devise_scope :user do
     get '/login(.:format)',        :to => 'devise/sessions#new',        :as => :alt_new_user_session
 	get '/user/login(.:format)',        :to => 'devise/sessions#new',        :as => :new_user_session
 	post '/user/login(.:format)',       :to => 'registrations#session_new', :as => :user_session
     match '/user/logout(.:format)',          :to => 'devise/sessions#destroy', :via => Devise.mappings[:user].sign_out_via, :as => :destroy_user_session
-  
+
     match '/users(.:format)', :controller => 'registrations', :action => 'index', :via => :get, :as => 'users'
     match '/user/:id/edit(.:format)', :controller => 'registrations', :action => 'edit', :via => :get, :as => 'edit_user'
     match '/user/new', :controller => 'registrations', :action => 'new', :via => :get, :as => 'new_user'
@@ -91,18 +91,18 @@ Crm::Application.routes.draw do
   end
 
   # Opportunities routes
-  set_route('opportunites', 'opportunite', 'opportunities')  
+  set_route('opportunites', 'opportunite', 'opportunities')
   match '/opportunites/update_contact_select/:id', :controller=>'opportunities', :action => 'update_contact_select'
   match '/opportunites/filter(.:format)', :controller => 'opportunities', :action => 'filter', :via => :get, :as => "filter_opportunity_index"
-  
+
   # Origin routes
   # resources :origins
   set_route('origines', 'origine', 'origins');
-  
+
   # Activity routes
   # resources :activities
   set_route('activites', 'activity', 'activities');
- 
+
   # Contract_category routes
   # resources :contract_categories
   set_route('categorie_contrats', 'contract_category', 'contract_categories');
@@ -121,14 +121,14 @@ Crm::Application.routes.draw do
   set_route('contrats', 'contract', 'contracts');
   match '/contrats/filter(.:format)', :controller => 'contracts', :action => 'filter', :via => :get, :as => "filter_contracts_index"
 
-  
+
   # Tag routes
   # resources :tags
   set_route('tags', 'tag', 'tags');
-  
+
 
   match 'taches/update_contact_select/:id', :controller=>'tasks', :action => 'update_contact_select'
-  
+
   # Tasks routes
   set_route('taches', 'tache', 'tasks')
   match '/taches/filter(.:format)', :controller => 'tasks', :action => 'filter', :via => :get, :as => "filter_tasks_index"
@@ -158,7 +158,7 @@ Crm::Application.routes.draw do
     resources :contracts, path: 'contrats'
   end
   match 'comptes', :controller => 'accounts', :action => 'index'
-  
+
   # Events routes
   set_route('evenements', 'evenement', 'events')
 
@@ -167,14 +167,14 @@ Crm::Application.routes.draw do
   match 'contacts/extract', controller: 'contacts', action: 'extract'
   match 'contacts/search(.:format)', :controller => 'contacts', :action => 'search', :via => :get, :as => "search_contact_index"
   match 'contacts/filter(.:format)', :controller => 'contacts', :action => 'filter', :via => :get, :as => "search_contact_index"
-  
-  
+
+
   # Dashboard
   root :to => 'home#index'
-  
+
   # Reporting
   match 'reporting', :controller => 'home', :action => 'reporting'
-  
+
   # Search Account By Phone
   match 'search_by_phone/:phone_number', :controller => 'home', :action => 'search_by_phone'
 
@@ -186,14 +186,14 @@ Crm::Application.routes.draw do
 	get "webmail_connections/check"
 
   # emails noutes
-  set_route('emails', 'email', 'emails') 
+  set_route('emails', 'email', 'emails')
   get "emails/convert"
   put "email/update"
-  
+
 	# Notifications routes
 	set_route('notifications', 'notification', 'notifications')
 
-  # import routes  
+  # import routes
   resources :imports do
     new do
       post 'accounts'
@@ -201,19 +201,19 @@ Crm::Application.routes.draw do
     end
   end
   match 'download', :controller => 'imports', :action => 'download'
-  
+
   # import_accounts routes
   resources :import_accounts
   match 'import_accounts/importing', :controller => 'import_accounts', :action => 'importing_accounts'
   match 'import_accounts/recalculate_duplicates', :controller=>'import_accounts', :action=>'recalculate_duplicates'
   match 'destroy_all_invalids_accounts', :controller=>'import_accounts', :action=>'destroy_all_invalids'
-  
+
   #import_contacts routes
   resources :import_contacts
   match 'import_contacts/importing', :controller => 'import_contacts', :action => 'importing_contacts'
   match 'import_contacts/recalculate_duplicates', :controller=>'import_contacts', :action=>'recalculate_duplicates'
   match 'destroy_all_invalids_contacts', :controller=>'import_contacts', :action=>'destroy_all_invalids'
-  
+
   # resources :home
   # The priority is based upon order of creation:
   # first created -> highest priority.

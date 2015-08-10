@@ -6,10 +6,10 @@
 <% colon = t('app.fields.colon') %>
 <%= nested_form_for(@opportunity , :html => { :class => "well "}) do |f| %>
   <div class="row row-fluid">
-		<div class="field full"> 
+		<div class="field full">
 			<div class="span2"><%= f.label(:name, t('app.fields.label') + colon) %></div>
       <div><p><%= f.text_field :name, { :class => 'required' } %></p><span class="req"/></span></div>
-		</div>	
+		</div>
 	</div>
   <div class="row row-fluid">
 		<div class="field full">
@@ -61,7 +61,7 @@
           <div class="field full">
             <div class="span2"></div>
             <% if ta.object.new_record? %>
-              <%= ta.file_field :attach, required: true %>        
+              <%= ta.file_field :attach, required: true %>
               <script>$ (":file").filestyle({buttonText: 'Choisir un fichier'});</script>
             <% else %>
               <%= link_to ta.object.attach_file_name, ta.object.attach.url %>
@@ -77,14 +77,14 @@
         <div class="span2"></div><%= f.link_to_add raw('<i class="icon-plus"></i> Ajouter une pièce-jointe'), :opportunity_attachments, data: { target: '#attachments' } %>
       </div>
     </div>
-    
+
 	<div class="row row-fluid">
 		<div class="field full">
 			<div class="span2"><%= f.label(:statut ,t('app.fields.state') + colon) %></div>
 			<p><%= f.select :statut, Opportunity::STATUTS %></p>
 		</div>
 	</div>
-	
+
 	<div class="row row-fluid">
 	    <div class="field full">
 		    <div class="span2"><%= label(:prob ,"#{t('app.fields.probability')} :") %></div>
@@ -98,14 +98,14 @@
 		    </div>
 		    <!-- script is for show dynamic value of range -->
 		    <script>
-			$("#slider").change(function () {                    
+			$("#slider").change(function () {
 			var newValue = $('#slider').val();
 			$("#prob").html(newValue+"%");
 			});
 		    </script>
 	    </div>
 	</div>
-	
+
 	<div class="row row-fluid">
 		<div class="field full">
 			<div class="span2"><%= f.label(:remark, t('app.fields.remark')) %></div>
@@ -141,7 +141,7 @@
   <hr />
   <div class="row row-fluid">
 	<%= if !@opportunity.id.nil? then f.button "Modifier l'opportunité", :type => :submit, :class =>"btn btn-primary",:id =>"opportunity_submit_form" else f.button 'Créer une opportunité', :type => :submit, :class =>"btn btn-primary",:id =>"opportunity_submit_form" end %>
-	<%= if !@opportunity.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, opportunity_path(@opportunity), :title => "Supprimer l'opportunité", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %> 
- 
+	<%= if !@opportunity.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, opportunity_path(@opportunity), :title => "Supprimer l'opportunité", :confirm => 'Confirmer la suppression ?', :class =>"pull-right btn", :method => :delete end %>
+
   </div>
 <% end %>

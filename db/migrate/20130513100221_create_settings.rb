@@ -6,10 +6,10 @@ class CreateSettings < ActiveRecord::Migration
       t.string :input_type
     end
     execute "ALTER TABLE settings ADD PRIMARY KEY (key);"
-    
+
 
   end
-  
+
   def down
     drop_table :settings
   end

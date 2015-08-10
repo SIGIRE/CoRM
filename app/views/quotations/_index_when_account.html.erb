@@ -11,10 +11,10 @@
       <th class="text-center">Actions</th>
     </tr>
   </thead>
-  
+
   <tbody>
   <% @quotations.each do |quotation| %>
-  <tr>    
+  <tr>
   <td class="text-center">
           <% if quotation.statut == "Sauvegardé"%>
             <span class="badge badge-important">
@@ -29,42 +29,42 @@
           <% end %>
           <%= quotation.statut %></span>
         </td>
-      
+
   <% if !quotation.label.blank? %>
     <% then %>
       <td class="text-center"><%= link_to quotation.label, edit_quotation_path(quotation) ,{:title => "Éditer le devis"} %></td>
     <% else %>
       <td class="text-center">-</td>
-  <% end %> 		
+  <% end %>
 
   <% if !quotation.contact.nil? %>
     <% then %>
       <td class="text-center"><%= link_to quotation.contact.full_name , edit_contact_path(quotation),{:title => "Éditer le contact"} %></td>
     <% else %>
       <td class="text-center">-</td>
-  <% end %>		
+  <% end %>
 
   <% if !quotation.total_excl_tax.nil? %>
     <% then %>
       <td style="text-align :right;"><%= quotation.total_excl_tax.to_s + " "%> <%= currency_symbol %></td>
     <% else %>
       <td class="text-center">-</td>
-  <% end %>        
-  
+  <% end %>
+
   <% if !quotation.date.nil?  %>
     <% then %>
       <td class="text-center"><%= quotation.date.strftime("%d/%m/%Y") %></td>
     <% else %>
       <td class="text-center">-</td>
-  <% end %> 
-      
+  <% end %>
+
   <% if !quotation.user.nil? %>
     <% then %>
       <td class="text-center"><%= quotation.user.full_name %></td>
     <% else %>
       <td class="text-center">-</td>
-  <% end %>	
-      
+  <% end %>
+
   <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_quotation_path(quotation),{:title => "Éditer le devis"} %>
   <%= link_to '<i class="fa fa-print fa-2x action-icon"></i>'.html_safe, quotation_path(quotation, :format => "pdf"),{:title => "Afficher le PDF", :target => '_blank'} %></td>
   </tr>

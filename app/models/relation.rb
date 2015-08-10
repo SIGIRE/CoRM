@@ -16,7 +16,7 @@ class Relation < ActiveRecord::Base
   def author
     return author_user || User::default
   end
-  
+
   def editor
     return editor_user || User::default
   end

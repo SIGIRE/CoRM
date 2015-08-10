@@ -8,7 +8,7 @@ one:
   ville: MyString
   pays: MyString
   origine: MyString
-  type: 
+  type:
   code_compta: MyString
   notes: MyText
   created_by: MyString
@@ -22,7 +22,7 @@ two:
   ville: MyString
   pays: MyString
   origine: MyString
-  type: 
+  type:
   code_compta: MyString
   notes: MyText
   created_by: MyString

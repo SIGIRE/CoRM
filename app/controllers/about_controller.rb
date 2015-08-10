@@ -4,7 +4,7 @@
 # Controller that manage About page
 #
 class AboutController < ApplicationController
-  
+
   ##
   # About page
   #
@@ -12,5 +12,5 @@ class AboutController < ApplicationController
   # GET /types.json
   def index
   end
-  
+
 end

@@ -7,7 +7,7 @@ class CreateOpportunityAttachments < ActiveRecord::Migration
         t.timestamps
     end
   end
-  
+
   def down
     # Suppression de la table "opportunity_attachments"
     drop_table :opportunity_attachments

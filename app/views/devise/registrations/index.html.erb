@@ -1,5 +1,5 @@
 <div class="container-fluid" style="margin-top: 1em;">
-  
+
      <div class="well">
        <div class="row-fluid">
          <div class="span9">
@@ -7,7 +7,7 @@
 		       <% if current_user.has_role? :admin %>
 					<%= link_to '<i class="fa fa-plus-circle fa-3x action-icon pull-right"></i>'.html_safe, new_user_path ,{:title => "#{t('app.actions.create')} #{t('app.default.new_male')} #{t('app.model.User')}".html_safe} %>
 			<% end %>
-         
+
 		</div>
 	 </div>
   <p>
@@ -29,7 +29,7 @@
       <tr>
         <th class="text-center">Nom</th>
         <th class="text-center">E-mail</th>
-        <th class="text-center">Login</th>	
+        <th class="text-center">Login</th>
         <th class="text-center">Rôles</th>
         <% if current_user.has_role?(:super_user) or current_user.has_role?(:admin) %>
 			    <% if current_user.has_role?(:admin) %><th class="text-center">État</th><% end %>
@@ -42,7 +42,7 @@
       <tr>
         <td class="text-center"><strong><%= u.full_name %></strong></td>
         <td class="text-center"><%= mail_to u.email %></td>
-        <td class="text-center"><%= u.login_name %></td>	
+        <td class="text-center"><%= u.login_name %></td>
         <td class="text-center">
 	<% if u.roles.length > 0 %>
 	  <% if u.roles[0].name == 'admin' %>

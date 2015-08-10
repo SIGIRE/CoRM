@@ -15,12 +15,12 @@ class CreateModeles < ActiveRecord::Migration
       t.string :ape
       t.string :siret
       t.string :tva
-      
-      t.string :fichier_joint_file_name 
-      t.string :fichier_joint_content_type 
+
+      t.string :fichier_joint_file_name
+      t.string :fichier_joint_content_type
       t.integer :fichier_joint_file_size
       t.datetime :fichier_joint_updated_at
-      
+
       t.timestamps
     end
   end

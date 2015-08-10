@@ -11,7 +11,7 @@
                                :data => { :provide => 'typeahead'},
                                :autocomplete=>"off" } %>
 		    </div>
-		    
+
 		    <div class="">
 			<%= label_tag :by_description_like,  t('app.fields.content') + " :", :class => "top" %>
 			<%= text_field_tag "by_description_like", params[:by_description_like] %>
@@ -19,9 +19,9 @@
 		<div class="">
 			<%= label_tag :by_category_id, "Catégorie :", :class => "top"  %>
 			<%= select_tag "by_category_id",options_from_collection_for_select( ContractCategory.all, :id, :name, params[:contract_category]), { :include_blank => "Toutes", :class =>"filter_statut" }   %>
-		</div>		    
+		</div>
 	  <%= submit_tag t('app.actions.filter'), :class =>"btn "%>
       <% end %>
     </div>
 </div>
-</div>    
+</div>

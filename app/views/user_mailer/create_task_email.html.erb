@@ -4,13 +4,13 @@
     <meta content="multipart/alternative"; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    
+
     <div class="container-fluid">
-  
+
       <div class="page-header">
         <h2>Création de la tâche n° <%= @task.id %></h2>
       </div>
-      
+
       <div class="well">
         <p>Bonjour, <%= @user.full_name %></p>
         <p>
@@ -21,12 +21,12 @@
             <strong> Compte : </strong><%= @task.account.company %>
             <br />
           <% end %>
-          
+
           <% if !@task.contact.nil? %>
             <strong> Contact : </strong><%= @task.contact.full_name %>
             <br />
           <% end %>
-          
+
           <strong> Statut : </strong><%= @task.statut %><br />
           <strong> Echéance : </strong> <%= @task.term.split('/').reverse!.join('/') %>
           <strong> Sujet : </strong> <%= @task.title %>
@@ -34,8 +34,8 @@
         <p><h4> Description : </h4><%= truncate(@task.notes, :length => 150, :separator => ' ')%></p>
         <p>Pour obtenir d'avantages d'informations sur cette tâche, veuillez cliquer sur ce lien : <%= link_to "Lien vers la tâche", @url %>.</p>
       </div>
-      
+
     </div>
-    
+
   </body>
 </html>

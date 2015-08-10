@@ -13,7 +13,7 @@
 				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @quotations_scopes.merge({:sort => "total_excl_tax_cents", :direction => "ASC"}) %>
 				<% else %>
 				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @quotations_scopes.merge({:sort => "total_excl_tax_cents", :direction => "DESC"}) %>
-				<% end %>	      
+				<% end %>
       </th>
       <th class="text-center">Date
 				<% if @sort == "date" and @direction == "ASC" then %>
@@ -28,7 +28,7 @@
       <th class="text-center">Actions</th>
     </tr>
   </thead>
-  
+
   <tbody>
   <% @quotations.each do |quotation| %>
   <tr>
@@ -46,49 +46,49 @@
           <% end %>
           <%= quotation.statut %></span>
         </td>
-      
+
   <% if !quotation.account.nil? %>
     <% then %>
       <td class="text-center"><%= link_to quotation.account.company , account_events_url(quotation.account),{:title => "Afficher les évenements"}  %></td>
     <% else %>
       <td class="text-center">-</td>
-  <% end %>     
-  
+  <% end %>
+
   <% if !quotation.label.blank? %>
     <% then %>
       <td class="text-center"><%= link_to quotation.label, edit_quotation_path(quotation) ,{:title => "Éditer le devis"} %></td>
     <% else %>
       <td class="text-center">-</td>
-  <% end %> 		
+  <% end %>
 
   <% if !quotation.contact.nil? %>
     <% then %>
       <td class="text-center"><%= link_to quotation.contact.full_name , edit_contact_path(quotation),{:title => "Éditer le contact"} %></td>
     <% else %>
       <td class="text-center">-</td>
-  <% end %>		
+  <% end %>
 
   <% if !quotation.total_excl_tax.nil? %>
     <% then %>
       <td style="text-align :right;"><%= number_to_currency(quotation.total_excl_tax, :locale => :fr)  %> <strong> HT </strong></td>
     <% else %>
       <td class="text-center">-</td>
-  <% end %>        
-  
+  <% end %>
+
   <% if !quotation.date.nil?  %>
     <% then %>
       <td class="text-center"><%= quotation.date.strftime("%d/%m/%Y") %></td>
     <% else %>
       <td class="text-center">-</td>
-  <% end %> 
-      
+  <% end %>
+
   <% if !quotation.user.nil? %>
     <% then %>
       <td class="text-center"><%= quotation.user.full_name %></td>
     <% else %>
       <td class="text-center">-</td>
-  <% end %>	
-      
+  <% end %>
+
   <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_quotation_path(quotation),{:title => "Éditer le devis"} %> <%= link_to '<i class="fa fa-print fa-2x action-icon"></i>'.html_safe, quotation_path(quotation, :format => "pdf"),{:title => "Afficher le PDF", :target => '_blank'} %></td>
   </tr>
   <% end %>
@@ -117,5 +117,5 @@
       </tbody>
     </table>
   </div>
-  
+
 </div>

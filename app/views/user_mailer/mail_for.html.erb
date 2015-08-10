@@ -3,7 +3,7 @@
   <div class="page-header">
     <h2>Création de la <%= @created_object %> n° <%= @object.id %></h2>
   </div>
-  
+
   <div class="well">
     <p>Bonjour, <%= @user.full_name %></p>
     <p>
@@ -27,7 +27,7 @@
         <strong> Compte : </strong><%= @object.account.company %>
         <br />
       <% end %>
-      
+
       <% if defined? @object.contact and !@object.contact.nil? %>
         <strong> Contact : </strong><%= @object.contact.full_name %>
         <br />

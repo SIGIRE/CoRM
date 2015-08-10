@@ -1,7 +1,7 @@
 <% @tags_select = Tag.all - @account.tags %>
 
 <div class="container-fluid" style="margin-top: 1em;">
-   
+
 
      <div class="well">
        <div class="row-fluid">
@@ -12,7 +12,7 @@
        </div>
      </div>
 
-         
+
 
 <div class="container-fluid">
        <div class="row-fluid">
@@ -22,16 +22,16 @@
 						<% if (@tags_select.count > 0) %>
               <%= submit_tag "Affecter", class: "btn btn-primary" %>
 						<% else %>
-						  <%= label_tag(:tag_id, "Aucun tag disponible à l'ajout", { :class => 'badge badge-warning', :style => 'vertical-align: top; margin-left: 5px; margin-top: 6px;' }) %>		 
+						  <%= label_tag(:tag_id, "Aucun tag disponible à l'ajout", { :class => 'badge badge-warning', :style => 'vertical-align: top; margin-left: 5px; margin-top: 6px;' }) %>
 					  <% end %>
           <% end %>
           </div>
 		</div>
-          
+
 	<% if @account.tags.blank? %>
 		<h4> Aucun Tag n'est rattaché à ce compte...</h4>
 	<% else %>
-        
+
 
 
 <table class="table table-bordered table-striped">
@@ -55,9 +55,9 @@
 </table>
 
   <br />
-  
+
   <%= paginate @tags %>
-  
-  
+
+
 <% end %>
 </div>

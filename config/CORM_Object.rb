@@ -6,7 +6,7 @@ class CORM_Object < Hash
     @@path = './config/CORM.json'
 
     def self.createObject(json_object, depth, key_as_sym = true)
-        
+
         o = depth == 0 ? CORM_Object.new : Hash.new
         if (key_as_sym)
             json_object.each do |k, v|
@@ -15,7 +15,7 @@ class CORM_Object < Hash
                 else
                     o[k.to_sym] = v[0] == ':' ? v[1..v.length].to_sym : v
                 end
-                
+
             end
         else
             json_object.each do |k, v|
@@ -24,7 +24,7 @@ class CORM_Object < Hash
                 else
                     o[k] = v[0] == ':' ? v[1..v.length].to_sym : v
                 end
-                
+
             end
         end
         return o
@@ -58,7 +58,7 @@ class CORM_Object < Hash
             build: version[1]
         }
     end
-    
+
     def set_version(o)
         if (o.is_a? String)
             version = self[:version].split(' ')
@@ -74,10 +74,10 @@ class CORM_Object < Hash
             versionsSplitted[1] = o[:minor]
             versionsSplitted[2] = o[:corrected]
             self[:version] = versionsSplitted.join('.').concat(version[1])
-        
+
         end
     end
-    
+
     def save(path = nil)
         if (path.nil?)
            path = @@path

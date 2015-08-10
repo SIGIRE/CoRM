@@ -7,7 +7,7 @@ class CreateTaskAttachments < ActiveRecord::Migration
         t.timestamps
     end
   end
-  
+
   def down
     # Suppression de la table "event_attachments"
     drop_table :task_attachments

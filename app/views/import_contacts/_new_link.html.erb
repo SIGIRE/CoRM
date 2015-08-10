@@ -1,6 +1,6 @@
 </div>
     <% if can? :manage, ImportContact %>
-    
+
         <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, contacts_new_import_path, :title => "#{t('title.new_import')}#{t('title.contacts')}", :class=>"pull-right", :method=> :post %>
 
     <% end %>

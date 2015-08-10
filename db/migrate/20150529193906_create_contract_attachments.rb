@@ -5,11 +5,11 @@ class CreateContractAttachments < ActiveRecord::Migration
         t.integer :contract_id
         t.attachment :attach
         t.timestamps
-    end    
+    end
   end
 
   def down
     # Suppression de la table "contract_attachments"
-    drop_table :contract_attachments    
+    drop_table :contract_attachments
   end
 end

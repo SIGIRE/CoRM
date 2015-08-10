@@ -9,7 +9,7 @@ class RemoveAttachmentFieldsFromTask < ActiveRecord::Migration
             task.task_attachments.push attach
         end
     end
-    
+
     # Suppression des champs devenus inutiles
     change_table :tasks do |t|
         remove_attachment :tasks, :attach
@@ -21,7 +21,7 @@ class RemoveAttachmentFieldsFromTask < ActiveRecord::Migration
     change_table :tasks do |t|
         t.attachment :attach
     end
-    
+
     # Recuperation des tâches
     tasks = Task.all
     tasks.each do |task|

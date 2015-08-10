@@ -33,7 +33,7 @@ class ChangeTableNameFromFrenchToEnglish < ActiveRecord::Migration
       rename_column(:accounts, :pays, :country)
       rename_column(:accounts, :code_compta, :accounting_code)
       rename_column(:accounts, :genre, :category)
-    
+
     # for the new renamed accounts_tags table
     rename_column(:accounts_tags, :compte_id, :account_id)
     rename_column(:accounts_tags, :produit_id, :tag_id)
@@ -79,7 +79,7 @@ class ChangeTableNameFromFrenchToEnglish < ActiveRecord::Migration
       rename_column(:quotations, :fichier_joint_content_type, :attach_content_type)
       rename_column(:quotations, :fichier_joint_file_size, :attach_file_size)
       rename_column(:quotations, :fichier_joint_updated_at, :attach_updated_at)
-    
+
     # for the Documents table
     rename_column(:documents, :compte_id, :account_id)
       rename_column(:documents, :nom, :name)
@@ -157,7 +157,7 @@ class ChangeTableNameFromFrenchToEnglish < ActiveRecord::Migration
       rename_column(:tasks, :fichier_joint_content_type, :attach_content_type)
       rename_column(:tasks, :fichier_joint_file_size, :attach_file_size)
       rename_column(:tasks, :fichier_joint_updated_at, :attach_updated_at)
-      
+
     # for the new renamed EventTypes table (ex: Types)
       rename_column(:event_types, :libelle, :label)
 
@@ -181,7 +181,7 @@ class ChangeTableNameFromFrenchToEnglish < ActiveRecord::Migration
       rename_column(:accounts, :country, :pays)
       rename_column(:accounts, :accounting_code, :code_compta)
       rename_column(:accounts,  :category, :genre)
-    
+
     # for the new renamed accounts_tags table
     rename_column(:accounts_tags, :account_id, :compte_id)
     rename_column(:accounts_tags, :tag_id, :produit_id)
@@ -226,7 +226,7 @@ class ChangeTableNameFromFrenchToEnglish < ActiveRecord::Migration
       rename_column(:quotations, :attach_content_type, :fichier_joint_content_type)
       rename_column(:quotations, :attach_file_size, :fichier_joint_file_size)
       rename_column(:quotations, :attach_updated_at, :fichier_joint_updated_at)
-    
+
     # for the Documents table
     rename_column(:documents, :account_id, :compte_id)
       rename_column(:documents, :name, :nom)
@@ -300,7 +300,7 @@ class ChangeTableNameFromFrenchToEnglish < ActiveRecord::Migration
       rename_column(:tasks, :attach_content_type, :fichier_joint_content_type)
       rename_column(:tasks, :attach_file_size, :fichier_joint_file_size)
       rename_column(:tasks, :attach_updated_at, :fichier_joint_updated_at)
-      
+
     # for the new renamed EventTypes table (ex: Types)
       rename_column(:event_types, :label, :libelle)
 
@@ -319,7 +319,7 @@ class ChangeTableNameFromFrenchToEnglish < ActiveRecord::Migration
     rename_table(:accounts, :comptes)
     rename_table(:quotation_templates, :modeles)
     rename_table(:accounts_tags, :comptes_produits)
-    rename_table(:contacts_tags, :contacts_produits) 
+    rename_table(:contacts_tags, :contacts_produits)
   end
 
 end

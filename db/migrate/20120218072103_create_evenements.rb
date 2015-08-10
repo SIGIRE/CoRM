@@ -8,7 +8,7 @@ class CreateEvenements < ActiveRecord::Migration
       t.string :modified_by
 
       t.timestamps
-      
+
       t.references :contact
       t.references :compte
       t.references :type

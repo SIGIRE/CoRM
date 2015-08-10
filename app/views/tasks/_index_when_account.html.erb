@@ -10,7 +10,7 @@
                     <th class="text-center"><%= t('app.actions.created_at_female') %></th>
                     <th class="text-center"><%= t('app.fields.term') %></th>
                     <th class="text-center"><%= t('app.fields.collegue') %></th>
-                    <th class="text-center"><%= t('app.actions.Actions') %></th>        
+                    <th class="text-center"><%= t('app.actions.Actions') %></th>
                 </tr>
             </thead>
             <tbody>
@@ -18,13 +18,13 @@
                     <%
 	                    if task.priority == 3
 	                      attr = ' class="bold error"'.html_safe
-	                    elsif task.priority == 2 
+	                    elsif task.priority == 2
 	                      attr = ' class="error"'.html_safe
 	                    elsif task.priority == 0
 	                      attr = ' class="info"'.html_safe
 	                    else
 	                      attr = ''
-	                    end 
+	                    end
                     %>
 	                <tr<%= attr %>>
 
@@ -53,7 +53,7 @@
                         </td>
                         <%# Récupération de la priorité %>
 		                <% if !task.priority.blank? %>
-			                							
+
 						<% if task.priority == 3 %>
 							<td class="text-center"><%= t('app.priority.urgent') %></td>
 						<% elsif task.priority == 2 %>
@@ -63,14 +63,14 @@
 						<% elsif task.priority == 0 %>
 							<td class="text-center"><%= t('app.priority.low') %></td>
 						<% end %>
-							
-							
+
+
 		                <% else %>
 			                <td class="text-center">-</td>
 		                <% end %>
-		                
 
-		                
+
+
 		                <%# Récupération du titre %>
 		                <% if !task.title.blank? %>
 			                <td class="text-center"><%= link_to truncate(task.title, :length => 75, :separator => ' '), edit_task_path(task), :title => "#{t('app.actions.edit')} #{t('app.default.define_article_female')} #{t('app.model.Task')}".html_safe  %></td>
@@ -83,7 +83,7 @@
 			                <td class="text-center"><%= link_to task.contact.full_name, edit_contact_path(task.contact),{:title => "#{t('app.actions.edit')} #{t('app.default.define_article_male')} #{t('app.model.Contact')}".html_safe }  %></td>
 		                <% else %>
 			                <td class="text-center">-</td>
-		                <% end %>		
+		                <% end %>
                         <%# Récupération de la date de création %>
 		                <% if !task.created_at.nil? %>
 			                <td class="text-center"><%= task.created_at.strftime("%d/%m/%y") %></td>
@@ -104,9 +104,9 @@
 		                <% else %>
 			                <td class="text-center">-</td>
 		                <% end %>
-                        
+
                         <%# Récupération de l'utilisateur' %>
-		                <% if !task.user.nil? %>	
+		                <% if !task.user.nil? %>
 			                <td class="text-center"><%= task.user.full_name %></td>
 		                <% else %>
 			                <td class="text-center">-</td>
@@ -114,7 +114,7 @@
 
 		                <td class="text-center">
                       <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_task_path(task) , :title => "#{t('app.actions.edit')} #{t('app.default.define_article_female')} #{t('app.model.Task')}".html_safe   %>
-		        <%= link_to '<i class="fa fa-check-square-o fa-2x action-icon"></i>'.html_safe, finished_task_path(task) , :title => "#{t('app.actions.finished')} #{t('app.default.define_article_female')} #{t('app.model.Task')}".html_safe %>        
+		        <%= link_to '<i class="fa fa-check-square-o fa-2x action-icon"></i>'.html_safe, finished_task_path(task) , :title => "#{t('app.actions.finished')} #{t('app.default.define_article_female')} #{t('app.model.Task')}".html_safe %>
 			</td>
 	                </tr>
 	            <% end %>

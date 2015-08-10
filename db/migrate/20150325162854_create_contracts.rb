@@ -1,5 +1,5 @@
 class CreateContracts < ActiveRecord::Migration
-  
+
   def self.up
     create_table :contracts do |t|
       t.string :name
@@ -14,9 +14,9 @@ class CreateContracts < ActiveRecord::Migration
       t.integer :contract_category_id
     end
   end
-  
+
   def self.down
      drop_table :contracts
-  end  
-  
+  end
+
 end

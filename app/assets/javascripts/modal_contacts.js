@@ -1,5 +1,5 @@
 $(function() {
-    
+
     /**
     * Get the list of tags by id
     * @param {String} tag|contact
@@ -18,7 +18,7 @@ $(function() {
 
     /* Init */
     var initial_tags = getTagsList('tag option'), initial_tags_contact = getTagsList('contact_tag option');
-    
+
     /* Adding a tag to a Contact Handler */
     $("#contact_add_tag").click(function() {
         var tags = getTagsList('tag option:selected'), contact_tagHTML = $('#contact_tag');
@@ -33,8 +33,8 @@ $(function() {
 		);
 	}
 	$('#tag option:selected').remove();
-    });  
- 
+    });
+
   /* Remove a tag from the Contact tag list */
   $("#contact_remove_tag").click(function() {
     var tags = getTagsList('contact_tag option:selected'), tagHTML = $('#tag');
@@ -45,11 +45,11 @@ $(function() {
 		    content: tags[key],
 		    value: key
 		})
-	    );	
+	    );
     }
     $('#contact_tag option:selected').remove();
   });
-  
+
   /* Remove from the Tags list, tags which are already linked to the contact */
   $("#contact_add_button").click(function() {
     var tags = getTagsList('select#contact_tag option');
@@ -57,7 +57,7 @@ $(function() {
 	$('#tag option[value="' + key + '"]').remove();
     }
   });
-  
+
   /* Get all tags linked to the contact in the modal window and add it to the main form for edition/creation */
   $("#contact_submit_add").click(function() {
     var tags = getTagsList('select#contact_tag option');
@@ -78,7 +78,7 @@ $(function() {
     initial_tags = getTagsList('select#tag option');
     initial_tags_contact = tags.slice(0);
   });
-  
+
   /* Manage cancellation */
   $("#contact_cancel_add").click(function() {
     var contact_tagHTML = $('select#contact_tag'), tagHTML = $('select#tag'), key;
@@ -101,7 +101,7 @@ $(function() {
 	);
     }
   });
-  
+
   /* Check before submit */
   $("#contact_submit_form").click(function(e) {
     var select = $('select#display_contact_tag');
@@ -111,5 +111,5 @@ $(function() {
         $(this).attr('selected', 'selected');
     });
   });
-  
+
 });

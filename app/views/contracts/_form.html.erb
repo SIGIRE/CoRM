@@ -16,13 +16,13 @@
     </div>
   <% end %>
 
- 
+
   <div class="row row-fluid">
     <div class="field full">
       <div class="span2">Nom :</div><p><%= f.text_field :name,{ :class => 'required'} %><span class="req" /></p>
     </div>
   </div>
-  
+
         <!-- Account field -->
   <div class="row row-fluid">
     <div class="field full">
@@ -38,7 +38,7 @@
       <%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id' } %>
     </div>
   </div>
-		      
+
   <div class="row row-fluid">
     <div class="field full">
       <div class="span2">Description :</div><p><%= f.text_area :description, :display_with => :simple_format, :rows => "5", :style=>'width: 30em;' %></p>
@@ -50,33 +50,33 @@
         <div class="span2">Date de signature initiale :</div><p><%= f.text_field :date_initial, { :value => (@contract.date_initial.strftime('%d/%m/%Y') unless @contract.date_initial.blank?) } %></p>
     </div>
   </div>
-	
+
   <div class="row row-fluid">
     <div class="field full">
         <div class="span2">Date de début de validité :</div><p><%= f.text_field :date_begin, { :value => (@contract.date_begin.strftime('%d/%m/%Y') unless @contract.date_begin.blank?) } %></p>
     </div>
   </div>
-    
+
   <div class="row row-fluid">
     <div class="field full">
         <div class="span2">Date de fin de validité :</div><p><%= f.text_field :date_end, { :value => (@contract.date_end.strftime('%d/%m/%Y') unless @contract.date_end.blank?) } %></p>
     </div>
   </div>
-    
-      
+
+
   <div class="row row-fluid">
     <div class="field full">
       <div class="span2"> Catégorie : </div> <p><%= f.collection_select :contract_category_id, ContractCategory.order('name ASC').all, :id, :name, :include_blank => true %></p>
     </div>
   </div>
-  
+
     <div id="attachments">
       <%= f.fields_for :contract_attachments do |ca| %>
         <div class="row row-fluid">
           <div class="field full">
             <div class="span2"></div>
             <% if ca.object.new_record? %>
-              <%= ca.file_field :attach, required: true%>        
+              <%= ca.file_field :attach, required: true%>
               <script>$ (":file").filestyle({buttonText: 'Choisir un fichier'});</script>
             <% else %>
               <%= link_to ca.object.attach_file_name, ca.object.attach.url %>
@@ -92,12 +92,12 @@
         <div class="span2"></div><%= f.link_to_add raw('<i class="icon-plus"></i> Ajouter une pièce-jointe'), :contract_attachments, data: { target: '#attachments' } %>
       </div>
     </div>
-  
-  
-          <br />
-  	
 
-  
+
+          <br />
+
+
+
 	<% if !@contract.id.nil? or !@contract.updated_by.nil? %>
 	<div class="row row-fluid">
 		<div class="field full">
@@ -111,12 +111,12 @@
 			<% end %>
 	  </div>
 	</div>
-     <% end %>  
+     <% end %>
     <hr />
-  
+
    <div class="row">
     <%= if !@contract.id.nil? then f.button "Modifier le contrat", :type => :submit, :class =>"btn btn-primary",:id =>"contract_validate_form" else f.button 'Créer un contrat', :type => :submit, :class =>"btn btn-primary",:id =>"contract_validate_form" end%>
-    <%= if !@contract.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @contract, :title => "Supprimer l'activité", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn", :method => :delete end %> 
+    <%= if !@contract.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @contract, :title => "Supprimer l'activité", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn", :method => :delete end %>
     </div>
   </div>
 <% end %>

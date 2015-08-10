@@ -2,7 +2,7 @@ class SetTasksWithNoPriorityToNormal < ActiveRecord::Migration
   def up
     Task.where(:priority => nil).each do |t|
       t.update_attribute(:priority, 1)
-    end    
+    end
   end
 
   def down

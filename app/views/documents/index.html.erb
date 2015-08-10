@@ -1,5 +1,5 @@
 <div class="container-fluid" style="margin-top: 1em;">
-   
+
 
      <div class="well">
        <div class="row-fluid">
@@ -10,16 +10,16 @@
        </div>
      </div>
 
-         
+
 </div>
 
 
 <div class="container-fluid">
-  
+
  <% if Document.by_account(@account).blank? %>
  <h4> Aucun Document n'est rattaché à ce Compte </h4>
  <% else %>
-  
+
  <table class="table table-bordered table-striped">
     <thead>
       <tr>
@@ -45,11 +45,11 @@
         <% end %>
       </tbody>
   </table>
-  
+
   <br />
-  
+
   <%= paginate @documents %>
-  
-  <% end %> 
-  
+
+  <% end %>
+
 </div>

@@ -3,7 +3,7 @@ class ActivateAllUsers < ActiveRecord::Migration
        User.all.each do | u |
          u.update_attribute(:enabled,true)
        end
-      
+
        u=User.new
        u.forename="Admin"
        u.surname="COMPANY"

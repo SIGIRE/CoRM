@@ -1,19 +1,19 @@
 <div class="container-fluid" style="margin-top: 1em;">
-  
+
   <div class="row-fluid">
-    
+
     <% if params.has_key?(:account_id) %>
-     
+
       <div class="span3" >
       <%= render "shared/infoaccount" %>
-      </div>   
-     
+      </div>
+
       <div class="span9">
-	
+
     <%  else %>
-      
+
       <div class="span12">
-	
+
     <% end %>
 
     <ul class="nav nav-tabs">
@@ -26,7 +26,7 @@
       <li<%=' class=active' if controller_name.eql? 'documents' %>><%= link_to "<i class=\"fa fa-folder fa-fw\"></i> #{t('app.model.Document').pluralize}".html_safe, [@account, :documents]%></li>
       <li<%=' class=active' if controller_name.eql? 'relations' %>><%= link_to "<i class=\"fa fa-exchange fa-fw\"></i> #{t('app.controllers.Relations')}".html_safe, [@account, :relations]%></li>
     </ul>
-    
+
     <div class="tab-content">
       <div class="tab-pane active" id=<%= controller_name %>><%= yield %></div>
     </div>
@@ -34,7 +34,7 @@
       </div>
   </div>
 </div>
-  
+
 <div class="modal hide fade" id="account_tag_modal" style="width: 900px; margin-left: -450px;">
     <%= render "accounts/modal_tags" %>
 </div>

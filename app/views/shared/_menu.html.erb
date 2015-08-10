@@ -45,17 +45,17 @@
           </ul>
         </li>
         <% end %>
-      
-      
+
+
         <!-- REPORT -->
-        
+
         <% cssClass = (params[:controller] == 'home' and params[:action] == 'reporting') ? 'active' : '' %>
         <li class="<%= if !cssClass.blank? then " #{cssClass}" end %>">
           <%= link_to "<i class=\"fa fa-pie-chart  fa-fw\"></i> #{t('title.reporting')}".html_safe, reporting_path %></li>
         </li>
-     
-        
-        
+
+
+
       </ul>
 
       </div>

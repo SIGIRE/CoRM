@@ -7,7 +7,7 @@
   <table class="table table-bordered table-striped table-hover">
     <thead>
     <tr>
-			<th class="text-center">#</th>	  
+			<th class="text-center">#</th>
 			<th class="text-center">Contact</th>
 			<th class="text-center">Compte</th>
 			<th class="text-center">Objet</th>
@@ -18,7 +18,7 @@
     </tr>
     </thead>
 <tbody>
-        <% @emails.each do |email| %> 
+        <% @emails.each do |email| %>
 
 	            <%# Si l'email est valide, la ligne sera verte %>
 				<% if email.check %>
@@ -53,17 +53,17 @@
 
 	            <%# Récupération du destinataire de l'email %>
 				<td class="text-center">
-				
+
 				<%# Si on a un contact_id %>
 				<% if !email.contact_id.blank? %>
 					<%# Si le contact correspondant au 'contact_id' existe dans la base de données %>
-					<% if !(Contact.where(:id => email.contact_id).count == 0) %>			
+					<% if !(Contact.where(:id => email.contact_id).count == 0) %>
 						<% contact = Contact.find(email.contact_id) %>
 						<%# Si le contact trouvé a un email %>
 						<% if !contact.email.blank? %>
 						    <% puts "email" %>
 							<%= link_to contact.email, edit_contact_path(email.contact_id), {:title => "Modifier le contact", :color =>"white"}%><% contact = Contact.find_by_email(email.to) %>
-					
+
 						<%# Sinon s'il a un nom %>
 						<% elsif !contact.full_name.blank? %>
 						    <%= puts contact.full_name %>
@@ -74,7 +74,7 @@
 						<% end %>
 					<% end %>
 
-					
+
 
 				<%# Si on a pas de contact_id %>
 				<% else %>
@@ -89,7 +89,7 @@
 					<% end %>
 				<% end %>
 				</td>
-	
+
 	            <%# Récupération du compte du contact %>
 				<td class="text-center">
 
@@ -102,16 +102,16 @@
 					<% else %>
 					    -
 					<% end %>
-	            
+
 				<%# Si on a quand même un contact qui correspond au à l'adresse du champ "to" %>
 				<% elsif Contact.where(:email => email.to).count == 1 %>
 						<% contact = Contact.find_by_email(email.to) %>
-				
+
 						<%# Si le contact trouvé a un compte, on l'affiche dans un badge orange %>
 						<% if !contact.account_id.blank? %>
 							<% account = Account.find(contact.account_id) %>
 							<%= account.company %>
-				
+
 						<%# S'il n'en a pas, on affiche "-" %>
 						<% else %>
 							-
@@ -146,11 +146,11 @@
 					    -
 				    <% end %>
 				    </td>
-					
+
 	<%# Récupération des pièces-jointes %>
 	<td class="text-center">
 
-		<%# Si il y a une/des pièces jointes, on les comptes %>		
+		<%# Si il y a une/des pièces jointes, on les comptes %>
 		<% if !email.email_attachments.blank? %>
 			<% count = 0 %>
                         <% email.email_attachments.each do |attachment| %>
@@ -161,19 +161,19 @@
 			<% if count > 1 %>
 				<%= link_to [+count], edit_email_path(email.id), {:title => "Voir les pièces jointes"} %>
 
-			<%# Sinon on affiche l'attachment %>			
+			<%# Sinon on affiche l'attachment %>
 			<% else %>
 				<% email.email_attachments.each do |attachment| %>
 					<%= link_to attachment.attach_file_name,  attachment.attach.url, :target => '_blank'%>
 				<% end %>
 			<% end %>
 
-		<%# Si il n'y a pas d'attachment, on affiche un simple " - " %>		
+		<%# Si il n'y a pas d'attachment, on affiche un simple " - " %>
 		<% else %>
 			-
 		<% end %>
 	</td>
-		
+
 	            <%# Récupération de la date d'envoi %>
 				<td class="text-center">
 				    <% if !email.send_at.blank? %>

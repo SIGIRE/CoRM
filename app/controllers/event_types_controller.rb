@@ -46,7 +46,7 @@ class EventTypesController < ApplicationController
       format.json { render :json => @eventtype }
     end
   end
-  
+
   ##
   # Render a page to edit one occurence of EventType
   #
@@ -110,5 +110,5 @@ class EventTypesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
 end

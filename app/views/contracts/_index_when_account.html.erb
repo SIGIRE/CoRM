@@ -1,7 +1,7 @@
 <div class="container-fluid">
-  
+
   <table class="table table-bordered table-striped">
-   <thead> 
+   <thead>
     <tr>
       <th class="text-center">Nom</th>
       <th class="text-center">Description</th>
@@ -11,8 +11,8 @@
       <th class="text-center">Éditer</th>
     </tr>
    </thead>
-   
-  <tbody> 
+
+  <tbody>
   <% @contracts.each do |contract| %>
     <tr>
       <td class="text-center"><%= contract.name %></td>
@@ -32,14 +32,14 @@
       <% else %>
       <td class="text-center">-</td>
     <% end %>
-      <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_contract_path(contract),{:title => "Éditer le contrat"} %></td>   
+      <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_contract_path(contract),{:title => "Éditer le contrat"} %></td>
     </tr>
   <% end %>
   </tbody>
   </table>
-  
+
   <br />
-  
-  <%= paginate @contracts %> 
-  
+
+  <%= paginate @contracts %>
+
 </div>

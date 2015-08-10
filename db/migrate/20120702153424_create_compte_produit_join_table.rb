@@ -5,7 +5,7 @@ class CreateCompteProduitJoinTable < ActiveRecord::Migration
       t.integer :produit_id
     end
   end
-  
+
   def self.down
     drop_table :comptes_produits
   end

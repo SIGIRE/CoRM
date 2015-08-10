@@ -9,7 +9,7 @@ class RemoveAttachmentFieldsFromDocument < ActiveRecord::Migration
             document.document_attachments.push attach
         end
     end
-    
+
     # Suppression des champs devenus inutiles
     change_table :documents do |t|
         remove_attachment :documents, :attach
@@ -21,7 +21,7 @@ class RemoveAttachmentFieldsFromDocument < ActiveRecord::Migration
     change_table :documents do |t|
         t.attachment :attach
     end
-    
+
     # Recuperation des évènements
     documents = Document.all
     documents.each do |document|

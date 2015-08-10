@@ -1,17 +1,17 @@
 $(document).ready(function() {
-  
+
   var navMenuBar = $('#nav-menu'), formSearchBar = $('#form-search'), accountField = $('#main-search-bar');
   $(document).on('click', function(e) {
     if (e.target == accountField[0] | e.target == navMenuBar[0]) {
       if (!accountField.hasClass('focus')) {
         accountField.addClass('focus');
-      } 
+      }
     } else {
       accountField.removeClass('focus');
     }
   });
   var typeAheadInfo = {};
-    
+
   /* Search account bar - Modify render function */
   $.fn.typeahead.Constructor.prototype.render = function(info, items) {
      var that = this;
@@ -21,7 +21,7 @@ $(document).ready(function() {
      }
      items = $(items).map(function (i, item) {
        if (item.type == 'info') { return; }
-       if (item.type && !types[item.type])  { types[item.type] = 0; }     
+       if (item.type && !types[item.type])  { types[item.type] = 0; }
        if (types[item.type] < 5) {
         if (info.as) {
           switch (info.as) {
@@ -33,7 +33,7 @@ $(document).ready(function() {
               if (item[field]) {
                 i = $(that.options.item).attr('data-value', info[item.type + '_url'].replace(pattern, item[field]));
               } else {
-                i = $(that.options.item).attr('data-value', info[item.type + '_url_default'].replace('[:id]', item.id)); 
+                i = $(that.options.item).attr('data-value', info[item.type + '_url_default'].replace('[:id]', item.id));
               }
               break;
             default:
@@ -42,7 +42,7 @@ $(document).ready(function() {
         } else {
           i = $(that.options.item).attr('data-value', item[info.by]);
         }
-         
+
          i.find('a').html(that.highlighter(item.name));
          types[item.type]++;
          return i[0];
@@ -63,10 +63,10 @@ $(document).ready(function() {
       if (!items.length) {
         return this.shown ? this.hide() : this;
       }
-      
+
       return this.render(item_info, items.slice(0, this.options.items)).show();
   };
-  /* Search account bar - Modify sorter function */ 
+  /* Search account bar - Modify sorter function */
   $.fn.typeahead.Constructor.prototype.sorter = function(items) {
     var o = new Object();
     for(var i = 0; i < items.length; i++) {
@@ -86,11 +86,11 @@ $(document).ready(function() {
             else caseInsensitive.push(item)
       }
     }
-    return beginswith.concat(caseSensitive, caseInsensitive) 
+    return beginswith.concat(caseSensitive, caseInsensitive)
   };
-  
+
   var tolerance = 0;
-  
+
   /*
    * Main Search Bar
    * GET *.html
@@ -112,7 +112,7 @@ $(document).ready(function() {
       });
     },
     updater: function(item) {
-      
+
       window.location.href = item;
       return 'Veuillez patientez...';
     }
@@ -137,9 +137,9 @@ $(document).ready(function() {
            oppfield.html('');
        }
   };
-  
-  
-  
+
+
+
   var corm_var = {};
   /*
    * Abstract Task Account Search Accounts bar & Contacts Field updates
@@ -152,7 +152,7 @@ $(document).ready(function() {
         if (typeahead.trim().length < tolerance) {
           return false;
         }
-        
+
         $.ajax({
             url: '/compte/search.json?account=' + typeahead,
             type: 'GET',
@@ -174,7 +174,7 @@ $(document).ready(function() {
               if (label.hide) {
                 label.hide();
               }
-              
+
             }
         });
       },
@@ -216,7 +216,7 @@ $(document).ready(function() {
                 update_selection_opportunity.apply(opp[0])
               }
             }
-          }); 
+          });
         }
         return item.name;
       }
@@ -239,5 +239,5 @@ $(document).ready(function(){
       inputBox.focusout();
       isOpen = false;
     }
-  }); 
+  });
 });

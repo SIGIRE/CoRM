@@ -4,17 +4,17 @@
   <div id="logo">
     <% if !Setting.first.blank?
             setting = Setting.first
-    else 
+    else
             setting = Setting.new
     end %>
     <img src="<%= setting.attach.url %>" alt="logo-login" />
   </div>
-  
+
   <div id="login">
 
     <%= form_for(resource, :as => resource_name, :url => session_path(resource_name) ) do |f| %>
     <%= devise_error_messages! %>
-    
+
       <div class="field" >
           <div align="center"><h3>CoRM</h3>
             <strong>Veuillez vous identifier</strong>
@@ -30,8 +30,8 @@
           </div>
           <div class="pull-left"><%= render "links" %></div>
       </div>
-      
+
     <% end %>
   </div>
-  
+
 </div>

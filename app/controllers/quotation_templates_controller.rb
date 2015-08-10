@@ -7,13 +7,13 @@ class QuotationTemplatesController < ApplicationController
   def index
     @page = params[:page]
     @templates =  QuotationTemplate.order('company').page(@page)
-    
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json => @templates}
     end
-  end  
-  
+  end
+
   ##
   # Render the page to create a new QuotationTemplate
   #
@@ -25,7 +25,7 @@ class QuotationTemplatesController < ApplicationController
       format.json  { render :json => @template }
     end
   end
-  
+
   ##
   # Process to create a new QuotationTemplate
   #
@@ -45,7 +45,7 @@ class QuotationTemplatesController < ApplicationController
       end
     end
   end
-  
+
   ##
   # Render the page to edit a QuotationTemplate
   #
@@ -66,7 +66,7 @@ class QuotationTemplatesController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   ##
   # Delete a QuotationTemplate in the Database
   #
@@ -75,5 +75,5 @@ class QuotationTemplatesController < ApplicationController
     @template.destroy
     redirect_to quotation_templates_url, :notice => "Le modèle a été supprimé."
   end
-  
+
 end
