@@ -81,11 +81,11 @@
   </div>
 
   <div class="field">
-    <div class="span2"><%= f.label :turnover %> :</div> <%= f.number_field :turnover %>
+    <div class="span2"><%= f.label :turnover %> :</div> <div class="input-append"><%= f.text_field :turnover %><span class="add-on"><%= t('number.currency.format.unit') %></span></div>
   </div>
 
   <div class="field">
-    <div class="span2"><%= f.label :projected_turnover %> :</div> <%= f.number_field :projected_turnover %>
+    <div class="span2"><%= f.label :projected_turnover %> :</div> <div class="input-append"><%= f.text_field :projected_turnover %><span class="add-on"><%= t('number.currency.format.unit') %></span></div>
   </div>
 
   <div class="field">

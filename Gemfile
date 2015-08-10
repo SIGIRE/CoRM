@@ -82,3 +82,6 @@ gem "net-ldap"
 
 # Color Picker for Event Types
 gem 'jquery-minicolors-rails'
+
+# Handling of the localized conversions
+gem 'delocalize'

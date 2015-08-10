@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150810151934) do
+ActiveRecord::Schema.define(:version => 20150810190017) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(:version => 20150810151934) do
     t.string   "registration_number"
     t.string   "business_sector_code"
     t.string   "vat_number"
-    t.integer  "turnover",             :default => 0,    :null => false
-    t.integer  "projected_turnover",   :default => 0,    :null => false
+    t.integer  "turnover"
+    t.integer  "projected_turnover"
     t.string   "identifier"
   end
 
