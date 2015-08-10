@@ -147,6 +147,13 @@ fr:
       campaign_result_stage:
         name: 'Désignation'
         percentage: 'Pourcentage'
+      account:
+        registration_number: 'SIRET'
+        business_sector_code: 'Code NAF'
+        vat_number: 'Identifiant TVA'
+        turnover: "Chiffre d'affaires"
+        projected_turnover: 'C.A. prévisionnel'
+        identifier: 'Identifiant commercial'
   number:
     currency:
       format:
