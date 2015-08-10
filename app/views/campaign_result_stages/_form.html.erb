@@ -1,0 +1,43 @@
+<%= form_for(@campaign_result_stage, :html => { :class => "well "}) do |f| %>
+  <% if @campaign_result_stage.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@campaign_result_stage.errors.count, "error") %> prohibited this origin from being saved:</h2>
+      <ul>
+	<% @campaign_result_stage.errors.full_messages.each do |msg| %>
+	  <li><%= msg %></li>
+	<% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <div class="span2"><%= f.label :name %> :</div>
+    <%= f.text_field :name,{ :class => 'required'} %><span class="req" />
+  </div>
+  
+  <div class="field">
+    <div class="span2"><%= f.label :percentage %> :</div>
+    <%= f.text_field :result_percentage, :value => (@campaign_result_stage.result_percentage.blank?() ? '0' : @campaign_result_stage.result_percentage) %> %
+  </div>
+
+  <br />
+
+  <div class="field">
+    <% if !@campaign_result_stage.id.nil? %>
+      <div class="span9"> Créé par : <%= @campaign_result_stage.author.full_name %>, le </strong><%= @campaign_result_stage.created_at.strftime("%d/%m/%y à %H:%M") %>. </div>
+      <br />		
+      <% if !@campaign_result_stage.modified_by.nil? %>
+	<div class="span9"> Dernièrement modifié par : <%= @campaign_result_stage.editor.full_name %>, le <%= @campaign_result_stage.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div>
+	<br />	
+      <% end %>
+    <% end %>
+  </div>
+  
+  <hr />
+  
+  <div class="row">
+    <%= if !@campaign_result_stage.id.nil? then f.button "Modifier le niveau d'avancement", :type => :submit, :class =>"btn btn-primary",:id =>"campaign_result_stage_validate_form" else f.button "Créer un niveau d'avancement", :type => :submit, :class =>"btn btn-primary",:id =>"campaign_result_stage_validate_form" end%>
+    <%= if !@campaign_result_stage.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @campaign_result_stage, :title => "Supprimer le niveau d'avancement", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn", :method => :delete end %> 
+  </div>
+
+<% end %>

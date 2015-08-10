@@ -143,6 +143,13 @@ en:
       create: Create %{model}
       submit: Save %{model}
       update: Update %{model}
+    label:
+      campaign_completed_stage:
+        name: 'Name'
+        percentage: 'Percentage'
+      campaign_result_stage:
+        name: 'Name'
+        percentage: 'Percentage'        
   number:
     currency:
       format:
@@ -346,6 +353,8 @@ en:
       Contract_category: "Contract category"
       Contract: "contract"
       Extraction: extraction
+      Campaign_completed_stage: "Campaign completed stage"
+      Campaign_result_stage: "Campaign result stage"      
     model:
       Account: Account
       Contact: Contact
@@ -462,6 +471,7 @@ en:
       invalid: "invalid"
       probability: "Probability of succes"
       duplicate: "Disabled duplicates detection for this"
+      percentage: "Percentage"
     message:
       confirm:
         delete: "Confirm delete ?"

@@ -115,6 +115,8 @@ class Ability
       can :manage, Tag
       can :manage, Origin
       can :manage, Activity
+      can :manage, CampaignCompletedStage
+      can :manage, CampaignResultStage
       can :manage, ContractCategory
       can :manage, EventType
       # can   #index #show #update & #edit

@@ -140,6 +140,13 @@ fr:
       create: Créer un(e) %{model}
       submit: Enregistrer ce(tte) %{model}
       update: Modifier ce(tte) %{model}
+    label:
+      campaign_completed_stage:
+        name: 'Désignation'
+        percentage: 'Pourcentage'
+      campaign_result_stage:
+        name: 'Désignation'
+        percentage: 'Pourcentage'
   number:
     currency:
       format:
@@ -344,6 +351,8 @@ fr:
       Role: role
       Ability: droit
       Extraction: extraction
+      Campaign_completed_stage: "niveau d'avancement de campagne"
+      Campaign_result_stage: "résultat de campagne"
     model:
       Account: Compte
       Contact: Contact
@@ -460,6 +469,7 @@ fr:
       invalid: "invalide"
       probability: "Probabilité de succés"
       duplicate: "Désactiver la détection de doublon pour ce"
+      percentage: "Pourcentage"
     message:
       confirm:
         delete: "Confirmer la suppression ?"

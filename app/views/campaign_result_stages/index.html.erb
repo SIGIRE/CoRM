@@ -1,0 +1,30 @@
+<%= render 'title', :locals => { :title => @title }%>
+
+<div class="container-fluid">
+
+  <table class="table table-bordered table-striped">
+   <thead> 
+    <tr>
+      <th class="text-center">Désignation</th>      
+      <th class="text-center">Pourcentage de réussite</th>
+      <th class="text-center">Éditer</th>
+    </tr>
+   </thead>
+
+    <tbody>
+    <% @campaign_result_stages.each do |campaign_result_stage| %>
+      <tr>
+        <td class="text-center"><%= campaign_result_stage.name %></td>        
+        <td class="text-center"><%= campaign_result_stage.result_percentage%> %</td>        
+        <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_campaign_result_stage_path(campaign_result_stage),{:title => "Éditer le résultat de la campagne"} %></td>   
+      </tr>
+    <% end %>
+    </tbody>
+
+  </table>
+
+  <br />
+
+  <%= paginate @campaign_result_stages %> 
+
+</div>

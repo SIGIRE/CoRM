@@ -4,7 +4,7 @@ class WebmailConnectionsController < ApplicationController
   def update
 	if current_user.has_role?(:admin)
 		connection = WebmailConnection.find(params[:webmail_connection][:id])
-		if connection.update_attributes(params[:webmail_connection])
+		if connection.update_attributes(params[:webmail_connection].except(:id))
 			check()
 		end
 	end

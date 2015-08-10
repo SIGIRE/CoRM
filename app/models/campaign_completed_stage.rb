@@ -11,7 +11,7 @@ class CampaignCompletedStage < ActiveRecord::Base
 
   has_many :campaign_lines
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
-  belongs_to :editor_user, :foreign_key => 'updated_by', :class_name => 'User'
+  belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
 
   paginates_per 10
 

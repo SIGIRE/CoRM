@@ -55,6 +55,15 @@
             <li><%= link_to '<i class="fa fa-graduation-cap fa-fw"></i> Activités'.html_safe, activities_path %></li>
             <li><%= link_to '<i class="fa fa-files-o fa-fw"></i> Modèles devis'.html_safe, quotation_templates_path %></li>
             <li><%= link_to '<i class="fa fa-suitcase fa-fw"></i> Catégorie de contrats'.html_safe, contract_categories_path %></li>
+	    
+	    <li class="dropdown-submenu pull-left">
+	      <a tabindex="-1" href="#"><i class="fa fa-cog fa-fw"></i> Campagnes</a>
+	      <ul class="dropdown-menu ">	    
+		<li><%= link_to '<i class="fa fa-suitcase fa-fw"></i>Avancements'.html_safe, campaign_completed_stages_path %></li>
+		<li><%= link_to '<i class="fa fa-suitcase fa-fw"></i>Résultats'.html_safe, campaign_result_stages_path %></li>
+	      </ul>
+	    </li>
+	    
             <% if current_user.has_role?(:admin) %>
               <li class="divider"></li>
               <li><%= link_to '<i class="fa fa-wrench fa-fw"></i> Configuration CoRM'.html_safe, url_for({ :controller => 'settings', :action => 'index' }) %></li>
