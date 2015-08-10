@@ -9,7 +9,7 @@ class OpportunitiesController < ApplicationController
   layout :current_layout
 
   has_scope :by_user_id
-  has_scope :by_author_user_id  
+  has_scope :by_author_user_id
   has_scope :by_statut
   has_scope :by_account_company_like
   has_scope :by_account_tags, as: :account_tag
@@ -18,7 +18,7 @@ class OpportunitiesController < ApplicationController
   has_scope :by_activity_account, as: :account_activity
 
 
-  
+
   ##
   # Display the full list of Opportunities by paginate_by
   #
@@ -27,15 +27,15 @@ class OpportunitiesController < ApplicationController
     default_direction = 'DESC'
     @sort = params[:sort] || default_order
     @direction = params[:direction] || default_direction
-    
+
     @opportunities_all = apply_scopes(opportunities).
                      order("#{@sort} #{@direction}")
-                     
+
     @opportunities = @opportunities_all.page(params[:page])
-                     
+
     @opportunities_scopes = current_scopes
 
-    
+
     #initialisation puis calcul des totaux
     @total_amount = 0
     @total_profit = 0
@@ -43,7 +43,7 @@ class OpportunitiesController < ApplicationController
       @total_amount += op.amount
       @total_profit += op.profit
     end
-          
+
     flash.now[:alert] = "Pas d'opportunités !" if @opportunities.empty?
 
     respond_to do |format|
@@ -51,19 +51,19 @@ class OpportunitiesController < ApplicationController
       format.xlsx # index.xlsx.axlsx
     end
   end
-  
+
   ##
   # Display one occurence of Opportunity
   #
   def show
     @opportunity = Opportunity.find(params[:id])
-   
+
     respond_to do |format|
       format.html  # show.html.erb
       format.json  { render :json => @opportunity }
     end
   end
-    
+
   ##
   # Redner the page to create a new Opportunity
   #
@@ -77,7 +77,7 @@ class OpportunitiesController < ApplicationController
       format.json  { render :json => @opportunity }
     end
   end
-  
+
   ##
   # Process to save a new Opportunity
   #
@@ -101,7 +101,7 @@ class OpportunitiesController < ApplicationController
       end
     end
   end
-  
+
   ##
   # Render the page to edit an Opportunity
   #
@@ -109,7 +109,7 @@ class OpportunitiesController < ApplicationController
     @opportunity = Opportunity.find(params[:id])
     @users = User.all_reals
   end
-  
+
   ##
   # Process to save an existing Opportunity
   #
@@ -118,7 +118,7 @@ class OpportunitiesController < ApplicationController
     params[:opportunity][:amount] = params[:opportunity][:amount].gsub(' ', '')
     @opportunity = Opportunity.find(params[:id])
     @opportunity.updated_by = current_user.id
-    
+
     if params[:opportunity][:amount].blank?
       params[:opportunity][:amount] = 0
     end
@@ -126,7 +126,7 @@ class OpportunitiesController < ApplicationController
     if params[:opportunity][:profit].blank?
       params[:opportunity][:profit] = 0
     end
-   
+
     respond_to do |format|
       if @opportunity.update_attributes(params[:opportunity])
         if params[:mail] == 'yes'
@@ -144,39 +144,39 @@ class OpportunitiesController < ApplicationController
       end
     end
   end
-  
+
   ##
   # Process to remove an existing opportunity from the database
   #
   def destroy
     @opportunity = Opportunity.find(params[:id])
     @opportunity.destroy
-   
+
     respond_to do |format|
       #format.html { redirect_to (!@opportunity.account.nil? ? account_events_path(@opportunity.account) : opportunities_url), :notice => "L'opportunité a bien été supprimée."  }*
       format.html { redirect_to session.delete(:return_to), notice: "L'opportunité a bien été supprimée." }
     end
   end
-  
+
   ##
   # Render a part of Contacts by Account
   #
   def update_contact_select
     contacts = Contact.where(:account_id => params[:id]).order(:surname)
-    render :partial => "contacts" , :locals =>{:contacts => contacts }  
+    render :partial => "contacts" , :locals =>{:contacts => contacts }
   end
-  
+
   private
     def load_account
       @account = Account.find_by_id(params[:account_id])
     end
-    
+
     def load_settings
       #ClickToCall
       @setting = Setting.all.first
-    end    
-    
-    def opportunities 
+    end
+
+    def opportunities
       @account ? @account.opportunities : Opportunity
     end
 

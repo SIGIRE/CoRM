@@ -9,7 +9,7 @@
         <% else %>
           <%= collection_select  :task, :contact_id, Contact.where(:account_id => 0), :id, :full_name, {:include_blank => !@task.mandatory_contact_setting?}, { :id => 'contact_id'} %>
           <% if @task.mandatory_contact_setting? then %> <span class="req"/></span><% end %>
-        <% end %> 
+        <% end %>
       <% else %>
         <%= collection_select  :task, :contact_id, contacts , :id, :full_name, {:include_blank => !@task.mandatory_contact_setting?}, { :id => 'contact_id'} %>
         <% if @task.mandatory_contact_setting? then %> <span class="req"/></span><% end %>

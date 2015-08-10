@@ -5,7 +5,7 @@
     <% unless @account.active %>
       <span title="Compte désactivé"><i class="fa fa-ban fa-2x pull-right"></i></span>
     <% end %>
-    
+
     <br />
   <% if !@account.company.blank? %>
     <b><%= @account.company %></b><br />
@@ -51,11 +51,11 @@
 
 <% @account.contacts.order("active DESC, surname ASC").each do |contact| %>
   <div class="contact-container">
-    
+
 	<% unless contact.active %>
       <span title="Contact désactivé"><i class="fa fa-ban fa-2x pull-right"></i></span>
     <% end %>
-    
+
 	<% if contact.title == "Mme"%>
       <%= link_to image_tag("glyphicons/glyphicons_035_woman.png"), edit_contact_path(contact),{:title => "Éditer le contact"} %> <% if !contact.job.blank? then %> <i class="contact-job">(<%= contact.job %>)</i><% end %>
     <% elsif contact.title == "M." %>

@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
- 
+
   <div class="field">
     <div class="span2">Nom :</div><%= f.text_field :name,{ :class => 'required'} %><span class="req" />
   </div>
@@ -19,27 +19,27 @@
     <div class="span2"><%= f.label :description %></div>
     <%= f.text_area :description, :display_with => :simple_format, :rows => "5", :style=>'width: 30em;' %>
   </div>
-  
+
           <br />
-  	
+
 	<div class="field">
     <% if !@activity.id.nil? %>
 		<div class="span9"> Créé par : <%= @activity.author.full_name %>, le </strong><%= @activity.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
+
 		<% if !@activity.updated_by.nil? %>
 			<div class="span9"> Dernièrement modifié par : <%= @activity.editor.full_name %>, le <%= @activity.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
+
 		<% else %>
 		<% end %>
-		
+
 	<% end %>
 	</div>
-	  
+
 	<hr />
-  
+
    <div class="row">
     <%= if !@activity.id.nil? then f.button "Modifier l'activité", :type => :submit, :class =>"btn btn-primary",:id =>"activity_validate_form" else f.button 'Créer une activité', :type => :submit, :class =>"btn btn-primary",:id =>"activity_validate_form" end%>
-    <%= if !@activity.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @activity, :title => "Supprimer l'activité", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn", :method => :delete end %> 
+    <%= if !@activity.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @activity, :title => "Supprimer l'activité", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn", :method => :delete end %>
     </div>
   </div>
 <% end %>

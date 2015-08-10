@@ -1,7 +1,7 @@
 class CreateImportAccounts < ActiveRecord::Migration
   def change
     create_table :import_accounts do |t|
-      
+
     t.string :company
     t.string :adress1
     t.string :adress2

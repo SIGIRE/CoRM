@@ -1,7 +1,7 @@
 <%= render 'title', :locals => { :title => @title }%>
 
 <div class="container-fluid">
-  
+
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
@@ -11,7 +11,7 @@
         <th><center>Éditer</center></th>
       </tr>
     </thead>
-    
+
   <tbody>
   <% @tags.each do |tag| %>
     <tr>
@@ -23,9 +23,9 @@
   <% end %>
   </tbody>
   </table>
-  
+
   <br />
-  
+
   <%= paginate @tags %>
-  
+
 </div>

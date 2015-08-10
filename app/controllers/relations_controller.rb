@@ -23,18 +23,18 @@ class RelationsController < ApplicationController
   def new
     @relation = Relation.new
     @relation.account1_id = params[:account_id_1]
-    
+
     respond_to do |format|
       format.html  # new.html.erb
       format.json  { render :json => @relation }
     end
   end
-  
+
   ##
   # Process to create a new Relation
   #
   def create
-    @relation = Relation.new(params[:relation])   
+    @relation = Relation.new(params[:relation])
     @relation.created_by = current_user.id
     respond_to do |format|
       if @relation.save
@@ -48,20 +48,20 @@ class RelationsController < ApplicationController
       end
     end
   end
-  
+
   ##
   # Render the page to edit an existing Relation
   #
   def edit
     @relation = Relation.find(params[:id])
   end
-  
+
   ##
   # Process to update a Relation
   #
   def update
     @relation = Relation.find(params[:id])
-    @relation.updated_by = current_user.id    
+    @relation.updated_by = current_user.id
     respond_to do |format|
       if @relation.update_attributes(params[:relation])
         format.html  { redirect_to session.delete(:return_to) || account_events_url(@relation.account1_id), :notice => "La relation a été mise à jour." }
@@ -79,7 +79,7 @@ class RelationsController < ApplicationController
   def destroy
     @relation = Relation.find(params[:id])
     @relation.destroy
-   
+
     respond_to do |format|
       format.html { redirect_to session.delete(:return_to) || account_events_url(@relation.account1_id), :notice => "La relation a bien été supprimée."  }
       format.json { head :no_content }
@@ -90,12 +90,12 @@ class RelationsController < ApplicationController
     def load_account
       @account = Account.find_by_id(params[:account_id])
     end
-    
+
     def load_settings
       #ClickToCall
       @setting = Setting.all.first
-    end    
-    
+    end
+
     def relations
       @account ? @account.relations : Relation
     end

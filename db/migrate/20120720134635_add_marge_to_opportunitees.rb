@@ -3,7 +3,7 @@ class AddMargeToOpportunitees < ActiveRecord::Migration
     	add_column :opportunitees, :marge, :float
 	end
 
-  
+
   	def down
     	remove_column :tablenames, :marge
 	end

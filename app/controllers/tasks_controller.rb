@@ -4,7 +4,7 @@
 # Controller that manage Tasks
 #
 class TasksController < ApplicationController
- 
+
   load_and_authorize_resource
   before_filter :load_account, :load_settings, only: [:index]
   layout :current_layout
@@ -24,13 +24,13 @@ class TasksController < ApplicationController
   #
   # GET /tasks
   # GET /tasks.json
- 
+
   def index
     default_order = 'term'
     default_direction = 'DESC'
     @sort = params[:sort] || default_order
     @direction = params[:direction] || default_direction
-    
+
     @tasks = apply_scopes(tasks)
     @tasks = @tasks.by_user(current_user).undone if current_scopes.empty? # Default filtering
     @tasks = @tasks.order("priority DESC, created_at DESC, updated_at DESC")
@@ -49,22 +49,22 @@ class TasksController < ApplicationController
   #
   # GET /tasks/1
   # GET /tasks/1.json
-  
-  def show 
+
+  def show
     @task = Task.find(params[:id])
-    
+
     respond_to do |format|
     format.html # show.html.erb
     format.json { render :json => @task }
     end
   end
-  
+
   ##
   # Process to create a new Task
   #
   # GET /tasks/new
   # GET /tasks/new.json
-  
+
   def new
     @task = Task.new
     @task.user = current_user
@@ -81,12 +81,12 @@ class TasksController < ApplicationController
   # Render a page to edit a existing task
   #
   # GET /tasks/1/edit
-  
+
   def edit
     @task = Task.find(params[:id])
     @users = User.all_reals
     #conversion de la string term pour qu'elle soit formatté correctement pour l'afficahge
-    @task.term = @task.term.split('/').reverse!.join('/')	
+    @task.term = @task.term.split('/').reverse!.join('/')
   end
 
   ##
@@ -94,7 +94,7 @@ class TasksController < ApplicationController
   #
   # POST /tasks
   # POST /tasks.json
-  
+
   def create
     params[:task][:priority] = params[:task][:priority].to_i
     @task = Task.new(params[:task])
@@ -118,12 +118,12 @@ class TasksController < ApplicationController
   #
   # PUT /tasks/1
   # PUT /tasks/1.json
-  
+
   def update
     # Récupération de la tâche
     @task = Task.find(params[:id])
     @task.modified_by = current_user.id
-    
+
     # Récupération de l'échéance de la tâche
     params[:task][:term] = params[:task][:term].split('/').reverse!.join('/')
 
@@ -138,7 +138,7 @@ class TasksController < ApplicationController
     # 			    @task.user_id == t.user_id and
     # 			    @task.account_id == t.account_id and
     # 			    @task.attachments == t.attachments)
-    
+
     # if it is the same task but checkbox to generate event is checked
     # or task is not the same
     # then Create Event
@@ -149,52 +149,52 @@ class TasksController < ApplicationController
         flash[:notice] += " Un email a été envoyé à #{@task.user.full_name}"
       end
       self.create_event(true)
-      redirect_to session.delete(:return_to) || account_tasks_url(@event.account_id), notice: "La tâche n°#{@task.id} a été mise à jour." 
+      redirect_to session.delete(:return_to) || account_tasks_url(@event.account_id), notice: "La tâche n°#{@task.id} a été mise à jour."
     else
       render :action => "edit"
     end
   end
-  
-  #finished task from action finished in index tasks view 
+
+  #finished task from action finished in index tasks view
   def finished
     # Récupération de la tâche
     @task = Task.find(params[:id])
     @task.modified_by = current_user.id
-    
+
     #conversion de la string term pour qu'elle soit formatté correctement pour l'afficahge
     @task.term = @task.term.split('/').reverse!.join('/')
-    
+
     # Set statut to closed
    @task.statut = tasks::STATUTS[2]
-    
+
     if @task.update_attributes(params[:task])
       flash[:notice] = "La tâche n°#{@task.id} a été mise à jour."
       redirect_to :back
     else
       render :action => "edit"
     end
-    
+
   end
-  
+
   ##
   # Process that remove a Task from the DB
   #
   # DELETE /tasks/1
   # DELETE /tasks/1.json
-  
+
   def destroy
 	  @task = Task.find(params[:id])
 	  @task.destroy
 	  redirect_to session.delete(:return_to) || tasks_path, :notice => 'La tâche a bien été supprimée'
   end
-  
+
   def isInt?(i)
     return i =~ /^-?[0-9]+$/
   end
-  
+
   ##
   # Generate dynamically a Contact List by the Account
-  
+
   def update_contact_select
     if !params[:id].nil?
       int = params[:id].to_i if self.isInt?(params[:id])
@@ -211,12 +211,12 @@ class TasksController < ApplicationController
     c = Contact.new({ 'forename' => 'Aucun contacts' })
     render :json => [c]
   end
-  
+
   ##
   # Create an Event from a Task.
   # * *Args*    :
   #   - +updated+ -> if the object is updated(true) or created(false)
-  
+
   def create_event(updated)
     # Si le paramètre envoyé est false, 'type' = :create, sinon :update
 	  type = updated ? :update : :create
@@ -230,30 +230,30 @@ class TasksController < ApplicationController
 			hash["date_end"] = hash["date_begin"]
 			hash["notes"] = params[:notes]
 			hash["notes2"] = params[:task][:notes]
-			
+
 			# to test
 			if(updated == true)
 				hash["modified_by"] = current_user.id
 			else
 				hash["created_by"] = current_user.id
 			end
-			
+
 			hash["task_id"] = @task.id
 			@event = Event.create(hash)
 		end
   end
-  
+
   private
     def load_account
       @account = Account.find_by_id(params[:account_id])
     end
-    
+
     def load_settings
       #ClickToCall
       @setting = Setting.all.first
     end
-    
-    def tasks 
+
+    def tasks
       @account ? @account.tasks : Task
     end
 
@@ -264,6 +264,6 @@ class TasksController < ApplicationController
         "application"
       end
     end
-  
+
 end
 

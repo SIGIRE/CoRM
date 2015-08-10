@@ -1,5 +1,5 @@
 <div class="container-fluid" style="margin-top: 1em;">
-   
+
 
      <div class="well">
        <div class="row-fluid">
@@ -12,17 +12,17 @@
 	   </div>
      </div>
 
-         
+
 </div>
 
 
 
 <div class="container-fluid">
-  
+
   <% if Quotation.by_account(@account).blank? %>
     <h4> Aucun Devis n'est rattaché à ce compte </h4>
   <% else %>
-    
+
     <table class="table table-bordered table-striped">
       <tr>
         <th class="text-center">Id</th>
@@ -33,9 +33,9 @@
         <th class="text-center">Total HT</th>
         <th class="text-center">Date</th>
         <th class="text-center">Éditer</th>
-        <th class="text-center">PDF</th>         
+        <th class="text-center">PDF</th>
       </tr>
-    
+
     <% @quotations = Quotation.by_account(@account).order('date').page(params[:page]) %>
     <% @quotations.each do |quotation| %>
     <tr>
@@ -63,16 +63,16 @@
         </td>
         <td style="text-align :right;"><%= number_to_currency(quotation.total_excl_tax, :locale => :fr) %></td>
         <td class="text-center"><%= if !quotation.date.nil? then quotation.date.strftime("%d/%m/%Y") end%></td>
-        <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_path(quotation) ,{:title => "Modifier le devis", :class =>"btn"} %></td>          
+        <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_151_edit.png"), edit_quotation_path(quotation) ,{:title => "Modifier le devis", :class =>"btn"} %></td>
         <td class="text-center"><%= link_to image_tag("glyphicons/glyphicons_015_print.png"), quotation_path(quotation, :format => "pdf"),{:title => "Afficher le PDF", :class =>"btn"} %></td>
-    </tr>    
+    </tr>
     <% end %>
     </table>
 
     <%= paginate(@quotations) %>
-    
-  <% end %>
-  
 
-    
+  <% end %>
+
+
+
 </div>

@@ -52,7 +52,7 @@
 		Inconnu
 	<% end %>
 	</td>
-	
+
 	<%# Récupération de la priorité de la tâche %>
 	<td class="text-center">
 	<% if !task.priority.nil?  and !task.priority.blank? %>
@@ -80,7 +80,7 @@
 	    -
 	<% end %>
 	</td>
-      
+
 	<%# Récupération du contact de la tâche %>
 	<td class="text-center">
 	<% if !task.contact.nil?  and !task.contact.blank? %>
@@ -89,7 +89,7 @@
 	    -
 	<% end %>
 	</td>
-		
+
 	<%# Récupération de l'échéance de la tâche %>
 	<td class="text-center">
 	<% if !task.term.nil?  and !task.term.blank? %>

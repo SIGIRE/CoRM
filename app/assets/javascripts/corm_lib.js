@@ -1,5 +1,5 @@
 (function() {
-    
+
     corm = {
         /**
          * Create a HTMLElement
@@ -26,14 +26,14 @@
             return HTML;
         },
         getContactsByAccount: function(toId, account) {
-          $.get('/contacts.json?by_account_id=' + account, 
+          $.get('/contacts.json?by_account_id=' + account,
             function(data){
                 var option; var that = document.getElementById(toId);
                 that.innerHTML = '';
-                
+
                 option = corm.createHTML('option');
                 that.appendChild(option);
-                
+
                 for (var i in data) {
                   option = corm.createHTML('option', {
                     value: data[i].id,
@@ -49,7 +49,7 @@
             $(document.getElementById('task_notice')).hide();
           }
         },
-    
+
     };
-    
+
 })();

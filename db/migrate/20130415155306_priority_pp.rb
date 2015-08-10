@@ -8,7 +8,7 @@ class PriorityPp < ActiveRecord::Migration
 
     t = Hash.new
     tasks = Task.all
-    
+
     tasks.each {|e|
       if (e.priority.blank?() or e.priority.nil?)
         t[e.id] = p['Normal']
@@ -22,23 +22,23 @@ class PriorityPp < ActiveRecord::Migration
       e.update_attribute(:priority, t[e.id])
     }
   end
-  
+
   def down
     changeTableType(:tasks, :priority, 'integer', 'string')
   end
-  
+
   def changeTableType(table, column, old_type, type)
     logger.info("Change table #{table} with column #{column} type was #{old_type} and is now #{type}")
     if (type == 'string')
       type = 'varchar(255)'
     end
-    
+
     query = "ALTER TABLE #{table} ALTER COLUMN #{column} TYPE #{type}"
     if (type == 'integer' && old_type == 'string')
       query.concat(" USING (trim(#{column})::integer)")
-    end  
+    end
     execute(query)
   end
-  
-  
+
+
 end

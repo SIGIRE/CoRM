@@ -5,7 +5,7 @@ class CreateCampaignCompletedStages < ActiveRecord::Migration
       t.string :created_by
       t.string :modified_by
       t.integer :completed_percentage
-      
+
       t.timestamps
     end
   end

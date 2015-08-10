@@ -10,7 +10,7 @@
         <th class="text-center">Éditer</th>
       </tr>
     </thead>
-    
+
   <tbody>
   <% @eventtypes.each do |type| %>
     <tr>
@@ -22,7 +22,7 @@
   <% end %>
   </tbody>
   </table>
-  
+
   <%= paginate @eventtypes, :params => {:controller => "eventTypes", :action => 'index', :page => @page } %>
 </div>
 

@@ -15,6 +15,6 @@ class AddMoneyToDevis < ActiveRecord::Migration
       t.string :prenom
       t.string :civilite
       t.string :fonction
-    end    
+    end
   end
 end

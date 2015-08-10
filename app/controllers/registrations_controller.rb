@@ -6,7 +6,7 @@
 #
 class RegistrationsController < Devise::RegistrationsController
   skip_before_filter :require_no_authentication
-  
+
   ##
   # Render the list of all users
   #   The super-user only see normal-users and super-users (not admin-users)
@@ -35,7 +35,7 @@ class RegistrationsController < Devise::RegistrationsController
       return false
     end
   end
-  
+
   def new
     if User.count > 0
       if self.isLogged
@@ -59,7 +59,7 @@ class RegistrationsController < Devise::RegistrationsController
       @first_creation = true
     end
   end
-  
+
   def show
     if self.isLogged
       a = Ability.new(current_user)
@@ -74,7 +74,7 @@ class RegistrationsController < Devise::RegistrationsController
       redirect_to new_user_session_url
     end
   end
-  
+
   def create
     if User.count > 0
         a = Ability.new(current_user)
@@ -110,12 +110,12 @@ class RegistrationsController < Devise::RegistrationsController
       redirect_to new_user_session_url, :notice => 'Vous vous etes correctement enregistre. Veuillez vous connecter.'
     end
   end
-  
+
   ##
   # Render a page to edit the User
   #
   def edit
- 
+
     # if he's not logged in, redirect him
     if !isLogged
       flash[:error] = "Vous devez etre connecté pour accéder à cette partie de l'application"
@@ -149,11 +149,11 @@ class RegistrationsController < Devise::RegistrationsController
         @user_role_name = :user
       end
     end
-    
+
   end
-  
-  
-  
+
+
+
   ##
   # Process to update the User
   #
@@ -168,7 +168,7 @@ class RegistrationsController < Devise::RegistrationsController
     elsif params[:id] == current_user.id
       @user = User.find(current_user.id)
     end
-    
+
     #modified on 2014/11/21 to correct bug that if we change langage, user's role (except for admin)
     #was set to simple user
     #userRole = params[:role] #code modified by lines below
@@ -178,12 +178,12 @@ class RegistrationsController < Devise::RegistrationsController
       userRole = @user.roles.first.name
     end
 
-    
+
     params[:user][:enabled] = current_user.has_role?(:admin) ? (params[:user][:enabled] == '1') : true
     # tmp role treatment
-    
+
     password_changed = !params[:user][:password].empty?
-    
+
     if ((current_user.has_role? :super_user or current_user.has_role? :admin) && password_changed)
       params[:user].delete("current_password")
       successfully_updated = @user.update_attributes(params[:user])
@@ -192,7 +192,7 @@ class RegistrationsController < Devise::RegistrationsController
     else
       successfully_updated = @user.update_without_password(params[:user])
     end
-    
+
     if successfully_updated
       if !@user.has_role?(userRole) then @user.add_role(userRole) end
       @user.roles.each do |role|
@@ -203,18 +203,18 @@ class RegistrationsController < Devise::RegistrationsController
         else
           if role.name == userRole
             @user.add_role(role.name)
-          end  
+          end
         end
       end
       redirect_to ((current_user.has_role?(:super_user) or current_user.has_role?(:admin)) ? users_path : root_path)
     else
       render "edit"
     end
-      
+
   end
-  
-  
-  
+
+
+
   def destroy
     if !isLogged
       flash[:error] = "Vous devez etre connecté pour accéder à cette partie de l'application"
@@ -223,7 +223,7 @@ class RegistrationsController < Devise::RegistrationsController
     end
     return false
   end
-  
+
   def isLogged
     return !(current_user.nil? or current_user.email.nil? or current_user.email.blank?)
   end
@@ -233,13 +233,13 @@ class RegistrationsController < Devise::RegistrationsController
       username == "admin" && password == "password"
     end
   end
-  
+
   def session_new
-    
+
     connected = false
-    
+
     @user = User.find_by_login_name(params[:user][:login_name])
-    
+
     if !@user.nil?  # and @user.valid_password?(params[:user][:password])
       if @user.enabled == true
         if Setting.ad_enabled? and !@user.has_role?(:admin)
@@ -254,7 +254,7 @@ class RegistrationsController < Devise::RegistrationsController
         if connected
           sign_in(:user, @user)
           current_user.remember_me!
-  
+
             #ensure remember_user_token is set
             if Rails.env.production?
               cookies.signed["remember_user_token"] = {
@@ -263,14 +263,14 @@ class RegistrationsController < Devise::RegistrationsController
                 :domain => CORM[:host],
               }
             end
-        
+
         redirect_to root_url, :notice => t('devise.sessions.signed_in')
         else
           flash[:alert] = t('devise.failure.incorrect')
           redirect_to new_user_session_url
         end
       else
-        
+
         redirect_to new_user_session_url, :notice => t('devise.failure.locked')
       end
     else
@@ -278,5 +278,5 @@ class RegistrationsController < Devise::RegistrationsController
       redirect_to new_user_session_url
     end
   end
-  
+
 end

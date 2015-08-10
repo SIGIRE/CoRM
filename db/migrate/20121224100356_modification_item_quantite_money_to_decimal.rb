@@ -4,8 +4,8 @@ class ModificationItemQuantiteMoneyToDecimal < ActiveRecord::Migration
       t.remove :quantite_cents
       t.remove :quantite_currency
       t.decimal :quantite
-    end      
-    
+    end
+
   end
 
 end

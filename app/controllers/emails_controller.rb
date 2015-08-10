@@ -38,5 +38,5 @@ class EmailsController < ApplicationController
   rescue
     redirect_to notifications_url, :alert => "Erreur de traitement de l'email."
   end
-	
+
 end

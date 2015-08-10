@@ -1,9 +1,9 @@
 <div class="container-fluid">
-  
+
   <table class="table table-bordered table-striped">
-   <thead> 
+   <thead>
     <tr>
-      <th class="text-center">Compte</th>      
+      <th class="text-center">Compte</th>
       <th class="text-center">Nom
 			<% if @sort == "name" and @direction == "ASC" then %>
 				  <%= link_to '<i class="fa fa-caret-down action-icon"></i>'.html_safe, @contracts_scopes.merge({:sort => "name", :direction => "DESC"}) %>
@@ -21,7 +21,7 @@
 				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @contracts_scopes.merge({:sort => "date_begin", :direction => "ASC"}) %>
 				<% else %>
 				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @contracts_scopes.merge({:sort => "date_begin", :direction => "DESC"}) %>
-				<% end %>	
+				<% end %>
       </th>
       <th class="text-center">Date de fin
 			<% if @sort == "date_end" and @direction == "ASC" then %>
@@ -36,8 +36,8 @@
       <th class="text-center">Éditer</th>
     </tr>
    </thead>
-   
-  <tbody> 
+
+  <tbody>
   <% @contracts.each do |contract| %>
     <tr>
       <% if !contract.account.nil? %>
@@ -62,18 +62,18 @@
       <% else %>
       <td class="text-center">-</td>
     <% end %>
-      <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_contract_path(contract),{:title => "Éditer le contrat"} %></td>   
+      <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_contract_path(contract),{:title => "Éditer le contrat"} %></td>
     </tr>
   <% end %>
   </tbody>
   </table>
-  
+
   <br />
-  
+
   <%= paginate @contracts %>
-  
+
   <div class="pull-right">
     <%= link_to '<i class="fa fa-file-excel-o fa-2x action-icon"></i>'.html_safe, {format: "xlsx", params: params.except(:action, :controller)},{:title => "Télécharger au format Excel", :class => "pull-right"}%>
   </div>
-  
+
 </div>

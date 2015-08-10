@@ -2,7 +2,7 @@
 
 ##
 # This class manage Contacts and render all pages necessary for CRUD and for add/remove tags
-# 
+#
 class ContactsController < ApplicationController
   load_and_authorize_resource
 
@@ -21,7 +21,7 @@ class ContactsController < ApplicationController
   has_scope :by_zip_account, as: :account_zip
   has_scope :by_user_account, as: :account_user
   has_scope :by_activity_account, as: :account_activity
-  
+
 
   ##
   # Show the full list of Contact by paginate_by
@@ -31,7 +31,7 @@ class ContactsController < ApplicationController
   def index
     #ClickToCall
     @setting = Setting.all.first
-    
+
     @contacts = apply_scopes(Contact).order("surname")
 
     flash.now[:alert] = "Pas de contacts !" if @contacts.empty?
@@ -42,7 +42,7 @@ class ContactsController < ApplicationController
       #format.csv { render :text => @contacts.to_csv }
     end
   end
-  
+
   ##
   # Same as index, for extraction
   #
@@ -108,7 +108,7 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(params[:contact])
     @contact.created_by = current_user.id
-    
+
     # Manage the has_and_belongs relation between Accounts and Tags
     # if there is no one associate tag, we delete links
     if params[:display_contact_produit].nil?
@@ -118,7 +118,7 @@ class ContactsController < ApplicationController
       @contact.tags.clear
       @contact.tags << tag
     end
-        
+
     respond_to do |format|
       if @contact.save
       update_emails(@contact)
@@ -153,7 +153,7 @@ class ContactsController < ApplicationController
   def update
     @contact = Contact.find(params[:id])
     @contact.modified_by = current_user.id
-    
+
     # same treatment as #create
     if params[:display_contact_tag].nil?
       @contact.tags.clear
@@ -162,7 +162,7 @@ class ContactsController < ApplicationController
       @contact.tags.clear
       @contact.tags << tag
     end
-    
+
     respond_to do |format|
       if @contact.update_attributes(params[:contact])
       update_emails(@contact)
@@ -187,11 +187,11 @@ class ContactsController < ApplicationController
   # DELETE /contacts/1.json
   def destroy
     @contact = Contact.find(params[:id])
-    
+
     Email.where(:contact_id => @contact.id).each do |email|
       email.contact_id = nil
       email.save
-    end 
+    end
     @contact.destroy
 
     respond_to do |format|
@@ -207,7 +207,7 @@ class ContactsController < ApplicationController
 			adresse = contact.email
 			account = contact.account_id
 			emails = Email.where(:to => adresse, :contact_id => nil)
-			
+
 			emails.each do |email|
 				email.contact_id = contact.id
 				email.save
@@ -215,6 +215,6 @@ class ContactsController < ApplicationController
 		end
     end
   end
-	
-  
+
+
 end

@@ -1,7 +1,7 @@
-## 
+##
 # This class transform a mail into an Email instance, and try to convert it as an Event.
 # If it's not possible, Email instance is saved in DB.
-# 
+#
 # Once you have an instance of MailProcessor, you're supposed to give it an event_type_id
 # _before_ processing any mail !
 
@@ -9,7 +9,7 @@ class MailProcessor
   attr_accessor :event_type_id
 
   ##
-  # Transforms a mail into Events, or an Email. 
+  # Transforms a mail into Events, or an Email.
   # An exception will be raised if the instance of MailProcessor has no event_type_id set.
 
   def process(mail)
@@ -86,7 +86,7 @@ class MailProcessor
         text = text.force_encoding("iso-8859-1").encode('UTF-8')
       end
     end
-  rescue => e 
+  rescue => e
     puts e
     puts e.backtrace.join("\n")
     return nil
@@ -102,7 +102,7 @@ class MailProcessor
       file.class.class_eval { attr_accessor :original_filename, :content_type }
       file.original_filename = attachment.filename
       file.content_type = attachment.mime_type
-      
+
       email_attachment = EmailAttachment.new
       email_attachment.attach = file
       array.push email_attachment

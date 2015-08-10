@@ -13,25 +13,25 @@ class OriginsController < ApplicationController
   # GET /origins.json
   def index
     @origins = Origin.order('name').page(params[:page])
-   
+
     respond_to do |format|
       format.html  # index.html.erb
       format.json  { render :json => @origins }
     end
   end
-  
+
   ##
   # Render a page to create new Origin
   #
   def new
     @origin = Origin.new
-    
+
     respond_to do |format|
       format.html  # new.html.erb
       format.json  { render :json => @origin }
     end
   end
-  
+
   ##
   # Process to insert a new Origin into the DataBase
   #
@@ -49,7 +49,7 @@ class OriginsController < ApplicationController
       end
     end
   end
-  
+
   ##
   # Render a page to display an Origin
   #
@@ -61,11 +61,11 @@ class OriginsController < ApplicationController
       format.json  { render :json => @origin }
     end
   end
-  
+
   def edit
     @origin = Origin.find(params[:id])
   end
-  
+
   ##
   # Process that udpate an existing Origin
   #
@@ -84,7 +84,7 @@ class OriginsController < ApplicationController
       end
     end
   end
-  
+
   ##
   # Process that remove an Origin from the DB
   #

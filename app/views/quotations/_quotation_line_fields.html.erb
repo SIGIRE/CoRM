@@ -4,22 +4,22 @@
     <%= f.label(:ref, t('app.fields.ref') + colon, {:class => 'top'}) %>
     <p><%= f.text_field :ref , { :class =>"filter_tfield required" }%><span class="req" /></p>
     </div>
-    
+
     <div class="span4">
         <%= f.label(:designation, t('app.fields.designation') + colon, {:class => 'top'}) %>
         <p class="inline"><%= f.text_field :designation ,:class =>"filter_tfield" %></p>
     </div>
-    
+
     <div class="span2">
         <%= f.label(:quantity, t('app.fields.quantity') + colon, {:class => 'top'}) %>
         <p><%= f.text_field :quantity , :class => "filter_tfield", :value => (number_with_precision(f.object.quantity, :precision => 2) || 0)%></p>
     </div>
-  
+
     <div class="span2">
         <%= f.label(:price_excl_tax, t('app.fields.price_excl_tax') + colon, {:class => 'top'}) %>
         <p><%= f.text_field :price_excl_tax, :class =>"filter_tfield"%></p>
     </div>
-     
+
     <div class="span2" style="margin-top: 1.2em;">
         <p><%= f.link_to_remove '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, {:class => "btn"} %></p>
     </div>

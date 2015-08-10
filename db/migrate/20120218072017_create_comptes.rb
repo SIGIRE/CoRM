@@ -15,7 +15,7 @@ class CreateComptes < ActiveRecord::Migration
       t.string :modified_by
 
       t.timestamps
-      
+
       t.references :user
     end
   end

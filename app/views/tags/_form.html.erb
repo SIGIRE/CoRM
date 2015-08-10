@@ -18,27 +18,27 @@
     <div class="span2">Description :</div>
     <%= f.text_area :description, :rows => "5", :style=>'width: 30em;' %>
   </div>
-  
+
       <br />
-  	
+
 	<div class="field">
     <% if !@tag.id.nil? %>
 		<div class="span9"> Créé par : <%= @tag.author.full_name %>, le </strong><%= @tag.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
+
 		<% if !@tag.updated_by.nil? %>
 			<div class="span9"> Dernièrement modifié par : <%= @tag.editor.full_name %>, le <%= @tag.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
+
 		<% else %>
 		<% end %>
-		
+
 	<% end %>
 	</div>
-	  
+
 	<hr />
-  
+
    <div class="row">
    <%= if !@tag.id.nil? then f.button 'Modifier le tag', :type => :submit, :class =>"btn btn-primary",:id =>"tag_validate_form" else f.button 'Créer un tag', :type => :submit, :class =>"btn btn-primary",:id =>"tag_validate_form" end%>
-   <%= if !@tag.id.nil? then link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, @tag, :title => "Supprimer le tag", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn", :method => :delete end %> 
+   <%= if !@tag.id.nil? then link_to '<i class="fa fa-trash-o fa-lg"></i>'.html_safe, @tag, :title => "Supprimer le tag", :confirm => 'Confirmer la suppression ?', :class=>"pull-right btn", :method => :delete end %>
     </div>
   </div>
 <% end %>

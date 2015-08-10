@@ -16,7 +16,7 @@
     <div class="row row-fluid">
     <div class="">
         <%= label_tag :by_event_type_id, "Type :", :class => "top" %>
-        <%= select_tag "by_event_type_id", 
+        <%= select_tag "by_event_type_id",
                        options_from_collection_for_select(EventType.find(:all), :id, :full_type),
                        { :prompt => "Tous", :class =>"filter_statut" } %>
       </div>

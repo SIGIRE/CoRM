@@ -38,11 +38,11 @@
 <div class="container-fluid">
 <div class="page-header">
      <h1><small><%= t('app.model.Event').pluralize %></small></h1>
-</div>     
+</div>
 <table class="table table-bordered table-striped table-hover">
   <thead>
     <tr>
-      <th class="text-center"><%= link_to"#{t('app.model.Event').pluralize}".html_safe, events_path, :title => "#{t('app.model.Event').pluralize}".html_safe %> créés du <%= @start_at.to_date.strftime("%d/%m/%Y") %> au <%= @end_at.to_date.strftime("%d/%m/%Y") %></th>	
+      <th class="text-center"><%= link_to"#{t('app.model.Event').pluralize}".html_safe, events_path, :title => "#{t('app.model.Event').pluralize}".html_safe %> créés du <%= @start_at.to_date.strftime("%d/%m/%Y") %> au <%= @end_at.to_date.strftime("%d/%m/%Y") %></th>
       <th class="text-center">Nombre</th>
       <th class="text-center">Plus ancien</th>
       <th class="text-center">Plus récent</th>
@@ -67,9 +67,9 @@
           <td class="text-center"><strong><%= @events.blank? ? '-' : @events.order("created_at ASC").first.created_at.strftime("%d/%m/%Y - %H:%M") %></strong></td>
           <td class="text-center"><strong><%= @events.blank? ? '-' : @events.order("created_at DESC").first.created_at.strftime("%d/%m/%Y - %H:%M") %></strong></td>
           <td class="text-center"><strong><%= number_with_delimiter(number_with_precision( (@events.count / (@end_at.to_date - @start_at.to_date + 1)), :precision => 2)) %></strong></td>
-     </tr>     
+     </tr>
   </tbody>
-</table>   
+</table>
      <div class="row-fluid">
           <div class="span8">
                <%= line_chart @events.group_by_day(:created_at).count %>
@@ -79,7 +79,7 @@
           </div>
      </div>
 
-  
+
 </div>
 
 
@@ -88,11 +88,11 @@
 <div class="container-fluid">
 <div class="page-header">
      <h1><small><%= t('app.model.Task').pluralize %></small></h1>
-</div>         
+</div>
 <table class="table table-bordered table-striped table-hover">
   <thead>
     <tr>
-      <th class="text-center"><%= link_to"#{t('app.model.Task').pluralize}".html_safe, tasks_path, :title => "#{t('app.model.Task').pluralize}".html_safe %> créées du <%= @start_at.to_date.strftime("%d/%m/%Y") %> au <%= @end_at.to_date.strftime("%d/%m/%Y") %></th>	
+      <th class="text-center"><%= link_to"#{t('app.model.Task').pluralize}".html_safe, tasks_path, :title => "#{t('app.model.Task').pluralize}".html_safe %> créées du <%= @start_at.to_date.strftime("%d/%m/%Y") %> au <%= @end_at.to_date.strftime("%d/%m/%Y") %></th>
       <th class="text-center">Nombre</th>
       <th class="text-center">Plus ancienne</th>
       <th class="text-center">Plus récente</th>
@@ -117,7 +117,7 @@
           <td class="text-center"><strong><%= @tasks.blank? ? '-' : @tasks.order("created_at ASC").first.created_at.strftime("%d/%m/%Y - %H:%M") %></strong></td>
           <td class="text-center"><strong><%= @tasks.blank? ? '-' : @tasks.order("created_at DESC").first.created_at.strftime("%d/%m/%Y - %H:%M") %></strong></td>
           <td class="text-center"><strong><%= number_with_delimiter(number_with_precision( (@tasks.count / (@end_at.to_date - @start_at.to_date + 1)), :precision => 2)) %></strong></td>
-     </tr>     
+     </tr>
   </tbody>
 </table>
      <div class="row-fluid">
@@ -135,11 +135,11 @@
 <div class="container-fluid">
 <div class="page-header">
      <h1><small><%= t('app.model.Opportunity').pluralize %></small></h1>
-</div>         
+</div>
 <table class="table table-bordered table-striped table-hover">
   <thead>
     <tr>
-      <th class="text-center"><%= link_to"#{t('app.model.Opportunity').pluralize}".html_safe, opportunities_path, :title => "#{t('app.model.Opportunity').pluralize}".html_safe %> modifiées du <%= @start_at.to_date.strftime("%d/%m/%Y") %> au <%= @end_at.to_date.strftime("%d/%m/%Y") %></th>	
+      <th class="text-center"><%= link_to"#{t('app.model.Opportunity').pluralize}".html_safe, opportunities_path, :title => "#{t('app.model.Opportunity').pluralize}".html_safe %> modifiées du <%= @start_at.to_date.strftime("%d/%m/%Y") %> au <%= @end_at.to_date.strftime("%d/%m/%Y") %></th>
       <th class="text-center">Nombre</th>
       <th class="text-center">Montant HT</th>
       <th class="text-center">Marge HT</th>
@@ -167,13 +167,13 @@
           <td class="text-center"><strong><%= number_to_currency(@opportunities.sum(:profit)) %></strong></td>
           <td class="text-center"><strong><%= @opportunities.count == 0 ? '-' : number_to_currency((@opportunities.sum(:amount) / @opportunities.count )) %></strong></td>
           <td class="text-center"><strong><%= @opportunities.count == 0 ? '-' : number_to_currency((@opportunities.sum(:profit) / @opportunities.count )) %></strong></td>
-     </tr>     
+     </tr>
   </tbody>
 </table>
      <div class="row-fluid">
           <div class="span8">
                <%= bar_chart @opportunities.group(:statut).sum(:amount) %>
-          </div>          
+          </div>
           <div class="span4">
                <%= pie_chart @opportunities.group(:statut).count, library: {is3D: false, pieHole: 0.4} %>
           </div>
@@ -186,11 +186,11 @@
 <div class="container-fluid">
 <div class="page-header">
      <h1><small><%= t('app.model.Quotation').pluralize %></small></h1>
-</div>         
+</div>
 <table class="table table-bordered table-striped table-hover">
   <thead>
     <tr>
-      <th class="text-center"><%= link_to"#{t('app.model.Quotation').pluralize}".html_safe, quotations_path, :title => "#{t('app.model.Quotation').pluralize}".html_safe %> modifiés du <%= @start_at.to_date.strftime("%d/%m/%Y") %> au <%= @end_at.to_date.strftime("%d/%m/%Y") %></th>	
+      <th class="text-center"><%= link_to"#{t('app.model.Quotation').pluralize}".html_safe, quotations_path, :title => "#{t('app.model.Quotation').pluralize}".html_safe %> modifiés du <%= @start_at.to_date.strftime("%d/%m/%Y") %> au <%= @end_at.to_date.strftime("%d/%m/%Y") %></th>
       <th class="text-center">Nombre</th>
       <th class="text-center">Montant HT</th>
       <th class="text-center">Montant moyen HT</th>
@@ -212,13 +212,13 @@
           <td class="text-center"><strong><%= number_with_delimiter(@quotations.count) %></strong></td>
           <td class="text-center"><strong><%= number_to_currency(@quotations.sum(:total_excl_tax_cents) / 100 ) %></strong></td>
           <td class="text-center"><strong><%= @quotations.count == 0 ? '-' : number_to_currency((@quotations.sum(:total_excl_tax_cents) / (@quotations.count * 100) )) %></strong></td>
-     </tr>     
+     </tr>
   </tbody>
 </table>
      <div class="row-fluid">
           <div class="span8">
                <%= bar_chart @quotations.group(:statut).sum('(total_excl_tax_cents / 100)') %>
-          </div>            
+          </div>
           <div class="span4">
                <%= pie_chart @quotations.group(:statut).count, library: {is3D: false, pieHole: 0.4} %>
           </div>

@@ -34,7 +34,7 @@
             priority_class_mod = ' error bold'
           elsif t.priority == 0
             priority_class_mod = ' info'
-          end %>	
+          end %>
           <tr class="line <%= priority_class_mod %>">
             <td class="text-center">
               <% badge_statut_class = nil
@@ -62,7 +62,7 @@
 				</span>
               </div>
             </td>
-            
+
 			<% if t.priority == 3 %>
 				<td class="text-center"><%= t('app.priority.urgent') %></td>
             <% elsif t.priority == 2 %>
@@ -72,7 +72,7 @@
             <% elsif t.priority == 0 %>
 				<td class="text-center"><%= t('app.priority.low') %></td>
             <% end %>
-			
+
 			<td class="text-center"><% if !t.account.nil? %><%= link_to t.account.company, account_events_path(t.account), { :title => "#{t('app.model.Event')}".html_safe + " : " + t.account.company, :class => 'ellipse' } %><% else %>-<% end %></td>
             <% if !t.title.nil? then ellipse = t.title.length > 45 ? '...' : '' end %>
               <td class="text-center"><span><%= link_to (!t.title.blank?() ? t.title[0..45] + ellipse : "Pas de sujet"), edit_task_path(t), :title => "#{t('app.actions.edit')} #{t('app.default.define_article_female')} #{t('app.model.Task')}".html_safe %></span></td>
@@ -109,7 +109,7 @@
     <% end %>
     <!-- END TASK -->
 
-	  
+
     <!-- NEW EVENTS-->
     <table class="table table-bordered table-striped table-hover">
       <thead>
@@ -119,7 +119,7 @@
           </th>
         </tr>
         <tr>
-          <th class="text-center"><%= t('app.model.Account') %></th>	
+          <th class="text-center"><%= t('app.model.Account') %></th>
 		  <th class="text-center"><%= t('app.fields.collegue') %></th>
 		  <th class="text-center"><%= t('app.model.Contact') %></th>
 		  <th class="text-center"><%= t('app.fields.detail').pluralize %></th>
@@ -129,27 +129,27 @@
       <tbody>
         <% @events.each do |e| %>
           <tr>
-            <td class="text-center"><% if !e.account.nil? %><strong><%= link_to e.account.company, account_events_path(e.account.id), { :title => "#{t('app.model.Event')}".html_safe + " : " + e.account.company, :class => 'ellipse' } %></strong> <% end %></td>				
+            <td class="text-center"><% if !e.account.nil? %><strong><%= link_to e.account.company, account_events_path(e.account.id), { :title => "#{t('app.model.Event')}".html_safe + " : " + e.account.company, :class => 'ellipse' } %></strong> <% end %></td>
 			<td class="text-center"><%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %></td>
 			<td class="text-center"><% if !e.contact.nil? %> <strong><%= " #{e.contact.full_name}" %></strong> <% else %> - <% end %></td>
 			<td>
-				<% if !e.task.nil? %> 
+				<% if !e.task.nil? %>
 					 <strong>Tâche :</strong>
 				<% elsif !e.event_type.nil? %>
 					 <strong><%= e.event_type.label %> :</strong>
 				<% else %>
 					 <strong>Action :</strong>
 				<% end %>
-				
-			<% if !e.task.nil? %> 
+
+			<% if !e.task.nil? %>
 			<%= link_to e.task.title, edit_task_path(e.task.id), :title => "#{t('app.actions.edit')} #{t('app.default.define_article_female')} #{t('app.model.Task')}".html_safe %> <% if !e.task.notes.blank? %> : <%= truncate(e.task.notes, :length => 80) %><% end %>
-			
+
 			<% else %>
 			<%= link_to truncate(e.notes, :length => 80), account_events_path(e.account.id), { :title => "#{t('app.model.Event')}".html_safe + " : " + e.account.company } %>
 			<% end %>
 			</td>
             <td class="text-center"><%= e.date_begin.to_s(:humanized) %> </td>
-            </tr>													
+            </tr>
 
           <% end %>
           <tr>
@@ -157,8 +157,8 @@
 		  </tr>
         </tbody>
       </table>
-      <!-- END NEW EVENTS-->	  
-	  
+      <!-- END NEW EVENTS-->
+
 
       <!-- OPPORTUNITY-->
       <% if @opportunities.length > 0 %>
@@ -194,7 +194,7 @@
                   end %>
                   <div class="badge-container">
                     <span class="badge<%= badge_statut_class unless badge_statut_class.nil? %>">
-					
+
 					<% if o.statut == "Détectée" %>
 						<%= t('app.status.detected') %>
 					<% elsif o.statut == "En cours" %>
@@ -223,7 +223,7 @@
               <% end %>
               <td class="text-center">
                 <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_opportunity_path(o) ,{:title => "#{t('app.actions.edit')} #{t('app.model.Opportunity')}".html_safe}  %>
-              </td>				
+              </td>
             </tr>
           <% end %>
           <tr>
@@ -268,12 +268,12 @@
                 end %>
                 <div class="badge-container">
                 <span class="badge<%= badge_statut_class unless badge_statut_class.nil? %>">
-					
+
 				<% if q.statut == "Sauvegardé" %>
 					<%= t('app.status.save') %>
 				<% elsif q.statut == "En cours" %>
 					<%= t('app.status.in_progress') %>
-				<% end %>					
+				<% end %>
 
 				</span>
                 </div>

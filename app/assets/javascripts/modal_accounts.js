@@ -1,5 +1,5 @@
 $(function() {
-    
+
     /**
     * Get the list of tags by id
     * @param {String} tag|account
@@ -18,11 +18,11 @@ $(function() {
 
     /* Init */
     var initial_tags = getTagsList('tag option'), initial_tags_account = getTagsList('account_tag option');
-    
+
     /* Adding a tag to an Acccount Handler */
     $("#account_add_tag").click(function() {
         var tags = getTagsList('tag option:selected'), account_tagHTML = $('#account_tag');
-        
+
 	for (var key in tags) {
 	    if (tags[key])
 		account_tagHTML.append(
@@ -33,8 +33,8 @@ $(function() {
 		);
 	}
 	$('#tag option:selected').remove();
-    });  
- 
+    });
+
   /* Remove a tag from the Account tag list */
   $("#account_remove_tag").click(function() {
     var tags = getTagsList('account_tag option:selected'), tagHTML = $('#tag');
@@ -45,11 +45,11 @@ $(function() {
 		    content: tags[key],
 		    value: key
 		})
-	    );	
+	    );
     }
     $('#account_tag option:selected').remove();
   });
-  
+
   /* Remove from the Tags list, tags which are already linked to the account */
   $("#account_add_button").click(function() {
     var tags = getTagsList('select#account_tag option');
@@ -57,7 +57,7 @@ $(function() {
 	$('#tag option[value="' + key + '"]').remove();
     }
   });
-  
+
   /* Get all tags linked to the account in the modal window and add it to the main form for edition/creation */
   $("#account_submit_add").click(function() {
     var tags = getTagsList('select#account_tag option');
@@ -76,7 +76,7 @@ $(function() {
     initial_tags = getTagsList('select#tag option');
     initial_tags_account = tags.slice(0);
   });
-  
+
   /* Manage cancellation */
   $("#account_cancel_add").click(function() {
     var account_tagHTML = $('select#account_tag'), tagHTML = $('select#tag'), key;
@@ -99,7 +99,7 @@ $(function() {
 	);
     }
   });
-  
+
   /* Check before submit */
   $("#account_validate_form").click(function() {
     var select = $('select#display_account_tag');
@@ -107,7 +107,7 @@ $(function() {
     select.attr('disabled',false);
     select.find('option').each(function() {
         $(this).attr('selected', true);
-    }); 
+    });
   });
-  
+
 });

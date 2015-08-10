@@ -4,21 +4,21 @@
 # Controller that manage About page
 #
 class HomeController < ApplicationController
-  
+
   ##
   # About page
   #
-  
+
   has_scope :by_user_id
-  has_scope :by_author_user_id  
-  
+  has_scope :by_author_user_id
+
   # GET /types
   # GET /types.json
   def index
 
 
 
-	if current_user.has_role? :admin 
+	if current_user.has_role? :admin
 	@count = Hash.new
         @count[:user] = User.all_reals.count
 	@count[:account] = Account.count
@@ -31,7 +31,7 @@ class HomeController < ApplicationController
 	@count[:quotation_template] = QuotationTemplate.count
 	@count[:document] = Document.count
 	@count[:email] = Email.count
-	
+
 	@bdd_size = Hash.new
 	@bdd_size[:event] = get_attach_size_of(Event)
 	@bdd_size[:task] = get_attach_size_of(Task)
@@ -39,13 +39,13 @@ class HomeController < ApplicationController
 	@bdd_size[:quotation] = get_attach_size_of(Quotation)
 	@bdd_size[:opportunity] = get_attach_size_of(Opportunity)
 	@bdd_size[:email] = get_attach_size_of(Email)
-	
+
 	total = 0
 	@bdd_size.each do | e, i |
 		total += i
 	end
 	@bdd_size[:total]=total
-	
+
 	render "stats"
 	else
 		@page = params[:page]
@@ -64,13 +64,13 @@ class HomeController < ApplicationController
 		end
 	end
   end
-  
+
   def update
 		events = params[:events]
-		
+
 		@events
   end
-  
+
     def get_attach_size_of(object)
     size = 0
 	    object.all.each do |o|
@@ -80,23 +80,23 @@ class HomeController < ApplicationController
 	    end
 	    return size
     end
-    
+
     def reporting
 
-	  
+
 	  @start_at = Time.zone.parse(params[:start_at]) unless params[:start_at].blank?
 	  @end_at = Time.zone.parse(params[:end_at]).end_of_day unless params[:end_at].blank?
 	  @start_at= ((DateTime.now) - 30.day).beginning_of_day unless !@start_at.blank?
 	  @end_at= DateTime.now.end_of_day unless !@end_at.blank?
-	  
+
 	  @user_id = params[:by_user_id]
 	  @author_user_id = params[:by_author_user_id]
 	  if !@user_id.blank? then user = User.find(@user_id) else user = nil end
 	  if !@author_user_id.blank? then author_user = User.find(@author_user_id) else author_user = nil end
-	  
+
 	  if user.blank? then @user_name = "" else @user_name = user.full_name end
 	  if author_user.blank? then @author_user_name = "" else @author_user_name = author_user.full_name end
-	  
+
 	  # Use "scoped" to return an anonymous ActiveRecord Relation. With "all", it is just an array and no more scopes can be applied
 	  @events = apply_scopes(Event).with_event_type.between_dates(@start_at, @end_at).scoped
 	  @tasks = apply_scopes(Task).between_dates(@start_at, @end_at).scoped
@@ -114,11 +114,11 @@ class HomeController < ApplicationController
 	  #  @quotations = Quotation.between_dates(@start_at, @end_at).by_user_id(@user_id)
 	  #end
 	   respond_to do |format|
-		  format.html 
+		  format.html
 		  format.xlsx
-	   end	  
+	   end
     end
-    
+
     # GET /search_by_phone/:phone_number
     def search_by_phone
 	  @phone_number = params[:phone_number]
@@ -181,6 +181,6 @@ class HomeController < ApplicationController
 		end
 	  end
     end
-    
-    
+
+
 end

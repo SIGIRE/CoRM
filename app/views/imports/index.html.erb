@@ -1,5 +1,5 @@
 <div class="container-fluid" style="margin-top: 1em;">
-   
+
 
      <div class="well">
        <div class="row-fluid">
@@ -9,12 +9,12 @@
            <%= link_to '<i class="fa fa-arrow-circle-left fa-3x action-icon"></i>'.html_safe, :back ,{:title => "Retour", :class=>"pull-right"} %>
        </div>
      </div>
-   
+
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th><center><%="#{t('app.fields.date')}".html_safe%></center></th>
-                    <th class="text-center"><%="#{t('app.fields.author')}".html_safe%></th>	  
+                    <th class="text-center"><%="#{t('app.fields.author')}".html_safe%></th>
                     <th class="text-center"><%="#{t('app.fields.name')}".html_safe%></th>
                     <th class="text-center"><%="#{t('app.fields.description')}".html_safe%></th>
                     <th class="text-center"><%="#{t('app.fields.type')}".html_safe%></th>
@@ -30,33 +30,33 @@
 			<% then %>
 
 			      <td class="text-center">
-				   <%if import.import_type=="accounts" %>				   
+				   <%if import.import_type=="accounts" %>
 					<%= link_to import.name, accounts_path(:import_id=>import.id),{:title => "#{t('app.actions.show_valid_import',model: t('title.accounts'))}"} %>
 				   <% end %>
-				   <%if import.import_type=="contacts" %>				   
+				   <%if import.import_type=="contacts" %>
 					<%= link_to import.name, contacts_path(:import_id=>import.id),{:title => "#{t('app.actions.show_valid_import',model: t('title.contacts'))}"} %>
 				   <% end %>
 			      </td>
-			      
+
 			<% else %>
 				<td class="text-center">-</td>
                         <% end %>
-                        
+
                         <% if !import.notes.nil? %>
 			<% then %>
 				<td class="text-center"><%= import.notes %></td>
 			<% else %>
 				<td class="text-center">-</td>
                         <% end %>
-                        
+
                         <% if !import.import_type.nil? %>
 			<% then %>
 				<td class="text-center"><%= t('title.'+import.import_type) %></td>
 			<% else %>
 				<td class="text-center">-</td>
                         <% end %>
-                        
-			
+
+
 			 <td class="text-center">
 			      <% if can? :manage, import %>
 			      <%= link_to '<i class="fa fa-trash fa-2x action-icon"></i>'.html_safe,
@@ -64,13 +64,13 @@
 				   :title => "#{t('link.delete_import')}",
 				   :confirm => "#{t('app.message.confirm.delete_import')}",
 				   :method => :delete %>
-			      <% end %>	
+			      <% end %>
 			 </td>
-				      
+
                     </tr>
                 <% end %>
             </tbody>
         </table>
-    
- <%= paginate @imports %>        
+
+ <%= paginate @imports %>
 </div>

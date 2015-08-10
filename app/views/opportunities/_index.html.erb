@@ -13,7 +13,7 @@
 				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "amount", :direction => "ASC"}) %>
 				<% else %>
 				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "amount", :direction => "DESC"}) %>
-				<% end %>		
+				<% end %>
 	</th>
         <th class="text-center">Marge
 				<% if @sort == "profit" and @direction == "ASC" then %>
@@ -22,7 +22,7 @@
 				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "profit", :direction => "ASC"}) %>
 				<% else %>
 				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "profit", :direction => "DESC"}) %>
-				<% end %>				
+				<% end %>
 	</th>
 	<th class="text-center"><%= t('app.actions.created_at_female') %>
 				<% if @sort == "created_at" and @direction == "ASC" then %>
@@ -31,7 +31,7 @@
 				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "created_at", :direction => "ASC"}) %>
 				<% else %>
 				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "created_at", :direction => "DESC"}) %>
-				<% end %>		
+				<% end %>
 	</th>
         <th class="text-center">Échéance
 				<% if @sort == "term" and @direction == "ASC" then %>
@@ -40,15 +40,15 @@
 				  <%= link_to '<i class="fa fa-caret-up action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "term", :direction => "ASC"}) %>
 				<% else %>
 				  <%= link_to '<i class="fa fa-sort action-icon"></i>'.html_safe, @opportunities_scopes.merge({:sort => "term", :direction => "DESC"}) %>
-				<% end %>		
+				<% end %>
 	</th>
         <th class="text-center">Affecté à</th>
-        <th class="text-center">Actions</th>   
+        <th class="text-center">Actions</th>
       </tr>
     </thead>
     <tbody>
       <% @opportunities.each do |opportunity| %>
-      <tr>  
+      <tr>
 	<td class="text-center">
           <% if opportunity.statut == "Détectée"%>
           <span class="badge badge-important">
@@ -74,17 +74,17 @@
 		<td class="text-center"><%= link_to opportunity.account.company , account_events_url(opportunity.account),{:title => "Afficher les évènements"} %></td>
 		<% else %>
 		<td class="text-center">-</td>
-		<% end %>         
+		<% end %>
 		<% if !opportunity.name.blank? %>
 		<td class="text-center"><%= link_to opportunity.name,  edit_opportunity_path(opportunity),{:title => "Éditer l'opportunité"} %></td>
 		<% else %>
 		<td class="text-center">-</td>
-		<% end %>         
+		<% end %>
 		<% if !opportunity.contact.nil? %>
 		<td class="text-center"><%= link_to opportunity.contact.full_name, edit_contact_path(opportunity.contact) ,{:title => "Éditer le contact"} %></td>
 		<% else %>
 		<td class="text-center">-</td>
-		<% end %>       
+		<% end %>
 		<% if !opportunity.amount.nil? %>
 		<td style="text-align :right;"><%= number_to_currency(opportunity.amount, :locale => :fr)  %> <strong> HT </strong></td>
 		<% else %>
@@ -124,9 +124,9 @@
       <% end %>
     </tbody>
   </table>
-  
-  
-  <%= paginate @opportunities %>  
+
+
+  <%= paginate @opportunities %>
 
   <div class="pull-right">
     <table class="table">
@@ -148,5 +148,5 @@
       </tbody>
     </table>
   </div>
-  
+
 </div>

@@ -10,12 +10,12 @@
 	<th class="text-center"><%= t('app.actions.created_at_female') %></th>
         <th class="text-center">Échéance</th>
         <th class="text-center">Collaborateur</th>
-        <th class="text-center">Actions</th>   
+        <th class="text-center">Actions</th>
       </tr>
     </thead>
     <tbody>
       <% @opportunities.each do |opportunity| %>
-      <tr>      
+      <tr>
 		<td class="text-center">
           <% if opportunity.statut == "Détectée"%>
           <span class="badge badge-important">
@@ -41,12 +41,12 @@
 		<td class="text-center"><%= link_to opportunity.name,  edit_opportunity_path(opportunity),{:title => "Éditer l'opportunité"} %></td>
 		<% else %>
 		<td class="text-center">-</td>
-		<% end %>         
+		<% end %>
 		<% if !opportunity.contact.nil? %>
 		<td class="text-center"><%= link_to opportunity.contact.full_name, edit_contact_path(opportunity.contact) ,{:title => "Éditer le contact"} %></td>
 		<% else %>
 		<td class="text-center">-</td>
-		<% end %>       
+		<% end %>
 		<% if !opportunity.amount.nil? %>
 		<td style="text-align :right;"><%= number_to_currency(opportunity.amount, :locale => :fr)  %> <strong> HT </strong></td>
 		<% else %>
@@ -62,7 +62,7 @@
 		      <td class="text-center"><%= opportunity.created_at.strftime("%d/%m/%y") %></td>
 		    <% else %>
               <td class="text-center">-</td>
-                <% end %>		
+                <% end %>
 		<% if !opportunity.term.blank? %>
 			<% if opportunity.term.to_date == Date.today %>
 				<td class="text-center"><span class="label label-info"><%= opportunity.term.strftime("%d/%m/%y") %></span></td>
@@ -91,6 +91,6 @@
 
   <div class="page-header pull-right text-right">
     <h4> Montant total estimé : <%= number_to_currency(@total_amount, :locale => :fr) %>  HT</h4><br />
-    <h4> Marge totale estimée : <%= number_to_currency(@total_profit, :locale => :fr) %>  HT</h4> 
+    <h4> Marge totale estimée : <%= number_to_currency(@total_profit, :locale => :fr) %>  HT</h4>
   </div>
 </div>

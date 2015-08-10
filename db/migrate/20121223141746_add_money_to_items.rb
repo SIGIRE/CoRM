@@ -5,6 +5,6 @@ class AddMoneyToItems < ActiveRecord::Migration
       t.money :prix_ht
       t.money :total_ht
       t.decimal :quantite
-    end        
+    end
   end
 end

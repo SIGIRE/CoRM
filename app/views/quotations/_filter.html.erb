@@ -2,12 +2,12 @@
   <div class="well">
       <%= form_tag(quotations_path, method: :GET) do %>
         <div class="row row-fluid">
-          
+
           <div class="">
           <%= label_tag :statut, "Statut :", :class => "top" %>
           <%= select_tag "by_statut", options_for_select(Quotation::STATUTS, params[:by_statut]), { :include_blank => "Tous", :class =>"filter_statut" } %>
           </div>
-          
+
           <%# Le typeahead et la mise à jour des contacts associés sont gérés par nav-search-bar.js %>
           <div class="">
             <%= label_tag :filter_priority, "Compte :", :class => "top" %>
@@ -17,37 +17,37 @@
                              :data => { :provide => 'typeahead'},
                              :autocomplete=>"off" } %>
           </div>
-          
+
           <div class="">
                   <%= label_tag :account_origin, "Origine compte :", :class => "top"  %>
                   <%= select_tag "account_origin",options_from_collection_for_select( Origin.all, :id, :name, params[:account_origin]), { :include_blank => "Toutes", :class =>"filter_statut" }   %>
-          </div>		
+          </div>
 
           <div class="">
                   <%= label_tag :account_tag, "Tag compte :", :class => "top"  %>
                   <%= select_tag "account_tag",options_from_collection_for_select( Tag.all, :id, :name, params[:account_tag]), { :include_blank => "Tous", :class =>"filter_statut" }   %>
-          </div>          
-          
+          </div>
+
           <div class="">
                   <%= label_tag :by_author_user_id, "Créé par :", :class => "top"  %>
                   <%= select_tag "by_author_user_id", options_from_collection_for_select(User.all_reals, :id, :full_name, params[:by_author_user_id]), { :prompt => "Tous", :class =>"filter_statut" } %>
-          </div>	                
-		          
-          
+          </div>
+
+
           <div class="">
             <%= label_tag :user_email, "Affecté à :", :class => "top" %>
             <%= select_tag "by_user_id",
                        options_from_collection_for_select(User.all_reals, :id, :full_name, params[:by_user_id]),
                        { :prompt => "Tous", :class =>"filter_statut" } %>
           </div>
-          
+
 	  <div class="">
 	    <%= label_tag :account_activity, "Activité compte :", :class => "top"  %>
 	    <%= select_tag "account_activity", options_from_collection_for_select( Activity.all, :id, :name, params[:account_activity]), { :include_blank => "Toutes", :class =>"filter_statut" }  %>
-	  </div>	          
-          
+	  </div>
+
         <%= submit_tag "Filtrer", :class =>"btn "%>
       <% end %>
     </div>
-  </div>  
+  </div>
 </div>

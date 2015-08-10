@@ -1,13 +1,13 @@
 Crm::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
-  
+
   config.i18n.locale = :fr
   config.i18n.default_locale = :fr
   # Code is not reloaded between requests
   config.cache_classes = true
-  
+
   # Log error messages when you accidentally call methods on nil.
-  # config.whiny_nils = true  
+  # config.whiny_nils = true
 
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
@@ -24,7 +24,7 @@ Crm::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = true
-  
+
   # Mail settings
   config.action_mailer.delivery_method = CORM[:mail][:type]
   config.action_mailer.smtp_settings = {
@@ -50,7 +50,7 @@ Crm::Application.configure do
   # config.log_level = :debug
   Rails.logger = Logger.new("#{Rails.root}/log/production.log")
   config.log_level = :debug
-  
+
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]

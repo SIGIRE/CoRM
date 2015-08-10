@@ -1,4 +1,4 @@
-# encoding: utf-8	
+# encoding: utf-8
 namespace :mail do
 
   desc "TODO"
@@ -20,7 +20,7 @@ namespace :mail do
   end
 
   desc "TODO"
-  task :process_mails => :environment do     
+  task :process_mails => :environment do
     emails = Email.all
     emails.each do |email|
       if email.is_convertible_to_events?
@@ -28,9 +28,9 @@ namespace :mail do
         email.destroy
       end
     end
-  end    
+  end
 
-  def get_mails(connection)      
+  def get_mails(connection)
     mails = nil
     Mail.defaults do
       retriever_method :pop3,
@@ -42,7 +42,7 @@ namespace :mail do
       mails = Mail.find_and_delete
       event_id = connection.type_event_id
     end
-  rescue 
+  rescue
     puts("An error occured")
   ensure
     mails ||= []

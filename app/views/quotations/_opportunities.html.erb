@@ -4,7 +4,7 @@
         <%= collection_select :quotation, :opportunity_id, Opportunity.where(:account_id => @quotation.account.id).where(:statut => ["En cours","Détectée","Suspendue"]).order(:name), :id, :name, { :include_blank => true } %>
       <% else %>
         <%= collection_select  :quotation, :opportunity_id, Opportunity.where(:account_id => 0), :id, :name, {:include_blank => true} %>
-      <% end %> 
+      <% end %>
     <% else %>
       <%= collection_select  :quotation, :opportunity_id, opportunities, :id, :name, {:include_blank => true} %>
     <% end %></p>

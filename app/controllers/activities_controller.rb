@@ -13,25 +13,25 @@ class ActivitiesController < ApplicationController
   # GET /activities.json
   def index
     @activities = Activity.order('name').page(params[:page])
-   
+
     respond_to do |format|
       format.html  # index.html.erb
       format.json  { render :json => @activities }
     end
   end
-  
+
   ##
   # Render a page to create new Activity
   #
   def new
     @activity = Activity.new
-    
+
     respond_to do |format|
       format.html  # new.html.erb
       format.json  { render :json => @activity }
     end
   end
-  
+
   ##
   # Process to insert a new Activity into the DataBase
   #
@@ -49,7 +49,7 @@ class ActivitiesController < ApplicationController
       end
     end
   end
-  
+
   ##
   # Render a page to display an Activity
   #
@@ -61,11 +61,11 @@ class ActivitiesController < ApplicationController
       format.json  { render :json => @activity }
     end
   end
-  
+
   def edit
     @activity = Activity.find(params[:id])
   end
-  
+
   ##
   # Process that udpate an existing Activity
   #
@@ -84,7 +84,7 @@ class ActivitiesController < ApplicationController
       end
     end
   end
-  
+
   ##
   # Process that remove an Activity from the DB
   #

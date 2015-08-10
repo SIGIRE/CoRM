@@ -5,7 +5,7 @@
 #
 class ContractsController < ApplicationController
   load_and_authorize_resource
-  
+
   before_filter :authenticate_user!
   before_filter :load_account, :load_settings, only: [:index]
   layout :current_layout
@@ -13,47 +13,47 @@ class ContractsController < ApplicationController
   has_scope :by_account_company_like
   has_scope :by_description_like
   has_scope :by_category_id
-  
+
   ##
   # Display the list of all Contracts by paginate_by
   #
   # GET /contracts
   # GET /contractsjson
   def index
-    
+
     default_order = 'name'
     default_direction = 'DESC'
     @sort = params[:sort] || default_order
     @direction = params[:direction] || default_direction
-    
+
     @contracts_all = apply_scopes(contracts).order("#{@sort} #{@direction}")
-                     
+
     @contracts = @contracts_all.page(params[:page])
 
-    @contracts_scopes = current_scopes    
-    
+    @contracts_scopes = current_scopes
+
 
     flash.now[:alert] = "Pas de contrat !" if @contracts.empty?
-    
+
     respond_to do |format|
       format.html  # index.html.erb
       format.xlsx # index.xlsx.axlsx
     end
   end
-  
+
   ##
   # Render a page to create new Contract
   #
   def new
     @contract = Contract.new
-    @contract.account_id = params[:account_id]    
-    
+    @contract.account_id = params[:account_id]
+
     respond_to do |format|
       format.html  # new.html.erb
       format.json  { render :json => @contract }
     end
   end
-  
+
   ##
   # Process to insert a new Contract into the DataBase
   #
@@ -72,10 +72,10 @@ class ContractsController < ApplicationController
       else
         flash[:alert] = @contract.errors.full_messages.join("\n")
         format.html  { render :action => "new" }
-      end        
+      end
     end
   end
-  
+
   ##
   # Render a page to display an Contract
   #
@@ -87,11 +87,11 @@ class ContractsController < ApplicationController
       format.json  { render :json => @contract }
     end
   end
-  
+
   def edit
     @contract = Contract.find(params[:id])
   end
-  
+
   ##
   # Process that udpate an existing Contract
   #
@@ -108,7 +108,7 @@ class ContractsController < ApplicationController
       end
     end
   end
-  
+
   ##
   # Process that remove an Contract from the DB
   #
@@ -120,21 +120,21 @@ class ContractsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
-  
-  
-  
+
+
+
+
   private
     def load_account
       @account = Account.find_by_id(params[:account_id])
     end
-    
+
     def load_settings
       #ClickToCall
       @setting = Setting.all.first
-    end    
-    
-    def contracts 
+    end
+
+    def contracts
       @account ? @account.contracts : Contract
     end
 
@@ -145,7 +145,7 @@ class ContractsController < ApplicationController
         "application"
       end
     end
-    
-    
+
+
 
 end

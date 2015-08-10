@@ -14,7 +14,7 @@ class CreateContacts < ActiveRecord::Migration
       t.string :modified_by
 
       t.timestamps
-      
+
       t.references :compte
     end
   end

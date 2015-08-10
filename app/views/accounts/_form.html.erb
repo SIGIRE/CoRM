@@ -25,11 +25,11 @@
   <div class="field">
     <div class="span2"> Adresse : </div> <%= f.text_field :adress1 %>
   </div>
-  
+
   <div class="field">
     <div class="span2"> Adresse (suite) : </div> <%= f.text_field :adress2 %>
   </div>
-  
+
   <div class="field">
     <div class="span2"> CP : </div> <%= f.text_field :zip %>
   </div>
@@ -56,7 +56,7 @@
 
   <div class="field">
    <div class="span2"> Site web : </div> <%= f.text_field :web %>
-  </div>  
+  </div>
 
   <div class="field">
     <div class="span2"> Origine : </div> <%= f.collection_select :origin_id, Origin.order('name ASC').all, :id, :name, :include_blank => true %>
@@ -64,8 +64,8 @@
 
   <div class="field">
     <div class="span2"> Activité : </div> <%= f.collection_select :activity_id, Activity.order('name ASC').all, :id, :name, :include_blank => true %>
-  </div>  
-  
+  </div>
+
   <div class="field">
     <div class="span2"> Genre : </div> <%= f.select :category, Account::CATEGORIES%>
   </div>
@@ -79,39 +79,39 @@
   <div class="modal hide fade" id="account_tag_modal" style="width: 900px; margin-left: -450px;">
     <%= render "modal_tags" %>
   </div>
-  
+
   <div class="field">
     <div class="span2"> Code comptable : </div> <%= f.text_field :accounting_code %>
   </div>
-  
+
   <div class="field">
     <div class="span2"> Collaborateur : </div> <%= f.collection_select :user_id, @users, :id, :full_name, :include_blank => true %>
   </div>
-  
+
   <div class="field">
     <div class="span2">Notes : </div> <%=f.text_area :notes , :display_with => :simple_format, :rows => "5", :style => 'width: 50%;' %>
   </div>
 
   <br />
-  	
+
 	<div class="field">
     <% if !@account.id.nil? %>
 		<div class="span9"> Créé par : <%= @account.author.full_name %>, le </strong><%= @account.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
+
 		<% if !@account.modified_by.nil? %>
 			<div class="span9"> Dernièrement modifié par : <%= @account.editor.full_name %>, le <%= @account.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
+
 		<% else %>
 		<% end %>
-		
+
 	<% end %>
 	</div>
-	  
+
 	<hr />
-  
+
   <div class="row">
     <%= if !@account.id.nil? then f.button 'Modifier le compte', :type => :submit, :class =>"btn btn-primary",:id =>"account_validate_form" else f.button 'Créer un compte', :type => :submit, :class =>"btn btn-primary",:id =>"account_validate_form" end%>
-  <% if current_user.has_role?(:admin) or current_user.has_role?(:super_user) %>  
+  <% if current_user.has_role?(:admin) or current_user.has_role?(:super_user) %>
       <%= if !@account.id.nil? then  link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @account,:title => "Supprimer le compte", :confirm => 'Attention : La suppression du compte entraine la suppression de tous les éléments liés à ce compte (contacts, évènements, devis, documents...) ! Confirmez-vous la suppression ?', :class =>"pull-right btn", :method => :delete end %>
   <% end %>
 

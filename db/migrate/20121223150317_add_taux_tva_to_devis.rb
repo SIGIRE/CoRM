@@ -3,6 +3,6 @@ class AddTauxTvaToDevis < ActiveRecord::Migration
     change_table :devis do |t|
       t.remove :taux_tva_cents
       t.decimal :taux_tva
-    end    
+    end
   end
 end

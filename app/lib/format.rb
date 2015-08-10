@@ -1,7 +1,7 @@
 #this class offers differents methods to format strings in particular format
 
 class Format
-   
+
    #format string to correct URL
     def self.to_url(url)
         if !url.nil? and url.length > 0
@@ -16,5 +16,5 @@ class Format
             end
         end
         return (!correction.nil?() ? correction.concat(url) : url)
-    end   
+    end
 end

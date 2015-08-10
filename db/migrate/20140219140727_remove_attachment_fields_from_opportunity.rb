@@ -9,7 +9,7 @@ class RemoveAttachmentFieldsFromOpportunity < ActiveRecord::Migration
             opportunity.opportunity_attachments.push attach
         end
     end
-    
+
     # Suppression des champs devenus inutiles
     change_table :opportunities do |t|
         remove_attachment :opportunities, :attach
@@ -21,7 +21,7 @@ class RemoveAttachmentFieldsFromOpportunity < ActiveRecord::Migration
     change_table :opportunities do |t|
         t.attachment :attach
     end
-    
+
     # Recuperation des évènements
     opportunities = Opportunity.all
     opportunities.each do |opportunity|

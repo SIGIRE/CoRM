@@ -9,7 +9,7 @@ class RemoveAttachmentFieldsFromEvent < ActiveRecord::Migration
             event.event_attachments.push attach
         end
     end
-    
+
     # Suppression des champs devenus inutiles
     change_table :events do |t|
         remove_attachment :events, :attach
@@ -21,7 +21,7 @@ class RemoveAttachmentFieldsFromEvent < ActiveRecord::Migration
     change_table :events do |t|
         t.attachment :attach
     end
-    
+
     # Recuperation des évènements
     events = Event.all
     events.each do |event|

@@ -7,15 +7,15 @@
   <div class="well">
       <%= form_tag(contacts_path, method: :get) do %>
 	  <div class="row row-fluid">
-		
+
 	  <%= render 'filter' %>
-			
-		
+
+
 	  <%= submit_tag "Filtrer", :class =>"btn "%>
       <% end %>
     </div>
   </div>
-</div>  
+</div>
 
 <!-- END FILTER -->
 
@@ -31,7 +31,7 @@
         <th class="text-center">T&eacute;l</th>
         <th class="text-center">Mobile</th>
         <th class="text-center">E-mail</th>
-        <th class="text-center">Actions</th>         
+        <th class="text-center">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -52,21 +52,21 @@
             <td class="text-center"><%= contact.surname %></td>
           <% else %>
             <td class="text-center">-</td>
-          <% end %> 		
+          <% end %>
 
           <% if !contact.forename.blank? %>
             <% then %>
             <td class="text-center"><%= contact.forename %></td>
           <% else %>
             <td class="text-center">-</td>
-          <% end %> 		
+          <% end %>
 
           <% if !contact.account.nil? %>
             <% then %>
             <td class="text-center"><%= link_to contact.account.company , account_events_url(contact.account),{:title => "Afficher les évenements"} %></td>
           <% else %>
             <td class="text-center">-</td>
-          <% end %> 
+          <% end %>
 
 
           <% if !contact.tel.blank? %>
@@ -76,11 +76,11 @@
 		<%= link_to contact.tel.html_safe, "tel:#{contact.tel}" ,{:title => "Click-to-call", :class =>"action-tel"}%>
 	      <% else %>
 		<%= contact.tel %>
-	      <% end %> 
+	      <% end %>
 	    </td>
           <% else %>
             <td class="text-center">-</td>
-          <% end %> 
+          <% end %>
 
           <% if !contact.mobile.blank? %>
             <% then %>
@@ -89,11 +89,11 @@
 		<%= link_to contact.mobile.html_safe, "tel:#{contact.mobile}" ,{:title => "Click-to-call", :class =>"action-tel"}%>
 	      <% else %>
 		<%= contact.mobile %>
-	      <% end %> 	      
+	      <% end %>
 	    </td>
           <% else %>
             <td class="text-center">-</td>
-          <% end %>		
+          <% end %>
 
           <% if !contact.email.blank? %>
             <% then %>
@@ -109,6 +109,6 @@
     </tbody>
   </table>
 
-  <%= paginate @contacts %> 
+  <%= paginate @contacts %>
 
 </div>

@@ -1,5 +1,5 @@
 <div class="container-fluid" style="margin-top: 1em;">
-   
+
 
   <div class="well">
        <div class="row-fluid">
@@ -10,7 +10,7 @@
     </div>
 
   </div>
-         
+
 </div>
 
 <!-- FILTER -->
@@ -23,14 +23,14 @@
       </legend>
       <%= form_tag('/comptes/extract', method: :get) do %>
 	      <div class="row row-fluid">
-		
+
 	      <%= render 'filter' %>
 
 	  <%= submit_tag "Filtrer", :class =>"btn "%>
       <% end %>
       </div>
   </div>
-</div>  
+</div>
 
 <!-- END FILTER -->
 
@@ -40,7 +40,7 @@
     <thead>
     <tr>
 	<th class="text-center">Soci&eacute;t&eacute;</th>
-	<th class="text-center">Adresse</th>	  
+	<th class="text-center">Adresse</th>
 	<th class="text-center">Genre</th>
 	<th class="text-center">Téléphone</th>
 	<th class="text-center">Site Web</th>
@@ -63,7 +63,7 @@
 			<% else %>
 				<td class="text-center">-</td>
 		<% end %>
-      
+
 		<% if !account.category.nil? %>
 			<% then %>
 				<td class="text-center"><%= account.category %></td>

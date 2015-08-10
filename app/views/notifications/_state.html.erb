@@ -2,7 +2,7 @@
 <% if @connection.active %>
     <div class="alert alert-info">
         Le module de conversion d'email en évènement est actuellement <strong>activé</strong>.<br/>
-        Pour l'utiliser, il vous suffit d'ajouter à votre email l'adresse <strong><%= @connection.login %></strong> dans le champ "CCI" de votre client de messagerie. 
+        Pour l'utiliser, il vous suffit d'ajouter à votre email l'adresse <strong><%= @connection.login %></strong> dans le champ "CCI" de votre client de messagerie.
     </div>
 <% elsif !@connection.active %>
     <div class="alert alert-warning">

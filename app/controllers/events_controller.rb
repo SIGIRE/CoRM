@@ -16,14 +16,14 @@ class EventsController < ApplicationController
   has_scope :by_account_company_like
 
   ##
-  # Show the full list of Events  
+  # Show the full list of Events
   #
   # GET /events     Account.order("company").page(params[:page]).per(3)
   # GET /events.json
   def index
     @event_new = @account.events.build if @account
     @event_new.event_type_id = @event_new.default_event_type_id if @event_new
-    
+
     @events = apply_scopes(events).
               order("date_begin DESC").
               page(params[:page]).
@@ -50,7 +50,7 @@ class EventsController < ApplicationController
       format.json { render :json => @event }
     end
   end
-  
+
   ##
   # Render the page with the form to create an Event
   #
@@ -88,12 +88,12 @@ class EventsController < ApplicationController
     puts('after dump')
     @event = Event.new(params[:event])
     @event.created_by = current_user.id
-    
+
     @event.date_begin = params[:event][:date_begin]
-    @event.date_begin = @event.date_begin.change({:hour => params[:event]["date_begin(4i)"].to_i, :min => params[:event]["date_begin(5i)"].to_i}) 
+    @event.date_begin = @event.date_begin.change({:hour => params[:event]["date_begin(4i)"].to_i, :min => params[:event]["date_begin(5i)"].to_i})
 
     @event.date_end = params[:event][:date_end]
-    @event.date_end = @event.date_end.change({:hour => params[:event]["date_end(4i)"].to_i, :min => params[:event]["date_end(5i)"].to_i}) 
+    @event.date_end = @event.date_end.change({:hour => params[:event]["date_end(4i)"].to_i, :min => params[:event]["date_end(5i)"].to_i})
     if @event.date_end < @event.date_begin
       flash[:alert] = "La date de fin doit être postérieure à la date de début!"
       redirect_to :back
@@ -113,7 +113,7 @@ class EventsController < ApplicationController
       flash[:alert] = "Erreur indéterminée."
       redirect_to :back
     end
-    
+
   end
 
   ##
@@ -124,7 +124,7 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     @event.modified_by = current_user.id
-    
+
     respond_to do |format|
       if @event.update_attributes(params[:event])
         redirect_to session.delete(:return_to), notice: "L'évènement a été mis à jour."
@@ -145,12 +145,12 @@ class EventsController < ApplicationController
     flash[:notice] = "L'évenement a été correctement supprimé"
     redirect_to session.delete(:return_to) || account_events_url(@event.account_id)
   end
-  
+
   ##
   # Create a task for this event
   #
   def create_task()
-    
+
     # Create a new hashtable with the same key as can do the TasksController
     hash = Hash.new
     hash['account_id'] = params[:event][:account_id]
@@ -162,7 +162,7 @@ class EventsController < ApplicationController
     hash['created_by'] = current_user.id
     hash['priority'] = params[:task][:priority].to_i
     hash['title'] = params[:task][:title]
-    
+
     # Create the task with the hash
     @task = Task.new(hash)
     if @task.save
@@ -177,13 +177,13 @@ class EventsController < ApplicationController
     def load_account
       @account = Account.find_by_id(params[:account_id])
     end
-    
+
     def load_settings
       #ClickToCall
       @setting = Setting.all.first
-    end    
-    
-    def events 
+    end
+
+    def events
       @account ? @account.events : Event
     end
 

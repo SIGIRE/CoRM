@@ -20,11 +20,11 @@
   <div id="logo">
   <%= image_tag("logo-login.png") %>
   </div>
-  
+
   <div id="login">
 
     <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
-    
+
       <div class="field" >
           <div align="center"><h3>Mot de passe oublié ?</h3></div>
           <br /><br />
@@ -35,8 +35,8 @@
           </div>
           <div class="pull-left"><br /><%= render "links" %></div>
       </div>
-      
+
     <% end %>
   </div>
-  
+
 </div>

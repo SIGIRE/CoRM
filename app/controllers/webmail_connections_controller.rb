@@ -9,7 +9,7 @@ class WebmailConnectionsController < ApplicationController
 		end
 	end
   end
-	
+
 	def edit
 		if current_user.has_role?(:admin)
       @webmail_connection = WebmailConnection.first
@@ -31,7 +31,7 @@ class WebmailConnectionsController < ApplicationController
 			else
 				flash[:notice] = "Les paramètres de connexion sont corrects et ont été sauvegardés."
 		end
-		redirect_to(:controller => "settings",  :action => 'index')	
+		redirect_to(:controller => "settings",  :action => 'index')
 	else
 		redirect_to root_url
 		return false

@@ -6,14 +6,14 @@
   <div class="well">
       <%= form_tag(accounts_path, method: :get) do %>
 	      <div class="row row-fluid">
-		
+
 	      <%= render 'filter' %>
 
 	  <%= submit_tag "Filtrer", :class =>"btn "%>
       <% end %>
       </div>
   </div>
-</div>  
+</div>
 
 
 <!-- END FILTER -->
@@ -24,11 +24,11 @@
     <thead>
     <tr>
 	<th class="text-center">Soci&eacute;t&eacute;</th>
-	<th class="text-center">Adresse</th>	  
+	<th class="text-center">Adresse</th>
 	<th class="text-center">Genre</th>
 	<th class="text-center">Téléphone</th>
 	<th class="text-center">Site Web</th>
-	<th class="text-center">Actions</th>        
+	<th class="text-center">Actions</th>
     </tr>
     </thead>
 	<tbody>
@@ -48,7 +48,7 @@
 			<% else %>
 				<td class="text-center">-</td>
 		<% end %>
-      
+
 		<% if !account.category.nil? %>
 			<% then %>
 				<td class="text-center"><%= account.category %></td>
@@ -63,7 +63,7 @@
 					<%= link_to account.tel.html_safe, "tel:#{account.tel}" ,{:title => "Click-to-call", :class =>"action-tel"}%>
 				      <% else %>
 					<%= account.tel %>
-				      <% end %> 
+				      <% end %>
 				</td>
 			<% else %>
 				<td class="text-center">-</td>

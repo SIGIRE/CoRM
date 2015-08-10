@@ -1,7 +1,7 @@
 <%= render 'title', :locals => { :title => @title, :link => @link }%>
 
 <div class="container-fluid">
- 
+
  <!-- notice -->
  <div class="row">
   <div class="span3">
@@ -9,7 +9,7 @@
 		<tr class="success"><td class="text-center"><%=t('app.caption.importable_accounts') %></td></tr>
 	</table>
   </div>
-  
+
   <div class="span3">
 	<table class="table table-condensed table-bordered">
 		<tr class="warning"><td class="text-center"><%=t('app.caption.warning_anomaly') %></td></tr>
@@ -20,11 +20,11 @@
 		<tr class="error"><td class="text-center"><%=t('app.caption.error_anomaly') %></td></tr>
 	</table>
   </div>
-  
+
  </div>
- 
+
  <!-- end notice -->
- 
+
  <!-- FILTER -->
  <% if @all_import_accounts!=0 %>
   <%= form_tag(import_accounts_path, method: :GET) do %>
@@ -32,25 +32,25 @@
     <div>
       <%= label_tag :anomaly, "#{t('app.fields.anomaly').pluralize} :", :class => "top"  %>
       <!--@select store value of selected anomaly -->
-      <%= select_tag "anomaly", options_for_select(@anomalies_filter.collect{|v| [v.notes=='-' ? 'Aucun' : v.notes, v.id]},@select), { :prompt => "#{t('app.default.all')}", :class =>"filter_statut"}  %>  
+      <%= select_tag "anomaly", options_for_select(@anomalies_filter.collect{|v| [v.notes=='-' ? 'Aucun' : v.notes, v.id]},@select), { :prompt => "#{t('app.default.all')}", :class =>"filter_statut"}  %>
   </div>
     <%= submit_tag "#{t('app.actions.filter')}", :class =>"btn"%>
   </div>
  <% end %>
 <% end %>
- <!-- END FILTER --> 
+ <!-- END FILTER -->
 
- 
+
   <table class="table table-bordered table-striped table-hover">
     <thead>
     <tr>
 	<th class="text-center"><%= t('app.fields.company') %></th>
-	<th class="text-center"><%= t('app.fields.adress') %></th>	  
+	<th class="text-center"><%= t('app.fields.adress') %></th>
 	<th class="text-center"><%= t('app.fields.category') %></th>
 	<th class="text-center"><%= t('app.fields.phone') %></th>
 	<th class="text-center"><%= t('app.fields.web') %></th>
 	<th class="text-center"><%= t('app.fields.anomaly') %></th>
-	<th class="text-center"><%= t('app.actions.actions') %></th>        
+	<th class="text-center"><%= t('app.actions.actions') %></th>
     </tr>
     </thead>
 	<tbody>
@@ -66,8 +66,8 @@
 	  else
 	    %><tr class='error'><%
 	end
-    %> 
-       
+    %>
+
         <% if !account.company.nil? %>
                 <% then %>
                         <td class="text-center"><%= account.company %></td>
@@ -109,7 +109,7 @@
         <% else %>
                         <td class="text-center">-</td>
         <% end %>
-        
+
 	  <td class="text-center">
 	    <%= account.anomaly.notes %>
 	    <!-- if duplicate in db display company name of account in db with link-->
@@ -117,8 +117,8 @@
 	      <%= link_to account.account.company, edit_account_path(:id=>account.account_id),{:title => "#{t('app.actions.edit')}"} %>
 	    <% end %>
 	  </td>
-	
-	
+
+
         <td class="text-center ">
 	<% if can? :manage, account %>
 	  <%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_import_account_path(account, :anomaly=>@select ) ,{:title => "#{t('link.edit', article:t('app.default.define_article_male'), model:t('app.model.Account'))}" } %>
@@ -128,29 +128,29 @@
 			:title => "#{t('app.actions.destroy')} #{t('app.default.define_article_male')} #{t('app.model.Account')}",
 			:confirm => "#{t('app.message.confirm.delete_before_import',model: t('app.model.Account'))} #{t('app.message.confirm.delete')}",
 			:method => :delete %>
-	<% end %>  
+	<% end %>
 	</td>
-	
+
   </tr>
   <% end %>
   </tbody>
   </table>
-  
+
   <% if !@import_accounts.empty? && (can? :manage, ImportAccount) %>
-    
-   
+
+
     <div style="float:left;margin-right: 5px">
       <%= form_tag(import_accounts_importing_path) do %>
 	<%= button_tag "#{t('views.button.import',models:t('title.accounts'))}", class: "btn btn-primary" %>
       <% end %>
     </div>
-    
+
     <div style="float:left;margin-right: 5px">
     <%= form_tag(import_accounts_recalculate_duplicates_path) do %>
       <%= button_tag "#{t('app.actions.recalculate_duplicates')}", class: "btn" %>
     <% end %>
     </div>
-    
+
     <div style="float:right;margin-right: 5px">
     <%= link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe,
 		  destroy_all_invalids_accounts_path,
@@ -158,7 +158,7 @@
 		  :confirm => "#{t('app.message.confirm.delete_all_invalids_accounts')}",
 		  :class =>"pull-right btn" %>
     </div>
-    
+
   <% end %>
 
   <%= paginate @import_accounts %>

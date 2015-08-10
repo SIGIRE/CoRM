@@ -7,7 +7,7 @@ class CreateDocumentAttachments < ActiveRecord::Migration
         t.timestamps
     end
   end
-  
+
   def down
     # Suppression de la table "document_attachments"
     drop_table :document_attachments

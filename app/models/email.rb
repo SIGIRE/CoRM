@@ -41,12 +41,12 @@ class Email < ActiveRecord::Base
 
   ##
   # Generates a Hash whose keys are accounts and values sets of contacts.
-  # Uses arbitrary 
+  # Uses arbitrary
 
   def accounts_with_contacts
     logger.debug "-------------------"
     logger.debug "Entre dans models/email.rb / accounts_with_contacts"
-    logger.debug "-------------------"    
+    logger.debug "-------------------"
     resultset = Hash.new { |h, k| h[k] = Set.new }
     self.to.each do |mail_adress|
       contact = Contact.by_email(mail_adress).first
@@ -58,7 +58,7 @@ class Email < ActiveRecord::Base
     logger.debug "resultset = #{resultset}"
     resultset
   end
-  
+
 
   def has_arbitrary_account_and_contact?
     logger.debug "-------------------"
@@ -73,7 +73,7 @@ class Email < ActiveRecord::Base
   def accounts
     logger.debug "-------------------"
     logger.debug "Entre dans models/email.rb / accounts"
-    logger.debug "-------------------"    
+    logger.debug "-------------------"
     accounts = accounts_with_contacts.keys
     accounts << arbitrary_account if arbitrary_account
     accounts
@@ -85,7 +85,7 @@ class Email < ActiveRecord::Base
   def contacts
     logger.debug "-------------------"
     logger.debug "Entre dans models/email.rb / contacts"
-    logger.debug "-------------------"    
+    logger.debug "-------------------"
     resultset = []
     accounts_with_contacts.values.each do |contacts_set|
       contacts_set.each { |contact| resultset << contact }
@@ -104,9 +104,9 @@ class Email < ActiveRecord::Base
   def convert
     logger.debug "-------------------"
     logger.debug "Entre dans models/email.rb / convert"
-    logger.debug "-------------------"    
+    logger.debug "-------------------"
     events = []
-    
+
     # add arbitrary_account and arbitrary_contact if exist (arbitrary is the value entered by user when the system does not know the account/contact)
     if has_arbitrary_account_and_contact?
       rs = Hash.new { |h, k| h[k] = Set.new }
@@ -132,7 +132,7 @@ class Email < ActiveRecord::Base
   def create_event account, contacts
     logger.debug "-------------------"
     logger.debug "Entre dans models/email.rb / create_event"
-    logger.debug "-------------------"        
+    logger.debug "-------------------"
     event = Event.new
     event.account_id = account.id
     event.contact_id = contacts.first.id unless contacts.empty?
@@ -143,7 +143,7 @@ class Email < ActiveRecord::Base
     event.date_begin = self.send_at
     event.date_end = self.send_at
     event.notes = ""
-    event.notes += "Envoyé à : #{generate_string_from_mails(self.to)}" if self.to.length > 1 
+    event.notes += "Envoyé à : #{generate_string_from_mails(self.to)}" if self.to.length > 1
     event.notes += " - " if (self.to.length > 1) && !(self.cc.empty?)
     event.notes += "Copie : #{generate_string_from_mails(self.cc)}\n" unless self.cc.empty?
     event.notes +=  "Sujet : #{self.object}\n\n" unless self.object.blank?
@@ -164,7 +164,7 @@ class Email < ActiveRecord::Base
   def generate_string_from_mails(mail_adresses)
     logger.debug "-------------------"
     logger.debug "Entre dans models/email.rb / generate_strings_from_mail"
-    logger.debug "-------------------"      
+    logger.debug "-------------------"
     strings = []
     mail_adresses.each do |mail_adress|
       contact = Contact.by_email(mail_adress).first

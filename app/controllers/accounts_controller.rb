@@ -26,7 +26,7 @@ class AccountsController < ApplicationController
 
   def index
     @accounts = apply_scopes(Account).order("company")
-   
+
     #ClickToCall
     @setting = Setting.all.first
     #creation des ensembles contenant les comptes et contacts pour l'utilisation du typeahead
@@ -45,7 +45,7 @@ class AccountsController < ApplicationController
   def extract
     @accounts = apply_scopes(Account).
                 order("company")
-    
+
     #creation des ensembles contenant les comptes et contacts pour l'utilisation du typeahead
     #@autocomplete_accounts = Account.find(:all,:select=>'company').map(&:company) #societe
     #@autocomplete_contacts = Contact.find(:all,:select=>'surname').map(&:surname) #nom
@@ -112,7 +112,7 @@ class AccountsController < ApplicationController
       @account.tags << tag #unless @compte.produits.exists?(produit)
     end
 
-    respond_to do |format| 
+    respond_to do |format|
       if @account.save
         format.html { redirect_to account_events_url(@account.id), :notice => 'Le compte a été créé.' }
         format.json { render :json => @account, :status => :created, :location => @account }
@@ -123,7 +123,7 @@ class AccountsController < ApplicationController
       end
     end
   end
-  
+
   ##
   # Save an instance of Account which already exists
   #
@@ -141,7 +141,7 @@ class AccountsController < ApplicationController
       @account.tags.clear
       @account.tags << tag
     end
-    
+
     respond_to do |format|
       if @account.update_attributes(params[:account])
         format.html { redirect_to account_events_url(@account.id), :notice => 'Le compte a été mis à jour.' }
@@ -151,7 +151,7 @@ class AccountsController < ApplicationController
         format.html { render :action => "edit" }
         format.json { render :json => @account.errors, :status => :unprocessable_entity }
       end
-    end 
+    end
   end
 
   ##
@@ -168,7 +168,7 @@ class AccountsController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   ##
   # Called by the main search bar
   # search?account=[xxx]
@@ -185,12 +185,12 @@ class AccountsController < ApplicationController
         # You can put the contact url edit pattern here, to redirect when a conctact will be selected in typeahead
         @elements.push({ :type => 'info', 'account_url' => '/compte/[:id]/evenements', 'contact_url' => '/compte/[:account_id]/evenements', 'contact_url_default' => '/contact/[:id]/edit' })
         Account.where('company LIKE ? OR company LIKE ?', company, '%'.concat(company)).select('id, company AS name').each {|e|
-          @elements.push({ :id => e.id, :name => e.name, :type => 'account' }) 
+          @elements.push({ :id => e.id, :name => e.name, :type => 'account' })
         }
         if (!params[:contacts].nil? and params[:contacts] == 'true')
           Contact.where('surname LIKE ? OR forename LIKE ?', company, company).select('id, title, forename, surname, account_id').limit(10).each {|e|
             @elements.push({ :id => e.id, :name => e.full_name, :account_id => e.account_id, :type => 'contact' })
-          } 
+          }
         end
         @response = @elements
       else
@@ -202,7 +202,7 @@ class AccountsController < ApplicationController
       end
     end
   end
-  
+
   ##
   # Add a Tag to an Account
   #
@@ -218,7 +218,7 @@ class AccountsController < ApplicationController
       return false
     end
   end
-  
+
   ##
   # Remove a Tag from an Account
   #
@@ -227,7 +227,7 @@ class AccountsController < ApplicationController
       @tag = Tag.find(params[:tag_id])
       @account = Account.find(params[:account_id])
       @account.tags.delete(@tag)
-  
+
       respond_to do |format|
           format.html  { redirect_to account_tags_url(@account.id), :notice => "Suppression de l'affectation du tag effectuée." }
           format.json  { render :json => @tag }
@@ -238,8 +238,8 @@ class AccountsController < ApplicationController
       return false
     end
   end
-  
-  
+
+
   def duplicates
     @accounts_pairs = [] # array of hashes
     Account.order(:id).each do |account|
@@ -249,9 +249,9 @@ class AccountsController < ApplicationController
             @accounts_pairs << [account, duplicates.first]
           end
       end
-    end  
+    end
   end
-  
+
   def merge
     if ((@ability.can? :update, Account) and (@ability.can? :destroy, Account))
       account1 = Account.find(params[:id])
@@ -259,11 +259,11 @@ class AccountsController < ApplicationController
       account1.merge(account2.id)
     else
       flash[:error] = t('app.cancan.messages.unauthorized').gsub('[action]', t('app.actions.destroy')).gsub('[undefined_article]', t('app.default.undefine_article_male')).gsub('[model]', t('app.controllers.Account'))
-    end      
+    end
 
     redirect_to duplicate_accounts_path
   end
-  
+
 
   private
   def check_can_read!

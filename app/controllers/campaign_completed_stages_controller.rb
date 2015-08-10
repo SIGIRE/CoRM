@@ -12,23 +12,23 @@ class CampaignCompletedStagesController < ApplicationController
   # GET /campaign_completed_stages
   def index
     @campaign_completed_stages = CampaignCompletedStage.order('completed_percentage').page(params[:page])
-   
+
     respond_to do |format|
       format.html  # index.html.erb
     end
   end
-  
+
   ##
   # Render a page to create new CampaignCompletedStage
   #
   def new
     @campaign_completed_stage = CampaignCompletedStage.new
-    
+
     respond_to do |format|
       format.html  # new.html.erb
     end
   end
-  
+
   ##
   # Process to insert a new CampaignCompletedStage into the DataBase
   #
@@ -44,12 +44,12 @@ class CampaignCompletedStagesController < ApplicationController
       end
     end
   end
-  
-  
+
+
   def edit
     @campaign_completed_stage = CampaignCompletedStage.find(params[:id])
   end
-  
+
   ##
   # Process that udpate an existing CampaignCompletedStage
   #
@@ -66,7 +66,7 @@ class CampaignCompletedStagesController < ApplicationController
       end
     end
   end
-  
+
   ##
   # Process that remove an CampaignCompletedStage from the DB
   #

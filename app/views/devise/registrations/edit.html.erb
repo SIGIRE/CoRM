@@ -1,5 +1,5 @@
 <div class="container-fluid" style="margin-top: 1em;">
-  
+
      <div class="well">
        <div class="row-fluid">
          <div class="span9">
@@ -8,18 +8,18 @@
 		     <%= link_to '<i class="fa fa-arrow-circle-left fa-3x action-icon"></i>'.html_safe, users_path ,{:title => "Retour", :class =>"pull-right"} %>
 		</div>
 	 </div>
-  
+
    <%= form_for(@user, :url => user_path(@user), :html => { :autocomplete => 'off', :method => :put , :class => "well"}) do |f| %>
     <%= devise_error_messages! %>
-  
-  
+
+
     <div class="field"> <div class="span2">Identifiant : </div> <%= f.text_field :login_name, :disabled => @email_disabled, :style=>'width: 20em;' %><span class="req" /><%= "@#{Setting.ad_domain_value}" if Setting.ad_enabled? %>
       <a id="profil_mdp" class="btn btn-success btn-small" data-toggle="modal" href="#edit_profile_modal" style="margin-bottom: 8px;">Modifier mon mot de passe</a>
     </div>
-    
+
     <div class="field"> <div class="span2">E-mail : </div> <%= f.email_field :email , :disabled => @email_disabled, :style=>'width: 20em;' %><span class="req" />
-    </div>    
-    
+    </div>
+
     <div class="field"> <div class="span2">Prénom : </div>
       <%= f.text_field :forename, { :class => 'required', :style=>'width: 20em;' } %><span class="req" />
     </div>
@@ -27,11 +27,11 @@
     <div class="field"><div class="span2"> Nom : </div>
       <%= f.text_field :surname, { :class => 'required', :style=>'width: 20em;' } %><span class="req" />
     </div>
-       
+
     <div class="field"><div class="span2"> Tél fixe : </div>
       <%= f.text_field :tel, { :style=>'width: 20em;' } %>
     </div>
-    
+
     <div class="field"> <div class="span2">Mobile : </div>
       <%= f.text_field :mobile, { :style=>'width: 20em;' } %>
     </div>
@@ -42,27 +42,27 @@
 
 
     <% if current_user.has_role?(:admin) %>
-	 
-	 
-	       <div class="field"> 
+
+
+	       <div class="field">
 		    <div class="span2"> Droits d'accès : </div> <%= select_tag(:role, options_for_select(Role.list_all, :selected => @user_role_name))  %> <span class="req" />
 	       </div>
-	 
+
 		 <div class="row row-fluid">
 		    <div class="field full">
 			 <label for="user_enabled" class="checkbox"><%= check_box_tag('user[enabled]', 1, @user.enabled,{ :class => 'checkbox' }) %>Compte activé</label>
 		    </div>
 		 </div>
      <% end %>
-     
+
 
     <div class="modal hide fade" id="edit_profile_modal">
-      
+
       <div class="modal-header">
         <button type="button" class="close" id="profil_cancel" data-dismiss="modal">×</button>
         <h3>Modification du mot de passe</h3>
       </div>
-      
+
       <div class="modal-body">
         <% unless current_user.has_role? :super_user %>
         <div class="span3">
@@ -75,24 +75,24 @@
           Nouveau mot de passe : <br />
           <%= f.password_field :password, { :autocomplete => "off" } %>
         </div>
-        
+
         <div class="span3">
           Confirmer mot de passe : <br />
           <%= f.password_field :password_confirmation, {autocomplete: 'off' } %>
         </div>
       </div>
-      
+
       <div class="modal-footer">
         <a href="#" id="profil_cancel" class="btn" data-dismiss="modal">Annuler </a>
         <a href="#" id="profil_submit" class="btn btn-primary" data-dismiss="modal">Valider</a>
       </div>
-      
+
   </div>
-  
+
   <div>
     <%= f.button "Modifier", :type => :submit, :class =>"btn btn-primary" , :style =>"margin-left: 122px;"%>
   </div>
-  
+
   <% end %>
 
 </div>

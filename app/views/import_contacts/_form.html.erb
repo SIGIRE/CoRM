@@ -20,7 +20,7 @@
      <%= f.check_box :no_search_duplicates %>
 
   </div>
-  
+
   <div class="field">
     <div class="span2"><%= t('app.fields.name')+" :"  %></div> <%= f.text_field :surname %>
 
@@ -30,15 +30,15 @@
       </span>
 
   </div>
-  
+
   <div class="field">
     <div class="span2"><%= t('app.fields.forename')+" :"  %></div> <%= f.text_field :forename %>
   </div>
-  
+
   <div class="field">
     <div class="span2"><%= t('app.fields.title')+" :"  %></div> <%= f.select :title, Contact::TITLES, {:include_blank => true} %>
   </div>
-  
+
   <% if @contact.persisted? %>
   <div class="field">
     <div class="span2"><%= t('app.fields.state')+" :"  %></div> <%= f.select :active, options_for_select([["Actif", true], ["Inactif", false]], selected: @contact.active) %>
@@ -48,23 +48,23 @@
   <div class="field">
     <div class="span2"><%= t('app.fields.phone')+" :"  %></div> <%= f.text_field :tel %>
   </div>
-  
+
   <div class="field">
     <div class="span2"><%= t('app.fields.fax')+" :"  %></div> <%= f.text_field :fax%>
   </div>
-  
+
   <div class="field">
     <div class="span2"><%= t('app.fields.phone')+" :"  %></div> <%= f.text_field :mobile%>
   </div>
-  
+
   <div class="field">
-    <div class="span2"><%= t('app.fields.email')+" :"  %></div> <%= f.text_field :email%> 
+    <div class="span2"><%= t('app.fields.email')+" :"  %></div> <%= f.text_field :email%>
   </div>
 
 <div class="field">
     <div class="span2"><%= t('app.fields.job')+" :"  %></div> <%= f.text_field :job%>
   </div>
-  
+
   <div class="field">
     <div class="span2"><%= f.label('account-search', t('app.model.Account') + t('app.fields.colon')) %></div>
     <% company = ""
@@ -77,35 +77,35 @@
 		</p>
 		<%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id' } %>
   </div>
-  
 
-  
+
+
   <div class="field">
     <div class="span2"><%= t('app.fields.notes')+t('app.fields.colon') %></div> <%= f.text_area :notes , :rows => "5", :style => 'width: 50%;'%>
   </div>
-  
 
-  
-  
+
+
+
   <br />
-  	
+
 	<div class="field">
     <% if !@contact.id.nil? %>
 		<div class="span9"><%= t('app.actions.created_by')+t('app.fields.colon') %><%= @contact.author.full_name %>, le </strong><%= @contact.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-		
+
 		<% if !@contact.modified_by.nil? %>
 			<div class="span9"><%= t('app.actions.updated_by')+t('app.fields.colon') %><%= @contact.editor.full_name %>, le <%= @contact.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
 		<% end %>
 	<% end %>
-	
-	  
+
+
 	<hr />
         </div>
-        
+
 	<div class="row">
 	<% if can? :manage, ImportContact %>
-	  
-	  <% if (!@contact.id.nil?) %> 
+
+	  <% if (!@contact.id.nil?) %>
 	      <%= f.button "#{t('app.actions.updated_contact')}", :type => :submit, :class =>"btn btn-primary",:id =>"contact_submit_form" %>
 	  <% end %>
 
@@ -118,9 +118,9 @@
 		      :class =>"pull-right btn",
 		      :method => :delete %>
 	  <% end %>
-	  
+
 	<% end %>
         </div>
 </div>
- 
+
 <% end %>

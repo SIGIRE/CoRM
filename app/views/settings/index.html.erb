@@ -19,7 +19,7 @@
                 </div>
             </div>
             <% end %>
-                
+
             <div class="row row-fluid">
                <div class="field full">
                      <span class="span2">
@@ -32,52 +32,52 @@
                      <%= f.file_field "attach" %>
                 </div>
                 <div class="field full">
-                    <div class="span2"></div><input type="submit" value="Sauvegarder" class="btn btn-success"> 
+                    <div class="span2"></div><input type="submit" value="Sauvegarder" class="btn btn-success">
 					<div class="alert alert-info">
 					  <strong>Information :</strong> l'image doit faire 180 par 180 pixel au maximum...
 					</div>
                     <%= hidden_field_tag "setting[id]", @setting.id%>
                 </div>
             </div>
-			
+
         <% end %>
 	</div>
-    
 
-		    
+
+
     <div name="general_settings">
      	<div class="span9">
             <h2>Fonction Click-to-call</h2>
 	</div>
 
-                
+
 		<%= form_for(Setting.new, :url => { :controller => 'settings', :action => 'update'}) do |f| %>
 		    <div class="row row-fluid">
 		        <div class="field full">
     			<div class="span2"> Activé : </div> <%= f.check_box :clicktocall, {:checked => (@setting.clicktocall)} %>
-  			
+
 			<% if @setting.clicktocall == true %>
 		        <div class="alert alert-success">Fonction actuellement activée.</div>
 		    <% else %>
 			<div class="alert alert-warning">Fonction actuellement désactivée.</div>
 		    <% end %>
-			
+
 			</div>
-			
+
 		    <div class="field full">
 			<div class="span2"></div><input type="submit" value="Sauvegarder" class="btn btn-success">
 		    </div>
 		    </div>
 		    <%= hidden_field_tag "setting[id]", @setting.id%>
 		<% end %>
-  	                     
 
-    
+
+
 	<div class="span9">
             <h2>Saisies obligatoires</h2>
 	</div>
 
-                
+
 		    <%= form_for(Setting.new, :url => { :controller => 'settings', :action => 'update'}) do |f| %>
 			<div class="row row-fluid">
 			<div class="field full">
@@ -88,7 +88,7 @@
 				<div class="alert alert-warning">Fonction actuellement désactivée.</div>
 			    <% end %>
 			</div>
-			
+
 		    	<div class="field full">
     			<div class="span2"> Saisie du contact obligatoire : </div> <%= f.check_box :mandatory_contact, {:checked => (@setting.mandatory_contact)} %>
 			<% if @setting.mandatory_contact == true %>
@@ -97,14 +97,14 @@
 			    <div class="alert alert-warning">Fonction actuellement désactivée.</div>
 			<% end %>
 			</div>
-			
+
 		    <div class="field full">
 			<div class="span2"></div><input type="submit" value="Sauvegarder" class="btn btn-success">
 		    </div>
 		    </div>
 		    <%= hidden_field_tag "setting[id]", @setting.id%>
 		<% end %>
-  	                     
+
 	    </div>
 
 
@@ -112,27 +112,27 @@
             <h2>Saisies par défaut</h2>
 	</div>
 
-                
+
 		    <%= form_for(Setting.new, :url => { :controller => 'settings', :action => 'update'}) do |f| %>
 			<div class="row row-fluid">
 			    <div class="field full">
 				<div class="span2"> Type d'évènement par défaut : </div>  <%= f.collection_select :default_event_type_id, EventType.all, :id, :full_type, :class =>"filter_coll", :include_blank => true, :selected => @setting.default_event_type_id.to_i %>
 			    </div>
-			    
+
 			    <div class="field full">
 				<div class="span2"></div><input type="submit" value="Sauvegarder" class="btn btn-success">
 			    </div>
 			</div>
 			<%= hidden_field_tag "setting[id]", @setting.id%>
 		    <% end %>
-  	                     
+
 	    </div>
 
 	<div class="span9">
             <h2>Affichage</h2>
 	</div>
 
-                
+
 		    <%= form_for(Setting.new, :url => { :controller => 'settings', :action => 'update'}) do |f| %>
 			<div class="row row-fluid">
 			<div class="field full">
@@ -143,7 +143,7 @@
 				<div class="alert alert-warning">Fonction actuellement désactivée.</div>
 			    <% end %>
 			</div>
-			
+
 		    	<div class="field full">
     			<div class="span2"> Affichage des Opportunités : </div> <%= f.check_box :opportunities_display, {:checked => (@setting.opportunities_display)} %>
 			<% if @setting.opportunities_display == true %>
@@ -152,7 +152,7 @@
 			    <div class="alert alert-warning">Fonction actuellement désactivée.</div>
 			<% end %>
 			</div>
-			
+
 		    	<div class="field full">
     			<div class="span2"> Affichage des Contrats : </div> <%= f.check_box :contracts_display, {:checked => (@setting.contracts_display)} %>
 			<% if @setting.contracts_display == true %>
@@ -160,24 +160,24 @@
 		    	<% else %>
 			    <div class="alert alert-warning">Fonction actuellement désactivée.</div>
 			<% end %>
-			</div>			
-			
+			</div>
+
 		    <div class="field full">
 			<div class="span2"></div><input type="submit" value="Sauvegarder" class="btn btn-success">
 		    </div>
 		    </div>
 		    <%= hidden_field_tag "setting[id]", @setting.id%>
 		<% end %>
-  	                     
+
 	    </div>
-	    
-	    
-	    
+
+
+
 	<div class="span9">
             <h2>Authentification</h2>
 	</div>
 
-                
+
 		    <%= form_for(Setting.new, :url => { :controller => 'settings', :action => 'update'}) do |f| %>
 			<div class="row row-fluid">
 			<div class="field full">
@@ -188,29 +188,29 @@
 				<div class="alert alert-warning">Fonction actuellement désactivée.</div>
 			    <% end %>
 			</div>
-			
+
 			<div class="field full">
 			    <div class="span2"> Serveur : </div> <%= f.text_field :ad_host, :value => @setting.ad_host %>
   			</div>
-			
+
   			<div class="field full">
 			    <div class="span2"> Port : </div> <%= f.text_field :ad_port, :value => @setting.ad_port %>
   			</div>
-			
+
   			<div class="field full">
 			    <div class="span2"> Domaine : </div> <%= f.text_field :ad_domain, :value => @setting.ad_domain %>
-  			</div>				
-			
+  			</div>
+
 		    <div class="field full">
 			<div class="span2"></div><input type="submit" value="Sauvegarder" class="btn btn-success">
 		    </div>
 		    </div>
 		    <%= hidden_field_tag "setting[id]", @setting.id%>
 		<% end %>
-  	                     
-	    </div>	    
-    
-	
+
+	    </div>
+
+
 	<div name="mail_settings">
 		<div class="span9">
                 	<h2>Paramètres du serveur mail</h2>
@@ -254,6 +254,6 @@
 		</div>
 	<% end %>
 	</div>
-   	
-	
+
+
 </div>

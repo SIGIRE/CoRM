@@ -12,23 +12,23 @@ class CampaignResultStagesController < ApplicationController
   # GET /campaign_result_stages
   def index
     @campaign_result_stages = CampaignResultStage.order('result_percentage').page(params[:page])
-   
+
     respond_to do |format|
       format.html  # index.html.erb
     end
   end
-  
+
   ##
   # Render a page to create new CampaignResultStage
   #
   def new
     @campaign_result_stage = CampaignResultStage.new
-    
+
     respond_to do |format|
       format.html  # new.html.erb
     end
   end
-  
+
   ##
   # Process to insert a new CampaignResultStage into the DataBase
   #
@@ -44,12 +44,12 @@ class CampaignResultStagesController < ApplicationController
       end
     end
   end
-  
-  
+
+
   def edit
     @campaign_result_stage = CampaignResultStage.find(params[:id])
   end
-  
+
   ##
   # Process that udpate an existing CampaignResultStage
   #
@@ -66,7 +66,7 @@ class CampaignResultStagesController < ApplicationController
       end
     end
   end
-  
+
   ##
   # Process that remove an CampaignResultStage from the DB
   #

@@ -1,6 +1,6 @@
 <%# encoding: utf-8 %>
 
-<ul class="nav">	
+<ul class="nav">
   <li class="dropdown nav-item">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#" title ="Créer...">
       <i class="fa fa-plus-circle"></i>
@@ -17,7 +17,7 @@
   </li>
 
   <!-- NOTIFICATIONS -->
-  <li class="nav-item relative">	
+  <li class="nav-item relative">
 	<a href=/notifications>
 		<i class="fa fa-bell"></i>
 		<% if current_user.emails.length > 0 %>
@@ -28,14 +28,14 @@
 
   <!-- PROFIL -->
 
-  <li class="dropdown nav-item"> 
+  <li class="dropdown nav-item">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#" title ="Profil et paramètres">
       <i class="fa fa-cogs"></i>
     </a>
     <ul class="dropdown-menu pull-right">
       <center><li role="presentation" class="dropdown-header" style="font-weight: bold"><%= current_user.forename %></li></center>
       <li class="divider"></li>
-      <li><%= link_to '<i class="fa fa-user fa-fw"></i> Profil'.html_safe, edit_user_path(current_user) %></li>        
+      <li><%= link_to '<i class="fa fa-user fa-fw"></i> Profil'.html_safe, edit_user_path(current_user) %></li>
       <li><%= link_to '<i class="fa fa-sign-out fa-fw"></i> Déconnexion'.html_safe, destroy_user_session_path, :data => {:confirm => 'Confirmer la déconnexion ?'}, :method => :delete %></li>
       <!-- SETTINGS in PROFIL -->
 
@@ -55,15 +55,15 @@
             <li><%= link_to '<i class="fa fa-graduation-cap fa-fw"></i> Activités'.html_safe, activities_path %></li>
             <li><%= link_to '<i class="fa fa-files-o fa-fw"></i> Modèles devis'.html_safe, quotation_templates_path %></li>
             <li><%= link_to '<i class="fa fa-suitcase fa-fw"></i> Catégorie de contrats'.html_safe, contract_categories_path %></li>
-	    
+
 	    <li class="dropdown-submenu pull-left">
 	      <a tabindex="-1" href="#"><i class="fa fa-cog fa-fw"></i> Campagnes</a>
-	      <ul class="dropdown-menu ">	    
+	      <ul class="dropdown-menu ">
 		<li><%= link_to '<i class="fa fa-suitcase fa-fw"></i>Avancements'.html_safe, campaign_completed_stages_path %></li>
 		<li><%= link_to '<i class="fa fa-suitcase fa-fw"></i>Résultats'.html_safe, campaign_result_stages_path %></li>
 	      </ul>
 	    </li>
-	    
+
             <% if current_user.has_role?(:admin) %>
               <li class="divider"></li>
               <li><%= link_to '<i class="fa fa-wrench fa-fw"></i> Configuration CoRM'.html_safe, url_for({ :controller => 'settings', :action => 'index' }) %></li>
@@ -77,21 +77,21 @@
             <li><%= link_to '<i class="fa fa-users fa-fw"></i> Contacts'.html_safe, url_for(:controller => 'contacts', :action => 'extract') %></li>
           </ul>
         </li>
-	
+
 
 	<!-- 19/11/2014 add import fonctionnality -->
 	<li class="dropdown-submenu pull-left">
           <a tabindex="-1" href="#"><i class="fa fa-download fa-fw"></i> Import</a>
-          <ul class="dropdown-menu">	    
+          <ul class="dropdown-menu">
 	    <li><%= link_to '<i class="fa fa-home fa-fw"></i> Comptes'.html_safe, import_accounts_path, :method=>:get %></li>
 	    <li><%= link_to '<i class="fa fa-users fa-fw"></i> Contacts'.html_safe, import_contacts_path, :method=>:get %></li>
 	    <li class="divider"></li>
 	    <li><%= link_to '<i class="fa fa-calendar fa-fw"></i> Historique'.html_safe, imports_path%></li>
-	    <li><%= link_to '<i class="fa fa-files-o fa-fw"></i> Doublons'.html_safe, duplicate_accounts_path%></li>	    
+	    <li><%= link_to '<i class="fa fa-files-o fa-fw"></i> Doublons'.html_safe, duplicate_accounts_path%></li>
           </ul>
         </li>
 
-	
+
 	<li class="dropdown-submenu pull-left">
 	  <a tabindex="-1" href="#"><i class="fa fa-floppy-o fa-fw"></i> Sauvegarde</a>
           <ul class="dropdown-menu">

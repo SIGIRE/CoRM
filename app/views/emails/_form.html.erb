@@ -11,8 +11,8 @@
       <input type="text" class="field left" value=<%= @email.to.join(' ; ') %> readonly/>
     </div>
   </div>
-  
-<%#Affichage du champ type d'evenement %>  
+
+<%#Affichage du champ type d'evenement %>
 <div class="row row-fluid">
 	<div class="field full">
 		<div class="span2">
@@ -23,9 +23,9 @@
 
 		</div>
 	</div>
-</div>  
-  
-  
+</div>
+
+
 
 <%#Affichage du champ compte %>
 <div class="row row-fluid">
@@ -38,7 +38,7 @@
 	    if (!contact.account_id.blank?)
 		    company = Account.find(contact.account_id)
 		end
-	elsif (!@email.arbitrary_account.blank?) 
+	elsif (!@email.arbitrary_account.blank?)
 	    company = @email.arbitrary_account
 	end %>
 	<% if company.blank? %>
@@ -99,7 +99,7 @@
           <div class="field full">
             <div class="span2"></div>
             <% if ta.object.new_record? %>
-              <%= ta.file_field :attach, required: true %>        
+              <%= ta.file_field :attach, required: true %>
               <script>$ (":file").filestyle({buttonText: 'Choisir un fichier'});</script>
             <% else %>
               <%= link_to ta.object.attach_file_name, ta.object.attach.url %>
@@ -118,9 +118,9 @@
 
 <%#Affichage du champ date %>
 <div class="row row-fluid">
-	
+
 	<div class="span2" style="text-align: right; padding-right: 10px;">
-		Date :  
+		Date :
 	</div>
 		<strong>
 		<%# Affichage de la date complète en gras, non modifiable %>
