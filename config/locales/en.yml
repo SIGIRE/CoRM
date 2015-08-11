@@ -157,6 +157,7 @@ en:
         turnover: 'turnover'
         projected_turnover: 'Projected turnover'
         identifier: 'Identifier'
+        periodicity_billing: 'Periodicity billing'
   number:
     currency:
       format:

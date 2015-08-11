@@ -109,6 +109,10 @@
   </div>
 
   <div class="field">
+    <div class="span2"><%= f.label :periodicity_billing %> :</div> <%= f.text_field :periodicity_billing %>
+  </div>
+
+  <div class="field">
     <div class="span2"> Collaborateur : </div> <%= f.collection_select :user_id, @users, :id, :full_name, :include_blank => true %>
   </div>
 

@@ -154,6 +154,7 @@ fr:
         turnover: "Chiffre d'affaires"
         projected_turnover: 'C.A. prévisionnel'
         identifier: 'Identifiant commercial'
+        periodicity_billing: 'Périodicité de facturation'
   number:
     currency:
       format:
