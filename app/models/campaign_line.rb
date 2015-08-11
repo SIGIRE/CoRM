@@ -1,3 +1,4 @@
+# encoding: utf-8
 ##
 # This class represents lines of a marketing campaign.
 # It can contains account_id, contact_id, last_action_date, notes, completed_percentage, result_percentage.
@@ -7,7 +8,9 @@ class CampaignLine < ActiveRecord::Base
 
   resourcify
 
-  belongs_to :campaign, :contact, :account
+  belongs_to :campaign
+  belongs_to :contact
+  belongs_to :account
 
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
