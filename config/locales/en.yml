@@ -150,6 +150,14 @@ en:
       campaign_result_stage:
         name: 'Name'
         percentage: 'Percentage'
+      account:
+        registration_number: 'Registration number'
+        business_sector_code: 'Business sector code'
+        vat_number: 'VAT number'
+        turnover: 'turnover'
+        projected_turnover: 'Projected turnover'
+        identifier: 'Identifier'
+        periodicity_billing: 'Periodicity billing'
   number:
     currency:
       format:

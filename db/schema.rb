@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150625063848) do
+ActiveRecord::Schema.define(:version => 20150811082514) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(:version => 20150625063848) do
     t.text     "notes"
     t.integer  "created_by"
     t.integer  "modified_by"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.integer  "user_id"
     t.string   "category"
     t.string   "tel"
@@ -38,9 +38,16 @@ ActiveRecord::Schema.define(:version => 20150625063848) do
     t.string   "email"
     t.string   "web"
     t.integer  "origin_id"
-    t.boolean  "active",          :default => true
+    t.boolean  "active",               :default => true
     t.integer  "import_id"
     t.integer  "activity_id"
+    t.string   "registration_number"
+    t.string   "business_sector_code"
+    t.string   "vat_number"
+    t.integer  "turnover"
+    t.integer  "projected_turnover"
+    t.string   "identifier"
+    t.string   "periodicity_billing"
   end
 
   create_table "accounts_tags", :id => false, :force => true do |t|
