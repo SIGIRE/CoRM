@@ -1,3 +1,4 @@
+# encoding: utf-8
 ##
 # This class represents an marketing campaign.
 # It can contains name, notes, date_begin, date_end, and an event_type_id.
