@@ -1,7 +1,8 @@
 <%= form_for(@payment_term, :html => { :class => "well "}) do |f| %>
   <% if @payment_term.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@payment_term.errors.count, "error") %> prohibited this origin from being saved:</h2>
+    <div id="error_explanation" class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h4><%= t('app.message.error.occured_error') %></h4>
       <ul>
 	<% @payment_term.errors.full_messages.each do |msg| %>
 	  <li><%= msg %></li>

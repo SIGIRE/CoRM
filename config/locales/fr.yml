@@ -117,6 +117,9 @@ fr:
       not_an_integer: doit être un nombre entier
       odd: doit être impair
       record_invalid: ! 'La validation a échoué : %{errors}'
+      restrict_dependent_destroy:
+        one: 'Suppression impossible: un autre enregistrement est lié'
+        many: 'Suppression impossible: d''autres enregistrements sont liés'
       taken: n'est pas disponible
       too_long:
         one: est trop long (pas plus de %{count} caractère)
@@ -155,6 +158,7 @@ fr:
         projected_turnover: 'C.A. prévisionnel'
         identifier: 'Identifiant commercial'
         periodicity_billing: 'Périodicité de facturation'
+        payment_term: 'Conditions de règlement'
       payment_mode:
         name: 'Libellé'
       payment_term:
@@ -540,6 +544,11 @@ fr:
         import_done: "Import prêt pour validation"
         validate_account: "Le compte a bien été validé !"
         recalculate_duplicates: "Les doublons ont été recalculés : %{nbr} doublon(s)"
+      error:
+        delete_error: "Une erreur est survenue durant la suppression de cet enregistrement"
+        update_error: "Une erreur est survenue durant la modification de cet enregistrement"
+        create_error: "Une erreur est survenue durant la création de cet enregistrement"
+        occured_error: "Une erreur est survenue"
   title:
     dashboard: "Tableau de bord"
     actor: "Acteur"

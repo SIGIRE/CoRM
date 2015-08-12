@@ -71,15 +71,21 @@ class PaymentModesController < ApplicationController
   # Process that remove an PaymentMode from the DB
   #
   def destroy
-    @payment_mode = PaymentMode.find(params[:id])
-    respond_to do |format|
-      if @payment_mode.destroy
-        format.html  { redirect_to(payment_modes_url, :notice => t('app.message.notice.deleted_payment_mode')) }
-      else
-        flash[:error] = t('app.delete_undefined_error')
-        format.html  { render :action => "edit" }      
+      @payment_mode = PaymentMode.find(params[:id])
+      respond_to do |format|
+        begin  
+          if @payment_mode.destroy
+            format.html  { redirect_to(payment_modes_url, :notice => t('app.message.notice.deleted_payment_mode')) }
+          else
+            flash[:error] = t('app.delete_undefined_error')
+            format.html  { render :action => "edit" }      
+          end
+        rescue ActiveRecord::DeleteRestrictionError
+          @payment_mode.errors.add(:base, t('errors.messages.restrict_dependent_destroy', count: 1))
+        ensure
+          format.html  { render :action => "edit" }
+        end
       end
-    end
   end
 
 end

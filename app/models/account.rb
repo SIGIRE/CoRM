@@ -38,6 +38,7 @@ class Account < ActiveRecord::Base
   belongs_to :origin
   belongs_to :import
   belongs_to :activity
+  belongs_to :payment_term
 
   accepts_nested_attributes_for :events
   accepts_nested_attributes_for :contacts

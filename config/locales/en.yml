@@ -158,6 +158,7 @@ en:
         projected_turnover: 'Projected turnover'
         identifier: 'Identifier'
         periodicity_billing: 'Periodicity billing'
+        payment_term: 'Payment term'
       payment_mode:
         name: 'Name'
       payment_term:
@@ -541,6 +542,11 @@ en:
         import_done: "Import ready for validation"
         validate_account: "Account have been validated !"
         recalculate_duplicates: "Duplicates have been recalculated : %{nbr} duplicate(s)"
+      error:
+        delete_error: "An error occured when deleting this record"
+        update_error: "An error occured when updating this record"
+        create_error: "An error occured when creating this record"
+        occured_error: "An error occured"
   title:
     dashboard: "Dashboard"
     actor: "Actor"

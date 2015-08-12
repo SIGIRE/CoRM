@@ -6,6 +6,7 @@ class PaymentTerm < ActiveRecord::Base
 
   validates :name, uniqueness: true
 
+  has_many :accounts, :dependent => :restrict
   belongs_to :payment_mode
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'

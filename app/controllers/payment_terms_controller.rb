@@ -71,15 +71,21 @@ class PaymentTermsController < ApplicationController
   # Process that remove an PaymentTerm from the DB
   #
   def destroy
-    @payment_term = PaymentTerm.find(params[:id])
-    respond_to do |format|
-      if @payment_term.destroy
-        format.html  { redirect_to(payment_terms_url, :notice => t('app.message.notice.deleted_payment_term')) }
-      else
-        flash[:error] = t('app.delete_undefined_error')
-        format.html  { render :action => "edit" }      
+      @payment_term = PaymentTerm.find(params[:id])
+      respond_to do |format|
+        begin  
+          if @payment_term.destroy
+            format.html  { redirect_to(payment_terms_url, :notice => t('app.message.notice.deleted_payment_term')) }
+          else
+            flash[:error] = t('app.delete_undefined_error')
+            format.html  { render :action => "edit" }      
+          end
+        rescue ActiveRecord::DeleteRestrictionError
+          @payment_term.errors.add(:base, t('errors.messages.restrict_dependent_destroy', count: 1))
+        ensure
+          format.html  { render :action => "edit" }
+        end
       end
-    end
   end
 
 end

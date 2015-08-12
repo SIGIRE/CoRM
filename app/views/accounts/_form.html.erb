@@ -1,8 +1,8 @@
 <%= form_for(@account, :html => { :class => "well "}) do |f| %>
   <% if @account.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@account.errors.count, "error") %> prohibited this compte from being saved:</h2>
-
+    <div id="error_explanation" class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h4><%= t('app.message.error.occured_error') %></h4>
       <ul>
       <% @account.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -106,6 +106,10 @@
 
   <div class="field">
     <div class="span2"> Code comptable : </div> <%= f.text_field :accounting_code %>
+  </div>
+
+  <div class="field">
+    <div class="span2"><%= f.label :payment_term %> :</div> <%= f.collection_select :payment_term_id, PaymentTerm.order('name ASC').all, :id, :name, :include_blank => true %>
   </div>
 
   <div class="field">

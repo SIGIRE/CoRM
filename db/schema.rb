@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150811144227) do
+ActiveRecord::Schema.define(:version => 20150812164823) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20150811144227) do
     t.integer  "projected_turnover"
     t.string   "identifier"
     t.string   "periodicity_billing"
+    t.integer  "payment_term_id"
   end
 
   create_table "accounts_tags", :id => false, :force => true do |t|
