@@ -146,7 +146,7 @@ class ImportContactsController < ApplicationController
     end
 
     respond_to do |format|
-        format.html { redirect_to import_contacts_path(:anomaly=>select), :notice => "#{t('app.message.notice.delete_contact')}"  }
+        format.html { redirect_to import_contacts_path(:anomaly=>select), :notice => "#{t('app.message.notice.deleted_contact')}"  }
     end
   end
 

@@ -54,7 +54,8 @@ class Ability
       can :manage, Email
       cannot :destroy, Email
       cannot :manage, [Import, ImportAccount, ImportContact]
-
+      can :read, PaymentMode
+      can :read, PaymentTerm
     elsif user.has_role? :user
       # Role User
       can :manage, Task
@@ -83,6 +84,8 @@ class Ability
       can :read, Activity
       can :read, ContractCategory
       can :read, EventType
+      can :read, PaymentMode
+      can :read, PaymentTerm
       cannot :write, QuotationTemplate
       cannot :write, Tag
       cannot :write, Origin
@@ -90,7 +93,7 @@ class Ability
       cannot :write, ContractCategory
       cannot :write, EventType
       cannot :manage, [Import, ImportAccount, ImportContact]
-
+      
       elsif user.has_role? :super_user
       # Role Super User
       can :manage, Task
@@ -123,6 +126,8 @@ class Ability
       can :update, User
       # cannot  #new #create
       can :manage, [Import, ImportAccount, ImportContact]
+      can :manage, PaymentMode
+      can :manage, PaymentTerm
 
     else
       # Role User by default
@@ -152,6 +157,8 @@ class Ability
       can :read, Activity
       can :read, ContractCategory
       can :read, EventType
+      can :read, PaymentMode
+      can :read, PaymentTerm
       cannot :write, QuotationTemplate
       cannot :write, Tag
       cannot :write, Origin

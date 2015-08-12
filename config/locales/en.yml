@@ -158,6 +158,14 @@ en:
         projected_turnover: 'Projected turnover'
         identifier: 'Identifier'
         periodicity_billing: 'Periodicity billing'
+      payment_mode:
+        name: 'Name'
+      payment_term:
+        name: 'Name'
+        days_number: 'Days number'
+        term_type: 'Type'
+        term_day: 'At'
+        payment_mode: 'Payment mode'
   number:
     currency:
       format:
@@ -294,11 +302,27 @@ en:
         subject: "Instructions pour changer le mot de passe"
       unlock_instructions:
         subject: "Instructions pour déverrouiller le compte"
+
+
+  activerecord:
+    models:
+      payment_mode:
+        one: 'payment mode'
+        other: 'payment modes'
+      payment_term:
+        one: 'payment term'
+        other: 'payment terms'
+
+
+
   app:
     at: at
     save_undefined_error: "An error has occurred while recording !"
+    delete_undefined_error: "An error has occurred while deleting !"
     load_undefined_error: "An error has occurred while reading file line !"
     check_undefined_error: "An error has break anomaly detection !"
+    constants:
+      term_types: ['net', 'month-end']
     default:
       all: "No filter"
       subject: subject
@@ -379,6 +403,10 @@ en:
       Origin: "Origin"
       Activity: "Activity"
       Contract: "Contract"
+      Payment_mode: "payment mode"
+      Payment_modes: "payment modes"
+      Payment_term: "payment term"
+      Payment_terms: "payment terms"
     roles:
       details: "Roles specification"
       admin: Administrator
@@ -495,12 +523,20 @@ en:
         no_import: "No import !"
         accounts_in_anomaly: "%{nbr} invalidate(s) account(s) !"
       notice:
-        updated_account: "Account have been updated"
-        updated_contact: "Contact have been updated"
+        created_account: "Account has been created !"
+        updated_account: "Account has been updated !"
+        deleted_account: "Account has been deleted !"
+        created_contact: "Contact has been created !"
+        updated_contact: "Contact has been updated !"
+        deleted_contact: "Contact has been deleted !"
+        created_payment_mode: "Payment mode has been created !"
+        updated_payment_mode: "Payment mode has been updated !"
+        deleted_payment_mode: "Payment mode has been deleted !"
+        created_payment_term: "Payment term has been created !"
+        updated_payment_term: "Payment term has been updated !"
+        deleted_payment_term: "Payment term has been deleted !"
         confirm_import_account: "%{nbr} accounts have been imported !"
         confirm_import_contact: "%{nbr} contacts have been imported !"
-        delete_account: "Account have been deleted !"
-        delete_contact: "Contact have been deleted !"
         delete_import: "Import have been deleted !"
         import_done: "Import ready for validation"
         validate_account: "Account have been validated !"

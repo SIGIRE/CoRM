@@ -158,7 +158,7 @@ class ImportAccountsController < ApplicationController
         end
 
         respond_to do |format|
-            format.html { redirect_to import_accounts_path(:anomaly=>select), :notice => "#{t('app.message.notice.delete_account')}" }
+            format.html { redirect_to import_accounts_path(:anomaly=>select), :notice => "#{t('app.message.notice.deleted_account')}" }
         end
     end
 

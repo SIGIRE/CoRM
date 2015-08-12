@@ -1,0 +1,56 @@
+<%= form_for(@payment_term, :html => { :class => "well "}) do |f| %>
+  <% if @payment_term.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@payment_term.errors.count, "error") %> prohibited this origin from being saved:</h2>
+      <ul>
+	<% @payment_term.errors.full_messages.each do |msg| %>
+	  <li><%= msg %></li>
+	<% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <div class="span2"><%= f.label :name %> :</div>
+    <%= f.text_field :name,{ :class => 'required'} %><span class="req" />
+  </div>
+
+  <div class="field">
+    <div class="span2"><%= f.label :payment_mode %> :</div> <%= f.collection_select :payment_mode_id, PaymentMode.order('name ASC').all, :id, :name, :include_blank => true %>
+  </div>
+
+  <div class="field">
+    <div class="span2"><%= f.label :days_number %> :</div>
+    <%= f.text_field :days_number %>
+  </div>
+
+  <div class="field">
+    <div class="span2"><%= f.label :term_type %> :</div> <%= f.select :term_type, t('app.constants.term_types')%>
+  </div>
+
+  <div class="field">
+    <div class="span2"><%= f.label :term_day %> :</div>
+    <%= f.text_field :term_day %>
+  </div>
+
+  <br />
+
+  <div class="field">
+    <% if !@payment_term.id.nil? %>
+      <div class="span9"> <%= t("app.actions.created_by")%> : <%= @payment_term.author.full_name %>, le </strong><%= @payment_term.created_at.strftime("%d/%m/%y à %H:%M") %>. </div>
+      <br />
+      <% if !@payment_term.modified_by.nil? %>
+	<div class="span9"> <%= t("app.actions.updated_by")%> : <%= @payment_term.editor.full_name %>, le <%= @payment_term.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div>
+	<br />
+      <% end %>
+    <% end %>
+  </div>
+
+  <hr />
+
+  <div class="row">
+    <%= if !@payment_term.id.nil? then f.button t("app.actions.update") + " " + PaymentTerm.model_name.human, :type => :submit, :class =>"btn btn-primary",:id =>"payment_term_validate_form" else f.button t("app.actions.create") + " " + PaymentTerm.model_name.human, :type => :submit, :class =>"btn btn-primary",:id =>"payment_term_validate_form" end%>
+    <%= if !@payment_term.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @payment_term, :title => t("app.actions.destroy") + " " + PaymentTerm.model_name.human, :confirm => t("app.message.confirm.delete"), :class=>"pull-right btn", :method => :delete end %>
+  </div>
+
+<% end %>

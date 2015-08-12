@@ -1,0 +1,28 @@
+<%= render 'title', :locals => { :title => @title }%>
+
+<div class="container-fluid">
+
+  <table class="table table-bordered table-striped">
+   <thead>
+    <tr>
+      <th class="text-center"><%= t("helpers.label.payment_mode.name") %></th>
+      <th class="text-center"><%= t("app.actions.edit") %></th>
+    </tr>
+   </thead>
+
+    <tbody>
+    <% @payment_modes.each do |payment_mode| %>
+      <tr>
+        <td class="text-center"><%= payment_mode.name %></td>
+        <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_payment_mode_path(payment_mode),{:title => t("app.actions.edit") + " " + PaymentMode.model_name.human} %></td>
+      </tr>
+    <% end %>
+    </tbody>
+
+  </table>
+
+  <br />
+
+  <%= paginate @payment_modes %>
+
+</div>

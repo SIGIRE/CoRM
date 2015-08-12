@@ -3,7 +3,8 @@
 ### Version 0.12
 
 **Fonctionnalités**
- * Gestion des campagnes marketing
+ * Gestion des campagnes marketing (partiellement) ;
+ * Gestion des conditions de règlements ;
 
 **Corrections**
  * Retour à l'écran d'origine après l'édition d'un devis ou tâche ou contrat ou opportunité ;

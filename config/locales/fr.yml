@@ -155,6 +155,14 @@ fr:
         projected_turnover: 'C.A. prévisionnel'
         identifier: 'Identifiant commercial'
         periodicity_billing: 'Périodicité de facturation'
+      payment_mode:
+        name: 'Libellé'
+      payment_term:
+        name: 'Libellé'
+        days_number: 'Nombre de jours'
+        term_type: 'Type'
+        term_day: 'Le'
+        payment_mode: 'Mode de règlement'
   number:
     currency:
       format:
@@ -233,6 +241,7 @@ fr:
     previous_label: ← précédent
 
 
+
   views:
     pagination:
       first: "&laquo; Premier"
@@ -243,6 +252,9 @@ fr:
     button:
       import: "Importer les %{models} valides"
       create_import: "Créer un import"
+
+
+
   devise:
     failure:
       already_authenticated: "Vous êtes déjà connecté !"
@@ -292,11 +304,28 @@ fr:
         subject: "Instructions pour changer le mot de passe"
       unlock_instructions:
         subject: "Instructions pour déverrouiller le compte"
+
+
+
+  activerecord:
+    models:
+      payment_mode:
+        one: 'mode de paiement'
+        other: 'modes de paiement'
+      payment_term:
+        one: 'condition de règlement'
+        other: 'conditions de règlement'
+
+
+
   app:
     at: le
     save_undefined_error: "Une erreur est survenue pendant l'enregistrement !"
+    delete_undefined_error: "Une erreur est survenue pendant la suppression !"
     load_undefined_error: "Une erreur est survenue pendant la lecture du fichier ligne !"
     check_undefined_error: "Une erreur a empêchée la détection des anomalies !"
+    constants:
+      term_types: ['net', 'fin de mois']
     default:
       all: "Non filtrées"
       subject: Sujet
@@ -317,13 +346,13 @@ fr:
       actions: "Actions"
       create: Créer
       new: Nouveau
-      update: Éditer
+      update: Modifier
       edit: Éditer
       edition: Édition
       destroy: Supprimer
       show: Afficher
       do: Faire
-      created_by: "Créer par"
+      created_by: "Créé par"
       created_at_female: "Créée le"
       updated_by: "Dernièrement modifié par"
       filter: "Filtrer"
@@ -493,12 +522,20 @@ fr:
         accounts_in_anomaly: "%{nbr} compte(s) invalide(s) !"
         no_import: "Pas d'import !"
       notice:
-        updated_account: "Le compte a été modifié"
-        updated_contact: "Le contact a été modifié"
-        confirm_import_account: "%{nbr} comptes ont été importés !"
+        created_account: "Le compte a été créé !"
+        updated_account: "Le compte a été modifié !"
+        deleted_account: "Le compte a été supprimé !"
+        created_contact: "Le contact a été créé !"
+        updated_contact: "Le contact a été modifié !"
+        deleted_contact: "Le contact a été supprimé !"
+        created_payment_mode: "Le mode de paiement a été créé !"
+        updated_payment_mode: "Le mode de paiement a été modifié !"
+        deleted_payment_mode: "Le mode de paiement a été supprimé !"
+        created_payment_term: "La condition de règlement a été créée !"
+        updated_payment_term: "La condition de règlement a été modifiée !"
+        deleted_payment_term: "La condition de règlement a été supprimée !"
         confirm_import_contact: "%{nbr} contacts ont été importés !"
-        delete_account: "Le compte a bien été supprimé !"
-        delete_contact: "Le contact a bien été supprimé !"
+        confirm_import_account: "%{nbr} comptes ont été importés !"
         delete_import: "L'import a bien été supprimé !"
         import_done: "Import prêt pour validation"
         validate_account: "Le compte a bien été validé !"
@@ -533,6 +570,6 @@ fr:
     delete_account: "Supprimer le compte"
     delete_import: "Supprimer l'import"
     edit: "Éditer %{article} %{model}"
-
   various:
     my: "Mes"
+

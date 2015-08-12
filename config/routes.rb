@@ -127,6 +127,16 @@ Crm::Application.routes.draw do
   set_route('tags', 'tag', 'tags');
 
 
+  # PaymentModes routes
+  # resources :payment_modes
+  set_route('modes_paiement', 'payment_mode', 'payment_modes');
+
+
+  # PaymentTerms routes
+  # resources :payment_terms
+  set_route('conditions_reglement', 'payment_term', 'payment_terms');
+
+
   match 'taches/update_contact_select/:id', :controller=>'tasks', :action => 'update_contact_select'
 
   # Tasks routes

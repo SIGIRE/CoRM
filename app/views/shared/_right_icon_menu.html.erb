@@ -55,6 +55,8 @@
             <li><%= link_to '<i class="fa fa-graduation-cap fa-fw"></i> Activités'.html_safe, activities_path %></li>
             <li><%= link_to '<i class="fa fa-files-o fa-fw"></i> Modèles devis'.html_safe, quotation_templates_path %></li>
             <li><%= link_to '<i class="fa fa-suitcase fa-fw"></i> Catégorie de contrats'.html_safe, contract_categories_path %></li>
+            <li><%= link_to ('<i class="fa fa-money fa-fw"></i> ' + PaymentMode.model_name.human(count: 2).capitalize).html_safe, payment_modes_path %></li>
+            <li><%= link_to ('<i class="fa fa-university fa-fw"></i> ' + PaymentTerm.model_name.human(count: 2).capitalize).html_safe, payment_terms_path %></li>
 
 	    <li class="dropdown-submenu pull-left">
 	      <a tabindex="-1" href="#"><i class="fa fa-cog fa-fw"></i> Campagnes</a>

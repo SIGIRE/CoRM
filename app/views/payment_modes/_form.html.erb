@@ -1,0 +1,38 @@
+<%= form_for(@payment_mode, :html => { :class => "well "}) do |f| %>
+  <% if @payment_mode.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@payment_mode.errors.count, "error") %> prohibited this origin from being saved:</h2>
+      <ul>
+	<% @payment_mode.errors.full_messages.each do |msg| %>
+	  <li><%= msg %></li>
+	<% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <div class="span2"><%= f.label :name %> :</div>
+    <%= f.text_field :name,{ :class => 'required'} %><span class="req" />
+  </div>
+
+  <br />
+
+  <div class="field">
+    <% if !@payment_mode.id.nil? %>
+      <div class="span9"> <%= t("app.actions.created_by")%> : <%= @payment_mode.author.full_name %>, le </strong><%= @payment_mode.created_at.strftime("%d/%m/%y à %H:%M") %>. </div>
+      <br />
+      <% if !@payment_mode.modified_by.nil? %>
+	<div class="span9"> <%= t("app.actions.updated_by")%> : <%= @payment_mode.editor.full_name %>, le <%= @payment_mode.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div>
+	<br />
+      <% end %>
+    <% end %>
+  </div>
+
+  <hr />
+
+  <div class="row">
+    <%= if !@payment_mode.id.nil? then f.button t("app.actions.update") + " " + PaymentMode.model_name.human, :type => :submit, :class =>"btn btn-primary",:id =>"payment_mode_validate_form" else f.button t("app.actions.create") + " " + PaymentMode.model_name.human, :type => :submit, :class =>"btn btn-primary",:id =>"payment_mode_validate_form" end%>
+    <%= if !@payment_mode.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @payment_mode, :title => t("app.actions.destroy") + " " + PaymentMode.model_name.human, :confirm => t("app.message.confirm.delete"), :class=>"pull-right btn", :method => :delete end %>
+  </div>
+
+<% end %>

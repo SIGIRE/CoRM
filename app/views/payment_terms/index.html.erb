@@ -1,0 +1,36 @@
+<%= render 'title', :locals => { :title => @title }%>
+
+<div class="container-fluid">
+
+  <table class="table table-bordered table-striped">
+   <thead>
+    <tr>
+      <th class="text-center"><%= t("helpers.label.payment_term.name") %></th>
+      <th class="text-center"><%= t("helpers.label.payment_term.payment_mode") %></th>
+      <th class="text-center"><%= t("helpers.label.payment_term.days_number") %></th>
+      <th class="text-center"><%= t("helpers.label.payment_term.term_type") %></th>
+      <th class="text-center"><%= t("helpers.label.payment_term.term_day") %></th>
+      <th class="text-center"><%= t("app.actions.edit") %></th>
+    </tr>
+   </thead>
+
+    <tbody>
+    <% @payment_terms.each do |payment_term| %>
+      <tr>
+        <td class="text-center"><%= payment_term.name %></td>
+        <td class="text-center"><%= payment_term.payment_mode.name unless payment_term.payment_mode.blank? %></td>
+        <td class="text-center"><%= payment_term.days_number %></td>
+        <td class="text-center"><%= payment_term.term_type %></td>
+        <td class="text-center"><%= payment_term.term_day %></td>
+        <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_payment_term_path(payment_term),{:title => t("app.actions.edit") + " " + PaymentTerm.model_name.human} %></td>
+      </tr>
+    <% end %>
+    </tbody>
+
+  </table>
+
+  <br />
+
+  <%= paginate @payment_terms %>
+
+</div>
