@@ -56,8 +56,8 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       format.html { @contacts = @contacts.page(params[:page]) }
-      format.json { render :json => @contacts }
       format.csv { render :text => @contacts.to_csv }
+      format.xlsx
     end
   end
 

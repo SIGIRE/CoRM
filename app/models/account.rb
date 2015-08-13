@@ -158,5 +158,22 @@ class Account < ActiveRecord::Base
       account_to_merge.destroy
     end # end transaction
   end
+  
+  def self.to_csv
+    account_columns = Array.new
+
+    Account.column_names.each do |column_name|
+      if !(Account.columns_hash[column_name].type == :text )
+        account_columns << column_name
+      end
+    end
+    
+    CSV.generate do |csv|
+      csv << (account_columns)
+      all.each do |account|
+        csv << account.attributes.values_at(*account_columns)
+      end
+    end
+  end  
 
 end

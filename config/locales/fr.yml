@@ -572,6 +572,8 @@ fr:
     contacts: "contacts"
     import_accounts_waiting: "Imports comptes en attente de validation"
     import_contacts_waiting: "Imports contacts en attente de validation"
+    contacts_extract: "Extraction des contacts"
+    accounts_extract: "Extraction des comptes"
   link:
     upload_csv_model: "Télécharger le modèle de fichier d'import"
     back: "Retour"
@@ -579,6 +581,7 @@ fr:
     delete_account: "Supprimer le compte"
     delete_import: "Supprimer l'import"
     edit: "Éditer %{article} %{model}"
+    export: "Export"
   various:
     my: "Mes"
 

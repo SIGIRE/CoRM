@@ -66,13 +66,29 @@ class Contact < ActiveRecord::Base
   end
 
   def self.to_csv
+
+    contact_columns = Array.new
+    account_columns = Array.new
+
+    self.column_names.each do |column_name|
+      if !(Contact.columns_hash[column_name].type == :text )
+        contact_columns << column_name
+      end
+    end
+
+    Account.column_names.each do |column_name|
+      if !(Account.columns_hash[column_name].type == :text )
+        account_columns << column_name
+      end
+    end
+    
     CSV.generate do |csv|
-      csv << (self.column_names + Account.column_names)
+      csv << (contact_columns + account_columns)
       all.each do |contact|
         if contact.account.blank?
-          csv << (contact.attributes.values_at(*self.column_names))
+          csv << (contact.attributes.values_at(*contact_columns))
         else
-          csv << (contact.attributes.values_at(*self.column_names) + contact.account.attributes.values_at(*Account.column_names) )
+          csv << (contact.attributes.values_at(*contact_columns) + contact.account.attributes.values_at(*account_columns) )
         end
       end
     end

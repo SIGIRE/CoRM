@@ -570,6 +570,8 @@ en:
     contacts: "contacts"
     import_accounts_waiting: "Imports accounts waiting for validation"
     import_contacts_waiting: "Imports contacts waiting for validation"
+    contacts_extract: "Contacts extraction"
+    accounts_extract: "Accounts extraction"
   link:
     upload_csv_model: "Download file model import"
     back: "Back"
@@ -577,5 +579,6 @@ en:
     delete_account: "Delete account"
     delete_import: "Delete import"
     edit: "Edit %{article} %{model}"
+    export: "Export"
   various:
     my: "My"

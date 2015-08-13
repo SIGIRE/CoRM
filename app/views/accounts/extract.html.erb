@@ -1,16 +1,19 @@
 <div class="container-fluid" style="margin-top: 1em;">
-
-
-  <div class="well">
+     <div class="well">
        <div class="row-fluid">
          <div class="span9">
-				<h1>Extraction des comptes</h1>
+           <h1><%= t('title.accounts_extract') %></h1>
          </div>
-         <%= link_to '<i class="fa fa-upload fa-3x action-icon"></i>'.html_safe, {format: :csv, params: params.except(:action, :controller)},{:title => "Télécharger en CSV", :class=>"pull-right"} %>
-    </div>
-
-  </div>
-
+           <div class="btn-group pull-right">
+	       <a class="btn" href="#"><i class="fa fa-upload fa-1g action-icon"></i> <%= t('link.export') %></a>
+	       <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+	       <ul class="dropdown-menu">
+		    <li><%= link_to 'CSV', {format: :csv, params: params.except(:controller, :action)},{:title => "CSV", :class=>""} %></li>
+		    <li><%= link_to 'Excel'.html_safe, {format: "xlsx", params: params.except(:controller, :action)},{:title => "Excel", :class=>""} %></li>
+	       </ul>
+	   </div>
+	</div>
+     </div>
 </div>
 
 <!-- FILTER -->
