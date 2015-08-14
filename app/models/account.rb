@@ -15,6 +15,8 @@ class Account < ActiveRecord::Base
   extend ToCsv
   resourcify
 
+  validates :company, presence: true
+
   before_save :uppercase_company
 
   #has_one is added because import_account has an account_id column to store id of duplicate account
