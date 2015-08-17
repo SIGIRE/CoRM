@@ -56,6 +56,9 @@ class Ability
       cannot :manage, [Import, ImportAccount, ImportContact]
       can :read, PaymentMode
       can :read, PaymentTerm
+      can :read, Campaign
+      can :create, Campaign
+      can :update, Campaign, :created_by => user.id
     elsif user.has_role? :user
       # Role User
       can :manage, Task
@@ -77,6 +80,7 @@ class Ability
       can :manage, Quotation
       can :manage, QuotationLine
       can :manage, Document
+      can :manage, Campaign
       can :read, User
       can :read, QuotationTemplate
       can :read, Tag
@@ -128,6 +132,7 @@ class Ability
       can :manage, [Import, ImportAccount, ImportContact]
       can :manage, PaymentMode
       can :manage, PaymentTerm
+      can :manage, Campaign
 
     else
       # Role User by default
@@ -150,6 +155,7 @@ class Ability
       can :manage, Quotation
       can :manage, QuotationLine
       can :manage, Document
+      can :manage, Campaign
       can :read, User
       can :read, QuotationTemplate
       can :read, Tag

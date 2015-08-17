@@ -1,0 +1,60 @@
+<%= form_for(@campaign, :html => { :class => "well "}) do |f| %>
+  <% if @campaign.errors.any? %>
+    <div id="error_explanation" class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h4><%= t('app.message.error.occured_error') %></h4>
+      <ul>
+	<% @campaign.errors.full_messages.each do |msg| %>
+	  <li><%= msg %></li>
+	<% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <div class="span2"><%= f.label :name %> :</div>
+    <%= f.text_field :name,{ :class => 'required'} %><span class="req" />
+  </div>
+
+  <div class="field">
+    <div class="span2"><%= f.label :date_begin %> :</div>
+    <%= f.text_field :date_begin, :value => @campaign.date_begin.strftime(t('date.formats.default')) unless @campaign.date_begin.blank?  %>
+    <%= f.time_select :date_begin %>
+  </div>
+
+  <div class="field">
+    <div class="span2"><%= f.label :date_end %> :</div>
+    <%= f.text_field :date_end, :value => @campaign.date_end.strftime(t('date.formats.default')) unless @campaign.date_end.blank?  %>
+    <%= f.time_select :date_end %>
+  </div>
+
+  <div class="field">
+    <div class="span2"><%= f.label :event_type %> :</div> <%= f.collection_select :event_type_id, EventType.order('label ASC, direction ASC').all, :id, :full_type, :include_blank => true %>
+  </div>
+
+  <div class="field">
+    <div class="span2"><%= f.label :notes %> :</div>
+    <%=f.text_area :notes , :display_with => :simple_format, :rows => "5", :style => 'width: 50%;' %>
+  </div>
+
+  <br />
+
+  <div class="field">
+    <% if !@campaign.id.nil? %>
+      <div class="span9"> <%= t("app.actions.created_by")%> : <%= @campaign.author.full_name %>, le </strong><%= @campaign.created_at.strftime("%d/%m/%y à %H:%M") %>. </div>
+      <br />
+      <% if !@campaign.modified_by.nil? %>
+	<div class="span9"> <%= t("app.actions.updated_by")%> : <%= @campaign.editor.full_name %>, le <%= @campaign.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div>
+	<br />
+      <% end %>
+    <% end %>
+  </div>
+
+  <hr />
+
+  <div class="row">
+    <%= if !@campaign.id.nil? then f.button t("app.actions.update") + " " + Campaign.model_name.human, :type => :submit, :class =>"btn btn-primary",:id =>"campaign_validate_form" else f.button t("app.actions.create") + " " + Campaign.model_name.human, :type => :submit, :class =>"btn btn-primary",:id =>"campaign_validate_form" end%>
+    <%= if !@campaign.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @campaign, :title => t("app.actions.destroy") + " " + Campaign.model_name.human, :confirm => t("app.message.confirm.delete"), :class=>"pull-right btn", :method => :delete end %>
+  </div>
+
+<% end %>

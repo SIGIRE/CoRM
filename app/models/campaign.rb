@@ -8,9 +8,7 @@ class Campaign < ActiveRecord::Base
 
   resourcify
 
-  validates :name, uniqueness: true
-
-  has_many :campaign_lines
+  has_many :campaign_lines, :dependent => :destroy
   belongs_to :event_type
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
