@@ -17,8 +17,8 @@
     <% @campaigns.each do |campaign| %>
       <tr>
         <td class="text-center"><%= campaign.name %></td>
-        <td class="text-center"><%= campaign.date_begin.strftime(t('datetime.formats.default')) unless campaign.date_begin.blank? %></td>
-        <td class="text-center"><%= campaign.date_end.strftime(t('datetime.formats.default')) unless campaign.date_end.blank? %></td>
+        <td class="text-center"><%= campaign.date_begin.strftime(t('date.formats.default')) unless campaign.date_begin.blank? %></td>
+        <td class="text-center"><%= campaign.date_end.strftime(t('date.formats.default')) unless campaign.date_end.blank? %></td>
         <td class="text-center"><%= campaign.event_type.full_type unless campaign.event_type.blank? %></td>
         <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_campaign_path(campaign),{:title => t("app.actions.edit") + " " + Campaign.model_name.human} %></td>
       </tr>

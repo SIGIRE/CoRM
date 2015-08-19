@@ -18,14 +18,12 @@
 
   <div class="field">
     <div class="span2"><%= f.label :date_begin %> :</div>
-    <%= f.text_field :date_begin, :value => @campaign.date_begin.strftime(t('date.formats.default')) unless @campaign.date_begin.blank?  %>
-    <%= f.time_select :date_begin %>
+    <%= f.text_field :date_begin, { :value => (@campaign.date_begin.strftime(t('date.formats.default')) unless @campaign.date_begin.blank?) } %>
   </div>
 
   <div class="field">
     <div class="span2"><%= f.label :date_end %> :</div>
-    <%= f.text_field :date_end, :value => @campaign.date_end.strftime(t('date.formats.default')) unless @campaign.date_end.blank?  %>
-    <%= f.time_select :date_end %>
+    <%= f.text_field :date_end, { :value => (@campaign.date_end.strftime(t('date.formats.default')) unless @campaign.date_end.blank?) } %>
   </div>
 
   <div class="field">

@@ -148,8 +148,8 @@ fr:
     label:
       campaign:
         name: 'Libellé'
-        date_begin: 'Date et heure de début'
-        date_end: 'Date et heure de fin'
+        date_begin: 'Date de début'
+        date_end: 'Date de fin'
         event_type: "Type d'évènement"
         notes: 'Notes'
       campaign_completed_stage:
