@@ -1,0 +1,34 @@
+<%= render 'title', :locals => { :title => @title }%>
+
+<div class="container-fluid">
+
+  <table class="table table-bordered table-striped">
+   <thead>
+    <tr>
+      <th class="text-center"><%= t("helpers.label.campaign.name") %></th>
+      <th class="text-center"><%= t("helpers.label.campaign.date_begin") %></th>
+      <th class="text-center"><%= t("helpers.label.campaign.date_end") %></th>
+      <th class="text-center"><%= t("helpers.label.campaign.event_type") %></th>
+      <th class="text-center"><%= t("app.actions.edit") %></th>
+    </tr>
+   </thead>
+
+    <tbody>
+    <% @campaigns.each do |campaign| %>
+      <tr>
+        <td class="text-center"><%= campaign.name %></td>
+        <td class="text-center"><%= campaign.date_begin.strftime(t('date.formats.default')) unless campaign.date_begin.blank? %></td>
+        <td class="text-center"><%= campaign.date_end.strftime(t('date.formats.default')) unless campaign.date_end.blank? %></td>
+        <td class="text-center"><%= campaign.event_type.full_type unless campaign.event_type.blank? %></td>
+        <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_campaign_path(campaign),{:title => t("app.actions.edit") + " " + Campaign.model_name.human} %></td>
+      </tr>
+    <% end %>
+    </tbody>
+
+  </table>
+
+  <br />
+
+  <%= paginate @campaigns %>
+
+</div>

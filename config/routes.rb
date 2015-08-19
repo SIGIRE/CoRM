@@ -105,15 +105,19 @@ Crm::Application.routes.draw do
 
   # Contract_category routes
   # resources :contract_categories
-  set_route('categorie_contrats', 'contract_category', 'contract_categories');
+  set_route('categories_contrat', 'categorie_contrat', 'contract_categories');
 
   # Campaign_completed_stages routes
   # resources :campaign_completed_stages
-  set_route('avancement_campagne', 'campaign_completed_stage', 'campaign_completed_stages');
+  set_route('avancements_campagne', 'avancement_campagne', 'campaign_completed_stages');
 
   # Campaign_result_stages routes
   # resources :campaign_result_stages
-  set_route('resultat_campagne', 'campaign_result_stage', 'campaign_result_stages');
+  set_route('resultats_campagne', 'resultat_campagne', 'campaign_result_stages');
+
+  # Campaigns routes
+  # resources :campaigns
+  set_route('campagnes', 'campagne', 'campaigns');
 
 
   # Contract routes

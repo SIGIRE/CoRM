@@ -90,6 +90,8 @@ fr:
       x_seconds:
         one: ! '%{count} seconde'
         other: ! '%{count} secondes'
+    formats:
+      default: ! '%d/%m/%Y %H:%M'
     prompts:
       day: Jour
       hour: Heure
@@ -144,6 +146,12 @@ fr:
       submit: Enregistrer ce(tte) %{model}
       update: Modifier ce(tte) %{model}
     label:
+      campaign:
+        name: 'Libellé'
+        date_begin: 'Date de début'
+        date_end: 'Date de fin'
+        event_type: "Type d'évènement"
+        notes: 'Notes'
       campaign_completed_stage:
         name: 'Désignation'
         percentage: 'Pourcentage'
@@ -319,6 +327,9 @@ fr:
       payment_term:
         one: 'condition de règlement'
         other: 'conditions de règlement'
+      campaign:
+        one: 'campagne'
+        other: 'campagnes'
 
 
 
@@ -538,6 +549,9 @@ fr:
         created_payment_term: "La condition de règlement a été créée !"
         updated_payment_term: "La condition de règlement a été modifiée !"
         deleted_payment_term: "La condition de règlement a été supprimée !"
+        created_campaign: "La campagne a été créée !"
+        updated_campaign: "La campagne a été modifiée !"
+        deleted_campaign: "La campagne a été supprimée !"
         confirm_import_contact: "%{nbr} contacts ont été importés !"
         confirm_import_account: "%{nbr} comptes ont été importés !"
         delete_import: "L'import a bien été supprimé !"

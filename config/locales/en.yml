@@ -88,6 +88,8 @@ en:
       x_seconds:
         one: 1 second
         other: ! '%{count} seconds'
+    formats:
+      default: ! '%Y-%m-%d %H:%M'
     prompts:
       day: Day
       hour: Hour
@@ -144,6 +146,12 @@ en:
       submit: Save %{model}
       update: Update %{model}
     label:
+      campaign:
+        name: 'Name'
+        date_begin: 'Start at'
+        date_end: 'End at'
+        event_type: 'Event type'
+        notes: 'Notes'
       campaign_completed_stage:
         name: 'Name'
         percentage: 'Percentage'
@@ -313,6 +321,9 @@ en:
       payment_term:
         one: 'payment term'
         other: 'payment terms'
+      campaign:
+        one: 'campaign'
+        other: 'campaigns'
 
 
 
@@ -536,6 +547,9 @@ en:
         created_payment_term: "Payment term has been created !"
         updated_payment_term: "Payment term has been updated !"
         deleted_payment_term: "Payment term has been deleted !"
+        created_campaign: "Campaign has been created !"
+        updated_campaign: "Campaign has been updated !"
+        deleted_campaign: "Campaign has been deleted !"
         confirm_import_account: "%{nbr} accounts have been imported !"
         confirm_import_contact: "%{nbr} contacts have been imported !"
         delete_import: "Import have been deleted !"

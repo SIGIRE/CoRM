@@ -152,7 +152,6 @@ $(document).ready(function() {
     });
     $(document.getElementById('filter_begin')).datepicker(lang);
     $(document.getElementById('filter_end')).datepicker(lang);
-    //$(document.getElementById('tache_term')).datepicker(lang);
     $(document.getElementsByClassName('event_date')).datepicker(lang);
     $(document.getElementsByClassName('filter_date')).datepicker(lang);
     $(document.getElementById('opportunity_term')).datepicker(lang);
@@ -161,6 +160,8 @@ $(document).ready(function() {
     $(document.getElementById('contract_date_begin')).datepicker(lang);
     $(document.getElementById('contract_date_end')).datepicker(lang);
     $(document.getElementById('contract_date_initial')).datepicker(lang);
+    $(document.getElementById('campaign_date_begin')).datepicker(lang);
+    $(document.getElementById('campaign_date_end')).datepicker(lang);
 
   }
   if ($.validator) {

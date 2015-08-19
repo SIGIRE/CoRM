@@ -1,0 +1,10 @@
+<div class="container-fluid">
+   <div class="well" style="margin-top: 1em;">
+      <div class="row-fluid">
+	 <div class="span9">
+	    <h1><i class="fa fa-university"></i> <%= t('app.actions.edition').capitalize + " " + Campaign.model_name.human.capitalize %> n°<%= @campaign.id %></h1>
+	 </div>
+	 <%= link_to '<i class="fa fa-arrow-circle-left fa-3x action-icon"></i>'.html_safe, :back ,{:title => t("link.back"), :class=>"pull-right"} %>
+      </div>
+   </div> <%= render 'form' %>
+</div>
