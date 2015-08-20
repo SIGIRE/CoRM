@@ -19,10 +19,10 @@
         <td><strong>Version de Ruby : </strong><%= RUBY_VERSION %></td>
       </tr>
       <tr>
-        <td><strong>Nom du Serveur : </strong><%= IO.popen("hostname").readlines.to_s.sub!('\n"]','').sub!('["','') %></td>
+        <td><strong>Nom du Serveur : </strong><%= `hostname` %></td>
       </tr>
       <tr>
-        <td><strong>Version du Kernel GNU/Linux : </strong><%= IO.popen("uname -r").readlines.to_s.sub!('\n"]','').sub!('["','')%></td>
+        <td><strong>Version de <%= `uname -s` %> : </strong><%= `uname -r` %></td>
       </tr>
     </tbody>
     <tfoot>
