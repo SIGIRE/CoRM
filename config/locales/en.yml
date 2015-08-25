@@ -175,6 +175,8 @@ en:
         term_type: 'Type'
         term_day: 'At'
         payment_mode: 'Payment mode'
+      task:
+        event_type: 'Type'
   number:
     currency:
       format:

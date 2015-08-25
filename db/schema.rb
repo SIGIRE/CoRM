@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150819152012) do
+ActiveRecord::Schema.define(:version => 20150821122023) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -251,14 +251,16 @@ ActiveRecord::Schema.define(:version => 20150819152012) do
     t.text     "notes"
     t.integer  "created_by"
     t.integer  "modified_by"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
     t.integer  "contact_id"
     t.integer  "account_id"
     t.integer  "event_type_id"
     t.integer  "user_id"
     t.integer  "task_id"
     t.text     "notes2"
+    t.integer  "opportunity_id"
+    t.integer  "quotation_id"
   end
 
   create_table "import_accounts", :force => true do |t|
@@ -523,17 +525,18 @@ ActiveRecord::Schema.define(:version => 20150819152012) do
   create_table "tasks", :force => true do |t|
     t.text     "notes"
     t.string   "statut"
-    t.datetime "created_at",  :null => false
+    t.datetime "created_at",    :null => false
     t.integer  "created_by"
     t.datetime "modified_at"
     t.integer  "modified_by"
-    t.datetime "updated_at",  :null => false
+    t.datetime "updated_at",    :null => false
     t.integer  "contact_id"
     t.integer  "account_id"
     t.integer  "user_id"
     t.string   "term"
     t.integer  "priority"
     t.string   "title"
+    t.integer  "event_type_id"
   end
 
   create_table "users", :force => true do |t|

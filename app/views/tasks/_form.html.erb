@@ -50,6 +50,16 @@
 		    </div>
 	    </div>
 
+	    <!-- EventType field -->
+	    <div class="row row-fluid">
+		    <div class="field full">
+			    <div class="span2"><%= f.label(:event_type) %> :</div>
+			    <p>
+			      <%= f.collection_select :event_type_id, EventType.order('label'), :id, :full_type, :class =>"filter_coll", :include_blank => true %>
+			    </p>
+		    </div>
+	    </div>
+
 	    <!-- SUBJECT -->
 	      <div class="row row-fluid">
 	        <div class="field full">

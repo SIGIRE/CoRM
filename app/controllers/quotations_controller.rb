@@ -149,7 +149,7 @@ class QuotationsController < ApplicationController
   #
   def update
     @quotation = Quotation.find(params[:id])
-
+    @quotation_before_update = Quotation.find(params[:id])
     @quotation.update_attributes(params[:quotation])
 
     @quotation.updated_by = current_user.id
@@ -198,7 +198,9 @@ class QuotationsController < ApplicationController
     @quotation.total_incl_tax = @quotation.total_excl_tax + @quotation.total_VAT
 
     if @quotation.save
-      self.create_event(true)
+      if !(@quotation.statut == @quotation_before_update.statut)      
+	self.create_event(true)
+      end
       redirect_to session.delete(:return_to) || (!@quotation.account.nil? ? account_events_url(@quotation.account_id) : quotations_path), :notice => 'Le devis a été modifié.'
       #redirect_to (!@quotation.account.nil? ? account_events_url(@quotation.account_id) : quotations_path), :notice => "Le devis a été modifié."
     else
@@ -267,12 +269,11 @@ class QuotationsController < ApplicationController
     hash["contact_id"] = params[:quotation][:contact_id]
     hash["date_begin"] = Time.now
     hash["date_end"] = hash["date_begin"]
-
-    quotationNum = (params[:id])
+    hash["quotation_id"] = @quotation.id
 
     if updated
       hash["modified_by"] = current_user.id
-      hash["notes"] = "Devis n°" + quotationNum.to_s + " modifié."
+      hash["notes"] = "Devis n°" + @quotation.id.to_s + ' modifié. Le statut est passé de "' + @quotation_before_update.statut + '" à "' + params[:quotation][:statut] + '".'
     else
       hash["created_by"] = current_user.id
       hash["notes"] = "Devis n°" + @quotation.id.to_s + " créé."

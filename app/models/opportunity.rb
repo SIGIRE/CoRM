@@ -15,6 +15,7 @@ class Opportunity < ActiveRecord::Base
   belongs_to :user
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'updated_by', :class_name => 'User'
+  has_many :events
 
   paginates_per 10
 

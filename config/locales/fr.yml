@@ -175,6 +175,8 @@ fr:
         term_type: 'Type'
         term_day: 'Le'
         payment_mode: 'Mode de règlement'
+      task:
+        event_type: 'Type'
   number:
     currency:
       format:

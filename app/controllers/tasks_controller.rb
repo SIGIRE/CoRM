@@ -122,6 +122,7 @@ class TasksController < ApplicationController
   def update
     # Récupération de la tâche
     @task = Task.find(params[:id])
+    @task_before_update = Task.find(params[:id])
     @task.modified_by = current_user.id
 
     # Récupération de l'échéance de la tâche
@@ -148,7 +149,9 @@ class TasksController < ApplicationController
         UserMailer.mail_for(@task.user, @task, false).deliver
         flash[:notice] += " Un email a été envoyé à #{@task.user.full_name}"
       end
-      self.create_event(true)
+      if !(@task.statut == @task_before_update.statut)
+        self.create_event(true)
+      end
       redirect_to session.delete(:return_to) || account_tasks_url(@event.account_id), notice: "La tâche n°#{@task.id} a été mise à jour."
     else
       render :action => "edit"
@@ -159,6 +162,7 @@ class TasksController < ApplicationController
   def finished
     # Récupération de la tâche
     @task = Task.find(params[:id])
+    @task_before_update = Task.find(params[:id])
     @task.modified_by = current_user.id
 
     #conversion de la string term pour qu'elle soit formatté correctement pour l'afficahge
@@ -168,6 +172,11 @@ class TasksController < ApplicationController
    @task.statut = tasks::STATUTS[2]
 
     if @task.update_attributes(params[:task])
+      if !(@task.statut == @task_before_update.statut)
+        # create event
+        self.create_event(true)
+      end
+      
       flash[:notice] = "La tâche n°#{@task.id} a été mise à jour."
       redirect_to :back
     else
@@ -221,26 +230,26 @@ class TasksController < ApplicationController
     # Si le paramètre envoyé est false, 'type' = :create, sinon :update
 	  type = updated ? :update : :create
     if can? type, Event
-            puts("Entrée dans les HASH")
-			hash = Hash.new
-			hash["event_type_id"] = params[:event_type][:id]
-			hash["account_id"] = params[:task][:account_id]
-			hash["contact_id"] = params[:task][:contact_id]
-			hash["date_begin"] = Time.now
-			hash["date_end"] = hash["date_begin"]
-			hash["notes"] = params[:notes]
-			hash["notes2"] = params[:task][:notes]
+      hash = Hash.new
+      hash["event_type_id"] = @task.event_type_id
+      hash["account_id"] = @task.account_id
+      hash["contact_id"] = @task.contact_id
+      hash["date_begin"] = Time.now
+      hash["date_end"] = hash["date_begin"]
+      hash["notes2"] = @task.notes
 
-			# to test
-			if(updated == true)
-				hash["modified_by"] = current_user.id
-			else
-				hash["created_by"] = current_user.id
-			end
+      # to test
+      if(updated == true)
+        hash["modified_by"] = current_user.id
+        hash["notes"] = 'Tâche "' + @task.title + '" modifiée. Le statut est passé de "' + @task_before_update.statut + '" à "' + @task.statut + '".'
+      else
+        hash["created_by"] = current_user.id
+        hash["notes"] = 'Tâche "' + @task.title + '" créée avec statut "' + @task.statut + '".'
+      end
 
-			hash["task_id"] = @task.id
-			@event = Event.create(hash)
-		end
+      hash["task_id"] = @task.id
+      @event = Event.create(hash)
+    end
   end
 
   private
