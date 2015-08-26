@@ -28,6 +28,7 @@ db/*.sqlite3
 .sass-cache
 /coverage.data
 /coverage/
+/config/CORM.json
 /config/database.yml
 /db/*.javadb/
 /db/*.sqlite3
