@@ -16,6 +16,8 @@ class Event < ActiveRecord::Base
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
   belongs_to :task
+  belongs_to :opportunity
+  belongs_to :quotation
 
   paginates_per 10
 
@@ -31,7 +33,6 @@ class Event < ActiveRecord::Base
   # don't use validates_associated : it does not work ;)
   validates :account, :presence => true, if: :mandatory_account_setting?
   validates :contact, :presence => true, if: :mandatory_contact_setting?
-
 
   def mandatory_account_setting?
     @setting = Setting.all.first

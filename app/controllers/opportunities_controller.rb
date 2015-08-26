@@ -94,6 +94,7 @@ class OpportunitiesController < ApplicationController
         if params[:mail] == 'yes'
           UserMailer.mail_for(@opportunity.user, @opportunity, true).deliver
         end
+        self.create_event(false)
         format.html { redirect_to session.delete(:return_to) , notice: "L'opportunité a été créée." }
       else
         flash[:alert] = @opportunity.errors.full_messages.join("\n")
@@ -116,7 +117,9 @@ class OpportunitiesController < ApplicationController
   def update
     params[:opportunity][:profit] = params[:opportunity][:profit].gsub(' ', '')
     params[:opportunity][:amount] = params[:opportunity][:amount].gsub(' ', '')
+    
     @opportunity = Opportunity.find(params[:id])
+    @opportunity_before_update = Opportunity.find(params[:id])
     @opportunity.updated_by = current_user.id
 
     if params[:opportunity][:amount].blank?
@@ -132,11 +135,9 @@ class OpportunitiesController < ApplicationController
         if params[:mail] == 'yes'
           UserMailer.mail_for(@opportunity.user, @opportunity, true).deliver
         end
-        #if !@opportunity.account_id.blank?
-        #    format.html  { redirect_to account_events_url(@opportunity.account_id), :notice => "L'opportunité a été mise à jour." }
-        #else
-        #    format.html  { redirect_to opportunities_url, :notice => "L'opportunité a été mise à jour." }
-        #end
+        if !(@opportunity.statut == @opportunity_before_update.statut)
+          self.create_event(true)
+        end
         format.html { redirect_to session.delete(:return_to), notice: "L'opportunité a été mise à jour." }
       else
         flash[:error] = t('app.save_undefined_error')
@@ -165,6 +166,37 @@ class OpportunitiesController < ApplicationController
     contacts = Contact.where(:account_id => params[:id]).order(:surname)
     render :partial => "contacts" , :locals =>{:contacts => contacts }
   end
+
+
+  ##
+  # Create an Event from an Opportunity.
+  # * *Args*    :
+  #   - +updated+ -> if the object is updated(true) or created(false)
+
+  def create_event(updated)
+    # Si le paramètre envoyé est false, 'type' = :create, sinon :update
+    type = updated ? :update : :create
+    if can? type, Event
+      hash = Hash.new
+      hash["account_id"] = params[:opportunity][:account_id]
+      hash["contact_id"] = params[:opportunity][:contact_id]
+      hash["date_begin"] = Time.now
+      hash["date_end"] = hash["date_begin"]
+      hash["notes2"] = params[:opportunity][:description]
+      # to test
+      if(updated == true)
+        hash["modified_by"] = current_user.id
+        hash["notes"] = 'Opportunité "' + params[:opportunity][:name] + '" modifiée. Le statut est passé de "' + @opportunity_before_update.statut + '" à "' + params[:opportunity][:statut] + '".'
+      else
+        hash["created_by"] = current_user.id
+        hash["notes"] = 'Opportunité "' + params[:opportunity][:name] + '" créée avec statut "' + params[:opportunity][:statut] + '".'
+      end
+
+      hash["opportunity_id"] = @opportunity.id
+      @event = Event.create(hash)
+end
+  end
+
 
   private
     def load_account

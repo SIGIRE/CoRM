@@ -63,6 +63,9 @@ function display(id) {
         <% if !e.notes.blank? %>
             <div class="notes"><pre class="no-style"><%= auto_link e.notes, html: { target: '_blank' } %></pre></div>
         <% end %>
+        <% if !e.notes2.blank? %>
+            <div class="notes"><pre class="no-style"><i><%= e.notes2 %></i></pre></div>
+        <% end %>
       </div>
 
         <p class="time">

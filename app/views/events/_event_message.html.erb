@@ -16,21 +16,84 @@
   end
 %>
 
-<% if e.task.nil? or e.modified_by.nil?%>
+<% e.modified_by.blank? ? action_type = 'create' : action_type = 'update' %>
 
-  <% if !e.contact.nil? and !e.event_type.nil? %>
-      <strong><%= e.event_type.full_type %> </strong> <%= action %> par <%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %> <% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>.
-       <% if !e.task.nil? %>
-          <br/><%= link_to "#{task_action} la tâche n° #{e.task.id}", edit_task_path(e.task.id) %><br/>
-       <% end %>
-       <% elsif !e.task.nil? %>
-          <%= link_to "Tâche n° #{e.task.id}", edit_task_path(e.task.id) %> <%= action %> par <%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %> <% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>.
-          <% elsif !e.event_type.nil? %>
-          <strong><%= e.event_type.full_type %></strong> <%= action %> par <%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %>.
-            <% else %>
-              <%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %> a effectué une action<% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>.
-        <% end %>
-        <% else %>
-        <%= link_to "Tâche n° #{e.task.id}", edit_task_path(e.task.id) %> <%= action %> par <%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %> <% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>.
+<!-- The related task of the event exists -->
+<% if !e.task.nil? %>
+  <% if action_type == 'update' %>
+    <%= link_to "Modification de la tâche n° #{e.task.id}", edit_task_path(e.task.id) %>
+    <% if !e.event_type.nil? %> de type <strong><%= e.event_type.full_type %></strong> <% end %>
+    par <%= e.editor.full_name %>
+    <% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>
+    <% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>
+    <br/>
+  <% elsif action_type == 'create' %>
+    <%= link_to "Création de la tâche n° #{e.task.id}", edit_task_path(e.task.id) %>
+    <% if !e.event_type.nil? %> de type <strong><%= e.event_type.full_type %></strong> <% end %>
+    par <%= e.author.full_name %>
+    <% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>
+    <% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>
+    <br/>
+  <% end %>
+<!-- The related task of the event does not exist but there is a task_id : the task has been deleted -->
+<% elsif !e.task_id.nil? %>
+  <% if action_type == 'update' %>
+    Modification de la tâche n°<%= e.task_id %>
+    <% if !e.event_type.nil? %> de type <strong><%= e.event_type.full_type %></strong> <% end %>
+    par <%= e.editor.full_name %>
+    <% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>
+    <% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>
+    <br/>
+  <% elsif action_type == 'create' %>
+    Création de la tâche n° <%= e.task_id %>
+    <% if !e.event_type.nil? %> de type <strong><%= e.event_type.full_type %></strong> <% end %>
+    par <%= e.author.full_name %>
+    <% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>
+    <% if !e.task.title.blank? %> portant sur "<strong><%= e.task.title %></strong>"<% end %>
+    <br/>
+  <% end %>
+<!-- A related opportunity exists -->
+<% elsif !e.opportunity.nil? %>
+  <% if action_type == 'update' %>
+    <%= link_to "Modification de l'opportunité n° #{e.opportunity.id}", edit_opportunity_path(e.opportunity.id) %>
+    <% if !e.event_type.nil? %> de type <strong><%= e.event_type.full_type %></strong> <% end %>
+    par <%= e.editor.full_name %>
+    <% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>
+    <% if !e.opportunity.name.blank? %> portant sur "<strong><%= e.opportunity.name %></strong>"<% end %>
+    <br/>
+  <% elsif action_type == 'create' %>
+    <%= link_to "Création de l'opportunité n° #{e.opportunity.id}", edit_opportunity_path(e.opportunity.id) %>
+    <% if !e.event_type.nil? %> de type <strong><%= e.event_type.full_type %></strong> <% end %>
+    par <%= e.author.full_name %>
+    <% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>
+    <% if !e.opportunity.name.blank? %> portant sur "<strong><%= e.opportunity.name %></strong>"<% end %>
+    <br/>
+  <% end %>
+<!-- A related quotation exists -->
+<% elsif !e.quotation.nil? %>
+  <% if action_type == 'update' %>
+    <%= link_to "Modification de l'opportunité n° #{e.quotation.id}", edit_quotation_path(e.quotation.id) %>
+    <% if !e.event_type.nil? %> de type <strong><%= e.event_type.full_type %></strong> <% end %>
+    par <%= e.editor.full_name %>
+    <% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>
+    <% if !e.quotation.ref.blank? %> portant sur "<strong><%= e.quotation.ref %></strong>"<% end %>
+    <br/>
+  <% elsif action_type == 'create' %>
+    <%= link_to "Création de l'opportunité n° #{e.quotation.id}", edit_quotation_path(e.quotation.id) %>
+    <% if !e.event_type.nil? %> de type <strong><%= e.event_type.full_type %></strong> <% end %>
+    par <%= e.author.full_name %>
+    <% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>
+    <% if !e.quotation.ref.blank? %> portant sur "<strong><%= e.quotation.ref %></strong>"<% end %>
+    <br/>
+  <% end %>
+<!-- A related EventType exists and the event is not related to Task, Opportunity or Quotation-->
+<% elsif !e.event_type.nil? %>
+  <% if action_type == 'update' %>
+    <strong><%= e.event_type.full_type %> </strong> <%= action %> par <%= e.editor.full_name %> <% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>.
+  <% elsif action_type == 'create' %>
+    <strong><%= e.event_type.full_type %> </strong> <%= action %> par <%= e.author.full_name %> <% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>.
+  <% end %>
+<% else %>
+  <%= e.modified_by.blank?() ? e.author.full_name : e.editor.full_name %> a effectué une action<% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>.
 <% end %>
 </p>
