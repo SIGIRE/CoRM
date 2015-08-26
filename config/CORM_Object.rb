@@ -33,7 +33,7 @@ class CORM_Object < Hash
     def self.get
         if (!File.exists?(@@path))
             c = CORM_Object.new
-            c[:version] = '1.0.0'
+            #c[:version] = '1.0.0'
             c[:protocol] = 'http'
             c[:host] = 'localhost'
             c[:mail] = Hash.new
@@ -49,7 +49,7 @@ class CORM_Object < Hash
     end
 
     def get_version
-        version = self[:version].split(' ')
+        version = ::Rails.application.CORM_VERSION.split(' ')
         versionsSplitted = version[0].split('.')
         return {
             major: versionsSplitted[0].to_i,
@@ -60,22 +60,22 @@ class CORM_Object < Hash
     end
 
     def set_version(o)
-        if (o.is_a? String)
-            version = self[:version].split(' ')
-            version[0] = o
-            self[:version] = version.join(' ')
-        elsif (o.is_a? Hash)
-            version = self[:version].split(' ')
-            versionsSplitted = version[0].split('.')
-            if (!o[:build].nil?)
-                version[1] = o[:build]
-            end
-            versionsSplitted[0] = o[:major]
-            versionsSplitted[1] = o[:minor]
-            versionsSplitted[2] = o[:corrected]
-            self[:version] = versionsSplitted.join('.').concat(version[1])
-
-        end
+        #if (o.is_a? String)
+        #    version = self[:version].split(' ')
+        #    version[0] = o
+        #    self[:version] = version.join(' ')
+        #elsif (o.is_a? Hash)
+        #    version = self[:version].split(' ')
+        #    versionsSplitted = version[0].split('.')
+        #    if (!o[:build].nil?)
+        #        version[1] = o[:build]
+        #    end
+        #    versionsSplitted[0] = o[:major]
+        #    versionsSplitted[1] = o[:minor]
+        #    versionsSplitted[2] = o[:corrected]
+        #    self[:version] = versionsSplitted.join('.').concat(version[1])
+        #
+        #end
     end
 
     def save(path = nil)

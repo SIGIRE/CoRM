@@ -105,3 +105,4 @@ pickle-email-*.html
 
 # Ignore piwik conf
 /config/piwik.yml
+
