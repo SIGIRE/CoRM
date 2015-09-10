@@ -159,14 +159,15 @@ en:
         name: 'Name'
         percentage: 'Percentage'
       account:
-        registration_number: 'Registration number'
-        business_sector_code: 'Business sector code'
-        vat_number: 'VAT number'
-        turnover: 'turnover'
-        projected_turnover: 'Projected turnover'
-        identifier: 'Identifier'
-        periodicity_billing: 'Periodicity billing'
-        payment_term: 'Payment term'
+        registration_number: 'Registration number :'
+        business_sector_code: 'Business sector code :'
+        vat_number: 'VAT number :'
+        turnover: 'Turnover :'
+        projected_turnover: 'Projected turnover :'
+        identifier: 'Identifier :'
+        periodicity_billing: 'Periodicity billing :'
+        payment_term: 'Payment term :'
+        accounting_code: 'Accounting code :'
       payment_mode:
         name: 'Name'
       payment_term:
@@ -596,5 +597,7 @@ en:
     delete_import: "Delete import"
     edit: "Edit %{article} %{model}"
     export: "Export"
+  url:
+    localization: "https://www.google.com/maps/dir/Current+location/"    
   various:
     my: "My"

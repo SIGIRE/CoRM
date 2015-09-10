@@ -126,6 +126,12 @@ class Account < ActiveRecord::Base
 	return tmp
   end
 
+
+  def localization_adress
+    return "#{self.adress1},#{self.zip} #{self.city}".gsub(' ', '+')
+  end
+
+
   def merge(account_to_merge_id)
     Account.transaction do
       account_to_merge = Account.find(account_to_merge_id)

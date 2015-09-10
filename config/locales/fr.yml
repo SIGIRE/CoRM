@@ -159,14 +159,15 @@ fr:
         name: 'Désignation'
         percentage: 'Pourcentage'
       account:
-        registration_number: 'SIRET'
-        business_sector_code: 'Code NAF'
-        vat_number: 'Identifiant TVA'
-        turnover: "Chiffre d'affaires"
-        projected_turnover: 'C.A. prévisionnel'
-        identifier: 'Identifiant commercial'
-        periodicity_billing: 'Périodicité de facturation'
-        payment_term: 'Conditions de règlement'
+        registration_number: 'SIRET :'
+        business_sector_code: 'Code NAF :'
+        vat_number: 'Identifiant TVA :'
+        turnover: "Chiffre d'affaires :"
+        projected_turnover: 'C.A. prévisionnel :'
+        identifier: 'Identifiant commercial :'
+        periodicity_billing: 'Périodicité facturation :'
+        payment_term: 'Conditions règlement :'
+        accounting_code: 'Code comptable :'
       payment_mode:
         name: 'Libellé'
       payment_term:
@@ -598,6 +599,8 @@ fr:
     delete_import: "Supprimer l'import"
     edit: "Éditer %{article} %{model}"
     export: "Export"
+  url:
+    localization: "https://www.google.com/maps/dir/Ma+position/"
   various:
     my: "Mes"
 
