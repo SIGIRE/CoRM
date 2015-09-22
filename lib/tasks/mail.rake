@@ -5,6 +5,7 @@ namespace :mail do
   task :get_mails => :environment do
     require 'rubygems'
     require 'mail'
+    require 'nokogiri'
     require_relative '../../app/domain/mail_processor'
     connection = WebmailConnection.first
     mails = get_mails(connection)
