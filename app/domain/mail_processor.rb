@@ -77,7 +77,7 @@ class MailProcessor
               encoding = sub.content_type_parameters["charset"]
               puts sub.body
             elsif (sub.content_type.include? "text/html")
-              encoding = p.content_type_parameters["charset"]
+              encoding = sub.content_type_parameters["charset"]
               text << Nokogiri::HTML(sub.body, nil, Encoding.find(encoding)).text << "\n"
               puts sub.body
             end
