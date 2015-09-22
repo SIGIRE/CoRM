@@ -64,17 +64,22 @@ class MailProcessor
         if (p.content_type.include? "text/plain")
           text << "#{p.body}\n"
           encoding = p.content_type_parameters["charset"]
+          puts p.body
         elsif (p.content_type.include? "text/html")
           text << Nokogiri::HTML(p.body).text << "\n"
           encoding = p.content_type_parameters["charset"]
+          puts p.body
         elsif (p.content_type.include? "alternative")
           p.parts.each do |sub|
+            puts sub.content_type
             if (sub.content_type.include? "text/plain")
               text << "#{sub.body}\n"
               encoding = sub.content_type_parameters["charset"]
+              puts sub.body
             elsif (sub.content_type.include? "text/html")
               text << Nokogiri::HTML(p.body).text << "\n"
               encoding = p.content_type_parameters["charset"]
+              puts sub.body
             end
           end
         end
