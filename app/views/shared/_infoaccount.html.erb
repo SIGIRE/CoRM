@@ -95,10 +95,8 @@
 <%= form_for( [@account, @account.contacts.new], :html => {:class => 'well'}) do |f| %>
 <p><%=image_tag("glyphicons/glyphicons_006_user_add.png")%>Ajouter un contact</p>
   <div class="row small-fields">
-    <div class="field">
-      <label class="top" style="width: 100%; margin-bottom: 0;">
-        Prenom
-      </label>
+    <div class="field full">
+      <label class="top" style="width: 100%; margin-bottom: 0;">Prénom</label>
       <%= f.text_field :forename %>
     </div>
     <div class="field full">
@@ -110,7 +108,7 @@
       <%= select :contact, :title, Contact::TITLES, { :include_blank => true } %>
     </div>
     <div class="field full">
-      <label class="top" style="width: 100%; margin-bottom: 0;">Tel</label>
+      <label class="top" style="width: 100%; margin-bottom: 0;">Tél</label>
       <%= f.text_field :tel %>
     </div>
     <div class="field full">

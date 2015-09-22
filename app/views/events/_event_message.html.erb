@@ -70,14 +70,14 @@
 <!-- A related quotation exists -->
 <% elsif !e.quotation.nil? %>
   <% if action_type == 'update' %>
-    <%= link_to "Modification de l'opportunité n° #{e.quotation.id}", edit_quotation_path(e.quotation.id) %>
+    <%= link_to "Modification du devis n° #{e.quotation.id}", edit_quotation_path(e.quotation.id) %>
     <% if !e.event_type.nil? %> de type <strong><%= e.event_type.full_type %></strong> <% end %>
     par <%= e.editor.full_name %>
     <% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>
     <% if !e.quotation.ref.blank? %> portant sur "<strong><%= e.quotation.ref %></strong>"<% end %>
     <br/>
   <% elsif action_type == 'create' %>
-    <%= link_to "Création de l'opportunité n° #{e.quotation.id}", edit_quotation_path(e.quotation.id) %>
+    <%= link_to "Création du devis n° #{e.quotation.id}", edit_quotation_path(e.quotation.id) %>
     <% if !e.event_type.nil? %> de type <strong><%= e.event_type.full_type %></strong> <% end %>
     par <%= e.author.full_name %>
     <% if !e.contact.nil? %> avec <strong><%= e.contact.full_name %></strong><% end %>
