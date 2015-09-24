@@ -76,10 +76,32 @@ class MailProcessor
               text << "#{sub.body}\n"
               encoding = sub.content_type_parameters["charset"]
               puts sub.body
+            #elsif (sub.content_type.include? "text/html")
+            #  encoding = sub.content_type_parameters["charset"]
+            #  text << Nokogiri::HTML(sub.body.raw_source, nil, encoding).text << "\n"
+            #  puts sub.body
+            end
+          end
+        elsif (p.content_type.include? "mixed")
+          p.parts.each do |sub|
+            puts sub.content_type
+            if (sub.content_type.include? "text/plain")
+              text << "#{sub.body}\n"
+              encoding = sub.content_type_parameters["charset"]
+              puts sub.body
             elsif (sub.content_type.include? "text/html")
               encoding = sub.content_type_parameters["charset"]
               text << Nokogiri::HTML(sub.body.raw_source, nil, encoding).text << "\n"
               puts sub.body
+            elsif (p.content_type.include? "alternative")
+              sub.parts.each do |subsub|
+                puts subsub.content_type
+                if (subsub.content_type.include? "text/plain")
+                  text << "#{subsub.body}\n"
+                  encoding = subsub.content_type_parameters["charset"]
+                  puts subsub.body
+                end
+              end
             end
           end
         end
