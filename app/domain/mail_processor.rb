@@ -76,13 +76,9 @@ class MailProcessor
               text << "#{sub.body}\n"
               encoding = sub.content_type_parameters["charset"]
               puts sub.body
-            #elsif (sub.content_type.include? "text/html")
-            #  encoding = sub.content_type_parameters["charset"]
-            #  text << Nokogiri::HTML(sub.body.raw_source, nil, encoding).text << "\n"
-            #  puts sub.body
             end
           end
-        elsif (p.content_type.include? "mixed")
+        elsif (p.content_type.include? "multipart/mixed")
           p.parts.each do |sub|
             puts sub.content_type
             if (sub.content_type.include? "text/plain")
@@ -93,13 +89,35 @@ class MailProcessor
               encoding = sub.content_type_parameters["charset"]
               text << Nokogiri::HTML(sub.body.raw_source, nil, encoding).text << "\n"
               puts sub.body
-            elsif (p.content_type.include? "alternative")
+            elsif (sub.content_type.include? "multipart/alternative")
               sub.parts.each do |subsub|
                 puts subsub.content_type
                 if (subsub.content_type.include? "text/plain")
                   text << "#{subsub.body}\n"
                   encoding = subsub.content_type_parameters["charset"]
                   puts subsub.body
+                end
+              end
+            elsif (sub.content_type.include? "multipart/related")
+              sub.parts.each do |subsub|
+                puts subsub.content_type
+                if (subsub.content_type.include? "text/plain")
+                  text << "#{subsub.body}\n"
+                  encoding = subsub.content_type_parameters["charset"]
+                  puts subsub.body
+                elsif (subsub.content_type.include? "text/html")
+                  encoding = subsub.content_type_parameters["charset"]
+                  text << Nokogiri::HTML(subsub.body.raw_source, nil, encoding).text << "\n"
+                  puts subsub.body
+                elsif (subsub.content_type.include? "multipart/alternative")
+                  subsub.parts.each do |subsubsub|
+                    puts subsubsub.content_type
+                    if (subsubsub.content_type.include? "text/plain")
+                      text << "#{subsubsub.body}\n"
+                      encoding = subsubsub.content_type_parameters["charset"]
+                      puts subsubsub.body
+                    end
+                  end
                 end
               end
             end
