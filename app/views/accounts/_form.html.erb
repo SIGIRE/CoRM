@@ -1,4 +1,4 @@
-<%= form_for(@account, :html => { :class => "well "}) do |f| %>
+<%= form_for(@account, :html => { :class => "well form-horizontal"}) do |f| %>
   <% if @account.errors.any? %>
     <div id="error_explanation" class="alert alert-error">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -11,133 +11,216 @@
     </div>
   <% end %>
 
- <form class="well form-inline">
-  <div class="field">
-	  <div class="span2"> Société : </div> <%= f.text_field :company ,{ :class => 'required'}  %><span class="req" />
+  <div class="control-group">
+    <%= f.label :company, class: "control-label"%>
+    <div class="controls">
+      <%= f.text_field :company ,{ :class => 'required'}  %><span class="req" />
+    </div>
   </div>
-
+  
   <% if @account.persisted? %>
-  <div class="field">
-    <div class="span2"> Statut : </div> <%= f.select :active, options_for_select([["Actif", true], ["Inactif", false]], selected: @account.active) %>
-  </div>
+    <div class="control-group">
+      <%= f.label :active, class: "control-label"%>
+      <div class="controls">
+	<%= f.select :active, options_for_select([["Actif", true], ["Inactif", false]], selected: @account.active) %>
+      </div>
+    </div>
   <% end %>
 
-  <div class="field">
-    <div class="span2"> Adresse : </div> <%= f.text_field :adress1 %>
+  <div class="control-group">
+    <%= f.label :adress1, class: "control-label"%>
+    <div class="controls">
+      <%= f.text_field :adress1 %>
+    </div>
   </div>
 
-  <div class="field">
-    <div class="span2"> Adresse (suite) : </div> <%= f.text_field :adress2 %>
+  <div class="control-group">
+    <%= f.label :adress2, class: "control-label"%>
+    <div class="controls">
+      <%= f.text_field :adress2 %>
+    </div>
   </div>
 
-  <div class="field">
-    <div class="span2"> CP : </div> <%= f.text_field :zip %>
+  <div class="control-group">
+    <%= f.label :zip, class: "control-label"%>
+    <div class="controls">
+      <%= f.text_field :zip %>
+    </div>
   </div>
 
-  <div class="field">
-   <div class="span2"> Ville : </div> <%= f.text_field :city %>
+  <div class="control-group">
+    <%= f.label :city, class: "control-label"%>
+    <div class="controls">
+      <%= f.text_field :city %>
+    </div>
   </div>
 
-  <div class="field">
-   <div class="span2"> Pays : </div> <%= f.text_field :country %>
+  <div class="control-group">
+    <%= f.label :country, class: "control-label"%>
+    <div class="controls">
+      <%= f.text_field :country %>
+    </div>
   </div>
 
-  <div class="field">
-   <div class="span2"> Tel : </div> <%= f.text_field :tel %>
+  <div class="control-group">
+    <%= f.label :tel, class: "control-label"%>
+    <div class="controls">
+      <%= f.text_field :tel %>
+    </div>
   </div>
 
-  <div class="field">
-   <div class="span2"> Fax : </div> <%= f.text_field :fax %>
+  <div class="control-group">
+    <%= f.label :fax, class: "control-label"%>
+    <div class="controls">
+      <%= f.text_field :fax %>
+    </div>
   </div>
 
-  <div class="field">
-   <div class="span2"> E-mail : </div> <%= f.text_field :email %>
+  <div class="control-group">
+    <%= f.label :email, class: "control-label"%>
+    <div class="controls">
+      <%= f.text_field :email %>
+    </div>
   </div>
 
-  <div class="field">
-   <div class="span2"> Site web : </div> <%= f.text_field :web %>
+  <div class="control-group">
+    <%= f.label :web, class: "control-label"%>
+    <div class="controls">
+      <%= f.text_field :web %>
+    </div>
   </div>
 
-  <div class="field">
-    <div class="span2"> Origine : </div> <%= f.collection_select :origin_id, Origin.order('name ASC').all, :id, :name, :include_blank => true %>
+  <div class="control-group">
+    <%= f.label :origin, class: "control-label"%>
+    <div class="controls">
+      <%= f.collection_select :origin_id, Origin.order('name ASC').all, :id, :name, :include_blank => true %>
+    </div>
   </div>
 
-  <div class="field">
-    <div class="span2"> Activité : </div> <%= f.collection_select :activity_id, Activity.order('name ASC').all, :id, :name, :include_blank => true %>
+  <div class="control-group">
+    <%= f.label :activity, class: "control-label"%>
+    <div class="controls">
+      <%= f.collection_select :activity_id, Activity.order('name ASC').all, :id, :name, :include_blank => true %>
+    </div>
   </div>
 
-  <div class="field">
-    <div class="span2"> Genre : </div> <%= f.select :category, Account::CATEGORIES%>
+  <div class="control-group">
+    <%= f.label :category, class: "control-label"%>
+    <div class="controls">
+      <%= f.select :category, Account::CATEGORIES%>
+    </div>
   </div>
 
-  <div class="field">
-    <div class="span2"> Tag(s) associé(s) : </div>
-    <%= select_tag :display_account_tag, options_from_collection_for_select(@account.tags.order('name ASC').all, "id", "name"), {:size => 6, :multiple => true} %>
-    <a id="account_add_button" class="btn btn-success btn-mini" data-toggle="modal" href="#account_tag_modal" style="margin-bottom: 1em; margin-left: 2em;">Modifier Tag</a>
+  <div class="control-group">
+    <%= f.label :tags, class: "control-label"%>
+    <div class="controls">
+      <%= select_tag :display_account_tag, options_from_collection_for_select(@account.tags.order('name ASC').all, "id", "name"), {:size => 6, :multiple => true} %>
+      <a id="account_add_button" class="btn btn-success btn-mini" data-toggle="modal" href="#account_tag_modal" style="margin-bottom: 1em; margin-left: 2em;">Modifier Tag</a>
+      <div class="modal hide fade" id="account_tag_modal" style="width: 900px; margin-left: -450px;">
+	<%= render "modal_tags" %>
+      </div>
+    </div>
   </div>
 
-  <div class="modal hide fade" id="account_tag_modal" style="width: 900px; margin-left: -450px;">
-    <%= render "modal_tags" %>
+  <div class="control-group">
+    <%= f.label :turnover , class: "control-label" %>
+    <div class="controls">
+      <div class = "input-append">
+	<%= f.text_field :turnover , class: 'text-right' %>
+	<span class="add-on">
+	  <%= t('number.currency.format.unit') %>
+	</span>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <div class="span2"><%= f.label :turnover %></div> <div class="input-append"><%= f.text_field :turnover %><span class="add-on"><%= t('number.currency.format.unit') %></span></div>
+  <div class="control-group">
+    <%= f.label :projected_turnover , class: "control-label" %>
+    <div class="controls">
+      <div class = "input-append">
+	<%= f.text_field :projected_turnover , class: 'text-right' %>
+	<span class="add-on">
+	  <%= t('number.currency.format.unit') %>
+	</span>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <div class="span2"><%= f.label :projected_turnover %></div> <div class="input-append"><%= f.text_field :projected_turnover %><span class="add-on"><%= t('number.currency.format.unit') %></span></div>
+  <div class="control-group">
+    <%= f.label :registration_number , class: "control-label"%>
+    <div class="controls">
+      <%= f.text_field :registration_number %>
+    </div>
   </div>
 
-  <div class="field">
-    <div class="span2"><%= f.label :registration_number %></div> <%= f.text_field :registration_number %>
+  <div class="control-group">
+    <%= f.label :vat_number, class: "control-label"%>
+    <div class="controls">
+      <%= f.text_field :vat_number %>
+    </div>
   </div>
 
-  <div class="field">
-    <div class="span2"><%= f.label :vat_number %></div> <%= f.text_field :vat_number %>
+  <div class="control-group">
+    <%= f.label :business_sector_code, class: "control-label"%>
+    <div class="controls">
+      <%= f.text_field :business_sector_code %>
+    </div>
   </div>
 
-  <div class="field">
-    <div class="span2"><%= f.label :business_sector_code %></div> <%= f.text_field :business_sector_code %>
+  <div class="control-group">
+    <%= f.label :identifier, class: "control-label"%>
+    <div class="controls">
+      <%= f.text_field :identifier %>
+    </div>
   </div>
 
-  <div class="field">
-    <div class="span2"><%= f.label :identifier %></div> <%= f.text_field :identifier %>
+  <div class="control-group">
+    <%= f.label :accounting_code, class: "control-label"%>
+    <div class="controls">
+      <%= f.text_field :accounting_code %>
+    </div>
   </div>
 
-  <div class="field">
-    <div class="span2"><%= f.label :accounting_code %></div> <%= f.text_field :accounting_code %>
+  <div class="control-group">
+    <%= f.label :payment_term, class: "control-label"%>
+    <div class="controls">
+      <%= f.collection_select :payment_term_id, PaymentTerm.order('name ASC').all, :id, :name, :include_blank => true %>
+    </div>
   </div>
 
-  <div class="field">
-    <div class="span2"><%= f.label :payment_term %></div> <%= f.collection_select :payment_term_id, PaymentTerm.order('name ASC').all, :id, :name, :include_blank => true %>
+  <div class="control-group">
+    <%= f.label :periodicity_billing, class: "control-label"%>
+    <div class="controls">
+      <%= f.text_field :periodicity_billing %>
+    </div>
   </div>
 
-  <div class="field">
-    <div class="span2"><%= f.label :periodicity_billing %></div> <%= f.text_field :periodicity_billing %>
+  <div class="control-group">
+    <%= f.label :user, class: "control-label"%>
+    <div class="controls">
+      <%= f.collection_select :user_id, @users, :id, :full_name, :include_blank => true %>
+    </div>
   </div>
 
-  <div class="field">
-    <div class="span2"> Collaborateur : </div> <%= f.collection_select :user_id, @users, :id, :full_name, :include_blank => true %>
-  </div>
-
-  <div class="field">
-    <div class="span2">Notes : </div> <%=f.text_area :notes , :display_with => :simple_format, :rows => "5", :style => 'width: 50%;' %>
+  <div class="control-group">
+    <%= f.label :notes, class: "control-label"%>
+    <div class="controls">
+      <%=f.text_area :notes , :display_with => :simple_format, :rows => "5", :style => 'width: 50%;' %>
+    </div>
   </div>
 
   <br />
 
-	<div class="field">
+  <div class="control-group">
     <% if !@account.id.nil? %>
-		<div class="span9"> Créé par : <%= @account.author.full_name %>, le </strong><%= @account.created_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-
-		<% if !@account.modified_by.nil? %>
-			<div class="span9"> Dernièrement modifié par : <%= @account.editor.full_name %>, le <%= @account.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div> <br />
-
-		<% else %>
-		<% end %>
-
-	<% end %>
-	</div>
+      <div class="span9"> Créé par : <%= @account.author.full_name %>, le </strong><%= @account.created_at.strftime("%d/%m/%y à %H:%M") %>. </div>
+      <br />
+      <% if !@account.modified_by.nil? %>
+	<div class="span9"> Dernièrement modifié par : <%= @account.editor.full_name %>, le <%= @account.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div>
+	<br />
+      <% end %>
+    <% end %>
+  </div>
 
 	<hr />
 
