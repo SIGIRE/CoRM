@@ -104,7 +104,7 @@ class ImportsController < ApplicationController
             #if create an account from a line failed, transaction is aborted and all
             #created accounts are rolling back
            ImportAccount.transaction do
-            CSV.foreach(import_file.path, headers: true, :col_sep => ";") do |row|
+            CSV.foreach(import_file.path, headers: true, :header_converters => :symbol, :col_sep => ";") do |row|
                 row.push(   {:active=>true},
                             {:created_by=>current_user.id},
                             {:import_id=>@import.id},
@@ -130,12 +130,11 @@ class ImportsController < ApplicationController
 
         if @type=="contacts"
             Contact.transaction do
-                CSV.foreach(import_file.path, headers: true, :col_sep => ";") do |row|
+                CSV.foreach(import_file.path, headers: true, :header_converters => :symbol, :col_sep => ";") do |row|
                     row.push({:created_by=>current_user.id},
                                  {:active=>true},
                                  {:import_id=>@import.id})
-                    line = ImportContact.new row.to_hash
-
+                    line = ImportContact.new(row.to_hash)
                     line.save!
                     @num_line+=1
 
