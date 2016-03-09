@@ -33,7 +33,7 @@ class TasksController < ApplicationController
 
     @tasks = apply_scopes(tasks)
     @tasks = @tasks.by_user(current_user).undone if current_scopes.empty? # Default filtering
-    @tasks = @tasks.order("priority DESC, created_at DESC, updated_at DESC")
+    @tasks = @tasks.order("priority DESC, term ASC, created_at DESC, updated_at DESC")
                    .page(params[:page])
 
     flash.now[:alert] = "Pas de tâches !" if @tasks.empty?
@@ -166,7 +166,7 @@ class TasksController < ApplicationController
     @task.modified_by = current_user.id
 
     #conversion de la string term pour qu'elle soit formatté correctement pour l'afficahge
-    @task.term = @task.term.split('/').reverse!.join('/')
+    #@task.term = @task.term.split('/').reverse!.join('/')
 
     # Set statut to closed
    @task.statut = tasks::STATUTS[2]
