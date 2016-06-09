@@ -45,6 +45,9 @@
     <% end %>
     <%= link_to(url, @account.web, :target => "_blank", :class => 'ellipse') %>
   <% end %>
+  <% if !@account.user.blank? %>
+    <i class="fa fa-user fa-lg fa-fw" title="Collaborateur"></i> <%= @account.user.full_name %><br />
+  <% end %>  
   </p>
 </div>
 <hr>
