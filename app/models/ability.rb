@@ -24,8 +24,8 @@ class Ability
       cannot :destroy, Account
       can :read, Alias
       can :update, Alias, :user_id => user.id
-      can :create, Account
-      cannot :destroy, Account
+      can :create, Alias
+      cannot :destroy, Alias
       can :read, Tag
       can :read, Contact
       can :update, Contact, :account => {:user_id => user.id}
@@ -59,6 +59,63 @@ class Ability
       can :read, Campaign
       can :create, Campaign
       can :update, Campaign, :created_by => user.id
+    elsif user.has_role? :user_wo_delete
+      # Role User_wo_delete
+      can :read, Account
+      can :search, Account
+      can :update, Account, :user_id => user.id
+      can :create, Account
+      cannot :destroy, Account
+      can :read, Alias
+      can :update, Alias, :user_id => user.id
+      can :create, Alias
+      cannot :destroy, Alias
+      can :read, Tag
+      can :read, Contact
+      can :update, Contact, :account => {:user_id => user.id}
+      can :create, Contact, :account => {:user_id => user.id}
+      cannot :destroy, Contact
+      can :read, Event
+      can :update, Event, :user_id => user.id
+      can :create, Event
+      cannot :destroy, Event
+      can :read, Relation
+      can :update, Relation, :account => {:user_id => user.id}
+      can :create, Relation, :account => {:user_id => user.id}
+      can :destroy, Relation, :account => {:user_id => user.id}
+      can :read, Opportunity, :account => {:user_id => user.id}
+      can :update, Opportunity, :account => {:user_id => user.id}
+      can :create, Opportunity, :account => {:user_id => user.id}
+      cannot :destroy, Opportunity
+      can :read, Contract, :account => {:user_id => user.id}
+      can :update, Contract, :account => {:user_id => user.id}
+      can :create, Contract, :account => {:user_id => user.id}
+      cannot :destroy, Contract
+      can :read, Quotation, :account => {:user_id => user.id}
+      can :update, Quotation, :account => {:user_id => user.id}
+      can :create, Quotation, :account => {:user_id => user.id}
+      cannot :destroy, Quotation
+      can :read, QuotationLine, :quotation => {:account => {:user_id => user.id}}
+      can :update, QuotationLine, :quotation => {:account => {:user_id => user.id}}
+      can :create, QuotationLine, :quotation => {:account => {:user_id => user.id}}
+      can :destroy, QuotationLine, :quotation => {:account => {:user_id => user.id}}
+      can :read, Document, :account => {:user_id => user.id}
+      can :update, Document, :account => {:user_id => user.id}
+      can :create, Document, :account => {:user_id => user.id}
+      cannot :destroy, Document
+      can :read, User
+      can :read, Task, :account => {:user_id => user.id}
+      can :update, Task, :account => {:user_id => user.id}
+      can :create, Task
+      cannot :destroy, Task
+      can :manage, Email
+      cannot :destroy, Email
+      cannot :manage, [Import, ImportAccount, ImportContact]
+      can :read, PaymentMode
+      can :read, PaymentTerm
+      can :read, Campaign
+      can :create, Campaign
+      can :update, Campaign, :created_by => user.id   
     elsif user.has_role? :user
       # Role User
       can :manage, Task

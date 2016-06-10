@@ -449,6 +449,8 @@ fr:
       super_user_description: "Il peut configurer l'application et supprimer ce qu'il souhaite."
       user: Utilisateur
       user_description: "Il peut uniquement supprimer ses propres éléments."
+      user_wo_delete: "Utilisateur sans suppression"
+      user_wo_delete_description: "Il peut tout créer, modifier uniquement ses données, mais ne peut rien supprimer."
       restricted_user: "Utilisateur restreint"
       restricted_user_description: "Il peut créer et modifier ses données mais ne peut rien supprimer."
       readonly_user: Lecteur
