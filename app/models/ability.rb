@@ -103,9 +103,8 @@ class Ability
       can :update, Document, :account => {:user_id => user.id}
       can :create, Document, :account => {:user_id => user.id}
       cannot :destroy, Document
-      can :read, User
-      can :read, Task, :account => {:user_id => user.id}
-      can :update, Task, :account => {:user_id => user.id}
+      can :read, Task, :user_id => user.id
+      can :update, Task, :user_id => user.id
       can :create, Task
       cannot :destroy, Task
       can :manage, Email
