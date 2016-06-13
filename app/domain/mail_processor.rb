@@ -57,8 +57,7 @@ class MailProcessor
     text = nil
     #encoding = ""
 
-    # Si le mail est de type
-    multipart
+    # Si le mail est de type multipart
     if (mail.multipart?)
       puts "Multipart? => TRUE"
       html_body = Nokogiri::HTML(Loofah.fragment(mail.html_part.body.decoded).scrub!(:strip)).text << "\n"
