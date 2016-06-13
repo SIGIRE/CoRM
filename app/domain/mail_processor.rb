@@ -60,13 +60,21 @@ class MailProcessor
     # Si le mail est de type multipart
     if (mail.multipart?)
       puts "Multipart? => TRUE"
-      html_body = Nokogiri::HTML(Loofah.fragment(mail.html_part.body.decoded).scrub!(:strip)).text << "\n"
+      #html_body = Nokogiri::HTML(Loofah.fragment(mail.html_part.body.decoded).scrub!(:strip)).text << "\n"
+      html_body = Loofah.document(mail.html_part.body.decoded).scrub!(:strip).text << "\n"
       text_body = mail.text_part.body.decoded
     else
       puts "Multipart? => FALSE"
-      html_body = Nokogiri::HTML(Loofah.fragment(mail.body.decoded).scrub!(:strip)).text << "\n"
+      #html_body = Nokogiri::HTML(Loofah.fragment(mail.body.decoded).scrub!(:strip)).text << "\n"
+      html_body = Loofah.document(mail.body.decoded).scrub!(:strip).text << "\n"
       text_body = mail.body.decoded
     end
+
+    puts '---HTML---'
+    puts html_body
+    puts '---TEXT---'
+    puts text_body
+
 
     text ||= (text_body || html_body)
     # removed because of wrong encoding handling
