@@ -86,3 +86,6 @@ gem 'jquery-minicolors-rails'
 
 # Handling of the localized conversions
 gem 'delocalize'
+
+# HTML parsing
+gem 'loofah'
