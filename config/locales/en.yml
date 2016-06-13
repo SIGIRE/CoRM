@@ -447,6 +447,8 @@ en:
       super_user_description: "He can configure the application and delete anything he want."
       user: User
       user_description: "He can delete only his own elements."
+      user_wo_delete: "User without delete"
+      user_wo_delete_description: "He can create all data, update only his data, and can't delete anything."      
       restricted_user: Restricted User
       restricted_user_description: "He can create and update his data but can't delete anything."
       readonly_user: Read-only User
