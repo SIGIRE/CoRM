@@ -112,6 +112,8 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     libv8 (3.16.14.3)
+    loofah (2.0.3)
+      nokogiri (>= 1.5.9)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -251,6 +253,7 @@ DEPENDENCIES
   jquery-validation-rails
   json
   kaminari (~> 0.14.1)
+  loofah
   mail (~> 2.5.4)
   meta_search (~> 1.1.3)
   money-rails (~> 0.8.1)
