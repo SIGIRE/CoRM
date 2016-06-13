@@ -18,6 +18,7 @@
      <li><span class="badge badge-important"> <%= t('app.roles.admin') %> </span> : <%= t('app.roles.admin_description') %> </li>
 	 <li><span class="badge badge-warning"> <%= t('app.roles.super_user') %> </span> : <%= t('app.roles.super_user_description') %> </li>
 	 <li><span class="badge badge-success"> <%= t('app.roles.user') %> </span> : <%= t('app.roles.user_description') %> </li>
+	 <li><span class="badge badge-inverse"> <%= t('app.roles.user_wo_delete') %> </span> : <%= t('app.roles.user_wo_delete_description') %> </li>	 
 	 <li><span class="badge badge-info"> <%= t('app.roles.restricted_user') %> </span> : <%= t('app.roles.restricted_user_description') %> </li>
 	 <li><span class="badge"> <%= t('app.roles.readonly_user') %> </span> : <%= t('app.roles.readonly_user_description') %> </li>
     </ul>
@@ -49,6 +50,8 @@
 	  <span class="badge badge-important"> <%= t('app.roles.admin') %> </span>
 	  <% elsif u.roles[0].name == 'super_user' %>
 	  <span class="badge badge-warning"> <%= t('app.roles.super_user') %> </span>
+	  <% elsif u.roles[0].name == 'user_wo_delete' %>
+	  <span class="badge badge-inverse"> <%= t('app.roles.user_wo_delete') %> </span>	  
 	  <% elsif u.roles[0].name == 'restricted_user' %>
 	  <span class="badge badge-info"> <%= t('app.roles.restricted_user') %> </span>
 	  <% elsif u.roles[0].name == 'readonly_user' %>
