@@ -2,12 +2,15 @@
 
 
 class OpportunitiesController < ApplicationController
-  load_and_authorize_resource :account
-  load_and_authorize_resource :opportunity, :through => :account
-  
+  before_filter :load_account, only: [:edit, :new, :update, :create, :destroy, :index]
+  before_filter :load_settings, only: [:index]
+
+  load_and_authorize_resource :account, except: [:index]
+  load_and_authorize_resource :opportunity, :through => :account, :shallow => true
 
   before_filter :authenticate_user!
-  before_filter :load_account, :load_settings, only: [:index]
+
+
   layout :current_layout
 
   has_scope :by_user_id
@@ -202,7 +205,17 @@ end
 
   private
     def load_account
-      @account = Account.find_by_id(params[:account_id])
+      if !params[:account_id].blank?
+        @account = Account.find_by_id(params[:account_id])
+      elsif !params[:opportunity].blank? and !params[:opportunity][:account_id].blank?
+        @account = Account.find_by_id(params[:opportunity][:account_id])
+      elsif !params[:id].blank?
+        opportunity = Opportunity.find(params[:id])
+        @account = opportunity.account
+      else
+        @account = nil
+      end
+
     end
 
     def load_settings
@@ -211,7 +224,7 @@ end
     end
 
     def opportunities
-      @account ? @account.opportunities : Opportunity
+      @account ? @account.opportunities : Opportunity.accessible_by(current_ability)
     end
 
     def current_layout
