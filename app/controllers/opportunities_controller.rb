@@ -2,7 +2,7 @@
 
 
 class OpportunitiesController < ApplicationController
-  before_filter :load_account, only: [:edit, :new, :update, :create, :destroy, :index]
+  before_filter :load_account, only: [:edit, :update, :new, :create, :destroy, :index]
   before_filter :load_settings, only: [:index]
 
   load_and_authorize_resource :account, except: [:index]
