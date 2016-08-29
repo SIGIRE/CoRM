@@ -46,7 +46,7 @@
     <tr>
 	<th class="text-center"><%= t('app.fields.company') %></th>
 	<th class="text-center"><%= t('app.fields.adress') %></th>
-	<th class="text-center"><%= t('app.fields.category') %></th>
+	<th class="text-center"><%= t('app.fields.account_category') %></th>
 	<th class="text-center"><%= t('app.fields.phone') %></th>
 	<th class="text-center"><%= t('app.fields.web') %></th>
 	<th class="text-center"><%= t('app.fields.anomaly') %></th>
@@ -82,9 +82,9 @@
                         <td class="text-center">-</td>
         <% end %>
 
-        <% if !account.category.nil? %>
+        <% if !account.account_category.nil? %>
                 <% then %>
-                        <td class="text-center"><%= account.category %></td>
+                        <td class="text-center"><%= account.account_category.name %></td>
                 <% else %>
                         <td class="text-center">-</td>
         <% end %>

@@ -11,9 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150821122023) do
+ActiveRecord::Schema.define(:version => 20160829100119) do
 
   create_table "abilities", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "account_categories", :force => true do |t|
+    t.string   "name"
+    t.string   "created_by"
+    t.string   "updated_by"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -32,7 +40,6 @@ ActiveRecord::Schema.define(:version => 20150821122023) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.integer  "user_id"
-    t.string   "category"
     t.string   "tel"
     t.string   "fax"
     t.string   "email"
@@ -49,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20150821122023) do
     t.string   "identifier"
     t.string   "periodicity_billing"
     t.integer  "payment_term_id"
+    t.integer  "account_category_id"
   end
 
   create_table "accounts_tags", :id => false, :force => true do |t|
@@ -275,7 +283,6 @@ ActiveRecord::Schema.define(:version => 20150821122023) do
     t.integer  "created_by"
     t.integer  "modified_by"
     t.integer  "user_id"
-    t.string   "category"
     t.string   "tel"
     t.string   "fax"
     t.string   "email"
@@ -288,6 +295,7 @@ ActiveRecord::Schema.define(:version => 20150821122023) do
     t.boolean  "no_search_duplicates", :default => false
     t.integer  "anomaly_id"
     t.integer  "account_id"
+    t.integer  "account_category_id"
   end
 
   create_table "import_contacts", :force => true do |t|
@@ -490,17 +498,18 @@ ActiveRecord::Schema.define(:version => 20150821122023) do
     t.string   "attach_content_type"
     t.integer  "attach_file_size"
     t.datetime "attach_updated_at"
-    t.boolean  "clicktocall",           :default => false
-    t.boolean  "mandatory_account",     :default => false
-    t.boolean  "mandatory_contact",     :default => false
-    t.boolean  "quotations_display",    :default => true
-    t.boolean  "opportunities_display", :default => true
-    t.boolean  "contracts_display",     :default => true
+    t.boolean  "clicktocall",                 :default => false
+    t.boolean  "mandatory_account",           :default => false
+    t.boolean  "mandatory_contact",           :default => false
+    t.boolean  "quotations_display",          :default => true
+    t.boolean  "opportunities_display",       :default => true
+    t.boolean  "contracts_display",           :default => true
     t.integer  "default_event_type_id"
     t.boolean  "ad_enabled"
     t.string   "ad_host"
-    t.string   "ad_port",               :default => "389"
+    t.string   "ad_port",                     :default => "389"
     t.string   "ad_domain"
+    t.integer  "default_account_category_id"
   end
 
   create_table "tags", :force => true do |t|

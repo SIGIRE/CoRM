@@ -41,6 +41,7 @@ class Account < ActiveRecord::Base
   belongs_to :import
   belongs_to :activity
   belongs_to :payment_term
+  belongs_to :account_category
 
   accepts_nested_attributes_for :events
   accepts_nested_attributes_for :contacts
@@ -67,11 +68,12 @@ class Account < ActiveRecord::Base
   paginates_per 10
 
   ##
+  # NEW : "category" has been moved to its own table AccountCategory
   # TYPES represents the Account Type
   # It can have these values: Client|Suspect|Prospect|Fournisseur|Partenaire|Adherent|Autre
   #
-  CATEGORIES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire', 'Adhérent', 'Autre']
-  validates_inclusion_of :category, :in => CATEGORIES
+  #CATEGORIES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire', 'Adhérent', 'Autre']
+  validates_inclusion_of :account_category_id, :in => AccountCategory.pluck(:id)
 
 
   # Help to sort by criteria
@@ -92,7 +94,7 @@ class Account < ActiveRecord::Base
   scope :by_country, lambda { |country| where("country = ?", country) unless country.blank? }
   scope :by_tags, lambda { |tags| joins(:tags).where("tags.id IN (?)", tags) unless tags.blank? }
   scope :by_user, lambda { |user| where("user_id = ?", user) unless user.blank? }
-  scope :by_category, lambda { |cat| where("category IN (?)", cat) unless cat.blank? }
+  scope :by_account_category, lambda { |cat| where("account_category_id IN (?)", cat) unless cat.blank? }
   scope :by_origin, lambda { |origin| where("origin_id IN (?)", origin) unless origin.blank? }
   scope :by_ids, lambda { |id| where("id IN (?)", id) unless id.blank?}
   scope :active, lambda { where(active: true) }
@@ -183,5 +185,10 @@ class Account < ActiveRecord::Base
       end
     end
   end  
+
+  def self.default_account_category_id
+    @setting = Setting.first
+    @setting.default_account_category_id
+  end
 
 end

@@ -105,9 +105,9 @@
   </div>
 
   <div class="control-group">
-    <%= f.label :category, class: "control-label"%>
+    <%= f.label :account_category, class: "control-label"%>
     <div class="controls">
-      <%= f.select :category, Account::CATEGORIES%>
+      <%= f.collection_select :account_category_id, AccountCategory.order('name ASC'), :id, :name, :include_blank => false%>
     </div>
   </div>
 

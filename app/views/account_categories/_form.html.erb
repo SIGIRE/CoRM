@@ -1,0 +1,41 @@
+<%= form_for(@account_category, :html => { :class => "well "}) do |f| %>
+  <% if @account_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@account_category.errors.count, "error") %> prohibited this origin from being saved:</h2>
+
+      <ul>
+      <% @account_category.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <div class="span2"><%= f.label :name %></div><%= f.text_field :name,{ :class => 'required'} %><span class="req" />
+  </div>
+
+
+  <br />
+
+  <div class="field">
+    <% if !@account_category.id.nil? %>
+      <div class="span9"><%="#{t('app.actions.created_by')} : "%><%= @account_category.author.full_name %><%=", #{t('app.at')} "%></strong><%= @account_category.created_at.strftime("%d/%m/%y à %H:%M") %>. </div>
+      <br />
+      <% if !@account_category.updated_by.nil? %>
+        <div class="span9"><%="#{t('app.actions.updated_by')} : "%><%= @account_category.editor.full_name %><%=", #{t('app.at')} "%><%= @account_category.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div>
+        <br />
+      <% end %>
+    <% end %>
+  </div>
+
+  <hr />
+
+  <div class="row">
+   <%= if !@account_category.id.nil? then f.button "#{t('app.actions.update_account_category')}", :type => :submit, :class =>"btn btn-primary",:id =>"account_category_validate_form" else f.button "#{t('app.actions.create_account_category')}", :type => :submit, :class =>"btn btn-primary",:id =>"origin_validate_form" end%>
+   <%= if !@account_category.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @account_category, :title => "#{t('app.actions.update_account_category')}", :confirm => "#{t('app.message.confirm.delete')}", :class=>"pull-right btn", :method => :delete end %>
+  </div>
+
+<% end %>
+
