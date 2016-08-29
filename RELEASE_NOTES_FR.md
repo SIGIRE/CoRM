@@ -1,5 +1,13 @@
 ## RELEASE NOTES
 
+### Version 0.12.1
+
+**Fonctionnalités**
+ * Possibilité de modifier les genres des comptes ;
+
+**Corrections**
+ * Corrections apportées au moteur de traitement des e-mails ;
+
 ### Version 0.12
 
 **Fonctionnalités**
