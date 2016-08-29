@@ -9,8 +9,8 @@
 	        </div>
 
 		<div class="">
-			<%= label_tag :account_category, "Genre compte :", :class => "top"  %>
-			<%= select_tag "account_category",options_for_select( Account::CATEGORIES, params[:account_category]),{ :include_blank => "Toutes", :class =>"filter_statut" }  %>
+			<%= label_tag :account_category, t('helpers.label.account.account_category'), :class => "top"  %>
+			<%= select_tag "account_category", options_from_collection_for_select( AccountCategory.all, :id, :name, params[:account_category]),{ :include_blank => "Tous", :class =>"filter_statut" }  %>
 		</div>
 
 		<div class="">

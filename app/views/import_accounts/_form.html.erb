@@ -75,7 +75,7 @@
   </div>
 
   <div class="field">
-    <div class="span2"><%= t('app.fields.category')+" :"  %></div> <%= f.select :category, ImportAccount::CATEGORIES%>
+    <div class="span2"><%= t('app.fields.account_category')+" :"  %></div> <%= f.collection_select :account_category_id, AccountCategory.order('name ASC'), :id, :name, :include_blank => false %>
   </div>
 
   <div class="field">
@@ -83,7 +83,7 @@
   </div>
 
   <div class="field">
-    <div class="span2"><%= t('app.fields.collegue')+" :"  %></div> <%= f.collection_select :user_id, @users, :id, :full_name %>
+    <div class="span2"><%= t('app.fields.collegue')+" :"  %></div> <%= f.collection_select :user_id, User.order('surname ASC').all, :id, :full_name, :include_blank => true %>
   </div>
 
   <div class="field">

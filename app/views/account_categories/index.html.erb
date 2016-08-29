@@ -1,0 +1,28 @@
+<%= render 'title', :locals => { :title => @title }%>
+
+<div class="container-fluid">
+
+  <table class="table table-bordered table-striped">
+   <thead>
+    <tr>
+      <th class="text-center"><%= AccountCategory.human_attribute_name :name%></th>
+      <th class="text-center"><%="#{t('app.actions.edit')}"%></th>
+    </tr>
+   </thead>
+
+  <tbody>
+  <% @account_categories.each do |account_category| %>
+    <tr>
+      <td class="text-center"><%= account_category.name %></td>
+      <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_account_category_path(account_category),{:title => "#{t('app.actions.edit_account_category')}"} %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  </table>
+
+  <br />
+
+  <%= paginate @account_categories %>
+
+</div>
+

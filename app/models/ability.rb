@@ -190,6 +190,7 @@ class Ability
       can :manage, PaymentMode
       can :manage, PaymentTerm
       can :manage, Campaign
+      can :manage, AccountCategory
 
     else
       # Role User by default

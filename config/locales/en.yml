@@ -172,7 +172,7 @@ en:
         web: 'Web site :'
         origin: 'Origin :'
         activity: 'Activity :'
-        category: 'Category :'
+        account_category: 'Category :'
         tags: 'Tags'
         registration_number: 'Registration number :'
         business_sector_code: 'Business sector code :'
@@ -185,6 +185,8 @@ en:
         accounting_code: 'Accounting code :'
         user: 'User :'
         notes: 'Notes :'
+      account_category:
+        name: 'Name'
       payment_mode:
         name: 'Name'
       payment_term:
@@ -344,7 +346,12 @@ en:
       campaign:
         one: 'campaign'
         other: 'campaigns'
-
+      account_category:
+        one: "account's category"
+        other: "account's categories"
+    attributes:
+      account_category:
+        name: 'Name'
 
 
   app:
@@ -386,6 +393,10 @@ en:
       filter: "Filter"
       updated_contact: "Updated contact"
       updated_account: "Updated account"
+      create_account_category: "Create account's category"
+      edit_account_category: "Edit account's category"
+      update_account_category: "Update account's category"
+      delete_account_category: "Delete account's category"      
       choose_file: "Choose a file"
       show_valid_import: "Show valid imported %{model}"
       validate: "Validate"
@@ -419,6 +430,7 @@ en:
       Extraction: extraction
       Campaign_completed_stage: "Campaign completed stage"
       Campaign_result_stage: "Campaign result stage"
+      Account_category: "Account category"
     model:
       Account: Account
       Contact: Contact
@@ -439,6 +451,7 @@ en:
       Payment_modes: "payment modes"
       Payment_term: "payment term"
       Payment_terms: "payment terms"
+      Account_category: "account category"
     roles:
       details: "Roles specification"
       admin: Administrator
@@ -522,6 +535,7 @@ en:
       size: "Size"
       content: "Content"
       category: "Category"
+      account_category: "Category"
       origin: "Origin"
       activity: "Activité"
       action: "Action"
@@ -572,6 +586,9 @@ en:
         created_campaign: "Campaign has been created !"
         updated_campaign: "Campaign has been updated !"
         deleted_campaign: "Campaign has been deleted !"
+        created_account_category: "Account's category has been created !"
+        updated_account_category: "Account's category has been updated !"
+        deleted_account_category: "Account's category has been deleted !"  
         confirm_import_account: "%{nbr} accounts have been imported !"
         confirm_import_contact: "%{nbr} contacts have been imported !"
         delete_import: "Import have been deleted !"

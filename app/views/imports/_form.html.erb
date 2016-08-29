@@ -26,6 +26,16 @@
 			 <% end %>
 	       </div>
 	  </div>
+	  
+	  <div class="row row-fluid">
+	       <div class="field full">
+		    <div class="span2"><%= f.label(:user ,t('helpers.label.account.user') + colon) %></div>
+			 <%= fields_for :user do |o| %>
+			      <%= o.collection_select :user_id, User.order('surname ASC').all, :id, :full_name, :include_blank => true %>
+			 <% end %>
+	       </div>
+	  </div>
+	  
 	  <% end %>
 
 

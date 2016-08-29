@@ -49,6 +49,7 @@ class ImportsController < ApplicationController
         @type=params[:import][:import_type]
         if @type=="accounts"
             @origin=params[:origin][:origin_id]
+            @user=params[:user][:user_id]
         end
         @import = Import.new(params[:import])
         @import.created_by = current_user.id
@@ -108,15 +109,18 @@ class ImportsController < ApplicationController
                 row.push(   {:active=>true},
                             {:created_by=>current_user.id},
                             {:import_id=>@import.id},
-                            {:origin_id=>@origin})
+                            {:origin_id=>@origin},
+                            {:user_id=>@user},
+                            {:account_category_id=>AccountCategory.where(:name => row[12]).pluck(:id).first})
+                row.delete(12)
                 line=ImportAccount.new row.to_hash
                 if !line.company.nil?
                     line.company = line.uppercase_company
                 end
                 line.web = Format.to_url(line.web)
-                if !line.category.nil?
-                    line.category = line.category.capitalize
-                end
+                #if !line.category.nil?
+                #    line.category = line.category.capitalize
+                #end
                 line.save!
                 @num_line+=1
 
