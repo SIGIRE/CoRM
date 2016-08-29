@@ -49,9 +49,9 @@
 				<td class="text-center">-</td>
 		<% end %>
 
-		<% if !account.category.nil? %>
+		<% if !account.account_category.nil? %>
 			<% then %>
-				<td class="text-center"><%= account.category %></td>
+				<td class="text-center"><%= account.account_category.name %></td>
 			<% else %>
 				<td class="text-center">-</td>
 		<% end %>

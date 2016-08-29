@@ -172,7 +172,7 @@ fr:
         web: 'Site internet :'
         origin: 'Origine :'
         activity: 'Activité :'
-        category: 'Genre :'
+        account_category: 'Genre :'
         tags: 'Tags associé(s)'
         registration_number: 'SIRET :'
         business_sector_code: 'Code NAF :'
@@ -185,6 +185,8 @@ fr:
         accounting_code: 'Code comptable :'
         user: 'Collaborateur :'
         notes: 'Notes :'
+      account_category:
+        name: 'Libellé'
       payment_mode:
         name: 'Libellé'
       payment_term:
@@ -350,6 +352,12 @@ fr:
       campaign:
         one: 'campagne'
         other: 'campagnes'
+      account_category:
+        one: 'genre'
+        other: 'genres'
+    attributes:
+      account_category:
+        name: 'Libellé'
 
 
 
@@ -393,6 +401,10 @@ fr:
       filter: "Filtrer"
       updated_contact: "Modifier le contact"
       updated_account: "Modifier le compte"
+      create_account_category: "Créer le genre"
+      edit_account_category: "Éditer le genre"
+      update_account_category: "Modifier le genre"
+      delete_account_category: "Supprimer le genre"
       choose_file: "Choisir un fichier"
       show_valid_import: "Afficher la liste des %{model} importés et validés"
       validate: "valider"
@@ -425,6 +437,7 @@ fr:
       Extraction: extraction
       Campaign_completed_stage: "niveau d'avancement de campagne"
       Campaign_result_stage: "résultat de campagne"
+      Account_category: "Catégorie de compte"
     model:
       Account: Compte
       Contact: Contact
@@ -441,6 +454,11 @@ fr:
       Origin: "Origine"
       Activity: "Activité"
       Contract: "Contrat"
+      Payment_mode: "Mode de paiement"
+      Payment_modes: "Modes de paiement"
+      Payment_term: "Echéance"
+      Payment_terms: "Echéances"      
+      Account_category: "Catégorie de compte"
     roles:
       details: "Détail des roles"
       admin: Administrateur
@@ -524,6 +542,7 @@ fr:
       size: "Taille"
       content: "Contenu"
       category: "Catégorie"
+      account_category: "Genre"
       origin: "Origine"
       activity: "Activité"
       action: "Actions"
@@ -574,6 +593,9 @@ fr:
         created_campaign: "La campagne a été créée !"
         updated_campaign: "La campagne a été modifiée !"
         deleted_campaign: "La campagne a été supprimée !"
+        created_account_category: "Le genre a été créé !"
+        updated_account_category: "Le genre a été modifié !"
+        deleted_account_category: "Le genre a été supprimé !"        
         confirm_import_contact: "%{nbr} contacts ont été importés !"
         confirm_import_account: "%{nbr} comptes ont été importés !"
         delete_import: "L'import a bien été supprimé !"

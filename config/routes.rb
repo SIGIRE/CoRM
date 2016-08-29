@@ -148,6 +148,10 @@ Crm::Application.routes.draw do
   match '/taches/filter(.:format)', :controller => 'tasks', :action => 'filter', :via => :get, :as => "filter_tasks_index"
   match '/tache/:id/finished', :controller=>'tasks', :action=>'finished', :as=>"finished_task"
 
+  # AccountCategories routes
+  # resources account_categories
+  set_route('categories_compte', 'account_category', 'account_categories');
+
   # Accounts
   match 'comptes/extract', controller: 'accounts', action: 'extract'
   match 'comptes/delete_tag', :controller=> 'accounts', :action =>'delete_tag'

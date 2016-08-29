@@ -52,91 +52,34 @@ class MailProcessor
 
     return email
   end
-
+  
   def retrieve_body(mail)
-    text = ""
-    encoding = ""
+    text = nil
+    #encoding = ""
+
     # Si le mail est de type multipart
     if (mail.multipart?)
       puts "Multipart? => TRUE"
-      mail.parts.each do |p|
-        puts p.content_type
-        if (p.content_type.include? "text/plain")
-          text << "#{p.body}\n"
-          encoding = p.content_type_parameters["charset"]
-          puts p.body
-        elsif (p.content_type.include? "text/html")
-          encoding = p.content_type_parameters["charset"]
-          text << Nokogiri::HTML(p.body.raw_source, nil, encoding).text << "\n"
-          puts p.body
-        elsif (p.content_type.include? "alternative")
-          p.parts.each do |sub|
-            puts sub.content_type
-            if (sub.content_type.include? "text/plain")
-              text << "#{sub.body}\n"
-              encoding = sub.content_type_parameters["charset"]
-              puts sub.body
-            end
-          end
-        elsif (p.content_type.include? "multipart/mixed")
-          p.parts.each do |sub|
-            puts sub.content_type
-            if (sub.content_type.include? "text/plain")
-              text << "#{sub.body}\n"
-              encoding = sub.content_type_parameters["charset"]
-              puts sub.body
-            elsif (sub.content_type.include? "text/html")
-              encoding = sub.content_type_parameters["charset"]
-              text << Nokogiri::HTML(sub.body.raw_source, nil, encoding).text << "\n"
-              puts sub.body
-            elsif (sub.content_type.include? "multipart/alternative")
-              sub.parts.each do |subsub|
-                puts subsub.content_type
-                if (subsub.content_type.include? "text/plain")
-                  text << "#{subsub.body}\n"
-                  encoding = subsub.content_type_parameters["charset"]
-                  puts subsub.body
-                end
-              end
-            elsif (sub.content_type.include? "multipart/related")
-              sub.parts.each do |subsub|
-                puts subsub.content_type
-                if (subsub.content_type.include? "text/plain")
-                  text << "#{subsub.body}\n"
-                  encoding = subsub.content_type_parameters["charset"]
-                  puts subsub.body
-                elsif (subsub.content_type.include? "text/html")
-                  encoding = subsub.content_type_parameters["charset"]
-                  text << Nokogiri::HTML(subsub.body.raw_source, nil, encoding).text << "\n"
-                  puts subsub.body
-                elsif (subsub.content_type.include? "multipart/alternative")
-                  subsub.parts.each do |subsubsub|
-                    puts subsubsub.content_type
-                    if (subsubsub.content_type.include? "text/plain")
-                      text << "#{subsubsub.body}\n"
-                      encoding = subsubsub.content_type_parameters["charset"]
-                      puts subsubsub.body
-                    end
-                  end
-                end
-              end
-            end
-          end
-        end
-      end
-      # Si le mail n'est pas de type multipart
+      #html_body = Nokogiri::HTML(Loofah.fragment(mail.html_part.body.decoded).scrub!(:strip)).text << "\n"
+      html_body = Loofah.document(mail.html_part.body.decoded).scrub!(:strip).text << "\n"
+      text_body = mail.text_part.body.decoded
     else
-      text = mail.body.decoded
+      puts "Multipart? => FALSE"
+      #html_body = Nokogiri::HTML(Loofah.fragment(mail.body.decoded).scrub!(:strip)).text << "\n"
+      html_body = Loofah.document(mail.body.decoded).scrub!(:strip).text << "\n"
+      text_body = mail.body.decoded
     end
-    if (!encoding.blank?)
-      text = text.force_encoding(encoding).encode('UTF-8')
-    else
-      if (text.force_encoding("UTF-8").encode('UTF-8').valid_encoding?)
-        text = text.force_encoding("UTF-8").encode('UTF-8')
-      elsif (text.force_encoding("iso-8859-1").encode('UTF-8').valid_encoding?)
-        text = text.force_encoding("iso-8859-1").encode('UTF-8')
-      end
-    end
+
+    puts '---HTML---'
+    puts html_body
+    puts '---TEXT---'
+    puts text_body
+
+
+    text ||= (text_body || html_body)
+    # removed because of wrong encoding handling
+    #text = text.force_encoding(encoding).encode('UTF-8')
+
   rescue => e
     puts e
     puts e.backtrace.join("\n")
@@ -144,6 +87,99 @@ class MailProcessor
   else
     return text
   end
+
+  # old code / June 13, 2016
+  #def retrieve_body(mail)
+  #  text = ""
+  #  encoding = ""
+  #  # Si le mail est de type multipart
+  #  if (mail.multipart?)
+  #    puts "Multipart? => TRUE"
+  #    mail.parts.each do |p|
+  #      puts p.content_type
+  #      if (p.content_type.include? "text/plain")
+  #        text << "#{p.body}\n"
+  #        encoding = p.content_type_parameters["charset"]
+  #        puts p.body
+  #      elsif (p.content_type.include? "text/html")
+  #        encoding = p.content_type_parameters["charset"]
+  #        text << Nokogiri::HTML(p.body.raw_source, nil, encoding).text << "\n"
+  #        puts p.body
+  #      elsif (p.content_type.include? "alternative")
+  #        p.parts.each do |sub|
+  #          puts sub.content_type
+  #          if (sub.content_type.include? "text/plain")
+  #            text << "#{sub.body}\n"
+  #            encoding = sub.content_type_parameters["charset"]
+  #            puts sub.body
+  #          end
+  #        end
+  #      elsif (p.content_type.include? "multipart/mixed")
+  #        p.parts.each do |sub|
+  #          puts sub.content_type
+  #          if (sub.content_type.include? "text/plain")
+  #            text << "#{sub.body}\n"
+  #            encoding = sub.content_type_parameters["charset"]
+  #            puts sub.body
+  #          elsif (sub.content_type.include? "text/html")
+  #            encoding = sub.content_type_parameters["charset"]
+  #            text << Nokogiri::HTML(sub.body.raw_source, nil, encoding).text << "\n"
+  #            puts sub.body
+  #          elsif (sub.content_type.include? "multipart/alternative")
+  #            sub.parts.each do |subsub|
+  #              puts subsub.content_type
+  #              if (subsub.content_type.include? "text/plain")
+  #                text << "#{subsub.body}\n"
+  #                encoding = subsub.content_type_parameters["charset"]
+  #                puts subsub.body
+  #              end
+  #            end
+  #          elsif (sub.content_type.include? "multipart/related")
+  #            sub.parts.each do |subsub|
+  #              puts subsub.content_type
+  #              if (subsub.content_type.include? "text/plain")
+  #                text << "#{subsub.body}\n"
+  #                encoding = subsub.content_type_parameters["charset"]
+  #                puts subsub.body
+  #              elsif (subsub.content_type.include? "text/html")
+  #                encoding = subsub.content_type_parameters["charset"]
+  #                text << Nokogiri::HTML(subsub.body.raw_source, nil, encoding).text << "\n"
+  #                puts subsub.body
+  #              elsif (subsub.content_type.include? "multipart/alternative")
+  #                subsub.parts.each do |subsubsub|
+  #                  puts subsubsub.content_type
+  #                  if (subsubsub.content_type.include? "text/plain")
+  #                    text << "#{subsubsub.body}\n"
+  #                    encoding = subsubsub.content_type_parameters["charset"]
+  #                    puts subsubsub.body
+  #                  end
+  #                end
+  #              end
+  #            end
+  #          end
+  #        end
+  #      end
+  #    end
+  #    # Si le mail n'est pas de type multipart
+  #  else
+  #    text = mail.body.decoded
+  #  end
+  #  if (!encoding.blank?)
+  #    text = text.force_encoding(encoding).encode('UTF-8')
+  #  else
+  #    if (text.force_encoding("UTF-8").encode('UTF-8').valid_encoding?)
+  #      text = text.force_encoding("UTF-8").encode('UTF-8')
+  #    elsif (text.force_encoding("iso-8859-1").encode('UTF-8').valid_encoding?)
+  #      text = text.force_encoding("iso-8859-1").encode('UTF-8')
+  #    end
+  #  end
+  #rescue => e
+  #  puts e
+  #  puts e.backtrace.join("\n")
+  #  return nil
+  #else
+  #  return text
+  #end
 
 
   def retrieve_attachments(mail)

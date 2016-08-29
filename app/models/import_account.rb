@@ -9,7 +9,8 @@ class ImportAccount < ActiveRecord::Base
 
   resourcify
 
-  CATEGORIES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire', 'Adhérent', 'Autre']
+  # NEW : CATEGORIES was moved to its own table.
+  #CATEGORIES = ['Client', 'Suspect', 'Prospect', 'Fournisseur','Partenaire', 'Adhérent', 'Autre']
 
   #take anomalies in constants
   NO_ANOMALY = Anomaly.find_by_name('ok')
@@ -29,6 +30,7 @@ class ImportAccount < ActiveRecord::Base
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
   belongs_to :import
   belongs_to :origin
+  belongs_to :account_category
 
   # Help to sort by account in error
   #scope :anomaly, lambda { |a| where("anomaly IN (?)", a) unless a.blank? }
@@ -100,7 +102,7 @@ class ImportAccount < ActiveRecord::Base
         end
 
         #search anomaly on category
-        if !(ImportAccount::CATEGORIES).include?("#{self.category}") #if category not in authorizes values
+        if !(AccountCategory.pluck(:id)).include?(self.account_category_id) #if category not in authorizes values
             anomaly=CATEGORY_ANOMALY
         end
         self.update_attributes(:anomaly_id => anomaly.id)

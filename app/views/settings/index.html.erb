@@ -118,7 +118,11 @@
 			    <div class="field full">
 				<div class="span2"> Type d'évènement par défaut : </div>  <%= f.collection_select :default_event_type_id, EventType.all, :id, :full_type, :class =>"filter_coll", :include_blank => true, :selected => @setting.default_event_type_id.to_i %>
 			    </div>
-
+			    
+			    <div class="field full">
+				<div class="span2"> Genre du compte par défaut : </div>  <%= f.collection_select :default_account_category_id, AccountCategory.order('name ASC'), :id, :name, :class =>"filter_coll", :include_blank => false, :selected => @setting.default_account_category_id.to_i %>
+			    </div>
+			    
 			    <div class="field full">
 				<div class="span2"></div><input type="submit" value="Sauvegarder" class="btn btn-success">
 			    </div>

@@ -86,6 +86,7 @@ class Ability
       can :read, Opportunity, :account => {:user_id => user.id}
       can :update, Opportunity, :account => {:user_id => user.id}
       can :create, Opportunity, :account => {:user_id => user.id}
+      can :index, Opportunity, :account => {:user_id => user.id}
       cannot :destroy, Opportunity
       can :read, Contract, :account => {:user_id => user.id}
       can :update, Contract, :account => {:user_id => user.id}
@@ -189,6 +190,7 @@ class Ability
       can :manage, PaymentMode
       can :manage, PaymentTerm
       can :manage, Campaign
+      can :manage, AccountCategory
 
     else
       # Role User by default

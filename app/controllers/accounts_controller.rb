@@ -12,7 +12,7 @@ class AccountsController < ApplicationController
   has_scope :by_tel, as: :phone
   has_scope :active, type: :boolean, default: true
   has_scope :inactive, type: :boolean
-  has_scope :by_category, as: :category
+  has_scope :by_account_category, as: :account_category
   has_scope :by_origin, as: :origin
   has_scope :by_tags, as: :tag
   has_scope :by_import_id, as: :import_id
@@ -73,6 +73,7 @@ class AccountsController < ApplicationController
   def new
     @account = Account.new
     @account.user = current_user
+    @account.account_category_id = Account.default_account_category_id
     @users = User.all_reals
     respond_to do |format|
       format.html # new.html.erb

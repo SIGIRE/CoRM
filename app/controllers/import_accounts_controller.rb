@@ -119,7 +119,7 @@ class ImportAccountsController < ApplicationController
             account.created_at=i.created_at
             account.updated_at=i.updated_at
             account.user_id=i.user_id
-            account.category=i.category
+            account.account_category_id=i.account_category_id
             account.tel=i.tel
             account.fax=i.fax
             account.email=i.email

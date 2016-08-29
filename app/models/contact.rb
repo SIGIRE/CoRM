@@ -120,7 +120,7 @@ class Contact < ActiveRecord::Base
   scope :by_account_tags, lambda { |tags| joins(:account => :tags).where("tags.id IN (?)", tags) unless tags.blank? }
   scope :by_zip_account, lambda { |zip_account| joins(:account).where("accounts.zip LIKE ?", zip_account + '%') unless zip_account.blank? }
   scope :by_country_account, lambda { |country_account| joins(:account).where("accounts.country" => country_account) unless country_account.blank? }
-  scope :by_category_account, lambda { |category_account| joins(:account).where("accounts.category IN (?)", category_account) unless category_account.blank? }
+  scope :by_category_account, lambda { |category_account| joins(:account).where("accounts.account_category_id IN (?)", category_account) unless category_account.blank? }
   scope :by_origin_account, lambda { |origin_account| joins(:account).where("accounts.origin_id IN (?)", origin_account) unless origin_account.blank? }
   scope :by_user_account, lambda { |user_account| joins(:account).where("accounts.user_id" => user_account) unless user_account.blank? }
   scope :by_full_name_like, (lambda do |full_name|

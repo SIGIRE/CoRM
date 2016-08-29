@@ -34,7 +34,7 @@
 					<span class="label label-info inline" id="task_notice" style="display: none; margin-left: 2em;">
 					  <i class="icon-warning-sign icon-white"></i> Un événement sera créé sur le compte correspondant
 					</span>
-					<%= f.text_field :account_id, { :style => 'display: none; visible: none;', :id => 'account_id' } %>
+					<%= f.text_field :account_id, :value => number_with_precision(f.object.account_id, :separator => '', :precision => 0, :delimiter => ''),  :style => 'display: none; visible: none;', :id => 'account_id'  %>
 				</p>
 			</div>
 		</div>

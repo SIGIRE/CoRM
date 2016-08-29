@@ -2,7 +2,7 @@
   <p>
     <%= link_to '<i class="fa fa-home fa-2x action-icon"></i>'.html_safe, edit_account_path(@account),{:title => "Éditer le compte"} %> 
     <%= link_to '<i class="fa fa-map-marker fa-2x action-icon"></i>'.html_safe, "#{t("url.localization")}#{@account.localization_adress}" ,{:target => "_blank"}%>
-    <i>(<%= @account.category %>)</i>
+    <i>(<%= @account.account_category.name unless @account.account_category.nil? %>)</i>
 
     <% unless @account.active %>
       <span title="Compte désactivé"><i class="fa fa-ban fa-2x pull-right"></i></span>
