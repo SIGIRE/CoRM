@@ -2,6 +2,9 @@
 
 ### Version 0.12.2
 
+**Fonctionnalités**
+ * Possibilité d'utiliser le protocole POP3 avec SSL pour le moteur d'e-mails ;
+
 **Corrections**
  * Corrections apportées au moteur de traitement des e-mails ;
 

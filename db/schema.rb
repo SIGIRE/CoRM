@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160829100119) do
+ActiveRecord::Schema.define(:version => 20160830061104) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -586,9 +586,10 @@ ActiveRecord::Schema.define(:version => 20160829100119) do
     t.string   "server"
     t.integer  "port"
     t.integer  "type_event_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.boolean  "active"
+    t.boolean  "ssl",           :default => false
   end
 
 end
