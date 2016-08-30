@@ -235,17 +235,30 @@
 				<% end %>
   			</div>
 			<div class="field full">
-    			<div class="span2"> Serveur : </div> <%= f.text_field :server %>
+			    <div class="span2"> Serveur : </div> <%= f.text_field :server %>
   			</div>
   			<div class="field full">
-    			<div class="span2"> Port : </div> <%= f.text_field :port %>
+			    <div class="span2"> Port : </div> <%= f.text_field :port %>
   			</div>
+  			<div class="field full">
+			    <div class="span2"> SSL : </div> <%= f.check_box :ssl %>
+			    <% if @webmail_connection.ssl == true %>
+				<div class="alert alert-success">Fonction actuellement activée.</div>
+			    <% else %>
+				<div class="alert alert-warning">Fonction actuellement désactivée.</div>
+			    <% end %>			    
+  			</div>			
   			<div class="field full">
     			<div class="span2"> Type d'évènement : </div>
 			    <%= f.collection_select :type_event_id, EventType.all, :id, :full_type, :class =>"filter_coll", :include_blank => true %>
   			</div>
   			<div class="field full">
-    			<div class="span2"> Activé : </div> <%= f.check_box :active %>
+			    <div class="span2"> Activé : </div> <%= f.check_box :active %>
+			    <% if @webmail_connection.active == true %>
+				<div class="alert alert-success">Fonction actuellement activée.</div>
+			    <% else %>
+				<div class="alert alert-warning">Fonction actuellement désactivée.</div>
+			    <% end %>
   			</div>
 			<%= f.hidden_field :id %>
 			<div class="field full">

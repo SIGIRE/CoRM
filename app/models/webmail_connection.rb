@@ -1,11 +1,11 @@
 # encoding: utf-8
 class WebmailConnection < ActiveRecord::Base
-  attr_accessible :login, :password, :port, :server, :type_event_id, :active
+  attr_accessible :login, :password, :port, :server, :type_event_id, :active, :ssl
 
   def self.check(connection)
     require 'mail'
     if (!connection.type_event_id.nil?)
-      puts("Connexion recuperee : #{connection.server}:#{connection.port} (#{connection.login}:#{connection.password})")
+      puts("Connexion recuperee : #{connection.server}:#{connection.port} (#{connection.login}:#{connection.password}) - SSL:#{connection.ssl}")
       puts("Attempting to connect to the specified email server...")
       Mail.defaults do
         retriever_method :pop3,
@@ -13,7 +13,7 @@ class WebmailConnection < ActiveRecord::Base
           :port		=> connection.port,
           :user_name 	=> connection.login,
           :password 	=> connection.password,
-          :enable_ssl 	=> false
+          :enable_ssl 	=> connection.ssl
         email = Mail.first
       end
     else
