@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160830061104) do
+ActiveRecord::Schema.define(:version => 20160908144838) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -329,6 +329,18 @@ ActiveRecord::Schema.define(:version => 20160830061104) do
     t.string   "notes"
     t.string   "name"
   end
+
+  create_table "mail_event_types", :force => true do |t|
+    t.string   "name"
+    t.string   "pattern"
+    t.integer  "event_type_id"
+    t.string   "created_by"
+    t.string   "updated_by"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "mail_event_types", ["event_type_id"], :name => "index_mail_event_types_on_event_type_id"
 
   create_table "opportunities", :force => true do |t|
     t.string   "name"

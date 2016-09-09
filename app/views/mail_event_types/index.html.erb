@@ -1,0 +1,32 @@
+<%= render 'title', :locals => { :title => @title }%>
+
+<div class="container-fluid">
+
+  <table class="table table-bordered table-striped">
+   <thead>
+    <tr>
+      <th class="text-center"><%= MailEventType.human_attribute_name :name%></th>
+      <th class="text-center"><%= MailEventType.human_attribute_name :pattern%></th>
+      <th class="text-center"><%= MailEventType.human_attribute_name :event_type%></th>
+      <th class="text-center"><%="#{t('app.actions.edit')}"%></th>
+    </tr>
+   </thead>
+
+  <tbody>
+  <% @mail_event_types.each do |mail_event_type| %>
+    <tr>
+      <td class="text-center"><%= mail_event_type.name %></td>
+      <td class="text-center"><%= mail_event_type.pattern %></td>
+      <td class="text-center"><%= mail_event_type.event_type.full_type unless mail_event_type.event_type.blank? %></td>
+      <td class="text-center"><%= link_to '<i class="fa fa-edit fa-2x action-icon"></i>'.html_safe, edit_mail_event_type_path(mail_event_type),{:title => "#{t('app.actions.edit_mail_event_type')}"} %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  </table>
+
+  <br />
+
+  <%= paginate @mail_event_types %>
+
+</div>
+

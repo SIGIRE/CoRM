@@ -8,6 +8,7 @@ class EventType < ActiveRecord::Base
   ### attr_accessible :id, :label, :direction, :bordercolor
   has_many :events, :dependent => :restrict
   has_many :tasks, :dependent => :restrict
+  has_many :mail_event_types, :dependent => :restrict
   belongs_to :author_user, :foreign_key => 'created_by', :class_name => 'User'
   belongs_to :editor_user, :foreign_key => 'modified_by', :class_name => 'User'
 
