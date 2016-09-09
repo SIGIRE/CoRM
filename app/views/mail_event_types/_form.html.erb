@@ -1,0 +1,50 @@
+<%= form_for(@mail_event_type, :html => { :class => "well "}) do |f| %>
+  <% if @mail_event_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@mail_event_type.errors.count, "error") %> prohibited this origin from being saved:</h2>
+
+      <ul>
+      <% @mail_event_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <div class="span2"><%= f.label :name %></div><%= f.text_field :name,{ :class => 'required'} %><span class="req" />
+  </div>
+
+  <div class="field">
+    <div class="span2"><%= f.label :pattern %></div><%= f.text_field :pattern,{ :class => 'required'} %><span class="req" />
+  </div>
+  
+  <!-- EventType field -->
+  <div class="field">
+    <div class="span2"><%= f.label :event_type %></div><%= f.collection_select :event_type_id, EventType.order('label'), :id, :full_type, :class =>"filter_coll", :include_blank => false %><span class="req" />
+  </div>
+
+
+  <br />
+
+  <div class="field">
+    <% if !@mail_event_type.id.nil? %>
+      <div class="span9"><%="#{t('app.actions.created_by')} : "%><%= @mail_event_type.author.full_name %><%=", #{t('app.at')} "%></strong><%= @mail_event_type.created_at.strftime("%d/%m/%y à %H:%M") %>. </div>
+      <br />
+      <% if !@mail_event_type.updated_by.nil? %>
+        <div class="span9"><%="#{t('app.actions.updated_by')} : "%><%= @mail_event_type.editor.full_name %><%=", #{t('app.at')} "%><%= @mail_event_type.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div>
+        <br />
+      <% end %>
+    <% end %>
+  </div>
+
+  <hr />
+
+  <div class="row">
+   <%= if !@mail_event_type.id.nil? then f.button "#{t('app.actions.update_mail_event_type')}", :type => :submit, :class =>"btn btn-primary",:id =>"mail_event_type_validate_form" else f.button "#{t('app.actions.create_mail_event_type')}", :type => :submit, :class =>"btn btn-primary",:id =>"mail_event_type_validate_form" end%>
+   <%= if !@mail_event_type.id.nil? then link_to '<i class="fa fa-trash fa-lg"></i>'.html_safe, @mail_event_type, :title => "#{t('app.actions.update_mail_event_type')}", :confirm => "#{t('app.message.confirm.delete')}", :class=>"pull-right btn", :method => :delete end %>
+  </div>
+
+<% end %>
+

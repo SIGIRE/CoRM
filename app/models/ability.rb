@@ -191,6 +191,7 @@ class Ability
       can :manage, PaymentTerm
       can :manage, Campaign
       can :manage, AccountCategory
+      can :manage, MailEventType
 
     else
       # Role User by default

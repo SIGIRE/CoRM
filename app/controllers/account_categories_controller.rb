@@ -49,7 +49,7 @@ class AccountCategoriesController < ApplicationController
 
     respond_to do |format|
       if @account_category.save
-        format.html { redirect_to account_categories_path, notice: "#{t('app/messages.notice.created_account_category')}" }
+        format.html { redirect_to account_categories_path, notice: "#{t('app.message.notice.created_account_category')}" }
       else
         format.html { render action: "new" }
       end
@@ -66,7 +66,7 @@ class AccountCategoriesController < ApplicationController
     
     respond_to do |format|
       if @account_category.update_attributes(params[:account_category])
-        format.html { redirect_to @account_categories_url, notice: "#{t('app/messages.notice.updated_account_category')}" }
+        format.html { redirect_to account_categories_url, notice: "#{t('app.message.notice.updated_account_category')}" }
       else
         format.html { render action: "edit" }
       end
@@ -82,7 +82,7 @@ class AccountCategoriesController < ApplicationController
     @account_category.destroy
 
     respond_to do |format|
-      format.html { redirect_to account_categories_url, notice: "#{t('app/messages.notice.deleted_account_category')}"  }
+      format.html { redirect_to account_categories_url, notice: "#{t('app.message.notice.deleted_account_category')}"  }
     end
   end
 end

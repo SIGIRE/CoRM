@@ -1,5 +1,15 @@
 ## RELEASE NOTES
 
+### Version 0.12.3
+
+**Fonctionnalités**
+ * Possibilité d'affecter un type d'évènement à des e-mails, en fonction d'un modèle ;
+
+**Corrections**
+ * Corrections apportées à la gestion du genre des comptes ;
+ * Corrections d'une erreur dans l'analyse des e-mails ;
+ * Mise à jour du numéro de version de CoRM ;
+
 ### Version 0.12.2
 
 **Fonctionnalités**

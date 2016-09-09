@@ -187,6 +187,10 @@ fr:
         notes: 'Notes :'
       account_category:
         name: 'Libellé'
+      mail_event_type:
+        name: 'Libellé'
+        pattern: 'Modèle'
+        event_type: "Type d'évènement"
       payment_mode:
         name: 'Libellé'
       payment_term:
@@ -355,9 +359,16 @@ fr:
       account_category:
         one: 'genre'
         other: 'genres'
+      mail_event_type:
+        one: "type d'évènement des e-mails"
+        other: "types d'évènement des e-mails"        
     attributes:
       account_category:
         name: 'Libellé'
+      mail_event_type:
+        name: 'Libellé'
+        pattern: 'Modèle'
+        event_type: "Type d'évènement"
 
 
 
@@ -405,6 +416,10 @@ fr:
       edit_account_category: "Éditer le genre"
       update_account_category: "Modifier le genre"
       delete_account_category: "Supprimer le genre"
+      create_mail_event_type: "Créer le type d'évènement de messagerie"
+      edit_mail_event_type: "Éditer le type d'évènement de messagerie"
+      update_mail_event_type: "Modifier le type d'évènement de messagerie"
+      delete_mail_event_type: "Supprimer le type d'évènement de messagerie"
       choose_file: "Choisir un fichier"
       show_valid_import: "Afficher la liste des %{model} importés et validés"
       validate: "valider"
@@ -437,7 +452,8 @@ fr:
       Extraction: extraction
       Campaign_completed_stage: "niveau d'avancement de campagne"
       Campaign_result_stage: "résultat de campagne"
-      Account_category: "Catégorie de compte"
+      Account_category: "genre"
+      Mail_event_type: "type d'évènement des emails"
     model:
       Account: Compte
       Contact: Contact
@@ -459,6 +475,7 @@ fr:
       Payment_term: "Echéance"
       Payment_terms: "Echéances"      
       Account_category: "Catégorie de compte"
+      Mail_event_type: "Type d'évènement des emails"
     roles:
       details: "Détail des roles"
       admin: Administrateur
@@ -595,7 +612,10 @@ fr:
         deleted_campaign: "La campagne a été supprimée !"
         created_account_category: "Le genre a été créé !"
         updated_account_category: "Le genre a été modifié !"
-        deleted_account_category: "Le genre a été supprimé !"        
+        deleted_account_category: "Le genre a été supprimé !"
+        created_mail_event_type: "Le type d'évènement email a été créé !"
+        updated_mail_event_type: "Le type d'évènement email a été modifié !"
+        deleted_mail_event_type: "Le type d'évènement email a été supprimé !"  
         confirm_import_contact: "%{nbr} contacts ont été importés !"
         confirm_import_account: "%{nbr} comptes ont été importés !"
         delete_import: "L'import a bien été supprimé !"

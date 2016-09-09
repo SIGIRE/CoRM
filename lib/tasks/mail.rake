@@ -10,7 +10,7 @@ namespace :mail do
     connection = WebmailConnection.first
     mails = get_mails(connection)
     mp = MailProcessor.new
-    mp.event_type_id = connection.type_event_id
+    mp.event_type_id = connection.type_event_id       #set the default type_event_id
     mails.each do |mail|
       begin
         mp.process(mail)

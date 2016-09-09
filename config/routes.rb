@@ -1,5 +1,6 @@
 Crm::Application.routes.draw do
 
+
   # we'll add some variables to change routes easily.
 
   def set_route(pp, ps, c)
@@ -152,6 +153,10 @@ Crm::Application.routes.draw do
   # resources account_categories
   set_route('categories_compte', 'account_category', 'account_categories');
 
+  # MailEventTypes routes
+  # resources mail_event_types
+  set_route('type_evenement_email', 'mail_event_type', 'mail_event_types');
+  
   # Accounts
   match 'comptes/extract', controller: 'accounts', action: 'extract'
   match 'comptes/delete_tag', :controller=> 'accounts', :action =>'delete_tag'
