@@ -1,0 +1,10 @@
+<div class="container-fluid" style="margin-top: 1em;">
+     <div class="well">
+       <div class="row-fluid">
+         <div class="span9">
+			<h1><%= "<i class=\"fa fa-envelope\"></i> #{MailEventType.model_name.human(count: 2).capitalize}".html_safe %></h1>
+         </div>
+           <%= link_to '<i class="fa fa-plus-circle fa-3x action-icon"></i>'.html_safe, new_mail_event_type_path ,{:title => "Créer type d'évènement de messagerie", :class=>"pull-right"}%>
+       </div>
+     </div>
+</div>

@@ -187,6 +187,11 @@ en:
         notes: 'Notes :'
       account_category:
         name: 'Name'
+      mail_event_type:
+        name: 'Name'
+        pattern: 'Pattern'
+        at_beginning: 'At beginning'
+        event_type: "Event's type"        
       payment_mode:
         name: 'Name'
       payment_term:
@@ -349,9 +354,17 @@ en:
       account_category:
         one: "account's category"
         other: "account's categories"
+      mail_event_type:
+        one: "Email event type"
+        other: "Email event types"   
     attributes:
       account_category:
         name: 'Name'
+      mail_event_type:
+        name: 'Name'
+        pattern: 'Pattern'
+        at_beginning: 'At beginning'
+        event_type: "Event type"        
 
 
   app:
@@ -396,7 +409,11 @@ en:
       create_account_category: "Create account's category"
       edit_account_category: "Edit account's category"
       update_account_category: "Update account's category"
-      delete_account_category: "Delete account's category"      
+      delete_account_category: "Delete account's category"
+      create_mail_event_type: "Create event's type of the email"
+      edit_mail_event_type: "Edit event's type of the email"
+      update_mail_event_type: "Update event's type of the email"
+      delete_mail_event_type: "Delete event's type of the email"      
       choose_file: "Choose a file"
       show_valid_import: "Show valid imported %{model}"
       validate: "Validate"
@@ -431,6 +448,7 @@ en:
       Campaign_completed_stage: "Campaign completed stage"
       Campaign_result_stage: "Campaign result stage"
       Account_category: "Account category"
+      Mail_event_type: "Email event type"
     model:
       Account: Account
       Contact: Contact
@@ -452,6 +470,7 @@ en:
       Payment_term: "payment term"
       Payment_terms: "payment terms"
       Account_category: "account category"
+      Mail_event_type: "Email event type"
     roles:
       details: "Roles specification"
       admin: Administrator
@@ -588,7 +607,10 @@ en:
         deleted_campaign: "Campaign has been deleted !"
         created_account_category: "Account's category has been created !"
         updated_account_category: "Account's category has been updated !"
-        deleted_account_category: "Account's category has been deleted !"  
+        deleted_account_category: "Account's category has been deleted !"
+        created_mail_event_type: "Event's type of the email has been created !"
+        updated_mail_event_type: "Event's type of the email has been updated !"
+        deleted_mail_event_type: "Event's type of the email has been deleted !"
         confirm_import_account: "%{nbr} accounts have been imported !"
         confirm_import_contact: "%{nbr} contacts have been imported !"
         delete_import: "Import have been deleted !"

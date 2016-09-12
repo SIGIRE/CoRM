@@ -58,7 +58,8 @@
             <li><%= link_to ('<i class="fa fa-money fa-fw"></i> ' + PaymentMode.model_name.human(count: 2).capitalize).html_safe, payment_modes_path %></li>
             <li><%= link_to ('<i class="fa fa-university fa-fw"></i> ' + PaymentTerm.model_name.human(count: 2).capitalize).html_safe, payment_terms_path %></li>
             <li><%= link_to ('<i class="fa fa-users fa-fw"></i> ' + AccountCategory.model_name.human(count: 2).capitalize).html_safe, account_categories_path %></li>
-
+	    <li><%= link_to ('<i class="fa fa-envelope fa-fw"></i> ' + MailEventType.model_name.human(count: 2).capitalize).html_safe, mail_event_types_path %></li>
+	    
 	    <li class="dropdown-submenu pull-left">
 	      <a tabindex="-1" href="#"><i class="fa fa-cog fa-fw"></i> Campagnes</a>
 	      <ul class="dropdown-menu ">

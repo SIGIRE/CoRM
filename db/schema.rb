@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160829100119) do
+ActiveRecord::Schema.define(:version => 20160912135832) do
 
   create_table "abilities", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -330,6 +330,19 @@ ActiveRecord::Schema.define(:version => 20160829100119) do
     t.string   "name"
   end
 
+  create_table "mail_event_types", :force => true do |t|
+    t.string   "name"
+    t.string   "pattern"
+    t.integer  "event_type_id"
+    t.string   "created_by"
+    t.string   "updated_by"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "at_beginning",  :default => true
+  end
+
+  add_index "mail_event_types", ["event_type_id"], :name => "index_mail_event_types_on_event_type_id"
+
   create_table "opportunities", :force => true do |t|
     t.string   "name"
     t.text     "description"
@@ -586,9 +599,10 @@ ActiveRecord::Schema.define(:version => 20160829100119) do
     t.string   "server"
     t.integer  "port"
     t.integer  "type_event_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.boolean  "active"
+    t.boolean  "ssl",           :default => false
   end
 
 end

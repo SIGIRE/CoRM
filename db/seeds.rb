@@ -38,3 +38,10 @@ if Anomaly.all.empty?
     Anomaly.create({ :name => 'ok', :notes => '-', :level=>1 })
 end
 
+
+#creating default account's categories
+if AccountCategory.all.empty?
+
+    AccountCategory.create({ :name => 'Client' })
+    AccountCategory.create({ :name => 'Prospect' })
+end
