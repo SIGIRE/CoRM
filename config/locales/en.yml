@@ -190,6 +190,7 @@ en:
       mail_event_type:
         name: 'Name'
         pattern: 'Pattern'
+        at_beginning: 'At beginning'
         event_type: "Event's type"        
       payment_mode:
         name: 'Name'
@@ -362,6 +363,7 @@ en:
       mail_event_type:
         name: 'Name'
         pattern: 'Pattern'
+        at_beginning: 'At beginning'
         event_type: "Event type"        
 
 

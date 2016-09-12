@@ -19,7 +19,11 @@
   <div class="field">
     <div class="span2"><%= f.label :pattern %></div><%= f.text_field :pattern,{ :class => 'required'} %><span class="req" />
   </div>
-  
+
+  <div class="field row">
+    <div class="span2"><%= f.label :at_beginning %></div><%= f.check_box :at_beginning,{ :class => 'required'} %><span class="req" />
+  </div>
+
   <!-- EventType field -->
   <div class="field">
     <div class="span2"><%= f.label :event_type %></div><%= f.collection_select :event_type_id, EventType.order('label'), :id, :full_type, :class =>"filter_coll", :include_blank => false %><span class="req" />
@@ -30,7 +34,7 @@
 
   <div class="field">
     <% if !@mail_event_type.id.nil? %>
-      <div class="span9"><%="#{t('app.actions.created_by')} : "%><%= @mail_event_type.author.full_name %><%=", #{t('app.at')} "%></strong><%= @mail_event_type.created_at.strftime("%d/%m/%y à %H:%M") %>. </div>
+      <div class="span9"><%="#{t('app.actions.created_by')} : "%><%= @mail_event_type.author.full_name %><%=", #{t('app.at')} "%><%= @mail_event_type.created_at.strftime("%d/%m/%y à %H:%M") %>. </div>
       <br />
       <% if !@mail_event_type.updated_by.nil? %>
         <div class="span9"><%="#{t('app.actions.updated_by')} : "%><%= @mail_event_type.editor.full_name %><%=", #{t('app.at')} "%><%= @mail_event_type.updated_at.strftime("%d/%m/%y à %H:%M") %>. </div>

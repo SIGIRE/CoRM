@@ -190,6 +190,7 @@ fr:
       mail_event_type:
         name: 'Libellé'
         pattern: 'Modèle'
+        at_beginning: 'Au début'
         event_type: "Type d'évènement"
       payment_mode:
         name: 'Libellé'
@@ -368,6 +369,7 @@ fr:
       mail_event_type:
         name: 'Libellé'
         pattern: 'Modèle'
+        at_beginning: 'Au début'
         event_type: "Type d'évènement"
 
 

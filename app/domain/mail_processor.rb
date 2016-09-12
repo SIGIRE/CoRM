@@ -47,11 +47,11 @@ class MailProcessor
     email.object = mail.subject
     email.content = retrieve_body(mail)
     email.attachments = retrieve_attachments(mail)
-    mail_event_type = MailEventType.find_pattern(mail.subject)
-    if mail_event_type.blank?
+    mail_event_type = MailEventType.find_pattern_in("#{mail.subject}")
+    if ((mail_event_type.blank?) or !(mail_event_type.count == 1))
       email.event_type_id = event_type_id
     else
-      email.event_type_id = mail_event_type.event_type_id
+      email.event_type_id = mail_event_type.pluck(:event_type_id)
     end
     email.user_id = User.by_mail(mail.from).first.id
 
