@@ -1,4 +1,7 @@
 class ChangeUrLs < ActiveRecord::Migration
+  # Declare a local Model to handle conflicts with future migrations
+  class Account < ActiveRecord::Base
+  end
   def up
     Account.where("web != ''").each do |a|
       correction = ''

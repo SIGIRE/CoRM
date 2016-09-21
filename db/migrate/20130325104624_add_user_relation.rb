@@ -1,4 +1,7 @@
 class AddUserRelation < ActiveRecord::Migration
+  # Declare a local Model to handle conflicts with future migrations
+  class Account < ActiveRecord::Base
+  end
   # Fields to update
   def init
     @elements = Hash[
@@ -181,7 +184,7 @@ class AddUserRelation < ActiveRecord::Migration
           value.update_attribute(field, currentUser.id.to_s)
         else
           logger.info('The current User does not exist or table field is not filled')
-          value.update_attributes({ field => nil })
+          value.update_attribute({ field => nil })
         end
       end
     end
