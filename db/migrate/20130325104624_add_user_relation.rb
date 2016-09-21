@@ -1,5 +1,6 @@
 class AddUserRelation < ActiveRecord::Migration
-  class AccountCategory < ActiveRecord::Base
+  # Declare a local Model to handle conflicts with future migrations
+  class Account < ActiveRecord::Base
   end
   # Fields to update
   def init
