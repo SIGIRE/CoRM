@@ -1,4 +1,6 @@
 class AddUserRelation < ActiveRecord::Migration
+  class AccountCategory < ActiveRecord::Base
+  end
   # Fields to update
   def init
     @elements = Hash[
