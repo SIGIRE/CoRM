@@ -184,7 +184,7 @@ class AddUserRelation < ActiveRecord::Migration
           value.update_attribute(field, currentUser.id.to_s)
         else
           logger.info('The current User does not exist or table field is not filled')
-          value.update_attribute({ field => nil })
+          value.update_attributes({ field => nil })
         end
       end
     end
