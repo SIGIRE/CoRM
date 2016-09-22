@@ -1,5 +1,11 @@
 ## RELEASE NOTES
 
+### Version 0.12.4
+
+**Corrections**
+ * Corrections apportées à l'encodage des e-mails ;
+ * Mise à jour du numéro de version de CoRM ;
+
 ### Version 0.12.3
 
 **Fonctionnalités**
