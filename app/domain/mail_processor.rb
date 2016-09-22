@@ -67,7 +67,7 @@ class MailProcessor
       puts "Multipart? => TRUE"
       #html_body = Nokogiri::HTML(Loofah.fragment(mail.html_part.body.decoded).scrub!(:strip)).text << "\n"
       html_body = mail.html_part.nil? ? nil : Loofah.fragment(mail.html_part.body.decoded).scrub!(:strip).text << "\n"
-      text_body = mail.text_part.nil? ? nil : mail.text_part.body.decoded
+      text_body = mail.text_part.nil? ? nil : mail.text_part.body.decoded.encode('UTF-8', mail.text_part.content_type_parameters['charset'] || "ISO-8859-1", :invalid => :replace, :undef => :replace, :replace => '?')
     else
       puts "Multipart? => FALSE"
       #html_body = Nokogiri::HTML(Loofah.fragment(mail.body.decoded).scrub!(:strip)).text << "\n"
