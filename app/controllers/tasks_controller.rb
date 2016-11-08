@@ -152,7 +152,7 @@ class TasksController < ApplicationController
       if !(@task.statut == @task_before_update.statut)
         self.create_event(true)
       end
-      redirect_to session.delete(:return_to) || account_tasks_url(@event.account_id), notice: "La tâche n°#{@task.id} a été mise à jour."
+      redirect_to session.delete(:return_to) || (@event.blank? ? tasks_url : account_tasks_url(@event.account_id)), notice: "La tâche n°#{@task.id} a été mise à jour."
     else
       render :action => "edit"
     end

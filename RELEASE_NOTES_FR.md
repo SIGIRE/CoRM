@@ -1,5 +1,10 @@
 ## RELEASE NOTES
 
+### Version 0.12.5
+
+**Corrections**
+ * Correctif apporté lors de la modification d'une tâche ;
+
 ### Version 0.12.4
 
 **Corrections**
