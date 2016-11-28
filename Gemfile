@@ -77,6 +77,7 @@ gem 'piwik_analytics', '~> 1.0.1'
 gem 'axlsx', '~> 2.0'
 gem 'acts_as_xlsx'
 gem 'axlsx_rails'
+gem 'roo'
 
 # LDAP Support for SSO
 gem "net-ldap"

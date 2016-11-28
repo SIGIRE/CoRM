@@ -2,6 +2,9 @@
 
 ### Version 0.12.5
 
+**Fonctionnalités**
+ * Création d'un modèle d'importation de fichiers xlsx des comptes ;
+
 **Corrections**
  * Correctif apporté lors de la modification d'une tâche ;
 
